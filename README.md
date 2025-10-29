@@ -4,7 +4,6 @@
 <div align="center">
 
 ![Status](https://img.shields.io/badge/Status-Completed-green)
-![Quality](https://img.shields.io/badge/Quality-95%2F100-A%2B-brightgreen)
 ![Materials](https://img.shields.io/badge/Materials-3%20Sessions-blue)
 ![Target](https://img.shields.io/badge/Target-Universitas%20Terbuka-orange)
 
