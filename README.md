@@ -211,7 +211,7 @@ graph LR
 **👨‍🏫 Nama:** Anton Prafanto, S.Kom., M.T.  
 **🏛️ Universitas:** Universitas Mulawarman  
 **📧 Email:** antonprafanto@unmul.ac.id  
-**🎓 Bidang Keahlian:** Mobile Development, Web Technologies  
+**🎓 Bidang Keahlian:** Mobile Development, Web Technologies, Embedded Systems  
 **📱 Research:** Hybrid Mobile Applications, IoT Integration
 
 ---
