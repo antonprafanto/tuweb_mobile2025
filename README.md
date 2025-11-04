@@ -305,8 +305,7 @@ Silakan buat **Issue** atau **Pull Request**!
 - Universitas Mulawarman
 - Tutor Universitas Terbuka
 
-📧 Email: [anton.prafanto@example.com]
-🔗 LinkedIn: [linkedin.com/in/antonprafanto]
+📧 Email: [antonprafanto@unmul.ac.id]
 🐙 GitHub: [@antonprafanto]
 
 ### Penyusun Teknis
