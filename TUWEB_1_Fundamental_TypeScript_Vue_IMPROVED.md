@@ -1,1335 +1,1877 @@
-# TUWEB 1: Fundamental TypeScript & Vue.js untuk Pengembangan Aplikasi Mobile
-
-**Mata Kuliah:** Pemrograman Berbasis Piranti Bergerak (MSIM4401)  
-**Dosen:** Anton Prafanto, S.Kom., M.T.  
-**Universitas:** Universitas Mulawarman - Universitas Terbuka  
-**Durasi:** 120 menit (2 jam)
+# MATERI TUWEB 1 - PERTEMUAN 6
+# PRAKTIKUM IONIC FRAMEWORK DENGAN VUE.JS
 
 ---
 
-## 🎯 Tujuan Pembelajaran
+## 📋 INFORMASI MATA KULIAH
 
-Setelah mengikuti sesi ini, mahasiswa diharapkan mampu:
-
-### 📋 Level Pemahaman (Bloom's Taxonomy)
-
-#### 🔵 **C1 - Mengingat (Remember)**
-- Menyebutkan tipe data dasar TypeScript
-- Mengidentifikasi komponen Vue.js
-- Menjelaskan konsep dasar programming
-
-#### 🔵 **C2 - Memahami (Understand)**  
-- Menjelaskan perbedaan JavaScript dan TypeScript
-- Memahami konsep reactive data di Vue.js
-- Mengartikan syntax dasar TypeScript
-
-#### 🔵 **C3 - Menerapkan (Apply)**
-- Menulis kode TypeScript dengan tipe data yang benar
-- Membuat komponen Vue.js sederhana
-- Mengimplementasikan studi kasus NIM
+**Mata Kuliah**: Pemrograman Berbasis Perangkat Bergerak (MSIM4401)
+**Pertemuan**: 6 (Tuweb 1)
+**Pokok Bahasan**: Praktikum Integrasi Ionic dengan Vue, Teknik Layout, Theme, dan Komponen Ionic
+**Pendekatan**: Learning by Doing
 
 ---
 
-## 🕐 Timeline Sesi
+## 🎯 TUJUAN PEMBELAJARAN
 
-| Waktu | Aktivitas | Metode |
-|-------|-----------|--------|
-| 00:00-10:00 | **Pendahuluan & Ice Breaker** | Interaktif |
-| 10:00-30:00 | **Teori TypeScript** | Ceramah + Demo |
-| 30:00-50:00 | **Praktikum TypeScript** | Hands-on |
-| 50:00-65:00 | **Teori Vue.js** | Ceramah + Demo |
-| 65:00-85:00 | **Praktikum Vue.js** | Hands-on |
-| 85:00-105:00 | **Studi Kasus NIM** | Guided Practice |
-| 105:00-115:00 | **Quiz & Evaluasi** | Assessment |
-| 115:00-120:00 | **Q&A & Penutup** | Diskusi |
+Setelah menyelesaikan praktikum ini, mahasiswa diharapkan mampu:
+
+1. Memahami konsep Ionic Framework dan integrasinya dengan Vue.js
+2. Melakukan instalasi dan konfigurasi lingkungan pengembangan Ionic
+3. Membuat aplikasi mobile pertama menggunakan Ionic dan Vue
+4. Mengimplementasikan teknik layout menggunakan Ionic Grid System
+5. Menyesuaikan tema dan styling aplikasi mobile
+6. Menggunakan berbagai komponen UI Ionic untuk membangun antarmuka aplikasi
+7. Memahami struktur direktori dan file dalam project Ionic
 
 ---
 
-## 📚 Materi 1: Pengenalan TypeScript untuk Mobile Development
+## 📚 PRASYARAT
 
-### 1.1 Apa itu TypeScript? (Pemahaman Konsep)
+Sebelum memulai praktikum ini, pastikan Anda telah:
 
-#### 🎯 **Definisi Sederhana**
-TypeScript adalah **JavaScript yang lebih disiplin**. Bayangkan:
+- ✅ Memiliki pemahaman dasar HTML, CSS, dan JavaScript
+- ✅ Memahami konsep dasar Vue.js (data binding, components, directives)
+- ✅ Memahami pemrograman TypeScript dasar
+- ✅ Memiliki komputer dengan spesifikasi minimal:
+  - RAM 4GB (disarankan 8GB)
+  - Storage kosong minimal 10GB
+  - Sistem Operasi: Windows 10/11, macOS, atau Linux
 
-> **JavaScript** = Bahasa sehari-hari yang fleksibel tapi kadang ambigu  
-> **TypeScript** = Bahasa formal dengan aturan jelas yang mencegah kesalahan
+---
 
-#### 📊 **Perbandingan JavaScript vs TypeScript**
+## 🛠️ PERSIAPAN LINGKUNGAN PENGEMBANGAN
 
-| Aspek | JavaScript | TypeScript |
-|-------|------------|------------|
-| **Tipe Data** | Dinamis (bisa berubah) | Statis (tetap) |
-| **Error Detection** | Saat runtime | Saat development |
-| **IDE Support** | Terbatas | Sangat baik |
-| **Learning Curve** | Mudah | Sedang |
-| **Best For** | Prototyping | Large Applications |
+### Langkah 1: Instalasi Node.js dan npm
 
-#### 💡 **Mengapa TypeScript Penting untuk Mobile?**
+Node.js adalah runtime JavaScript yang diperlukan untuk menjalankan Ionic Framework.
 
-1. **🛡️ Type Safety** - Mencegah error sebelum aplikasi crash
-2. **🔧 Better IDE** - Auto-completion dan error detection
-3. **📈 Scalability** - Mudah dikembangkan untuk proyek besar
-4. **🚀 Modern Features** - Support ES6+ terbaru
+#### Untuk Windows:
 
-### 1.2 Setup Environment TypeScript (Langkah demi Langkah)
+1. **Download Node.js**
+   - Buka browser, kunjungi: https://nodejs.org/
+   - Download versi LTS (Long Term Support) - versi yang paling stabil
+   - Pada saat materi ini dibuat, versi LTS adalah v20.x.x
 
-#### 🛠️ **Step 1: Install Node.js**
+2. **Instalasi Node.js**
+   - Jalankan file installer yang sudah didownload (contoh: `node-v20.11.0-x64.msi`)
+   - Klik "Next" pada welcome screen
+   - Setujui License Agreement dengan mencentang "I accept..."
+   - Pilih lokasi instalasi (biarkan default: `C:\Program Files\nodejs\`)
+   - Pada bagian "Custom Setup", biarkan semua fitur tercentang
+   - Centang opsi "Automatically install the necessary tools..." jika ada
+   - Klik "Install"
+   - Tunggu proses instalasi selesai
+   - Klik "Finish"
+
+3. **Verifikasi Instalasi**
+   - Buka Command Prompt (tekan `Win + R`, ketik `cmd`, Enter)
+   - Ketik perintah berikut untuk mengecek versi Node.js:
+   ```bash
+   node --version
+   ```
+   - Akan muncul versi Node.js, contoh: `v20.11.0`
+
+   - Ketik perintah berikut untuk mengecek versi npm:
+   ```bash
+   npm --version
+   ```
+   - Akan muncul versi npm, contoh: `10.2.4`
+
+#### Untuk macOS:
+
+1. **Menggunakan Homebrew (cara termudah)**
+   - Buka Terminal
+   - Install Homebrew jika belum punya:
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+   - Install Node.js:
+   ```bash
+   brew install node
+   ```
+
+2. **Atau download installer**
+   - Kunjungi https://nodejs.org/
+   - Download versi macOS installer
+   - Jalankan file .pkg dan ikuti instruksi
+
+3. **Verifikasi sama seperti Windows**
+
+#### Untuk Linux (Ubuntu/Debian):
+
 ```bash
-# Cek apakah Node.js sudah terinstall
+# Update package index
+sudo apt update
+
+# Install Node.js dan npm
+sudo apt install nodejs npm
+
+# Verifikasi instalasi
 node --version
-
-# Jika belum, download dari https://nodejs.org
-# Pilih LTS version (recommended)
-```
-
-#### 🛠️ **Step 2: Install TypeScript**
-```bash
-# Install TypeScript globally
-npm install -g typescript
-
-# Cek versi TypeScript
-tsc --version
-
-# Install ts-node untuk running langsung
-npm install -g ts-node
-```
-
-#### 🛠️ **Step 3: Buat Project Pertama**
-```bash
-# Buat folder project
-mkdir typescript-practice
-cd typescript-practice
-
-# Inisialisasi project
-npm init -y
-
-# Inisialisasi TypeScript
-tsc --init
-```
-
-#### 🛠️ **Step 4: Konfigurasi TypeScript**
-Buka file `tsconfig.json` dan ubah beberapa setting:
-```json
-{
-  "compilerOptions": {
-    "target": "ES2020",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist"
-  }
-}
-```
-
-### 1.3 Tipe Data Dasar TypeScript (Detail Lengkap)
-
-#### 🔢 **1. Tipe Data Primitif**
-
-```typescript
-// 📝 String - untuk teks
-let nama: string = "Anton Prafanto";
-let nim: string = "230411013";
-let alamat: string = "Jl. Ahmad Yani No. 123, Samarinda";
-
-// 🔢 Number - untuk angka (integer & decimal)
-let umur: number = 35;
-let ipk: number = 3.75;
-let tinggi: number = 170.5;
-
-// ✅ Boolean - untuk true/false
-let isActive: boolean = true;
-let isLulus: boolean = false;
-let hasScholarship: boolean = true;
-
-// 🎯 Any - untuk tipe data apapun (gunakan dengan hati-hati!)
-let data: any = "Bisa string";
-data = 123; // sekarang jadi number
-data = true; // sekarang jadi boolean
-
-// ❌ Undefined & Null
-let tidakAda: undefined = undefined;
-let kosong: null = null;
-```
-
-#### 📚 **2. Array (Kumpulan Data)**
-
-```typescript
-// Array of strings
-let mahasiswa: string[] = ["Budi", "Ani", "Citra", "Doni"];
-let mataKuliah: Array<string> = ["Pemrograman", "Basis Data", "Jaringan"];
-
-// Array of numbers
-let nilai: number[] = [85, 90, 78, 92, 88];
-let ipk: Array<number> = [3.5, 3.7, 3.2, 3.9];
-
-// Array of objects
-interface Mahasiswa {
-  nim: string;
-  nama: string;
-  ipk: number;
-}
-
-let dataMahasiswa: Mahasiswa[] = [
-  { nim: "230411013", nama: "Ahmad Rizki", ipk: 3.75 },
-  { nim: "230411014", nama: "Siti Nurhaliza", ipk: 3.85 },
-  { nim: "230411015", nama: "Budi Santoso", ipk: 3.65 }
-];
-
-// Array operations
-console.log(mahasiswa.length); // 4
-console.log(mahasiswa[0]); // "Budi"
-mahasiswa.push("Eko"); // tambah data
-mahasiswa.pop(); // hapus data terakhir
-```
-
-#### 🏗️ **3. Object & Interface**
-
-```typescript
-// Interface untuk mendefinisikan struktur object
-interface Mahasiswa {
-  nim: string;           // wajib diisi
-  nama: string;          // wajib diisi
-  umur?: number;         // optional (bisa kosong)
-  ipk: number;           // wajib diisi
-  isActive?: boolean;    // optional
-  alamat?: {             // nested object
-    jalan: string;
-    kota: string;
-    provinsi: string;
-  };
-}
-
-// Membuat object sesuai interface
-let mhs1: Mahasiswa = {
-  nim: "230411013",
-  nama: "Ahmad Rizki",
-  ipk: 3.75,
-  umur: 20,
-  isActive: true,
-  alamat: {
-    jalan: "Jl. Ahmad Yani No. 123",
-    kota: "Samarinda",
-    provinsi: "Kalimantan Timur"
-  }
-};
-
-// Object tanpa optional properties
-let mhs2: Mahasiswa = {
-  nim: "230411014",
-  nama: "Siti Nurhaliza",
-  ipk: 3.85
-};
-
-// Mengakses object properties
-console.log(mhs1.nama); // "Ahmad Rizki"
-console.log(mhs1.alamat?.kota); // "Samarinda" (safe navigation)
-```
-
-### 1.4 Function dengan TypeScript (Step by Step)
-
-#### 🎯 **1. Basic Function**
-
-```typescript
-// Function sederhana dengan parameter dan return type
-function sapa(nama: string): string {
-  return `Halo, ${nama}! Selamat belajar TypeScript`;
-}
-
-// Memanggil function
-let pesan = sapa("Anton");
-console.log(pesan); // "Halo, Anton! Selamat belajar TypeScript"
-```
-
-#### 🧮 **2. Function dengan Multiple Parameters**
-
-```typescript
-// Function untuk menghitung nilai akhir
-function hitungNilaiAkhir(
-  uts: number, 
-  uas: number, 
-  tugas: number
-): number {
-  const nilaiAkhir = (uts * 0.3) + (uas * 0.5) + (tugas * 0.2);
-  return Math.round(nilaiAkhir * 100) / 100; // dibulatkan 2 desimal
-}
-
-// Menggunakan function
-let nilai1 = hitungNilaiAkhir(80, 85, 90); // 84.5
-let nilai2 = hitungNilaiAkhir(75, 80, 85); // 79.5
-
-console.log(`Nilai akhir: ${nilai1}`); // "Nilai akhir: 84.5"
-```
-
-#### ⚡ **3. Arrow Function**
-
-```typescript
-// Arrow function untuk operasi matematika sederhana
-const kuadrat = (x: number): number => x * x;
-const pangkatTiga = (x: number): number => x * x * x;
-const tambahSepuluh = (x: number): number => x + 10;
-
-// Menggunakan arrow function
-console.log(kuadrat(5));      // 25
-console.log(pangkatTiga(3));  // 27
-console.log(tambahSepuluh(15)); // 25
-```
-
-#### 📝 **4. Void Function (Tidak Mengembalikan Nilai)**
-
-```typescript
-// Function untuk menampilkan pesan
-function tampilkanPesan(pesan: string): void {
-  console.log(`📢 ${pesan}`);
-}
-
-// Function untuk menyimpan data (simulasi)
-function simpanDataMahasiswa(nim: string, nama: string): void {
-  console.log(`💾 Menyimpan data: ${nim} - ${nama}`);
-  // Di aplikasi nyata, ini akan menyimpan ke database
-}
-
-// Menggunakan void function
-tampilkanPesan("Selamat datang di kelas TypeScript!");
-simpanDataMahasiswa("230411013", "Ahmad Rizki");
-```
-
-#### 🔄 **5. Function dengan Default Parameters**
-
-```typescript
-// Function dengan default value
-function biodata(
-  nama: string, 
-  umur: number = 20, 
-  kota: string = "Samarinda"
-): string {
-  return `Nama: ${nama}, Umur: ${umur}, Kota: ${kota}`;
-}
-
-// Memanggil dengan berbagai cara
-console.log(biodata("Anton")); // "Nama: Anton, Umur: 20, Kota: Samarinda"
-console.log(biodata("Budi", 25)); // "Nama: Budi, Umur: 25, Kota: Samarinda"
-console.log(biodata("Citra", 22, "Balikpapan")); // "Nama: Citra, Umur: 22, Kota: Balikpapan"
+npm --version
 ```
 
 ---
 
-## 📚 Materi 2: Fundamental Vue.js
+### Langkah 2: Instalasi Ionic CLI
 
-### 2.1 Apa itu Vue.js? (Konsep untuk Pemula)
+Ionic CLI (Command Line Interface) adalah tool untuk membuat dan mengelola project Ionic.
 
-#### 🎯 **Definisi Visual**
-Vue.js adalah **framework JavaScript untuk membangun antarmuka pengguna (UI)**. Bayangkan Vue.js seperti:
+1. **Buka Command Prompt / Terminal**
 
-> **Lego Blocks** untuk website - menyediakan komponen siap pakai yang bisa disusun menjadi aplikasi lengkap!
+2. **Install Ionic CLI secara global**
+   ```bash
+   npm install -g @ionic/cli
+   ```
 
-#### 🏗️ **Konsep Utama Vue.js**
+   **Penjelasan:**
+   - `npm install`: perintah untuk menginstal package
+   - `-g`: flag untuk instalasi global (bisa diakses dari mana saja)
+   - `@ionic/cli`: nama package Ionic CLI
 
-1. **🎨 Declarative Rendering** - Deskripsikan UI yang diinginkan, Vue akan mengurus cara membuatnya
-2. **⚡ Reactive Data** - Data berubah → UI otomatis update
-3. **🧩 Component-Based** - Bangun aplikasi dari komponen-komponen kecil
-4. **📱 Progressive** - Bisa digunakan untuk bagian kecil hingga aplikasi besar
+3. **Tunggu proses instalasi** (sekitar 2-5 menit tergantung koneksi internet)
 
-#### 📊 **Vue.js vs Framework Lain**
+4. **Verifikasi Instalasi Ionic**
+   ```bash
+   ionic --version
+   ```
+   - Akan muncul versi Ionic, contoh: `7.1.1`
 
-| Framework | Learning Curve | Performance | Ecosystem | Best For |
-|-----------|----------------|-------------|-----------|----------|
-| **Vue.js** | Mudah | Tinggi | Growing | Beginners, Rapid Development |
-| **React** | Sedang | Tinggi | Large | Complex Applications |
-| **Angular** | Sulit | Sedang | Large | Enterprise Applications |
+---
 
-### 2.2 Setup Environment Vue.js (Step by Step)
+### Langkah 3: Instalasi Visual Studio Code (Editor Code)
 
-#### 🛠️ **Step 1: Install Vue CLI**
-```bash
-# Install Vue CLI globally
-npm install -g @vue/cli
+Visual Studio Code adalah text editor yang sangat populer untuk development web dan mobile.
 
-# Cek versi
-vue --version
-```
+1. **Download VS Code**
+   - Kunjungi: https://code.visualstudio.com/
+   - Klik tombol "Download for Windows/Mac/Linux" (sesuai OS Anda)
 
-#### 🛠️ **Step 2: Buat Project Vue Baru**
-```bash
-# Buat project baru
-vue create vue-practice
+2. **Instalasi VS Code**
+   - Jalankan installer
+   - Ikuti wizard instalasi
+   - **Penting**: Pada bagian "Select Additional Tasks", centang:
+     - ✅ Add "Open with Code" action to Windows Explorer file context menu
+     - ✅ Add "Open with Code" action to Windows Explorer directory context menu
+     - ✅ Add to PATH
 
-# Pilih preset "Default (Vue 3)" atau "Manually select features"
-# Untuk pemula, pilih Default saja
+3. **Instalasi Extension yang Direkomendasikan**
 
-# Masuk ke folder project
-cd vue-practice
+   Setelah VS Code terbuka:
+   - Klik icon Extensions di sidebar kiri (atau tekan `Ctrl+Shift+X`)
+   - Install extension berikut:
+     - **Volar** - untuk Vue.js support
+     - **Ionic** - untuk Ionic framework support
+     - **ESLint** - untuk code quality
+     - **Prettier** - untuk code formatting
 
-# Jalankan development server
-npm run serve
-```
+---
 
-#### 🛠️ **Step 3: Buka di Browser**
-Buka `http://localhost:8080` untuk melihat aplikasi Vue pertama Anda!
+## 🚀 PRAKTIKUM 1: MEMBUAT PROJECT IONIC PERTAMA
 
-### 2.3 Struktur Project Vue.js
+### Pengantar
 
-```
-vue-practice/
-├── public/           # Static files (images, icons)
-├── src/
-│   ├── assets/       # Asset files
-│   ├── components/    # Reusable components
-│   ├── App.vue       # Main application component
-│   └── main.js       # Application entry point
-├── package.json      # Project dependencies
-└── vue.config.js     # Vue configuration
-```
+Pada praktikum pertama ini, kita akan membuat aplikasi Ionic sederhana dari awal. Anda akan mempelajari struktur project Ionic dan cara menjalankan aplikasi di browser.
 
-### 2.4 Konsep Dasar Vue.js dengan Contoh Praktis
+---
 
-#### 🏗️ **1. Vue Component Structure**
+### Langkah 1: Membuat Project Baru
 
-Setiap Vue component memiliki 3 bagian utama:
+1. **Buat folder untuk menyimpan project**
+
+   Buka Command Prompt / Terminal, buat folder untuk project Anda:
+   ```bash
+   cd Desktop
+   mkdir ionic-projects
+   cd ionic-projects
+   ```
+
+2. **Buat project Ionic baru**
+   ```bash
+   ionic start aplikasi-pertama blank --type=vue
+   ```
+
+   **Penjelasan perintah:**
+   - `ionic start`: perintah untuk membuat project baru
+   - `aplikasi-pertama`: nama project (bebas, sesuaikan dengan keinginan)
+   - `blank`: template yang digunakan (template kosong/minimal)
+   - `--type=vue`: menggunakan Vue.js sebagai framework
+
+3. **Proses instalasi**
+
+   Anda akan ditanya beberapa pertanyaan:
+
+   ```
+   ? Install the free Ionic Appflow SDK and connect your app? (Y/n)
+   ```
+   Ketik `n` lalu Enter (kita tidak memerlukan Appflow untuk pembelajaran ini)
+
+4. **Tunggu proses pembuatan project** (sekitar 3-5 menit)
+
+   Ionic CLI akan:
+   - Membuat folder project
+   - Mendownload semua dependencies yang diperlukan
+   - Mengkonfigurasi project
+
+   Jika sudah selesai, akan muncul pesan:
+   ```
+   ✔ Preparing directory ./aplikasi-pertama
+   ✔ Downloading and extracting blank starter
+   ✔ Installing dependencies with npm - done!
+
+   Your Ionic app is ready! Follow these next steps:
+
+   - Go to your new project: cd ./aplikasi-pertama
+   - Run ionic serve within the app directory to see your app in the browser
+   ```
+
+---
+
+### Langkah 2: Menjalankan Aplikasi
+
+1. **Masuk ke folder project**
+   ```bash
+   cd aplikasi-pertama
+   ```
+
+2. **Jalankan development server**
+   ```bash
+   ionic serve
+   ```
+
+   **Penjelasan:**
+   - Perintah ini akan menjalankan web server lokal
+   - Aplikasi akan otomatis dibuka di browser
+   - Server akan berjalan di: `http://localhost:8100`
+
+3. **Melihat aplikasi di browser**
+
+   Browser akan otomatis terbuka dan menampilkan aplikasi Anda. Anda akan melihat:
+   - Halaman kosong dengan header "Blank"
+   - Latar belakang putih
+   - Di DevTools (F12), Anda bisa melihat tampilan mobile
+
+4. **Hot Reload**
+
+   Keunggulan `ionic serve`:
+   - Setiap kali Anda menyimpan perubahan kode, browser akan otomatis refresh
+   - Tidak perlu manual refresh browser
+   - Sangat membantu dalam development
+
+5. **Menghentikan server**
+
+   Untuk menghentikan server, tekan `Ctrl + C` di Command Prompt/Terminal
+
+---
+
+### Langkah 3: Membuka Project di VS Code
+
+1. **Buka VS Code**
+
+2. **Open Folder**
+   - File → Open Folder (atau tekan `Ctrl+K Ctrl+O`)
+   - Pilih folder `aplikasi-pertama`
+   - Klik "Select Folder"
+
+3. **Struktur Folder Project**
+
+   Anda akan melihat struktur folder seperti ini:
+
+   ```
+   aplikasi-pertama/
+   ├── node_modules/          # Dependencies (jangan diubah)
+   ├── public/                # Asset publik (gambar, icon, dll)
+   ├── src/                   # Source code utama
+   │   ├── components/        # Komponen Vue reusable
+   │   ├── router/            # Konfigurasi routing
+   │   ├── views/             # Halaman-halaman aplikasi
+   │   ├── theme/             # File CSS untuk tema
+   │   ├── App.vue            # Komponen root
+   │   └── main.ts            # Entry point aplikasi
+   ├── .gitignore             # File yang diabaikan Git
+   ├── index.html             # HTML utama
+   ├── ionic.config.json      # Konfigurasi Ionic
+   ├── package.json           # Dependencies dan scripts
+   ├── tsconfig.json          # Konfigurasi TypeScript
+   └── vite.config.ts         # Konfigurasi Vite (build tool)
+   ```
+
+---
+
+### Langkah 4: Memahami File-File Penting
+
+#### 1. **src/App.vue**
+
+File ini adalah komponen root aplikasi. Buka file ini di VS Code:
 
 ```vue
 <template>
-  <!-- 🎨 HTML Template - UI yang akan ditampilkan -->
-  <div class="container">
-    <h1>{{ judul }}</h1>
-    <p>{{ pesan }}</p>
-    <button @click="ubahPesan">Klik Saya</button>
-  </div>
+  <ion-app>
+    <ion-router-outlet />
+  </ion-app>
 </template>
 
-<script>
-// 🧠 JavaScript Logic - Data dan methods
-export default {
-  name: 'HelloWorld',
-  data() {
-    return {
-      judul: 'Aplikasi Vue Pertama Saya',
-      pesan: 'Selamat belajar Vue.js!'
-    }
-  },
-  methods: {
-    ubahPesan() {
-      this.pesan = 'Tombol sudah diklik! 🎉';
-    }
-  }
-}
+<script setup lang="ts">
+import { IonApp, IonRouterOutlet } from '@ionic/vue';
+</script>
+```
+
+**Penjelasan:**
+- `<ion-app>`: Komponen wrapper utama Ionic
+- `<ion-router-outlet>`: Tempat untuk menampilkan halaman sesuai routing
+- `import { IonApp, IonRouterOutlet }`: Mengimport komponen Ionic yang diperlukan
+
+#### 2. **src/views/HomePage.vue**
+
+File ini adalah halaman utama aplikasi:
+
+```vue
+<template>
+  <ion-page>
+    <ion-header :translucent="true">
+      <ion-toolbar>
+        <ion-title>Blank</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content :fullscreen="true">
+      <ion-header collapse="condense">
+        <ion-toolbar>
+          <ion-title size="large">Blank</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <div id="container">
+        <strong>Ready to create an app?</strong>
+        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+      </div>
+    </ion-content>
+  </ion-page>
+</template>
+
+<script setup lang="ts">
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 </script>
 
-<style>
-/* 🎨 CSS Styling - Penampilan component */
-.container {
+<style scoped>
+#container {
   text-align: center;
-  padding: 20px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-h1 {
-  color: #42b883; /* Vue green color */
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
 }
 
-button {
-  background-color: #42b883;
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+</style>
+```
+
+**Penjelasan Komponen Ionic:**
+- `<ion-page>`: Wrapper untuk setiap halaman
+- `<ion-header>`: Header aplikasi (bagian atas)
+- `<ion-toolbar>`: Toolbar dalam header
+- `<ion-title>`: Judul halaman
+- `<ion-content>`: Konten utama halaman
+
+---
+
+### Langkah 5: Modifikasi Aplikasi Pertama
+
+Sekarang kita akan memodifikasi aplikasi agar lebih personal!
+
+1. **Edit file `src/views/HomePage.vue`**
+
+2. **Ubah judul halaman**
+
+   Cari baris:
+   ```vue
+   <ion-title>Blank</ion-title>
+   ```
+
+   Ubah menjadi:
+   ```vue
+   <ion-title>Aplikasi Pertama Saya</ion-title>
+   ```
+
+3. **Ubah konten halaman**
+
+   Cari section:
+   ```vue
+   <div id="container">
+     <strong>Ready to create an app?</strong>
+     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+   </div>
+   ```
+
+   Ubah menjadi:
+   ```vue
+   <div id="container">
+     <strong>Selamat Datang di Aplikasi Mobile Saya!</strong>
+     <p>Nama: [Isi dengan nama Anda]</p>
+     <p>NIM: [Isi dengan NIM Anda]</p>
+     <p>Program Studi: Sistem Informasi</p>
+     <p>Universitas Terbuka</p>
+   </div>
+   ```
+
+4. **Simpan file** (Ctrl+S)
+
+5. **Lihat perubahan di browser**
+
+   Jika `ionic serve` masih berjalan, browser akan otomatis refresh dan menampilkan perubahan Anda!
+
+---
+
+## 🎨 PRAKTIKUM 2: TEKNIK LAYOUT DENGAN IONIC GRID
+
+### Pengantar
+
+Ionic Grid adalah sistem layout yang responsif dan fleksibel, mirip dengan Bootstrap Grid. Grid system memudahkan kita untuk membuat layout yang rapi dan terstruktur.
+
+### Konsep Dasar Ionic Grid
+
+Ionic Grid terdiri dari 3 komponen utama:
+1. **`<ion-grid>`**: Container utama
+2. **`<ion-row>`**: Baris dalam grid
+3. **`<ion-col>`**: Kolom dalam baris
+
+Setiap row bisa dibagi menjadi maksimal 12 kolom.
+
+---
+
+### Langkah 1: Membuat Halaman Baru untuk Grid
+
+1. **Buat file baru** di folder `src/views` dengan nama `GridPage.vue`
+
+2. **Isi file dengan kode berikut:**
+
+```vue
+<template>
+  <ion-page>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Layout dengan Grid</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <h2>Contoh Grid System</h2>
+
+      <!-- Grid 1: Baris dengan 3 kolom sama besar -->
+      <h3>1. Tiga Kolom Sama Besar</h3>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="box">Kolom 1</div>
+          </ion-col>
+          <ion-col>
+            <div class="box">Kolom 2</div>
+          </ion-col>
+          <ion-col>
+            <div class="box">Kolom 3</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <!-- Grid 2: Kolom dengan ukuran berbeda -->
+      <h3>2. Kolom dengan Ukuran Berbeda</h3>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3">
+            <div class="box">25%</div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="box">50%</div>
+          </ion-col>
+          <ion-col size="3">
+            <div class="box">25%</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <!-- Grid 3: Responsive Grid -->
+      <h3>3. Responsive Grid</h3>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" size-md="6" size-lg="4">
+            <div class="box">Responsif 1</div>
+          </ion-col>
+          <ion-col size="12" size-md="6" size-lg="4">
+            <div class="box">Responsif 2</div>
+          </ion-col>
+          <ion-col size="12" size-md="6" size-lg="4">
+            <div class="box">Responsif 3</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <!-- Grid 4: Alignment -->
+      <h3>4. Alignment (Perataan)</h3>
+      <ion-grid>
+        <ion-row class="ion-align-items-center" style="height: 150px; background: #f0f0f0;">
+          <ion-col>
+            <div class="box">Vertikal Center</div>
+          </ion-col>
+          <ion-col>
+            <div class="box">Vertikal Center</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <h3>5. Offset (Geser Kolom)</h3>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3" offset="3">
+            <div class="box">Offset 3</div>
+          </ion-col>
+          <ion-col size="3">
+            <div class="box">Normal</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-content>
+  </ion-page>
+</template>
+
+<script setup lang="ts">
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonGrid,
+  IonRow,
+  IonCol
+} from '@ionic/vue';
+</script>
+
+<style scoped>
+.box {
+  background-color: #3880ff;
   color: white;
-  border: none;
-  padding: 10px 20px;
+  padding: 15px;
+  text-align: center;
   border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #369870;
-}
-</style>
-```
-
-#### ⚡ **2. Reactive Data Binding**
-
-```vue
-<template>
-  <div>
-    <h2>📱 Counter App</h2>
-    <p>Angka saat ini: <strong>{{ counter }}</strong></p>
-    
-    <button @click="increment">➕ Tambah</button>
-    <button @click="decrement">➖ Kurang</button>
-    <button @click="reset">🔄 Reset</button>
-    
-    <div v-if="counter > 10" class="warning">
-      ⚠️ Angka sudah lebih dari 10!
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'CounterApp',
-  data() {
-    return {
-      counter: 0
-    }
-  },
-  methods: {
-    increment() {
-      this.counter++;
-    },
-    decrement() {
-      if (this.counter > 0) {
-        this.counter--;
-      }
-    },
-    reset() {
-      this.counter = 0;
-    }
-  }
-}
-</script>
-
-<style scoped>
-.warning {
-  background-color: #fff3cd;
-  color: #856404;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 10px;
-}
-
-button {
-  margin: 5px;
-  padding: 8px 16px;
-  font-size: 14px;
-}
-</style>
-```
-
-#### 📝 **3. Working with Forms**
-
-```vue
-<template>
-  <div class="form-container">
-    <h2>📝 Form Mahasiswa</h2>
-    
-    <form @submit.prevent="submitForm">
-      <div class="form-group">
-        <label for="nim">NIM:</label>
-        <input 
-          type="text" 
-          id="nim" 
-          v-model="form.nim" 
-          placeholder="Masukkan NIM"
-          required
-        />
-      </div>
-      
-      <div class="form-group">
-        <label for="nama">Nama Lengkap:</label>
-        <input 
-          type="text" 
-          id="nama" 
-          v-model="form.nama" 
-          placeholder="Masukkan nama lengkap"
-          required
-        />
-      </div>
-      
-      <div class="form-group">
-        <label for="ipk">IPK:</label>
-        <input 
-          type="number" 
-          id="ipk" 
-          v-model.number="form.ipk" 
-          min="0" 
-          max="4" 
-          step="0.01"
-          placeholder="0.00 - 4.00"
-          required
-        />
-      </div>
-      
-      <div class="form-group">
-        <label>
-          <input type="checkbox" v-model="form.isActive" />
-          Mahasiswa Aktif
-        </label>
-      </div>
-      
-      <button type="submit" class="submit-btn">
-        💾 Simpan Data
-      </button>
-    </form>
-    
-    <!-- Preview Data -->
-    <div v-if="showPreview" class="preview">
-      <h3>📋 Preview Data:</h3>
-      <p><strong>NIM:</strong> {{ form.nim }}</p>
-      <p><strong>Nama:</strong> {{ form.nama }}</p>
-      <p><strong>IPK:</strong> {{ form.ipk }}</p>
-      <p><strong>Status:</strong> {{ form.isActive ? 'Aktif' : 'Tidak Aktif' }}</p>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'MahasiswaForm',
-  data() {
-    return {
-      form: {
-        nim: '',
-        nama: '',
-        ipk: 0,
-        isActive: true
-      },
-      showPreview: false
-    }
-  },
-  methods: {
-    submitForm() {
-      // Validasi sederhana
-      if (!this.form.nim || !this.form.nama) {
-        alert('Mohon lengkapi semua field yang wajib!');
-        return;
-      }
-      
-      if (this.form.ipk < 0 || this.form.ipk > 4) {
-        alert('IPK harus antara 0.00 - 4.00!');
-        return;
-      }
-      
-      // Tampilkan preview
-      this.showPreview = true;
-      
-      // Simulasi penyimpanan data
-      console.log('Data yang disimpan:', this.form);
-      
-      // Reset form (opsional)
-      // this.resetForm();
-    },
-    
-    resetForm() {
-      this.form = {
-        nim: '',
-        nama: '',
-        ipk: 0,
-        isActive: true
-      };
-      this.showPreview = false;
-    }
-  }
-}
-</script>
-
-<style scoped>
-.form-container {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
+  margin: 5px 0;
   font-weight: bold;
 }
 
-.form-group input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.submit-btn {
-  background-color: #42b883;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 100%;
-}
-
-.submit-btn:hover {
-  background-color: #369870;
-}
-
-.preview {
+h2 {
+  color: #3880ff;
   margin-top: 20px;
-  padding: 15px;
-  background-color: #e8f5e8;
-  border-radius: 5px;
-  border-left: 4px solid #42b883;
+}
+
+h3 {
+  color: #666;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: 16px;
 }
 </style>
 ```
 
+**Penjelasan Kode:**
+
+1. **Grid 1 - Tiga Kolom Sama Besar:**
+   - Tanpa atribut `size`, kolom akan otomatis sama besar
+   - Setiap kolom mendapat 4 dari 12 bagian (33.33%)
+
+2. **Grid 2 - Ukuran Custom:**
+   - `size="3"` = 3/12 = 25%
+   - `size="6"` = 6/12 = 50%
+   - Total harus 12 untuk satu baris penuh
+
+3. **Grid 3 - Responsive:**
+   - `size="12"` = full width di mobile (layar kecil)
+   - `size-md="6"` = 50% di tablet (medium screen)
+   - `size-lg="4"` = 33.33% di desktop (large screen)
+
+4. **Grid 4 - Alignment:**
+   - `ion-align-items-center` = vertikal center
+   - Ada juga: `ion-justify-content-center` (horizontal center)
+
+5. **Grid 5 - Offset:**
+   - `offset="3"` = geser 3 kolom dari kiri
+   - Berguna untuk membuat spacing
+
 ---
 
-## 🛠️ Praktikum 1: Pola Segitiga dari NIM (Step-by-Step)
+### Langkah 2: Menambahkan Route
 
-### 🎯 **Tujuan Praktikum**
-Membuat program TypeScript untuk menampilkan pola segitiga berdasarkan digit terakhir NIM mahasiswa.
+Agar halaman GridPage bisa diakses, kita perlu menambahkan routing.
 
-### 📋 **Spesifikasi Program**
-- **Input:** NIM mahasiswa (contoh: 230411013)
-- **Process:** Ambil digit terakhir sebagai tinggi segitiga
-- **Output:** Pola segitiga angka
+1. **Buka file `src/router/index.ts`**
 
-### 🧩 **Logika Algoritma**
+2. **Import GridPage:**
 
-```
-CONTOH: NIM = 230411013
-Digit terakhir = 3
-Tinggi segitiga = 3
+   Tambahkan di bagian atas:
+   ```typescript
+   import GridPage from '../views/GridPage.vue'
+   ```
 
-OUTPUT:
-1
-1 2
-1 2 3
-```
+3. **Tambahkan route:**
 
-### 💻 **Implementasi TypeScript**
+   Dalam array `routes`, tambahkan:
+   ```typescript
+   {
+     path: '/grid',
+     component: GridPage
+   }
+   ```
 
-#### **Step 1: Buat Class SegitigaNIM**
+4. **Kode lengkap `src/router/index.ts`:**
 
 ```typescript
-// File: segitiga-nim.ts
+import { createRouter, createWebHistory } from '@ionic/vue-router';
+import { RouteRecordRaw } from 'vue-router';
+import HomePage from '../views/HomePage.vue';
+import GridPage from '../views/GridPage.vue';
 
-class SegitigaNIM {
-  // Property untuk menyimpan NIM
-  private nim: string;
-
-  // Constructor untuk inisialisasi NIM
-  constructor(nim: string) {
-    this.nim = nim;
+const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/',
+    redirect: '/home'
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: HomePage
+  },
+  {
+    path: '/grid',
+    name: 'Grid',
+    component: GridPage
   }
+]
 
-  // Method untuk mendapatkan digit terakhir NIM
-  getDigitTerakhir(): number {
-    // Ambil karakter terakhir dari string NIM
-    const digitTerakhir = this.nim.slice(-1);
-    
-    // Konversi ke number
-    const angka = parseInt(digitTerakhir);
-    
-    // Jika 0, default ke 5 agar ada polanya
-    return angka === 0 ? 5 : angka;
-  }
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes
+})
 
-  // Method untuk membuat pola segitiga
-  buatPolaSegitiga(): string[] {
-    const tinggi = this.getDigitTerakhir();
-    const hasil: string[] = [];
-
-    // Loop dari baris 1 hingga tinggi
-    for (let baris = 1; baris <= tinggi; baris++) {
-      let barisString = '';
-      
-      // Loop untuk setiap angka dalam baris
-      for (let kolom = 1; kolom <= baris; kolom++) {
-        barisString += kolom.toString();
-        
-        // Tambahkan spasi kecuali untuk angka terakhir
-        if (kolom < baris) {
-          barisString += ' ';
-        }
-      }
-      
-      // Tambahkan baris ke hasil
-      hasil.push(barisString);
-    }
-
-    return hasil;
-  }
-
-  // Method untuk menampilkan hasil ke console
-  tampilkanHasil(): void {
-    const pola = this.buatPolaSegitiga();
-    
-    console.log('═'.repeat(30));
-    console.log(`🔺 POLA SEGITIGA NIM: ${this.nim}`);
-    console.log('═'.repeat(30));
-    console.log(`Digit Terakhir: ${this.getDigitTerakhir()}`);
-    console.log(`Tinggi Segitiga: ${this.getDigitTerakhir()}`);
-    console.log('');
-    
-    // Tampilkan pola
-    pola.forEach((baris, index) => {
-      console.log(baris);
-    });
-    
-    console.log('═'.repeat(30));
-  }
-
-  // Method untuk validasi NIM
-  isValidNIM(): boolean {
-    // NIM harus minimal 5 digit dan hanya angka
-    return this.nim.length >= 5 && /^\d+$/.test(this.nim);
-  }
-}
-
-// Export class untuk digunakan di file lain
-export { SegitigaNIM };
+export default router
 ```
 
-#### **Step 2: Buat Program Utama**
+5. **Simpan file**
 
-```typescript
-// File: main.ts
+6. **Akses halaman Grid di browser:**
 
-import { SegitigaNIM } from './segitiga-nim';
+   Buka: `http://localhost:8100/grid`
 
-// Function untuk menjalankan program
-function main() {
-  console.log('🚀 PROGRAM POLA SEGITIGA NIM');
-  console.log('================================');
-  
-  // Test dengan berbagai NIM
-  const testNIMs = [
-    '230411013', // digit terakhir 3
-    '230411020', // digit terakhir 0 (akan jadi 5)
-    '230411005', // digit terakhir 5
-    '230411001'  // digit terakhir 1
-  ];
+---
 
-  testNIMs.forEach(nim => {
-    const segitiga = new SegitigaNIM(nim);
-    
-    if (segitiga.isValidNIM()) {
-      segitiga.tampilkanHasil();
-    } else {
-      console.log(`❌ NIM ${nim} tidak valid!`);
-    }
-    
-    console.log(''); // Spasi antar test
-  });
-}
+### Langkah 3: Menambahkan Navigasi
 
-// Jalankan program
-main();
-```
+Agar lebih mudah berpindah halaman, kita tambahkan tombol navigasi.
 
-#### **Step 3: Jalankan Program**
+1. **Edit `src/views/HomePage.vue`**
 
-```bash
-# Compile TypeScript ke JavaScript
-tsc segitiga-nim.ts main.ts
-
-# Jalankan program
-node main.js
-
-# Atau langsung dengan ts-node
-ts-node main.ts
-```
-
-### 🎨 **Integrasi dengan Vue.js**
-
-#### **Step 1: Buat Vue Component**
+2. **Tambahkan button untuk navigasi ke GridPage:**
 
 ```vue
-<!-- SegitigaNIM.vue -->
 <template>
-  <div class="segitiga-container">
-    <div class="header">
-      <h2>🔺 Pola Segitiga dari NIM</h2>
-      <p>Masukkan NIM Anda untuk generate pola segitiga</p>
-    </div>
+  <ion-page>
+    <ion-header :translucent="true">
+      <ion-toolbar>
+        <ion-title>Aplikasi Pertama Saya</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-    <!-- Input Section -->
-    <div class="input-section">
-      <label for="nim-input">Masukkan NIM:</label>
-      <input
-        id="nim-input"
-        v-model="nim"
-        type="text"
-        placeholder="Contoh: 230411013"
-        @input="validateAndGenerate"
-        maxlength="10"
-      />
-      
-      <div v-if="errorMessage" class="error-message">
-        ⚠️ {{ errorMessage }}
-      </div>
-    </div>
+    <ion-content :fullscreen="true" class="ion-padding">
+      <div id="container">
+        <strong>Selamat Datang di Aplikasi Mobile Saya!</strong>
+        <p>Nama: [Isi dengan nama Anda]</p>
+        <p>NIM: [Isi dengan NIM Anda]</p>
+        <p>Program Studi: Sistem Informasi</p>
+        <p>Universitas Terbuka</p>
 
-    <!-- Result Section -->
-    <div v-if="pola.length > 0" class="result-section">
-      <h3>📋 Hasil Pola Segitiga:</h3>
-      <div class="info-box">
-        <p><strong>NIM:</strong> {{ nim }}</p>
-        <p><strong>Digit Terakhir:</strong> {{ digitTerakhir }}</p>
-        <p><strong>Tinggi Segitiga:</strong> {{ digitTerakhir }} baris</p>
+        <!-- Tombol Navigasi -->
+        <ion-button expand="block" router-link="/grid" style="margin-top: 30px;">
+          Lihat Contoh Grid Layout
+        </ion-button>
       </div>
-      
-      <div class="pola-display">
-        <div 
-          v-for="(baris, index) in pola" 
-          :key="index"
-          class="baris"
-          :style="{ animationDelay: `${index * 0.1}s` }"
-        >
-          {{ baris }}
-        </div>
-      </div>
-    </div>
-
-    <!-- Loading State -->
-    <div v-if="loading" class="loading">
-      <div class="spinner"></div>
-      <p>Menggenerate pola...</p>
-    </div>
-  </div>
+    </ion-content>
+  </ion-page>
 </template>
 
-<script>
-export default {
-  name: 'SegitigaNIM',
-  data() {
-    return {
-      nim: '',
-      pola: [],
-      digitTerakhir: 0,
-      loading: false,
-      errorMessage: ''
-    }
-  },
-  methods: {
-    // Validasi NIM
-    validateNIM(nim) {
-      if (!nim) {
-        return 'NIM tidak boleh kosong';
-      }
-      
-      if (nim.length < 5) {
-        return 'NIM minimal 5 digit';
-      }
-      
-      if (!/^\d+$/.test(nim)) {
-        return 'NIM hanya boleh mengandung angka';
-      }
-      
-      return ''; // No error
-    },
-
-    // Validasi dan generate pola
-    async validateAndGenerate() {
-      // Reset state
-      this.errorMessage = '';
-      this.pola = [];
-      
-      // Validasi
-      const error = this.validateNIM(this.nim);
-      if (error) {
-        this.errorMessage = error;
-        return;
-      }
-      
-      // Simulasi loading
-      this.loading = true;
-      
-      // Simulasi async operation
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      try {
-        // Generate pola
-        this.generatePola();
-      } catch (error) {
-        this.errorMessage = 'Terjadi kesalahan saat generate pola';
-      } finally {
-        this.loading = false;
-      }
-    },
-
-    // Generate pola segitiga
-    generatePola() {
-      // Ambil digit terakhir
-      const digitTerakhirStr = this.nim.slice(-1);
-      this.digitTerakhir = parseInt(digitTerakhirStr) || 5; // Default 5 jika 0
-      
-      // Generate pola
-      const hasil = [];
-      
-      for (let baris = 1; baris <= this.digitTerakhir; baris++) {
-        let barisString = '';
-        
-        for (let kolom = 1; kolom <= baris; kolom++) {
-          barisString += kolom.toString();
-          if (kolom < baris) {
-            barisString += ' ';
-          }
-        }
-        
-        hasil.push(barisString);
-      }
-      
-      this.pola = hasil;
-    }
-  }
-}
+<script setup lang="ts">
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonButton
+} from '@ionic/vue';
 </script>
 
 <style scoped>
-.segitiga-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.header {
+#container {
   text-align: center;
-  margin-bottom: 30px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0 20px;
 }
 
-.header h2 {
-  color: #2c3e50;
-  margin-bottom: 10px;
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
 }
 
-.header p {
-  color: #7f8c8d;
-  font-size: 14px;
-}
-
-.input-section {
-  margin-bottom: 30px;
-}
-
-.input-section label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.input-section input {
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #ddd;
-  border-radius: 8px;
+#container p {
   font-size: 16px;
-  transition: border-color 0.3s;
+  line-height: 22px;
+  color: #8c8c8c;
+  margin: 5px 0;
+}
+</style>
+```
+
+3. **Tambahkan tombol kembali di GridPage:**
+
+Edit `src/views/GridPage.vue`, tambahkan tombol di bagian bawah content:
+
+```vue
+<!-- Tambahkan sebelum closing tag </ion-content> -->
+<ion-button expand="block" router-link="/home" color="medium">
+  Kembali ke Home
+</ion-button>
+```
+
+4. **Simpan dan test navigasi di browser!**
+
+---
+
+## 🎨 PRAKTIKUM 3: THEME DAN STYLING
+
+### Pengantar
+
+Ionic menyediakan sistem theming yang powerful berbasis CSS Variables. Kita bisa dengan mudah mengubah warna, font, dan style aplikasi.
+
+---
+
+### Langkah 1: Memahami File Theme
+
+1. **Buka file `src/theme/variables.css`**
+
+   File ini berisi CSS variables yang mengontrol warna dan style aplikasi.
+
+2. **Struktur CSS Variables:**
+
+```css
+:root {
+  /** primary **/
+  --ion-color-primary: #3880ff;
+  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #3171e0;
+  --ion-color-primary-tint: #4c8dff;
+
+  /** secondary **/
+  --ion-color-secondary: #3dc2ff;
+  /* ... dst */
+}
+```
+
+**Penjelasan:**
+- `--ion-color-primary`: Warna utama aplikasi
+- `--ion-color-primary-contrast`: Warna teks di atas primary
+- `--ion-color-primary-shade`: Warna lebih gelap (untuk hover/active)
+- `--ion-color-primary-tint`: Warna lebih terang
+
+---
+
+### Langkah 2: Mengubah Warna Tema
+
+Mari kita ubah warna tema aplikasi menjadi hijau!
+
+1. **Edit `src/theme/variables.css`**
+
+2. **Ubah warna primary:**
+
+```css
+:root {
+  /** primary - diubah ke hijau **/
+  --ion-color-primary: #28a745;
+  --ion-color-primary-rgb: 40, 167, 69;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #24923d;
+  --ion-color-primary-tint: #3fb058;
+
+  /* Biarkan warna lain tetap default */
+}
+```
+
+3. **Simpan dan lihat perubahannya!**
+
+   Toolbar dan button akan berubah menjadi hijau.
+
+---
+
+### Langkah 3: Membuat Custom Color
+
+Kita bisa membuat warna custom sendiri!
+
+1. **Tambahkan di `src/theme/variables.css`:**
+
+```css
+:root {
+  /* ... warna default ... */
+
+  /** custom color - untan **/
+  --ion-color-untan: #FFD700;
+  --ion-color-untan-rgb: 255, 215, 0;
+  --ion-color-untan-contrast: #000000;
+  --ion-color-untan-contrast-rgb: 0, 0, 0;
+  --ion-color-untan-shade: #e0bc00;
+  --ion-color-untan-tint: #ffd966;
 }
 
-.input-section input:focus {
-  outline: none;
-  border-color: #42b883;
+.ion-color-untan {
+  --ion-color-base: var(--ion-color-untan);
+  --ion-color-base-rgb: var(--ion-color-untan-rgb);
+  --ion-color-contrast: var(--ion-color-untan-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-untan-contrast-rgb);
+  --ion-color-shade: var(--ion-color-untan-shade);
+  --ion-color-tint: var(--ion-color-untan-tint);
 }
+```
 
-.error-message {
-  margin-top: 8px;
-  padding: 8px 12px;
-  background-color: #ffebee;
-  color: #c62828;
-  border-radius: 4px;
-  font-size: 14px;
-}
+2. **Gunakan warna custom:**
 
-.result-section {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #e9ecef;
-}
+Buat halaman baru `src/views/ThemePage.vue`:
 
-.result-section h3 {
-  color: #2c3e50;
-  margin-bottom: 15px;
-}
+```vue
+<template>
+  <ion-page>
+    <ion-header>
+      <ion-toolbar color="untan">
+        <ion-title>Custom Theme</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-.info-box {
-  background-color: #e3f2fd;
-  padding: 15px;
-  border-radius: 8px;
+    <ion-content class="ion-padding">
+      <h2>Contoh Penggunaan Warna</h2>
+
+      <ion-button expand="block" color="primary">
+        Primary Color (Hijau)
+      </ion-button>
+
+      <ion-button expand="block" color="secondary">
+        Secondary Color
+      </ion-button>
+
+      <ion-button expand="block" color="untan">
+        Custom Color (Untan Gold)
+      </ion-button>
+
+      <ion-button expand="block" color="success">
+        Success Color
+      </ion-button>
+
+      <ion-button expand="block" color="warning">
+        Warning Color
+      </ion-button>
+
+      <ion-button expand="block" color="danger">
+        Danger Color
+      </ion-button>
+
+      <ion-button expand="block" color="dark">
+        Dark Color
+      </ion-button>
+
+      <ion-button expand="block" color="light">
+        Light Color
+      </ion-button>
+
+      <h3 style="margin-top: 30px;">Cards dengan Warna</h3>
+
+      <ion-card color="primary">
+        <ion-card-header>
+          <ion-card-title>Primary Card</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Ini adalah card dengan warna primary.
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card color="untan">
+        <ion-card-header>
+          <ion-card-title>Untan Card</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Ini adalah card dengan warna custom Untan.
+        </ion-card-content>
+      </ion-card>
+
+      <ion-button expand="block" router-link="/home" color="medium">
+        Kembali ke Home
+      </ion-button>
+    </ion-content>
+  </ion-page>
+</template>
+
+<script setup lang="ts">
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent
+} from '@ionic/vue';
+</script>
+
+<style scoped>
+h2 {
+  color: #333;
   margin-bottom: 20px;
 }
 
-.info-box p {
-  margin: 5px 0;
-  color: #1565c0;
+h3 {
+  color: #666;
 }
 
-.pola-display {
-  font-family: 'Courier New', monospace;
+ion-button {
+  margin: 10px 0;
+}
+
+ion-card {
+  margin: 15px 0;
+}
+</style>
+```
+
+3. **Tambahkan route di `src/router/index.ts`:**
+
+```typescript
+import ThemePage from '../views/ThemePage.vue';
+
+// Dalam routes array:
+{
+  path: '/theme',
+  name: 'Theme',
+  component: ThemePage
+}
+```
+
+4. **Tambahkan link dari HomePage:**
+
+Tambahkan button di `HomePage.vue`:
+
+```vue
+<ion-button expand="block" router-link="/theme" color="secondary" style="margin-top: 10px;">
+  Lihat Contoh Theme
+</ion-button>
+```
+
+---
+
+### Langkah 4: Dark Mode
+
+Ionic mendukung dark mode secara native!
+
+1. **Dark mode sudah ada di `src/theme/variables.css`**
+
+   Cari bagian:
+   ```css
+   @media (prefers-color-scheme: dark) {
+     /* Dark mode variables */
+   }
+   ```
+
+2. **Mengaktifkan dark mode:**
+
+   Dark mode akan otomatis aktif jika sistem operasi dalam mode gelap.
+
+3. **Toggle dark mode manual:**
+
+   Buat file baru `src/views/SettingsPage.vue`:
+
+```vue
+<template>
+  <ion-page>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Pengaturan</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <ion-list>
+        <ion-item>
+          <ion-label>Dark Mode</ion-label>
+          <ion-toggle
+            :checked="isDarkMode"
+            @ionChange="toggleDarkMode"
+          ></ion-toggle>
+        </ion-item>
+      </ion-list>
+
+      <ion-button expand="block" router-link="/home" color="medium" style="margin-top: 30px;">
+        Kembali ke Home
+      </ion-button>
+    </ion-content>
+  </ion-page>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonToggle,
+  IonButton
+} from '@ionic/vue';
+
+const isDarkMode = ref(false);
+
+const toggleDarkMode = (event: CustomEvent) => {
+  isDarkMode.value = event.detail.checked;
+  document.body.classList.toggle('dark', isDarkMode.value);
+};
+</script>
+```
+
+4. **Tambahkan route dan link seperti sebelumnya**
+
+---
+
+## 🧩 PRAKTIKUM 4: KOMPONEN UI IONIC
+
+### Pengantar
+
+Ionic menyediakan puluhan komponen UI siap pakai yang mengikuti design pattern iOS dan Android. Mari kita coba beberapa komponen penting!
+
+---
+
+### Langkah 1: Membuat Halaman Komponen
+
+Buat file `src/views/ComponentsPage.vue`:
+
+```vue
+<template>
+  <ion-page>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button default-href="/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Komponen Ionic</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <!-- List -->
+      <ion-list>
+        <ion-list-header>
+          <ion-label>Daftar Item</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-icon :icon="personOutline" slot="start"></ion-icon>
+          <ion-label>Profil Saya</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon :icon="settingsOutline" slot="start"></ion-icon>
+          <ion-label>Pengaturan</ion-label>
+          <ion-badge slot="end" color="danger">3</ion-badge>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon :icon="notificationsOutline" slot="start"></ion-icon>
+          <ion-label>Notifikasi</ion-label>
+          <ion-toggle slot="end"></ion-toggle>
+        </ion-item>
+      </ion-list>
+
+      <!-- Cards -->
+      <div class="ion-padding">
+        <h2>Cards</h2>
+
+        <ion-card>
+          <img src="https://picsum.photos/400/200" alt="Gambar" />
+          <ion-card-header>
+            <ion-card-subtitle>Subtitle Card</ion-card-subtitle>
+            <ion-card-title>Judul Card</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Ini adalah contoh card dengan gambar. Card sangat berguna untuk menampilkan informasi dalam bentuk kotak yang rapi.
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Buttons -->
+        <h2>Buttons</h2>
+
+        <ion-button expand="full">Full Button</ion-button>
+        <ion-button expand="block">Block Button</ion-button>
+
+        <div style="display: flex; gap: 10px;">
+          <ion-button expand="full" fill="solid">Solid</ion-button>
+          <ion-button expand="full" fill="outline">Outline</ion-button>
+          <ion-button expand="full" fill="clear">Clear</ion-button>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+          <ion-button size="small">Small</ion-button>
+          <ion-button size="default">Default</ion-button>
+          <ion-button size="large">Large</ion-button>
+        </div>
+
+        <!-- Icons -->
+        <h2>Icons</h2>
+        <div style="display: flex; gap: 20px; font-size: 32px;">
+          <ion-icon :icon="heartOutline" color="danger"></ion-icon>
+          <ion-icon :icon="starOutline" color="warning"></ion-icon>
+          <ion-icon :icon="thumbsUpOutline" color="primary"></ion-icon>
+          <ion-icon :icon="shareOutline" color="secondary"></ion-icon>
+        </div>
+
+        <!-- Chips -->
+        <h2>Chips</h2>
+        <div>
+          <ion-chip color="primary">
+            <ion-label>Primary Chip</ion-label>
+          </ion-chip>
+
+          <ion-chip color="secondary">
+            <ion-icon :icon="personOutline"></ion-icon>
+            <ion-label>User</ion-label>
+          </ion-chip>
+
+          <ion-chip color="success">
+            <ion-icon :icon="checkmarkOutline"></ion-icon>
+            <ion-label>Success</ion-label>
+            <ion-icon :icon="closeCircleOutline"></ion-icon>
+          </ion-chip>
+        </div>
+
+        <!-- Input -->
+        <h2>Form Input</h2>
+
+        <ion-item>
+          <ion-label position="floating">Nama</ion-label>
+          <ion-input type="text" placeholder="Masukkan nama"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" placeholder="email@example.com"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Tanggal Lahir</ion-label>
+          <ion-datetime></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Program Studi</ion-label>
+          <ion-select placeholder="Pilih Prodi">
+            <ion-select-option value="si">Sistem Informasi</ion-select-option>
+            <ion-select-option value="ti">Teknik Informatika</ion-select-option>
+            <ion-select-option value="mi">Manajemen Informatika</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Alerts & Toasts -->
+        <h2>Alerts & Toasts</h2>
+
+        <ion-button expand="block" @click="presentAlert">
+          Tampilkan Alert
+        </ion-button>
+
+        <ion-button expand="block" @click="presentToast">
+          Tampilkan Toast
+        </ion-button>
+
+        <ion-button expand="block" @click="presentActionSheet">
+          Tampilkan Action Sheet
+        </ion-button>
+
+        <!-- Loading -->
+        <ion-button expand="block" @click="presentLoading">
+          Tampilkan Loading
+        </ion-button>
+
+        <ion-button expand="block" router-link="/home" color="medium" style="margin-top: 30px;">
+          Kembali ke Home
+        </ion-button>
+      </div>
+    </ion-content>
+  </ion-page>
+</template>
+
+<script setup lang="ts">
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButtons,
+  IonBackButton,
+  IonList,
+  IonListHeader,
+  IonItem,
+  IonLabel,
+  IonIcon,
+  IonBadge,
+  IonToggle,
+  IonCard,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonCardContent,
+  IonButton,
+  IonChip,
+  IonInput,
+  IonDatetime,
+  IonSelect,
+  IonSelectOption,
+  alertController,
+  toastController,
+  actionSheetController,
+  loadingController
+} from '@ionic/vue';
+
+import {
+  personOutline,
+  settingsOutline,
+  notificationsOutline,
+  heartOutline,
+  starOutline,
+  thumbsUpOutline,
+  shareOutline,
+  checkmarkOutline,
+  closeCircleOutline
+} from 'ionicons/icons';
+
+// Alert
+const presentAlert = async () => {
+  const alert = await alertController.create({
+    header: 'Perhatian',
+    subHeader: 'Ini adalah subtitle',
+    message: 'Ini adalah contoh alert dialog di Ionic.',
+    buttons: ['OK']
+  });
+
+  await alert.present();
+};
+
+// Toast
+const presentToast = async () => {
+  const toast = await toastController.create({
+    message: 'Ini adalah toast message!',
+    duration: 2000,
+    position: 'bottom',
+    color: 'success'
+  });
+
+  await toast.present();
+};
+
+// Action Sheet
+const presentActionSheet = async () => {
+  const actionSheet = await actionSheetController.create({
+    header: 'Pilih Aksi',
+    buttons: [
+      {
+        text: 'Delete',
+        role: 'destructive',
+        data: {
+          action: 'delete',
+        },
+      },
+      {
+        text: 'Share',
+        data: {
+          action: 'share',
+        },
+      },
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        data: {
+          action: 'cancel',
+        },
+      },
+    ],
+  });
+
+  await actionSheet.present();
+};
+
+// Loading
+const presentLoading = async () => {
+  const loading = await loadingController.create({
+    message: 'Loading...',
+    duration: 2000,
+  });
+
+  await loading.present();
+};
+</script>
+
+<style scoped>
+h2 {
+  color: #333;
+  margin-top: 30px;
+  margin-bottom: 15px;
   font-size: 18px;
-  line-height: 1.8;
-  text-align: center;
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  border: 2px solid #42b883;
 }
 
-.baris {
-  margin: 5px 0;
-  opacity: 0;
-  animation: fadeInUp 0.5s forwards;
+ion-card {
+  margin: 15px 0;
+}
+</style>
+```
+
+**Penjelasan Komponen:**
+
+1. **IonList & IonItem**: Untuk menampilkan daftar
+2. **IonIcon**: Icon dari Ionicons
+3. **IonBadge**: Label kecil (notifikasi)
+4. **IonToggle**: Switch on/off
+5. **IonCard**: Kotak informasi
+6. **IonButton**: Tombol dengan berbagai style
+7. **IonChip**: Label/tag
+8. **IonInput**: Input teks
+9. **IonSelect**: Dropdown
+10. **IonDatetime**: Pemilih tanggal/waktu
+11. **Alert, Toast, ActionSheet, Loading**: Dialog interaktif
+
+---
+
+### Langkah 2: Menambahkan Route
+
+```typescript
+// src/router/index.ts
+import ComponentsPage from '../views/ComponentsPage.vue';
+
+// Dalam routes:
+{
+  path: '/components',
+  name: 'Components',
+  component: ComponentsPage
+}
+```
+
+---
+
+### Langkah 3: Link dari HomePage
+
+Tambahkan di HomePage:
+
+```vue
+<ion-button expand="block" router-link="/components" color="tertiary" style="margin-top: 10px;">
+  Lihat Komponen UI
+</ion-button>
+```
+
+---
+
+## 📱 PRAKTIKUM 5: MEMBUAT APLIKASI SEDERHANA
+
+### Studi Kasus: Aplikasi Daftar Tugas (To-Do List)
+
+Sekarang kita akan membuat aplikasi sederhana yang menggabungkan semua yang sudah dipelajari!
+
+---
+
+### Langkah 1: Membuat Halaman To-Do
+
+Buat file `src/views/TodoPage.vue`:
+
+```vue
+<template>
+  <ion-page>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+          <ion-back-button default-href="/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Daftar Tugas Saya</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <!-- Form Input Tugas -->
+      <div class="ion-padding">
+        <ion-item>
+          <ion-label position="floating">Tugas Baru</ion-label>
+          <ion-input
+            v-model="newTodo"
+            placeholder="Apa yang perlu dilakukan?"
+            @keyup.enter="addTodo"
+          ></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" @click="addTodo" style="margin-top: 10px;">
+          <ion-icon :icon="addOutline" slot="start"></ion-icon>
+          Tambah Tugas
+        </ion-button>
+      </div>
+
+      <!-- Statistik -->
+      <div class="ion-padding">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-card color="primary">
+                <ion-card-content class="stat-card">
+                  <div class="stat-number">{{ totalTodos }}</div>
+                  <div class="stat-label">Total</div>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col>
+              <ion-card color="success">
+                <ion-card-content class="stat-card">
+                  <div class="stat-number">{{ completedTodos }}</div>
+                  <div class="stat-label">Selesai</div>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col>
+              <ion-card color="warning">
+                <ion-card-content class="stat-card">
+                  <div class="stat-number">{{ pendingTodos }}</div>
+                  <div class="stat-label">Pending</div>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <!-- Daftar Tugas -->
+      <ion-list v-if="todos.length > 0">
+        <ion-list-header>
+          <ion-label>Daftar Tugas</ion-label>
+        </ion-list-header>
+
+        <ion-item-sliding v-for="(todo, index) in todos" :key="index">
+          <ion-item>
+            <ion-checkbox
+              slot="start"
+              :checked="todo.completed"
+              @ionChange="toggleTodo(index)"
+            ></ion-checkbox>
+            <ion-label :class="{ 'completed': todo.completed }">
+              {{ todo.text }}
+            </ion-label>
+            <ion-badge :color="todo.completed ? 'success' : 'warning'" slot="end">
+              {{ todo.completed ? 'Selesai' : 'Pending' }}
+            </ion-badge>
+          </ion-item>
+
+          <ion-item-options side="end">
+            <ion-item-option color="danger" @click="deleteTodo(index)">
+              <ion-icon :icon="trashOutline"></ion-icon>
+              Hapus
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+
+      <!-- Empty State -->
+      <div v-else class="empty-state">
+        <ion-icon :icon="checkmarkDoneOutline" style="font-size: 80px; color: #ccc;"></ion-icon>
+        <h2>Belum Ada Tugas</h2>
+        <p>Tambahkan tugas pertama Anda!</p>
+      </div>
+
+    </ion-content>
+  </ion-page>
+</template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButtons,
+  IonBackButton,
+  IonItem,
+  IonLabel,
+  IonInput,
+  IonButton,
+  IonIcon,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonCard,
+  IonCardContent,
+  IonList,
+  IonListHeader,
+  IonItemSliding,
+  IonItemOptions,
+  IonItemOption,
+  IonCheckbox,
+  IonBadge,
+  toastController
+} from '@ionic/vue';
+
+import {
+  addOutline,
+  trashOutline,
+  checkmarkDoneOutline
+} from 'ionicons/icons';
+
+// State
+interface Todo {
+  text: string;
+  completed: boolean;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+const newTodo = ref('');
+const todos = ref<Todo[]>([
+  { text: 'Belajar Ionic Framework', completed: false },
+  { text: 'Membuat aplikasi mobile', completed: false },
+  { text: 'Mengerjakan tugas kuliah', completed: false }
+]);
+
+// Computed
+const totalTodos = computed(() => todos.value.length);
+const completedTodos = computed(() => todos.value.filter(t => t.completed).length);
+const pendingTodos = computed(() => todos.value.filter(t => !t.completed).length);
+
+// Methods
+const addTodo = async () => {
+  if (newTodo.value.trim() === '') {
+    const toast = await toastController.create({
+      message: 'Tugas tidak boleh kosong!',
+      duration: 2000,
+      position: 'bottom',
+      color: 'danger'
+    });
+    await toast.present();
+    return;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-.loading {
+  todos.value.push({
+    text: newTodo.value,
+    completed: false
+  });
+
+  newTodo.value = '';
+
+  const toast = await toastController.create({
+    message: 'Tugas berhasil ditambahkan!',
+    duration: 1500,
+    position: 'bottom',
+    color: 'success'
+  });
+  await toast.present();
+};
+
+const toggleTodo = (index: number) => {
+  todos.value[index].completed = !todos.value[index].completed;
+};
+
+const deleteTodo = async (index: number) => {
+  todos.value.splice(index, 1);
+
+  const toast = await toastController.create({
+    message: 'Tugas berhasil dihapus!',
+    duration: 1500,
+    position: 'bottom',
+    color: 'warning'
+  });
+  await toast.present();
+};
+</script>
+
+<style scoped>
+.stat-card {
   text-align: center;
-  padding: 20px;
+  padding: 10px;
 }
 
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #42b883;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 10px;
+.stat-number {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.stat-label {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-state h2 {
+  color: #999;
+  margin-top: 20px;
+}
+
+.empty-state p {
+  color: #ccc;
 }
 </style>
 ```
 
 ---
 
-## 🎯 Latihan Mandiri (Progressive Difficulty)
-
-### 📈 **Level 1: Basic (Mudah)**
-
-#### **Latihan 1.1: Enhanced Segitiga**
-Modifikasi program segitiga untuk menampilkan:
-1. **Pola terbalik** (dari besar ke kecil)
-2. **Pola dengan karakter khusia** (★, ♦, ♥)
-3. **Pola dengan warna berbeda** untuk setiap baris
+### Langkah 2: Tambahkan Route dan Link
 
 ```typescript
-// Hint: Gunakan array karakter
-const karakter = ['★', '♦', '♥', '♠', '♣'];
+// router/index.ts
+import TodoPage from '../views/TodoPage.vue';
+
+{
+  path: '/todo',
+  name: 'Todo',
+  component: TodoPage
+}
 ```
 
-#### **Latihan 1.2: Input Validation**
-Tambahkan validasi yang lebih baik:
-1. **NIM harus 9-10 digit**
-2. **Digit pertama tidak boleh 0**
-3. **Show error message yang user-friendly**
+Tambahkan button di HomePage:
 
-### 📈 **Level 2: Intermediate (Sedang)**
-
-#### **Latihan 2.1: Multiple Patterns**
-Buat program yang bisa generate berbagai pola:
-1. **Piramida** (simetris di tengah)
-2. **Diamond shape**
-3. **Number pyramid**
-
-#### **Latihan 2.2: Interactive Features**
-Tambahkan fitur interaktif:
-1. **Animation** saat generate pola
-2. **Save history** dari NIM yang sudah diinput
-3. **Export to image** functionality
-
-### 📈 **Level 3: Advanced (Menantang)**
-
-#### **Latihan 3.1: Pattern Generator**
-Buat aplikasi lengkap:
-1. **Multiple pattern types** dengan menu selection
-2. **Customizable settings** (size, character, color)
-3. **Pattern library** dengan save/load functionality
-
-#### **Latihan 3.2: Performance Optimization**
-Optimasi aplikasi:
-1. **Lazy loading** untuk complex patterns
-2. **Web Workers** untuk heavy calculations
-3. **Caching system** untuk generated patterns
+```vue
+<ion-button expand="block" router-link="/todo" color="success" style="margin-top: 10px;">
+  Aplikasi To-Do List
+</ion-button>
+```
 
 ---
 
-## 📝 Evaluasi & Assessment
+### Langkah 3: Test Aplikasi
 
-### 🎯 **Quick Quiz (10 menit)**
+1. Buka aplikasi di browser
+2. Klik "Aplikasi To-Do List"
+3. Coba fitur:
+   - Tambah tugas baru
+   - Centang tugas yang selesai
+   - Geser ke kiri untuk hapus
+   - Lihat statistik berubah
 
-#### **Soal Pilihan Ganda**
-
-1. **Apa keunggulan utama TypeScript dibanding JavaScript?**
-   - A) Lebih cepat dijalankan
-   - B) Type safety dan better IDE support  
-   - C) Lebih mudah dipelajari
-   - D) Support lebih banyak browser
-
-2. **Method yang tepat untuk mengambil digit terakhir string di TypeScript:**
-   - A) `str.last()`
-   - B) `str.slice(-1)`
-   - C) `str.getEnd()`
-   - D) `str[-1]`
-
-3. **Apa itu reactive data di Vue.js?**
-   - A) Data yang bisa berubah
-   - B) Data yang otomatis update UI ketika berubah
-   - C) Data yang tersimpan di database
-   - D) Data yang statis
-
-4. **Directive Vue.js untuk conditional rendering:**
-   - A) `v-show`
-   - B) `v-if`
-   - C) `v-for`
-   - D) Semua benar
-
-5. **Symbol untuk two-way data binding di Vue.js:**
-   - A) `@`
-   - B) `:`
-   - C) `v-model`
-   - D) `v-bind`
-
-#### **Jawaban:**
-1. B, 2. B, 3. B, 4. D, 5. C
-
-### 📊 **Rubrik Penilaian Praktikum**
-
-| Kriteria | Sangat Baik (4) | Baik (3) | Cukup (2) | Kurang (1) |
-|----------|-----------------|----------|-----------|------------|
-| **Kebenaran Logika** | ✅ Semua kasus benar | ✅ Sebagian besar benar | ⚠️ Beberapa error | ❌ Banyak error |
-| **Code Quality** | ✅ Clean & readable | ✅ Good structure | ⚠️ Needs improvement | ❌ Poor structure |
-| **Error Handling** | ✅ Comprehensive | ✅ Basic handling | ⚠️ Minimal handling | ❌ No handling |
-| **UI/UX** | ✅ Beautiful & intuitive | ✅ Good design | ⚠️ Basic UI | ❌ Poor UX |
-| **Creativity** | ✅ Extra features | ✅ Good implementation | ⚠️ Basic only | ❌ Incomplete |
+**Selamat! Anda sudah membuat aplikasi To-Do List yang fungsional!**
 
 ---
 
-## 🔗 Resources Tambahan
+## 📝 LATIHAN MANDIRI
 
-### 📚 **Documentation & Learning**
+Untuk memperdalam pemahaman, kerjakan latihan berikut:
 
-#### **Official Documentation**
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/) - Panduan resmi TypeScript
-- [Vue.js Guide](https://vuejs.org/guide/) - Panduan lengkap Vue.js
-- [TypeScript for Vue.js](https://vuejs.org/guide/typescript/overview.html) - Integrasi TS + Vue
+### Latihan 1: Modifikasi Aplikasi To-Do
 
-#### **Interactive Learning**
-- [TypeScript Playground](https://www.typescriptlang.org/play) - Coba TypeScript online
-- [Vue.js Mastery](https://www.vuemastery.com/) - Video tutorial Vue.js
-- [Scrimba Vue Course](https://scrimba.com/learn/learnvue) - Interactive Vue course
+1. Tambahkan fitur **prioritas** (Tinggi, Sedang, Rendah) untuk setiap tugas
+2. Tambahkan **tanggal deadline** untuk tugas
+3. Tambahkan **filter** untuk menampilkan:
+   - Semua tugas
+   - Tugas selesai
+   - Tugas pending
+4. Implementasikan **local storage** agar data tidak hilang saat reload
 
-### 🛠️ **Development Tools**
+**Petunjuk:**
+```typescript
+// Untuk local storage
+import { Storage } from '@ionic/storage';
 
-#### **Code Editors & Extensions**
-- **VS Code** dengan extensions:
-  - Vue Language Features (Volar)
-  - TypeScript Importer
-  - Prettier - Code formatter
-  - ESLint - Code linter
+// Simpan data
+localStorage.setItem('todos', JSON.stringify(todos.value));
 
-#### **Browser DevTools**
-- **Vue DevTools** - Debug Vue applications
-- **TypeScript Compiler** - Check types in browser
-
-### 🎮 **Practice Platforms**
-
-#### **Coding Challenges**
-- [Codewars](https://www.codewars.com/) - Algorithm challenges
-- [HackerRank](https://www.hackerrank.com/) - Programming problems
-- [LeetCode](https://leetcode.com/) - Interview preparation
-
-#### **Vue.js Practice**
-- [Vue.js Examples](https://vuejs.org/examples/) - Official examples
-- [CodeSandbox Vue](https://codesandbox.io/s/vue) - Online Vue editor
+// Load data
+const saved = localStorage.getItem('todos');
+if (saved) {
+  todos.value = JSON.parse(saved);
+}
+```
 
 ---
 
-## 💡 Tips & Best Practices
+### Latihan 2: Buat Halaman Profil
 
-### 🎯 **Untuk Mahasiswa Pemula**
-
-#### **Learning Strategy**
-1. **Start Small** - Mulai dari konsep dasar
-2. **Practice Daily** - Coding setiap hari minimal 30 menit
-3. **Understand, Don't Memorize** - Fokus pada konsep bukan syntax
-4. **Ask Questions** - Jangan takut bertanya
-5. **Build Projects** - Praktek langsung dengan proyek nyata
-
-#### **Common Mistakes to Avoid**
-1. **Skipping Basics** - Jangan loncati fundamental
-2. **Copy-Paste Without Understanding** - Pahami setiap baris kode
-3. **Giving Up Too Early** - Programming butuh kesabaran
-4. **Not Reading Documentation** - Docs adalah teman terbaik
-5. **Working in Isolation** - Join communities dan forums
-
-### 🚀 **Code Quality Tips**
-
-#### **TypeScript Best Practices**
-1. **Use Interfaces** untuk object structure
-2. **Prefer `const` over `let`** ketika possible
-3. **Use Type Inference** untuk cleaner code
-4. **Avoid `any` type** unless absolutely necessary
-5. **Enable Strict Mode** di `tsconfig.json`
-
-#### **Vue.js Best Practices**
-1. **Use Composition API** untuk new projects
-2. **Keep Components Small** - Single responsibility
-3. **Use Computed Properties** untuk derived data
-4. **Organize Components** in logical folders
-5. **Follow Naming Conventions** (PascalCase untuk components)
+Buat halaman profil dengan:
+1. Avatar/foto profil
+2. Informasi diri (Nama, NIM, Prodi, Email)
+3. Form untuk edit profil
+4. Menggunakan minimal 5 komponen Ionic yang berbeda
 
 ---
 
-## 🎉 Penutup Sesi
+### Latihan 3: Eksplorasi Komponen
 
-### 🏆 **Achievement Unlocked!**
+Coba komponen Ionic lainnya yang belum dibahas:
+1. **IonFab** - Floating Action Button
+2. **IonSegment** - Segmented Control
+3. **IonRefresher** - Pull to Refresh
+4. **IonInfiniteScroll** - Infinite Scrolling
+5. **IonModal** - Modal Dialog
 
-Selamat! Anda telah menyelesaikan TUWEB 1 dan telah berhasil:
-
-- ✅ **Memahami fundamental TypeScript** untuk mobile development
-- ✅ **Menguasai dasar Vue.js** untuk building interactive UIs
-- ✅ **Membuat aplikasi praktis** dengan studi kasus NIM
-- ✅ **Menerapkan best practices** dalam coding
-
-### 🎯 **Key Takeaways**
-
-1. **TypeScript = JavaScript + Types** - Lebih safe dan maintainable
-2. **Vue.js = Progressive Framework** - Mudah dipelajari, powerful
-3. **Practice Makes Perfect** - Terus coding dan eksperimen
-4. **Start Simple, Build Up** - Mulai dari dasar lalu kompleks
-
-### 🚀 **Next Steps**
-
-1. **Review materi** ini minggu depan sebelum TUWEB 2
-2. **Complete latihan mandiri** untuk reinforcement
-3. **Explore additional resources** yang disediakan
-4. **Prepare questions** untuk sesi berikutnya
-5. **Start thinking about final project** ideas
-
-### 📞 **Support & Contact**
-
-**Jika ada pertanyaan:**
-- **Email:** anton.prafanto@mulawarman.ac.id
-- **WhatsApp Group:** [Link akan dibagikan]
-- **Office Hours:** [Jadwal konsultasi]
-
-**Remember:** "The expert in anything was once a beginner. Keep learning, keep growing! 🌱"
+Dokumentasi: https://ionicframework.com/docs/components
 
 ---
 
-**See you in TUWEB 2: Ionic Framework & API Integration! 🚀**
+## 🎯 RANGKUMAN
+
+Pada praktikum ini, Anda telah mempelajari:
+
+### 1. **Instalasi & Setup**
+- ✅ Instalasi Node.js dan npm
+- ✅ Instalasi Ionic CLI
+- ✅ Instalasi VS Code dan extensions
+- ✅ Membuat project Ionic dengan Vue
+
+### 2. **Struktur Project**
+- ✅ Memahami folder `src/`, `views/`, `router/`, `theme/`
+- ✅ Memahami file `App.vue`, `main.ts`, `index.html`
+- ✅ Cara kerja routing di Ionic
+
+### 3. **Layout & Grid**
+- ✅ Menggunakan `<ion-grid>`, `<ion-row>`, `<ion-col>`
+- ✅ Responsive grid dengan size breakpoints
+- ✅ Alignment dan offset
+
+### 4. **Theme & Styling**
+- ✅ CSS Variables untuk theming
+- ✅ Mengubah warna utama aplikasi
+- ✅ Membuat custom color
+- ✅ Dark mode
+
+### 5. **Komponen UI**
+- ✅ List, Item, Card
+- ✅ Button, Icon, Badge, Chip
+- ✅ Input, Select, Datetime
+- ✅ Alert, Toast, ActionSheet, Loading
+- ✅ Checkbox, Toggle
+
+### 6. **Praktik Aplikasi**
+- ✅ Membuat aplikasi To-Do List
+- ✅ State management dengan Vue ref & computed
+- ✅ Event handling
+- ✅ Conditional rendering
 
 ---
 
-*Dicetak oleh: Anton Prafanto, S.Kom., M.T.*  
-*Universitas Mulawarman - Program Studi Informatika*  
-*Universitas Terbuka - Pusat Belajar Jarak Jauh*  
-*Tanggal: 29 Oktober 2025*
+## 📚 REFERENSI
+
+1. **Ionic Framework Documentation**
+   - https://ionicframework.com/docs
+
+2. **Vue.js Documentation**
+   - https://vuejs.org/guide/
+
+3. **Ionicons**
+   - https://ionic.io/ionicons
+
+4. **TypeScript Handbook**
+   - https://www.typescriptlang.org/docs/handbook/intro.html
+
+5. **Ionic Forum**
+   - https://forum.ionicframework.com/
+
+---
+
+## ❓ TROUBLESHOOTING
+
+### Masalah Umum:
+
+**1. Error: ionic: command not found**
+- Solusi: Install ulang Ionic CLI dengan `npm install -g @ionic/cli`
+
+**2. Error: npm tidak ditemukan**
+- Solusi: Install Node.js atau tambahkan ke PATH
+
+**3. Port 8100 sudah digunakan**
+- Solusi: Gunakan port lain dengan `ionic serve --port=8101`
+
+**4. Import error untuk komponen**
+- Solusi: Pastikan komponen sudah diimport dari `@ionic/vue`
+
+**5. Style tidak muncul**
+- Solusi: Periksa apakah tag `<style scoped>` sudah benar
+
+---
+
+## 🎓 EVALUASI DIRI
+
+Jawab pertanyaan berikut untuk mengecek pemahaman Anda:
+
+1. Apa perbedaan antara `ionic start` dengan template `blank`, `tabs`, dan `sidemenu`?
+2. Bagaimana cara membuat grid dengan 3 kolom di mobile dan 6 kolom di desktop?
+3. Komponen apa yang digunakan untuk membuat list yang bisa di-slide?
+4. Bagaimana cara menambahkan icon di button?
+5. Apa fungsi dari `router-link` di komponen button?
+6. Bagaimana cara membuat custom color theme?
+7. Apa perbedaan `IonContent` dengan `IonPage`?
+8. Komponen apa yang digunakan untuk menampilkan notifikasi singkat?
+
+---
+
+## 📧 PENUTUP
+
+Selamat! Anda telah menyelesaikan Praktikum 1 - Ionic Framework dengan Vue.js.
+
+Pada pertemuan berikutnya, kita akan belajar:
+- **Tuweb 2 (Pertemuan 10)**: Ionic pada Platform Android
+- Build aplikasi menjadi APK
+- Menggunakan Native API & Plugins
+- Akses data dari REST API
+- Deploy ke perangkat Android
+
+**Terus berlatih dan jangan ragu untuk bereksperimen!**
+
+---
+
+**Disusun oleh:**
+Anton Prafanto, S.Kom, M.T.
+Dosen Program Studi Informatika
+Universitas Mulawarman
+Tutor Universitas Terbuka
+
+**Mata Kuliah:** Pemrograman Berbasis Perangkat Bergerak (MSIM4401)
+**Tahun:** 2025
