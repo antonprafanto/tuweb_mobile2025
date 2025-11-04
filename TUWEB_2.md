@@ -1,4 +1,4 @@
-# MATERI TUWEB 1 - PERTEMUAN 6
+# MATERI TUWEB 2 - PERTEMUAN 6
 # PRAKTIKUM IONIC FRAMEWORK DENGAN VUE.JS
 
 ---
@@ -6,7 +6,7 @@
 ## 📋 INFORMASI MATA KULIAH
 
 **Mata Kuliah**: Pemrograman Berbasis Perangkat Bergerak (MSIM4401)
-**Pertemuan**: 6 (Tuweb 1)
+**Pertemuan**: 6 (TUWEB 2)
 **Pokok Bahasan**: Praktikum Integrasi Ionic dengan Vue, Teknik Layout, Theme, dan Komponen Ionic
 **Pendekatan**: Learning by Doing
 
