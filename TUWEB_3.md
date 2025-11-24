@@ -1,4 +1,4 @@
-# MATERI TUWEB 3 - PERTEMUAN 10
+# MATERI TUWEB 2 - PERTEMUAN 10
 # IONIC PADA PLATFORM ANDROID & APLIKASI TERINTEGRASI
 
 ---
@@ -6,7 +6,7 @@
 ## 📋 INFORMASI MATA KULIAH
 
 **Mata Kuliah**: Pemrograman Berbasis Perangkat Bergerak (MSIM4401)
-**Pertemuan**: 10 (Tuweb 3)
+**Pertemuan**: 10 (Tuweb 2)
 **Pokok Bahasan**: Ionic pada Platform Android, Native API, Plugins, dan Aplikasi Terintegrasi
 **Pendekatan**: Learning by Doing
 
@@ -482,7 +482,33 @@ export default config;
    ✔ Copying web assets from dist to android/app/src/main/assets/public in 123 ms
    ```
 
-3. **Tambahkan platform Android**
+3. **Install package Android Capacitor**
+
+   **⚠️ PENTING - Langkah ini HARUS dilakukan terlebih dahulu!**
+
+   Sebelum menambahkan platform Android, install package yang diperlukan:
+
+   ```bash
+   npm install @capacitor/android
+   ```
+
+   **Penjelasan:**
+   - Package `@capacitor/android` diperlukan untuk menambahkan platform Android
+   - Jika dilewati, akan muncul error: `Could not find the android platform`
+   
+   **Troubleshooting:**
+   
+   Jika Anda mendapat error seperti ini:
+   ```
+   [error] Could not find the android platform.
+           You must install it in your project first, e.g. w/ npm install @capacitor/android
+   ```
+   
+   Artinya Anda lupa menjalankan `npm install @capacitor/android` terlebih dahulu.
+
+4. **Tambahkan platform Android**
+
+   Setelah package terinstall, tambahkan platform Android:
 
    ```bash
    npx cap add android
@@ -504,7 +530,7 @@ export default config;
    ✔ update android in 234.56ms
    ```
 
-4. **Sync project dengan platform**
+5. **Sync project dengan platform**
 
    Setiap kali ada perubahan di kode web, jalankan:
    ```bash
@@ -539,6 +565,38 @@ export default config;
    - Proses ini bisa 2-10 menit (pertama kali)
 
    Jika ada error, klik "Try Again" atau "Sync Project with Gradle Files"
+
+   **⚠️ Troubleshooting: AGP Version Incompatibility**
+
+   Jika Anda mendapat error seperti ini:
+   ```
+   The project is using an incompatible version (AGP 8.7.2) of the Android Gradle plugin. 
+   Latest supported version is AGP 8.5.1
+   ```
+
+   **Solusi:**
+
+   1. Buka file `android/build.gradle` (bukan `android/app/build.gradle`)
+   
+   2. Cari baris yang berisi `com.android.tools.build:gradle`, contoh:
+      ```gradle
+      classpath 'com.android.tools.build:gradle:8.7.2'
+      ```
+   
+   3. Ubah versi menjadi `8.5.1` atau versi yang kompatibel:
+      ```gradle
+      classpath 'com.android.tools.build:gradle:8.5.1'
+      ```
+   
+   4. Klik "Sync Now" atau File → Sync Project with Gradle Files
+   
+   5. Tunggu proses sync selesai
+
+   **Penjelasan:**
+   - AGP (Android Gradle Plugin) adalah tool untuk build aplikasi Android
+   - Setiap versi Android Studio hanya support AGP versi tertentu
+   - Capacitor kadang generate project dengan AGP versi terbaru yang belum support di Android Studio Anda
+   - Solusinya menurunkan versi AGP ke versi yang kompatibel
 
 3. **Struktur Project Android**
 
