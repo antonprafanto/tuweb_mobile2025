@@ -1,4 +1,4 @@
-# MATERI TUWEB 2 - PERTEMUAN 10
+# MATERI Tuweb 3 - PERTEMUAN 10
 # IONIC PADA PLATFORM ANDROID & APLIKASI TERINTEGRASI
 
 ---
@@ -6,7 +6,7 @@
 ## 📋 INFORMASI MATA KULIAH
 
 **Mata Kuliah**: Pemrograman Berbasis Perangkat Bergerak (MSIM4401)
-**Pertemuan**: 10 (Tuweb 2)
+**Pertemuan**: 10 (Tuweb 3)
 **Pokok Bahasan**: Ionic pada Platform Android, Native API, Plugins, dan Aplikasi Terintegrasi
 **Pendekatan**: Learning by Doing
 
@@ -38,6 +38,39 @@ Sebelum memulai praktikum ini, pastikan Anda telah:
   - Storage kosong minimal 20GB
   - Sistem Operasi: Windows 10/11, macOS, atau Linux
 - ✅ Koneksi internet yang stabil untuk download Android SDK
+
+---
+
+## 🚀 QUICK REFERENCE
+
+> [!IMPORTANT]
+> **Mengalami masalah saat mengikuti praktikum?** Kami menyediakan solusi!
+
+### 📁 Working Code Sample (Ready to Use)
+
+Kami telah menyediakan project lengkap yang **siap dijalankan** untuk membantu Anda:
+
+```
+📂 Lokasi: code-samples/tuweb02-weather-app/
+```
+
+**Cara menggunakan:**
+```bash
+cd code-samples/tuweb02-weather-app
+npm install
+npm run dev
+```
+
+### 📖 Dokumentasi Troubleshooting
+
+- **Troubleshooting Section**: Lihat bagian "TROUBLESHOOTING COMMON ERRORS" di bawah (baris 1912+)
+- **Dokumentasi Fix Lengkap**: `PERBAIKAN_TUWEB02.md` - Solusi untuk semua error umum
+
+### ⚡ Langkah-Langkah Penting
+
+1. **WAJIB**: Ikuti "Langkah 0: Setup Configuration Files" sebelum mulai coding
+2. **WAJIB**: Setup `vite.config.ts` dengan alias `@/`
+3. **WAJIB**: Install `@capacitor/android` sebelum `npx cap add android`
 
 ---
 
@@ -348,20 +381,31 @@ Emulator diperlukan untuk testing aplikasi tanpa perangkat fisik.
 
 ## 🚀 PRAKTIKUM 1: BUILD APLIKASI IONIC KE ANDROID
 
-### ⚠️ PENTING: Working Code Sample Tersedia!
+> [!WARNING]
+> **PERHATIAN - Baca Ini Sebelum Mulai!**
+>
+> Praktikum ini memiliki beberapa **langkah konfigurasi CRITICAL** yang WAJIB dilakukan. Jika dilewati, aplikasi **tidak akan jalan** dan akan muncul error seperti:
+> - `Cannot find module '@/services/weatherService'`
+> - `Failed to resolve import`
+> - `Could not find the android platform`
+>
+> **✅ SOLUSI**: Pastikan Anda mengikuti **"Langkah 0: Setup Configuration Files"** dengan teliti!
 
-**Jika Anda mengalami masalah saat mengikuti praktikum ini**, kami telah menyediakan **working code sample** yang siap pakai:
-
-📁 **Lokasi**: `code-samples/tuweb02-weather-app/`
-
-**Cara menggunakan**:
-```bash
-cd code-samples/tuweb02-weather-app
-npm install
-npm run dev
-```
-
-📖 **Dokumentasi**: Lihat `PERBAIKAN_TUWEB02.md` untuk troubleshooting lengkap.
+> [!TIP]
+> **Working Code Sample Tersedia!**
+>
+> Jika mengalami masalah, kami menyediakan **project lengkap yang siap dijalankan**:
+>
+> 📁 **Lokasi**: `code-samples/tuweb02-weather-app/`
+>
+> **Cara menggunakan**:
+> ```bash
+> cd code-samples/tuweb02-weather-app
+> npm install
+> npm run dev
+> ```
+>
+> 📖 **Dokumentasi Lengkap**: `PERBAIKAN_TUWEB02.md`
 
 ---
 
@@ -375,6 +419,18 @@ cd myApp
 ```
 
 ---
+
+> [!CAUTION]
+> **🔴 LANGKAH 0 ADALAH CRITICAL - JANGAN DILEWATI!**
+>
+> Langkah berikut adalah **WAJIB** dan **HARUS** dilakukan sebelum coding. Jika Anda skip langkah ini, **aplikasi tidak akan jalan** dan akan muncul error import module.
+>
+> Langkah 0 ini mengatasi masalah utama yang sering dialami mahasiswa:
+> - ❌ Error: `Cannot find module '@/services/weatherService'`
+> - ❌ Error: `Failed to resolve import`
+> - ❌ TypeScript errors tentang path
+>
+> **Pastikan Anda membaca dan mengikuti SEMUA instruksi di Langkah 0!**
 
 ### Langkah 0: Setup Configuration Files
 
@@ -638,6 +694,65 @@ export default config;
    - Gradle akan build project
    - Progress ada di panel "Build" di bawah
    - Proses pertama kali bisa 3-10 menit
+
+   **⚠️ Troubleshooting: Java Version Mismatch**
+
+   Jika Anda mendapat error seperti ini:
+   ```
+   error: invalid source release: 21
+   ```
+
+   **Penyebab:**
+   - Project Android memerlukan Java 21, tapi JDK Anda versi 17 (atau sebaliknya)
+   - Ini umum terjadi karena Capacitor generate project dengan Java version terbaru
+
+   **Solusi (Recommended - Ubah ke Java 17):**
+
+   1. Buka file `android/app/build.gradle`
+   
+   2. Cari bagian `compileOptions` dan `kotlinOptions`:
+      ```gradle
+      android {
+          ...
+          compileOptions {
+              sourceCompatibility JavaVersion.VERSION_21
+              targetCompatibility JavaVersion.VERSION_21
+          }
+          kotlinOptions {
+              jvmTarget = '21'
+          }
+      }
+      ```
+   
+   3. Ubah semua versi Java menjadi `17`:
+      ```gradle
+      android {
+          ...
+          compileOptions {
+              sourceCompatibility JavaVersion.VERSION_17
+              targetCompatibility JavaVersion.VERSION_17
+          }
+          kotlinOptions {
+              jvmTarget = '17'
+          }
+      }
+      ```
+   
+   4. Klik "Sync Now" atau File → Sync Project with Gradle Files
+   
+   5. Coba Run aplikasi lagi
+
+   **Solusi Alternatif (Install JDK 21):**
+   
+   Jika ingin menggunakan Java 21:
+   - Download JDK 21 dari https://www.oracle.com/java/technologies/downloads/
+   - Install dan update `JAVA_HOME` environment variable
+   - Restart Android Studio
+
+   **Penjelasan:**
+   - JDK 17 sudah cukup untuk development Android modern
+   - Mengubah konfigurasi project lebih cepat daripada install JDK baru
+   - Error ini terjadi karena mismatch antara JDK sistem dan requirement project
 
 5. **Aplikasi terbuka di emulator**
    - Jika berhasil, aplikasi akan otomatis install dan buka di emulator
@@ -1109,7 +1224,28 @@ npm install axios
 
 ### Langkah 2: Membuat Service API
 
-**PENTING**: Pastikan `vite.config.ts` sudah di-setup dengan alias `@/` (lihat Praktikum 1, Langkah 0).
+> [!WARNING]
+> **Prerequisite Check - Wajib Dilakukan Dulu!**
+>
+> Sebelum melanjutkan, pastikan Anda sudah menyelesaikan **Langkah 0** dari Praktikum 1:
+>
+> - ✅ File `vite.config.ts` sudah ada dengan alias `@/`
+> - ✅ File `tsconfig.json` sudah ada dengan path mapping
+> - ✅ File `capacitor.config.ts` sudah dibuat
+>
+> **Jika belum**, kembali ke **Praktikum 1 → Langkah 0** dan selesaikan setup tersebut terlebih dahulu!
+>
+> **Kenapa penting?** Code di bawah ini menggunakan import `@/services/weatherService` yang **tidak akan bekerja** tanpa konfigurasi alias.
+
+> [!TIP]
+> **Mengalami error module not found?**
+>
+> Gunakan working code sample sebagai reference:
+> ```bash
+> cd code-samples/tuweb02-weather-app
+> code .
+> ```
+> Bandingkan file konfigurasi Anda dengan working sample.
 
 #### 1. Buat folder services
 
