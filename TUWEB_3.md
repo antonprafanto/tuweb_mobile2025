@@ -6,7 +6,7 @@
 ## 📋 INFORMASI MATA KULIAH
 
 **Mata Kuliah**: Pemrograman Berbasis Perangkat Bergerak (MSIM4401)
-**Pertemuan**: 10 (TUWEB 3)
+**Pertemuan**: 10 (Tuweb 3)
 **Pokok Bahasan**: Ionic pada Platform Android, Native API, Plugins, dan Aplikasi Terintegrasi
 **Pendekatan**: Learning by Doing
 
@@ -348,6 +348,23 @@ Emulator diperlukan untuk testing aplikasi tanpa perangkat fisik.
 
 ## 🚀 PRAKTIKUM 1: BUILD APLIKASI IONIC KE ANDROID
 
+### ⚠️ PENTING: Working Code Sample Tersedia!
+
+**Jika Anda mengalami masalah saat mengikuti praktikum ini**, kami telah menyediakan **working code sample** yang siap pakai:
+
+📁 **Lokasi**: `code-samples/tuweb02-weather-app/`
+
+**Cara menggunakan**:
+```bash
+cd code-samples/tuweb02-weather-app
+npm install
+npm run dev
+```
+
+📖 **Dokumentasi**: Lihat `PERBAIKAN_TUWEB02.md` untuk troubleshooting lengkap.
+
+---
+
 ### Persiapan
 
 Kita akan menggunakan project dari Tuweb 1. Jika belum punya, buat project baru:
@@ -356,6 +373,83 @@ Kita akan menggunakan project dari Tuweb 1. Jika belum punya, buat project baru:
 ionic start myApp tabs --type=vue
 cd myApp
 ```
+
+---
+
+### Langkah 0: Setup Configuration Files
+
+**PENTING**: Sebelum melanjutkan, Anda perlu setup beberapa file konfigurasi untuk menghindari error.
+
+#### 1. Buat/Update `vite.config.ts`
+
+File ini diperlukan agar import path `@/` berfungsi.
+
+Buat atau edit file `vite.config.ts` di root project:
+
+```typescript
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { fileURLToPath, URL } from 'node:url'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  }
+})
+```
+
+**Penjelasan**:
+- `alias: { '@': ... }` - Membuat shortcut `@/` untuk folder `src/`
+- Tanpa ini, import `from '@/services/...'` akan error
+
+#### 2. Update `tsconfig.json`
+
+Tambahkan path mapping di `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    // ... konfigurasi lain ...
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+**Penjelasan**:
+- Memberi tahu TypeScript tentang alias `@/`
+- Diperlukan agar tidak ada error TypeScript
+
+#### 3. Buat `capacitor.config.ts`
+
+Buat file `capacitor.config.ts` di root project:
+
+```typescript
+import { CapacitorConfig } from '@capacitor/cli';
+
+const config: CapacitorConfig = {
+  appId: 'id.ac.ut.myapp',
+  appName: 'My App',
+  webDir: 'dist',
+  server: {
+    androidScheme: 'https'
+  }
+};
+
+export default config;
+```
+
+**Penjelasan**:
+- `appId` - Unique identifier untuk app (ganti sesuai kebutuhan)
+- `webDir` - Folder hasil build (biasanya `dist`)
+
+**⚠️ CATATAN**: Jika Anda skip langkah ini, akan muncul error import module!
 
 ---
 
@@ -957,7 +1051,17 @@ npm install axios
 
 ### Langkah 2: Membuat Service API
 
-Buat folder dan file baru: `src/services/weatherService.ts`
+**PENTING**: Pastikan `vite.config.ts` sudah di-setup dengan alias `@/` (lihat Praktikum 1, Langkah 0).
+
+#### 1. Buat folder services
+
+```bash
+mkdir src/services
+```
+
+#### 2. Buat file weatherService.ts
+
+Buat file baru: `src/services/weatherService.ts`
 
 ```typescript
 import axios from 'axios';
@@ -1688,6 +1792,269 @@ Tampilkan banner jika offline.
 
 ---
 
+## ⚠️ TROUBLESHOOTING COMMON ERRORS
+
+### Error 1: "Cannot find module '@/services/weatherService'"
+
+**Penyebab**: Alias `@/` tidak dikonfigurasi di `vite.config.ts`
+
+**Solusi**:
+
+1. Pastikan file `vite.config.ts` ada dan berisi:
+   ```typescript
+   import { defineConfig } from 'vite'
+   import vue from '@vitejs/plugin-vue'
+   import { fileURLToPath, URL } from 'node:url'
+
+   export default defineConfig({
+     plugins: [vue()],
+     resolve: {
+       alias: {
+         '@': fileURLToPath(new URL('./src', import.meta.url))
+       }
+     }
+   })
+   ```
+
+2. Restart dev server:
+   ```bash
+   # Ctrl+C untuk stop
+   npm run dev
+   ```
+
+3. Jika masih error, hapus cache:
+   ```bash
+   rm -rf node_modules/.vite
+   npm run dev
+   ```
+
+---
+
+### Error 2: "Module not found: Error: Can't resolve ..."
+
+**Penyebab**: File tidak ada atau path salah
+
+**Solusi**:
+
+1. Cek nama file dan folder exact (case-sensitive)
+2. Cek struktur folder:
+   ```
+   src/
+   ├── services/
+   │   └── weatherService.ts  ✅
+   ├── views/
+   │   └── WeatherPage.vue    ✅
+   └── router/
+       └── index.ts           ✅
+   ```
+
+3. Gunakan relative path jika alias tidak bekerja:
+   ```typescript
+   // Gunakan ini
+   import { weatherService } from '../services/weatherService';
+   ```
+
+---
+
+### Error 3: "No such file or directory: dist"
+
+**Penyebab**: Belum run `npm run build` atau `ionic build`
+
+**Solusi**:
+```bash
+# Ionic project
+ionic build
+
+# Atau Vite project
+npm run build
+```
+
+---
+
+### Error 4: "Failed to resolve import" di TypeScript
+
+**Penyebab**: Path mapping tidak ada di `tsconfig.json`
+
+**Solusi**:
+
+Edit `tsconfig.json`, tambahkan:
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+---
+
+### Error 5: Geolocation tidak bekerja di emulator
+
+**Solusi**:
+
+1. Buka Extended Controls di emulator (icon `...`)
+2. Pilih tab "Location"
+3. Set coordinates manual atau gunakan GPX file
+4. Click "Send"
+
+---
+
+### Error 6: Camera tidak bekerja di emulator
+
+**Solusi**:
+
+1. Buat emulator baru dengan hardware camera enabled
+2. Di AVD Manager → Edit Device
+3. Advanced Settings → Camera:
+   - Front camera: Webcam atau Emulated
+   - Back camera: Webcam atau Emulated
+
+---
+
+### Error 7: "Gradle sync failed" di Android Studio
+
+**Solusi**:
+
+1. **File → Invalidate Caches / Restart**
+2. Atau manual:
+   ```bash
+   cd android
+   ./gradlew clean
+   ./gradlew build
+   ```
+
+3. Jika masih error, update Gradle:
+   - File: `android/gradle/wrapper/gradle-wrapper.properties`
+   - Update: `distributionUrl=https\://services.gradle.org/distributions/gradle-8.0-all.zip`
+
+---
+
+### Error 8: "JAVA_HOME is not set"
+
+**Solusi Windows**:
+```powershell
+# Set JAVA_HOME
+setx JAVA_HOME "C:\Program Files\Java\jdk-17"
+
+# Add to PATH
+setx PATH "%PATH%;%JAVA_HOME%\bin"
+
+# Restart terminal dan verify
+java -version
+```
+
+**Solusi macOS/Linux**:
+```bash
+# Edit ~/.zshrc atau ~/.bash_profile
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+export PATH=$JAVA_HOME/bin:$PATH
+
+# Reload
+source ~/.zshrc
+```
+
+---
+
+### Error 9: "SDK location not found"
+
+**Penyebab**: `ANDROID_HOME` tidak di-set
+
+**Solusi Windows**:
+```powershell
+setx ANDROID_HOME "C:\Users\YourUser\AppData\Local\Android\Sdk"
+setx PATH "%PATH%;%ANDROID_HOME%\platform-tools"
+```
+
+**Solusi macOS/Linux**:
+```bash
+export ANDROID_HOME=$HOME/Library/Android/sdk  # macOS
+# atau
+export ANDROID_HOME=$HOME/Android/Sdk  # Linux
+
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+```
+
+---
+
+### Error 10: Port 5173 already in use
+
+**Solusi**:
+
+```bash
+# Windows - kill process di port 5173
+netstat -ano | findstr :5173
+taskkill /PID <ProcessID> /F
+
+# macOS/Linux
+lsof -ti:5173 | xargs kill -9
+
+# Atau gunakan port lain
+npm run dev -- --port 3000
+```
+
+---
+
+### Error 11: "Failed to fetch" saat akses API
+
+**Penyebab**: CORS atau network issue
+
+**Solusi**:
+
+1. Cek internet connection
+2. Test API di browser: https://api.open-meteo.com/v1/forecast?latitude=-6.2&longitude=106.8&hourly=temperature_2m
+3. Tambahkan error handling:
+   ```typescript
+   try {
+     const response = await axios.get(url);
+   } catch (error) {
+     console.error('API Error:', error);
+     // Handle error
+   }
+   ```
+
+---
+
+### Error 12: "Cannot read property of undefined"
+
+**Penyebab**: Data belum loaded tapi sudah di-access
+
+**Solusi**:
+
+Gunakan optional chaining dan null checks:
+```vue
+<template>
+  <!-- ❌ SALAH -->
+  <p>{{ weatherData.hourly.time[0] }}</p>
+
+  <!-- ✅ BENAR -->
+  <p v-if="weatherData">{{ weatherData.hourly.time[0] }}</p>
+  
+  <!-- Atau -->
+  <p>{{ weatherData?.hourly?.time?.[0] }}</p>
+</template>
+```
+
+---
+
+### 🆘 Masih Mengalami Error?
+
+**Gunakan Working Code Sample**:
+
+```bash
+cd code-samples/tuweb02-weather-app
+npm install
+npm run dev
+```
+
+Bandingkan project Anda dengan working sample untuk menemukan perbedaannya.
+
+**Dokumentasi Lengkap**: Lihat `PERBAIKAN_TUWEB02.md`
+
+---
+
 ## 🎯 RANGKUMAN
 
 Pada praktikum ini, Anda telah mempelajari:
@@ -1745,6 +2112,43 @@ Selamat! Anda telah menyelesaikan Praktikum 2!
 - Publishing ke Google Play Store
 
 **Terus berlatih dan eksplorasi fitur-fitur lain!**
+
+---
+
+## 🆕 UPDATE & IMPROVEMENTS
+
+**Tanggal Update**: 24 November 2025
+
+### ✅ Perbaikan yang Telah Dilakukan:
+
+1. **Ditambahkan Langkah 0**: Setup Configuration Files
+   - `vite.config.ts` dengan alias `@/`
+   - `tsconfig.json` dengan path mapping
+   - `capacitor.config.ts` configuration
+
+2. **Ditambahkan Section Troubleshooting**
+   - 12 common errors dengan solusi lengkap
+   - Tips debugging dan best practices
+
+3. **Working Code Sample Tersedia**
+   - Lokasi: `code-samples/tuweb02-weather-app/`
+   - Full working project dengan semua fitur
+   - Dokumentasi lengkap: `PERBAIKAN_TUWEB02.md`
+
+### 🎯 Untuk Mahasiswa:
+
+Jika mengalami masalah mengikuti tutorial ini:
+
+1. **Gunakan Working Code Sample**:
+   ```bash
+   cd code-samples/tuweb02-weather-app
+   npm install
+   npm run dev
+   ```
+
+2. **Baca Troubleshooting Section** di materi ini
+
+3. **Lihat Dokumentasi Fix**: `PERBAIKAN_TUWEB02.md`
 
 ---
 
