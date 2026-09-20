@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 10: Pengenalan Android Studio — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--cyan);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .ide-mockup {
+      background: #1e1f22;
+      color: #bcbec4;
+      border: 3px solid #000;
+      font-family: 'Segoe UI', sans-serif;
+      box-shadow: 6px 6px 0 #000;
+    }
+    .ide-toolbar {
+      background: #2b2d30;
+      padding: 8px 12px;
+      border-bottom: 2px solid #000;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px;
+    }
+    .ide-btn {
+      background: #393b40;
+      color: #fff;
+      border: 1px solid #4e5157;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .ide-btn:hover { background: #4e5157; }
+    .ide-panel {
+      padding: 14px;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+    .ide-panel:hover {
+      background: #2b2d30;
+    }
+    .ide-panel.active {
+      border: 2px solid #ffe600;
+      background: #2b2d30;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 10 • LINGKUNGAN IDE RESMI GOOGLE</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Pengenalan Antarmuka Android Studio</h1>
+    <p style="margin: 0; font-size: 14px;">Memahami 4 instrumen vital di Android Studio untuk membangun dan menjalankan aplikasi Ionic ke perangkat.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- MOCKUP ANDROID STUDIO -->
+    <div class="box" style="padding: 12px;">
+      <h3 style="margin-left: 8px;">🖥️ Peta Instrumen Android Studio</h3>
+
+      <div class="ide-mockup">
+        <!-- TOOLBAR ATAS -->
+        <div class="ide-toolbar">
+          <span style="font-weight: bold; color: #fff;">android [C:\UT\portal]</span>
+          <span class="ide-btn" @click="selectFeature('device')">📱 Samsung SM-A546E (USB) ▼</span>
+          <span class="ide-btn" style="background: #2e7d32; color: #fff;" @click="selectFeature('run')">▶ Run (Shift+F10)</span>
+          <span class="ide-btn" style="background: #0284c7; color: #fff;" @click="selectFeature('sync')">🐘 Sync Project with Gradle</span>
+        </div>
+
+        <!-- BODY IDE -->
+        <div style="display: grid; grid-template-columns: 140px 1fr; min-height: 180px;">
+          <!-- SIDEBAR PROYEK -->
+          <div class="ide-panel" :class="{ active: currentFeature === 'tree' }" @click="selectFeature('tree')" style="border-right: 1px solid #393b40; font-size: 11px;">
+            <div style="font-weight: bold; margin-bottom: 6px; color: #9da0a8;">Project (Android)</div>
+            <div>▼ app</div>
+            <div style="padding-left: 10px;">▼ manifests</div>
+            <div style="padding-left: 10px;">▼ java</div>
+            <div style="padding-left: 10px;">▼ res</div>
+            <div style="margin-top: 6px;">▼ Gradle Scripts</div>
+          </div>
+
+          <!-- EDITOR CODE -->
+          <div class="ide-panel" :class="{ active: currentFeature === 'editor' }" @click="selectFeature('editor')" style="font-family: Consolas; font-size: 11px; padding: 12px;">
+            <span style="color: #cf8e6d;">package</span> id.ac.ut.mobileportal;<br><br>
+            <span style="color: #cf8e6d;">import</span> com.getcapacitor.BridgeActivity;<br><br>
+            <span style="color: #cf8e6d;">public class</span> <span style="color: #56a8f5;">MainActivity</span> <span style="color: #cf8e6d;">extends</span> BridgeActivity {}
+          </div>
+        </div>
+
+        <!-- LOGCAT CONSOLE BAWAH -->
+        <div class="ide-panel" :class="{ active: currentFeature === 'logcat' }" @click="selectFeature('logcat')" style="background: #141416; border-top: 1px solid #393b40; font-family: Consolas; font-size: 10px; color: #6bb07b; padding: 8px;">
+          [Logcat] Tag: Capacitor | D/Capacitor: Loading app from http://localhost/...
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAIL DAN PENJELASAN -->
+    <div class="box">
+      <h3>🔍 Penjelasan Fitur: <span style="color: #0284c7;">{{ detailTitle }}</span></h3>
+      <div style="background: #F8FAFC; border: 2px solid #000; padding: 14px; min-height: 160px; line-height: 1.6; font-size: 13px;">
+        {{ detailText }}
+      </div>
+
+      <div style="background: #FEF3C7; border: 2px solid #D97706; padding: 10px; margin-top: 14px; font-size: 12px;">
+        💡 <strong>Tips Dosen:</strong> Jika ikon run (segitiga hijau) berwarna abu-abu mati, periksa status bar di bawah jendela Android Studio. Biasanya Android Studio sedang menyelesaikan pengunduhan indeks dependensi (Gradle Syncing). Tunggu hingga selesai 100%!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const currentFeature = ref('run');
+        const detailTitle = ref('Tombol Run (Segitiga Hijau)');
+        const detailText = ref('Mengeksekusi proses kompilasi Gradle untuk menghasilkan berkas APK debug, lalu secara otomatis menginstal dan meluncurkannya ke smartphone target.');
+
+        const selectFeature = (feature) => {
+          currentFeature.value = feature;
+          if (feature === 'run') {
+            detailTitle.value = 'Tombol Run (Segitiga Hijau / Shift+F10)';
+            detailText.value = 'Mengeksekusi proses kompilasi Gradle untuk menghasilkan berkas APK debug, lalu secara otomatis menginstal dan meluncurkannya ke smartphone target.';
+          } else if (feature === 'sync') {
+            detailTitle.value = 'Sync Project with Gradle Files (Ikon Gajah)';
+            detailText.value = 'Menyelaraskan seluruh dependensi library Java/Kotlin yang tercatat di build.gradle. Wajib diklik jika ada perubahan versi SDK atau penambahan plugin baru.';
+          } else if (feature === 'device') {
+            detailTitle.value = 'Target Device Selector';
+            detailText.value = 'Daftar perangkat Android yang terdeteksi oleh sistem ADB (Android Debug Bridge). Mahasiswa dapat memilih antara HP fisik Android via kabel USB atau Android Virtual Device (AVD).';
+          } else if (feature === 'logcat') {
+            detailTitle.value = 'Logcat Console (Jendela Diagnostik Bawah)';
+            detailText.value = 'Menampilkan seluruh aliran log sistem Android OS secara langsung. Mahasiswa dapat melihat error crash native Java, pesan console.log dari JavaScript, dan peringatan izin.';
+          } else if (feature === 'tree') {
+            detailTitle.value = 'Project View Panel';
+            detailText.value = 'Hierarki susunan berkas Android. Sangat direkomendasikan menggunakan sudut pandang tampilan "Android" agar struktur folder disederhanakan dan mudah dinavigasi.';
+          } else if (feature === 'editor') {
+            detailTitle.value = 'MainActivity.java Code Editor';
+            detailText.value = 'Kelas utama yang mewarisi BridgeActivity bawaan Capacitor. Kelas ini bertugas sebagai jembatan pembuka Chromium WebView yang memuat frontend Vue Anda.';
+          }
+        };
+
+        return { currentFeature, detailTitle, detailText, selectFeature };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

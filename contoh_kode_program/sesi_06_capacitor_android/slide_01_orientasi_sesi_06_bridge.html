@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 01: Orientasi Sesi 06 Bridge — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .step-card {
+      border: 2px solid #000;
+      background: #F8FAFC;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 01 • SESI 06 (MODUL 6 & 7 BMP UT)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Orientasi Sesi 06: Capacitor Runtime Bridge & Platform Android</h1>
+    <p style="margin: 0; font-size: 14px;">Melangkah dari peramban desktop menuju ekosistem perangkat native Android: Menghubungkan kode web kita dengan native SDK smartphone.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PENGANTAR TRANSFORMASI KE NATIVE -->
+    <div class="box">
+      <h3>📱 Menyeberangi Jembatan Menuju Android Asli</h3>
+      <p style="font-size: 13px; line-height: 1.5; color: #334155;">
+        Dari Sesi 01 hingga Sesi 05, kita telah membangun kode frontend menggunakan Vue 3, TypeScript, dan Ionic UI Toolkit di dalam peramban web desktop. Namun, tujuan akhir mata kuliah ini adalah <strong>menghasilkan aplikasi mobile sejati yang berjalan di smartphone pengguna</strong>.
+      </p>
+
+      <div style="background: #E0F2FE; border: 2px solid #0284C7; padding: 12px; border-radius: 8px; margin-bottom: 14px;">
+        <h4 style="margin: 0 0 4px 0; font-size: 14px; color: #0369A1;">🌉 Peran Kunci Capacitor:</h4>
+        <p style="margin: 0; font-size: 12px; color: #0c4a6e;">
+          Capacitor adalah runtime cross-platform sumber terbuka dari tim Ionic yang membungkus kode web kita ke dalam WebView native performa tinggi dan membuka akses penuh ke sensor perangkat keras.
+        </p>
+      </div>
+
+      <div class="step-card">
+        <strong>1. Web Layer:</strong> Vue 3 SFC + Ionic Components + TypeScript (Kode yang sudah Anda buat).
+      </div>
+      <div class="step-card">
+        <strong>2. Bridge Layer:</strong> Capacitor Runtime (Penerjemah sinyal JS &harr; Java/Kotlin).
+      </div>
+      <div class="step-card">
+        <strong>3. Native Layer:</strong> Android OS SDK, Android Studio, Gradle, & Hardware Sensors.
+      </div>
+    </div>
+
+    <!-- 4 PILAR PEMBELAJARAN SESI 06 -->
+    <div class="box">
+      <h3 style="margin-top: 0;">🧭 4 Target Pembelajaran Sesi 06 (Sub-CPMK 6)</h3>
+
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+        <div style="border-left: 4px solid #0284C7; padding-left: 10px; background: #F0F9FF; padding: 10px;">
+          <strong style="color: #0284C7;">1. Arsitektur Capacitor Runtime Bridge</strong>
+          <p style="margin: 4px 0 0 0; font-size: 12px; color: #334155;">
+            Memahami keunggulan pendekatan <em>Source-First</em> Capacitor dibanding Cordova klasik, serta konfigurasi <code>capacitor.config.ts</code>.
+          </p>
+        </div>
+
+        <div style="border-left: 4px solid #16A34A; padding-left: 10px; background: #F0FDF4; padding: 10px;">
+          <strong style="color: #16A34A;">2. Bedah Struktur Folder android/ & Gradle</strong>
+          <p style="margin: 4px 0 0 0; font-size: 12px; color: #334155;">
+            Membuka proyek di Android Studio, mengonfigurasi <code>build.gradle</code>, SDK target, dan ikon aplikasi di folder <code>res/</code>.
+          </p>
+        </div>
+
+        <div style="border-left: 4px solid #EA580C; padding-left: 10px; background: #FFF7ED; padding: 10px;">
+          <strong style="color: #EA580C;">3. AndroidManifest.xml & Runtime Permissions</strong>
+          <p style="margin: 4px 0 0 0; font-size: 12px; color: #334155;">
+            Tata kelola hak akses aplikasi: Izin kamera, lokasi GPS, penyimpanan memori, dan keamanan WebView.
+          </p>
+        </div>
+
+        <div style="border-left: 4px solid #9333EA; padding-left: 10px; background: #FAF5FF; padding: 10px;">
+          <strong style="color: #9333EA;">4. Pengujian di Ponsel Fisik via scrcpy (Hemat RAM)</strong>
+          <p style="margin: 4px 0 0 0; font-size: 12px; color: #334155;">
+            Solusi hemat memori bagi mahasiswa bertopologi RAM 4–8GB: Menjalankan aplikasi langsung di smartphone Android pribadi lewat USB Debugging.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({}).mount('#app');
+  </script>
+</body>
+</html>

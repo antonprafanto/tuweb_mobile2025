@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 08: Anatomi AndroidManifest.xml — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .xml-code {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: 'Consolas', monospace;
+      font-size: 11px;
+      padding: 14px;
+      border: 2px solid #000;
+      white-space: pre-wrap;
+      max-height: 420px;
+      overflow-y: auto;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 08 • MANIFEST SISTEM ANDROID</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Anatomi Berkas <code>AndroidManifest.xml</code></h1>
+    <p style="margin: 0; font-size: 14px;">Kontrak resmi antara aplikasi Anda dengan sistem operasi Android: Deklarasi izin hardware, konfigurasi Activity, dan orientasi layar.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- TOGGLE IZIN & FITUR -->
+    <div class="box">
+      <h3>📋 Pilih Izin & Konfigurasi Fitur</h3>
+      <p style="font-size: 12px; color: #64748B;">Aktifkan hak akses yang dibutuhkan aplikasi portal Anda:</p>
+
+      <div style="background: #F8FAFC; border: 2px solid #000; padding: 12px; margin-bottom: 14px;">
+        <div class="checkbox-item">
+          <input type="checkbox" v-model="permInternet" disabled />
+          <span><strong>INTERNET</strong> (Wajib untuk aplikasi Ionic/Capacitor)</span>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" v-model="permCamera" />
+          <span><strong>CAMERA</strong> (Scan KTM / Presensi QR Code)</span>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" v-model="permLocation" />
+          <span><strong>ACCESS_FINE_LOCATION</strong> (Geotagging Ujian / UT Daerah)</span>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" v-model="permStorage" />
+          <span><strong>READ_MEDIA_IMAGES</strong> (Upload Foto Profil / Berkas Tugas)</span>
+        </div>
+      </div>
+
+      <div style="background: #FEF3C7; border: 2px solid #D97706; padding: 12px; font-size: 12px;">
+        <label style="display: flex; align-items: center; gap: 8px; font-weight: bold; cursor: pointer;">
+          <input type="checkbox" v-model="allowCleartext" />
+          Izinkan HTTP Tidak Terenkripsi (Cleartext Traffic)
+        </label>
+        <p style="margin: 6px 0 0 0; color: #92400E; font-size: 11px;">
+          Hanya diaktifkan selama pengujian di jaringan lokal (development). Di mode produksi, Android 9+ mewajibkan HTTPS demi keamanan enkripsi data mahasiswa!
+        </p>
+      </div>
+    </div>
+
+    <!-- PREVIEW XML -->
+    <div class="box">
+      <h3>📄 Berkas: <code>android/app/src/main/AndroidManifest.xml</code></h3>
+      <div class="xml-code">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="id.ac.ut.mobileportal"&gt;
+
+    &lt;!-- Permissions --&gt;
+    &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+<span v-if="permCamera">    &lt;uses-permission android:name="android.permission.CAMERA" /&gt;
+</span><span v-if="permLocation">    &lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /&gt;
+    &lt;uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /&gt;
+</span><span v-if="permStorage">    &lt;uses-permission android:name="android.permission.READ_MEDIA_IMAGES" /&gt;
+</span>
+    &lt;application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        <span v-if="allowCleartext" style="color: #f59e0b;">android:usesCleartextTraffic="true"</span><span v-else>android:usesCleartextTraffic="false"</span>&gt;
+
+        &lt;activity
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBarLaunch"
+            android:launchMode="singleTask"
+            android:exported="true"&gt;
+
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+&lt;/manifest&gt;</div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const permInternet = ref(true);
+        const permCamera = ref(true);
+        const permLocation = ref(false);
+        const permStorage = ref(true);
+        const allowCleartext = ref(false);
+
+        return { permInternet, permCamera, permLocation, permStorage, allowCleartext };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

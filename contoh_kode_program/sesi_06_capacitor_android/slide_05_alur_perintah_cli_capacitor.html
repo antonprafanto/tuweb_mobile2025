@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 05: Alur Perintah CLI Capacitor — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .pipeline-step {
+      border: 2px solid #000;
+      padding: 12px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      background: #F8FAFC;
+    }
+    .pipeline-step.active {
+      background: #FEF08A;
+      box-shadow: 4px 4px 0 #000;
+      transform: translate(-2px, -2px);
+    }
+    .term-window {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      padding: 14px;
+      border: 2px solid #000;
+      min-height: 220px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 05 • WORKFLOW PENGEMBANGAN</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Alur 4 Perintah Kunci Capacitor CLI</h1>
+    <p style="margin: 0; font-size: 14px;">Pipeline wajib dari kompilasi bundel web Vue hingga sinkronisasi ke proyek native Android Studio.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- TAHAPAN PIPELINE -->
+    <div class="box">
+      <h3>🚀 4 Tahap Sinkronisasi Proyek</h3>
+      <p style="font-size: 12px; color: #64748B;">Pilih tahapan untuk mempelajari fungsi perintah dan simulasi output terminalnya:</p>
+
+      <div class="pipeline-step" :class="{ active: currentStep === 1 }" @click="selectStep(1)">
+        <strong>Langkah 1: Kompilasi Web Aset</strong>
+        <div style="font-size: 12px; font-family: monospace; color: #1E293B; margin-top: 4px;">$ npm run build</div>
+        <div style="font-size: 11px; color: #475569; margin-top: 2px;">Vite mengompilasi file .vue, .ts, dan aset CSS ke dalam folder publik <code>dist/</code>.</div>
+      </div>
+
+      <div class="pipeline-step" :class="{ active: currentStep === 2 }" @click="selectStep(2)">
+        <strong>Langkah 2: Tambah Platform Android (Hanya 1x di awal)</strong>
+        <div style="font-size: 12px; font-family: monospace; color: #1E293B; margin-top: 4px;">$ npx cap add android</div>
+        <div style="font-size: 11px; color: #475569; margin-top: 2px;">Capacitor membuat folder native utuh <code>android/</code> beserta wrapper Gradle.</div>
+      </div>
+
+      <div class="pipeline-step" :class="{ active: currentStep === 3 }" @click="selectStep(3)">
+        <strong>Langkah 3: Sinkronisasi Aset & Plugin (Wajib Tiap Ada Perubahan)</strong>
+        <div style="font-size: 12px; font-family: monospace; color: #1E293B; margin-top: 4px;">$ npx cap sync</div>
+        <div style="font-size: 11px; color: #475569; margin-top: 2px;">Menyalin berkas <code>dist/</code> ke native assets folder dan mengonfigurasi gradle plugin.</div>
+      </div>
+
+      <div class="pipeline-step" :class="{ active: currentStep === 4 }" @click="selectStep(4)">
+        <strong>Langkah 4: Luncurkan Android Studio</strong>
+        <div style="font-size: 12px; font-family: monospace; color: #1E293B; margin-top: 4px;">$ npx cap open android</div>
+        <div style="font-size: 11px; color: #475569; margin-top: 2px;">Membuka Android Studio secara otomatis pada path folder <code>android/</code>.</div>
+      </div>
+    </div>
+
+    <!-- TERMINAL SIMULATOR -->
+    <div class="box">
+      <h3>💻 Simulator Output Terminal (PowerShell / Bash)</h3>
+      <div class="term-window">
+<span style="color: #22c55e;">PS C:\UT\mobile2026></span> {{ commandText }}
+------------------------------------------------------------
+{{ terminalOutput }}
+      </div>
+
+      <div style="background: #FEE2E2; border: 2px solid #DC2626; padding: 10px; margin-top: 14px; font-size: 12px;">
+        ⚠️ <strong>Kesalahan Umum Mahasiswa:</strong> Melakukan <code>npx cap sync</code> tanpa menjalankan <code>npm run build</code> terlebih dahulu. Akibatnya, perubahan kode Vue terbaru tidak akan tampak di smartphone karena folder <code>dist/</code> masih menyimpan bundel lama!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const currentStep = ref(1);
+        const commandText = ref('npm run build');
+        const terminalOutput = ref(
+`> vite build
+✓ 48 modules transformed.
+dist/index.html                   0.82 kB │ gzip:  0.45 kB
+dist/assets/index-D7h5Q.css      14.30 kB │ gzip:  3.80 kB
+dist/assets/index-B9ePq.js      186.20 kB │ gzip: 58.12 kB
+✓ built in 420ms`
+        );
+
+        const selectStep = (step) => {
+          currentStep.value = step;
+          if (step === 1) {
+            commandText.value = 'npm run build';
+            terminalOutput.value =
+`> vite build
+✓ 48 modules transformed.
+dist/index.html                   0.82 kB │ gzip:  0.45 kB
+dist/assets/index-D7h5Q.css      14.30 kB │ gzip:  3.80 kB
+dist/assets/index-B9ePq.js      186.20 kB │ gzip: 58.12 kB
+✓ built in 420ms`;
+          } else if (step === 2) {
+            commandText.value = 'npx cap add android';
+            terminalOutput.value =
+`[info] Adding native android project in: C:\\UT\\mobile2026\\android
+✔ Installing android dependencies in 3.12s
+✔ Creating folder C:\\UT\\mobile2026\\android
+✔ Adding Android plugins
+✔ Copying web assets from dist to android\\app\\src\\main\\assets\\public`;
+          } else if (step === 3) {
+            commandText.value = 'npx cap sync';
+            terminalOutput.value =
+`✔ Copying web assets from dist to android\\app\\src\\main\\assets\\public in 14.80ms
+✔ Creating capacitor.config.json in android\\app\\src\\main\\assets in 1.45ms
+✔ copy android in 115.32ms
+✔ Updating Android plugins in 12.11ms
+✔ update android in 68.20ms
+[info] Sync finished in 0.21s!`;
+          } else if (step === 4) {
+            commandText.value = 'npx cap open android';
+            terminalOutput.value =
+`[info] Opening Android Studio at: C:\\UT\\mobile2026\\android
+✔ Android Studio launched successfully!`;
+          }
+        };
+
+        return { currentStep, commandText, terminalOutput, selectStep };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

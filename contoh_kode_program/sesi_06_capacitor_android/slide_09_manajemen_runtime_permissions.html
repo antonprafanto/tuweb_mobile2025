@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 09: Manajemen Runtime Permissions — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--purple);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .btn-action {
+      background: var(--mint);
+      border: 2px solid #000;
+      padding: 10px 16px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+    }
+    .btn-action:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+    .phone-mockup {
+      border: 3px solid #000;
+      background: #1e293b;
+      padding: 16px;
+      border-radius: 16px;
+      box-shadow: 5px 5px 0 #000;
+      color: #fff;
+      position: relative;
+      min-height: 280px;
+    }
+    .android-dialog {
+      background: #ffffff;
+      color: #000;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .dialog-btn {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 09 • KEAMANAN & PRIVASI PENGGUNA</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Manajemen Hak Akses Runtime (Runtime Permissions)</h1>
+    <p style="margin: 0; font-size: 14px;">Mekanisme perizinan dinamis Android: Alur <code>checkPermissions()</code> dan <code>requestPermissions()</code> pada TypeScript.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- TEORI & ALUR KODE -->
+    <div class="box">
+      <h3>🔐 Alur Pengecekan Izin di Capacitor</h3>
+      <p style="font-size: 13px; line-height: 1.5; color: #334155;">
+        Pada Android modern (API 23+), mendeklarasikan izin di <code>AndroidManifest.xml</code> saja <strong>tidak cukup</strong> untuk izin kategori <em>Dangerous</em> (Kamera, Lokasi, Penyimpanan).
+      </p>
+
+      <div style="background: #F1F5F9; border: 2px solid #000; padding: 10px; font-family: monospace; font-size: 12px; margin-bottom: 12px;">
+<span style="color: #2563eb;">import</span> { Camera } <span style="color: #2563eb;">from</span> <span style="color: #16a34a;">'@capacitor/camera'</span>;
+
+<span style="color: #64748b;">// 1. Cek status izin saat ini</span>
+<span style="color: #2563eb;">const</span> status = <span style="color: #2563eb;">await</span> Camera.checkPermissions();
+
+<span style="color: #2563eb;">if</span> (status.camera !== <span style="color: #16a34a;">'granted'</span>) {
+  <span style="color: #64748b;">// 2. Minta izin secara interaktif ke user</span>
+  <span style="color: #2563eb;">const</span> req = <span style="color: #2563eb;">await</span> Camera.requestPermissions();
+  <span style="color: #2563eb;">if</span> (req.camera !== <span style="color: #16a34a;">'granted'</span>) {
+    alert(<span style="color: #16a34a;">"Akses kamera ditolak oleh pengguna!"</span>);
+    <span style="color: #2563eb;">return</span>;
+  }
+}
+<span style="color: #64748b;">// 3. Izin didapat -> Lanjutkan buka kamera</span>
+      </div>
+
+      <button class="btn-action" @click="triggerCamera">
+        📸 Uji Buka Kamera (Trigger Permission)
+      </button>
+      <div style="margin-top: 10px; font-size: 12px;">
+        Status Izin Kamera Saat Ini:
+        <strong :style="{ color: permissionState === 'granted' ? '#16a34a' : (permissionState === 'denied' ? '#dc2626' : '#d97706') }">
+          {{ permissionState.toUpperCase() }}
+        </strong>
+      </div>
+    </div>
+
+    <!-- SIMULATOR INTERAKTIF SMARTPHONE ANDROID -->
+    <div class="box">
+      <h3>📱 Simulator Perilaku Sistem Android</h3>
+      <div class="phone-mockup">
+        <div style="display: flex; justify-content: space-between; font-size: 11px; opacity: 0.8; margin-bottom: 10px;">
+          <span>UT Mobile 4G</span>
+          <span>12:00</span>
+          <span>100% 🔋</span>
+        </div>
+
+        <div v-if="!showDialog && permissionState === 'granted'" style="background: #166534; padding: 14px; border-radius: 8px; text-align: center;">
+          ✅ <strong>Kamera Aktif Berhasil Dibuka!</strong><br>
+          <span style="font-size: 12px;">Sensor kamera siap memotret KTM Mahasiswa UT.</span>
+        </div>
+
+        <div v-else-if="!showDialog && permissionState === 'denied'" style="background: #991b1b; padding: 14px; border-radius: 8px; text-align: center;">
+          ❌ <strong>Akses Ditolak Pengguna</strong><br>
+          <span style="font-size: 12px;">Aplikasi dialihkan ke pesan edukatif agar mahasiswa mengaktifkannya lewat Settings.</span>
+        </div>
+
+        <div v-else-if="!showDialog" style="text-align: center; padding-top: 40px; color: #94a3b8; font-size: 13px;">
+          Tekan tombol <em>"Uji Buka Kamera"</em> di sebelah kiri untuk menyimulasikan permintaan izin Android.
+        </div>
+
+        <!-- DIALOG PERMISSION ANDROID NATIVE SIMULATED -->
+        <div v-if="showDialog" class="android-dialog">
+          <div style="font-size: 20px; text-align: center; margin-bottom: 6px;">📷</div>
+          <div style="font-weight: bold; font-size: 14px; text-align: center;">Izinkan UT Mobile mengambil gambar dan merekam video?</div>
+          <div style="margin-top: 14px;">
+            <button class="dialog-btn" style="background: #e2e8f0;" @click="grantPermission">
+              Saat aplikasi digunakan
+            </button>
+            <button class="dialog-btn" style="background: #e2e8f0;" @click="grantPermission">
+              Hanya kali ini
+            </button>
+            <button class="dialog-btn" style="background: #fee2e2; color: #b91c1c;" @click="denyPermission">
+              Jangan izinkan
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const permissionState = ref('prompt');
+        const showDialog = ref(false);
+
+        const triggerCamera = () => {
+          if (permissionState.value === 'granted') {
+            alert("Izin sudah aktif! Kamera siap digunakan.");
+          } else {
+            showDialog.value = true;
+          }
+        };
+
+        const grantPermission = () => {
+          permissionState.value = 'granted';
+          showDialog.value = false;
+        };
+
+        const denyPermission = () => {
+          permissionState.value = 'denied';
+          showDialog.value = false;
+        };
+
+        return { permissionState, showDialog, triggerCamera, grantPermission, denyPermission };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

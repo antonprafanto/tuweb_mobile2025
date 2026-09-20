@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 17: Master Solusi Lab Quest 06 (Bridge Tester) — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .status-card {
+      border: 2px solid #000;
+      padding: 12px;
+      margin-bottom: 12px;
+      background: #f8fafc;
+    }
+    .btn-neo {
+      background: var(--yellow);
+      border: 2px solid #000;
+      padding: 8px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+      font-size: 13px;
+      margin: 4px;
+    }
+    .btn-neo:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+    .log-stream {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: 'Consolas', monospace;
+      font-size: 11px;
+      padding: 12px;
+      border: 2px solid #000;
+      height: 220px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 17 • MASTER SOLUSI LAB QUEST 06 (NILAI MAKSIMAL 100)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Capacitor Bridge & Android Platform Inspector</h1>
+    <p style="margin: 0; font-size: 14px;">Dashboard diagnostik menyeluruh: Mendeteksi platform eksekusi, mensimulasikan panggilan plugin jembatan, dan mencatat lalu lintas komunikasi RPC.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANEL DETEKSI PLATFORM & PERANGKAT -->
+    <div class="box">
+      <h3>📱 Info Platform & Perangkat</h3>
+
+      <div class="status-card">
+        <div style="font-size: 11px; color: #64748B; font-weight: bold;">ENVIRONMENT STATUS:</div>
+        <div style="font-size: 16px; font-weight: 900; color: #0284c7; margin: 4px 0;">
+          {{ platformInfo.platformName }}
+        </div>
+        <div style="font-size: 12px; color: #334155;">
+          <strong>Bridge Active:</strong> {{ platformInfo.isNative ? 'YES (Capacitor Native)' : 'FALLBACK (Standard Web Browser)' }}
+        </div>
+      </div>
+
+      <div class="status-card">
+        <div style="font-size: 12px; line-height: 1.6;">
+          <div>🖥️ <strong>Resolusi Layar:</strong> {{ platformInfo.screenWidth }} x {{ platformInfo.screenHeight }} px</div>
+          <div>🔍 <strong>Device Pixel Ratio:</strong> {{ platformInfo.dpr }}x</div>
+          <div>📶 <strong>Status Koneksi Jaringan:</strong> <span :style="{ color: isOnline ? '#16a34a' : '#dc2626', fontWeight: 'bold' }">{{ isOnline ? 'ONLINE (Aktif)' : 'OFFLINE (Terputus)' }}</span></div>
+          <div>🔋 <strong>Estimasi Baterai:</strong> {{ batteryLevel }}% {{ isCharging ? '⚡ (Charging)' : '' }}</div>
+        </div>
+      </div>
+
+      <h4 style="margin-top: 14px; margin-bottom: 8px;">🧪 Uji Panggilan Plugin Bridge:</h4>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <button class="btn-neo" @click="testHaptics">
+          📳 Uji Haptic Vibrate
+        </button>
+        <button class="btn-neo" style="background: #38bdf8;" @click="testClipboard">
+          📋 Uji Salin Clipboard
+        </button>
+        <button class="btn-neo" style="background: #fb7185; color: #fff;" @click="toggleNetwork">
+          🔌 Simulasikan Status Jaringan
+        </button>
+      </div>
+    </div>
+
+    <!-- STREAM LOG BRIDGE WIRE -->
+    <div class="box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h3 style="margin: 0;">📡 Konsol Lalu Lintas Bridge (JSON-RPC)</h3>
+        <button class="btn-neo" style="padding: 4px 8px; font-size: 11px; background: #e2e8f0;" @click="logs = []">
+          Bersihkan Log
+        </button>
+      </div>
+      <p style="font-size: 12px; color: #64748B; margin-top: 0;">Mencatat setiap transaksi request/response yang melintasi jembatan JavaScript & Android:</p>
+
+      <div class="log-stream">
+        <div v-if="logs.length === 0" style="color: #64748B;">[00:00:00] Menunggu event pemanggilan bridge...</div>
+        <div v-for="(item, idx) in logs" :key="idx" style="margin-bottom: 6px;">
+          <span style="color: #94a3b8;">[{{ item.time }}]</span>
+          <strong :style="{ color: item.type === 'REQ' ? '#facc15' : '#4ade80' }"> [{{ item.type }}] </strong>
+          <span style="color: #f8fafc;">{{ item.msg }}</span>
+        </div>
+      </div>
+
+      <div style="background: #F0FDF4; border: 2px solid #16A34A; padding: 12px; margin-top: 14px; font-size: 12px;">
+        🎯 <strong>Rubrik Penilaian Lab Quest 06 (Skor 100):</strong><br>
+        1. [30 Poin] Deteksi platform akurat antara Web Browser dan Android Native.<br>
+        2. [30 Poin] Pemanggilan plugin (Haptics / Clipboard) dengan penanganan async Promise.<br>
+        3. [20 Poin] Fallback aman pada browser desktop tanpa menyebabkan exception crash.<br>
+        4. [20 Poin] Logging visual paket RPC yang informatif dan responsif.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, onMounted } = Vue;
+    createApp({
+      setup() {
+        const platformInfo = ref({
+          platformName: 'Web (Desktop / Chrome)',
+          isNative: false,
+          screenWidth: window.innerWidth,
+          screenHeight: window.innerHeight,
+          dpr: window.devicePixelRatio || 1
+        });
+
+        const isOnline = ref(navigator.onLine);
+        const batteryLevel = ref(85);
+        const isCharging = ref(false);
+        const logs = ref([]);
+
+        const logBridge = (type, msg) => {
+          const now = new Date().toLocaleTimeString();
+          logs.value.unshift({ time: now, type, msg });
+        };
+
+        const detectPlatform = () => {
+          const ua = navigator.userAgent;
+          const isAndroid = /Android/i.test(ua);
+          if (window.Capacitor && window.Capacitor.isNativePlatform()) {
+            platformInfo.value.platformName = 'Android Native (Capacitor Bridge)';
+            platformInfo.value.isNative = true;
+          } else if (isAndroid) {
+            platformInfo.value.platformName = 'Android Mobile Web (Chrome Browser)';
+            platformInfo.value.isNative = false;
+          } else {
+            platformInfo.value.platformName = 'Desktop Workstation (Chrome Engine)';
+            platformInfo.value.isNative = false;
+          }
+          logBridge('INFO', `Platform terdeteksi: ${platformInfo.value.platformName}`);
+        };
+
+        const testHaptics = () => {
+          logBridge('REQ', 'CapacitorBridge.invoke("Haptics", "impact", { style: "Heavy" })');
+          if (navigator.vibrate) {
+            navigator.vibrate([100, 50, 100]);
+            setTimeout(() => {
+              logBridge('RES', 'Haptics bridge resolved via Native Vibrator Service (OK)');
+            }, 250);
+          } else {
+            setTimeout(() => {
+              logBridge('RES', 'Hardware getar tidak didukung pada browser ini (Web Fallback Handled)');
+            }, 200);
+          }
+        };
+
+        const testClipboard = async () => {
+          const sample = "NIM_041234567_UT_MOBILE";
+          logBridge('REQ', `CapacitorBridge.invoke("Clipboard", "write", { string: "${sample}" })`);
+          try {
+            await navigator.clipboard.writeText(sample);
+            logBridge('RES', `Teks "${sample}" berhasil disalin ke clipboard sistem.`);
+          } catch (e) {
+            logBridge('ERR', 'Akses clipboard ditolak peramban.');
+          }
+        };
+
+        const toggleNetwork = () => {
+          isOnline.value = !isOnline.value;
+          logBridge('EVENT', `Network.addListener() triggered: connectionType=${isOnline.value ? 'wifi' : 'none'}, connected=${isOnline.value}`);
+        };
+
+        onMounted(() => {
+          detectPlatform();
+          if (navigator.getBattery) {
+            navigator.getBattery().then(bat => {
+              batteryLevel.value = Math.round(bat.level * 100);
+              isCharging.value = bat.charging;
+            });
+          }
+        });
+
+        return {
+          platformInfo,
+          isOnline,
+          batteryLevel,
+          isCharging,
+          logs,
+          testHaptics,
+          testClipboard,
+          toggleNetwork
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

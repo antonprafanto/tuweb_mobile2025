@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 11: Solusi RAM 4–8GB: Emulator vs HP Fisik — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .ram-bar-container {
+      border: 2px solid #000;
+      background: #e2e8f0;
+      height: 36px;
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      margin: 16px 0;
+    }
+    .ram-segment {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+      color: #000;
+      transition: width 0.3s ease;
+    }
+    .radio-btn {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .toggle-card {
+      border: 2px solid #000;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 13px;
+      flex: 1;
+      text-align: center;
+      background: #f8fafc;
+    }
+    .toggle-card.selected {
+      background: #ffe600;
+      box-shadow: 3px 3px 0 #000;
+      transform: translate(-1px, -1px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 11 • OPTIMASI HARDWARE MAHASISWA</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Solusi Ramah Laptop: Emulator AVD vs Ponsel Fisik</h1>
+    <p style="margin: 0; font-size: 14px;">Mengapa mahasiswa UT dengan laptop RAM 4–8GB sangat disarankan menggunakan smartphone fisik lewat USB Debugging.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- KALKULATOR BEBAN MEMORI RAM -->
+    <div class="box">
+      <h3>📊 Simulator Konsumsi Beban RAM Laptop</h3>
+
+      <label style="font-size: 12px; font-weight: bold;">Pilih Kapasitas RAM Laptop Anda:</label>
+      <div class="radio-btn">
+        <div class="toggle-card" :class="{ selected: laptopRam === 4 }" @click="laptopRam = 4">4 GB RAM</div>
+        <div class="toggle-card" :class="{ selected: laptopRam === 8 }" @click="laptopRam = 8">8 GB RAM</div>
+        <div class="toggle-card" :class="{ selected: laptopRam === 16 }" @click="laptopRam = 16">16 GB RAM</div>
+      </div>
+
+      <label style="font-size: 12px; font-weight: bold; margin-top: 16px; display: block;">Pilih Metode Pengujian:</label>
+      <div class="radio-btn">
+        <div class="toggle-card" :class="{ selected: method === 'emulator' }" @click="method = 'emulator'">
+          ⚠️ Emulator AVD (Virtual)
+        </div>
+        <div class="toggle-card" :class="{ selected: method === 'device' }" @click="method = 'device'">
+          ✅ Ponsel Fisik (USB)
+        </div>
+      </div>
+
+      <div class="ram-bar-container">
+        <div class="ram-segment" style="background: #94a3b8; width: 25%;">Windows OS (2.0 GB)</div>
+        <div class="ram-segment" style="background: #38bdf8; width: 22%;">IDE & Tools (1.8 GB)</div>
+        <div v-if="method === 'emulator'" class="ram-segment" style="background: #fb7185; width: 45%;">AVD Image (3.6 GB)</div>
+        <div v-else class="ram-segment" style="background: #4ade80; width: 5%;">ADB (0.06 GB)</div>
+      </div>
+
+      <div style="font-size: 13px; font-weight: bold;">
+        Total RAM Terpakai: {{ totalUsedRam.toFixed(1) }} GB dari {{ laptopRam }} GB
+      </div>
+
+      <div v-if="totalUsedRam > laptopRam" style="background: #FEE2E2; border: 2px solid #DC2626; padding: 10px; margin-top: 10px; font-size: 12px; color: #991B1B;">
+        🚨 <strong>OUT OF MEMORY / THRESHOLD TERLAMPAUI!</strong><br>
+        Laptop akan mengalami <em>disk thrashing</em> parah, Android Studio crash, dan peramban freeze. Gunakan opsi <strong>Ponsel Fisik</strong>!
+      </div>
+      <div v-else style="background: #DCFCE7; border: 2px solid #16A34A; padding: 10px; margin-top: 10px; font-size: 12px; color: #166534;">
+        🟢 <strong>LINGKUNGAN PENGEMBANGAN SEHAT & MULUS!</strong><br>
+        Beban memori sangat ringan. Laptop Anda bekerja dingin dan proses kompilasi berlangsung cepat.
+      </div>
+    </div>
+
+    <!-- TABEL KOMPARASI ILMIAH -->
+    <div class="box">
+      <h3>⚖️ Matriks Perbandingan Efisiensi</h3>
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px;">
+        <thead>
+          <tr style="background: #f1f5f9; border-bottom: 2px solid #000;">
+            <th style="padding: 8px; text-align: left;">Parameter</th>
+            <th style="padding: 8px; text-align: left;">Emulator AVD</th>
+            <th style="padding: 8px; text-align: left;">Ponsel Fisik (USB)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #cbd5e1;">
+            <td style="padding: 8px; font-weight: bold;">Beban RAM PC</td>
+            <td style="padding: 8px; color: #dc2626;">3.0 s/d 4.5 GB</td>
+            <td style="padding: 8px; color: #16a34a; font-weight: bold;">~50 s/d 70 MB</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #cbd5e1;">
+            <td style="padding: 8px; font-weight: bold;">Sensasi Sentuhan</td>
+            <td style="padding: 8px;">Kursor Mouse (Kaku)</td>
+            <td style="padding: 8px; color: #16a34a;">Multi-touch Layar Asli</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #cbd5e1;">
+            <td style="padding: 8px; font-weight: bold;">Akurasi Sensor</td>
+            <td style="padding: 8px;">Simulasi Data Palsu</td>
+            <td style="padding: 8px; color: #16a34a;">Sensor Nyata (GPS/Kamera)</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; font-weight: bold;">Rekomendasi UT</td>
+            <td style="padding: 8px; color: #64748b;">Hanya jika RAM $\ge$ 16GB</td>
+            <td style="padding: 8px; color: #16a34a; font-weight: 800;">Wajib untuk RAM 4–8GB ⭐</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+    createApp({
+      setup() {
+        const laptopRam = ref(8);
+        const method = ref('device');
+
+        const totalUsedRam = computed(() => {
+          const os = 2.0;
+          const tools = 1.8;
+          const extra = method.value === 'emulator' ? 3.6 : 0.06;
+          return os + tools + extra;
+        });
+
+        return { laptopRam, method, totalUsedRam };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

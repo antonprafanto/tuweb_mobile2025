@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 04: Konfigurasi capacitor.config.ts — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .input-field {
+      width: 100%;
+      padding: 8px 10px;
+      border: 2px solid #000;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      font-size: 13px;
+    }
+    .code-preview {
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      padding: 14px;
+      border: 2px solid #000;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 04 • KONFIGURASI PROYEK</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Konfigurasi Utama: <code>capacitor.config.ts</code></h1>
+    <p style="margin: 0; font-size: 14px;">Mendefinisikan identitas paket aplikasi Android (appId), nama tampilan di layar beranda (appName), dan folder build aset web.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- FORM BUILDER & VALIDASI -->
+    <div class="box">
+      <h3>⚙️ Generator & Validator Konfigurasi</h3>
+      <p style="font-size: 12px; color: #475569;">Sesuaikan parameter di bawah ini untuk menghasilkan berkas konfigurasi resmi:</p>
+
+      <label style="font-size: 12px; font-weight: bold;">Nama Aplikasi (appName):</label>
+      <input class="input-field" v-model="appName" placeholder="cth: UT Mobile Learning" />
+
+      <label style="font-size: 12px; font-weight: bold;">Package / Application ID (appId):</label>
+      <input class="input-field" v-model="appId" @input="validateAppId" placeholder="cth: id.ac.ut.mobilelearning" />
+      <div v-if="appIdError" style="color: #dc2626; font-size: 11px; margin-top: -8px; margin-bottom: 10px; font-weight: bold;">
+        ⚠️ {{ appIdError }}
+      </div>
+
+      <label style="font-size: 12px; font-weight: bold;">Web Assets Directory (webDir):</label>
+      <input class="input-field" v-model="webDir" placeholder="cth: dist" />
+
+      <div style="margin-top: 10px; border-top: 2px dashed #cbd5e1; padding-top: 10px;">
+        <label style="font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 8px;">
+          <input type="checkbox" v-model="enableLiveReload" />
+          Aktifkan Live Reload Server (Pengujian Cepat)
+        </label>
+        <div v-if="enableLiveReload" style="margin-top: 8px;">
+          <label style="font-size: 11px;">Alamat IP Mesin Lokal & Port:</label>
+          <input class="input-field" v-model="serverUrl" placeholder="http://192.168.1.10:5173" />
+        </div>
+      </div>
+    </div>
+
+    <!-- PREVIEW HASIL TS -->
+    <div class="box">
+      <h3>📄 Berkas Output: <code>capacitor.config.ts</code></h3>
+      <p style="font-size: 12px; color: #64748B;">Berkas ini diletakkan di root folder proyek Ionic Anda:</p>
+
+      <div class="code-preview">import type { CapacitorConfig } from '@capacitor/cli';
+
+const config: CapacitorConfig = {
+  appId: '{{ appId }}',
+  appName: '{{ appName }}',
+  webDir: '{{ webDir }}',
+  bundledWebRuntime: false<span v-if="enableLiveReload">,
+  server: {
+    url: '{{ serverUrl }}',
+    cleartext: true
+  }</span>
+};
+
+export default config;</div>
+
+      <div style="background: #E0F2FE; border: 2px solid #0284C7; padding: 10px; margin-top: 14px; font-size: 12px;">
+        💡 <strong>Aturan Format Reverse Domain:</strong> <code>appId</code> harus menggunakan format domain terbalik unik dunia (contoh: <code>id.ac.ut.namaaplikasi</code>). ID ini akan menjadi kunci pengenal permanen di Google Play Store dan sistem Android OS!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const appName = ref('UT Mobile Portal');
+        const appId = ref('id.ac.ut.mobileportal');
+        const webDir = ref('dist');
+        const enableLiveReload = ref(false);
+        const serverUrl = ref('http://192.168.1.15:5173');
+        const appIdError = ref('');
+
+        const validateAppId = () => {
+          const regex = /^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$/;
+          if (!regex.test(appId.value)) {
+            appIdError.value = "Format wajib reverse-domain huruf kecil dipisah titik (minimal 2 segmen, cth: id.ac.ut.app)";
+          } else {
+            appIdError.value = '';
+          }
+        };
+
+        return { appName, appId, webDir, enableLiveReload, serverUrl, appIdError, validateAppId };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

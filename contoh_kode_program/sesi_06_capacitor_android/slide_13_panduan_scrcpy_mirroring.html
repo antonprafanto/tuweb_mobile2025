@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 13: Mirroring Layar dengan scrcpy — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .scrcpy-window {
+      background: #09090b;
+      border: 3px solid #000;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 5px 5px 0 #000;
+      color: #fff;
+      max-width: 260px;
+      margin: 0 auto;
+    }
+    .phone-screen {
+      background: #18181b;
+      border: 2px solid #27272a;
+      border-radius: 6px;
+      height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 10px;
+      text-align: center;
+    }
+    .code-term {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      padding: 12px;
+      border: 2px solid #000;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 13 • PRESENTASI & MIRRORING EFISIEN</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Mirroring Layar Cepat & Hemat RAM dengan <code>scrcpy</code></h1>
+    <p style="margin: 0; font-size: 14px;">Menampilkan dan mengontrol layar HP Android langsung di layar laptop tanpa lag dan hanya memakan RAM < 70MB.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANDUAN PENGGUNAAN & COMMAND BUILDER -->
+    <div class="box">
+      <h3>⚡ Fitur Unggulan scrcpy untuk Mahasiswa UT</h3>
+      <ul style="font-size: 13px; line-height: 1.6; padding-left: 20px; color: #334155;">
+        <li><strong>Ringan & Bebas Iklan:</strong> Dibuat dengan C/Java murni oleh Genymobile, tidak membutuhkan root pada HP.</li>
+        <li><strong>Latensi Sangat Rendah:</strong> Hanya 35–70 ms pada resolusi native 60 FPS.</li>
+        <li><strong>Interaksi Dua Arah:</strong> Mengetik pesan lewat keyboard PC dan mengklik antarmuka dengan mouse laptop!</li>
+        <li><strong>Perekaman Video Demo Tugas:</strong> Dapat merekam layar langsung menjadi berkas MP4 untuk bukti tugas tutorial.</li>
+      </ul>
+
+      <h4 style="margin-top: 16px;">🛠️ Generator Perintah Praktis scrcpy:</h4>
+      <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; margin-bottom: 12px;">
+        <label><input type="checkbox" v-model="optStayAwake" /> <code>--stay-awake</code> (Cegah layar HP sleep saat coding)</label>
+        <label><input type="checkbox" v-model="optLimitRes" /> <code>-m 1024</code> (Batasi resolusi ke 1024px agar hemat resource laptop)</label>
+        <label><input type="checkbox" v-model="optRecord" /> <code>--record demo_tugas_ut.mp4</code> (Rekam demo aplikasi ke file video)</label>
+      </div>
+
+      <div class="code-term">{{ generatedCommand }}</div>
+    </div>
+
+    <!-- SIMULATOR JENDELA SCRCPY -->
+    <div class="box" style="text-align: center;">
+      <h3 style="text-align: left;">🖥️ Simulasi Jendela scrcpy di Desktop</h3>
+
+      <div class="scrcpy-window">
+        <div style="display: flex; justify-content: space-between; font-size: 11px; padding-bottom: 6px; border-bottom: 1px solid #27272a; margin-bottom: 8px;">
+          <span>📱 Samsung A54 - scrcpy</span>
+          <span>_ □ ✕</span>
+        </div>
+
+        <div class="phone-screen">
+          <div style="font-size: 11px; display: flex; justify-content: space-between; opacity: 0.7;">
+            <span>12:00</span>
+            <span>LTE 🔋 98%</span>
+          </div>
+
+          <div style="border: 2px dashed #38bdf8; padding: 14px; border-radius: 8px; background: rgba(56, 189, 248, 0.1);">
+            <div style="font-size: 24px; margin-bottom: 6px;">🎓</div>
+            <div style="font-weight: bold; font-size: 13px;">Portal UT Mobile</div>
+            <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">KRS Online Aktif</div>
+            <button style="background: #ffe600; color: #000; border: none; padding: 6px 12px; font-weight: bold; margin-top: 10px; border-radius: 4px; font-size: 11px;">
+              🖱️ Klik via Mouse Laptop
+            </button>
+          </div>
+
+          <div style="display: flex; justify-content: space-around; font-size: 14px; opacity: 0.8; padding-top: 8px;">
+            <span>◀</span>
+            <span>●</span>
+            <span>■</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+    createApp({
+      setup() {
+        const optStayAwake = ref(true);
+        const optLimitRes = ref(true);
+        const optRecord = ref(false);
+
+        const generatedCommand = computed(() => {
+          let cmd = 'scrcpy';
+          if (optStayAwake.value) cmd += ' --stay-awake';
+          if (optLimitRes.value) cmd += ' -m 1024';
+          if (optRecord.value) cmd += ' --record demo_tugas_ut.mp4';
+          return cmd;
+        });
+
+        return { optStayAwake, optLimitRes, optRecord, generatedCommand };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

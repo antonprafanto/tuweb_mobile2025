@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 14: Chrome Remote Debugging — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .devtools-mock {
+      border: 2px solid #000;
+      background: #202124;
+      color: #e8eaed;
+      border-radius: 6px;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+    .devtools-bar {
+      background: #292a2d;
+      padding: 6px 12px;
+      border-bottom: 1px solid #3c4043;
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+    }
+    .devtools-tab {
+      cursor: pointer;
+      color: #9aa0a6;
+    }
+    .devtools-tab.active {
+      color: #8ab4f8;
+      font-weight: bold;
+      border-bottom: 2px solid #8ab4f8;
+    }
+    .devtools-body {
+      padding: 12px;
+      font-family: 'Consolas', monospace;
+      font-size: 11px;
+      min-height: 180px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 14 • TEKNIK DIAGNOSTIK WEBVIEW</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Inspeksi WebView dengan <code>chrome://inspect</code></h1>
+    <p style="margin: 0; font-size: 14px;">Menggunakan kekuatan penuh Google Chrome DevTools desktop untuk men-debug aplikasi yang berjalan di dalam smartphone fisik.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANDUAN LANGKAH AKTIVASI -->
+    <div class="box">
+      <h3>🔍 Cara Mengakses DevTools Ponsel</h3>
+      <ol style="font-size: 13px; line-height: 1.6; padding-left: 20px; color: #334155; margin-bottom: 16px;">
+        <li>Pastikan HP terhubung ke laptop via kabel USB dengan status <code>adb devices</code> aktif.</li>
+        <li>Buka aplikasi Ionic yang sudah di-deploy di HP.</li>
+        <li>Buka peramban Google Chrome di laptop, lalu ketik di bilah URL: <br>
+          <code style="background: #e2e8f0; padding: 2px 6px; border: 1px solid #000;">chrome://inspect/#devices</code>
+        </li>
+        <li>Temukan nama HP Anda (misal: <em>Samsung Galaxy</em>) dan nama paket aplikasi <em>(id.ac.ut.mobileportal)</em>.</li>
+        <li>Klik tautan biru <strong>inspect</strong> untuk membuka jendela DevTools.</li>
+      </ol>
+
+      <div style="background: #FEF3C7; border: 2px solid #D97706; padding: 10px; font-size: 12px;">
+        ⚡ <strong>Keuntungan Utama:</strong> Mahasiswa dapat mengedit gaya CSS secara langsung, memantau error JavaScript di console, dan merekam *Network Traffic* API kampus tanpa perlu meng-compile ulang APK!
+      </div>
+    </div>
+
+    <!-- SIMULATOR CHROME DEVTOOLS -->
+    <div class="box">
+      <h3>🖥️ Simulasi DevTools Remote</h3>
+
+      <div class="devtools-mock">
+        <div class="devtools-bar">
+          <span class="devtools-tab" :class="{ active: currentTab === 'elements' }" @click="currentTab = 'elements'">Elements</span>
+          <span class="devtools-tab" :class="{ active: currentTab === 'console' }" @click="currentTab = 'console'">Console</span>
+          <span class="devtools-tab" :class="{ active: currentTab === 'network' }" @click="currentTab = 'network'">Network</span>
+        </div>
+
+        <div class="devtools-body">
+          <div v-if="currentTab === 'elements'">
+            <span style="color: #9aa0a6;">&lt;html lang="id"&gt;</span><br>
+            &nbsp;&nbsp;<span style="color: #9aa0a6;">&lt;body class="dark-theme"&gt;</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8ab4f8;">&lt;ion-app&gt;</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8ab4f8;">&lt;ion-content class="ion-padding"&gt;</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #f28b82;">&lt;ion-card&gt;</span> Mahasiswa UT <span style="color: #f28b82;">&lt;/ion-card&gt;</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8ab4f8;">&lt;/ion-content&gt;</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8ab4f8;">&lt;/ion-app&gt;</span>
+          </div>
+
+          <div v-if="currentTab === 'console'">
+            <div style="color: #81c995;">[INFO] Capacitor Web View initialized (Android 14)</div>
+            <div style="color: #8ab4f8;">[DEBUG] Vue 3 Reactivity System Mounted</div>
+            <div style="color: #fdd663;">[WARN] Geolocation permission not yet requested</div>
+            <div style="margin-top: 8px; color: #fff;">&gt; localStorage.getItem('token_mahasiswa_ut')</div>
+            <div style="color: #ce93d8;">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</div>
+          </div>
+
+          <div v-if="currentTab === 'network'">
+            <div style="color: #81c995;">200 OK | GET /api/v1/krs | 1.4 kB | 48 ms</div>
+            <div style="color: #81c995;">200 OK | GET /api/v1/profil | 0.8 kB | 32 ms</div>
+            <div style="color: #81c995;">304 NOT MODIFIED | GET /avatar.png | 12 ms</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const currentTab = ref('console');
+        return { currentTab };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 15: Keamanan WebView & XSS — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--rose);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .input-field {
+      width: 100%;
+      padding: 8px 10px;
+      border: 2px solid #000;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      font-weight: bold;
+      font-size: 11px;
+      border: 1px solid #000;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 15 • KEAMANAN APLIKASI HYBRID</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Keamanan WebView & Bahaya Cross-Site Scripting (XSS)</h1>
+    <p style="margin: 0; font-size: 14px;">Mengapa celah XSS pada aplikasi mobile hybrid jauh lebih berbahaya dibanding web biasa, dan bagaimana mencegahnya.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- EKSPLOITASI VS MITIGASI -->
+    <div class="box">
+      <h3>⚠️ Mengapa XSS di Mobile Sangat Fatal?</h3>
+      <p style="font-size: 13px; line-height: 1.5; color: #334155;">
+        Di website biasa, XSS hanya mencuri cookie peramban. Namun di aplikasi hybrid Capacitor, kode JavaScript jahat yang berhasil disuntikkan dapat <strong>memanggil Runtime Bridge native</strong> untuk membaca file di penyimpanan memori HP, mengakses kontak, atau melacak koordinat GPS korban!
+      </p>
+
+      <div style="background: #FFF1F2; border: 2px solid #E11D48; padding: 12px; margin-bottom: 12px;">
+        <h4 style="margin: 0 0 6px 0; font-size: 13px; color: #BE123C;">🛡️ 3 Perisai Utama Pengembang UT:</h4>
+        <ol style="margin: 0; padding-left: 18px; font-size: 12px; line-height: 1.6; color: #881337;">
+          <li><strong>Hindari <code>v-html</code>:</strong> Selalu gunakan interpolasi kurung kurawal ganda <code>{{ "{{" }} data {{ "}}" }}</code> yang otomatis men-sanitize karakter HTML berbahaya.</li>
+          <li><strong>Content Security Policy (CSP):</strong> Batasi domain skrip eksternal di tag <code>&lt;meta http-equiv="Content-Security-Policy"&gt;</code>.</li>
+          <li><strong>Skema https://localhost:</strong> Capacitor menyajikan bundel lokal menggunakan protokol HTTPS internal yang aman.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- SIMULASI SANITISASI DATA INPUT -->
+    <div class="box">
+      <h3>🧪 Lab Interaktif: Uji Sanitasi Input Mahasiswa</h3>
+      <p style="font-size: 12px; color: #64748B;">Ketik muatan berbahaya (XSS payload) di bawah ini:</p>
+
+      <input class="input-field" v-model="userInput" placeholder="Ketik cth: <img src=x onerror=alert('Terinjeksi!')>" />
+
+      <div style="margin-top: 10px; border: 2px solid #000; padding: 12px; background: #F8FAFC;">
+        <div class="status-badge" style="background: #4ADE80;">CARA AMAN (Interpolasi Vue Text)</div>
+        <div style="font-size: 12px; color: #1E293B; word-break: break-all;">
+          <strong>Output:</strong> {{ userInput }}
+        </div>
+        <div style="font-size: 11px; color: #166534; margin-top: 4px;">
+          ✓ Karakter khusus di-escape menjadi entitas teks aman. Kode jahat tidak pernah dieksekusi!
+        </div>
+      </div>
+
+      <div style="margin-top: 12px; border: 2px solid #E11D48; padding: 12px; background: #FFF1F2;">
+        <div class="status-badge" style="background: #FB7185; color: #fff;">CARA RAWAN (v-html Tanpa Filter)</div>
+        <div style="font-size: 12px; color: #9F1239;">
+          ⚠️ Tag HTML akan di-render mentah oleh browser dan memicu payload JavaScript!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const userInput = ref("<script>alert('Mencoba akses Capacitor Bridge!')<\/script>");
+        return { userInput };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 06: Anatomi Folder Android — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--cyan);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .tree-node {
+      font-family: 'Consolas', monospace;
+      font-size: 13px;
+      padding: 6px 8px;
+      margin: 2px 0;
+      cursor: pointer;
+      border-radius: 4px;
+      border: 1px solid transparent;
+    }
+    .tree-node:hover {
+      background: #e0f2fe;
+      border-color: #38bdf8;
+    }
+    .tree-node.active {
+      background: #fef08a;
+      border: 2px solid #000;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 06 • STRUKTUR PROYEK NATIVE</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Anatomi Struktur Folder <code>android/</code></h1>
+    <p style="margin: 0; font-size: 14px;">Membedah susunan direktori native hasil scaffolding Capacitor: Mengetahui letak file konfigurasi, aset web, dan kode Java.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- POHON DIREKTORI -->
+    <div class="box">
+      <h3>📁 Pohon Direktori Native Proyek</h3>
+      <p style="font-size: 12px; color: #64748B;">Klik pada setiap berkas atau folder untuk melihat peranan dan fungsinya:</p>
+
+      <div style="background: #f8fafc; border: 2px solid #000; padding: 10px;">
+        <div class="tree-node" :class="{ active: selectedId === 'root' }" @click="select('root')">📁 android/</div>
+        <div class="tree-node" style="padding-left: 20px;" :class="{ active: selectedId === 'build_root' }" @click="select('build_root')">📄 build.gradle (Project-level)</div>
+        <div class="tree-node" style="padding-left: 20px;" :class="{ active: selectedId === 'variables' }" @click="select('variables')">📄 variables.gradle (SDK Versions)</div>
+        <div class="tree-node" style="padding-left: 20px;" :class="{ active: selectedId === 'app' }" @click="select('app')">📁 app/</div>
+        <div class="tree-node" style="padding-left: 36px;" :class="{ active: selectedId === 'build_app' }" @click="select('build_app')">📄 build.gradle (App-level)</div>
+        <div class="tree-node" style="padding-left: 36px;" :class="{ active: selectedId === 'manifest' }" @click="select('manifest')">📄 src/main/AndroidManifest.xml</div>
+        <div class="tree-node" style="padding-left: 36px;" :class="{ active: selectedId === 'main_act' }" @click="select('main_act')">📄 src/main/java/.../MainActivity.java</div>
+        <div class="tree-node" style="padding-left: 36px;" :class="{ active: selectedId === 'assets' }" @click="select('assets')">📁 src/main/assets/public/ (Web Dist)</div>
+        <div class="tree-node" style="padding-left: 36px;" :class="{ active: selectedId === 'res' }" @click="select('res')">📁 src/main/res/ (Icons & Strings)</div>
+      </div>
+    </div>
+
+    <!-- DETAIL DAN PENJELASAN -->
+    <div class="box">
+      <h3>🔍 Detail Elemen: <span style="color: #0284c7;">{{ currentInfo.title }}</span></h3>
+      <div style="background: #f1f5f9; border: 2px solid #000; padding: 14px; min-height: 140px; margin-bottom: 14px;">
+        <div style="font-size: 13px; line-height: 1.6; color: #1e293b;">
+          {{ currentInfo.desc }}
+        </div>
+        <div v-if="currentInfo.editAction" style="margin-top: 10px; font-size: 12px; font-weight: bold;" :style="{ color: currentInfo.safeToEdit ? '#16a34a' : '#ea580c' }">
+          🔧 Aturan Pengeditan: {{ currentInfo.editAction }}
+        </div>
+      </div>
+
+      <div style="background: #FEF9C3; border: 2px solid #CA8A04; padding: 10px; font-size: 12px;">
+        📌 <strong>Golden Rule Mahasiswa:</strong> Berbeda dengan Cordova di mana folder ini dilarang disentuh, di Capacitor folder <code>android/</code> adalah aset permanen yang wajib Anda <em>commit</em> ke Git!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const selectedId = ref('manifest');
+        const infoMap = {
+          root: {
+            title: "android/",
+            desc: "Direktori root dari proyek native Android Studio. Berisi seluruh file Gradle, resource Android, kode Java/Kotlin, dan library native yang di-scaffold oleh Capacitor.",
+            safeToEdit: true,
+            editAction: "Commit seluruh folder ini ke Git bersama kode Vue Anda."
+          },
+          build_root: {
+            title: "build.gradle (Project-level)",
+            desc: "Konfigurasi build umum untuk seluruh sub-proyek. Mendefinisikan repository dependensi (google(), mavenCentral()) dan versi Gradle Plugin.",
+            safeToEdit: false,
+            editAction: "Jarang perlu diedit kecuali menambahkan plugin pihak ketiga khusus."
+          },
+          variables: {
+            title: "variables.gradle",
+            desc: "File kunci Capacitor untuk menyelaraskan versi Android SDK! Berisi konstanta minSdk (versi minimum OS Android), targetSdk, compileSdk, dan androidxVersion.",
+            safeToEdit: true,
+            editAction: "Diedit jika Google Play Store mewajibkan peningkatan targetSdk."
+          },
+          app: {
+            title: "app/",
+            desc: "Modul aplikasi utama yang akan dikompilasi menjadi berkas installer APK atau Android App Bundle (AAB).",
+            safeToEdit: true,
+            editAction: "Modul kerja utama pengembang di Android Studio."
+          },
+          build_app: {
+            title: "app/build.gradle (App-level)",
+            desc: "Mendefinisikan applicationId, versionCode, versionName, target SDK, serta dependencies eksternal aplikasi Anda.",
+            safeToEdit: true,
+            editAction: "Sering diedit untuk menaikkan versi rilis (versionCode/versionName)."
+          },
+          manifest: {
+            title: "AndroidManifest.xml",
+            desc: "Berkas cetak biru (blueprint) aplikasi Android! Menyimpan deklarasi izin perangkat keras (kamera, internet, storage), Activity utama, dan konfigurasi orientasi layar.",
+            safeToEdit: true,
+            editAction: "Wajib diedit saat menambahkan permission baru untuk plugin."
+          },
+          main_act: {
+            title: "MainActivity.java",
+            desc: "Titik masuk utama aplikasi saat dibuka pengguna. Berisi class MainActivity yang mewarisi BridgeActivity dari Capacitor, otomatis memuat Chromium WebView.",
+            safeToEdit: false,
+            editAction: "Biarkan default kecuali Anda menulis native Java plugin kustom."
+          },
+          assets: {
+            title: "assets/public/",
+            desc: "Folder target tempat berkas hasil build web (dist/) disalin setiap kali Anda menjalankan perintah 'npx cap sync'.",
+            safeToEdit: false,
+            editAction: "Jangan diedit manual! Otomatis di-update via npx cap sync."
+          },
+          res: {
+            title: "res/ (Resources)",
+            desc: "Menyimpan resource native seperti icon launcher berbagai resolusi layar (mipmap-hdpi s/d xxxhdpi), splash screen (drawable), dan strings.xml (nama aplikasi di sistem OS).",
+            safeToEdit: true,
+            editAction: "Diedit untuk mengganti logo/ikon aplikasi dan splash screen."
+          }
+        };
+
+        const currentInfo = ref(infoMap['manifest']);
+
+        const select = (id) => {
+          selectedId.value = id;
+          currentInfo.value = infoMap[id];
+        };
+
+        return { selectedId, currentInfo, select };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

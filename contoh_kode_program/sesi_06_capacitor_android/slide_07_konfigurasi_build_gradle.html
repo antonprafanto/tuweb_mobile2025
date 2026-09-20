@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 07: Konfigurasi build.gradle & SDK — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .input-row { margin-bottom: 12px; }
+    .input-row label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; }
+    .input-row select, .input-row input {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid #000;
+      font-size: 13px;
+    }
+    .code-box {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      padding: 14px;
+      border: 2px solid #000;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 07 • BUILD SYSTEM GRADLE</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Konfigurasi Android SDK pada <code>build.gradle</code></h1>
+    <p style="margin: 0; font-size: 14px;">Memahami peranan <code>minSdk</code>, <code>targetSdk</code>, <code>compileSdk</code>, <code>versionCode</code>, dan <code>versionName</code>.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PENGATURAN PARAMETER -->
+    <div class="box">
+      <h3>⚙️ Parameter Target Android SDK</h3>
+
+      <div class="input-row">
+        <label>Minimum SDK (minSdk):</label>
+        <select v-model="minSdk">
+          <option :value="22">API 22 (Android 5.1 Lollipop - Cakupan ~99% Perangkat)</option>
+          <option :value="24">API 24 (Android 7.0 Nougat - Standar Aman Capacitor 5/6)</option>
+          <option :value="26">API 26 (Android 8.0 Oreo - Fitur Notifikasi Modern)</option>
+        </select>
+        <div style="font-size: 11px; color: #64748B; margin-top: 2px;">OS minimum yang diizinkan menginstal aplikasi.</div>
+      </div>
+
+      <div class="input-row">
+        <label>Target SDK (targetSdk):</label>
+        <select v-model="targetSdk">
+          <option :value="33">API 33 (Android 13 Tiramisu)</option>
+          <option :value="34">API 34 (Android 14 Upside Down Cake - Wajib Play Store 2024/2025)</option>
+          <option :value="35">API 35 (Android 15 Vanilla Ice Cream)</option>
+        </select>
+        <div style="font-size: 11px; color: #64748B; margin-top: 2px;">Versi API Android yang diuji dan dioptimalkan perilakunya.</div>
+      </div>
+
+      <div class="input-row">
+        <label>Version Code (Integer Internal):</label>
+        <input type="number" v-model.number="versionCode" />
+        <div style="font-size: 11px; color: #64748B; margin-top: 2px;">Wajib bertambah (+1) setiap update baru ke Play Store.</div>
+      </div>
+
+      <div class="input-row">
+        <label>Version Name (String Tampilan):</label>
+        <input type="text" v-model="versionName" placeholder="1.0.0" />
+        <div style="font-size: 11px; color: #64748B; margin-top: 2px;">Format Semantic Versioning (Mayor.Minor.Patch) untuk user.</div>
+      </div>
+    </div>
+
+    <!-- PREVIEW GRADLE CODE -->
+    <div class="box">
+      <h3>📄 Berkas Konfigurasi Gradle</h3>
+
+      <div style="font-size: 12px; font-weight: bold; margin-bottom: 4px;">1. android/variables.gradle:</div>
+      <div class="code-box" style="margin-bottom: 14px;">ext {
+    minSdkVersion = {{ minSdk }}
+    compileSdkVersion = {{ targetSdk }}
+    targetSdkVersion = {{ targetSdk }}
+    androidxActivityVersion = '1.8.0'
+    androidxAppCompatVersion = '1.6.1'
+}</div>
+
+      <div style="font-size: 12px; font-weight: bold; margin-bottom: 4px;">2. android/app/build.gradle:</div>
+      <div class="code-box">defaultConfig {
+    applicationId "id.ac.ut.mobileportal"
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
+    versionCode {{ versionCode }}
+    versionName "{{ versionName }}"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+}</div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const minSdk = ref(24);
+        const targetSdk = ref(34);
+        const versionCode = ref(1);
+        const versionName = ref('1.0.0');
+
+        return { minSdk, targetSdk, versionCode, versionName };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 18: Preview Sesi 07 & Tugas Tutorial 3 — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .preview-card {
+      border: 2px solid #000;
+      padding: 12px;
+      margin-bottom: 12px;
+      background: #f8fafc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 18 • JEMBATAN SESI 07 & TUGAS TUTORIAL 3</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Menuju Sesi 07: Integrasi REST API, Offline Storage & Sensor</h1>
+    <p style="margin: 0; font-size: 14px;">Bersiap menyongsong puncak kapabilitas aplikasi mobile: Mengonsumsi data cloud server, penyimpanan lokal offline, dan TUGAS TUTORIAL 3.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- 3 PILAR BESAR SESI 07 -->
+    <div class="box">
+      <h3>🚀 3 Topik Utama Sesi 07 Mendatang</h3>
+
+      <div class="preview-card" style="border-left: 6px solid #0284c7;">
+        <h4 style="margin: 0 0 4px 0; color: #0284c7;">1. Asynchronous REST API Integration</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155; line-height: 1.5;">
+          Menghubungkan aplikasi Ionic dengan backend server Universitas Terbuka menggunakan Axios / Native HTTP Capacitor, penanganan interceptor token JWT, dan skeleton loading.
+        </p>
+      </div>
+
+      <div class="preview-card" style="border-left: 6px solid #16a34a;">
+        <h4 style="margin: 0 0 4px 0; color: #16a34a;">2. Offline-First Storage Persistence</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155; line-height: 1.5;">
+          Menyimpan data katalog modul mata kuliah di memori lokal smartphone via Capacitor Preferences & SQLite, sehingga aplikasi tetap berfungsi lancar saat mahasiswa kehilangan sinyal internet!
+        </p>
+      </div>
+
+      <div class="preview-card" style="border-left: 6px solid #9333ea;">
+        <h4 style="margin: 0 0 4px 0; color: #9333ea;">3. Integrasi Sensor Kamera & Geolocation GPS</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155; line-height: 1.5;">
+          Memotret bukti registrasi menggunakan <code>@capacitor/camera</code> dan memvalidasi koordinat lokasi mahasiswa saat presensi ujian daerah.
+        </p>
+      </div>
+    </div>
+
+    <!-- PENGUMUMAN TUGAS TUTORIAL 3 -->
+    <div class="box">
+      <div style="background: #FEE2E2; border: 3px solid #DC2626; padding: 16px; box-shadow: 4px 4px 0 #DC2626;">
+        <span style="background: #DC2626; color: #fff; font-weight: 900; font-size: 11px; padding: 2px 8px;">
+          PENGUMUMAN PENTING
+        </span>
+        <h3 style="color: #991B1B; margin: 10px 0 6px 0;">🎯 TUGAS TUTORIAL 3 (TUTON 3) DIBUKA DI SESI 07!</h3>
+        <p style="font-size: 12px; line-height: 1.6; color: #7F1D1D; margin: 0 0 12px 0;">
+          Tugas Tutorial 3 adalah tugas praktikum penutup berbobot nilai terbesar sebelum Ujian Akhir Semester (UAS). Mahasiswa akan merakit aplikasi utuh yang mengombinasikan:
+        </p>
+        <ul style="font-size: 12px; line-height: 1.6; color: #991B1B; margin: 0; padding-left: 18px;">
+          <li>Konsumsi live REST API data perkuliahan UT.</li>
+          <li>Penyimpanan cache offline saat mode pesawat / tanpa sinyal.</li>
+          <li>Fitur scan kamera atau penangkapan foto berkas ujian.</li>
+          <li>Kompilasi APK debug siap pasang di smartphone fisik.</li>
+        </ul>
+      </div>
+
+      <div style="background: #FEF9C3; border: 2px solid #CA8A04; padding: 12px; margin-top: 14px; font-size: 12px;">
+        💡 <strong>Pesan Pak Anton Prafanto:</strong><br>
+        <em>"Kuasai konsep jembatan Capacitor di Sesi 06 ini dengan seksama. Fondasi yang kokoh pada alur Gradle dan perizinan Android akan membuat pengerjaan Tugas 3 Anda di Sesi 07 berjalan mulus tanpa kendala teknis!"</em>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({}).mount('#app');
+  </script>
+</body>
+</html>

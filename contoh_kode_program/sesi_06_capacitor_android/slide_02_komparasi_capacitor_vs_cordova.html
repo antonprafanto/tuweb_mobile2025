@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 02: Komparasi Capacitor vs Cordova — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--cyan);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .comp-box {
+      border: 2px solid #000;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 02 • MODUL 6 BMP UT (TOPIK DISKUSI 6)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Evolusi Runtime: Apache Cordova vs Capacitor</h1>
+    <p style="margin: 0; font-size: 14px;">Mengapa ekosistem mobile modern meninggalkan pendekatan 'Kotak Hitam' Cordova dan beralih ke filosofi 'Source-First' Capacitor.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- CORDOVA KLASIK -->
+    <div class="box">
+      <div class="comp-box" style="background: #FEE2E2;">
+        <span style="font-weight: 900; font-size: 12px; background: #DC2626; color: #fff; padding: 2px 6px;">
+          PENDEKATAN LAMA (LEGACY)
+        </span>
+        <h3 style="margin: 8px 0 4px 0;">Apache Cordova (Black Box)</h3>
+        <p style="font-size: 12px; color: #7F1D1D; margin: 0 0 10px 0;">
+          Proyek native dianggap sebagai artefak sekali pakai yang di-generate ulang setiap kali build.
+        </p>
+
+        <ul style="font-size: 12px; line-height: 1.6; margin: 0; padding-left: 18px; color: #991B1B;">
+          <li><strong>Folder <code>platforms/</code>:</strong> Di-ignore dari Git. Mahasiswa dilarang mengedit file Java secara manual karena akan tertimpa saat build ulang!</li>
+          <li><strong>Konfigurasi XML Kuno:</strong> Bergantung pada berkas raksasa <code>config.xml</code> yang rentan bentrok (*conflict*).</li>
+          <li><strong>Instalasi Global:</strong> Wajib menginstal <code>npm install -g cordova</code> yang kerap menimbulkan konflik hak akses admin/sudo.</li>
+          <li><strong>Debugging Terbatas:</strong> Mahasiswa terisolasi dari lingkungan asli Android Studio.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CAPACITOR MODERN -->
+    <div class="box">
+      <div class="comp-box" style="background: #DCFCE7;">
+        <span style="font-weight: 900; font-size: 12px; background: #16A34A; color: #fff; padding: 2px 6px;">
+          STANDAR INDUSTRI SEKARANG
+        </span>
+        <h3 style="margin: 8px 0 4px 0;">Capacitor (Source-First)</h3>
+        <p style="font-size: 12px; color: #14532D; margin: 0 0 10px 0;">
+          Folder <code>android/</code> adalah artefak kode sumber asli yang di-commit ke repositori Git.
+        </p>
+
+        <ul style="font-size: 12px; line-height: 1.6; margin: 0; padding-left: 18px; color: #166534;">
+          <li><strong>Folder <code>android/</code>:</strong> Milik pengembang seutuhnya! Anda bebas membuka di Android Studio, menambah SDK bank, atau mengedit Java/Kotlin sesuka hati.</li>
+          <li><strong>Konfigurasi TypeScript Modern:</strong> Dikelola bersih via <code>capacitor.config.ts</code> dengan type safety.</li>
+          <li><strong>Tanpa Instalasi Global:</strong> Dijalankan langsung via <code>npx cap</code> menggunakan paket lokal proyek.</li>
+          <li><strong>Plugin Berbasis NPM & ES6:</strong> Plugin resmi diimpor layaknya pustaka JavaScript modern biasa.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div style="background: #FEF08A; border: 3px solid #000; padding: 14px; margin-top: 20px; box-shadow: 4px 4px 0 #000;">
+    🎓 <strong>Bahan Diskusi Forum 6 LMS Tuton:</strong><br>
+    Mahasiswa UT dapat menjelaskan komparasi di atas untuk menjawab pemicu Diskusi 6: <em>"Mengapa Capacitor memperlakukan folder android/ sebagai kode sumber asli, dan mengapa ini menguntungkan saat debugging di Android Studio?"</em>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({}).mount('#app');
+  </script>
+</body>
+</html>
