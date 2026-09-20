@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 10: Validasi Regex NIM 9 Digit — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .feedback-box {
+      padding: 12px;
+      border: 2px solid #000;
+      margin-top: 14px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 10 • MODUL 5 BMP UT (KRITERIA TUGAS 2)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Validasi Pola Regex: Penegakan Format 9 Digit NIM UT</h1>
+    <p style="margin: 0; font-size: 14px;">Membedah sintaks ekspresi reguler /^[0-9]{9}$/ untuk menjamin integritas Nomor Induk Mahasiswa Universitas Terbuka.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- TESTER INTERAKTIF REGEX NIM -->
+    <div class="box">
+      <h3>📱 Pengujian Langsung Format NIM</h3>
+      
+      <ion-input
+        label="Masukkan NIM Mahasiswa"
+        label-placement="floating"
+        fill="outline"
+        placeholder="Contoh: 043123456"
+        inputmode="numeric"
+        maxlength="9"
+        :clear-input="true"
+        v-model="nimInput">
+      </ion-input>
+
+      <div style="margin-top: 10px; display: flex; gap: 6px;">
+        <button @click="nimInput = '043123456'" style="padding: 4px 8px; border: 1px solid #000; background: #fff; cursor: pointer; font-size: 11px;">
+          Isi Contoh Sah (9 Digit)
+        </button>
+        <button @click="nimInput = '043123'" style="padding: 4px 8px; border: 1px solid #000; background: #fff; cursor: pointer; font-size: 11px;">
+          Isi Kurang (6 Digit)
+        </button>
+        <button @click="nimInput = '04312345A'" style="padding: 4px 8px; border: 1px solid #000; background: #fff; cursor: pointer; font-size: 11px;">
+          Isi Huruf (Ada 'A')
+        </button>
+      </div>
+
+      <!-- KOTAK FEEDBACK STATUS -->
+      <div class="feedback-box" :style="statusValidasi.style">
+        {{ statusValidasi.pesan }}
+      </div>
+
+      <div style="margin-top: 14px; font-size: 12px; color: #475569;">
+        Panjang karakter saat ini: <strong>{{ nimInput.length }} / 9 digit</strong>
+      </div>
+    </div>
+
+    <!-- ANATOMI FORMULA REGEX -->
+    <div class="box">
+      <h3>🔍 Bedah Anatomi /^[0-9]{9}$/</h3>
+      
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 14px;">
+        <tr style="background: #E2E8F0;">
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Simbol Regex</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Makna & Peran</th>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace; font-weight: bold;">^</td>
+          <td style="padding: 6px; border: 1px solid #000;">Anchor awal string (pemeriksaan dimulai dari huruf paling depan).</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace; font-weight: bold;">[0-9]</td>
+          <td style="padding: 6px; border: 1px solid #000;">Karakter yang diizinkan HANYA angka 0 sampai 9 (menolak huruf & spasi).</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace; font-weight: bold;">{9}</td>
+          <td style="padding: 6px; border: 1px solid #000;">Pengali kuantitas: Tepat wajib berjumlah PERSIS 9 karakter angka.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace; font-weight: bold;">$</td>
+          <td style="padding: 6px; border: 1px solid #000;">Anchor akhir string (memastikan tidak ada karakter tambahan di ujung).</td>
+        </tr>
+      </table>
+
+      <h3>💻 Fungsi Validator TypeScript</h3>
+      <pre><code>// Definisi Pola Regex Resmi NIM UT
+const REGEX_NIM_UT = /^[0-9]{9}$/;
+
+export const validasiNIM = (nim: string): boolean => {
+  return REGEX_NIM_UT.test(nim.trim());
+};</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+    createApp({
+      setup() {
+        const nimInput = ref('043123456');
+        const regexNIM = /^[0-9]{9}$/;
+
+        const statusValidasi = computed(() => {
+          const val = nimInput.value.trim();
+          if (!val) {
+            return { pesan: '⚪ Kolom NIM masih kosong.', style: 'background: #F1F5F9; color: #475569;' };
+          }
+          if (regexNIM.test(val)) {
+            return { pesan: '✅ NIM VALID: Format 9 digit angka sah Universitas Terbuka.', style: 'background: #DCFCE7; color: #15803D;' };
+          }
+          if (/[^0-9]/.test(val)) {
+            return { pesan: '❌ NIM INVALID: Terdeteksi karakter selain angka (huruf/simbol)!', style: 'background: #FEE2E2; color: #B91C1C;' };
+          }
+          return { pesan: `⚠️ NIM INVALID: Baru ${val.length} digit (Wajib tepat 9 digit)!`, style: 'background: #FEF08A; color: #A16207;' };
+        });
+
+        return { nimInput, statusValidasi };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 13: Dialog Konfirmasi ion-alert — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 13 • MODUL 5 BMP UT (KRITERIA TUGAS 2)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Konfirmasi Krusial: Kotak Dialog Modal &lt;ion-alert&gt;</h1>
+    <p style="margin: 0; font-size: 14px;">Mencegah pengiriman data yang tidak sengaja tertekan melalui dialog verifikasi dua langkah (Two-Tier Confirmation).</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- TRIGGER INTERAKTIF ALERT -->
+    <div class="box">
+      <h3>📱 Simulasi Pengiriman Berkas Pendaftaran</h3>
+      <p style="font-size: 13px; color: #475569;">
+        Pada aplikasi layanan mandiri mahasiswa UT, pengiriman formulir pendaftaran bersifat permanen. Alert memastikan mahasiswa memeriksa kembali data sebelum dikirim:
+      </p>
+
+      <div style="background: #F8FAFC; border: 2px solid #000; padding: 12px; margin-bottom: 14px;">
+        <span style="font-size: 12px; font-weight: bold;">Ringkasan Data Siap Kirim:</span><br>
+        <span style="font-size: 13px;">NIM: 043123456 • Prodi: S1 Sistem Informasi</span>
+      </div>
+
+      <ion-button expand="block" color="primary" @click="alertOpen = true">
+        🚀 Kirim Berkas Pendaftaran Layanan
+      </ion-button>
+
+      <div v-if="hasilAksi" style="margin-top: 14px; background: #DCFCE7; border: 2px solid #16A34A; padding: 10px; font-size: 13px; font-weight: bold;">
+        {{ hasilAksi }}
+      </div>
+
+      <!-- KOMPONEN ION-ALERT -->
+      <ion-alert
+        :is-open="alertOpen"
+        header="Konfirmasi Pendaftaran"
+        sub-header="Layanan Mandiri FST UT"
+        message="Apakah Anda yakin data NIM 043123456 dan Program Studi sudah benar? Berkas yang sudah dikirim tidak dapat diubah kembali."
+        :buttons="alertButtons"
+        @didDismiss="alertOpen = false">
+      </ion-alert>
+    </div>
+
+    <!-- ANATOMI PROPERTI ALERT -->
+    <div class="box">
+      <h3>🧩 Struktur Array Buttons ion-alert</h3>
+      
+      <p style="font-size: 13px; line-height: 1.5;">
+        Tombol dialog diatur melalui properti <code>:buttons</code> berupa array objek konfigurasi:
+      </p>
+
+      <ul style="font-size: 13px; line-height: 1.6; padding-left: 20px;">
+        <li><strong><code>role: 'cancel'</code></strong>: Menandai tombol pembatalan (posisi abu-abu netral).</li>
+        <li><strong><code>handler: () => {}</code></strong>: Fungsi callback yang dieksekusi saat tombol diklik.</li>
+        <li><strong><code>role: 'destructive'</code></strong>: Memberikan penanda warna merah khusus untuk aksi penghapusan.</li>
+      </ul>
+
+      <h3>💻 Pola Kode Konfirmasi</h3>
+      <pre><code>const alertButtons = [
+  {
+    text: 'Periksa Kembali',
+    role: 'cancel',
+    handler: () => { console.log('Batal kirim'); }
+  },
+  {
+    text: 'Ya, Kirim Sekarang',
+    role: 'confirm',
+    handler: () => {
+      // Eksekusi pengiriman ke backend
+      submitDataPendaftaran();
+    }
+  }
+];</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const alertOpen = ref(false);
+        const hasilAksi = ref('');
+
+        const alertButtons = [
+          {
+            text: 'Periksa Kembali',
+            role: 'cancel',
+            handler: () => {
+              hasilAksi.value = '❌ Pengiriman dibatalkan, mahasiswa memeriksa kembali form.';
+            }
+          },
+          {
+            text: 'Ya, Kirim Sekarang',
+            role: 'confirm',
+            handler: () => {
+              hasilAksi.value = '🎉 Berkas pendaftaran resmi berhasil dikirim ke server FST UT!';
+            }
+          }
+        ];
+
+        return { alertOpen, hasilAksi, alertButtons };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

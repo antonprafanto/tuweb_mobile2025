@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 12: Notifikasi Mengambang ion-toast — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 12 • MODUL 5 BMP UT (KRITERIA TUGAS 2)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Umpan Balik Halus: Notifikasi Mengambang &lt;ion-toast&gt;</h1>
+    <p style="margin: 0; font-size: 14px;">Menyampaikan konfirmasi aksi berhasil atau peringatan singkat tanpa mengganggu alur navigasi pengguna smartphone.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- TRIGGER INTERAKTIF TOAST -->
+    <div class="box">
+      <h3>📱 Simulasi Pemicu Toast Feedback</h3>
+      <p style="font-size: 13px; color: #475569;">
+        Klik salah satu tombol aksi di bawah untuk memunculkan notifikasi mengambang di bawah layar:
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <ion-button expand="block" color="success" @click="tampilkanToast('success', '✅ Pendaftaran KTM Digital Berhasil Disimpan!')">
+          🎉 Picu Toast Sukses (Warna Success)
+        </ion-button>
+        <ion-button expand="block" color="warning" @click="tampilkanToast('warning', '⚠️ Peringatan: Batas unggah berkas tersisa 2 hari lagi!')">
+          ⚠️ Picu Toast Peringatan (Warna Warning)
+        </ion-button>
+        <ion-button expand="block" color="danger" @click="tampilkanToast('danger', '❌ Galat: Format NIM atau Email belum memenuhi syarat!')">
+          ❌ Picu Toast Galat (Warna Danger)
+        </ion-button>
+      </div>
+
+      <!-- KOMPONEN ION-TOAST -->
+      <ion-toast
+        :is-open="toastOpen"
+        :message="toastMsg"
+        :color="toastColor"
+        :duration="3000"
+        position="bottom"
+        @didDismiss="toastOpen = false">
+      </ion-toast>
+    </div>
+
+    <!-- ANATOMI & TEKNIK PEMANGGILAN -->
+    <div class="box">
+      <h3>🧩 Properti Esensial ion-toast</h3>
+      
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 12px;">
+        <tr style="background: #E2E8F0;">
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Properti</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Fungsi</th>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">:is-open="boolean"</td>
+          <td style="padding: 6px; border: 1px solid #000;">Kondisi reaktif untuk membuka atau menutup toast.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">:duration="3000"</td>
+          <td style="padding: 6px; border: 1px solid #000;">Lama tampil dalam milidetik (otomatis hilang setelah 3 detik).</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">position="bottom|top"</td>
+          <td style="padding: 6px; border: 1px solid #000;">Posisi mengambang (lazimnya di bawah dekat jempol pengguna).</td>
+        </tr>
+      </table>
+
+      <h3>💻 Pola Komposisi Deklaratif</h3>
+      <pre><code>&lt;ion-toast
+  :is-open="isSuccess"
+  message="Data Registrasi Berhasil Dikirim!"
+  color="success"
+  :duration="3000"
+  position="bottom"
+  @didDismiss="isSuccess = false"&gt;
+&lt;/ion-toast&gt;</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const toastOpen = ref(false);
+        const toastMsg = ref('');
+        const toastColor = ref('success');
+
+        const tampilkanToast = (warna, pesan) => {
+          toastColor.value = warna;
+          toastMsg.value = pesan;
+          toastOpen.value = true;
+        };
+
+        return { toastOpen, toastMsg, toastColor, tampilkanToast };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

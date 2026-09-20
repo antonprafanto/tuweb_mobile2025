@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 05: Kontrol Input Teks ion-input — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .form-phone {
+      border: 3px solid #000;
+      background: #fff;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 4px 4px 0 #000;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 05 • MODUL 5 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Kontrol Masukan Modern: Komponen &lt;ion-input&gt;</h1>
+    <p style="margin: 0; font-size: 14px;">Memanfaatkan floating label, tombol hapus cepat (clear-button), tipe masukan khusus, dan pemilihan keyboard virtual smartphone.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- FORM LIVE PREVIEW -->
+    <div class="box">
+      <h3>📱 Preview Form Masukan Mahasiswa</h3>
+
+      <div class="form-phone">
+        <!-- 1. NIM Input with Numeric Mode -->
+        <ion-input
+          label="Nomor Induk Mahasiswa (NIM)"
+          label-placement="floating"
+          fill="outline"
+          placeholder="Contoh: 043123456"
+          inputmode="numeric"
+          maxlength="9"
+          :clear-input="true"
+          v-model="nim"
+          helper-text="Wajib 9 digit angka resmi UT"
+          style="margin-bottom: 16px;">
+        </ion-input>
+
+        <!-- 2. Nama Lengkap Input -->
+        <ion-input
+          label="Nama Lengkap"
+          label-placement="floating"
+          fill="outline"
+          placeholder="Sesuai KTP / Ijazah"
+          :clear-input="true"
+          v-model="nama"
+          style="margin-bottom: 16px;">
+        </ion-input>
+
+        <!-- 3. Password / PIN Input -->
+        <ion-input
+          label="Kata Sandi / PIN Tuton"
+          label-placement="floating"
+          fill="outline"
+          type="password"
+          v-model="password"
+          style="margin-bottom: 8px;">
+        </ion-input>
+      </div>
+
+      <div style="margin-top: 14px; background: #E0F2FE; border: 2px solid #0284C7; padding: 10px; font-size: 12px;">
+        <strong>📡 Data Reaktif Terbaca:</strong><br>
+        NIM: <code>{{ nim || '-' }}</code> | Nama: <code>{{ nama || '-' }}</code> | Sandi: <code>{{ password ? '••••••••' : '-' }}</code>
+      </div>
+    </div>
+
+    <!-- ANATOMI PROPERTI ION-INPUT -->
+    <div class="box">
+      <h3>🧩 Fitur Unggulan ion-input</h3>
+      
+      <ul style="font-size: 13px; line-height: 1.6; padding-left: 20px;">
+        <li><strong><code>label-placement="floating"</code></strong>: Label melayang anggun ke atas saat kolom input difokuskan.</li>
+        <li><strong><code>fill="outline" | "solid"</code></strong>: Tampilan berbingkai tegas atau latar kotak abu-abu.</li>
+        <li><strong><code>:clear-input="true"</code></strong>: Memunculkan ikon silang (X) otomatis di kanan untuk menghapus teks dengan sekali tap jempol.</li>
+        <li><strong><code>inputmode="numeric"</code></strong>: Memerintahkan ponsel memunculkan papan ketik angka (*numeric keypad*) alih-alih keyboard alfabet biasa.</li>
+      </ul>
+
+      <h3>💻 Pola Kode Modern Ionic 7/8</h3>
+      <pre><code>&lt;ion-input
+  label="NIM Mahasiswa"
+  label-placement="floating"
+  fill="outline"
+  inputmode="numeric"
+  :clear-input="true"
+  v-model="nim"
+  helper-text="Masukkan 9 digit angka"
+  error-text="Format NIM tidak valid"&gt;
+&lt;/ion-input&gt;</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const nim = ref('');
+        const nama = ref('');
+        const password = ref('');
+        return { nim, nama, password };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

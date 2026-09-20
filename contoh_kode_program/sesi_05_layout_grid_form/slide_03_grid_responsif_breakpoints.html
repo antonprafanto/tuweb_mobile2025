@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 03: Grid Responsif Breakpoints — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .simulator-container {
+      border: 3px solid #000;
+      background: #F1F5F9;
+      padding: 12px;
+      transition: width 0.3s ease;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .col-box {
+      border: 2px solid #000;
+      padding: 12px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 12px;
+      box-shadow: 2px 2px 0 #000;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 03 • MODUL 5 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Tata Letak Responsif: Titik Henti Breakpoints Grid</h1>
+    <p style="margin: 0; font-size: 14px;">Menyesuaikan tampilan kolom saat aplikasi dibuka di ponsel layar kecil (portrait), ponsel landscape, maupun tablet iPad.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- SIMULATOR UKURAN LAYAR -->
+    <div class="box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 style="margin: 0;">📱 Simulator Lebar Layar Perangkat</h3>
+        <span style="font-weight: bold; font-size: 12px; background: #000; color: #fff; padding: 2px 6px;">
+          Lebar: {{ currentWidth }}px ({{ currentMode }})
+        </span>
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+        <ion-button size="small" :color="simMode === 'phone' ? 'primary' : 'medium'" @click="setMode('phone')">
+          📱 Ponsel Tegak (340px)
+        </ion-button>
+        <ion-button size="small" :color="simMode === 'tablet' ? 'primary' : 'medium'" @click="setMode('tablet')">
+          📟 Tablet / Landscape (600px)
+        </ion-button>
+      </div>
+
+      <div class="simulator-container" :style="'width: ' + currentWidth + 'px;'">
+        <div style="font-size: 11px; font-weight: bold; margin-bottom: 6px; color: #475569;">
+          &lt;ion-col size="12" size-md="6"&gt;
+        </div>
+        <ion-grid style="padding: 0;">
+          <ion-row>
+            <ion-col :size="simMode === 'phone' ? '12' : '6'" style="margin-bottom: 6px;">
+              <div class="col-box" style="background: #BAE6FD;">
+                NIM & Nama Mahasiswa<br>
+                <span style="font-size: 10px; font-weight: normal;">(Lebar: {{ simMode === 'phone' ? '12 Unit (100%)' : '6 Unit (50%)' }})</span>
+              </div>
+            </ion-col>
+            <ion-col :size="simMode === 'phone' ? '12' : '6'">
+              <div class="col-box" style="background: #BBF7D0;">
+                Program Studi & UPBJJ<br>
+                <span style="font-size: 10px; font-weight: normal;">(Lebar: {{ simMode === 'phone' ? '12 Unit (100%)' : '6 Unit (50%)' }})</span>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <div style="margin-top: 14px; background: #FEF08A; border: 2px solid #000; padding: 10px; font-size: 12px;">
+        ⚡ <strong>Hasil Pengamatan:</strong> Pada layar ponsel, kolom tersusun menumpuk ke bawah (100%). Pada tablet/landscape, kolom otomatis berdampingan (50% - 50%) tanpa perubahan logika JavaScript!
+      </div>
+    </div>
+
+    <!-- TABEL BREAKPOINTS & KODE -->
+    <div class="box">
+      <h3>📏 Standar Titik Henti (Breakpoints) Ionic</h3>
+      
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 12px;">
+        <tr style="background: #E2E8F0;">
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Breakpoint</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Ukuran Layar</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Target Perangkat</th>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">size (default)</td>
+          <td style="padding: 6px; border: 1px solid #000;">&gt; 0px</td>
+          <td style="padding: 6px; border: 1px solid #000;">Smartphone Tegak (Portrait)</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">size-sm</td>
+          <td style="padding: 6px; border: 1px solid #000;">≥ 576px</td>
+          <td style="padding: 6px; border: 1px solid #000;">Ponsel Layar Besar / Lipat</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace; font-weight: bold; color: #0284C7;">size-md</td>
+          <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">≥ 768px</td>
+          <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">Tablet iPad / Ponsel Landscape</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">size-lg</td>
+          <td style="padding: 6px; border: 1px solid #000;">≥ 992px</td>
+          <td style="padding: 6px; border: 1px solid #000;">Layar Laptop Desktop</td>
+        </tr>
+      </table>
+
+      <h3>💻 Pola Kode Adaptif Form Mahasiswa</h3>
+      <pre><code>&lt;ion-grid&gt;
+  &lt;ion-row&gt;
+    &lt;!-- Di HP menumpuk 12 unit, di Tablet berdampingan 6 unit --&gt;
+    &lt;ion-col size="12" size-md="6"&gt;
+      &lt;ion-input label="NIM Mahasiswa"&gt;&lt;/ion-input&gt;
+    &lt;/ion-col&gt;
+    &lt;ion-col size="12" size-md="6"&gt;
+      &lt;ion-input label="Nama Lengkap"&gt;&lt;/ion-input&gt;
+    &lt;/ion-col&gt;
+  &lt;/ion-row&gt;
+&lt;/ion-grid&gt;</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const simMode = ref('phone');
+        const currentWidth = ref(340);
+        const currentMode = ref('Smartphone Portrait');
+
+        const setMode = (mode) => {
+          simMode.value = mode;
+          if (mode === 'phone') {
+            currentWidth.value = 340;
+            currentMode.value = 'Smartphone Portrait';
+          } else {
+            currentWidth.value = 580;
+            currentMode.value = 'Tablet / Landscape';
+          }
+        };
+
+        return { simMode, currentWidth, currentMode, setMode };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

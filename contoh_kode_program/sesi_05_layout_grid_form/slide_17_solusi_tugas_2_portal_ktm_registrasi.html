@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 17: Master Solusi Tugas Tutorial 2 — STSI4303</title>
+  <!-- Ionic Core & Vue 3 via CDN (Zero Friction / RAM 4-8GB Friendly) -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --text: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    .dark-theme {
+      --bg: #0F172A;
+      --card-bg: #1E293B;
+      --border: #38BDF8;
+      --text: #F8FAFC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; transition: background-color 0.2s, color 0.2s; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: var(--text); }
+    .header {
+      background: var(--yellow);
+      border: 3px solid #000;
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 #000;
+      margin-bottom: 24px;
+      color: #000;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid #000;
+      background: #fff;
+      color: #000;
+      margin-bottom: 10px;
+    }
+    .layout-grid {
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      .layout-grid { grid-template-columns: 1fr; }
+    }
+
+    /* PHONE CONTAINER NEOBRUTALISM */
+    .phone-mockup {
+      width: 100%;
+      border: 4px solid var(--border);
+      border-radius: 28px;
+      background: var(--card-bg);
+      box-shadow: 8px 8px 0 var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 720px;
+      position: relative;
+    }
+    .phone-notch {
+      background: #000;
+      height: 18px;
+      width: 130px;
+      margin: 0 auto;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      z-index: 100;
+    }
+    .phone-screen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--card-bg);
+    }
+    .screen-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+    }
+
+    /* KTM DIGITAL CARD */
+    .ktm-card {
+      border: 3px solid #000;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+      color: #FFFFFF;
+      padding: 16px;
+      box-shadow: 4px 4px 0 #000;
+      margin-top: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .ktm-card::after {
+      content: "UNIVERSITAS TERBUKA";
+      position: absolute;
+      bottom: -15px;
+      right: -10px;
+      font-size: 26px;
+      font-weight: 900;
+      opacity: 0.12;
+      letter-spacing: 2px;
+      pointer-events: none;
+    }
+
+    /* DESKTOP EXPLANATION BOX */
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app" :class="{ 'dark-theme': isDark }">
+    <div class="header">
+      <div class="badge-tag">SLIDE 17 • MASTER SOLUSI RESMI TUGAS TUTORIAL 2</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 24px;">🎯 Portal Pendaftaran Layanan Mandiri Mahasiswa UT</h1>
+      <p style="margin: 0; font-size: 14px;">Studi Kasus Lengkap: Form Validasi Regex NIM 9-Digit, Email Kampus @ecampus.ut.ac.id, Sakelar Dark Mode, KTM Digital, & Umpan Balik Toast/Alert.</p>
+    </div>
+
+    <div class="layout-grid">
+      <!-- KOLOM KIRI: SIMULATOR PHONE APP -->
+      <div class="phone-mockup">
+        <div class="phone-notch"></div>
+
+        <div class="phone-screen">
+          <!-- TOOLBAR DENGAN DARK MODE TOGGLE -->
+          <ion-header>
+            <ion-toolbar color="primary">
+              <ion-title style="font-size: 15px; font-weight: bold;">Layanan Mandiri UT</ion-title>
+              <ion-buttons slot="end">
+                <ion-button @click="isDark = !isDark" :color="isDark ? 'warning' : 'light'">
+                  <ion-icon slot="icon-only" :name="isDark ? 'sunny' : 'moon'"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+
+          <div class="screen-content">
+            <!-- TAB TOGGLE: FORM vs PREVIEW KTM -->
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              <ion-button expand="block" size="small" :fill="activeTab === 'form' ? 'solid' : 'outline'" color="primary" @click="activeTab = 'form'" style="flex: 1;">
+                📝 Formulir Registrasi
+              </ion-button>
+              <ion-button expand="block" size="small" :fill="activeTab === 'ktm' ? 'solid' : 'outline'" color="secondary" @click="activeTab = 'ktm'" style="flex: 1;">
+                💳 Kartu KTM Digital
+              </ion-button>
+            </div>
+
+            <!-- VIEW 1: FORMULIR INPUT DENGAN REGEX -->
+            <div v-show="activeTab === 'form'">
+              <!-- 1. NIM INPUT WITH REGEX -->
+              <ion-input
+                label="Nomor Induk Mahasiswa (NIM)"
+                label-placement="floating"
+                fill="outline"
+                placeholder="Wajib 9 digit angka"
+                inputmode="numeric"
+                maxlength="9"
+                :clear-input="true"
+                v-model="form.nim"
+                @ion-blur="touched.nim = true"
+                :class="{ 'ion-invalid': touched.nim && !isNimValid, 'ion-valid': touched.nim && isNimValid }"
+                :error-text="touched.nim && !isNimValid ? 'NIM wajib tepat 9 digit angka resmi!' : ''"
+                helper-text="Contoh: 043123456"
+                style="margin-bottom: 12px;">
+              </ion-input>
+
+              <!-- 2. NAMA LENGKAP -->
+              <ion-input
+                label="Nama Lengkap Mahasiswa"
+                label-placement="floating"
+                fill="outline"
+                placeholder="Nama sesuai ijazah/KTP"
+                :clear-input="true"
+                v-model="form.nama"
+                @ion-blur="touched.nama = true"
+                :class="{ 'ion-invalid': touched.nama && !isNamaValid, 'ion-valid': touched.nama && isNamaValid }"
+                :error-text="touched.nama && !isNamaValid ? 'Nama wajib diisi minimal 3 huruf!' : ''"
+                style="margin-bottom: 12px;">
+              </ion-input>
+
+              <!-- 3. EMAIL KAMPUS WITH REGEX -->
+              <ion-input
+                label="Surel Resmi Mahasiswa UT"
+                label-placement="floating"
+                fill="outline"
+                type="email"
+                placeholder="nama.nim@ecampus.ut.ac.id"
+                :clear-input="true"
+                v-model="form.email"
+                @ion-blur="touched.email = true"
+                :class="{ 'ion-invalid': touched.email && !isEmailValid, 'ion-valid': touched.email && isEmailValid }"
+                :error-text="touched.email && !isEmailValid ? 'Surel wajib berakhiran domain @ecampus.ut.ac.id!' : ''"
+                helper-text="Domain resmi: @ecampus.ut.ac.id"
+                style="margin-bottom: 12px;">
+              </ion-input>
+
+              <!-- 4. DROPDOWN PROGRAM STUDI -->
+              <ion-select
+                label="Program Studi FST"
+                label-placement="floating"
+                fill="outline"
+                interface="action-sheet"
+                v-model="form.prodi"
+                style="margin-bottom: 12px;">
+                <ion-select-option value="S1 Sistem Informasi">S1 Sistem Informasi (STSI)</ion-select-option>
+                <ion-select-option value="S1 Informatika">S1 Informatika (MSIM)</ion-select-option>
+                <ion-select-option value="S1 Sains Data">S1 Sains Data</ion-select-option>
+                <ion-select-option value="S1 Matematika">S1 Matematika</ion-select-option>
+                <ion-select-option value="S1 Statistika">S1 Statistika</ion-select-option>
+              </ion-select>
+
+              <!-- 5. DROPDOWN UPBJJ-UT -->
+              <ion-select
+                label="Kantor UPBJJ-UT"
+                label-placement="floating"
+                fill="outline"
+                interface="action-sheet"
+                v-model="form.upbjj"
+                style="margin-bottom: 12px;">
+                <ion-select-option value="UT Jakarta">UT Jakarta</ion-select-option>
+                <ion-select-option value="UT Surabaya">UT Surabaya</ion-select-option>
+                <ion-select-option value="UT Bandung">UT Bandung</ion-select-option>
+                <ion-select-option value="UT Medan">UT Medan</ion-select-option>
+                <ion-select-option value="UT Makassar">UT Makassar</ion-select-option>
+                <ion-select-option value="UT Samarinda">UT Samarinda</ion-select-option>
+                <ion-select-option value="UT Layanan Luar Negeri">UT Layanan Luar Negeri</ion-select-option>
+              </ion-select>
+
+              <!-- 6. RADIO GROUP JALUR LAYANAN -->
+              <div style="border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px; margin-bottom: 14px; background: rgba(125,125,125,0.05);">
+                <span style="font-size: 12px; font-weight: bold;">Skema Layanan Kuliah:</span>
+                <ion-radio-group v-model="form.skema">
+                  <ion-item lines="none" style="--min-height: 36px; font-size: 12px;">
+                    <ion-radio value="sipas_non_ttm" justify="space-between">SIPAS Non-TTM (Online Penuh)</ion-radio>
+                  </ion-item>
+                  <ion-item lines="none" style="--min-height: 36px; font-size: 12px;">
+                    <ion-radio value="sipas_semi" justify="space-between">SIPAS Semi (Kombinasi TTM)</ion-radio>
+                  </ion-item>
+                </ion-radio-group>
+              </div>
+
+              <!-- TOMBOL SUBMIT DENGAN VALIDASI -->
+              <ion-button expand="block" color="primary" @click="handleProsesSubmit">
+                🚀 Ajukan Pendaftaran & Terbitkan KTM
+              </ion-button>
+            </div>
+
+            <!-- VIEW 2: KARTU PREVIEW KTM DIGITAL -->
+            <div v-show="activeTab === 'ktm'">
+              <div style="text-align: center; font-size: 13px; margin-bottom: 6px; font-weight: bold;">
+                PRATINJAU KARTU TANDA MAHASISWA ELEKTRONIK
+              </div>
+
+              <div class="ktm-card">
+                <!-- HEADER KTM -->
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 8px;">
+                  <div>
+                    <h3 style="margin: 0; font-size: 14px; letter-spacing: 1px; font-weight: 900;">UNIVERSITAS TERBUKA</h3>
+                    <p style="margin: 0; font-size: 10px; opacity: 0.9;">Fakultas Sains dan Teknologi</p>
+                  </div>
+                  <ion-badge color="warning" style="font-size: 10px;">KTM-DIGITAL</ion-badge>
+                </div>
+
+                <!-- BODY KTM DENGAN AVATAR -->
+                <div style="display: flex; gap: 14px; margin-top: 14px; align-items: center;">
+                  <ion-avatar style="width: 72px; height: 72px; border: 2px solid #FFFFFF; background: #fff;">
+                    <img :src="'https://api.dicebear.com/7.x/bottts/svg?seed=' + (form.nim || 'DefaultUT')" alt="Foto Mahasiswa" />
+                  </ion-avatar>
+
+                  <div style="flex: 1;">
+                    <div style="font-size: 10px; opacity: 0.8;">NAMA LENGKAP:</div>
+                    <div style="font-size: 14px; font-weight: bold; margin-bottom: 6px;">{{ form.nama || 'BUDI SANTOSO' }}</div>
+
+                    <div style="font-size: 10px; opacity: 0.8;">NOMOR INDUK MAHASISWA:</div>
+                    <div style="font-size: 15px; font-weight: 900; font-family: monospace; letter-spacing: 1px;">{{ form.nim || '043123456' }}</div>
+                  </div>
+                </div>
+
+                <!-- FOOTER KTM -->
+                <div style="margin-top: 14px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.2); display: flex; justify-content: space-between; align-items: flex-end;">
+                  <div>
+                    <div style="font-size: 10px; opacity: 0.8;">PROGRAM STUDI:</div>
+                    <div style="font-size: 11px; font-weight: bold;">{{ form.prodi }}</div>
+                    <div style="font-size: 10px; opacity: 0.8; margin-top: 2px;">UPBJJ: {{ form.upbjj }}</div>
+                  </div>
+
+                  <!-- SIMULASI KODE BATANG -->
+                  <div style="background: #fff; padding: 4px; border-radius: 4px; text-align: center;">
+                    <div style="font-family: monospace; font-size: 8px; color: #000; font-weight: bold;">|||| | ||||| || |||</div>
+                    <div style="font-family: monospace; font-size: 8px; color: #000;">{{ form.nim || '043123456' }}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top: 16px;">
+                <ion-button expand="block" fill="outline" color="success" @click="tampilkanToast('success', '💾 Berkas KTM Digital berhasil disimpan ke galeri perangkat!')">
+                  <ion-icon slot="start" name="download-outline"></ion-icon>
+                  Simpan Gambar KTM ke Ponsel
+                </ion-button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DIALOG ALERT KONFIRMASI -->
+        <ion-alert
+          :is-open="alertOpen"
+          header="Konfirmasi Pendaftaran"
+          sub-header="Penerbitan KTM Digital FST UT"
+          :message="konfirmasiMessage"
+          :buttons="alertButtons"
+          @didDismiss="alertOpen = false">
+        </ion-alert>
+
+        <!-- NOTIFIKASI TOAST MELAYANG -->
+        <ion-toast
+          :is-open="toastOpen"
+          :message="toastMsg"
+          :color="toastColor"
+          :duration="3500"
+          position="bottom"
+          @didDismiss="toastOpen = false">
+        </ion-toast>
+      </div>
+
+      <!-- KOLOM KANAN: STATUS VALIDASI REGEX & RUBRIK PENILAIAN -->
+      <div>
+        <!-- PANEL STATUS REGEX REAL-TIME -->
+        <div class="box" style="margin-bottom: 20px;">
+          <h3 style="margin-top: 0; font-size: 16px;">⚡ Inspektur Validasi Reaktif (Real-Time)</h3>
+          <p style="font-size: 12px; margin-top: 0; opacity: 0.85;">
+            Pantau status validasi saat Anda mengetik data pada form di samping:
+          </p>
+
+          <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+            <tr style="background: rgba(125,125,125,0.15);">
+              <th style="padding: 6px; border: 1px solid var(--border); text-align: left;">Field Masukan</th>
+              <th style="padding: 6px; border: 1px solid var(--border); text-align: left;">Pola Aturan Validasi</th>
+              <th style="padding: 6px; border: 1px solid var(--border); text-align: center;">Status</th>
+            </tr>
+            <tr>
+              <td style="padding: 6px; border: 1px solid var(--border); font-weight: bold;">NIM Mahasiswa</td>
+              <td style="padding: 6px; border: 1px solid var(--border); font-family: monospace;">/^[0-9]{9}$/</td>
+              <td style="padding: 6px; border: 1px solid var(--border); text-align: center; font-weight: bold;" :style="'color:' + (isNimValid ? 'green' : 'red')">
+                {{ isNimValid ? 'VALID (9 DIGIT)' : 'INVALID' }}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 6px; border: 1px solid var(--border); font-weight: bold;">Nama Lengkap</td>
+              <td style="padding: 6px; border: 1px solid var(--border); font-family: monospace;">Minimal 3 Karakter</td>
+              <td style="padding: 6px; border: 1px solid var(--border); text-align: center; font-weight: bold;" :style="'color:' + (isNamaValid ? 'green' : 'red')">
+                {{ isNamaValid ? 'VALID' : 'INVALID' }}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 6px; border: 1px solid var(--border); font-weight: bold;">Surel Kampus</td>
+              <td style="padding: 6px; border: 1px solid var(--border); font-family: monospace;">@ecampus.ut.ac.id</td>
+              <td style="padding: 6px; border: 1px solid var(--border); text-align: center; font-weight: bold;" :style="'color:' + (isEmailValid ? 'green' : 'red')">
+                {{ isEmailValid ? 'VALID' : 'INVALID' }}
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- CEKLIST 4 KRITERIA PENILAIAN TUGAS 2 -->
+        <div class="box">
+          <h3 style="margin-top: 0; font-size: 16px;">📋 Pemenuhan Kriteria Rubrik Tugas Tutorial 2</h3>
+          
+          <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+            <tr style="background: rgba(125,125,125,0.15);">
+              <th style="padding: 8px; border: 1px solid var(--border); text-align: left;">Kriteria Rubrik Resmi</th>
+              <th style="padding: 8px; border: 1px solid var(--border); text-align: center;">Bobot</th>
+              <th style="padding: 8px; border: 1px solid var(--border); text-align: center;">Ketercapaian</th>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid var(--border);">
+                <strong>1. Struktur UI Resmi Ionic</strong><br>
+                Implementasi <code>ion-card</code>, <code>ion-input</code>, <code>ion-select</code>, <code>ion-radio</code>, dan layout grid yang responsif.
+              </td>
+              <td style="padding: 8px; border: 1px solid var(--border); text-align: center; font-weight: bold;">25</td>
+              <td style="padding: 8px; border: 1px solid var(--border); text-align: center; color: green; font-weight: bold;">100% LENGKAP</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid var(--border);">
+                <strong>2. Validasi Form Regex Presisi</strong><br>
+                NIM tepat 9 digit angka & surel resmi <code>@ecampus.ut.ac.id</code> dicegah dengan pola regular expression akurat.
+              </td>
+              <td style="padding: 8px; border: 1px solid var(--border); text-align: center; font-weight: bold;">35</td>
+              <td style="padding: 8px; border: 1px solid var(--border); text-align: center; color: green; font-weight: bold;">100% LENGKAP</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid var(--border);">
+                <strong>3. Umpan Balik Toast & Alert</strong><br>
+                Konfirmasi dialog modal <code>ion-alert</code> sebelum submit dan notifikasi <code>ion-toast</code> berwarna dinamis.
+              </td>
+              <td style="padding: 8px; border: 1px solid var(--border); text-align: center; font-weight: bold;">20</td>
+              <td style="padding: 8px; border: 1px solid var(--border); text-align: center; color: green; font-weight: bold;">100% LENGKAP</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid var(--border);">
+                <strong>4. Dark Mode & Preview KTM</strong><br>
+                Sakelar tema gelap-terang dinamis dan kartu pratinjau KTM Digital reaktif.
+              </td>
+              <td style="padding: 8px; border: 1px solid var(--border); text-align: center; font-weight: bold;">20</td>
+              <td style="padding: 8px; border: 1px solid var(--border); text-align: center; color: green; font-weight: bold;">100% LENGKAP</td>
+            </tr>
+            <tr style="background: #FEF08A; color: #000; font-weight: 900;">
+              <td style="padding: 8px; border: 1px solid #000;">TOTAL SKOR CAPAIAN TUGAS TUTORIAL 2</td>
+              <td style="padding: 8px; border: 1px solid #000; text-align: center;">100</td>
+              <td style="padding: 8px; border: 1px solid #000; text-align: center; color: #15803D;">NILAI MAKSIMAL (A)</td>
+            </tr>
+          </table>
+
+          <div style="margin-top: 14px; background: #E0F2FE; border: 2px solid #0284C7; padding: 10px; font-size: 12px; color: #000;">
+            🎓 <strong>Petunjuk Dosen:</strong> Mahasiswa dapat mengunduh berkas ini, mengganti data dummy dengan data identitas pribadi masing-masing, merekam video demo 3-5 menit di YouTube Unlisted, lalu mengunggahnya ke LMS Tuton UT!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, reactive, computed } = Vue;
+    createApp({
+      setup() {
+        const isDark = ref(false);
+        const activeTab = ref('form');
+
+        const form = reactive({
+          nim: '043123456',
+          nama: 'Budi Santoso',
+          email: 'budi.santoso043@ecampus.ut.ac.id',
+          prodi: 'S1 Sistem Informasi',
+          upbjj: 'UT Jakarta',
+          skema: 'sipas_non_ttm'
+        });
+
+        const touched = reactive({
+          nim: false,
+          nama: false,
+          email: false
+        });
+
+        // REGEX VALIDATION LOGIC
+        const regexNIM = /^[0-9]{9}$/;
+        const regexEmailUT = /^[a-zA-Z0-9._%+-]+@ecampus\.ut\.ac\.id$/;
+
+        const isNimValid = computed(() => regexNIM.test(form.nim.trim()));
+        const isNamaValid = computed(() => form.nama.trim().length >= 3);
+        const isEmailValid = computed(() => regexEmailUT.test(form.email.trim().toLowerCase()));
+
+        const isFormValid = computed(() => {
+          return isNimValid.value && isNamaValid.value && isEmailValid.value;
+        });
+
+        // TOAST & ALERT STATE
+        const toastOpen = ref(false);
+        const toastMsg = ref('');
+        const toastColor = ref('success');
+        const alertOpen = ref(false);
+
+        const tampilkanToast = (warna, pesan) => {
+          toastColor.value = warna;
+          toastMsg.value = pesan;
+          toastOpen.value = true;
+        };
+
+        const konfirmasiMessage = computed(() => {
+          return `Pastikan data berikut sudah akurat:\n• NIM: ${form.nim}\n• Nama: ${form.nama}\n• Prodi: ${form.prodi}\n• UPBJJ: ${form.upbjj}\n\nApakah Anda yakin ingin menerbitkan KTM Digital resmi ini?`;
+        });
+
+        const handleProsesSubmit = () => {
+          touched.nim = true;
+          touched.nama = true;
+          touched.email = true;
+
+          if (!isFormValid.value) {
+            tampilkanToast('danger', '❌ Formulir belum valid! Mohon periksa kembali kolom NIM, Nama, dan Surel Kampus.');
+            return;
+          }
+
+          // Munculkan dialog alert konfirmasi
+          alertOpen.value = true;
+        };
+
+        const alertButtons = [
+          {
+            text: 'Periksa Kembali',
+            role: 'cancel'
+          },
+          {
+            text: 'Ya, Terbitkan KTM',
+            role: 'confirm',
+            handler: () => {
+              activeTab.value = 'ktm';
+              tampilkanToast('success', '🎉 Berhasil! KTM Digital Resmi FST UT telah diterbitkan!');
+            }
+          }
+        ];
+
+        return {
+          isDark,
+          activeTab,
+          form,
+          touched,
+          isNimValid,
+          isNamaValid,
+          isEmailValid,
+          isFormValid,
+          toastOpen,
+          toastMsg,
+          toastColor,
+          alertOpen,
+          konfirmasiMessage,
+          alertButtons,
+          tampilkanToast,
+          handleProsesSubmit
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

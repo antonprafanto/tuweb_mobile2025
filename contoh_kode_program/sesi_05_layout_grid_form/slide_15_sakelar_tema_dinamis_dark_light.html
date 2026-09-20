@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 15: Sakelar Tema Dinamis — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --text: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    .dark-mode {
+      --bg: #121826;
+      --card-bg: #1E293B;
+      --border: #38BDF8;
+      --text: #F8FAFC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; transition: background-color 0.25s, color 0.25s, border-color 0.25s; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: var(--text); }
+    .header {
+      background: var(--yellow);
+      border: 3px solid #000;
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 #000;
+      margin-bottom: 24px;
+      color: #000;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid #000;
+      background: #fff;
+      color: #000;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      color: var(--text);
+    }
+    .phone-preview {
+      border: 3px solid var(--border);
+      background: var(--card-bg);
+      padding: 16px;
+      border-radius: 12px;
+    }
+    pre {
+      background: #0F172A;
+      color: #38BDF8;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app" :class="{ 'dark-mode': isDark }">
+    <div class="header">
+      <div class="badge-tag">SLIDE 15 • MODUL 5 BMP UT (KRITERIA TUGAS 2)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Peralihan Tema Real-Time: Sakelar Dark & Light Mode</h1>
+      <p style="margin: 0; font-size: 14px;">Mengintegrasikan tombol ion-toggle dengan manipulasi kelas body dan penyimpanan persistensi LocalStorage.</p>
+    </div>
+
+    <div class="grid">
+      <!-- PANEL DEMO SAKELAR LIVE -->
+      <div class="box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h3 style="margin: 0;">📱 Simulasi Layar Ponsel</h3>
+          <span style="font-weight: bold; font-size: 12px; padding: 2px 8px; border: 1px solid var(--border);">
+            {{ isDark ? '🌙 MODE GELAP AKTIF' : '☀️ MODE TERANG AKTIF' }}
+          </span>
+        </div>
+
+        <div class="phone-preview">
+          <!-- SAKELAR TEMA -->
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(125,125,125,0.1); border-radius: 8px; margin-bottom: 14px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <ion-icon :name="isDark ? 'moon' : 'sunny'" style="font-size: 22px; color: #EAB308;"></ion-icon>
+              <span style="font-size: 13px; font-weight: bold;">Mode Gelap (Dark Theme)</span>
+            </div>
+            <ion-toggle :checked="isDark" @ionChange="toggleTheme"></ion-toggle>
+          </div>
+
+          <!-- KARTU PREVIEW AKADEMIK -->
+          <div style="border: 2px solid var(--border); padding: 12px; border-radius: 8px;">
+            <h4 style="margin: 0 0 4px 0;">Kartu Tanda Mahasiswa (KTM)</h4>
+            <p style="font-size: 12px; margin: 0; opacity: 0.8;">Budi Santoso • NIM: 043123456</p>
+            <p style="font-size: 11px; margin: 4px 0 0 0; opacity: 0.8;">S1 Sistem Informasi • UPBJJ UT Jakarta</p>
+          </div>
+        </div>
+
+        <div style="margin-top: 14px; font-size: 12px; opacity: 0.85;">
+          💾 Status tema tersimpan otomatis di: <code>localStorage.getItem('theme_ut')</code>
+        </div>
+      </div>
+
+      <!-- PENJELASAN LOGIKA KODE -->
+      <div class="box">
+        <h3>💻 Logika Reaktif Pengubah Tema</h3>
+        
+        <pre><code>const isDark = ref(false);
+
+const toggleTheme = (ev: CustomEvent) => {
+  isDark.value = ev.detail.checked;
+  
+  // 1. Tambah/Hapus Kelas pada Dokumen HTML
+  document.body.classList.toggle('dark', isDark.value);
+  
+  // 2. Simpan Preferensi agar tidak hilang saat refresh
+  localStorage.setItem('theme_ut', isDark.value ? 'dark' : 'light');
+};
+
+// 3. Pulihkan Tema Tersimpan saat Aplikasi Dibuka
+onMounted(() => {
+  const saved = localStorage.getItem('theme_ut');
+  if (saved === 'dark') {
+    isDark.value = true;
+    document.body.classList.add('dark');
+  }
+});</code></pre>
+
+        <div style="margin-top: 14px; background: #FEF08A; border: 2px solid #000; padding: 10px; font-size: 12px; color: #000;">
+          💡 <strong>Kriteria Penilaian Tugas 2:</strong> Penguji akan menguji fitur toggle ini untuk memastikan seluruh elemen (kartu, teks, tombol) berganti warna secara proporsional dan nyaman dipandang!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, onMounted } = Vue;
+    createApp({
+      setup() {
+        const isDark = ref(false);
+
+        const toggleTheme = (ev) => {
+          isDark.value = ev.detail.checked;
+          localStorage.setItem('theme_ut', isDark.value ? 'dark' : 'light');
+        };
+
+        onMounted(() => {
+          const saved = localStorage.getItem('theme_ut');
+          if (saved === 'dark') isDark.value = true;
+        });
+
+        return { isDark, toggleTheme };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

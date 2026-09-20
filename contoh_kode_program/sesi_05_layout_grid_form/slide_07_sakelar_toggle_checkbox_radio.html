@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 07: Toggle, Checkbox, dan Radio — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .panel-controls {
+      border: 3px solid #000;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 07 • MODUL 5 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Kontrol Pilihan: ion-toggle, ion-checkbox, & ion-radio</h1>
+    <p style="margin: 0; font-size: 14px;">Membedah komponen kendali boolean on/off, seleksi majemuk centang, dan pemilihan jalur tunggal eksklusif.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PREVIEW KONTROL LIVE -->
+    <div class="box">
+      <h3>📱 Preview Preferensi Layanan Mahasiswa</h3>
+
+      <div class="panel-controls">
+        <ion-list lines="full">
+          <!-- 1. Sakelar Toggle -->
+          <ion-item>
+            <ion-toggle v-model="notifikasiAktif" justify="space-between">
+              <h4 style="margin: 0;">Pengingat Tugas Tuton</h4>
+              <p style="margin: 0; font-size: 11px; color: #64748B;">Kirim push notification H-1 batas unggah</p>
+            </ion-toggle>
+          </ion-item>
+
+          <!-- 2. Checkbox Persetujuan -->
+          <ion-item>
+            <ion-checkbox v-model="setujuTataTertib" justify="space-between">
+              <span style="font-size: 13px;">Saya setuju menjunjung integritas akademik & anti-plagiasi UT</span>
+            </ion-checkbox>
+          </ion-item>
+
+          <!-- 3. Radio Group Skema Layanan -->
+          <ion-radio-group v-model="skemaLayanan">
+            <ion-list-header style="background: #F1F5F9; font-weight: bold; font-size: 12px;">
+              PILIHAN SKEMA REGISTRASI
+            </ion-list-header>
+            
+            <ion-item>
+              <ion-radio value="sipas_non_ttm" justify="space-between">SIPAS Non-TTM (Full Online)</ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-radio value="sipas_semi" justify="space-between">SIPAS Semi (Kombinasi Tatap Muka)</ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-radio value="non_sipas" justify="space-between">Non-SIPAS (Pilih Mata Kuliah Mandiri)</ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+      </div>
+
+      <div style="margin-top: 14px; background: #DCFCE7; border: 2px solid #16A34A; padding: 10px; font-size: 12px;">
+        <strong>📡 Status State:</strong><br>
+        Notif: <code>{{ notifikasiAktif ? 'AKTIF' : 'NONAKTIF' }}</code> | Setuju: <code>{{ setujuTataTertib ? 'YA' : 'TIDAK' }}</code> | Skema: <code>{{ skemaLayanan }}</code>
+      </div>
+    </div>
+
+    <!-- PANDUAN PENGGUNAAN TEPAT -->
+    <div class="box">
+      <h3>⚖️ Kapan Menggunakan Masing-Masing Komponen?</h3>
+      
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 14px;">
+        <tr style="background: #E2E8F0;">
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Komponen</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Karakter Logika</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Contoh Kasus</th>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;ion-toggle&gt;</td>
+          <td style="padding: 6px; border: 1px solid #000;">Dua status instan (True/False) tanpa perlu tombol simpan.</td>
+          <td style="padding: 6px; border: 1px solid #000;">Sakelar Dark Mode, sensor biometrik.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;ion-checkbox&gt;</td>
+          <td style="padding: 6px; border: 1px solid #000;">Pilihan majemuk (dapat memilih lebih dari satu atau syarat sah).</td>
+          <td style="padding: 6px; border: 1px solid #000;">Pilihan modul tambahan, persetujuan etika.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;ion-radio&gt;</td>
+          <td style="padding: 6px; border: 1px solid #000;">Eksklusif tunggal (hanya 1 dari sekian banyak pilihan sah).</td>
+          <td style="padding: 6px; border: 1px solid #000;">Jalur registrasi, metode bayar bank mitra UT.</td>
+        </tr>
+      </table>
+
+      <h3>💻 Cuplikan Template</h3>
+      <pre><code>&lt;!-- Sakelar Cepat --&gt;
+&lt;ion-toggle v-model="isDark"&gt;Mode Gelap&lt;/ion-toggle&gt;
+
+&lt;!-- Radio Group Eksklusif --&gt;
+&lt;ion-radio-group v-model="jalur"&gt;
+  &lt;ion-item&gt;
+    &lt;ion-radio value="A"&gt;SIPAS Non-TTM&lt;/ion-radio&gt;
+  &lt;/ion-item&gt;
+  &lt;ion-item&gt;
+    &lt;ion-radio value="B"&gt;Non-SIPAS&lt;/ion-radio&gt;
+  &lt;/ion-item&gt;
+&lt;/ion-radio-group&gt;</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const notifikasiAktif = ref(true);
+        const setujuTataTertib = ref(false);
+        const skemaLayanan = ref('sipas_non_ttm');
+        return { notifikasiAktif, setujuTataTertib, skemaLayanan };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

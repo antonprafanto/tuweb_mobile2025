@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 14: Arsitektur Tema Gelap Dark Mode — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--purple);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 14 • MODUL 5 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Arsitektur Theming: CSS Variables & prefers-color-scheme</h1>
+    <p style="margin: 0; font-size: 14px;">Membedah cara Ionic mengendalikan skema warna terang dan gelap melalui variabel global CSS berstandar Web Components.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- TEORI VARIABEL CSS TEMA GELAP -->
+    <div class="box">
+      <h3>🎨 3 Pilar Variabel CSS Inti Ionic</h3>
+      
+      <p style="font-size: 13px; line-height: 1.5;">
+        Komponen Ionic tidak menggunakan warna latar hardcoded, melainkan merujuk pada variabel CSS di bawah ini:
+      </p>
+
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 14px;">
+        <tr style="background: #E2E8F0;">
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Variabel CSS</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Mode Terang (Light)</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Mode Gelap (Dark)</th>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">--ion-background-color</td>
+          <td style="padding: 6px; border: 1px solid #000;">#ffffff (Putih Bersih)</td>
+          <td style="padding: 6px; border: 1px solid #000;">#121212 (Abu Gelap OLED)</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">--ion-text-color</td>
+          <td style="padding: 6px; border: 1px solid #000;">#000000 (Hitam Pekat)</td>
+          <td style="padding: 6px; border: 1px solid #000;">#ffffff (Putih Terang)</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">--ion-card-background</td>
+          <td style="padding: 6px; border: 1px solid #000;">#ffffff</td>
+          <td style="padding: 6px; border: 1px solid #000;">#1e1e1e (Kartu Elevasi)</td>
+        </tr>
+      </table>
+
+      <div style="background: #FEF08A; border: 2px solid #000; padding: 10px; font-size: 12px;">
+        💡 <strong>Kenyamanan Mata Mahasiswa:</strong> Mengapa bukan hitam pekat (#000000) untuk latar gelap? Karena abu gelap (#121212) mengurangi kontras ekstrem yang menyebabkan ketegangan mata saat membaca modul ajar di malam hari!
+      </div>
+    </div>
+
+    <!-- KODE VARIABEL THEME CSS -->
+    <div class="box">
+      <h3>💻 Berkas theme/variables.css</h3>
+      <pre><code>/* Otomatis Mengikuti Preferensi OS Smartphone */
+@media (prefers-color-scheme: dark) {
+  body {
+    --ion-background-color: #121212;
+    --ion-text-color: #ffffff;
+    --ion-card-background: #1e1e1e;
+  }
+}
+
+/* Mengikuti Kelas Manual yang Dipicu Tombol Switch */
+body.dark {
+  --ion-background-color: #121212;
+  --ion-text-color: #ffffff;
+  --ion-card-background: #1e1e1e;
+}</code></pre>
+
+      <h3>📱 Mengapa Mahasiswa Perlu Mendukung Keduanya?</h3>
+      <p style="font-size: 13px; line-height: 1.5;">
+        Pengguna smartphone ada yang menyetel mode gelap otomatis sesuai waktu senja, namun banyak juga yang ingin mengubah mode secara manual melalui sakelar tombol di dalam aplikasi.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({}).mount('#app');
+  </script>
+</body>
+</html>

@@ -21,7 +21,8 @@ tuweb_mobile2025/
 │   ├── 📁 sesi_01_lingkungan_dan_tools/     # [18 berkas] Node.js, Web Components & KTM Digital
 │   ├── 📁 sesi_02_vue_frontend/             # [18 berkas] Vue 3 Reactivity, Directives & KRS Online
 │   ├── 📁 sesi_03_typescript_vue/           # [18 berkas] TypeScript Models, Vue SFC & TUGAS 1
-│   └── 📁 sesi_04_ionic_dasar_navigasi/     # [18 berkas] Ionic UI, Stack Navigation & Lab Quest 04
+│   ├── 📁 sesi_04_ionic_dasar_navigasi/     # [18 berkas] Ionic UI, Stack Navigation & Lab Quest 04
+│   └── 📁 sesi_05_layout_grid_form/         # [18 berkas] 12-Grid, Form Regex, Dark Mode & TUGAS 2
 │
 ├── 📁 panduan_tutorial_ut/                  # Instrumen Akademik Resmi FST UT
 │   ├── 📋 RANCANGAN_AKTIVITAS_TUTORIAL_RAT.md  # Silabus RAT/SAT & Peta Kompetensi STSI4303
@@ -42,7 +43,7 @@ tuweb_mobile2025/
 | **02** | Modul 2 | Frontend Modern Menggunakan Vue.js 3 | [⚡ Download S02 (.pptx)](slide_presentasi/SESI_02_Frontend_Modern_Vue.pptx)<br>[👁️ Baca Online S02](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_02_Frontend_Modern_Vue.pptx)<br>[📄 Naskah Slide S02](slide_presentasi/SESI_02_Frontend_Modern_Vue.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_02_vue_frontend/)<br>• [Solusi Lab Quest 02](contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html) | ✅ **Rilis Lengkap**<br>💬 Diskusi 2 |
 | **03** | Modul 3 | Praktikum 1: TypeScript & Komposisi Vue | [⚡ Download S03 (.pptx)](slide_presentasi/SESI_03_TypeScript_dan_Komposisi_Vue.pptx)<br>[👁️ Baca Online S03](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_03_TypeScript_dan_Komposisi_Vue.pptx)<br>[📄 Naskah Slide S03](slide_presentasi/SESI_03_TypeScript_dan_Komposisi_Vue.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_03_typescript_vue/)<br>• [🎯 Solusi Tugas 1](contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html) | ✅ **Rilis Lengkap**<br>🎯 **TUGAS 1 DIBUKA** |
 | **04** | Modul 4 | Dasar-Dasar Ionic Framework & Navigasi | [⚡ Download S04 (.pptx)](slide_presentasi/SESI_04_Dasar_Ionic_dan_Navigasi.pptx)<br>[👁️ Baca Online S04](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_04_Dasar_Ionic_dan_Navigasi.pptx)<br>[📄 Naskah Slide S04](slide_presentasi/SESI_04_Dasar_Ionic_dan_Navigasi.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_04_ionic_dasar_navigasi/)<br>• [Solusi Lab Quest 04](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_17_lab_quest_04_portal_modul_ut.html) | ✅ **Rilis Lengkap**<br>💬 Diskusi 4 |
-| **05** | Modul 5 | Layout Grid, Dynamic Theme, & Form Regex | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 🎯 **TUGAS 2** |
+| **05** | Modul 5 | Layout Grid, Dynamic Theme, & Form Regex | [⚡ Download S05 (.pptx)](slide_presentasi/SESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx)<br>[👁️ Baca Online S05](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx)<br>[📄 Naskah Slide S05](slide_presentasi/SESI_05_Layout_Grid_Form_Regex_Dark_Mode.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_05_layout_grid_form/)<br>• [🎯 Solusi Tugas 2](contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html) | ✅ **Rilis Lengkap**<br>🎯 **TUGAS 2 DIBUKA** |
 | **06** | Modul 6-7| Capacitor & Integrasi Platform Android | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 💬 Diskusi 6 |
 | **07** | Modul 8-9| REST API, Local Storage, & Native Plugins | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 🎯 **TUGAS 3** |
 | **08** | Modul 9 | Optimasi Kinerja, Build APK Release & UAS | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 💬 Diskusi 8 & UAS |
@@ -149,6 +150,31 @@ tuweb_mobile2025/
 
 ---
 
+### 📱 Rincian 18 Berkas Mandiri Sesi 05 (Layout Grid, Form Regex, & Theming — TUGAS 2)
+
+| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run) |
+| :---: | :--- | :--- |
+| **Slide 01** | Roadmap Sesi 05, Sub-CPMK 5 & Pengumuman Resmi Tugas Tutorial 2 | [`slide_01_orientasi_sesi_dan_tugas_2.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_01_orientasi_sesi_dan_tugas_2.html) |
+| **Slide 02** | Konsep Sistem 12-Kolom: `ion-grid`, `ion-row`, `ion-col` Berbasis Flexbox | [`slide_02_konsep_12_kolom_ion_grid.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_02_konsep_12_kolom_ion_grid.html) |
+| **Slide 03** | Titik Henti Responsif (`size`, `size-sm`, `size-md`, `size-lg`) Ponsel vs Tablet | [`slide_03_grid_responsif_breakpoints.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_03_grid_responsif_breakpoints.html) |
+| **Slide 04** | Perataan Posisi Kolom (Alignment) & Offset Centering Kartu Formulir | [`slide_04_alignment_dan_offset_grid.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_04_alignment_dan_offset_grid.html) |
+| **Slide 05** | Kontrol `ion-input` dengan Floating Label, Clear-Button, Inputmode Numeric | [`slide_05_kontrol_input_teks_ion_input.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_05_kontrol_input_teks_ion_input.html) |
+| **Slide 06** | Pilihan Prodi `ion-select` (Action-Sheet) & Alamat Domisili `ion-textarea` | [`slide_06_area_teks_dan_pilihan_dropdown.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_06_area_teks_dan_pilihan_dropdown.html) |
+| **Slide 07** | Kontrol Pilihan: `ion-toggle`, `ion-checkbox` Etika, & `ion-radio` Jalur SIPAS | [`slide_07_sakelar_toggle_checkbox_radio.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_07_sakelar_toggle_checkbox_radio.html) |
+| **Slide 08** | Kalender Tanggal Lahir `ion-datetime` Lokalisasi Indonesia (`id-ID`) | [`slide_08_pemilih_tanggal_ion_datetime.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_08_pemilih_tanggal_ion_datetime.html) |
+| **Slide 09** | Prinsip Validasi Reaktif: Status Pristine, Dirty, Touched, & Pesan Error | [`slide_09_prinsip_validasi_reaktif_form.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_09_prinsip_validasi_reaktif_form.html) |
+| **Slide 10** | Bedah Formula Regex NIM UT: `/^[0-9]{9}$/` Penegakan Tepat 9 Digit Angka | [`slide_10_validasi_regex_nim_9_digit.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_10_validasi_regex_nim_9_digit.html) |
+| **Slide 11** | Bedah Formula Regex Email Kampus: `/^[a-zA-Z0-9._%+-]+@ecampus\.ut\.ac\.id$/` | [`slide_11_validasi_regex_email_ecampus_ut.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_11_validasi_regex_email_ecampus_ut.html) |
+| **Slide 12** | Umpan Balik Halus: Notifikasi Pop-up Bawah `<ion-toast>` dengan Variasi Warna | [`slide_12_notifikasi_mengambang_ion_toast.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_12_notifikasi_mengambang_ion_toast.html) |
+| **Slide 13** | Dialog Modal Konfirmasi Submit Berkas Pendaftaran `<ion-alert>` | [`slide_13_dialog_konfirmasi_ion_alert.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_13_dialog_konfirmasi_ion_alert.html) |
+| **Slide 14** | Teori Theming: Variabel Global CSS Ionic & Adaptasi prefers-color-scheme | [`slide_14_arsitektur_tema_gelap_dark_mode.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_14_arsitektur_tema_gelap_dark_mode.html) |
+| **Slide 15** | Sakelar Tema Gelap Real-Time dengan Kelas `.dark` & Penyimpanan LocalStorage | [`slide_15_sakelar_tema_dinamis_dark_light.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_15_sakelar_tema_dinamis_dark_light.html) |
+| **Slide 16** | **Pedoman & Rubrik Penilaian Resmi TUGAS TUTORIAL 2 (Skala 0–100)** | [`slide_16_rubrik_tugas_tutorial_2.md`](contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.md) |
+| **Slide 17** | **🎯 MASTER SOLUSI RESMI TUGAS TUTORIAL 2:** Portal Layanan & KTM Digital | [`slide_17_solusi_tugas_2_portal_ktm_registrasi.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html) |
+| **Slide 18** | Jembatan Sesi 06: Capacitor Runtime Bridge, Android Studio, & USB Debugging | [`slide_18_preview_sesi_06_capacitor_android.html`](contoh_kode_program/sesi_05_layout_grid_form/slide_18_preview_sesi_06_capacitor_android.html) |
+
+---
+
 ## 🎯 Panduan Tugas Tutorial Wajib Mahasiswa (Tuton UT)
 
 1. **[Tugas Tutorial 1 (Sesi 3)](panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md#tugas-tutorial-1-diberikan-pada-sesi-3):**
@@ -157,7 +183,8 @@ tuweb_mobile2025/
    * *Rubrik Penilaian:* [slide_16_rubrik_tugas_tutorial_1.md](contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.md)
 2. **[Tugas Tutorial 2 (Sesi 5)](panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md#tugas-tutorial-2-diberikan-pada-sesi-5):**
    * *Studi Kasus:* Portal Layanan Mandiri Mahasiswa (Penerbitan KTM Digital, Form Validasi NIM 9 digit & email kampus `@ecampus.ut.ac.id`, Dark Mode Switch).
-   * *Contoh Master Solusi:* [slide_04_solusi_tugas_2_katalog_mahasiswa.html](contoh_kode_program/sesi_05_layout_komponen_form/slide_04_solusi_tugas_2_katalog_mahasiswa.html)
+   * *Contoh Master Solusi:* [slide_17_solusi_tugas_2_portal_ktm_registrasi.html](contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html)
+   * *Rubrik Penilaian:* [slide_16_rubrik_tugas_tutorial_2.md](contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.md)
 3. **[Tugas Tutorial 3 (Sesi 7)](panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md#tugas-tutorial-3-diberikan-pada-sesi-7):**
    * *Studi Kasus:* Aplikasi Mobile Terintegrasi "UT Study Tracker" (Konsumsi REST API Asinkron, Penyimpanan Data Offline Persisten, Sensor Geolocation GPS).
    * *Contoh Master Solusi:* [slide_03_solusi_tugas_3_aplikasi_terintegrasi.html](contoh_kode_program/sesi_07_api_storage_plugins/slide_03_solusi_tugas_3_aplikasi_terintegrasi.html)

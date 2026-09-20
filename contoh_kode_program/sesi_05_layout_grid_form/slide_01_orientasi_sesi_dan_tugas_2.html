@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 01: Orientasi Sesi 05 & Tagihan Tugas 2 — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .alert-banner {
+      background: #FEF08A;
+      border: 3px solid #000;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+    .step-card {
+      border: 2px solid #000;
+      background: #F8FAFC;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 01 • SESI 05 (MODUL 5 BMP UT)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Orientasi Sesi 05: Grid System, Form Regex, Dark Mode, & TUGAS TUTORIAL 2</h1>
+    <p style="margin: 0; font-size: 14px;">Memasuki Fase Antarmuka Adaptif Mobile & Pembukaan Tagihan Resmi Evaluasi Praktikum Kedua (Bobot: 20%).</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PENGUMUMAN RESMI TUGAS 2 -->
+    <div class="box">
+      <div class="alert-banner">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="background: #DC2626; color: #fff; padding: 2px 8px; font-weight: 900; font-size: 12px;">
+            📢 RESMI DIBUKA HARI INI
+          </span>
+          <span style="font-weight: 800; color: #000; font-size: 13px;">BOBOT NILAI: 20%</span>
+        </div>
+        <h3 style="margin: 10px 0 6px 0; font-size: 18px;">TUGAS TUTORIAL 2 (Unjuk Kinerja Antarmuka)</h3>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5;">
+          Studi Kasus: <strong>Portal Pendaftaran Layanan Mandiri Mahasiswa UT (Penerbitan KTM Digital & Registrasi Sesi)</strong>. Mahasiswa wajib mengimplementasikan kontrol formulir Ionic, validasi Regex NIM 9 digit & email kampus, sakelar Dark/Light Mode, serta umpan balik Toast/Alert.
+        </p>
+      </div>
+
+      <h4 style="margin: 0 0 10px 0;">🎯 Timeline & Tenggat Waktu Pengumpulan:</h4>
+      <div class="step-card">
+        <strong>1. Waktu Pengerjaan:</strong> 2 Pekan sejak sesi dibuka di LMS Tuton UT.
+      </div>
+      <div class="step-card">
+        <strong>2. Format Pengumpulan:</strong> Laporan PDF tangkapan layar antarmuka + Tautan Video YouTube Unlisted (durasi 3–5 menit).
+      </div>
+      <div class="step-card">
+        <strong>3. Akses Master Solusi:</strong> Disediakan lengkap pada berkas <code>slide_17_solusi_tugas_2_portal_ktm_registrasi.html</code>.
+      </div>
+    </div>
+
+    <!-- 4 CAPAIAN SUB-CPMK 5 -->
+    <div class="box">
+      <h3 style="margin-top: 0;">🧭 4 Target Pembelajaran Sesi 05 (Sub-CPMK 5)</h3>
+
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+        <div style="border-left: 4px solid #0284C7; padding-left: 10px; background: #F0F9FF; padding: 10px;">
+          <strong style="color: #0284C7;">1. Responsive 12-Column Grid</strong>
+          <p style="margin: 4px 0 0 0; font-size: 12px; color: #334155;">
+            Menyusun tata letak adaptif dengan <code>ion-grid</code>, <code>ion-row</code>, dan <code>ion-col</code> dengan breakpoints <code>size-md</code> untuk ponsel portrait vs tablet landscape.
+          </p>
+        </div>
+
+        <div style="border-left: 4px solid #16A34A; padding-left: 10px; background: #F0FDF4; padding: 10px;">
+          <strong style="color: #16A34A;">2. Kontrol Formulir Komprehensif</strong>
+          <p style="margin: 4px 0 0 0; font-size: 12px; color: #334155;">
+            Menguasai masukan data: <code>ion-input</code>, <code>ion-textarea</code>, <code>ion-select</code>, <code>ion-checkbox</code>, dan pemilih tanggal <code>ion-datetime</code>.
+          </p>
+        </div>
+
+        <div style="border-left: 4px solid #EA580C; padding-left: 10px; background: #FFF7ED; padding: 10px;">
+          <strong style="color: #EA580C;">3. Validasi Regex & Umpan Balik Instan</strong>
+          <p style="margin: 4px 0 0 0; font-size: 12px; color: #334155;">
+            Menerapkan validasi pola Regex ketat (NIM 9 digit angka & email <code>@ecampus.ut.ac.id</code>) disertai notifikasi <code>ion-toast</code> & dialog <code>ion-alert</code>.
+          </p>
+        </div>
+
+        <div style="border-left: 4px solid #9333EA; padding-left: 10px; background: #FAF5FF; padding: 10px;">
+          <strong style="color: #9333EA;">4. Dynamic Theming (Dark Mode)</strong>
+          <p style="margin: 4px 0 0 0; font-size: 12px; color: #334155;">
+            Mengintegrasikan sakelar tema gelap (*Dark Mode switch*) berbasis CSS Custom Properties dan preferensi OS ponsel pengguna.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({}).mount('#app');
+  </script>
+</body>
+</html>

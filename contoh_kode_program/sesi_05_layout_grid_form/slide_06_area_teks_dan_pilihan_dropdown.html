@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 06: Area Teks dan Dropdown — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--purple);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .form-phone {
+      border: 3px solid #000;
+      background: #fff;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 4px 4px 0 #000;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 06 • MODUL 5 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Masukan Lanjutan: &lt;ion-select&gt; & &lt;ion-textarea&gt;</h1>
+    <p style="margin: 0; font-size: 14px;">Merancang pilihan dropdown program studi FST UT dan kolom masukan alamat pengiriman modul BMP multi-baris yang tumbuh otomatis.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PREVIEW FORM DROPDOWN & TEXTAREA -->
+    <div class="box">
+      <h3>📱 Preview Komponen Masukan</h3>
+
+      <div class="form-phone">
+        <!-- 1. Dropdown Program Studi -->
+        <ion-select
+          label="Program Studi FST UT"
+          label-placement="floating"
+          fill="outline"
+          interface="action-sheet"
+          placeholder="Pilih Program Studi"
+          v-model="selectedProdi"
+          style="margin-bottom: 16px;">
+          <ion-select-option value="S1 Sistem Informasi">S1 Sistem Informasi (STSI)</ion-select-option>
+          <ion-select-option value="S1 Informatika">S1 Informatika (MSIM)</ion-select-option>
+          <ion-select-option value="S1 Sains Data">S1 Sains Data</ion-select-option>
+          <ion-select-option value="S1 Matematika">S1 Matematika</ion-select-option>
+          <ion-select-option value="S1 Statistika">S1 Statistika</ion-select-option>
+        </ion-select>
+
+        <!-- 2. Alamat Domisili Pengiriman BMP -->
+        <ion-textarea
+          label="Alamat Lengkap Pengiriman BMP"
+          label-placement="floating"
+          fill="outline"
+          :auto-grow="true"
+          rows="3"
+          maxlength="200"
+          :counter="true"
+          placeholder="Jl. / RT / RW / Kelurahan / Kecamatan / Kota"
+          v-model="alamat"
+          style="margin-bottom: 10px;">
+        </ion-textarea>
+      </div>
+
+      <div style="margin-top: 14px; background: #EEF2FF; border: 2px solid #4338CA; padding: 10px; font-size: 12px;">
+        <strong>📋 Ringkasan Pilihan:</strong><br>
+        Prodi: <strong>{{ selectedProdi || '(Belum dipilih)' }}</strong><br>
+        Alamat: <strong>{{ alamat || '(Belum diisi)' }}</strong>
+      </div>
+    </div>
+
+    <!-- PENJELASAN INTERFACE DROPDOWN & AUTO-GROW -->
+    <div class="box">
+      <h3>🎛️ Ragam Tampilan (Interface) ion-select</h3>
+      
+      <p style="font-size: 13px; line-height: 1.5;">
+        Komponen <code>&lt;ion-select&gt;</code> dapat menyajikan dialog pemilih dalam 3 wujud alami smartphone:
+      </p>
+
+      <ul style="font-size: 13px; line-height: 1.6; padding-left: 20px;">
+        <li><strong><code>interface="action-sheet"</code></strong>: Lembar pilihan muncul dari dasar layar (desain iOS/Android modern).</li>
+        <li><strong><code>interface="alert"</code></strong> (default): Dialog pop-up modal di tengah dengan radio button.</li>
+        <li><strong><code>interface="popover"</code></strong>: Balon popover kecil di dekat tombol (cocok untuk tablet/desktop).</li>
+      </ul>
+
+      <h3>🌱 Fitur Cerdas ion-textarea</h3>
+      <p style="font-size: 13px; line-height: 1.5;">
+        Dengan atribut <code>:auto-grow="true"</code>, tinggi kotak teks akan membesar secara otomatis seiring bertambahnya baris kalimat yang diketik pengguna, sehingga tidak memerlukan scrollbar internal yang kaku.
+      </p>
+
+      <h3>💻 Pola Kode Standar</h3>
+      <pre><code>&lt;ion-select label="Program Studi" interface="action-sheet"&gt;
+  &lt;ion-select-option value="SI"&gt;Sistem Informasi&lt;/ion-select-option&gt;
+  &lt;ion-select-option value="IF"&gt;Informatika&lt;/ion-select-option&gt;
+&lt;/ion-select&gt;
+
+&lt;ion-textarea 
+  label="Alamat Pengiriman" 
+  :auto-grow="true" 
+  :counter="true" 
+  maxlength="200"&gt;
+&lt;/ion-textarea&gt;</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const selectedProdi = ref('S1 Sistem Informasi');
+        const alamat = ref('Jl. Cabe Raya, Pondok Cabe, Pamulang, Tangerang Selatan 15418');
+        return { selectedProdi, alamat };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

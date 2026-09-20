@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 11: Validasi Regex Email Kampus — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--rose);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .feedback-box {
+      padding: 12px;
+      border: 2px solid #000;
+      margin-top: 14px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 11 • MODUL 5 BMP UT (KRITERIA TUGAS 2)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Validasi Pola Regex: Domain Resmi @ecampus.ut.ac.id</h1>
+    <p style="margin: 0; font-size: 14px;">Membedah regular expression untuk membatasi pendaftaran hanya bagi pemilik surel institusi Universitas Terbuka.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- TESTER INTERAKTIF EMAIL KAMPUS -->
+    <div class="box">
+      <h3>📱 Pengujian Surel Resmi Mahasiswa UT</h3>
+
+      <ion-input
+        label="Alamat Surel Mahasiswa"
+        label-placement="floating"
+        fill="outline"
+        type="email"
+        placeholder="nama.nim@ecampus.ut.ac.id"
+        :clear-input="true"
+        v-model="emailInput">
+      </ion-input>
+
+      <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+        <button @click="emailInput = 'budi.santoso@ecampus.ut.ac.id'" style="padding: 6px; border: 1px solid #000; background: #fff; cursor: pointer; font-size: 12px; text-align: left;">
+          ✅ Contoh Sah: budi.santoso@ecampus.ut.ac.id
+        </button>
+        <button @click="emailInput = 'budi.santoso@gmail.com'" style="padding: 6px; border: 1px solid #000; background: #fff; cursor: pointer; font-size: 12px; text-align: left;">
+          ❌ Salah Domain: budi.santoso@gmail.com (Bukan Kampus)
+        </button>
+        <button @click="emailInput = 'budi@ecampus.ut.com'" style="padding: 6px; border: 1px solid #000; background: #fff; cursor: pointer; font-size: 12px; text-align: left;">
+          ❌ Salah Akhiran: budi@ecampus.ut.com (Bukan .ac.id)
+        </button>
+      </div>
+
+      <!-- KOTAK FEEDBACK STATUS -->
+      <div class="feedback-box" :style="statusValidasi.style">
+        {{ statusValidasi.pesan }}
+      </div>
+    </div>
+
+    <!-- ANATOMI & ESCAPE TITIK -->
+    <div class="box">
+      <h3>🔍 Anatomi Formula Regex Surel Kampus</h3>
+      
+      <p style="font-size: 13px; line-height: 1.5;">
+        Pola: <code>/^[a-zA-Z0-9._%+-]+@ecampus\.ut\.ac\.id$/</code>
+      </p>
+
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 12px;">
+        <tr style="background: #E2E8F0;">
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Segmen Pola</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Makna & Penjelasan</th>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">^[a-zA-Z0-9._%+-]+</td>
+          <td style="padding: 6px; border: 1px solid #000;">Nama pengguna (username) boleh berupa huruf, angka, titik, minus. Minimal 1 karakter (+).</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">@ecampus</td>
+          <td style="padding: 6px; border: 1px solid #000;">Karakter '@' wajib diikuti kata spesifik 'ecampus'.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace; font-weight: bold; color: #DC2626;">\.ut\.ac\.id$</td>
+          <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">Tanda titik wajib di-escape (\.) agar tidak dianggap sebagai wildcard sembarang karakter!</td>
+        </tr>
+      </table>
+
+      <h3>💻 Fungsi Validator TypeScript</h3>
+      <pre><code>// Definisi Pola Regex Resmi Email Kampus UT
+const REGEX_EMAIL_UT = /^[a-zA-Z0-9._%+-]+@ecampus\.ut\.ac\.id$/;
+
+export const validasiEmailUT = (email: string): boolean => {
+  return REGEX_EMAIL_UT.test(email.trim().toLowerCase());
+};</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+    createApp({
+      setup() {
+        const emailInput = ref('budi.santoso@ecampus.ut.ac.id');
+        const regexEmailUT = /^[a-zA-Z0-9._%+-]+@ecampus\.ut\.ac\.id$/;
+
+        const statusValidasi = computed(() => {
+          const val = emailInput.value.trim().toLowerCase();
+          if (!val) {
+            return { pesan: '⚪ Kolom surel masih kosong.', style: 'background: #F1F5F9; color: #475569;' };
+          }
+          if (regexEmailUT.test(val)) {
+            return { pesan: '✅ SUREL VALID: Alamat resmi institusi @ecampus.ut.ac.id diterima.', style: 'background: #DCFCE7; color: #15803D;' };
+          }
+          if (!val.includes('@')) {
+            return { pesan: '⚠️ SUREL INVALID: Wajib menyertakan tanda "@".', style: 'background: #FEF08A; color: #A16207;' };
+          }
+          return { pesan: '❌ SUREL INVALID: Wajib menggunakan domain resmi kampus "@ecampus.ut.ac.id"!', style: 'background: #FEE2E2; color: #B91C1C;' };
+        });
+
+        return { emailInput, statusValidasi };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

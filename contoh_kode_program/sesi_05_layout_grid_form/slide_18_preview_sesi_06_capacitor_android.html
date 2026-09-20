@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 18: Preview Sesi 06 — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .roadmap-card {
+      border: 2px solid #000;
+      padding: 14px;
+      background: #F8FAFC;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 18 • ROADMAP MATA KULIAH</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Jembatan Menuju Sesi 06: Capacitor Bridge & Android Studio</h1>
+    <p style="margin: 0; font-size: 14px;">Melangkah dari peramban desktop menuju ekosistem perangkat fisik smartphone: Menghubungkan kode web kita dengan native SDK Android.</p>
+  </div>
+
+  <div class="grid">
+    <!-- 4 PILAR UTAMA SESI 06 -->
+    <div class="box">
+      <h3>🚀 4 Pilar Pembelajaran Sesi 06 Mendatang</h3>
+
+      <div class="roadmap-card">
+        <h4 style="margin: 0 0 4px 0; color: #0284C7;">1. Arsitektur Capacitor Runtime Bridge</h4>
+        <p style="margin: 0; font-size: 13px; color: #475569;">
+          Memahami cara Capacitor bertindak sebagai 'jembatan' komunikasi antara JavaScript Webview dengan API native sistem operasi Android & iOS.
+        </p>
+      </div>
+
+      <div class="roadmap-card">
+        <h4 style="margin: 0 0 4px 0; color: #16A34A;">2. Bedah Struktur Folder android/ & Gradle</h4>
+        <p style="margin: 0; font-size: 13px; color: #475569;">
+          Membuka proyek di Android Studio, memahami <code>build.gradle</code>, SDK versions (Compile SDK, Target SDK, Min SDK), dan konfigurasi aset ikon aplikasi.
+        </p>
+      </div>
+
+      <div class="roadmap-card">
+        <h4 style="margin: 0 0 4px 0; color: #EA580C;">3. AndroidManifest.xml & Runtime Permissions</h4>
+        <p style="margin: 0; font-size: 13px; color: #475569;">
+          Tata kelola hak akses aplikasi smartphone: Izin akses kamera, penyimpanan memori, konektivitas internet, dan proteksi privasi pengguna.
+        </p>
+      </div>
+
+      <div class="roadmap-card">
+        <h4 style="margin: 0 0 4px 0; color: #9333EA;">4. Pengujian di Ponsel Fisik via scrcpy (Hemat RAM)</h4>
+        <p style="margin: 0; font-size: 13px; color: #475569;">
+          Solusi bagi mahasiswa bertopologi RAM 4–8GB: Menjalankan aplikasi langsung di smartphone Android pribadi lewat USB Debugging & mirroring layar tanpa beban emulator berat.
+        </p>
+      </div>
+    </div>
+
+    <!-- PENGINGAT TUGAS TUTORIAL 2 -->
+    <div class="box">
+      <div style="background: #FEF08A; border: 3px solid #000; padding: 16px; box-shadow: 4px 4px 0 #000;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-weight: 900; font-size: 13px; background: #000; color: #fff; padding: 2px 8px;">
+            ⚠️ PENGINGAT PENTING
+          </span>
+          <span style="font-weight: 800; font-size: 13px; color: #DC2626;">TENGGAT: 2 PEKAN</span>
+        </div>
+        <h3 style="margin: 6px 0; font-size: 18px;">Segera Selesaikan TUGAS TUTORIAL 2</h3>
+        <p style="font-size: 13px; line-height: 1.5; margin-bottom: 10px;">
+          Pastikan Anda telah menguji form validasi Regex NIM dan surel kampus pada berkas <code>slide_17_solusi_tugas_2_portal_ktm_registrasi.html</code>.
+        </p>
+
+        <hr style="border: none; border-top: 1px solid #000; margin: 10px 0;">
+
+        <ul style="font-size: 12px; line-height: 1.6; margin: 0; padding-left: 18px;">
+          <li>Ambil screenshot formulir valid, invalid, dan kondisi Dark Mode.</li>
+          <li>Rekam video pengujian 3–5 menit di YouTube (Unlisted).</li>
+          <li>Unggah dokumen laporan PDF ke LMS Tuton sebelum sesi berikutnya dimulai.</li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 18px; text-align: center;">
+        <ion-button expand="block" color="dark" href="slide_17_solusi_tugas_2_portal_ktm_registrasi.html">
+          🎯 Buka Kembali Master Solusi Tugas Tutorial 2
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

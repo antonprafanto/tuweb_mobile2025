@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 08: Pemilih Tanggal ion-datetime — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .datetime-wrapper {
+      border: 3px solid #000;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 4px 4px 0 #000;
+      display: flex;
+      justify-content: center;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 08 • MODUL 5 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Pemilih Kalender Modern: Komponen &lt;ion-datetime&gt;</h1>
+    <p style="margin: 0; font-size: 14px;">Menentukan tanggal lahir mahasiswa dengan antarmuka kalender visual, format lokalisasi bahasa Indonesia (id-ID), dan batasan batas tahun.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PREVIEW KALENDER LIVE -->
+    <div class="box">
+      <h3>📅 Kalender Tanggal Lahir Mahasiswa</h3>
+
+      <div class="datetime-wrapper">
+        <ion-datetime
+          locale="id-ID"
+          presentation="date"
+          v-model="tanggalLahir"
+          min="1970-01-01"
+          max="2008-12-31"
+          style="width: 100%;">
+          <span slot="title">Pilih Tanggal Lahir</span>
+        </ion-datetime>
+      </div>
+
+      <div style="margin-top: 14px; background: #FEF08A; border: 2px solid #000; padding: 10px; font-size: 12px;">
+        <strong>📆 Nilai ISO 8601 Terpilih:</strong> <code>{{ tanggalLahir }}</code><br>
+        <strong>🇮🇩 Format Teks Indonesia:</strong> <strong>{{ formatTanggalIndo(tanggalLahir) }}</strong>
+      </div>
+    </div>
+
+    <!-- FITUR & ATURAN PENGATURAN -->
+    <div class="box">
+      <h3>⚙️ Konfigurasi Utama ion-datetime</h3>
+
+      <ul style="font-size: 13px; line-height: 1.6; padding-left: 20px;">
+        <li><strong><code>locale="id-ID"</code></strong>: Mengubah nama bulan dan hari menjadi Bahasa Indonesia (Januari, Februari, Senin, Selasa).</li>
+        <li><strong><code>presentation="date"</code></strong>: Hanya menampilkan kalender tanggal tanpa pemilih jam menit.</li>
+        <li><strong><code>min="1970-01-01" & max="2008-12-31"</code></strong>: Mencegah mahasiswa memilih tanggal yang tidak masuk akal (misal: usia di bawah umur perkuliahan).</li>
+        <li><strong>Format Standar ISO:</strong> Menghasilkan teks baku <code>YYYY-MM-DD</code> yang siap dikirim langsung ke backend API atau database.</li>
+      </ul>
+
+      <h3>💻 Cuplikan Template</h3>
+      <pre><code>&lt;ion-datetime
+  locale="id-ID"
+  presentation="date"
+  min="1970-01-01"
+  max="2008-12-31"
+  v-model="tanggalLahir"&gt;
+  &lt;span slot="title"&gt;Pilih Tanggal Lahir&lt;/span&gt;
+&lt;/ion-datetime&gt;</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const tanggalLahir = ref('2002-08-17');
+
+        const formatTanggalIndo = (isoStr) => {
+          if (!isoStr) return '-';
+          const parts = isoStr.split('T')[0].split('-');
+          const thn = parts[0];
+          const blnIdx = parseInt(parts[1], 10) - 1;
+          const tgl = parts[2];
+          const bulanList = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+          return `${tgl} ${bulanList[blnIdx]} ${thn}`;
+        };
+
+        return { tanggalLahir, formatTanggalIndo };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

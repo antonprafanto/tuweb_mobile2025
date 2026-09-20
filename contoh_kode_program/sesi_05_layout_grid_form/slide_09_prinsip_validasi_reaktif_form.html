@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 09: Prinsip Validasi Reaktif — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--cyan);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .state-indicator {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: bold;
+      border: 1px solid #000;
+      margin-right: 6px;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 09 • MODUL 5 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Prinsip Validasi Reaktif: Dirty, Touched, & Umpan Balik Instan</h1>
+    <p style="margin: 0; font-size: 14px;">Memahami siklus status kolom masukan agar pesan error tidak langsung menakuti pengguna sebelum mereka sempat mengetik.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- SIMULATOR STATUS INPUT -->
+    <div class="box">
+      <h3>📱 Simulator Status Kolom Nama Mahasiswa</h3>
+      
+      <div style="background: #F8FAFC; border: 2px solid #000; padding: 14px; border-radius: 8px;">
+        <ion-input
+          label="Nama Lengkap Mahasiswa"
+          label-placement="floating"
+          fill="outline"
+          placeholder="Ketik minimal 3 huruf"
+          v-model="nama"
+          @ion-input="isDirty = true"
+          @ion-blur="isTouched = true"
+          :class="{ 'ion-invalid': isTouched && !isValid, 'ion-valid': isTouched && isValid }"
+          :error-text="isTouched && !isValid ? 'Nama tidak boleh kosong (minimal 3 huruf)!' : ''">
+        </ion-input>
+
+        <div style="margin-top: 14px; font-size: 12px;">
+          <p style="margin: 0 0 6px 0; font-weight: bold;">Indikator Status Siklus Masukan:</p>
+          <span class="state-indicator" :style="!isDirty ? 'background:#BAE6FD;' : 'background:#E2E8F0;'">
+            Pristine: {{ !isDirty }}
+          </span>
+          <span class="state-indicator" :style="isDirty ? 'background:#FDE047;' : 'background:#E2E8F0;'">
+            Dirty: {{ isDirty }}
+          </span>
+          <span class="state-indicator" :style="isTouched ? 'background:#C084FC;' : 'background:#E2E8F0;'">
+            Touched: {{ isTouched }}
+          </span>
+          <span class="state-indicator" :style="isValid ? 'background:#4ADE80;' : 'background:#FB7185;'">
+            Valid: {{ isValid }}
+          </span>
+        </div>
+      </div>
+
+      <div style="margin-top: 14px; background: #FEF08A; border: 2px solid #000; padding: 10px; font-size: 12px;">
+        💡 <strong>Aturan UX Terbaik:</strong> Jangan tampilkan teks merah saat kolom masih <em>pristine</em> (belum disentuh). Munculkan pesan error hanya jika sudah <em>touched</em> (sudah diklik keluar) dan datanya <em>invalid</em>!
+      </div>
+    </div>
+
+    <!-- PENJELASAN TIGA PILAR VALIDASI -->
+    <div class="box">
+      <h3>🧠 3 Status Dasar Kolom Masukan (Input States)</h3>
+      
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 14px;">
+        <tr style="background: #E2E8F0;">
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Status</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Artinya</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Kapan Muncul?</th>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">Pristine</td>
+          <td style="padding: 6px; border: 1px solid #000;">Murni / Belum pernah diubah sama sekali.</td>
+          <td style="padding: 6px; border: 1px solid #000;">Saat formulir pertama kali dibuka.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">Dirty</td>
+          <td style="padding: 6px; border: 1px solid #000;">Kotor / Pengguna sudah mengetik 1 karakter.</td>
+          <td style="padding: 6px; border: 1px solid #000;">Saat event <code>@ion-input</code> terpicu.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">Touched</td>
+          <td style="padding: 6px; border: 1px solid #000;">Tersentuh / Kursor sudah keluar dari input (Blur).</td>
+          <td style="padding: 6px; border: 1px solid #000;">Saat event <code>@ion-blur</code> terpicu.</td>
+        </tr>
+      </table>
+
+      <h3>💻 Pola Komputasi Vue 3</h3>
+      <pre><code>const nama = ref('');
+const isTouched = ref(false);
+
+const isValid = computed(() => {
+  return nama.value.trim().length >= 3;
+});
+
+const showError = computed(() => {
+  // Hanya tampilkan jika sudah di-touch dan masih salah
+  return isTouched.value && !isValid.value;
+});</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+    createApp({
+      setup() {
+        const nama = ref('');
+        const isDirty = ref(false);
+        const isTouched = ref(false);
+
+        const isValid = computed(() => {
+          return nama.value.trim().length >= 3;
+        });
+
+        return { nama, isDirty, isTouched, isValid };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
