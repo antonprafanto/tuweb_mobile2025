@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 10: Typing ref & reactive — STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+    button {
+      background: var(--cyan);
+      border: 2px solid var(--border);
+      padding: 8px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--border);
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 10 • MODUL 3 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Deklarasi Typing Reaktif: ref&lt;T&gt; vs reactive&lt;T&gt;</h1>
+    <p style="margin: 0; font-size: 14px;">Memanfaatkan Generics TypeScript untuk mengunci tipe data pada state Vue 3.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>📱 Demonstrasi State Reaktif Bertipe</h3>
+
+    <div style="background:#F9FAFB; border:2px solid #000; padding:16px; margin:14px 0;">
+      <h4>Profil Mahasiswa:</h4>
+      <p>NIM: <strong>{{ profil.nim }}</strong></p>
+      <p>Nama: <strong>{{ profil.nama }}</strong></p>
+      <p>Target IPK: <strong>{{ targetIpk.toFixed(2) }}</strong></p>
+      <button @click="targetIpk = Math.min(4.0, targetIpk + 0.05)">Tingkatkan Target (+0.05)</button>
+      <button @click="targetIpk = Math.max(2.0, targetIpk - 0.05)" style="background:#E5E7EB;">Turunkan (-0.05)</button>
+    </div>
+
+    <h4 style="margin-top: 20px;">💡 Sintaks TypeScript Generics pada ref & reactive:</h4>
+    <pre><code>// 1. Typing eksplisit pada ref primitif:
+const targetIpk = ref&lt;number&gt;(3.75);
+
+// 2. Typing union type saat state bisa bernilai null (misal sebelum fetch):
+const dataUser = ref&lt;MahasiswaUT | null&gt;(null);
+
+// 3. Typing pada reactive object:
+const profil = reactive&lt;MahasiswaUT&gt;({
+  nim: '043123456',
+  nama: 'Dewi Lestari',
+  upbjj: 'Jakarta',
+  programStudi: 'Sistem Informasi',
+  semesterBerjalan: 5,
+  status: 'Aktif',
+  daftarNilai: []
+});</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref, reactive } = Vue;
+
+    createApp({
+      setup() {
+        const targetIpk = ref(3.75);
+        const profil = reactive({
+          nim: '043123456',
+          nama: 'Dewi Lestari'
+        });
+
+        return { targetIpk, profil };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

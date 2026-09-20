@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 04: Union & Literal Types — STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--border);
+      font-size: 14px;
+      margin-top: 4px;
+      margin-bottom: 14px;
+    }
+    .status-pill {
+      display: inline-block;
+      padding: 6px 14px;
+      font-weight: bold;
+      border: 2px solid var(--border);
+      margin-top: 6px;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 04 • MODUL 3 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Union Types & Literal Types: Membatasi Nilai Sah secara Mutlak</h1>
+    <p style="margin: 0; font-size: 14px;">Mencegah nilai acak pada status akademik dan nilai mutu mata kuliah.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>🎓 Pemilihan Status Akademik & Nilai Mutu</h3>
+
+    <!-- Pilihan Nilai Huruf -->
+    <label>1. Pilih Nilai Huruf (Type <code>NilaiHuruf = 'A' | 'B' | 'C' | 'D' | 'E'</code>):</label>
+    <select v-model="pilihanNilai">
+      <option value="A">Nilai A (Bobot 4.00)</option>
+      <option value="B">Nilai B (Bobot 3.00)</option>
+      <option value="C">Nilai C (Bobot 2.00)</option>
+      <option value="D">Nilai D (Bobot 1.00)</option>
+      <option value="E">Nilai E (Bobot 0.00)</option>
+    </select>
+
+    <!-- Pilihan Status Mahasiswa -->
+    <label>2. Pilih Status Registrasi (Type <code>StatusMahasiswa = 'Aktif' | 'Cuti' | 'Lulus'</code>):</label>
+    <select v-model="statusMhs">
+      <option value="Aktif">Aktif Mengikuti Tutorial</option>
+      <option value="Cuti">Cuti Akademik Resmi</option>
+      <option value="Lulus">Lulus / Alumnus FST UT</option>
+    </select>
+
+    <div>
+      Status Terpilih: 
+      <span class="status-pill" :style="{ background: warnaStatus }">
+        {{ statusMhs.toUpperCase() }} (Nilai: {{ pilihanNilai }})
+      </span>
+    </div>
+
+    <h4 style="margin-top: 24px;">💡 Kode Definisi TypeScript:</h4>
+    <pre><code>// 1. Literal Types: Hanya mengizinkan teks yang terdaftar
+export type NilaiHuruf = 'A' | 'B' | 'C' | 'D' | 'E';
+export type StatusMahasiswa = 'Aktif' | 'Cuti' | 'Lulus';
+
+// 2. Union Types pada properti:
+export interface RiwayatNilai {
+  kodeMk: string;
+  nilai: NilaiHuruf;        // Menolak jika diisi selain A, B, C, D, E
+  status: StatusMahasiswa;   // Menolak jika diisi "Pending" atau kata sembarangan
+}</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        const pilihanNilai = ref('A');
+        const statusMhs = ref('Aktif');
+
+        const warnaStatus = computed(() => {
+          if (statusMhs.value === 'Aktif') return '#DCFCE7';
+          if (statusMhs.value === 'Cuti') return '#FEF08A';
+          return '#E0E7FF';
+        });
+
+        return { pilihanNilai, statusMhs, warnaStatus };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 12: Typing Computed Properties — STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 12 • MODUL 3 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Type Safety pada Properti Terkalkulasi: computed&lt;T&gt;()</h1>
+    <p style="margin: 0; font-size: 14px;">Menjamin tipe nilai kembalian kalkulasi otomatis sesuai ekspektasi logika bisnis.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>📊 Kalkulasi Bertipe: <code>computed&lt;number&gt;</code> & <code>computed&lt;string&gt;</code></h3>
+
+    <div style="display:flex; gap:16px; margin:16px 0;">
+      <div style="flex:1; background:#FEF9C3; border:2px solid #000; padding:14px; text-align:center;">
+        <div style="font-size:12px; font-weight:bold;">TOTAL SKS (number):</div>
+        <div style="font-size:26px; font-weight:900;">{{ totalSks }} SKS</div>
+      </div>
+      <div style="flex:1; background:#DCFCE7; border:2px solid #000; padding:14px; text-align:center;">
+        <div style="font-size:12px; font-weight:bold;">PREDIKAT (string):</div>
+        <div style="font-size:18px; font-weight:900; margin-top:6px;">{{ predikat }}</div>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 20px;">💡 Contoh Kode TypeScript:</h4>
+    <pre><code>// 1. Computed yang mengembalikan tipe number murni:
+const totalSks = computed&lt;number&gt;(() => {
+  return listMk.value.reduce((total, mk) => total + mk.sks, 0);
+});
+
+// 2. Computed yang mengembalikan tipe string predikat:
+const predikat = computed&lt;string&gt;(() => {
+  return ips.value >= 3.5 ? 'Dengan Pujian' : 'Sangat Memuaskan';
+});</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        const listMk = ref([
+          { nama: 'Pemrograman Bergerak', sks: 3 },
+          { nama: 'Basis Data', sks: 3 },
+          { nama: 'RPL', sks: 3 }
+        ]);
+
+        const totalSks = computed(() => {
+          return listMk.value.reduce((total, mk) => total + mk.sks, 0);
+        });
+
+        const predikat = computed(() => {
+          return totalSks.value >= 9 ? '🏆 Beban Belajar Terpenuhi' : 'Kurang SKS';
+        });
+
+        return { listMk, totalSks, predikat };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

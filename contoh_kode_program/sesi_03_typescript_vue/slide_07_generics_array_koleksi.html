@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 07: Generics pada Koleksi Array — STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13px; }
+    th, td { border: 2px solid var(--border); padding: 8px 12px; text-align: left; }
+    th { background: #F3F4F6; }
+    button {
+      background: var(--cyan);
+      border: 2px solid var(--border);
+      padding: 8px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--border);
+      margin-right: 8px;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 07 • MODUL 3 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Generics pada Koleksi: Array&lt;T&gt; vs T[] untuk Manipulasi Aman</h1>
+    <p style="margin: 0; font-size: 14px;">Memastikan setiap elemen di dalam array selalu mematuhi interface secara seragam.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>📚 Koleksi Mata Kuliah Bertipe: <code>Array&lt;MataKuliah&gt;</code></h3>
+
+    <div style="margin-bottom: 12px;">
+      <button @click="filterSksMinimal(3)">Filter SKS >= 3</button>
+      <button @click="resetFilter" style="background:#E5E7EB;">Tampilkan Semua (Reset)</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Kode MK</th>
+          <th>Nama Mata Kuliah</th>
+          <th>Beban SKS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(mk, idx) in daftarTampil" :key="mk.kode">
+          <td>{{ idx + 1 }}</td>
+          <td><strong>{{ mk.kode }}</strong></td>
+          <td>{{ mk.nama }}</td>
+          <td>{{ mk.sks }} SKS</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin-top: 24px;">💡 Dua Cara Menulis Generic Array di TypeScript:</h4>
+    <pre><code>// Format 1: Sintaks Tanda Kurung Siku (Shorthand)
+const listNilai: MataKuliah[] = [ ... ];
+
+// Format 2: Sintaks Formal Generics (Array&lt;T&gt;)
+const listKRS: Array&lt;MataKuliah&gt; = [ ... ];
+
+// Keuntungan Generics: VS Code langsung tahu properti .sks saat di-reduce!
+const totalSks = listKRS.reduce((total, item) => total + item.sks, 0);</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const masterKatalog = [
+          { kode: 'STSI4303', nama: 'Pemrograman Bergerak', sks: 3 },
+          { kode: 'MSIM4206', nama: 'Basis Data Terdistribusi', sks: 3 },
+          { kode: 'MKWU4108', nama: 'Bahasa Indonesia', sks: 2 },
+          { kode: 'MSIM4408', nama: 'Tugas Akhir Program', sks: 4 }
+        ];
+
+        const daftarTampil = ref([...masterKatalog]);
+
+        const filterSksMinimal = (min) => {
+          daftarTampil.value = masterKatalog.filter(item => item.sks >= min);
+        };
+
+        const resetFilter = () => {
+          daftarTampil.value = [...masterKatalog];
+        };
+
+        return { daftarTampil, filterSksMinimal, resetFilter };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

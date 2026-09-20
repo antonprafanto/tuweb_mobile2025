@@ -13,11 +13,14 @@ tuweb_mobile2025/
 │   ├── 📊 SESI_01_Pengantar_dan_Lingkungan_Ionic.pptx
 │   ├── 📄 SESI_01_Pengantar_dan_Lingkungan_Ionic.md
 │   ├── 📊 SESI_02_Frontend_Modern_Vue.pptx
-│   └── 📄 SESI_02_Frontend_Modern_Vue.md
+│   ├── 📄 SESI_02_Frontend_Modern_Vue.md
+│   ├── 📊 SESI_03_TypeScript_dan_Komposisi_Vue.pptx
+│   └── 📄 SESI_03_TypeScript_dan_Komposisi_Vue.md
 │
 ├── 📁 contoh_kode_program/                  # Berkas Kode Mandiri Siap Eksekusi (Zero-Friction)
 │   ├── 📁 sesi_01_lingkungan_dan_tools/     # [18 berkas] Node.js, Web Components & KTM Digital
-│   └── 📁 sesi_02_vue_frontend/             # [18 berkas] Vue 3 Reactivity, Directives & KRS Online
+│   ├── 📁 sesi_02_vue_frontend/             # [18 berkas] Vue 3 Reactivity, Directives & KRS Online
+│   └── 📁 sesi_03_typescript_vue/           # [18 berkas] TypeScript Models, Vue SFC & TUGAS 1
 │
 ├── 📁 panduan_tutorial_ut/                  # Instrumen Akademik Resmi FST UT
 │   ├── 📋 RANCANGAN_AKTIVITAS_TUTORIAL_RAT.md  # Silabus RAT/SAT & Peta Kompetensi STSI4303
@@ -36,7 +39,7 @@ tuweb_mobile2025/
 | :---: | :---: | :--- | :--- | :---: | :---: |
 | **01** | Modul 1 | Pengenalan Lingkungan & Arsitektur Hybrid | [⚡ Download S01 (.pptx)](slide_presentasi/SESI_01_Pengantar_dan_Lingkungan_Ionic.pptx)<br>[👁️ Baca Online S01](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_01_Pengantar_dan_Lingkungan_Ionic.pptx)<br>[📄 Naskah Slide S01](slide_presentasi/SESI_01_Pengantar_dan_Lingkungan_Ionic.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_01_lingkungan_dan_tools/)<br>• [Solusi Lab Quest 01](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html) | ✅ **Rilis Lengkap**<br>💬 Diskusi 1 |
 | **02** | Modul 2 | Frontend Modern Menggunakan Vue.js 3 | [⚡ Download S02 (.pptx)](slide_presentasi/SESI_02_Frontend_Modern_Vue.pptx)<br>[👁️ Baca Online S02](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_02_Frontend_Modern_Vue.pptx)<br>[📄 Naskah Slide S02](slide_presentasi/SESI_02_Frontend_Modern_Vue.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_02_vue_frontend/)<br>• [Solusi Lab Quest 02](contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html) | ✅ **Rilis Lengkap**<br>💬 Diskusi 2 |
-| **03** | Modul 3 | Praktikum 1: TypeScript & Komposisi Vue | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 🎯 **TUGAS 1** |
+| **03** | Modul 3 | Praktikum 1: TypeScript & Komposisi Vue | [⚡ Download S03 (.pptx)](slide_presentasi/SESI_03_TypeScript_dan_Komposisi_Vue.pptx)<br>[👁️ Baca Online S03](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_03_TypeScript_dan_Komposisi_Vue.pptx)<br>[📄 Naskah Slide S03](slide_presentasi/SESI_03_TypeScript_dan_Komposisi_Vue.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_03_typescript_vue/)<br>• [🎯 Solusi Tugas 1](contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html) | ✅ **Rilis Lengkap**<br>🎯 **TUGAS 1 DIBUKA** |
 | **04** | Modul 4 | Dasar-Dasar Ionic Framework & Navigasi | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 💬 Diskusi 4 |
 | **05** | Modul 5 | Layout Grid, Dynamic Theme, & Form Regex | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 🎯 **TUGAS 2** |
 | **06** | Modul 6-7| Capacitor & Integrasi Platform Android | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 💬 Diskusi 6 |
@@ -93,6 +96,30 @@ tuweb_mobile2025/
 | **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 02:** Aplikasi KRS Mandiri Mahasiswa UT | [`slide_17_lab_quest_02_krs_interaktif.html`](contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html) |
 | **Slide 18** | Jembatan Sesi 03: Mengapa Butuh TypeScript Interface? | [`slide_18_preview_sesi_03_typescript.html`](contoh_kode_program/sesi_02_vue_frontend/slide_18_preview_sesi_03_typescript.html) |
 
+---
+
+### 📱 Rincian 18 Berkas Mandiri Sesi 03 (TypeScript & Komposisi Vue — TUGAS 1)
+
+| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run) |
+| :---: | :--- | :--- |
+| **Slide 01** | Roadmap Sesi 03 & Orientasi Tagihan Resmi Tugas Tutorial 1 | [`slide_01_roadmap_sesi_dan_tugas_1.html`](contoh_kode_program/sesi_03_typescript_vue/slide_01_roadmap_sesi_dan_tugas_1.html) |
+| **Slide 02** | Urgensi TypeScript: Mencegah Bug Runtime Typo di Ponsel | [`slide_02_urgensi_typescript_mobile.html`](contoh_kode_program/sesi_03_typescript_vue/slide_02_urgensi_typescript_mobile.html) |
+| **Slide 03** | Tipe Primitif (`string`, `number`, `boolean`) & Bahaya `any` | [`slide_03_tipe_primitif_dan_any_hazard.html`](contoh_kode_program/sesi_03_typescript_vue/slide_03_tipe_primitif_dan_any_hazard.html) |
+| **Slide 04** | Union & Literal Types: Mengunci Pilihan Status Akademik UT | [`slide_04_union_dan_literal_types.html`](contoh_kode_program/sesi_03_typescript_vue/slide_04_union_dan_literal_types.html) |
+| **Slide 05** | Kontrak Data Model Interface `MahasiswaUT` & `MataKuliah` | [`slide_05_interface_model_mahasiswa.ts`](contoh_kode_program/sesi_03_typescript_vue/slide_05_interface_model_mahasiswa.ts) |
+| **Slide 06** | Properti Opsional (`?`) & Mutlak Tak-Terubah (`readonly nim`) | [`slide_06_optional_dan_readonly_properties.html`](contoh_kode_program/sesi_03_typescript_vue/slide_06_optional_dan_readonly_properties.html) |
+| **Slide 07** | Generics Koleksi: `Array<MataKuliah>` vs `MataKuliah[]` | [`slide_07_generics_array_koleksi.html`](contoh_kode_program/sesi_03_typescript_vue/slide_07_generics_array_koleksi.html) |
+| **Slide 08** | Anotasi Tipe Fungsi: Parameter Ketat & Return Type Eksplisit | [`slide_08_fungsi_type_annotation.html`](contoh_kode_program/sesi_03_typescript_vue/slide_08_fungsi_type_annotation.html) |
+| **Slide 09** | Integrasi Vue 3 SFC: `<script setup lang="ts">` Modern | [`slide_09_vue3_script_setup_lang_ts.html`](contoh_kode_program/sesi_03_typescript_vue/slide_09_vue3_script_setup_lang_ts.html) |
+| **Slide 10** | Deklarasi Reaktivitas Bertipe: `ref<T>` vs `reactive<T>` | [`slide_10_typing_ref_dan_reactive.html`](contoh_kode_program/sesi_03_typescript_vue/slide_10_typing_ref_dan_reactive.html) |
+| **Slide 11** | Mengelola Array Koleksi Bertipe: `ref<MataKuliah[]>` | [`slide_11_typing_koleksi_array_reaktif.html`](contoh_kode_program/sesi_03_typescript_vue/slide_11_typing_koleksi_array_reaktif.html) |
+| **Slide 12** | Type Safety Properti Terkalkulasi: `computed<T>()` | [`slide_12_typing_computed_properties.html`](contoh_kode_program/sesi_03_typescript_vue/slide_12_typing_computed_properties.html) |
+| **Slide 13** | Deklarasi Props Komponen Bertipe: `defineProps<T>()` | [`slide_13_typing_props_komponen.html`](contoh_kode_program/sesi_03_typescript_vue/slide_13_typing_props_komponen.html) |
+| **Slide 14** | Deklarasi Emits Komponen Bertipe: `defineEmits<T>()` | [`slide_14_typing_emits_komponen.html`](contoh_kode_program/sesi_03_typescript_vue/slide_14_typing_emits_komponen.html) |
+| **Slide 15** | Penanganan Event Masukan DOM Bertipe (`Event`, `KeyboardEvent`) | [`slide_15_typing_dom_events.html`](contoh_kode_program/sesi_03_typescript_vue/slide_15_typing_dom_events.html) |
+| **Slide 16** | **Pedoman & Rubrik Penilaian Resmi TUGAS TUTORIAL 1 (0-100)** | [`slide_16_rubrik_tugas_tutorial_1.md`](contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.md) |
+| **Slide 17** | **🎯 MASTER SOLUSI RESMI TUGAS 1:** Kalkulator Nilai & IPS UT | [`slide_17_solusi_tugas_1_kalkulator_nilai.html`](contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html) |
+| **Slide 18** | Jembatan Sesi 04: Transisi Menuju Komponen Mobile Ionic UI | [`slide_18_preview_sesi_04_ionic_ui.html`](contoh_kode_program/sesi_03_typescript_vue/slide_18_preview_sesi_04_ionic_ui.html) |
 
 ---
 
@@ -100,7 +127,8 @@ tuweb_mobile2025/
 
 1. **[Tugas Tutorial 1 (Sesi 3)](panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md#tugas-tutorial-1-diberikan-pada-sesi-3):**
    * *Studi Kasus:* Kalkulator Nilai Mata Kuliah & Indeks Prestasi (IPS) Mahasiswa UT berbasis TypeScript & Vue Composition API.
-   * *Contoh Master Solusi:* [slide_03_solusi_tugas_1_kalkulator_nilai.html](contoh_kode_program/sesi_03_typescript_vue/slide_03_solusi_tugas_1_kalkulator_nilai.html)
+   * *Contoh Master Solusi:* [slide_17_solusi_tugas_1_kalkulator_nilai.html](contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html)
+   * *Rubrik Penilaian:* [slide_16_rubrik_tugas_tutorial_1.md](contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.md)
 2. **[Tugas Tutorial 2 (Sesi 5)](panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md#tugas-tutorial-2-diberikan-pada-sesi-5):**
    * *Studi Kasus:* Portal Layanan Mandiri Mahasiswa (Penerbitan KTM Digital, Form Validasi NIM 9 digit & email kampus `@ecampus.ut.ac.id`, Dark Mode Switch).
    * *Contoh Master Solusi:* [slide_04_solusi_tugas_2_katalog_mahasiswa.html](contoh_kode_program/sesi_05_layout_komponen_form/slide_04_solusi_tugas_2_katalog_mahasiswa.html)

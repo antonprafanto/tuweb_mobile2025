@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 14: Typing Emits Komponen — STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    button {
+      background: var(--rose);
+      border: 2px solid var(--border);
+      padding: 6px 12px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--border);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 14 • MODUL 3 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Deklarasi Emits Bertipe: defineEmits&lt;T&gt;()</h1>
+    <p style="margin: 0; font-size: 14px;">Mengunci nama event dan tipe parameter payload yang dipancarkan anak ke induk.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>📢 Pancaran Sinyal Bertipe (Type-Safe Events)</h3>
+
+    <div style="background:#F9FAFB; border:2px solid #000; padding:16px; margin:14px 0; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <strong>STSI4303 - Pemrograman Bergerak</strong> (3 SKS)
+      </div>
+      <button @click="triggerHapus">🗑️ Hapus Mata Kuliah</button>
+    </div>
+
+    <div v-if="pesanLog" style="background:#DCFCE7; border:2px solid #16A34A; padding:10px; font-size:13px; font-weight:bold;">
+      {{ pesanLog }}
+    </div>
+
+    <h4 style="margin-top: 24px;">💡 Kode TypeScript defineEmits:</h4>
+    <pre><code>// DI DALAM KOMPONEN ANAK
+&lt;script setup lang="ts"&gt;
+// Deklarasi event bertipe ketat:
+const emit = defineEmits&lt;{
+  (e: 'hapus-mk', id: string): void;
+  (e: 'ubah-nilai', id: string, nilaiBaru: NilaiHuruf): void;
+}&gt;();
+
+const triggerHapus = (): void => {
+  emit('hapus-mk', 'STSI4303'); // Payload wajib bertipe string!
+};
+&lt;/script&gt;</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const pesanLog = ref('');
+
+        const triggerHapus = () => {
+          pesanLog.value = '✅ Event "hapus-mk" dengan payload ID "STSI4303" berhasil dipancarkan ke komponen induk!';
+        };
+
+        return { pesanLog, triggerHapus };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

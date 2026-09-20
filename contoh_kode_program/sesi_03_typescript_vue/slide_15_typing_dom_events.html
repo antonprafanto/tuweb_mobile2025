@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 15: Typing DOM Events — STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--border);
+      font-size: 14px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 15 • MODUL 3 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Penanganan DOM Events Bertipe (Event, KeyboardEvent, HTMLInputElement)</h1>
+    <p style="margin: 0; font-size: 14px;">Mengakses properti <code>event.target.value</code> secara aman menggunakan Type Casting.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>⌨️ Uji Coba Input Masukan Bertipe</h3>
+
+    <label>Ketik NIM Mahasiswa (Hanya Angka):</label>
+    <input type="text" @input="handleInput" placeholder="Ketik angka di sini...">
+
+    <div style="background:#F9FAFB; border:2px solid #000; padding:12px; margin-top:10px;">
+      <div>Karakter Terakhir Ditekan: <strong>{{ lastKey || '-' }}</strong></div>
+      <div>Isi Input Saat Ini: <strong>{{ nilaiInput || '-' }}</strong></div>
+    </div>
+
+    <h4 style="margin-top: 24px;">💡 Solusi Type Casting di TypeScript:</h4>
+    <pre><code>// Tanpa TypeScript casting, e.target.value akan dianggap error!
+const handleInput = (event: Event): void => {
+  // Lakukan Type Assertion (as HTMLInputElement)
+  const target = event.target as HTMLInputElement;
+  console.log('Nilai input:', target.value);
+};
+
+// Khusus Event Keyboard:
+const handleKey = (event: KeyboardEvent): void => {
+  if (event.key === 'Enter') {
+    console.log('Pengguna menekan tombol Enter!');
+  }
+};</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const nilaiInput = ref('');
+        const lastKey = ref('');
+
+        const handleInput = (e) => {
+          nilaiInput.value = e.target.value;
+          if (e.data) lastKey.value = e.data;
+        };
+
+        return { nilaiInput, lastKey, handleInput };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

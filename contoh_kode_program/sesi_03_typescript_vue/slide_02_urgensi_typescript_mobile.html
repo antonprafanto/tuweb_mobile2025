@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 02: Urgensi TypeScript untuk Mobile — STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    button {
+      background: var(--cyan);
+      border: 2px solid var(--border);
+      padding: 10px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border);
+      margin-top: 10px;
+    }
+    button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--border); }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 02 • MODUL 3 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Urgensi TypeScript: Mencegah Crash Fatal Runtime pada Aplikasi Mobile</h1>
+    <p style="margin: 0; font-size: 14px;">Membandingkan kelemahan silent failure JavaScript murni vs perlindungan compile-time TypeScript.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANEL JAVASCRIPT TANPA TIPE -->
+    <div class="card">
+      <span class="badge" style="background:var(--rose);">1. JAVASCRIPT MURNI (DYNAMIC TYPING)</span>
+      <h3>⚠️ Bencana Typo & Silent Failure</h3>
+      <p style="font-size:13px; color:#555;">
+        Ketika kita memanggil properti yang salah ketik (misal: <code>mhs.ipkSemester</code> tertulis <code>mhs.ipkSmt</code>), JavaScript tidak akan komplain saat ngoding. Tetapi saat kalkulasi, aplikasi menghasilkan nilai <code>NaN</code>!
+      </p>
+
+      <div style="background:#FEE2E2; border:2px solid #000; padding:12px; font-size:13px;">
+        <div>Nama: <strong>{{ mhsJS.nama }}</strong></div>
+        <div>Hasil Hitung Bobot: <strong style="color:#B91C1C;">{{ hasilJS }}</strong></div>
+      </div>
+
+      <button @click="ujiJavaScript" style="background:var(--rose);">
+        💥 Simulasikan Error JavaScript
+      </button>
+
+      <pre><code>// JavaScript Murni:
+const mhs = { nama: 'Rani', ipk: 3.8 };
+
+// Typo properti: mhs.skorIpk (tidak ada!)
+const hasil = mhs.skorIpk * 25; 
+// undefined * 25 = NaN (Aplikasi Rusak!)</code></pre>
+    </div>
+
+    <!-- PANEL TYPESCRIPT DENGAN INTERFACE -->
+    <div class="card">
+      <span class="badge" style="background:var(--mint);">2. TYPESCRIPT (STATIC TYPE CHECKING)</span>
+      <h3>🛡️ Kontrak Data Mutlak (Interface)</h3>
+      <p style="font-size:13px; color:#555;">
+        TypeScript memaksa pengembang mendeklarasikan bentuk data (kontrak). Jika ada salah ketik 1 huruf saja, editor langsung memblokir kompilasi sebelum kode sempat dikirim ke smartphone!
+      </p>
+
+      <div style="background:#ECFDF5; border:2px solid #000; padding:12px; font-size:13px;">
+        <div>Status Proteksi: <strong style="color:#15803D;">✅ Aktif (VS Code Intellisense)</strong></div>
+        <div>Status Build: <strong style="color:#15803D;">0 Runtime Error Terdeteksi</strong></div>
+      </div>
+
+      <button @click="ujiTypeScript" style="background:var(--mint);">
+        🛡️ Periksa Proteksi TypeScript
+      </button>
+
+      <pre><code>// TypeScript Interface:
+interface Mahasiswa {
+  nama: string;
+  ipk: number;
+}
+
+const mhs: Mahasiswa = { nama: 'Rani', ipk: 3.8 };
+
+// ❌ COMPILE-TIME ERROR:
+// Property 'skorIpk' does not exist on type 'Mahasiswa'!
+console.log(mhs.skorIpk);</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const mhsJS = { nama: 'Rani Wulandari', ipk: 3.85 };
+        const hasilJS = ref('Belum dieksekusi');
+
+        const ujiJavaScript = () => {
+          // Sengaja panggil nama properti yang salah
+          const typo = mhsJS.ipkSmt; // undefined!
+          const kalkulasi = typo * 25; // NaN
+          hasilJS.value = `Nilai: ${typo} (Hasil Kali: ${kalkulasi})`;
+          alert('⚠️ Terjadi Silent Bug: mhs.ipkSmt bernilai undefined. Hasil kalkulasi menjadi NaN!');
+        };
+
+        const ujiTypeScript = () => {
+          alert('✅ TypeScript Sukses: Kesalahan penamaan variabel langsung ditolak saat kompilasi!');
+        };
+
+        return { mhsJS, hasilJS, ujiJavaScript, ujiTypeScript };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

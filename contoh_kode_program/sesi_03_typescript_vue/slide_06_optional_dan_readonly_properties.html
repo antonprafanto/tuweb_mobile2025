@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 06: Optional & Readonly Properties — STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--border);
+      font-size: 14px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+    input:disabled { background: #E5E7EB; cursor: not-allowed; }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 06 • MODUL 3 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Properti Opsional (?) dan Mutlak Tidak-Dapat-Diubah (readonly)</h1>
+    <p style="margin: 0; font-size: 14px;">Menjaga integritas data identitas mahasiswa agar tidak termutasi secara tidak sengaja.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>🪪 Formulir Biodata Mahasiswa Terproteksi</h3>
+
+    <!-- Kolom Readonly NIM -->
+    <label>1. Nomor Induk Mahasiswa (NIM) - <code>readonly nim: string</code>:</label>
+    <input type="text" :value="mhs.nim" disabled>
+    <div style="font-size:11px; color:#DC2626; margin-top:-8px; margin-bottom:12px;">
+      🔒 <em>Field ini diproteksi oleh TypeScript dengan kata kunci 'readonly'. NIM tidak boleh diubah setelah instansiasi!</em>
+    </div>
+
+    <!-- Kolom Wajib Nama -->
+    <label>2. Nama Lengkap - <code>nama: string</code> (Wajib):</label>
+    <input type="text" v-model="mhs.nama">
+
+    <!-- Kolom Opsional No HP -->
+    <label>3. Nomor WhatsApp / Ponsel - <code>noHp?: string</code> (Opsional):</label>
+    <input type="text" v-model="mhs.noHp" placeholder="Boleh dikosongkan jika belum ada...">
+
+    <div style="background:#F9FAFB; border:2px solid #000; padding:12px; margin-top:10px;">
+      <strong>Hasil Objek Data:</strong>
+      <div style="font-size:13px; margin-top:6px;">
+        NIM: <strong>{{ mhs.nim }}</strong> | Nama: <strong>{{ mhs.nama }}</strong> | HP: <strong>{{ mhs.noHp || '(Belum Diisi)' }}</strong>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 24px;">💡 Perbedaan Sintaks TypeScript:</h4>
+    <pre><code>interface ProfilMahasiswa {
+  readonly nim: string;     // 🔒 Tidak bisa di-assign ulang: mhs.nim = '049' ❌ ERROR
+  nama: string;             // 📝 Wajib ada nilai saat inisialisasi
+  noHp?: string;            // ❓ Opsional: boleh undefined
+  emailKampus?: string;     // ❓ Opsional
+}</code></pre>
+  </div>
+
+  <script>
+    const { createApp, reactive } = Vue;
+
+    createApp({
+      setup() {
+        const mhs = reactive({
+          nim: '043999123',
+          nama: 'Bambang Sugiarto',
+          noHp: ''
+        });
+
+        return { mhs };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

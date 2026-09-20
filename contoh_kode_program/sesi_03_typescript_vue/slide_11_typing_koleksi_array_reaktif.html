@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 11: Typing Koleksi Array Reaktif — STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: #F9FAFB;
+      border: 2px solid var(--border);
+      margin-bottom: 8px;
+    }
+    button {
+      background: var(--cyan);
+      border: 2px solid var(--border);
+      padding: 8px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--border);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 11 • MODUL 3 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Mengelola Array Koleksi Bertipe: ref&lt;MataKuliah[]&gt;([])</h1>
+    <p style="margin: 0; font-size: 14px;">Memastikan setiap operasi push, splice, dan filter selalu aman terhadap tipe data objek.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>📋 Daftar Mata Kuliah: <code>ref&lt;MataKuliah[]&gt;</code></h3>
+
+    <div v-for="mk in daftarMk" :key="mk.id" class="item-row">
+      <div>
+        <strong>{{ mk.kode }}</strong> - {{ mk.nama }} ({{ mk.sks }} SKS)
+      </div>
+      <button @click="hapusMk(mk.id)" style="background:var(--rose); font-size:12px; padding:4px 8px;">
+        ✕ Hapus
+      </button>
+    </div>
+
+    <button @click="tambahDummy" style="margin-top:12px; background:var(--mint);">
+      + Tambah Mata Kuliah Terstruktur
+    </button>
+
+    <h4 style="margin-top: 24px;">💡 Kode Mutasi Koleksi Bertipe:</h4>
+    <pre><code>// Deklarasi array bertipe:
+const daftarMk = ref&lt;MataKuliah[]&gt;([
+  { id: '1', kode: 'STSI4303', nama: 'Pemrograman Bergerak', sks: 3 }
+]);
+
+// Fungsi tambah dengan parameter bertipe mutlak:
+const tambahMataKuliah = (item: MataKuliah): void => {
+  daftarMk.value.push(item); // Aman dari salah tipe data!
+};</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const daftarMk = ref([
+          { id: '1', kode: 'STSI4303', nama: 'Pemrograman Berbasis Bergerak', sks: 3 },
+          { id: '2', kode: 'MSIM4206', nama: 'Basis Data Terdistribusi', sks: 3 }
+        ]);
+
+        const hapusMk = (id) => {
+          daftarMk.value = daftarMk.value.filter(x => x.id !== id);
+        };
+
+        const tambahDummy = () => {
+          const idBaru = String(Date.now());
+          daftarMk.value.push({
+            id: idBaru,
+            kode: 'MKWU4108',
+            nama: 'Bahasa Indonesia',
+            sks: 2
+          });
+        };
+
+        return { daftarMk, hapusMk, tambahDummy };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

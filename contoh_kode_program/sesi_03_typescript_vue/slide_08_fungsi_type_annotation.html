@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 08: Anotasi Tipe pada Fungsi — STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .row { display: flex; gap: 12px; margin-bottom: 14px; }
+    select, input {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid var(--border);
+      font-size: 14px;
+    }
+    .result-box {
+      background: #DCFCE7;
+      border: 3px solid var(--border);
+      padding: 16px;
+      text-align: center;
+      box-shadow: 3px 3px 0 var(--border);
+      margin: 16px 0;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 08 • MODUL 3 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Anotasi Tipe Fungsi: Parameter Ketat & Return Type Ekplisit</h1>
+    <p style="margin: 0; font-size: 14px;">Mencegah salah urutan argumen dan menjamin tipe nilai yang dikembalikan fungsi kalkulasi.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>🧮 Fungsi Hitung Mutu: <code>hitungMutu(sks, huruf)</code></h3>
+
+    <div class="row">
+      <div>
+        <label style="font-weight:bold; font-size:13px;">Beban SKS (number):</label>
+        <input type="number" v-model.number="sks" min="1" max="6">
+      </div>
+      <div style="flex:2;">
+        <label style="font-weight:bold; font-size:13px;">Nilai Huruf (NilaiHuruf):</label>
+        <select v-model="huruf">
+          <option value="A">A (Bobot 4.0)</option>
+          <option value="B">B (Bobot 3.0)</option>
+          <option value="C">C (Bobot 2.0)</option>
+          <option value="D">D (Bobot 1.0)</option>
+          <option value="E">E (Bobot 0.0)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="result-box">
+      <div style="font-size:12px; font-weight:bold; color:#166534;">NILAI MUTU (SKS x BOBOT):</div>
+      <div style="font-size:32px; font-weight:900;">{{ mutu }} Poin</div>
+    </div>
+
+    <h4 style="margin-top: 24px;">💡 Anotasi Fungsi di TypeScript:</h4>
+    <pre><code>// Definisi Fungsi dengan Parameter & Return Type Eksplisit
+function hitungMutu(sks: number, huruf: NilaiHuruf): number {
+  const bobotMap: Record&lt;NilaiHuruf, number&gt; = {
+    'A': 4.0, 'B': 3.0, 'C': 2.0, 'D': 1.0, 'E': 0.0
+  };
+  return sks * bobotMap[huruf]; // Wajib mengembalikan number!
+}</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        const sks = ref(3);
+        const huruf = ref('A');
+
+        const mutu = computed(() => {
+          const bobot = { 'A': 4.0, 'B': 3.0, 'C': 2.0, 'D': 1.0, 'E': 0.0 };
+          return (sks.value * (bobot[huruf.value] || 0)).toFixed(1);
+        });
+
+        return { sks, huruf, mutu };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

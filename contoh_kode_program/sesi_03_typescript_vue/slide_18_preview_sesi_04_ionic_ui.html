@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 18: Jembatan Menuju Sesi 04 Ionic UI — STSI4303</title>
+  <!-- Load Ionic Core Web Components via CDN for live preview -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 18 • JEMBATAN MENUJU SESI 04</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Menuju Ekosistem Mobile Asli: Mengapa Butuh Ionic Framework?</h1>
+    <p style="margin: 0; font-size: 14px;">Selamat tinggal tombol HTML biasa, selamat datang antarmuka khas smartphone (Material Design & iOS).</p>
+  </div>
+
+  <div class="grid">
+    <!-- PANEL HTML BIASA -->
+    <div class="card">
+      <span style="background:#E5E7EB; border:1px solid #000; padding:2px 8px; font-weight:bold; font-size:11px;">
+        1. ELEMEN HTML WEB BIASA
+      </span>
+      <h3>Tampilan Datar Desktop</h3>
+      <p style="font-size:13px; color:#555;">Elemen default peramban terasa kaku, tidak memiliki efek getaran/ripple sentuhan, dan tidak responsif seperti aplikasi mobile asli.</p>
+
+      <button style="padding:10px 16px; font-size:14px; margin-top:10px;">
+        Tombol Web Standar (HTML)
+      </button>
+
+      <div style="border:1px solid #ccc; padding:12px; margin-top:14px;">
+        <strong>Kartu Berita Web Biasa</strong>
+        <p style="font-size:12px; color:#666;">Konten teks standar tanpa animasi mobile.</p>
+      </div>
+    </div>
+
+    <!-- PANEL IONIC UI NATIVE LOOK -->
+    <div class="card">
+      <span style="background:var(--mint); border:1px solid #000; padding:2px 8px; font-weight:bold; font-size:11px;">
+        2. IONIC FRAMEWORK (MOBILE UI)
+      </span>
+      <h3>Kenyamanan Smartphone Asli</h3>
+      <p style="font-size:13px; color:#555;">Ionic menyediakan komponen UI siap pakai dengan efek sentuhan Material Design (Android) dan Cupertino (iOS) secara otomatis!</p>
+
+      <!-- Live Ionic Web Components -->
+      <ion-button expand="block" color="primary">
+        📲 Tombol Mobile Asli (ion-button)
+      </ion-button>
+
+      <ion-card style="margin:14px 0 0 0;">
+        <ion-card-header>
+          <ion-card-subtitle>Sesi 04 Pekan Depan</ion-card-subtitle>
+          <ion-card-title>Antarmuka Mobile Siap Pakai</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Di Sesi 04, kita akan membedah ion-app, ion-page, ion-header, ion-content, dan navigasi tumpukan kartu mobile!
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px; max-width:100%;">
+    <h4>🚀 Apa yang Akan Kita Pelajari di Sesi 04?</h4>
+    <pre><code>// Mengimpor Komponen Ionic di Vue 3 (Sesi 04):
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from '@ionic/vue';
+
+// Template dengan arsitektur navigasi tumpukan mobile:
+&lt;ion-page&gt;
+  &lt;ion-header&gt;
+    &lt;ion-toolbar color="primary"&gt;
+      &lt;ion-title&gt;MyUT Mobile&lt;/ion-title&gt;
+    &lt;/ion-toolbar&gt;
+  &lt;/ion-header&gt;
+  &lt;ion-content class="ion-padding"&gt;
+    &lt;ion-button expand="block" @click="keHalamanBerikutnya"&gt;Masuk ke Kampus&lt;/ion-button&gt;
+  &lt;/ion-content&gt;
+&lt;/ion-page&gt;</code></pre>
+  </div>
+</body>
+</html>

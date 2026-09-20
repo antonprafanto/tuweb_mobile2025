@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 13: Typing Props Komponen — STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .course-card {
+      border: 2px solid var(--border);
+      background: #F9FAFB;
+      padding: 14px;
+      margin-bottom: 10px;
+      box-shadow: 3px 3px 0 var(--border);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 13 • MODUL 3 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Deklarasi Props Bertipe: defineProps&lt;T&gt;()</h1>
+    <p style="margin: 0; font-size: 14px;">Memanfaatkan generic interface untuk memvalidasi props komponen anak secara ketat.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>📦 Komponen Anak: <code>KartuMataKuliah</code></h3>
+    <p style="font-size:13px; color:#555;">Data mata kuliah dikirim dari induk ke anak dengan jaminan tipe data interface:</p>
+
+    <!-- Panggil Sub-Komponen -->
+    <kartu-mk :mk="mkSample"></kartu-mk>
+
+    <h4 style="margin-top: 24px;">💡 Kode TypeScript SFC:</h4>
+    <pre><code>// DI DALAM KOMPONEN ANAK (KartuMataKuliah.vue)
+&lt;script setup lang="ts"&gt;
+// Deklarasi props murni berbasis tipe TypeScript (Type-based declaration)
+const props = defineProps&lt;{
+  mk: {
+    kode: string;
+    nama: string;
+    sks: number;
+    nilaiHuruf?: string;
+  };
+  isUjianSelesai?: boolean; // Opsional
+}&gt;();
+&lt;/script&gt;</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    const KartuMk = {
+      props: ['mk'],
+      template: `
+        <div class="course-card">
+          <div style="font-weight:900; font-size:15px; color:#1E40AF;">{{ mk.kode }} - {{ mk.nama }}</div>
+          <div style="font-size:13px; color:#4B5563; margin-top:4px;">
+            Beban: <strong>{{ mk.sks }} SKS</strong> | Nilai Huruf: <span style="background:var(--yellow); border:1px solid #000; padding:2px 6px; font-weight:bold;">{{ mk.nilaiHuruf || 'Belum Ada' }}</span>
+          </div>
+        </div>
+      `
+    };
+
+    createApp({
+      components: { 'kartu-mk': KartuMk },
+      setup() {
+        const mkSample = ref({
+          kode: 'STSI4303',
+          nama: 'Pemrograman Berbasis Perangkat Bergerak',
+          sks: 3,
+          nilaiHuruf: 'A'
+        });
+
+        return { mkSample };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

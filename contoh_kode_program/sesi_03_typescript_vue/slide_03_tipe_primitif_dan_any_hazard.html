@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 03: Tipe Primitif & Bahaya 'any' — STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--border);
+      font-size: 14px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+    .alert-error {
+      background: #FEE2E2;
+      border: 2px solid #DC2626;
+      color: #991B1B;
+      padding: 10px;
+      font-weight: bold;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+    .alert-success {
+      background: #DCFCE7;
+      border: 2px solid #16A34A;
+      color: #166534;
+      padding: 10px;
+      font-weight: bold;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 03 • MODUL 3 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Tipe Data Primitif TypeScript & Jebakan 'any' Hazard</h1>
+    <p style="margin: 0; font-size: 14px;">Memahami tipe bawaan dan alasan mengapa kata kunci <code>any</code> diharamkan di standar industri.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>🧪 Simulator Validasi Tipe Data (Type Checking)</h3>
+    <p style="font-size:13px; color:#555;">Masukkan nilai pada kolom di bawah untuk menguji validasi tipe data secara langsung:</p>
+
+    <label>1. Variabel <code>totalSks: number</code> (Wajib Angka):</label>
+    <input type="text" v-model="inputSks" placeholder="Masukkan angka SKS (misal: 18)...">
+    
+    <div v-if="errorSks" class="alert-error">
+      ❌ Type Error: Type 'string' is not assignable to type 'number'! Nilai "{{ inputSks }}" bukan angka valid.
+    </div>
+    <div v-else class="alert-success">
+      ✅ Type Valid: Nilai {{ Number(inputSks) }} sah sebagai tipe data <code>number</code>.
+    </div>
+
+    <h4 style="margin-top: 24px;">🚫 Mengapa Dilarang Memakai <code>any</code>?</h4>
+    <pre><code>// ❌ ANTI-PATTERN: Menggunakan 'any' mematikan seluruh fungsi TypeScript!
+let dataNilai: any = "Lulus";
+dataNilai = 4.0;
+dataNilai.toUpperCase(); // Runtime Crash! 4.0 tidak punya method toUpperCase()
+
+// ✅ BEST PRACTICE: Gunakan tipe eksplisit atau Union Types
+let nilaiAngka: number = 4.0;
+let statusLulus: boolean = true;
+let prodi: string = "S1 Sistem Informasi";</code></pre>
+
+    <div style="background:#FEF3C7; border-left:4px solid #F59E0B; padding:12px; font-size:13px; margin-top:14px;">
+      💡 <strong>Aturan Emas Dosen:</strong> Menggunakan <code>any</code> sama saja dengan kembali ke JavaScript purba. Jika data memang belum diketahui bentuknya saat menerima dari server eksternal, gunakan tipe <code>unknown</code> disertai pemeriksaan <em>type narrowing</em> (`typeof`)!
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        const inputSks = ref('18');
+
+        const errorSks = computed(() => {
+          return isNaN(Number(inputSks.value)) || inputSks.value.trim() === '';
+        });
+
+        return { inputSks, errorSks };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
