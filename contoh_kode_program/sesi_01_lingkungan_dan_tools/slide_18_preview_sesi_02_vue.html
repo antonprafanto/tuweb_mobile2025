@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+=====================================================================
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303) - UT
+SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
+SLIDE 18    : JEMBATAN KONSEPTUAL SESI 02 - DARI DOM KUNO KE VUE.JS 3
+=====================================================================
+CARA MENJALANKAN:
+Cukup klik ganda berkas ini untuk membuka langsung di Google Chrome / Edge!
+=====================================================================
+-->
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 18 - Preview Sesi 02: Masuk ke Dunia Vue.js 3</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #FAF8F5;
+      padding: 20px;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
+    .wrapper { max-width: 680px; width: 100%; }
+    .badge {
+      background: #C084FC;
+      color: #000;
+      border: 2px solid #000;
+      font-weight: bold;
+      font-size: 11px;
+      padding: 4px 10px;
+      box-shadow: 3px 3px 0 #000;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .card {
+      background: #FFF;
+      border: 2.5px solid #000;
+      box-shadow: 6px 6px 0 #000;
+      padding: 20px;
+    }
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .side-box {
+      border: 2px solid #000;
+      padding: 14px;
+      font-size: 12.5px;
+    }
+    .box-old { background: #FEE2E2; }
+    .box-new { background: #DCFCE7; }
+    code {
+      background: rgba(0,0,0,0.06);
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+      font-size: 11.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="badge">STSI4303 • SESI 01 • SLIDE 18</div>
+    <div class="card">
+      <h2 style="margin-top:0;">🚀 Menatap Sesi 02: Mengapa Kita Butuh Vue.js 3?</h2>
+      <p style="font-size:13px; line-height:1.6;">
+        Di Sesi 01 ini, kita mengubah teks di layar menggunakan cara JavaScript klasik (<code>document.getElementById().innerText = ...</code>).
+        Bayangkan jika aplikasi mobile memiliki puluhan input dan ratusan data, kode JavaScript Anda akan penuh dan rumit (*Spaghetti Code*)!
+      </p>
+
+      <div class="compare-grid">
+        <div class="side-box box-old">
+          <h4 style="margin-top:0; color:#991B1B;">Cara Kuno (Imperatif):</h4>
+          <p>Harus mencari elemen HTML satu per satu secara manual:</p>
+          <code>const el = document.getElementById('nilai');</code><br>
+          <code>el.innerText = 'Nilai Baru';</code><br>
+          <p style="color:#7F1D1D; margin-top:8px;">⚠️ Rawan error jika ID elemen salah ketik dan melelahkan dirawat!</p>
+        </div>
+
+        <div class="side-box box-new">
+          <h4 style="margin-top:0; color:#166534;">Cara Modern Vue 3 (Reaktif):</h4>
+          <p>Cukup deklarasikan data reaktif:</p>
+          <code>const nilai = ref('Nilai Baru');</code><br><br>
+          <p>Di HTML cukup panggil: <code>{{ nilai }}</code></p>
+          <p style="color:#14532D; margin-top:8px;">🎉 Layar otomatis terupdate seketika data diubah, tanpa pusing!</p>
+        </div>
+      </div>
+
+      <div style="margin-top:16px; background:#FEF08A; border:2px solid #000; padding:12px; font-size:13px; font-weight:bold; text-align:center;">
+        👉 Sampai jumpa di Sesi 02: Menjinakkan Reaktivitas Frontend Modern bersama Vue.js 3!
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+=====================================================================
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303) - UT
+SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
+SLIDE 04    : EKOSISTEM IONIC & KEKUATAN WEB COMPONENTS (CDN INSTAN)
+=====================================================================
+CARA MENJALANKAN:
+1. Klik ganda berkas ini untuk membuka langsung di Google Chrome / Edge.
+2. Tekan F12 -> Tekan Ctrl+Shift+M untuk melihat tampilan seperti layar HP!
+=====================================================================
+-->
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 04 - Komponen Web Standar Ionic Framework</title>
+  <!-- 1. Pustaka Inti Ionic Framework via CDN (Resmi & Ringan) -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <style>
+    :root {
+      --ion-color-primary: #0284C7;
+      --ion-color-primary-contrast: #FFFFFF;
+    }
+  </style>
+</head>
+<body>
+  <!-- Komponen Utama Ionic: ion-app membungkus seluruh antarmuka -->
+  <ion-app>
+    <!-- Header Halaman Ponsel -->
+    <ion-header translucent="true">
+      <ion-toolbar color="primary">
+        <ion-title>Portal Mobile Mahasiswa UT</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <!-- Konten Utama yang Dapat Di-scroll -->
+    <ion-content class="ion-padding">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>STSI4303 • SESI 01</ion-card-subtitle>
+          <ion-card-title>Selamat Datang di Ionic!</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Komponen ini adalah <strong>Web Component resmi Ionic</strong> yang berjalan langsung di browser tanpa perlu instalasi Node.js atau kompilasi rumit!
+        </ion-card-content>
+      </ion-card>
+
+      <!-- Tombol Aksi Khas Mobile -->
+      <ion-button expand="block" color="primary" onclick="tampilkanPesan()">
+        Sentuh Saya (Interaksi Mobile)
+      </ion-button>
+
+      <div id="outputArea" style="margin-top: 15px; text-align: center; font-size: 14px; font-weight: bold; color: #0284C7;"></div>
+    </ion-content>
+  </ion-app>
+
+  <script>
+    let hitung = 0;
+    function tampilkanPesan() {
+      hitung++;
+      document.getElementById('outputArea').innerText = 
+        `🎉 Tombol disentuh sebanyak ${hitung} kali! Komponen Ionic sangat responsif.`;
+    }
+  </script>
+</body>
+</html>

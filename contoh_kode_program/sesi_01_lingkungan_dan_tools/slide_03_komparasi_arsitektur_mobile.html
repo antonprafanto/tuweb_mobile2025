@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!--
+=====================================================================
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303) - UT
+SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
+SLIDE 03    : KOMPARASI TIGA ARSITEKTUR MOBILE UTAMA
+=====================================================================
+CARA MENJALANKAN:
+Cukup klik ganda berkas ini untuk membuka langsung di browser Anda!
+=====================================================================
+-->
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 03 - Komparasi Tiga Arsitektur Mobile</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #FAF8F5;
+      padding: 24px;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
+    .wrapper { max-width: 720px; width: 100%; }
+    .badge {
+      background: #38BDF8;
+      border: 2px solid #000;
+      font-weight: bold;
+      font-size: 12px;
+      padding: 4px 10px;
+      box-shadow: 3px 3px 0 #000;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .card {
+      background: #FFF;
+      border: 2.5px solid #000;
+      box-shadow: 6px 6px 0 #000;
+      padding: 20px;
+    }
+    .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+    .tab-btn {
+      padding: 8px 14px;
+      border: 2px solid #000;
+      background: #E2E8F0;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 #000;
+    }
+    .tab-btn.active { background: #FFE600; }
+    .stack-layer {
+      border: 2px solid #000;
+      padding: 10px;
+      margin-bottom: 6px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 13px;
+    }
+    .layer-app { background: #BBF7D0; }
+    .layer-bridge { background: #FEF08A; }
+    .layer-os { background: #FED7AA; }
+    .desc-box {
+      margin-top: 14px;
+      background: #F8FAFC;
+      border: 2px solid #000;
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="badge">STSI4303 • SESI 01 • SLIDE 03</div>
+    <div class="card">
+      <h2 style="margin-top:0;">⚖️ Perbandingan: Native vs Hybrid vs Cross-Platform</h2>
+      <div class="tabs">
+        <button class="tab-btn active" onclick="pilihTab('hybrid')">1. Hybrid (Ionic / Capacitor)</button>
+        <button class="tab-btn" onclick="pilihTab('native')">2. Native (Kotlin / Swift)</button>
+        <button class="tab-btn" onclick="pilihTab('cross')">3. Cross-Platform (Flutter)</button>
+      </div>
+
+      <div id="displayArea">
+        <!-- Default: Hybrid -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const data = {
+      hybrid: {
+        title: "Arsitektur Hybrid (Ionic + Capacitor)",
+        layers: [
+          { name: "Aplikasi Web Modern (Vue.js 3 + HTML5 + CSS + TypeScript)", cls: "layer-app" },
+          { name: "Jembatan Runtime Native (Capacitor Plugins & WebView)", cls: "layer-bridge" },
+          { name: "Sistem Operasi Smartphone (Android OS / iOS)", cls: "layer-os" }
+        ],
+        desc: "<strong>Keunggulan Utama:</strong> Pengembang cukup menguasai standar web (HTML/CSS/JS). Satu kode bisa berjalan di browser (PWA), Android, dan iPhone. Sangat hemat sumber daya bagi tim pengembang kampus."
+      },
+      native: {
+        title: "Arsitektur Native (Kotlin Android / Swift iOS)",
+        layers: [
+          { name: "Aplikasi Khusus Platform (Kotlin / Java untuk Android)", cls: "layer-app" },
+          { name: "Android SDK / Native UI Toolkit Langsung", cls: "layer-bridge" },
+          { name: "Sistem Operasi Android (Linux Kernel & ART)", cls: "layer-os" }
+        ],
+        desc: "<strong>Keunggulan:</strong> Performa grafik 3D tertinggi dan akses instan ke fitur OS terbaru. <strong>Kelemahan:</strong> Harus membuat dan merawat 2 kode terpisah untuk Android dan iPhone."
+      },
+      cross: {
+        title: "Arsitektur Cross-Platform Canvas (Flutter)",
+        layers: [
+          { name: "Aplikasi Bahasa Dart (Widget Tree)", cls: "layer-app" },
+          { name: "Mesin Render Grafis Mandiri (Impeller / Skia C++)", cls: "layer-bridge" },
+          { name: "Sistem Operasi Smartphone (Android / iOS)", cls: "layer-os" }
+        ],
+        desc: "<strong>Karakteristik:</strong> Menggambar seluruh piksel tombol dan kartu sendiri via mesin grafis C++, bukan menggunakan WebView atau UI native sistem."
+      }
+    };
+
+    function render(key) {
+      const item = data[key];
+      let html = `<h3 style="margin-bottom:10px;">${item.title}</h3>`;
+      item.layers.forEach(l => {
+        html += `<div class="stack-layer ${l.cls}">${l.name}</div>`;
+      });
+      html += `<div class="desc-box">${item.desc}</div>`;
+      document.getElementById('displayArea').innerHTML = html;
+    }
+
+    function pilihTab(key) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      render(key);
+    }
+
+    render('hybrid');
+  </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+=====================================================================
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303) - UT
+SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
+SLIDE 08    : HELLO HYBRID WORLD (APLIKASI MOBILE PERTAMA ANDA)
+=====================================================================
+CARA MENJALANKAN:
+1. Klik ganda berkas ini untuk membuka langsung di Google Chrome / Edge.
+2. Coba klik tombol "Sentuh Interaksi Mobile" untuk melihat respon instan!
+=====================================================================
+-->
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Slide 08 - Hello Hybrid World UT</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: #FAF8F5; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 12px; }
+    
+    /* Frame Simulasi Smartphone */
+    .mobile-frame { width: 100%; max-width: 380px; height: 640px; background: #ffffff; border-radius: 28px; box-shadow: 0 12px 32px rgba(0,0,0,0.18); overflow: hidden; display: flex; flex-direction: column; border: 6px solid #1E293B; }
+    .status-bar { height: 24px; background: #005691; color: white; font-size: 11px; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; font-weight: bold; }
+    .app-header { background: #005691; color: #ffffff; padding: 16px; text-align: center; font-size: 17px; font-weight: 600; }
+    .content { padding: 18px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+    .card { background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 12px; padding: 14px; }
+    .card h3 { color: #005691; margin-bottom: 6px; font-size: 15px; }
+    .card p { font-size: 13px; color: #475569; line-height: 1.5; }
+    .btn { background: #005691; color: white; border: none; border-radius: 8px; padding: 12px; font-size: 14px; font-weight: bold; cursor: pointer; text-align: center; }
+    .btn:active { background: #003e68; }
+    .device-info { font-size: 12px; color: #334155; background: #E2E8F0; padding: 10px; border-radius: 6px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+  <!-- SIMULATOR LAYAR PONSEL -->
+  <div class="mobile-frame">
+    <div class="status-bar">
+      <span>09:41</span>
+      <span>UT-Mobile 4G 🔋 100%</span>
+    </div>
+    <div class="app-header">
+      STSI4303: MyUT Mobile
+    </div>
+    
+    <div class="content">
+      <div class="card">
+        <h3>Halo, Rekan Mahasiswa UT! 👋</h3>
+        <p>Selamat! Anda baru saja berhasil menjalankan <strong>Aplikasi Mobile Hybrid Pertama</strong> Anda tanpa perlu menginstal compiler berbobot gigabytes!</p>
+      </div>
+
+      <div class="card">
+        <h3>Diagnostik WebView Saat Ini:</h3>
+        <div id="info" class="device-info">Mendeteksi perangkat...</div>
+      </div>
+
+      <button class="btn" onclick="tampilkanSalam()">Sentuh Interaksi Mobile</button>
+      <div id="notifikasi" style="font-size: 13px; color: #059669; font-weight: bold; text-align: center;"></div>
+    </div>
+  </div>
+
+  <script>
+    // Membaca informasi resolusi dan peramban WebView secara dinamis
+    document.getElementById('info').innerHTML = `
+      • Dimensi Layar : <strong>${window.innerWidth} x ${window.innerHeight} px</strong><br>
+      • Mesin WebView : <strong>${navigator.userAgent.slice(0, 32)}...</strong><br>
+      • Platform OS   : <strong>${navigator.platform}</strong>
+    `;
+
+    function tampilkanSalam() {
+      const notif = document.getElementById('notifikasi');
+      notif.innerText = '🎉 Event sentuhan (Touch Event) berhasil diproses!';
+      setTimeout(() => notif.innerText = '', 3500);
+    }
+  </script>
+</body>
+</html>

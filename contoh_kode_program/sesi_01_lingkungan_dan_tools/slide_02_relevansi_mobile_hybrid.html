@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--
+=====================================================================
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303) - UT
+SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
+SLIDE 02    : RELEVANSI INDUSTRI & KALKULATOR EFISIENSI HYBRID APP
+=====================================================================
+CARA MENJALANKAN:
+1. Cukup klik ganda (double click) berkas ini untuk membukanya di browser!
+2. Atau klik kanan -> Open with Google Chrome / Microsoft Edge
+=====================================================================
+-->
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 02 - Efisiensi Arsitektur Hybrid Mobile</title>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card: #FFFFFF;
+      --black: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      margin: 0;
+      padding: 24px;
+      color: #121212;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--yellow);
+      border: 2px solid var(--black);
+      font-weight: bold;
+      font-size: 12px;
+      padding: 4px 10px;
+      box-shadow: 3px 3px 0 var(--black);
+      margin-bottom: 12px;
+    }
+    .card {
+      background: var(--card);
+      border: 2.5px solid var(--black);
+      box-shadow: 6px 6px 0 var(--black);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    h2 { margin-top: 0; font-size: 20px; }
+    p { font-size: 14px; line-height: 1.6; }
+    .calc-box {
+      background: #F1F5F9;
+      border: 2px solid var(--black);
+      padding: 14px;
+      margin-top: 14px;
+    }
+    label { font-size: 13px; font-weight: bold; display: block; margin-bottom: 6px; }
+    input[type="range"] { width: 100%; margin-bottom: 10px; }
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .result-card {
+      padding: 12px;
+      border: 2px solid var(--black);
+      font-size: 13px;
+    }
+    .native-res { background: #FEE2E2; }
+    .hybrid-res { background: #DCFCE7; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">STSI4303 • SESI 01 • SLIDE 02</div>
+    <div class="card">
+      <h2>📱 Mengapa Industri & UT Memilih Arsitektur Hybrid?</h2>
+      <p>
+        Di era modern, institusi seperti Universitas Terbuka melayani ratusan ribu mahasiswa dengan berbagai macam perangkat (Android, iOS, dan Web Portal).
+        Membangun 3 aplikasi terpisah dengan tim Native membutuhkan biaya dan waktu 3x lipat!
+      </p>
+
+      <div class="calc-box">
+        <label for="fitur">Jumlah Fitur Aplikasi yang Ingin Dibuat: <span id="valFitur" style="color:#0284C7;">5</span> Fitur</label>
+        <input type="range" id="fitur" min="1" max="20" value="5" oninput="hitungEfisiensi()">
+
+        <div class="result-grid">
+          <div class="result-card native-res">
+            <strong>Pendekatan Native Murni:</strong><br>
+            • Android (Kotlin): <span id="waktuAndroid">5</span> pekan<br>
+            • iOS (Swift): <span id="waktuIos">5</span> pekan<br>
+            • Web Portal: <span id="waktuWeb">5</span> pekan<br>
+            <strong>Total: <span id="totalNative">15</span> Pekan Orang</strong>
+          </div>
+          <div class="result-card hybrid-res">
+            <strong>Pendekatan Hybrid (Ionic):</strong><br>
+            • 1 Basis Kode Web Standar<br>
+            • Multiplatform (Android + iOS + Web)<br>
+            • Waktu: <span id="waktuHybrid">5</span> pekan saja!<br>
+            <strong>Hemat Efisiensi: ~66%! 🎉</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function hitungEfisiensi() {
+      const f = parseInt(document.getElementById('fitur').value);
+      document.getElementById('valFitur').innerText = f;
+      document.getElementById('waktuAndroid').innerText = f;
+      document.getElementById('waktuIos').innerText = f;
+      document.getElementById('waktuWeb').innerText = f;
+      document.getElementById('totalNative').innerText = f * 3;
+      document.getElementById('waktuHybrid').innerText = Math.ceil(f * 1.1);
+    }
+  </script>
+</body>
+</html>
