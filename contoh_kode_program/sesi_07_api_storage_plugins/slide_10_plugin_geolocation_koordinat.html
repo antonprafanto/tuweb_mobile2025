@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 10: Plugin Geolocation GPS — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .btn-neo {
+      background: var(--yellow);
+      border: 2px solid #000;
+      padding: 10px 16px;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+      width: 100%;
+    }
+    .btn-neo:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+    .code-box {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: 'Consolas', monospace;
+      font-size: 11px;
+      padding: 12px;
+      border: 2px solid #000;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 10 • SENSOR HARDWARE GEOLOCATION</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Integrasi Sensor GPS dengan <code>@capacitor/geolocation</code></h1>
+    <p style="margin: 0; font-size: 14px;">Mendapatkan koordinat lintang (*latitude*) dan bujur (*longitude*) untuk presensi lokasi belajar mahasiswa secara presisi.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- TEORI DAN KODE TS -->
+    <div class="box">
+      <h3>📍 Pola Pemanggilan Sensor Geolocation</h3>
+      <p style="font-size: 12px; color: #475569;">Eksekusi asinkron pengambilan posisi satelit GPS:</p>
+
+      <div class="code-box"><span style="color: #c084fc;">import</span> { Geolocation } <span style="color: #c084fc;">from</span> <span style="color: #4ade80;">'@capacitor/geolocation'</span>;
+
+<span style="color: #c084fc;">const</span> getMyGPS = <span style="color: #c084fc;">async</span> () => {
+  <span style="color: #64748b;">// 1. Dapatkan posisi GPS dengan akurasi tinggi</span>
+  <span style="color: #c084fc;">const</span> position = <span style="color: #c084fc;">await</span> Geolocation.getCurrentPosition({
+    enableHighAccuracy: <span style="color: #facc15;">true</span>,
+    timeout: <span style="color: #facc15;">10000</span>
+  });
+
+  <span style="color: #c084fc;">const</span> lat = position.coords.latitude;
+  <span style="color: #c084fc;">const</span> lon = position.coords.longitude;
+  <span style="color: #c084fc;">const</span> acc = position.coords.accuracy;
+};</div>
+
+      <div style="background: #E0F2FE; border: 2px solid #0284C7; padding: 10px; margin-top: 14px; font-size: 12px;">
+        ⚙️ <strong>Izin AndroidManifest:</strong> Pastikan tag berikut telah dideklarasikan di <code>AndroidManifest.xml</code>:<br>
+        <code>&lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /&gt;</code>
+      </div>
+    </div>
+
+    <!-- LAB INTERAKTIF BACA GPS -->
+    <div class="box">
+      <h3>🧭 Uji Coba Langsung Sensor Perangkat</h3>
+      <p style="font-size: 12px; color: #64748B;">Klik tombol di bawah untuk meminta koordinat GPS riil peramban / smartphone Anda:</p>
+
+      <button class="btn-neo" @click="fetchLocation">
+        {{ loading ? '⏳ Mengunci Sinyal Satelit GPS...' : '📍 Ambil Titik Lokasi Sekarang' }}
+      </button>
+
+      <div v-if="error" style="background: #fee2e2; border: 2px solid #dc2626; color: #991b1b; padding: 10px; font-size: 12px; margin-top: 12px;">
+        ❌ {{ error }}
+      </div>
+
+      <div v-if="coords" style="background: #f8fafc; border: 2px solid #000; padding: 14px; margin-top: 12px;">
+        <div style="font-size: 13px; font-weight: bold; margin-bottom: 8px; color: #0284c7;">
+          ✓ Koordinat Berhasil Dikunci:
+        </div>
+        <div style="font-size: 12px; line-height: 1.7;">
+          <div>🌐 <strong>Latitude (Lintang):</strong> <code>{{ coords.latitude.toFixed(6) }}</code></div>
+          <div>🌐 <strong>Longitude (Bujur):</strong> <code>{{ coords.longitude.toFixed(6) }}</code></div>
+          <div>🎯 <strong>Akurasi Radius:</strong> ± {{ coords.accuracy.toFixed(1) }} meter</div>
+          <div>⏱️ <strong>Timestamp:</strong> {{ new Date(coords.timestamp).toLocaleTimeString('id-ID') }}</div>
+        </div>
+
+        <a :href="mapsUrl" target="_blank" style="display: inline-block; margin-top: 10px; background: #ffe600; color: #000; border: 2px solid #000; padding: 6px 12px; text-decoration: none; font-weight: bold; font-size: 11px;">
+          🗺️ Buka di Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+    createApp({
+      setup() {
+        const loading = ref(false);
+        const error = ref('');
+        const coords = ref(null);
+
+        const mapsUrl = computed(() => {
+          if (!coords.value) return '#';
+          return `https://www.google.com/maps?q=${coords.value.latitude},${coords.value.longitude}`;
+        });
+
+        const fetchLocation = () => {
+          loading.value = true;
+          error.value = '';
+
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (pos) => {
+                coords.value = {
+                  latitude: pos.coords.latitude,
+                  longitude: pos.coords.longitude,
+                  accuracy: pos.coords.accuracy,
+                  timestamp: pos.timestamp
+                };
+                loading.value = false;
+              },
+              (err) => {
+                // Fallback demo coordinates (UT Pusat Pondok Cabe)
+                coords.value = {
+                  latitude: -6.305021,
+                  longitude: 106.755812,
+                  accuracy: 8.5,
+                  timestamp: Date.now()
+                };
+                error.value = `Izin lokasi ditolak / Timeout (${err.message}). Menampilkan koordinat simulasi UT Pusat.`;
+                loading.value = false;
+              },
+              { enableHighAccuracy: true, timeout: 8000 }
+            );
+          } else {
+            error.value = "Hardware Geolocation tidak didukung di browser ini.";
+            loading.value = false;
+          }
+        };
+
+        return { loading, error, coords, mapsUrl, fetchLocation };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

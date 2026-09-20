@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 18: Preview Sesi 08 & Persiapan UAS — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .feature-card {
+      border: 2px solid #000;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #f8fafc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 18 • JEMBATAN SESI 08 (FINAL RELEASE & UAS)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Menuju Sesi 08: Rilis APK Stand-alone & Sukses UAS</h1>
+    <p style="margin: 0; font-size: 14px;">Mempersiapkan rilis aplikasi ke publik: Pembuatan Keystore digital, kompilasi APK Release mandiri, dan 50 Bank Soal UAS STSI4303.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- 3 AGENDA UTAMA SESI 08 -->
+    <div class="box">
+      <h3>🚀 3 Agenda Puncak Sesi 08 (Sesi Penutup)</h3>
+
+      <div class="feature-card" style="border-left: 6px solid #0284c7;">
+        <h4 style="margin: 0 0 4px 0; color: #0284c7;">1. Pembuatan Keystore & Code Signing APK</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155; line-height: 1.5;">
+          Membuat sertifikat kunci kriptografi mandiri menggunakan <code>keytool</code> untuk menandatangani berkas APK produksi agar dapat dipasang di smartphone siapapun tanpa peringatan bahaya.
+        </p>
+      </div>
+
+      <div class="feature-card" style="border-left: 6px solid #16a34a;">
+        <h4 style="margin: 0 0 4px 0; color: #16a34a;">2. Kompilasi APK Release (assembleRelease)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155; line-height: 1.5;">
+          Menghasilkan installer APK mandiri bebas kabel USB, pemangkasan ukuran file (<em>minification</em>) dengan ProGuard/R8, dan optimasi zipalign.
+        </p>
+      </div>
+
+      <div class="feature-card" style="border-left: 6px solid #9333ea;">
+        <h4 style="margin: 0 0 4px 0; color: #9333ea;">3. 50 Bank Soal Komprehensif UAS UT</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155; line-height: 1.5;">
+          Bedah tuntas 50 soal latihan pilihan ganda & analisis studi kasus dari Modul 1 sampai Modul 9 BMP UT untuk menjamin kesiapan nilai A mahasiswa!
+        </p>
+      </div>
+    </div>
+
+    <!-- PESAN PENUTUP DARI DOSEN PENGAMPU -->
+    <div class="box">
+      <div style="background: #FEF9C3; border: 3px solid #CA8A04; padding: 16px; box-shadow: 4px 4px 0 #CA8A04;">
+        <span style="background: #CA8A04; color: #fff; font-weight: 900; font-size: 11px; padding: 2px 8px;">
+          PESAN AKADEMIK
+        </span>
+        <h3 style="color: #854D0E; margin: 10px 0 6px 0;">🎓 Selamat atas Keberhasilan Menyelesaikan Sesi 07!</h3>
+        <p style="font-size: 12px; line-height: 1.6; color: #713F12; margin: 0 0 12px 0;">
+          Anda kini telah menguasai seluruh pilar inti pengembangan mobile modern: antarmuka adaptif, state management reaktif, jembatan native runtime, dan konsumsi data cloud.
+        </p>
+        <p style="font-size: 12px; line-height: 1.6; color: #713F12; margin: 0;">
+          <em>"Segera selesaikan dan kumpulkan Tugas Tutorial 3 di LMS Tuton UT tepat waktu. Di Sesi 08 penutup, kita akan merayakan rilis aplikasi Anda dan menaklukkan Ujian Akhir Semester bersama-sama!"</em><br><br>
+          <strong>— Pak Anton Prafanto, S.Kom., M.T.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({}).mount('#app');
+  </script>
+</body>
+</html>

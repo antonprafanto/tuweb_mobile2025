@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 11: Geofencing & Formula Haversine — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .preset-btn {
+      background: #f1f5f9;
+      border: 2px solid #000;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+    .preset-btn:hover { background: #ffe600; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 11 • VALIDASI RADIUS GEOFENCING</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Validasi Presensi Geofencing via Rumus Haversine</h1>
+    <p style="margin: 0; font-size: 14px;">Mencegah manipulasi presensi ujian / belajar tatap muka dengan mengukur jarak matematis kelengkungan bumi (Haversine Formula).</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- TEORI & FORMULA HAVERSINE -->
+    <div class="box">
+      <h3>📐 Matematika Jarak Geografis</h3>
+      <p style="font-size: 13px; line-height: 1.5; color: #334155;">
+        Bumi berbentuk bulat (*sphere*), sehingga menghitung jarak dua titik GPS tidak dapat menggunakan Teorema Pythagoras biasa. Kita menggunakan <strong>Rumus Haversine</strong> yang menghitung jarak busur lingkaran besar (*great-circle distance*).
+      </p>
+
+      <div style="background: #0f172a; color: #38bdf8; font-family: monospace; font-size: 11px; padding: 12px; border: 2px solid #000; margin-bottom: 14px;">
+function getDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371000; // Radius bumi dalam meter
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c; // Hasil dalam meter
+}</div>
+
+      <div style="background: #FEF9C3; border: 2px solid #CA8A04; padding: 10px; font-size: 12px;">
+        🏛️ <strong>Titik Acuan Target:</strong> Kampus UT Pusat (Pondok Cabe)<br>
+        Koordinat: <code>-6.305021, 106.755812</code> | Radius Izin: <strong>≤ 200 Meter</strong>
+      </div>
+    </div>
+
+    <!-- SIMULATOR VALIDASI PRESENSI MAHASISWA -->
+    <div class="box">
+      <h3>🧪 Simulator Pengujian Radius Mahasiswa</h3>
+      <p style="font-size: 12px; color: #64748B;">Pilih simulasi posisi keberadaan mahasiswa:</p>
+
+      <div>
+        <button class="preset-btn" @click="setPos(-6.305021, 106.755812, 'Di Dalam Ruang Kelas UT')">
+          🏫 Ruang Kuliah (0 m)
+        </button>
+        <button class="preset-btn" @click="setPos(-6.306000, 106.756200, 'Gerbang Depan Kampus')">
+          🚪 Gerbang Kampus (~110 m)
+        </button>
+        <button class="preset-btn" @click="setPos(-6.309000, 106.758000, 'Halte Bus Luar')">
+          🚌 Halte Luar (~510 m)
+        </button>
+        <button class="preset-btn" @click="setPos(-6.208800, 106.845600, 'Di Rumah / Kosan')">
+          🏠 Rumah Kosan (~15 km)
+        </button>
+      </div>
+
+      <div style="margin-top: 14px; border: 2px solid #000; padding: 14px; background: #f8fafc;">
+        <div style="font-size: 12px;">Simulasi Posisi: <strong>{{ label }}</strong></div>
+        <div style="font-size: 12px; margin-top: 4px;">Koordinat: <code>{{ userLat }}, {{ userLon }}</code></div>
+        <div style="font-size: 16px; font-weight: 900; margin-top: 10px; color: #0284c7;">
+          Jarak ke Pusat Kampus: {{ calculatedDistance.toFixed(1) }} Meter
+        </div>
+      </div>
+
+      <!-- KEPUTUSAN SISTEM PRESENSI -->
+      <div v-if="isValid" style="background: #dcfce7; border: 2px solid #16a34a; padding: 12px; margin-top: 14px; color: #166534; font-size: 13px;">
+        ✅ <strong>PRESENSI SAH DITERIMA!</strong><br>
+        Mahasiswa terdeteksi berada di dalam zona geofencing kampus (&le; 200 meter).
+      </div>
+      <div v-else style="background: #fee2e2; border: 2px solid #dc2626; padding: 12px; margin-top: 14px; color: #991b1b; font-size: 13px;">
+        ❌ <strong>PRESENSI DITOLAK (DILUAR RADIUS)!</strong><br>
+        Jarak Anda ({{ calculatedDistance.toFixed(0) }} m) melebihi batas toleransi 200 meter dari gedung kuliah.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+    createApp({
+      setup() {
+        const centerLat = -6.305021;
+        const centerLon = 106.755812;
+        const maxRadius = 200; // meter
+
+        const userLat = ref(-6.305021);
+        const userLon = ref(106.755812);
+        const label = ref('Di Dalam Ruang Kelas UT');
+
+        const calculatedDistance = computed(() => {
+          const R = 6371000;
+          const dLat = (userLat.value - centerLat) * Math.PI / 180;
+          const dLon = (userLon.value - centerLon) * Math.PI / 180;
+          const a = 
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(centerLat * Math.PI / 180) * Math.cos(userLat.value * Math.PI / 180) * 
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+          return R * c;
+        });
+
+        const isValid = computed(() => calculatedDistance.value <= maxRadius);
+
+        const setPos = (lat, lon, lbl) => {
+          userLat.value = lat;
+          userLon.value = lon;
+          label.value = lbl;
+        };
+
+        return { userLat, userLon, label, calculatedDistance, isValid, setPos };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

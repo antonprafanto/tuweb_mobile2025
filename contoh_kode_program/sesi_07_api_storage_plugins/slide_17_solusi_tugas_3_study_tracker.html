@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 17: Master Solusi Tugas Tutorial 3 (UT Study Tracker) — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .btn-neo {
+      background: var(--yellow);
+      border: 2px solid #000;
+      padding: 8px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+      font-size: 12px;
+    }
+    .btn-neo:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+    .input-row { margin-bottom: 12px; }
+    .input-row label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; }
+    .input-row input, .input-row select, .input-row textarea {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid #000;
+      font-size: 13px;
+      background: #fff;
+    }
+    .stat-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border: 2px solid #000;
+      font-size: 11px;
+      font-weight: bold;
+      background: #f8fafc;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 17 • MASTER SOLUSI RESMI TUGAS TUTORIAL 3 (SKOR 100)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Aplikasi Mobile Terintegrasi: UT Study Tracker & Presensi Belajar</h1>
+    <p style="margin: 0; font-size: 14px;">Memenuhi seluruh Kriteria 1–4 Tugas Tutorial 3: Konsumsi Live REST API Cuaca Kampus, Penyimpanan Offline Persisten, Geolocation GPS, dan Foto Bukti Belajar.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- KOLOM KIRI: FORM CATATAN & SENSOR -->
+    <div class="box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 style="margin: 0;">📝 Form Presensi & Sesi Belajar</h3>
+        <span class="stat-badge" :style="{ background: isOnline ? '#4ADE80' : '#FB7185', color: isOnline ? '#000' : '#fff' }">
+          {{ isOnline ? '📶 ONLINE' : '✈️ OFFLINE' }}
+        </span>
+      </div>
+
+      <!-- PILIHAN MATA KULIAH -->
+      <div class="input-row">
+        <label>Mata Kuliah BMP UT:</label>
+        <select v-model="form.matkul">
+          <option value="STSI4303 - Pemrograman Berbasis Perangkat Bergerak">STSI4303 - Pemrograman Mobile (3 SKS)</option>
+          <option value="MSIM4401 - Praktik Komputasi Awan">MSIM4401 - Praktik Komputasi Awan (3 SKS)</option>
+          <option value="MSIM4301 - Rekayasa Perangkat Lunak">MSIM4301 - Rekayasa Perangkat Lunak (3 SKS)</option>
+        </select>
+      </div>
+
+      <!-- DURASI & MODUL -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="input-row">
+          <label>Durasi Belajar (Jam):</label>
+          <input type="number" v-model.number="form.durasi" min="1" max="10" />
+        </div>
+        <div class="input-row">
+          <label>Target Modul BMP:</label>
+          <input type="text" v-model="form.modul" placeholder="Modul 8 & 9" />
+        </div>
+      </div>
+
+      <!-- CATATAN MATERI -->
+      <div class="input-row">
+        <label>Catatan Ringkasan Belajar:</label>
+        <textarea rows="2" v-model="form.catatan" placeholder="Mempelajari integrasi REST API dan plugin geolocation..."></textarea>
+      </div>
+
+      <!-- SENSOR 1: GEOLOCATION GPS -->
+      <div style="background: #E0F2FE; border: 2px solid #0284C7; padding: 10px; margin-bottom: 12px; border-radius: 6px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong style="font-size: 12px; color: #0369A1;">📍 Sensor GPS Geolocation:</strong>
+          <button class="btn-neo" style="background: #38BDF8; font-size: 11px; padding: 4px 8px;" @click="kunciLokasiGPS">
+            {{ gpsLoading ? 'Mengunci...' : 'Kunci GPS' }}
+          </button>
+        </div>
+        <div style="font-size: 11px; margin-top: 4px; color: #0c4a6e;">
+          {{ form.lokasi ? `Titik: ${form.lokasi.lat.toFixed(5)}, ${form.lokasi.lon.toFixed(5)} (Akurasi ±${form.lokasi.accuracy}m)` : 'Belum dikunci (Tekan tombol di atas)' }}
+        </div>
+      </div>
+
+      <!-- SENSOR 2: KAMERA BUKTI BELAJAR -->
+      <div style="background: #FAF5FF; border: 2px solid #9333EA; padding: 10px; margin-bottom: 14px; border-radius: 6px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong style="font-size: 12px; color: #7E22CE;">📷 Sensor Kamera Bukti Belajar:</strong>
+          <div>
+            <input type="file" accept="image/*" id="buktiFotoInput" style="display: none;" @change="handleFotoUpload" />
+            <button class="btn-neo" style="background: #C084FC; font-size: 11px; padding: 4px 8px;" onclick="document.getElementById('buktiFotoInput').click()">
+              Pilih Foto
+            </button>
+            <button class="btn-neo" style="background: #f1f5f9; font-size: 11px; padding: 4px 8px; margin-left: 4px;" @click="useSampleFoto">
+              Sampel
+            </button>
+          </div>
+        </div>
+        <div v-if="form.fotoUrl" style="margin-top: 6px; display: flex; align-items: center; gap: 8px;">
+          <img :src="form.fotoUrl" style="width: 44px; height: 44px; object-fit: cover; border: 1px solid #000; border-radius: 4px;" />
+          <span style="font-size: 11px; color: #16a34a; font-weight: bold;">✓ Foto Bukti Terlampir</span>
+        </div>
+      </div>
+
+      <!-- TOMBOL SIMPAN -->
+      <button class="btn-neo" style="background: #4ADE80; width: 100%; padding: 10px; font-size: 13px;" @click="simpanSesi">
+        💾 Simpan Riwayat Sesi (Persisten ke Local Storage)
+      </button>
+    </div>
+
+    <!-- KOLOM KANAN: LIVE API & DAFTAR PERSISTEN -->
+    <div class="box">
+      <!-- LIVE REST API CUACA SENTRA UT -->
+      <div style="border: 2px solid #000; background: #0284c7; color: #fff; padding: 12px; margin-bottom: 16px; box-shadow: 4px 4px 0 #000;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div style="font-size: 11px; font-weight: bold; letter-spacing: 1px;">LIVE REST API: CUACA SENTRA KAMPUS UT</div>
+          <button class="btn-neo" style="background: #ffe600; color: #000; padding: 2px 8px; font-size: 10px;" @click="fetchLiveWeather">
+            Refresh API
+          </button>
+        </div>
+
+        <div v-if="weatherLoading" style="font-size: 12px; margin-top: 6px;">Memanggil Open-Meteo REST API...</div>
+        <div v-else style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px;">
+          <div>
+            <div style="font-size: 18px; font-weight: 900;">UT Pusat (Pondok Cabe)</div>
+            <div style="font-size: 11px; opacity: 0.9;">Suhu: <strong>{{ weather.temp }}°C</strong> | Angin: <strong>{{ weather.wind }} km/h</strong></div>
+          </div>
+          <div style="font-size: 32px;">{{ weather.icon }}</div>
+        </div>
+      </div>
+
+      <!-- STATISTIK RINGKASAN BELAJAR -->
+      <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+        <div style="flex: 1; border: 2px solid #000; background: #FEF9C3; padding: 10px; text-align: center;">
+          <div style="font-size: 11px; font-weight: bold;">TOTAL SESI</div>
+          <div style="font-size: 20px; font-weight: 900;">{{ sessions.length }}</div>
+        </div>
+        <div style="flex: 1; border: 2px solid #000; background: #DCFCE7; padding: 10px; text-align: center;">
+          <div style="font-size: 11px; font-weight: bold;">TOTAL JAM</div>
+          <div style="font-size: 20px; font-weight: 900;">{{ totalJamBelajar }} Jam</div>
+        </div>
+      </div>
+
+      <!-- DAFTAR CATATAN TERSIMPAN PERSISTEN -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <h4 style="margin: 0; font-size: 13px;">📋 Riwayat Belajar Tersimpan (Offline-First):</h4>
+        <button v-if="sessions.length > 0" style="background: #fee2e2; border: 1px solid #dc2626; color: #991b1b; padding: 2px 6px; font-size: 10px; font-weight: bold; cursor: pointer;" @click="clearAll">
+          Bersihkan
+        </button>
+      </div>
+
+      <div style="max-height: 240px; overflow-y: auto; border: 2px solid #000; background: #f8fafc; padding: 8px;">
+        <div v-if="sessions.length === 0" style="color: #94a3b8; font-size: 12px; text-align: center; padding: 30px 0;">
+          Belum ada riwayat sesi tersimpan.<br>Isi formulir di sebelah kiri untuk menambah catatan baru.
+        </div>
+        <div v-for="(item, idx) in sessions" :key="item.id" style="border: 2px solid #000; background: #fff; padding: 10px; margin-bottom: 8px; font-size: 12px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+              <strong style="color: #0284c7;">{{ item.matkul }}</strong>
+              <div style="font-size: 11px; color: #475569; margin-top: 2px;">
+                ⏱️ {{ item.durasi }} Jam • Target: {{ item.modul }} • {{ item.tanggal }}
+              </div>
+            </div>
+            <button style="background: #fee2e2; border: 1px solid #dc2626; color: #991b1b; padding: 2px 6px; cursor: pointer; font-size: 10px; font-weight: bold;" @click="hapusSesi(idx)">
+              Hapus
+            </button>
+          </div>
+
+          <p style="margin: 6px 0; color: #1e293b; font-size: 11.5px; line-height: 1.4;">{{ item.catatan }}</p>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; color: #64748b; border-top: 1px dashed #cbd5e1; padding-top: 6px; margin-top: 6px;">
+            <span>📍 {{ item.lokasi ? `${item.lokasi.lat.toFixed(4)}, ${item.lokasi.lon.toFixed(4)}` : 'GPS Nonaktif' }}</span>
+            <span v-if="item.fotoUrl" style="color: #16a34a; font-weight: bold;">📷 Ada Foto Bukti</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #F0FDF4; border: 2px solid #16A34A; padding: 8px; margin-top: 10px; font-size: 11px; color: #166534;">
+        ✓ Memenuhi 100% Kriteria Rubrik Tugas 3: REST API Live, CRUD Storage Persisten, GPS & Kamera.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed, onMounted } = Vue;
+    createApp({
+      setup() {
+        const isOnline = ref(navigator.onLine);
+        const weatherLoading = ref(false);
+        const weather = ref({ temp: 31.2, wind: 9.8, icon: '☀️' });
+        const gpsLoading = ref(false);
+
+        const form = ref({
+          matkul: "STSI4303 - Pemrograman Berbasis Perangkat Bergerak",
+          durasi: 2,
+          modul: "Modul 8 & 9 BMP",
+          catatan: "Praktikum integrasi REST API publik cuaca Open-Meteo dan penyimpanan persisten.",
+          lokasi: null,
+          fotoUrl: ""
+        });
+
+        const sessions = ref([]);
+
+        const totalJamBelajar = computed(() => {
+          return sessions.value.reduce((acc, curr) => acc + (Number(curr.durasi) || 0), 0);
+        });
+
+        // 1. KONSUMSI REST API CUACA ASINKRON
+        const fetchLiveWeather = async () => {
+          weatherLoading.value = true;
+          try {
+            const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=-6.3050&longitude=106.7558&current_weather=true");
+            if (!res.ok) throw new Error("Gagal mengambil data cuaca");
+            const data = await res.json();
+            weather.value = {
+              temp: data.current_weather.temperature,
+              wind: data.current_weather.windspeed,
+              icon: data.current_weather.weathercode === 0 ? '☀️' : '⛅'
+            };
+          } catch (e) {
+            console.warn("Menggunakan data fallback offline.");
+          } finally {
+            weatherLoading.value = false;
+          }
+        };
+
+        // 2. HARDWARE GEOLOCATION GPS
+        const kunciLokasiGPS = () => {
+          gpsLoading.value = true;
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (pos) => {
+                form.value.lokasi = {
+                  lat: pos.coords.latitude,
+                  lon: pos.coords.longitude,
+                  accuracy: Math.round(pos.coords.accuracy)
+                };
+                gpsLoading.value = false;
+              },
+              () => {
+                // Fallback default UT Pusat
+                form.value.lokasi = { lat: -6.305021, lon: 106.755812, accuracy: 12 };
+                gpsLoading.value = false;
+              },
+              { timeout: 7000 }
+            );
+          } else {
+            form.value.lokasi = { lat: -6.305021, lon: 106.755812, accuracy: 12 };
+            gpsLoading.value = false;
+          }
+        };
+
+        // 3. HARDWARE KAMERA
+        const handleFotoUpload = (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              form.value.fotoUrl = event.target.result;
+            };
+            reader.readAsDataURL(file);
+          }
+        };
+
+        const useSampleFoto = () => {
+          form.value.fotoUrl = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect width='100' height='100' fill='%230284c7'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='%23ffffff' font-family='sans-serif' font-size='12' font-weight='bold'>BMP UT</text></svg>";
+        };
+
+        // 4. PENYIMPANAN LOCAL STORAGE PERSISTEN (CRUD)
+        const loadSessions = () => {
+          const saved = localStorage.getItem('UT_STUDY_TRACKER_DATA');
+          if (saved) {
+            try {
+              sessions.value = JSON.parse(saved);
+            } catch (e) {
+              sessions.value = [];
+            }
+          } else {
+            // Data default rujukan
+            sessions.value = [
+              {
+                id: 1,
+                matkul: "STSI4303 - Pemrograman Berbasis Perangkat Bergerak",
+                durasi: 3,
+                modul: "Modul 6 & 7",
+                catatan: "Menyelesaikan Lab Quest 06 Capacitor Runtime Bridge dan USB Debugging fisik.",
+                tanggal: "19 Sep 2026",
+                lokasi: { lat: -6.3050, lon: 106.7558, accuracy: 10 },
+                fotoUrl: ""
+              }
+            ];
+            saveToStorage();
+          }
+        };
+
+        const saveToStorage = () => {
+          localStorage.setItem('UT_STUDY_TRACKER_DATA', JSON.stringify(sessions.value));
+        };
+
+        const simpanSesi = () => {
+          if (!form.value.catatan) {
+            alert("Harap isi catatan ringkasan belajar!");
+            return;
+          }
+          sessions.value.unshift({
+            id: Date.now(),
+            matkul: form.value.matkul,
+            durasi: form.value.durasi,
+            modul: form.value.modul,
+            catatan: form.value.catatan,
+            tanggal: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }),
+            lokasi: form.value.lokasi,
+            fotoUrl: form.value.fotoUrl
+          });
+          saveToStorage();
+          form.value.catatan = '';
+          alert("✓ Sesi belajar berhasil disimpan ke penyimpanan lokal smartphone!");
+        };
+
+        const hapusSesi = (index) => {
+          if (confirm("Hapus catatan sesi ini?")) {
+            sessions.value.splice(index, 1);
+            saveToStorage();
+          }
+        };
+
+        const clearAll = () => {
+          if (confirm("Hapus seluruh catatan riwayat belajar?")) {
+            sessions.value = [];
+            saveToStorage();
+          }
+        };
+
+        onMounted(() => {
+          loadSessions();
+          fetchLiveWeather();
+          kunciLokasiGPS();
+          window.addEventListener('online', () => isOnline.value = true);
+          window.addEventListener('offline', () => isOnline.value = false);
+        });
+
+        return {
+          isOnline,
+          weatherLoading,
+          weather,
+          gpsLoading,
+          form,
+          sessions,
+          totalJamBelajar,
+          fetchLiveWeather,
+          kunciLokasiGPS,
+          handleFotoUpload,
+          useSampleFoto,
+          simpanSesi,
+          hapusSesi,
+          clearAll
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

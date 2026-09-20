@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 07: Capacitor Preferences Plugin — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .input-field {
+      width: 100%;
+      padding: 8px 10px;
+      border: 2px solid #000;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .btn-neo {
+      background: var(--yellow);
+      border: 2px solid #000;
+      padding: 8px 12px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+      font-size: 12px;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+    .btn-neo:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 07 • PENYIMPANAN NATIVE ASINKRON</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Operasi Key-Value dengan <code>@capacitor/preferences</code></h1>
+    <p style="margin: 0; font-size: 14px;">Menyimpan konfigurasi permanen ke sistem penyimpanan native SharedPreferences Android secara asinkron berbasis Promise.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- FORM INTERAKTIF CRUD STORAGE -->
+    <div class="box">
+      <h3>⚙️ Dasbor Uji Coba CRUD Storage</h3>
+
+      <label style="font-size: 12px; font-weight: bold;">Kunci Penyimpanan (Key):</label>
+      <input class="input-field" v-model="storageKey" placeholder="cth: NIM_AKTIF" />
+
+      <label style="font-size: 12px; font-weight: bold;">Nilai Data (Value):</label>
+      <input class="input-field" v-model="storageValue" placeholder="cth: 041234567" />
+
+      <div style="margin-top: 6px;">
+        <button class="btn-neo" style="background: #4ADE80;" @click="saveData">
+          💾 Simpan (Preferences.set)
+        </button>
+        <button class="btn-neo" style="background: #38BDF8;" @click="loadData">
+          🔍 Baca (Preferences.get)
+        </button>
+        <button class="btn-neo" style="background: #FB7185; color: #fff;" @click="deleteData">
+          🗑️ Hapus Kunci Ini
+        </button>
+      </div>
+
+      <div v-if="feedback" style="margin-top: 12px; font-size: 12px; padding: 8px; border: 2px solid #000; background: #FEF9C3;">
+        {{ feedback }}
+      </div>
+    </div>
+
+    <!-- PREVIEW PENYIMPANAN AKTIF -->
+    <div class="box">
+      <h3>📱 Daftar Kunci Aktif di SharedPreferences</h3>
+      <p style="font-size: 12px; color: #64748B;">Data di bawah ini tersimpan secara fisik dan tidak akan hilang meskipun browser direfresh:</p>
+
+      <div style="background: #f8fafc; border: 2px solid #000; padding: 10px; min-height: 140px;">
+        <div v-if="storedItems.length === 0" style="color: #94a3b8; font-size: 12px;">(Penyimpanan kosong)</div>
+        <div v-for="(item, idx) in storedItems" :key="idx" style="font-size: 12px; padding: 6px 0; border-bottom: 1px dashed #cbd5e1; display: flex; justify-content: space-between;">
+          <span>🔑 <strong>{{ item.key }}</strong></span>
+          <span style="color: #0284c7; font-family: monospace;">{{ item.val }}</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+        <button class="btn-neo" style="background: #e2e8f0; font-size: 11px;" @click="clearAll">
+          Bersihkan Semua (clear)
+        </button>
+        <span style="font-size: 11px; color: #64748B;">Total Item: {{ storedItems.length }}</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, onMounted } = Vue;
+    createApp({
+      setup() {
+        const storageKey = ref('MAHASISWA_NIM');
+        const storageValue = ref('041234567');
+        const feedback = ref('');
+        const storedItems = ref([]);
+
+        const refreshList = () => {
+          storedItems.value = [];
+          for (let i = 0; i < localStorage.length; i++) {
+            const k = localStorage.key(i);
+            if (k.startsWith('CAP_')) {
+              storedItems.value.push({ key: k.replace('CAP_', ''), val: localStorage.getItem(k) });
+            }
+          }
+        };
+
+        const saveData = () => {
+          if (!storageKey.value) return;
+          localStorage.setItem('CAP_' + storageKey.value, storageValue.value);
+          feedback.value = `✓ Berhasil menyimpan key "${storageKey.value}" ke SharedPreferences!`;
+          refreshList();
+        };
+
+        const loadData = () => {
+          const val = localStorage.getItem('CAP_' + storageKey.value);
+          if (val !== null) {
+            storageValue.value = val;
+            feedback.value = `✓ Ditemukan! Nilai: "${val}"`;
+          } else {
+            feedback.value = `⚠️ Kunci "${storageKey.value}" tidak ditemukan di memori!`;
+          }
+        };
+
+        const deleteData = () => {
+          localStorage.removeItem('CAP_' + storageKey.value);
+          feedback.value = `✓ Kunci "${storageKey.value}" telah dihapus.`;
+          refreshList();
+        };
+
+        const clearAll = () => {
+          const keys = Object.keys(localStorage).filter(k => k.startsWith('CAP_'));
+          keys.forEach(k => localStorage.removeItem(k));
+          feedback.value = '✓ Seluruh penyimpanan lokal telah dibersihkan.';
+          refreshList();
+        };
+
+        onMounted(() => {
+          if (localStorage.getItem('CAP_MAHASISWA_NIM') === null) {
+            localStorage.setItem('CAP_MAHASISWA_NIM', '041234567');
+            localStorage.setItem('CAP_NAMA_LENGKAP', 'Anton Prafanto');
+            localStorage.setItem('CAP_UPBJJ', 'Surabaya');
+          }
+          refreshList();
+        });
+
+        return { storageKey, storageValue, feedback, storedItems, saveData, loadData, deleteData, clearAll };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

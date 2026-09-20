@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 06: Komparasi Penyimpanan Data Mobile — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--purple);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .storage-option {
+      border: 2px solid #000;
+      padding: 12px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      background: #f8fafc;
+    }
+    .storage-option.active {
+      background: #ffe600;
+      box-shadow: 3px 3px 0 #000;
+      transform: translate(-2px, -2px);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 06 • ARSITEKTUR PERSISTENSI DATA</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Spektrum Opsi Penyimpanan Data Mobile</h1>
+    <p style="margin: 0; font-size: 14px;">Memilih media penyimpanan lokal yang tepat: Dari variabel memori RAM, LocalStorage, hingga SQLite dan Capacitor Preferences.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PILIHAN MEDIA PENYIMPANAN -->
+    <div class="box">
+      <h3>💾 5 Media Penyimpanan Data Mobile</h3>
+      <p style="font-size: 12px; color: #64748B;">Klik setiap opsi penyimpanan untuk membedah karakteristik teknisnya:</p>
+
+      <div class="storage-option" :class="{ active: selectedKey === 'ram' }" @click="select('ram')">
+        1. Reactive State RAM (ref / reactive)
+      </div>
+      <div class="storage-option" :class="{ active: selectedKey === 'localstorage' }" @click="select('localstorage')">
+        2. Web LocalStorage (Window API)
+      </div>
+      <div class="storage-option" :class="{ active: selectedKey === 'preferences' }" @click="select('preferences')">
+        3. Capacitor Preferences (@capacitor/preferences) ⭐
+      </div>
+      <div class="storage-option" :class="{ active: selectedKey === 'indexeddb' }" @click="select('indexeddb')">
+        4. IndexedDB (NoSQL Object Store)
+      </div>
+      <div class="storage-option" :class="{ active: selectedKey === 'sqlite' }" @click="select('sqlite')">
+        5. SQLite Database (Relasional SQL Murni)
+      </div>
+    </div>
+
+    <!-- DETAIL BEDAH SPESIFIKASI -->
+    <div class="box">
+      <h3>🔍 Karakteristik: <span style="color: #9333ea;">{{ currentStorage.name }}</span></h3>
+
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px;">
+        <tr style="border-bottom: 1px solid #cbd5e1;">
+          <td style="padding: 8px; font-weight: bold; width: 40%;">Sifat Persistensi:</td>
+          <td style="padding: 8px;" :style="{ color: currentStorage.persistent ? '#16a34a' : '#dc2626', fontWeight: 'bold' }">
+            {{ currentStorage.persistent ? 'Permanen (Tetap Utuh Pasca Restart)' : 'Hilang saat App Direfresh / Ditutup' }}
+          </td>
+        </tr>
+        <tr style="border-bottom: 1px solid #cbd5e1;">
+          <td style="padding: 8px; font-weight: bold;">Kapasitas Estimasi:</td>
+          <td style="padding: 8px;">{{ currentStorage.capacity }}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #cbd5e1;">
+          <td style="padding: 8px; font-weight: bold;">Mekanisme Akses:</td>
+          <td style="padding: 8px;">{{ currentStorage.access }}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #cbd5e1;">
+          <td style="padding: 8px; font-weight: bold;">Implementasi Native:</td>
+          <td style="padding: 8px;">{{ currentStorage.nativeEngine }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; font-weight: bold;">Rekomendasi Kasus:</td>
+          <td style="padding: 8px; color: #0284c7; font-weight: bold;">{{ currentStorage.useCase }}</td>
+        </tr>
+      </table>
+
+      <div style="background: #F0FDF4; border: 2px solid #16A34A; padding: 12px; margin-top: 16px; font-size: 12px;">
+        🎓 <strong>Standar Tugas Tutorial 3:</strong> Mahasiswa dapat memanfaatkan <strong>LocalStorage</strong> atau <strong>Capacitor Preferences</strong> untuk menyimpan catatan sesi belajar secara permanen. Keduanya ramah memori laptop dan bebas dependensi berat!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const storageData = {
+          ram: {
+            name: "Reactive State Memory (RAM)",
+            persistent: false,
+            capacity: "Sesuai Sisa RAM Perangkat",
+            access: "Sinkron & Instan (In-Memory)",
+            nativeEngine: "V8 Engine Heap (JavaScript Runtime)",
+            useCase: "Data kalkulasi sementara (cth: input form belum submit, state tab aktif)."
+          },
+          localstorage: {
+            name: "Web LocalStorage API",
+            persistent: true,
+            capacity: "~5 MB (Batas Peramban)",
+            access: "Sinkron (Blocking I/O jika data besar)",
+            nativeEngine: "Chromium Storage File di Direktori App Data",
+            useCase: "Pengaturan tema gelap/terang, token sesi sederhana, catatan kecil."
+          },
+          preferences: {
+            name: "Capacitor Preferences Plugin",
+            persistent: true,
+            capacity: "Cukup untuk ratusan ribu konfigurasi",
+            access: "Asinkron Non-Blocking (Promise-based)",
+            nativeEngine: "Android SharedPreferences & iOS UserDefaults",
+            useCase: "Standar emas Ionic/Capacitor untuk menyimpan key-value data akun & preferensi."
+          },
+          indexeddb: {
+            name: "IndexedDB API",
+            persistent: true,
+            capacity: "Ratusan MB (Hingga 50% kuota disk)",
+            access: "Asinkron via Event Transaction",
+            nativeEngine: "LevelDB / SQLite bawaan mesin Chromium",
+            useCase: "Aplikasi offline-first dengan ribuan data objek JSON dan pencarian indeks."
+          },
+          sqlite: {
+            name: "Capacitor SQLite Plugin",
+            persistent: true,
+            capacity: "Bebas hingga batas kapasitas internal HP",
+            access: "Asinkron via Native SQLite Driver",
+            nativeEngine: "libsqlite3.so asli di level OS Android",
+            useCase: "Aplikasi enterprise skala besar dengan relasi tabel kompleks (FOREIGN KEY, JOIN)."
+          }
+        };
+
+        const selectedKey = ref('preferences');
+        const currentStorage = ref(storageData['preferences']);
+
+        const select = (key) => {
+          selectedKey.value = key;
+          currentStorage.value = storageData[key];
+        };
+
+        return { selectedKey, currentStorage, select };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

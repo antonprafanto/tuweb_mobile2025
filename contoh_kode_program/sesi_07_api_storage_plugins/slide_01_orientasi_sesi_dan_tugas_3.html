@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 01: Orientasi Sesi 07 & Tugas Tutorial 3 — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .feature-card {
+      border: 2px solid #000;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #F8FAFC;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 01 • SESI 07 (MODUL 8 & 9 BMP UT)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Orientasi Sesi 07: REST API, Offline Storage, & TUGAS TUTORIAL 3</h1>
+    <p style="margin: 0; font-size: 14px;">Mencapai puncak kapabilitas aplikasi mobile: Integrasi data server cloud, penyimpanan lokal persisten, dan pembukaan evaluasi akhir Tugas Tutorial 3.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PENGANTAR SESI 07 -->
+    <div class="box">
+      <h3>🌐 Puncak Kapabilitas Aplikasi Mobile</h3>
+      <p style="font-size: 13px; line-height: 1.5; color: #334155;">
+        Sebuah aplikasi mobile modern tidak dapat berdiri sendiri secara statis. Pengguna mengharapkan aplikasi yang mampu mengambil informasi terbaru dari server cloud, tetap dapat bekerja saat kehilangan sinyal internet (<em>offline-first</em>), serta memanfaatkan kecanggihan sensor fisik smartphone.
+      </p>
+
+      <div class="feature-card" style="border-left: 5px solid #0284c7;">
+        <strong>1. Asynchronous REST API:</strong> Mengonsumsi data eksternal via protokol HTTP menggunakan <code>fetch()</code> dan <code>async/await</code>.
+      </div>
+      <div class="feature-card" style="border-left: 5px solid #16a34a;">
+        <strong>2. Offline-First Storage:</strong> Menyimpan data persisten secara lokal via <code>localStorage</code> dan Capacitor Preferences.
+      </div>
+      <div class="feature-card" style="border-left: 5px solid #9333ea;">
+        <strong>3. Hardware Native Sensors:</strong> Mengakses sensor Geolocation GPS untuk pelacakan koordinat dan Camera untuk foto bukti belajar.
+      </div>
+    </div>
+
+    <!-- PENGUMUMAN TUGAS TUTORIAL 3 -->
+    <div class="box">
+      <div style="background: #FEE2E2; border: 3px solid #DC2626; padding: 16px; box-shadow: 4px 4px 0 #DC2626;">
+        <span style="background: #DC2626; color: #fff; font-weight: 900; font-size: 11px; padding: 2px 8px;">
+          PENGUMUMAN RESMI EVALUASI TUTON
+        </span>
+        <h3 style="color: #991B1B; margin: 10px 0 6px 0;">🎯 TUGAS TUTORIAL 3 RESMI DIBUKA (BOBOT 20%)</h3>
+        <p style="font-size: 12px; line-height: 1.6; color: #7F1D1D; margin: 0 0 10px 0;">
+          Tugas Tutorial 3 adalah evaluasi praktikum terakhir sebelum Ujian Akhir Semester (UAS). Kasus proyek: <strong>"Aplikasi UT Study Tracker & Presensi Belajar Mobile"</strong>.
+        </p>
+        <ul style="font-size: 12px; line-height: 1.6; color: #991B1B; margin: 0; padding-left: 18px;">
+          <li>Konsumsi REST API live cuaca / data belajar.</li>
+          <li>Penyimpanan catatan belajar offline persisten (CRUD).</li>
+          <li>Pencatatan koordinat GPS / Foto kegiatan belajar.</li>
+          <li>Pengumpulan: Laporan PDF + Repositori GitHub + Video YouTube Unlisted.</li>
+        </ul>
+      </div>
+
+      <div style="background: #FEF9C3; border: 2px solid #CA8A04; padding: 10px; margin-top: 14px; font-size: 12px;">
+        💡 <strong>Pesan Pak Anton Prafanto:</strong> Pelajari berkas master solusi di Slide 17 dan rubrik penilaian resmi di Slide 16 agar Anda meraih skor maksimal 100!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({}).mount('#app');
+  </script>
+</body>
+</html>

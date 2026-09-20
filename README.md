@@ -45,7 +45,7 @@ tuweb_mobile2025/
 | **04** | Modul 4 | Dasar-Dasar Ionic Framework & Navigasi | [⚡ Download S04 (.pptx)](slide_presentasi/SESI_04_Dasar_Ionic_dan_Navigasi.pptx)<br>[👁️ Baca Online S04](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_04_Dasar_Ionic_dan_Navigasi.pptx)<br>[📄 Naskah Slide S04](slide_presentasi/SESI_04_Dasar_Ionic_dan_Navigasi.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_04_ionic_dasar_navigasi/)<br>• [Solusi Lab Quest 04](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_17_lab_quest_04_portal_modul_ut.html) | ✅ **Rilis Lengkap**<br>💬 Diskusi 4 |
 | **05** | Modul 5 | Layout Grid, Dynamic Theme, & Form Regex | [⚡ Download S05 (.pptx)](slide_presentasi/SESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx)<br>[👁️ Baca Online S05](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx)<br>[📄 Naskah Slide S05](slide_presentasi/SESI_05_Layout_Grid_Form_Regex_Dark_Mode.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_05_layout_grid_form/)<br>• [🎯 Solusi Tugas 2](contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html) | ✅ **Rilis Lengkap**<br>🎯 **TUGAS 2 DIBUKA** |
 | **06** | Modul 6-7| Capacitor & Integrasi Platform Android | [⚡ Download S06 (.pptx)](slide_presentasi/SESI_06_Capacitor_Bridge_dan_Android_Studio.pptx)<br>[👁️ Baca Online S06](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_06_Capacitor_Bridge_dan_Android_Studio.pptx)<br>[📄 Naskah Slide S06](slide_presentasi/SESI_06_Capacitor_Bridge_dan_Android_Studio.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_06_capacitor_android/)<br>• [Solusi Lab Quest 06](contoh_kode_program/sesi_06_capacitor_android/slide_17_lab_quest_06_bridge_tester.html) | ✅ **Rilis Lengkap**<br>💬 Diskusi 6 |
-| **07** | Modul 8-9| REST API, Local Storage, & Native Plugins | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 🎯 **TUGAS 3** |
+| **07** | Modul 8-9| REST API, Local Storage, & Native Plugins | [⚡ Download S07 (.pptx)](slide_presentasi/SESI_07_REST_API_Storage_dan_Native_Plugins.pptx)<br>[👁️ Baca Online S07](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_07_REST_API_Storage_dan_Native_Plugins.pptx)<br>[📄 Naskah Slide S07](slide_presentasi/SESI_07_REST_API_Storage_dan_Native_Plugins.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_07_api_storage_plugins/)<br>• [🎯 Solusi Tugas 3](contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html) | ✅ **Rilis Lengkap**<br>🎯 **TUGAS 3 DIBUKA** |
 | **08** | Modul 9 | Optimasi Kinerja, Build APK Release & UAS | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 💬 Diskusi 8 & UAS |
 
 ---
@@ -200,6 +200,31 @@ tuweb_mobile2025/
 
 ---
 
+### 📱 Rincian 18 Berkas Mandiri Sesi 07 (REST API, Storage, & TUGAS TUTORIAL 3)
+
+| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run) |
+| :---: | :--- | :--- |
+| **Slide 01** | Roadmap Sesi 07, Sub-CPMK 7 & Pengumuman Akbar TUGAS TUTORIAL 3 (20%) | [`slide_01_orientasi_sesi_dan_tugas_3.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_01_orientasi_sesi_dan_tugas_3.html) |
+| **Slide 02** | Anatomi REST API: Client-Server, HTTP Methods (GET/POST/PUT/DELETE), & Status Codes | [`slide_02_konsep_rest_api_asinkron.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_02_konsep_rest_api_asinkron.html) |
+| **Slide 03** | Eksekusi HTTP Modern: `fetch()`, `async/await`, & Error Handling `try-catch-finally` | [`slide_03_fetch_api_dan_async_await.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_03_fetch_api_dan_async_await.html) |
+| **Slide 04** | UX Asinkron: Mengelola State `isLoading`, `<ion-spinner>`, & `<ion-skeleton-text>` Shimmer | [`slide_04_indikator_pemuatan_loading.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_04_indikator_pemuatan_loading.html) |
+| **Slide 05** | Live Demo REST API Publik: Data Cuaca Sentra Kampus UT via Open-Meteo (No API Key) | [`slide_05_integrasi_live_api_cuaca.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_05_integrasi_live_api_cuaca.html) |
+| **Slide 06** | Matriks Spektrum Storage: RAM vs LocalStorage vs IndexedDB vs SQLite vs Preferences | [`slide_06_komparasi_opsi_penyimpanan_mobile.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_06_komparasi_opsi_penyimpanan_mobile.html) |
+| **Slide 07** | Operasi CRUD Storage Persisten: `Preferences.set()`, `get()`, `remove()`, & `clear()` | [`slide_07_capacitor_preferences_kv.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_07_capacitor_preferences_kv.html) |
+| **Slide 08** | Serialisasi Data Kompleks: Menyimpan & Memulihkan Objek via `JSON.stringify` / `parse` | [`slide_08_serialisasi_objek_json_storage.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_08_serialisasi_objek_json_storage.html) |
+| **Slide 09** | Pola Offline-First: Strategi Cache-First vs Network-First saat Ponsel Hilang Sinyal | [`slide_09_arsitektur_offline_first_caching.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_09_arsitektur_offline_first_caching.html) |
+| **Slide 10** | Integrasi Sensor 1: Mengunci Koordinat Lintang & Bujur via `@capacitor/geolocation` | [`slide_10_plugin_geolocation_koordinat.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_10_plugin_geolocation_koordinat.html) |
+| **Slide 11** | Algoritma Geofencing: Rumus Haversine untuk Memvalidasi Radius Presensi Mahasiswa | [`slide_11_geofencing_validasi_lokasi_ut.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_11_geofencing_validasi_lokasi_ut.html) |
+| **Slide 12** | Integrasi Sensor 2: Mengambil Foto Bukti Belajar / Scan Dokumen via `@capacitor/camera` | [`slide_12_plugin_camera_capture_photo.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_12_plugin_camera_capture_photo.html) |
+| **Slide 13** | Monitoring Sinyal Real-Time: Deteksi Otomatis Event Online/Offline via `@capacitor/network` | [`slide_13_plugin_network_status_detection.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_13_plugin_network_status_detection.html) |
+| **Slide 14** | Clean Architecture: Memisahkan Logika Bisnis ke Layer Service (`studyTrackerService.ts`) | [`slide_14_clean_architecture_service_pattern.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_14_clean_architecture_service_pattern.html) |
+| **Slide 15** | Keamanan REST API: Manajemen Token JWT, Header `Authorization: Bearer`, & Penanganan 401 | [`slide_15_keamanan_token_jwt_dan_interceptor.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_15_keamanan_token_jwt_dan_interceptor.html) |
+| **Slide 16** | **Pedoman & Rubrik Penilaian Resmi TUGAS TUTORIAL 3 (Skala 0–100)** | [`slide_16_rubrik_tugas_tutorial_3.md`](contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.md) |
+| **Slide 17** | **🎯 MASTER SOLUSI RESMI TUGAS TUTORIAL 3:** UT Study Tracker & Presensi Mobile | [`slide_17_solusi_tugas_3_study_tracker.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html) |
+| **Slide 18** | **Jembatan Sesi 08:** Finalisasi Rilis APK Stand-alone, Keystore, & 50 Bank Soal UAS | [`slide_18_preview_sesi_08_build_apk_uas.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_18_preview_sesi_08_build_apk_uas.html) |
+
+---
+
 ## 🎯 Panduan Tugas Tutorial Wajib Mahasiswa (Tuton UT)
 
 1. **[Tugas Tutorial 1 (Sesi 3)](panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md#tugas-tutorial-1-diberikan-pada-sesi-3):**
@@ -211,8 +236,9 @@ tuweb_mobile2025/
    * *Contoh Master Solusi:* [slide_17_solusi_tugas_2_portal_ktm_registrasi.html](contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html)
    * *Rubrik Penilaian:* [slide_16_rubrik_tugas_tutorial_2.md](contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.md)
 3. **[Tugas Tutorial 3 (Sesi 7)](panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md#tugas-tutorial-3-diberikan-pada-sesi-7):**
-   * *Studi Kasus:* Aplikasi Mobile Terintegrasi "UT Study Tracker" (Konsumsi REST API Asinkron, Penyimpanan Data Offline Persisten, Sensor Geolocation GPS).
-   * *Contoh Master Solusi:* [slide_03_solusi_tugas_3_aplikasi_terintegrasi.html](contoh_kode_program/sesi_07_api_storage_plugins/slide_03_solusi_tugas_3_aplikasi_terintegrasi.html)
+   * *Studi Kasus:* Aplikasi Mobile Terintegrasi "UT Study Tracker" (Konsumsi REST API Asinkron, Penyimpanan Data Offline Persisten, Sensor Geolocation GPS & Kamera).
+   * *Contoh Master Solusi:* [slide_17_solusi_tugas_3_study_tracker.html](contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html)
+   * *Rubrik Penilaian:* [slide_16_rubrik_tugas_tutorial_3.md](contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.md)
 
 ---
 

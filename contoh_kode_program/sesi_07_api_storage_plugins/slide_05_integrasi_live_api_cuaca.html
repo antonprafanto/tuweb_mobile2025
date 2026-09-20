@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 05: Live REST API Cuaca Kampus UT — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--cyan);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .weather-card {
+      background: #0284c7;
+      color: #fff;
+      border: 3px solid #000;
+      padding: 18px;
+      box-shadow: 5px 5px 0 #000;
+      margin-top: 14px;
+    }
+    .select-city {
+      width: 100%;
+      padding: 8px 10px;
+      border: 2px solid #000;
+      font-weight: bold;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 05 • PRAKTIKUM LIVE REST API (BEBAS API KEY)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Integrasi Data Publik: Cuaca Sentra Layanan UT Daerah</h1>
+    <p style="margin: 0; font-size: 14px;">Mengonsumsi endpoint Open-Meteo secara real-time untuk memantau cuaca lokasi belajar mahasiswa di berbagai wilayah Indonesia.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- KONTROL PEMILIH WILAYAH -->
+    <div class="box">
+      <h3>🏛️ Pilih Sentra UT Daerah</h3>
+      <p style="font-size: 12px; color: #64748B;">Pilih kota kampus untuk memicu request <code>fetch()</code> ke server cuaca global:</p>
+
+      <select class="select-city" v-model="selectedCityKey" @change="fetchWeather">
+        <option v-for="(city, key) in cities" :key="key" :value="key">
+          {{ city.name }} (Lat: {{ city.lat }}, Lon: {{ city.lon }})
+        </option>
+      </select>
+
+      <div style="background: #f8fafc; border: 2px solid #000; padding: 12px; margin-top: 14px; font-size: 12px;">
+        <div><strong>URL Endpoint Aktif:</strong></div>
+        <div style="font-family: monospace; color: #0284c7; word-break: break-all; margin-top: 4px;">
+          https://api.open-meteo.com/v1/forecast?latitude={{ currentCity.lat }}&longitude={{ currentCity.lon }}&current_weather=true
+        </div>
+      </div>
+
+      <div style="background: #FEF9C3; border: 2px solid #CA8A04; padding: 10px; margin-top: 14px; font-size: 12px;">
+        💡 <strong>Relevansi Tugas 3:</strong> Mengambil data publik seperti cuaca kampus ini memenuhi <strong>Kriteria 1 (Bobot 30 Poin)</strong> pada Tugas Tutorial 3 secara elegan tanpa kendala otentikasi key yang kedaluwarsa!
+      </div>
+    </div>
+
+    <!-- TAMPILAN KARTU CUACA REAL-TIME -->
+    <div class="box">
+      <h3>🌦️ Hasil Respon Live Server</h3>
+
+      <div v-if="loading" style="text-align: center; padding: 40px 0;">
+        <ion-spinner name="crescent" style="width: 40px; height: 40px; color: #0284c7;"></ion-spinner>
+        <div style="font-size: 13px; font-weight: bold; margin-top: 10px;">Menghubungi Server Open-Meteo...</div>
+      </div>
+
+      <div v-else-if="error" style="background: #fee2e2; border: 2px solid #dc2626; padding: 14px; color: #991b1b; font-size: 12px;">
+        ❌ <strong>Gagal Mengambil Data:</strong> {{ error }}
+      </div>
+
+      <div v-else class="weather-card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9;">KAMPUS / SENTRA UT</div>
+            <div style="font-size: 20px; font-weight: 900; margin-top: 2px;">{{ currentCity.name }}</div>
+          </div>
+          <div style="font-size: 36px;">{{ weatherEmoji }}</div>
+        </div>
+
+        <div style="margin-top: 20px; display: flex; align-items: baseline; gap: 8px;">
+          <span style="font-size: 44px; font-weight: 900;">{{ weatherData.temperature }}°C</span>
+          <span style="font-size: 14px; opacity: 0.9;">Suhu Udara</span>
+        </div>
+
+        <div style="margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 10px; font-size: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div>💨 Kecepatan Angin: <strong>{{ weatherData.windspeed }} km/h</strong></div>
+          <div>🧭 Arah Angin: <strong>{{ weatherData.winddirection }}°</strong></div>
+          <div>⏱️ Waktu Respon Server: <strong>{{ weatherData.time }}</strong></div>
+          <div>🟢 Status Koneksi: <strong>200 OK (Live)</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed, onMounted } = Vue;
+    createApp({
+      setup() {
+        const cities = {
+          pusat: { name: "UT Pusat (Pondok Cabe, Tangsel)", lat: -6.3050, lon: 106.7558 },
+          jakarta: { name: "UPBJJ-UT Jakarta", lat: -6.2088, lon: 106.8456 },
+          surabaya: { name: "UPBJJ-UT Surabaya", lat: -7.2575, lon: 112.7521 },
+          medan: { name: "UPBJJ-UT Medan", lat: 3.5952, lon: 98.6722 },
+          makassar: { name: "UPBJJ-UT Makassar", lat: -5.1477, lon: 119.4327 }
+        };
+
+        const selectedCityKey = ref('pusat');
+        const loading = ref(false);
+        const error = ref('');
+        const weatherData = ref({});
+
+        const currentCity = computed(() => cities[selectedCityKey.value]);
+
+        const weatherEmoji = computed(() => {
+          const code = weatherData.value.weathercode;
+          if (code === 0) return '☀️ Cerah';
+          if (code >= 1 && code <= 3) return '⛅ Berawan';
+          if (code >= 51 && code <= 67) return '🌧️ Hujan';
+          if (code >= 80) return '⛈️ Badai Petir';
+          return '🌤️';
+        });
+
+        const fetchWeather = async () => {
+          loading.value = true;
+          error.value = '';
+          const city = currentCity.value;
+          const url = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current_weather=true`;
+
+          try {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`Status ${res.status}: Gagal memuat cuaca.`);
+            const data = await res.json();
+            weatherData.value = data.current_weather;
+          } catch (e) {
+            error.value = e.message;
+          } finally {
+            loading.value = false;
+          }
+        };
+
+        onMounted(() => {
+          fetchWeather();
+        });
+
+        return { cities, selectedCityKey, currentCity, loading, error, weatherData, weatherEmoji, fetchWeather };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

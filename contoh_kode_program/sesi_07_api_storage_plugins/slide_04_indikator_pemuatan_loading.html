@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 04: Indikator Pemuatan Data — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .btn-neo {
+      background: var(--yellow);
+      border: 2px solid #000;
+      padding: 8px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+      font-size: 13px;
+    }
+    .btn-neo:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+    .card-preview {
+      border: 2px solid #000;
+      background: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 04 • EXPERIENCIA PENGGUNA ASINKRON</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Mengelola UX Pemuatan: Spinner & <code>ion-skeleton-text</code></h1>
+    <p style="margin: 0; font-size: 14px;">Mencegah kepanikan pengguna saat koneksi lambat dengan indikator pemuatan dan efek kerangka placeholder (Skeleton Shimmer).</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- TEORI DAN KODE KOMPONEN -->
+    <div class="box">
+      <h3>⏳ Mengapa Blank Screen Sangat Dibenci Pengguna?</h3>
+      <p style="font-size: 13px; line-height: 1.5; color: #334155;">
+        Koneksi internet mobile di berbagai pelosok daerah kerap mengalami latensi tinggi. Jika layar ponsel dibiarkan putih membeku tanpa umpan balik, pengguna berasumsi aplikasi Anda rusak, lalu menekan tombol berulang kali atau menutup paksa aplikasi!
+      </p>
+
+      <div style="background: #F1F5F9; border: 2px solid #000; padding: 12px; margin-bottom: 12px;">
+        <h4 style="margin: 0 0 6px 0; font-size: 13px;">✨ Solusi Modern: Skeleton Placeholder</h4>
+        <p style="margin: 0; font-size: 12px; color: #475569; line-height: 1.5;">
+          Menggunakan tag <code>&lt;ion-skeleton-text animated&gt;</code> yang menyimulasikan tata letak kartu secara proporsional. Berdasarkan riset psikologi kognitif pengguna, efek kerangka ini memberikan persepsi bahwa aplikasi bekerja <strong>50% lebih cepat</strong> dibanding spinner lingkaran biasa!
+        </p>
+      </div>
+
+      <button class="btn-neo" @click="reloadCard">
+        🔄 Simulasikan Ambil Data Ulang (Latency 2s)
+      </button>
+    </div>
+
+    <!-- PREVIEW TAMPILAN INTERAKTIF -->
+    <div class="box">
+      <h3>📱 Preview Komponen pada Antarmuka</h3>
+      <p style="font-size: 12px; color: #64748B;">Amati transisi dari kondisi Skeleton Loading ke Konten Nyata:</p>
+
+      <div class="card-preview">
+        <!-- MODE SKELETON LOADING -->
+        <div v-if="loading">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <ion-skeleton-text animated style="width: 48px; height: 48px; border-radius: 50%;"></ion-skeleton-text>
+            <div style="flex: 1;">
+              <ion-skeleton-text animated style="width: 65%; height: 16px; margin-bottom: 6px;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%; height: 12px;"></ion-skeleton-text>
+            </div>
+          </div>
+          <ion-skeleton-text animated style="width: 95%; height: 12px; margin-bottom: 6px;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 80%; height: 12px;"></ion-skeleton-text>
+        </div>
+
+        <!-- MODE KONTEN NYATA TELAH TERLOAD -->
+        <div v-else>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <div style="width: 48px; height: 48px; background: #38bdf8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">
+              🎓
+            </div>
+            <div>
+              <div style="font-weight: bold; font-size: 15px;">Dina Lestari, S.Kom.</div>
+              <div style="font-size: 12px; color: #64748b;">NIM: 049876543 • UPBJJ UT Surabaya</div>
+            </div>
+          </div>
+          <p style="font-size: 13px; line-height: 1.5; color: #334155; margin: 0;">
+            Status: <strong>Aktif Sesi 2026.1</strong>. Modul BMP Pemrograman Mobile (STSI4303) telah terverifikasi dan siap untuk praktikum online.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 14px; font-size: 12px; color: #166534; background: #DCFCE7; border: 2px solid #16A34A; padding: 10px;">
+        ✓ Status: <strong>{{ loading ? 'Sedang Memuat dari REST API (Skeleton Active)...' : 'Data Selesai Diterima (Render Complete)!' }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, onMounted } = Vue;
+    createApp({
+      setup() {
+        const loading = ref(true);
+
+        const reloadCard = () => {
+          loading.value = true;
+          setTimeout(() => {
+            loading.value = false;
+          }, 1800);
+        };
+
+        onMounted(() => {
+          reloadCard();
+        });
+
+        return { loading, reloadCard };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

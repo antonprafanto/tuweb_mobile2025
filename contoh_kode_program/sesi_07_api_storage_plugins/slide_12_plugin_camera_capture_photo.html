@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 12: Plugin Kamera Capacitor — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--cyan);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .btn-neo {
+      background: var(--yellow);
+      border: 2px solid #000;
+      padding: 10px 14px;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+    .btn-neo:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+    .photo-frame {
+      border: 3px solid #000;
+      background: #e2e8f0;
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .code-box {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: 'Consolas', monospace;
+      font-size: 11px;
+      padding: 10px;
+      border: 2px solid #000;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 12 • SENSOR HARDWARE KAMERA</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Integrasi Kamera Perangkat dengan <code>@capacitor/camera</code></h1>
+    <p style="margin: 0; font-size: 14px;">Menangkap foto bukti kegiatan belajar mandiri, presensi swafoto, dan dokumen tugas kuliah secara asinkron.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- KODE POLA IMPLEMENTASI TS -->
+    <div class="box">
+      <h3>📸 Pola Kode TypeScript Capacitor Camera</h3>
+      <div class="code-box"><span style="color: #c084fc;">import</span> { Camera, CameraResultType, CameraSource } <span style="color: #c084fc;">from</span> <span style="color: #4ade80;">'@capacitor/camera'</span>;
+
+<span style="color: #c084fc;">const</span> takePicture = <span style="color: #c084fc;">async</span> () => {
+  <span style="color: #c084fc;">const</span> photo = <span style="color: #c084fc;">await</span> Camera.getPhoto({
+    quality: <span style="color: #facc15;">85</span>,
+    allowEditing: <span style="color: #facc15;">false</span>,
+    resultType: CameraResultType.DataUrl, <span style="color: #64748b;">// Cocok simpan di storage</span>
+    source: CameraSource.Camera
+  });
+
+  <span style="color: #64748b;">// photo.dataUrl berisi base64 string gambar</span>
+  photoPreview.value = photo.dataUrl;
+};</div>
+
+      <h4 style="margin-top: 14px; margin-bottom: 6px;">💡 2 Pilihan Format Keluaran (ResultType):</h4>
+      <div style="font-size: 12px; line-height: 1.5; color: #334155;">
+        <div><strong>1. CameraResultType.Uri:</strong> Menghasilkan URL berkas lokal (hemat memori, ideal untuk rendering cepat di UI).</div>
+        <div style="margin-top: 4px;"><strong>2. CameraResultType.DataUrl / Base64:</strong> Menghasilkan representasi string teks gambar (sangat praktis disimpan ke LocalStorage atau dikirim via JSON REST API).</div>
+      </div>
+    </div>
+
+    <!-- LAB INTERAKTIF UJI KAMERA -->
+    <div class="box">
+      <h3>🧪 Uji Pengambilan Foto Bukti Belajar</h3>
+      <p style="font-size: 12px; color: #64748B;">Pilih metode di bawah untuk menguji penangkapan gambar:</p>
+
+      <div>
+        <input type="file" accept="image/*" capture="environment" id="cameraInput" style="display: none;" @change="handleFileSelected" />
+        <button class="btn-neo" style="background: #4ADE80;" onclick="document.getElementById('cameraInput').click()">
+          📷 Buka Kamera / Unggah Foto
+        </button>
+        <button class="btn-neo" style="background: #38BDF8;" @click="loadSamplePhoto">
+          🖼️ Pakai Foto Sampel BMP
+        </button>
+        <button v-if="photoUrl" class="btn-neo" style="background: #FB7185; color: #fff;" @click="photoUrl = ''">
+          🗑️ Hapus Foto
+        </button>
+      </div>
+
+      <div class="photo-frame" style="margin-top: 12px;">
+        <img v-if="photoUrl" :src="photoUrl" style="max-width: 100%; max-height: 240px; object-fit: contain;" />
+        <div v-else style="text-align: center; color: #94a3b8; font-size: 12px;">
+          📷 Belum ada foto bukti belajar.<br>Tekan tombol di atas untuk memotret atau memilih gambar.
+        </div>
+      </div>
+
+      <div v-if="photoMeta" style="background: #f8fafc; border: 2px solid #000; padding: 10px; margin-top: 10px; font-size: 11px;">
+        <div><strong>Metadata Gambar:</strong></div>
+        <div>Tipe Data: <code>{{ photoMeta.type }}</code> | Ukuran: <code>{{ photoMeta.size }}</code> | Waktu: <code>{{ photoMeta.time }}</code></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const photoUrl = ref('');
+        const photoMeta = ref(null);
+
+        const handleFileSelected = (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              photoUrl.value = event.target.result;
+              photoMeta.value = {
+                type: file.type || 'image/jpeg',
+                size: (file.size / 1024).toFixed(1) + ' KB',
+                time: new Date().toLocaleTimeString('id-ID')
+              };
+            };
+            reader.readAsDataURL(file);
+          }
+        };
+
+        const loadSamplePhoto = () => {
+          // SVG sample mockup foto modul BMP
+          photoUrl.value = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%230284c7'/><text x='50%25' y='40%25' dominant-baseline='middle' text-anchor='middle' fill='%23ffffff' font-family='sans-serif' font-size='16' font-weight='bold'>BUKTI BELAJAR MODUL UT</text><text x='50%25' y='65%25' dominant-baseline='middle' text-anchor='middle' fill='%23fef08a' font-family='sans-serif' font-size='12'>STSI4303 - PEMROGRAMAN MOBILE</text></svg>";
+          photoMeta.value = {
+            type: "image/svg+xml (Simulasi)",
+            size: "1.2 KB",
+            time: new Date().toLocaleTimeString('id-ID')
+          };
+        };
+
+        return { photoUrl, photoMeta, handleFileSelected, loadSamplePhoto };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

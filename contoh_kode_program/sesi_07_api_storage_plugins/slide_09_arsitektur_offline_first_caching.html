@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 09: Arsitektur Offline-First Caching — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .toggle-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .btn-toggle {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid #000;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+      text-align: center;
+      background: #f8fafc;
+    }
+    .btn-toggle.active {
+      background: #ffe600;
+      box-shadow: 3px 3px 0 #000;
+      transform: translate(-1px, -1px);
+    }
+    .network-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      font-weight: bold;
+      font-size: 11px;
+      border: 1px solid #000;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 09 • KETAHANAN APLIKASI (RESILIENCE)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Arsitektur Offline-First & Strategi Caching</h1>
+    <p style="margin: 0; font-size: 14px;">Menjaga aplikasi tetap tangguh dan bermanfaat bagi mahasiswa meskipun smartphone kehilangan sinyal internet di daerah 3T.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- KONTROL STRATEGI & SIMULASI SINYAL -->
+    <div class="box">
+      <h3>📡 Simulator Kondisi Jaringan</h3>
+
+      <div class="toggle-bar">
+        <div class="btn-toggle" :class="{ active: isOnline }" @click="isOnline = true">
+          🟢 Mode ONLINE (4G/Wi-Fi)
+        </div>
+        <div class="btn-toggle" :class="{ active: !isOnline }" @click="isOnline = false">
+          🔴 Mode OFFLINE (Tanpa Sinyal)
+        </div>
+      </div>
+
+      <label style="font-size: 12px; font-weight: bold; margin-top: 10px; display: block;">Pilih Strategi Caching:</label>
+      <div class="toggle-bar" style="margin-top: 6px;">
+        <div class="btn-toggle" :class="{ active: strategy === 'network-first' }" @click="strategy = 'network-first'">
+          Network-First
+        </div>
+        <div class="btn-toggle" :class="{ active: strategy === 'cache-first' }" @click="strategy = 'cache-first'">
+          Cache-First
+        </div>
+      </div>
+
+      <div style="background: #f8fafc; border: 2px solid #000; padding: 12px; font-size: 12px; line-height: 1.5;">
+        <strong style="color: #0284c7;">Penjelasan Pola {{ strategy === 'network-first' ? 'Network-First' : 'Cache-First' }}:</strong><br>
+        <span v-if="strategy === 'network-first'">
+          Aplikasi mencoba menghubungi server terlebih dahulu. Jika gagal karena offline, sistem otomatis mengambil salinan cadangan dari penyimpanan lokal. Cocok untuk data dinamis seperti nilai ujian!
+        </span>
+        <span v-else>
+          Aplikasi langsung memuat data dari storage seketika (0 ms), lalu secara diam-diam memvalidasi pembaruan ke server di latar belakang. Memberikan respons kilat!
+        </span>
+      </div>
+
+      <button style="width: 100%; margin-top: 12px; background: #38bdf8; border: 2px solid #000; padding: 10px; font-weight: bold; cursor: pointer; box-shadow: 3px 3px 0 #000;" @click="executeFetch">
+        🔄 Picu Permintaan Data Mata Kuliah
+      </button>
+    </div>
+
+    <!-- RESPON APLIKASI DI LAYAR -->
+    <div class="box">
+      <h3>📱 Tampilan Layar Aplikasi Mobile</h3>
+
+      <div style="border: 2px solid #000; padding: 14px; background: #fff; min-height: 200px;">
+        <!-- BANNER OFFLINE REAKTIF -->
+        <div v-if="!isOnline" style="background: #fee2e2; border: 1px solid #dc2626; color: #991b1b; padding: 6px 10px; font-size: 11px; font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;">
+          <span>⚠️ ANDA SEDANG OFFLINE</span>
+          <span style="font-size: 10px; opacity: 0.8;">Data Terakhir: 10:45 WIB</span>
+        </div>
+
+        <div class="network-badge" :style="{ background: source === 'SERVER' ? '#4ADE80' : '#FFE600' }">
+          SUMBER DATA: {{ source }}
+        </div>
+
+        <div style="font-size: 13px; font-weight: bold; margin-top: 6px;">Katalog Modul Mahasiswa UT:</div>
+        <ul style="font-size: 12px; line-height: 1.6; margin: 6px 0; padding-left: 18px;">
+          <li v-for="(item, i) in displayedItems" :key="i">
+            <strong>{{ item.kode }}</strong> — {{ item.nama }} ({{ item.sks }} SKS)
+          </li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 12px; font-size: 11px; color: #475569;">
+        Status: <strong>{{ logMessage }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const isOnline = ref(true);
+        const strategy = ref('network-first');
+        const source = ref('SERVER');
+        const logMessage = ref('Data siap dimuat.');
+        const displayedItems = ref([
+          { kode: "STSI4303", nama: "Pemrograman Berbasis Perangkat Bergerak", sks: 3 },
+          { kode: "MSIM4401", nama: "Praktik Komputasi Awan", sks: 3 }
+        ]);
+
+        const executeFetch = () => {
+          if (strategy.value === 'network-first') {
+            if (isOnline.value) {
+              source.value = 'SERVER';
+              logMessage.value = '200 OK: Data berhasil diambil langsung dari live server UT.';
+            } else {
+              source.value = 'LOCAL STORAGE CACHE';
+              logMessage.value = 'Fallback Berhasil: Jaringan terputus, data disajikan dari memori cache lokal!';
+            }
+          } else {
+            source.value = 'LOCAL STORAGE CACHE (INSTANT)';
+            if (isOnline.value) {
+              logMessage.value = 'Data cache disajikan seketika. Pembaruan latar belakang tersinkronisasi.';
+            } else {
+              logMessage.value = 'Data cache disajikan. Sinkronisasi latar belakang ditunda hingga online.';
+            }
+          }
+        };
+
+        return { isOnline, strategy, source, logMessage, displayedItems, executeFetch };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
