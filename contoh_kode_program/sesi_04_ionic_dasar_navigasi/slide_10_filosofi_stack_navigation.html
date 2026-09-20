@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 10: Filosofi Stack Navigation — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--cyan);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .stack-visualizer {
+      border: 3px solid var(--border);
+      background: #F1F5F9;
+      min-height: 280px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 10px;
+      position: relative;
+    }
+    .stack-card {
+      border: 2px solid var(--border);
+      padding: 12px 16px;
+      font-weight: bold;
+      box-shadow: 3px 3px 0 var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+    .stack-card.active {
+      transform: scale(1.02);
+      border-width: 3px;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 10 • MODUL 4 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Filosofi Stack Navigation: Mental Model LIFO Mobile</h1>
+    <p style="margin: 0; font-size: 14px;">Memahami mengapa antarmuka mobile menumpuk layar (Push & Pop) alih-alih menghancurkan dan memuat ulang URL seperti web biasa.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- SIMULATOR TUMPUKAN -->
+    <div class="box">
+      <h3>🥞 Simulator Tumpukan Layar (LIFO Stack)</h3>
+      <p style="font-size: 13px; color: #475569;">
+        Layar paling atas adalah layar yang sedang aktif ditatap pengguna. Layar di bawahnya tetap hidup (*cached*) di memori!
+      </p>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+        <ion-button size="small" color="primary" @click="pushScreen" :disabled="stack.length >= 4">
+          ➕ Push Halaman Baru
+        </ion-button>
+        <ion-button size="small" color="danger" @click="popScreen" :disabled="stack.length <= 1">
+          🔙 Pop (Back / Kembali)
+        </ion-button>
+      </div>
+
+      <div class="stack-visualizer">
+        <div 
+          v-for="(screen, idx) in stack" 
+          :key="screen.id" 
+          class="stack-card"
+          :class="{ active: idx === stack.length - 1 }"
+          :style="'background:' + screen.color + ';'">
+          <div>
+            <span style="font-size: 11px; background: #000; color: #fff; padding: 2px 6px; margin-right: 8px;">
+              LEVEL {{ idx + 1 }} {{ idx === stack.length - 1 ? '(Layar Aktif)' : '(Tertidur di Memori)' }}
+            </span>
+            <br>
+            <span style="font-size: 14px;">{{ screen.title }}</span>
+          </div>
+          <span style="font-size: 12px; font-family: monospace;">{{ screen.route }}</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 12px; font-size: 12px; background: #FEF08A; border: 2px solid #000; padding: 8px;">
+        <strong>Total Layar dalam Memori:</strong> {{ stack.length }} buah layar.
+      </div>
+    </div>
+
+    <!-- KONSEP WEB VS MOBILE -->
+    <div class="box">
+      <h3>⚖️ Web Biasa vs Ionic Mobile Stack</h3>
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 14px;">
+        <tr style="background: #E2E8F0;">
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Aspek</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Situs Web Biasa</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Ionic Mobile Stack</th>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">Perilaku Navigasi</td>
+          <td style="padding: 6px; border: 1px solid #000;">Destruktif (Halaman lama dimusnahkan/unmount).</td>
+          <td style="padding: 6px; border: 1px solid #000;">Aditif (Halaman baru ditumpuk di atas halaman lama).</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">Posisi Scroll & Form</td>
+          <td style="padding: 6px; border: 1px solid #000;">Hilang / ter-reset ke atas saat kembali.</td>
+          <td style="padding: 6px; border: 1px solid #000;">Utuh persis seperti saat ditinggalkan!</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">Animasi Transisi</td>
+          <td style="padding: 6px; border: 1px solid #000;">Hard refresh / kedip putih.</td>
+          <td style="padding: 6px; border: 1px solid #000;">Geser halus (Slide in kanan ke kiri / Cover vertical).</td>
+        </tr>
+      </table>
+
+      <h3>💡 Mengapa Ini Krusial?</h3>
+      <p style="font-size: 13px; line-height: 1.5;">
+        Pengguna smartphone terbiasa membuka katalog mata kuliah, masuk ke rincian bab, lalu menekan tombol <em>Back</em> tanpa kehilangan posisi daftar modul yang sudah di-scroll ke bawah. Inilah keunggulan arsitektur <strong>LIFO (Last In First Out)</strong> pada Ionic Framework!
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const availableScreens = [
+          { title: 'Detail Modul 4: Ionic', route: '/modul/STSI4303', color: '#BAE6FD' },
+          { title: 'Materi Bab 4.2: Routing', route: '/modul/STSI4303/bab-2', color: '#BBF7D0' },
+          { title: 'Kuis Singkat Bab 4', route: '/modul/STSI4303/kuis', color: '#FED7AA' }
+        ];
+
+        const stack = ref([
+          { id: 1, title: 'Katalog Modul BMP UT (Home)', route: '/katalog', color: '#FDE047' }
+        ]);
+
+        const pushScreen = () => {
+          if (stack.value.length < 4) {
+            const nextIdx = stack.value.length - 1;
+            stack.value.push({
+              id: Date.now(),
+              ...availableScreens[nextIdx]
+            });
+          }
+        };
+
+        const popScreen = () => {
+          if (stack.value.length > 1) {
+            stack.value.pop();
+          }
+        };
+
+        return { stack, pushScreen, popScreen };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

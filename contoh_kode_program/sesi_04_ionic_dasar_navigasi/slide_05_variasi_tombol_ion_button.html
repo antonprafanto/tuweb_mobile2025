@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 05: Variasi Tombol ion-button — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .section-box {
+      border: 2px solid var(--border);
+      padding: 14px;
+      background: #F9FAFB;
+      margin-bottom: 14px;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 05 • MODUL 4 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Ragam Konfigurasi Tombol Mobile: ion-button (Expand, Fill, & Shape)</h1>
+    <p style="margin: 0; font-size: 14px;">Merancang tombol ergonomis yang mudah ditekan jempol pengguna di berbagai sudut layar.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>📱 Demonstrasi Variasi Tombol Mobile</h3>
+
+    <!-- 1. Expand Block vs Full -->
+    <div class="section-box">
+      <strong>1. Properti Expand (Lebar Penuh):</strong>
+      <ion-button expand="block" color="primary" style="margin-top:8px;">
+        expand="block" (Lebar penuh dengan margin samping)
+      </ion-button>
+      <ion-button expand="full" color="secondary" style="margin-top:8px;">
+        expand="full" (Menempel rapat ujung ke ujung layar)
+      </ion-button>
+    </div>
+
+    <!-- 2. Properti Fill -->
+    <div class="section-box">
+      <strong>2. Properti Fill (Gaya Isian):</strong>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
+        <ion-button fill="solid" color="success">fill="solid" (Default)</ion-button>
+        <ion-button fill="outline" color="success">fill="outline"</ion-button>
+        <ion-button fill="clear" color="success">fill="clear" (Teks Saja)</ion-button>
+      </div>
+    </div>
+
+    <!-- 3. Shape & Size -->
+    <div class="section-box">
+      <strong>3. Properti Shape & Size:</strong>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:8px;">
+        <ion-button shape="round" color="tertiary">shape="round" (Kapsul Bulat)</ion-button>
+        <ion-button size="small" color="dark">size="small"</ion-button>
+        <ion-button size="large" color="warning">size="large"</ion-button>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 24px;">💡 Cuplikan Sintaks:</h4>
+    <pre><code>&lt;!-- Tombol Utama Aksi Form (Rekomendasi Terbaik) --&gt;
+&lt;ion-button expand="block" color="primary" shape="round"&gt;
+  Kirim Tugas Tutorial 1
+&lt;/ion-button&gt;
+
+&lt;!-- Tombol Sekunder Batal --&gt;
+&lt;ion-button expand="block" fill="clear" color="medium"&gt;
+  Kembali ke Menu Utama
+&lt;/ion-button&gt;</code></pre>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({}).mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 18: Preview Sesi 05 — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .preview-card {
+      border: 2px solid #000;
+      padding: 14px;
+      background: #F1F5F9;
+      margin-bottom: 12px;
+    }
+    .tugas-box {
+      background: #FEF08A;
+      border: 3px solid #000;
+      padding: 16px;
+      box-shadow: 4px 4px 0 #000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 18 • ROADMAP MATA KULIAH</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Jembatan Menuju Sesi 05 & Pengarahan Tugas Tutorial 2</h1>
+    <p style="margin: 0; font-size: 14px;">Mempersiapkan eksplorasi sistem 12-kolom responsif, validasi data masukan formulir, tema gelap dinamis, dan asesmen resmi Tugas Tutorial 2.</p>
+  </div>
+
+  <div class="grid">
+    <!-- 4 PILAR UTAMA SESI 05 -->
+    <div class="box">
+      <h3>🚀 4 Pilar Pembelajaran Sesi 05 Mendatang</h3>
+      
+      <div class="preview-card">
+        <h4 style="margin: 0 0 4px 0; color: #0284C7;">1. Sistem Tata Letak 12-Kolom (ion-grid)</h4>
+        <p style="margin: 0; font-size: 13px; color: #475569;">
+          Mengatur posisi elemen antarmuka agar menyesuaikan otomatis saat ponsel diputar mendatar (landscape) maupun saat dibuka di tablet iPad.
+        </p>
+      </div>
+
+      <div class="preview-card">
+        <h4 style="margin: 0 0 4px 0; color: #16A34A;">2. Elemen Input Data & Kontrol Formulir</h4>
+        <p style="margin: 0; font-size: 13px; color: #475569;">
+          Penerapan <code>&lt;ion-input&gt;</code>, <code>&lt;ion-textarea&gt;</code>, <code>&lt;ion-select&gt;</code>, <code>&lt;ion-toggle&gt;</code>, dan <code>&lt;ion-datetime&gt;</code>.
+        </p>
+      </div>
+
+      <div class="preview-card">
+        <h4 style="margin: 0 0 4px 0; color: #9333EA;">3. Validasi Masukan Reaktif & Regex</h4>
+        <p style="margin: 0; font-size: 13px; color: #475569;">
+          Memastikan integritas data: NIM 9-digit, format surel resmi ecampus.ut.ac.id, dan peringatan visual seketika (instant feedback).
+        </p>
+      </div>
+
+      <div class="preview-card">
+        <h4 style="margin: 0 0 4px 0; color: #DC2626;">4. Adaptasi Dark Mode & Skema Warna</h4>
+        <p style="margin: 0; font-size: 13px; color: #475569;">
+          Mendukung peralihan otomatis ke tema malam (Dark Theme) berdasarkan preferensi sistem operasi ponsel pengguna.
+        </p>
+      </div>
+    </div>
+
+    <!-- PENGARAHAN TUGAS TUTORIAL 2 -->
+    <div class="box">
+      <div class="tugas-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-weight: 900; font-size: 14px; background: #000; color: #fff; padding: 2px 8px;">
+            📢 INFORMASI TUGAS TUTORIAL 2
+          </span>
+          <span style="font-weight: 800; font-size: 13px; color: #DC2626;">BOBOT: 20%</span>
+        </div>
+        <h3 style="margin: 6px 0; font-size: 18px;">Aplikasi Registrasi Kegiatan & Formulir Mahasiswa</h3>
+        <p style="font-size: 13px; line-height: 1.5; margin-bottom: 10px;">
+          Pada Sesi 05, mahasiswa UT akan mengerjakan <strong>Tugas Tutorial 2</strong>. Tugas ini menguji kemampuan Anda menggabungkan seluruh komponen Ionic, perutean multi-halaman, serta formulir validasi reaktif.
+        </p>
+
+        <hr style="border: none; border-top: 1px solid #000; margin: 10px 0;">
+
+        <h4 style="margin: 0 0 6px 0; font-size: 13px;">📋 Persiapan Mahasiswa Sejak Sekarang:</h4>
+        <ul style="font-size: 12px; line-height: 1.6; margin: 0; padding-left: 18px;">
+          <li>Kuasai kembali struktur halaman <code>ion-app</code>, <code>ion-page</code>, dan <code>ion-content</code> dari Sesi 04.</li>
+          <li>Pahami cara navigasi tumpukan (Stack) dan tombol kembali <code>ion-back-button</code>.</li>
+          <li>Pastikan menguasai pemantauan hook <code>ionViewWillEnter</code> untuk memuat data.</li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 18px; text-align: center;">
+        <ion-button expand="block" color="dark" href="../sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html">
+          🔙 Tinjau Kembali Solusi Tugas Tutorial 1
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

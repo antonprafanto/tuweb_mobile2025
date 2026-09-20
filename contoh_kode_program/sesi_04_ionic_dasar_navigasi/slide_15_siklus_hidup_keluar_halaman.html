@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 15: Siklus Hidup Keluar Halaman — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--rose);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .status-panel {
+      border: 2px solid #000;
+      padding: 14px;
+      background: #F8FAFC;
+      border-radius: 8px;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 15 • MODUL 4 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Siklus Hidup Keluar: ionViewWillLeave vs ionViewDidLeave</h1>
+    <p style="margin: 0; font-size: 14px;">Mencegah kebocoran memori (memory leak) dan menghentikan proses latar belakang yang boros baterai smartphone.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- SIMULASI PENGHEMATAN BATERAI & TIMER -->
+    <div class="box">
+      <h3>🔋 Simulasi Penghentian Interval Latar Belakang</h3>
+      <p style="font-size: 13px; color: #475569;">
+        Bayangkan layar ini memiliki timer ujian online atau polling GPS. Saat pengguna meninggalkan layar menuju halaman lain, timer wajib dijeda!
+      </p>
+
+      <div class="status-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <span style="font-size: 14px; font-weight: bold;">Status Halaman Saat Ini:</span>
+          <ion-badge :color="pageActive ? 'success' : 'medium'">
+            {{ pageActive ? 'Aktif di Layar' : 'Ditinggalkan (Background)' }}
+          </ion-badge>
+        </div>
+
+        <div style="font-size: 28px; font-weight: 800; font-family: monospace; color: #0284C7; text-align: center; padding: 10px 0;">
+          ⏱️ Detik Berjalan: {{ counter }}s
+        </div>
+
+        <div style="text-align: center; font-size: 12px; color: #64748B;">
+          {{ timerRunning ? '🟢 Polling GPS / Timer sedang mengonsumsi daya baterai.' : '🔴 Polling GPS / Timer aman dimatikan (Dijeda).' }}
+        </div>
+      </div>
+
+      <div style="margin-top: 16px; display: flex; gap: 8px;">
+        <ion-button expand="block" color="danger" @click="tinggalkanHalaman" :disabled="!pageActive" style="flex: 1;">
+          🚪 Tinggalkan Halaman
+        </ion-button>
+        <ion-button expand="block" color="primary" @click="masukKembali" :disabled="pageActive" style="flex: 1;">
+          🔙 Masuk Kembali
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- PENJELASAN TEORITIS -->
+    <div class="box">
+      <h3>🛑 Mengapa onUnmounted() Tidak Terpanggil?</h3>
+      <p style="font-size: 13px; line-height: 1.5;">
+        Karena arsitektur Ionic bersifat <strong>Stack (Tumpukan)</strong>, saat pengguna pindah ke halaman anak, halaman induk <strong>TIDAK DIHANCURKAN (unmounted)</strong>. Oleh karena itu, <code>onUnmounted()</code> tidak akan pernah dieksekusi!
+      </p>
+
+      <p style="font-size: 13px; line-height: 1.5;">
+        Jika Anda mengandalkan <code>onUnmounted()</code> untuk mematikan <code>setInterval</code> atau koneksi WebSocket, proses tersebut akan <strong>terus berjalan tanpa henti di memori</strong> dan menguras baterai pengguna!
+      </p>
+
+      <h3>💻 Solusi Bersih dengan onIonViewWillLeave</h3>
+      <pre><code>import { onIonViewWillLeave, onIonViewDidEnter } from '@ionic/vue';
+import { ref } from 'vue';
+
+let timerId: number | null = null;
+
+// Mulai timer saat halaman aktif
+onIonViewDidEnter(() => {
+  timerId = window.setInterval(() => {
+    cekLokasiGPS();
+  }, 3000);
+});
+
+// Hentikan timer tepat saat layar ditinggalkan!
+onIonViewWillLeave(() => {
+  if (timerId) {
+    clearInterval(timerId);
+    timerId = null;
+    console.log('🛑 Timer dimatikan, hemat baterai!');
+  }
+});</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const pageActive = ref(true);
+        const timerRunning = ref(true);
+        const counter = ref(0);
+        let intervalRef = null;
+
+        const startTimer = () => {
+          if (!intervalRef) {
+            timerRunning.value = true;
+            intervalRef = setInterval(() => {
+              counter.value++;
+            }, 1000);
+          }
+        };
+
+        const stopTimer = () => {
+          if (intervalRef) {
+            clearInterval(intervalRef);
+            intervalRef = null;
+            timerRunning.value = false;
+          }
+        };
+
+        const tinggalkanHalaman = () => {
+          pageActive.value = false;
+          // Memanggil ionViewWillLeave
+          stopTimer();
+        };
+
+        const masukKembali = () => {
+          pageActive.value = true;
+          // Memanggil ionViewDidEnter
+          startTimer();
+        };
+
+        startTimer();
+
+        return { pageActive, timerRunning, counter, tinggalkanHalaman, masukKembali };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

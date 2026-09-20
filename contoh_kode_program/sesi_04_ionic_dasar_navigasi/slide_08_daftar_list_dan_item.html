@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 08: Daftar List dan Item — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .mobile-frame {
+      border: 3px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 08 • MODUL 4 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Pengelolaan Informasi Kolektif: ion-list & ion-item</h1>
+    <p style="margin: 0; font-size: 14px;">Membangun daftar interaktif dengan slot ikon awal (start), label teks bertingkat, dan catatan samping (end note).</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PREVIEW DAFTAR MOBILE -->
+    <div class="box">
+      <h3>📱 Preview Daftar Modul Mahasiswa</h3>
+      
+      <div class="mobile-frame">
+        <ion-list lines="full">
+          <ion-list-header style="background: #F1F5F9; font-weight: bold; font-size: 13px;">
+            DAFTAR MATA KULIAH SEMESTER INI
+          </ion-list-header>
+
+          <ion-item button v-for="mk in daftarMK" :key="mk.kode" @click="pilihMK(mk)">
+            <ion-avatar slot="start" style="width: 40px; height: 40px; border: 1px solid #000;">
+              <div :style="'background:' + mk.warna + '; width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:12px; color:#fff;'">
+                {{ mk.sks }} SKS
+              </div>
+            </ion-avatar>
+
+            <ion-label>
+              <h2 style="font-weight: 700; font-size: 14px;">{{ mk.nama }}</h2>
+              <p style="color: #64748B; font-size: 12px;">Kode: {{ mk.kode }} • Modul: {{ mk.totalModul }}</p>
+            </ion-label>
+
+            <ion-note slot="end" :color="mk.status === 'Aktif' ? 'success' : 'medium'" style="font-size: 12px; font-weight: bold;">
+              {{ mk.status }}
+            </ion-note>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div v-if="terpilih" style="margin-top: 14px; background: #FEF08A; border: 2px solid #000; padding: 10px; font-size: 13px;">
+        👉 <strong>Mata Kuliah Diklik:</strong> {{ terpilih.nama }} ({{ terpilih.kode }})
+      </div>
+    </div>
+
+    <!-- ANATOMI & TEORI SLOT ITEM -->
+    <div class="box">
+      <h3>🧩 Anatomi Tiga Wilayah ion-item</h3>
+      <p style="font-size: 13px; line-height: 1.5;">
+        Komponen <code>&lt;ion-item&gt;</code> dirancang khusus untuk layar sentuh dengan pembagian 3 area utama (Web Component Slots):
+      </p>
+
+      <ul style="font-size: 13px; line-height: 1.6; padding-left: 20px;">
+        <li><strong><code>slot="start"</code></strong>: Menempatkan elemen kiri (Avatar gambar, thumbnail, atau ikon aksi).</li>
+        <li><strong>Area Tengah (Default)</strong>: Menampung <code>&lt;ion-label&gt;</code> dengan judul (<code>h2</code>), deskripsi (<code>p</code>).</li>
+        <li><strong><code>slot="end"</code></strong>: Menempatkan informasi samping kanan (Status badge, note tanggal, chevron arrow panah).</li>
+        <li><strong>Atribut <code>button</code></strong>: Memberikan efek ripple sentuhan native dan kursor pointer.</li>
+      </ul>
+
+      <h3>💻 Pola Kode Standar</h3>
+      <pre><code>&lt;ion-list lines="inset"&gt;
+  &lt;ion-item button @click="handleClick(item)"&gt;
+    &lt;!-- Slot Awal --&gt;
+    &lt;ion-icon name="book-outline" slot="start"&gt;&lt;/ion-icon&gt;
+    
+    &lt;!-- Label Tengah --&gt;
+    &lt;ion-label&gt;
+      &lt;h2&gt;Pemrograman Mobile&lt;/h2&gt;
+      &lt;p&gt;Kode: STSI4303 - 3 SKS&lt;/p&gt;
+    &lt;/ion-label&gt;
+
+    &lt;!-- Slot Akhir --&gt;
+    &lt;ion-note slot="end" color="success"&gt;Aktif&lt;/ion-note&gt;
+  &lt;/ion-item&gt;
+&lt;/ion-list&gt;</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const daftarMK = ref([
+          { kode: 'STSI4303', nama: 'Pemrograman Berbasis Perangkat Bergerak', sks: 3, totalModul: 9, status: 'Aktif', warna: '#0284C7' },
+          { kode: 'MSIM4201', nama: 'Sistem Operasi', sks: 3, totalModul: 9, status: 'Aktif', warna: '#16A34A' },
+          { kode: 'MSIM4301', nama: 'Pemrograman Web', sks: 3, totalModul: 9, status: 'Selesai', warna: '#9333EA' },
+          { kode: 'MSIM4401', nama: 'Praktik Kerja Lapangan', sks: 4, totalModul: 6, status: 'Tersedia', warna: '#EA580C' }
+        ]);
+
+        const terpilih = ref(null);
+        const pilihMK = (mk) => { terpilih.value = mk; };
+
+        return { daftarMK, terpilih, pilihMK };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

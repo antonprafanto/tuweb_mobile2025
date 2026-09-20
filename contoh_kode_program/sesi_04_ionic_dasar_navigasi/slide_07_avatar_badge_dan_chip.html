@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 07: Avatar, Badge, dan Chip — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .card-profile {
+      border: 2px solid var(--border);
+      background: #F8FAFC;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 07 • MODUL 4 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Identitas Visual Mobile: ion-avatar, ion-badge, & ion-chip</h1>
+    <p style="margin: 0; font-size: 14px;">Menyajikan indikator status, jumlah notifikasi unread, dan tag kategori interaktif pada aplikasi mobile.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANEL KOMPONEN LIVE -->
+    <div class="box">
+      <h3>📱 Preview Komponen Mobile</h3>
+
+      <!-- Profile Header with Avatar & Badge -->
+      <div class="card-profile">
+        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
+          <ion-avatar style="width: 56px; height: 56px; border: 2px solid #000;">
+            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=BudiUT" alt="Avatar Mahasiswa" />
+          </ion-avatar>
+          <div>
+            <h4 style="margin: 0; font-size: 16px;">Budi Santoso</h4>
+            <p style="margin: 2px 0 0 0; font-size: 12px; color: #64748B;">NIM: 043123456 • Sistem Informasi</p>
+            <div style="margin-top: 4px;">
+              <ion-badge color="success">Aktif 2026.1</ion-badge>
+              <ion-badge color="warning" style="margin-left: 6px;">IPK: 3.85</ion-badge>
+            </div>
+          </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px dashed #CBD5E1; margin: 12px 0;">
+
+        <!-- Interactive Chips -->
+        <p style="font-size: 13px; font-weight: bold; margin: 0 0 8px 0;">🏷️ Kategori Minat Mahasiswa (Klik Chip):</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+          <ion-chip 
+            v-for="(cat, idx) in categories" 
+            :key="idx" 
+            :color="cat.selected ? 'primary' : 'medium'"
+            :outline="!cat.selected"
+            @click="toggleCategory(idx)">
+            <ion-icon name="checkmark-circle" v-if="cat.selected"></ion-icon>
+            <ion-label>{{ cat.name }}</ion-label>
+          </ion-chip>
+        </div>
+
+        <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 10px; border: 1px solid #CBD5E1; border-radius: 6px;">
+          <span style="font-size: 13px;">Notifikasi Belum Dibaca:</span>
+          <ion-badge color="danger">{{ unreadCount }} Baru</ion-badge>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL PENJELASAN ELEMEN -->
+    <div class="box">
+      <h3>🔍 Tiga Pilar Identitas Ringkas</h3>
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 14px;">
+        <tr style="background: #E2E8F0;">
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Komponen</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Fungsi Utama</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Ciri Khas</th>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;ion-avatar&gt;</td>
+          <td style="padding: 6px; border: 1px solid #000;">Foto profil / ikon pengguna</td>
+          <td style="padding: 6px; border: 1px solid #000;">Auto-crop bentuk lingkaran bundar sempurna.</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;ion-badge&gt;</td>
+          <td style="padding: 6px; border: 1px solid #000;">Pemberitahuan counter / status label</td>
+          <td style="padding: 6px; border: 1px solid #000;">Pill kecil dengan warna kontras (danger/success).</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;ion-chip&gt;</td>
+          <td style="padding: 6px; border: 1px solid #000;">Filter cepat, tag topik, tombol seleksi</td>
+          <td style="padding: 6px; border: 1px solid #000;">Interaktif, dapat diklik & memiliki ikon.</td>
+        </tr>
+      </table>
+
+      <h3>💻 Cuplikan Template</h3>
+      <pre><code>&lt;!-- Avatar Bundar --&gt;
+&lt;ion-avatar&gt;
+  &lt;img src="foto_profil.png" /&gt;
+&lt;/ion-avatar&gt;
+
+&lt;!-- Badge Status --&gt;
+&lt;ion-badge color="danger"&gt;3 Notifikasi&lt;/ion-badge&gt;
+
+&lt;!-- Chip Interaktif --&gt;
+&lt;ion-chip :outline="!isActive" @click="toggle"&gt;
+  &lt;ion-icon name="checkmark-circle"&gt;&lt;/ion-icon&gt;
+  &lt;ion-label&gt;Pemrograman Mobile&lt;/ion-label&gt;
+&lt;/ion-chip&gt;</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const unreadCount = ref(3);
+        const categories = ref([
+          { name: 'Vue 3', selected: true },
+          { name: 'TypeScript', selected: true },
+          { name: 'Capacitor', selected: false },
+          { name: 'Ionic UI', selected: true },
+          { name: 'Android Studio', selected: false }
+        ]);
+
+        const toggleCategory = (idx) => {
+          categories.value[idx].selected = !categories.value[idx].selected;
+        };
+
+        return { unreadCount, categories, toggleCategory };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

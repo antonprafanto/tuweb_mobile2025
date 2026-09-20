@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 02: Adaptive Styling MD vs iOS — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 840px;
+      margin: 0 auto;
+    }
+    .toggle-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .btn-toggle {
+      border: 2px solid var(--border);
+      padding: 10px 18px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border);
+    }
+    .preview-container {
+      background: #F3F4F6;
+      border: 3px solid var(--border);
+      padding: 20px;
+      margin-top: 16px;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 02 • MODUL 4 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Fitur Magis: Adaptive Styling (Android MD vs iPhone iOS)</h1>
+    <p style="margin: 0; font-size: 14px;">Satu basis kode secara cerdas menyesuaikan wujud visual sesuai standar sistem operasi masing-masing ponsel.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>📱 Simulator Mode Tampilan Platform</h3>
+    <p style="font-size:13px; color:#555;">Klik tombol di bawah untuk melihat bagaimana komponen Ionic berganti wujud:</p>
+
+    <div class="toggle-bar">
+      <button class="btn-toggle" @click="currentMode = 'md'" :style="{ background: currentMode === 'md' ? 'var(--cyan)' : '#E5E7EB' }">
+        🤖 Mode Android (Material Design)
+      </button>
+      <button class="btn-toggle" @click="currentMode = 'ios'" :style="{ background: currentMode === 'ios' ? 'var(--mint)' : '#E5E7EB' }">
+        🍏 Mode iPhone (Cupertino iOS)
+      </button>
+    </div>
+
+    <!-- Container Preview dengan Mode Dinamis -->
+    <div class="preview-container">
+      <h4 style="margin:0 0 10px 0;">Mode Aktif: <strong>{{ currentMode.toUpperCase() }}</strong></h4>
+
+      <!-- Toolbar Dinamis -->
+      <ion-toolbar :mode="currentMode" color="primary">
+        <ion-title>Portal MyUT Mobile</ion-title>
+      </ion-toolbar>
+
+      <!-- Tombol Dinamis -->
+      <div style="margin-top:14px;">
+        <ion-button :mode="currentMode" expand="block" color="secondary">
+          Tombol Aksi Utama ({{ currentMode.toUpperCase() }})
+        </ion-button>
+      </div>
+
+      <!-- Segment Dinamis -->
+      <div style="margin-top:14px;">
+        <ion-segment :mode="currentMode" value="tuton">
+          <ion-segment-button value="tuton">
+            <ion-label>Tutorial Online</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="tuweb">
+            <ion-label>Tutorial Web</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="tmk">
+            <ion-label>Tugas Mandiri</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 24px;">💡 Fakta Teknis Adaptive Styling:</h4>
+    <pre><code>// 1. Secara Default: Ionic otomatis mendeteksi User Agent ponsel pengguna.
+// Jika dibuka di Android -> Otomatis render Material Design (md).
+// Jika dibuka di iPhone  -> Otomatis render Cupertino (ios).
+
+// 2. Pemaksaan Mode Manual (Jika dibutuhkan):
+&lt;ion-app mode="ios"&gt;...&lt;/ion-app&gt;</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const currentMode = ref('md');
+        return { currentMode };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 09: Ikonografi Ionicons — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--purple);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .icon-card {
+      border: 2px solid var(--border);
+      background: #F8FAFC;
+      padding: 12px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .icon-card:hover {
+      background: #FEF08A;
+      transform: translateY(-2px);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 09 • MODUL 4 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Bahasa Visual Antarmuka: Perpustakaan Resmi Ionicons</h1>
+    <p style="margin: 0; font-size: 14px;">Memanfaatkan ribuan ikon vektor sumber terbuka untuk navigasi tab, tombol aksi, dan status informasi.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PREVIEW DAFTAR IKON -->
+    <div class="box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 style="margin: 0;">📱 Koleksi Ikon Populer</h3>
+        <select v-model="selectedStyle" style="padding: 4px 8px; border: 2px solid #000; font-weight: bold;">
+          <option value="outline">Outline (-outline)</option>
+          <option value="filled">Filled (Default)</option>
+          <option value="sharp">Sharp (-sharp)</option>
+        </select>
+      </div>
+
+      <div class="icon-grid">
+        <div 
+          v-for="icon in iconList" 
+          :key="icon.base" 
+          class="icon-card"
+          @click="activeIcon = getFullIconName(icon.base)">
+          <ion-icon 
+            :name="getFullIconName(icon.base)" 
+            style="font-size: 32px; color: #0284C7;">
+          </ion-icon>
+          <div style="font-size: 11px; font-weight: bold; margin-top: 6px; word-break: break-all;">
+            {{ icon.label }}
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px; background: #EEF2FF; border: 2px solid #000; padding: 12px;">
+        <strong>Ikon Terpilih:</strong>
+        <div style="display: flex; align-items: center; gap: 12px; margin-top: 8px;">
+          <ion-icon :name="activeIcon" style="font-size: 36px; color: #4338CA;"></ion-icon>
+          <div>
+            <code style="font-weight: bold; font-size: 13px;">&lt;ion-icon name="{{ activeIcon }}"&gt;&lt;/ion-icon&gt;</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PENJELASAN TEKNIS -->
+    <div class="box">
+      <h3>🎨 3 Varian Gaya Ionicons</h3>
+      <p style="font-size: 13px; line-height: 1.5;">
+        Ionicons secara cerdas menyesuaikan tampilan berdasarkan mode platform:
+      </p>
+      <ul style="font-size: 13px; line-height: 1.6; padding-left: 20px;">
+        <li><strong>Outline (Garis Tipis)</strong>: Default tampilan iOS modern untuk kesan minimalis & bersih.</li>
+        <li><strong>Filled (Solid Penuh)</strong>: Tampilan tebal biasanya untuk status aktif / terpilih.</li>
+        <li><strong>Sharp (Sudut Tajam)</strong>: Tampilan geometris khas Material Design di platform Android.</li>
+      </ul>
+
+      <h3>⚙️ Pengaturan Ukuran & Warna</h3>
+      <p style="font-size: 13px; line-height: 1.5;">
+        Ikon adalah font vektor SVG, sehingga ukuran dikontrol via <code>font-size</code> atau atribut <code>size="small|large"</code>, dan warna dikontrol melalui CSS <code>color</code> atau atribut tema Ionic:
+      </p>
+      <pre><code>&lt;!-- Atribut Warna Resmi Ionic --&gt;
+&lt;ion-icon name="heart" color="danger" size="large"&gt;&lt;/ion-icon&gt;
+
+&lt;!-- Gaya Kustom Inline CSS --&gt;
+&lt;ion-icon 
+  name="school-outline" 
+  style="font-size: 48px; color: #0284C7;"&gt;
+&lt;/ion-icon&gt;</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const selectedStyle = ref('outline');
+        const activeIcon = ref('book-outline');
+
+        const iconList = [
+          { base: 'book', label: 'Modul / Buku' },
+          { base: 'school', label: 'Kampus / Kuliah' },
+          { base: 'person', label: 'Mahasiswa' },
+          { base: 'time', label: 'Jadwal / Jam' },
+          { base: 'checkmark-circle', label: 'Status Selesai' },
+          { base: 'alert-circle', label: 'Peringatan' },
+          { base: 'cloud-download', label: 'Unduh BMP' },
+          { base: 'chatbubble-ellipses', label: 'Forum Diskusi' },
+          { base: 'settings', label: 'Pengaturan' }
+        ];
+
+        const getFullIconName = (base) => {
+          if (selectedStyle.value === 'outline') return `${base}-outline`;
+          if (selectedStyle.value === 'sharp') return `${base}-sharp`;
+          return base;
+        };
+
+        return { selectedStyle, activeIcon, iconList, getFullIconName };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

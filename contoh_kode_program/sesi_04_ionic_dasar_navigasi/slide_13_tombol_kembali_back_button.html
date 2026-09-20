@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 13: Tombol Kembali ion-back-button — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--rose);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .phone-container {
+      border: 3px solid #000;
+      border-radius: 16px;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 5px 5px 0 #000;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 13 • MODUL 4 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Navigasi Alami: Komponen &lt;ion-back-button&gt; & default-href</h1>
+    <p style="margin: 0; font-size: 14px;">Mencegah aplikasi terjebak di halaman buntu ketika mahasiswa membuka tautan langsung atau menekan F5.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- DEMO TOOLBAR DENGAN BACK BUTTON -->
+    <div class="box">
+      <h3>📱 Simulasi Toolbar & Back Button</h3>
+      
+      <div class="phone-container">
+        <!-- TOOLBAR ATAS -->
+        <ion-header>
+          <ion-toolbar color="primary">
+            <ion-buttons slot="start">
+              <ion-back-button 
+                default-href="/home" 
+                text="Kembali"
+                @click="simulasikanBack">
+              </ion-back-button>
+            </ion-buttons>
+            <ion-title style="font-size: 15px;">Detail Modul BMP</ion-title>
+          </ion-toolbar>
+        </ion-header>
+
+        <div style="padding: 20px; min-height: 200px; background: #F8FAFC;">
+          <h4>Modul 4: Ionic & Navigasi Mobile</h4>
+          <p style="font-size: 13px; color: #475569; line-height: 1.5;">
+            Tombol panah kembali di atas secara otomatis muncul jika terdapat riwayat tumpukan halaman sebelumnya.
+          </p>
+          <div v-if="notif" style="background: #BBF7D0; border: 2px solid #16A34A; padding: 10px; font-size: 13px; font-weight: bold; margin-top: 10px;">
+            {{ notif }}
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <ion-button expand="block" fill="outline" color="dark" @click="toggleRiwayat">
+          Simulasikan: {{ adaRiwayat ? 'Ada Riwayat Navigasi' : 'Buka Langsung (Tanpa Riwayat / Deep Link)' }}
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- ANATOMI & PERAN DEFAULT-HREF -->
+    <div class="box">
+      <h3>🛡️ Mengapa default-href Sangat Wajib?</h3>
+      <p style="font-size: 13px; line-height: 1.5;">
+        Ketika pengguna smartphone mengeklik tautan pengumuman dari WhatsApp kampus menuju halaman <code>/tugas/1</code>, peramban membuka aplikasi <strong>tanpa ada riwayat halaman sebelumnya di dalam memori stack</strong>.
+      </p>
+
+      <ul style="font-size: 13px; line-height: 1.6; padding-left: 20px;">
+        <li><strong>Tanpa <code>default-href</code>:</strong> Tombol back tidak akan muncul sama sekali! Pengguna terjebak dan terpaksa menutup paksa aplikasi.</li>
+        <li><strong>Dengan <code>default-href="/home"</code>:</strong> Jika tidak ada tumpukan riwayat, Ionic otomatis mengarahkan pengguna kembali ke Beranda utama secara aman.</li>
+      </ul>
+
+      <h3>💻 Kode Standar Toolbar Mobile</h3>
+      <pre><code>&lt;ion-header&gt;
+  &lt;ion-toolbar color="primary"&gt;
+    &lt;!-- Tombol Kembali di Slot Start --&gt;
+    &lt;ion-buttons slot="start"&gt;
+      &lt;ion-back-button 
+        default-href="/home"
+        text="Kembali"&gt;
+      &lt;/ion-back-button&gt;
+    &lt;/ion-buttons&gt;
+
+    &lt;ion-title&gt;Rincian Tugas&lt;/ion-title&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;</code></pre>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const adaRiwayat = ref(true);
+        const notif = ref('');
+
+        const simulasikanBack = (e) => {
+          e.preventDefault();
+          if (adaRiwayat.value) {
+            notif.value = '⬅️ Melakukan router.back() ke halaman sebelumnya.';
+          } else {
+            notif.value = '🏠 Menggunakan default-href="/home" karena tidak ada tumpukan riwayat.';
+          }
+          setTimeout(() => notif.value = '', 4000);
+        };
+
+        const toggleRiwayat = () => {
+          adaRiwayat.value = !adaRiwayat.value;
+          notif.value = adaRiwayat.value ? 'Mode diubah: Ada Riwayat' : 'Mode diubah: Buka Langsung (Direct URL)';
+          setTimeout(() => notif.value = '', 2500);
+        };
+
+        return { adaRiwayat, notif, simulasikanBack, toggleRiwayat };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

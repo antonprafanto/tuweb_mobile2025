@@ -20,7 +20,8 @@ tuweb_mobile2025/
 ├── 📁 contoh_kode_program/                  # Berkas Kode Mandiri Siap Eksekusi (Zero-Friction)
 │   ├── 📁 sesi_01_lingkungan_dan_tools/     # [18 berkas] Node.js, Web Components & KTM Digital
 │   ├── 📁 sesi_02_vue_frontend/             # [18 berkas] Vue 3 Reactivity, Directives & KRS Online
-│   └── 📁 sesi_03_typescript_vue/           # [18 berkas] TypeScript Models, Vue SFC & TUGAS 1
+│   ├── 📁 sesi_03_typescript_vue/           # [18 berkas] TypeScript Models, Vue SFC & TUGAS 1
+│   └── 📁 sesi_04_ionic_dasar_navigasi/     # [18 berkas] Ionic UI, Stack Navigation & Lab Quest 04
 │
 ├── 📁 panduan_tutorial_ut/                  # Instrumen Akademik Resmi FST UT
 │   ├── 📋 RANCANGAN_AKTIVITAS_TUTORIAL_RAT.md  # Silabus RAT/SAT & Peta Kompetensi STSI4303
@@ -40,7 +41,7 @@ tuweb_mobile2025/
 | **01** | Modul 1 | Pengenalan Lingkungan & Arsitektur Hybrid | [⚡ Download S01 (.pptx)](slide_presentasi/SESI_01_Pengantar_dan_Lingkungan_Ionic.pptx)<br>[👁️ Baca Online S01](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_01_Pengantar_dan_Lingkungan_Ionic.pptx)<br>[📄 Naskah Slide S01](slide_presentasi/SESI_01_Pengantar_dan_Lingkungan_Ionic.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_01_lingkungan_dan_tools/)<br>• [Solusi Lab Quest 01](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html) | ✅ **Rilis Lengkap**<br>💬 Diskusi 1 |
 | **02** | Modul 2 | Frontend Modern Menggunakan Vue.js 3 | [⚡ Download S02 (.pptx)](slide_presentasi/SESI_02_Frontend_Modern_Vue.pptx)<br>[👁️ Baca Online S02](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_02_Frontend_Modern_Vue.pptx)<br>[📄 Naskah Slide S02](slide_presentasi/SESI_02_Frontend_Modern_Vue.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_02_vue_frontend/)<br>• [Solusi Lab Quest 02](contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html) | ✅ **Rilis Lengkap**<br>💬 Diskusi 2 |
 | **03** | Modul 3 | Praktikum 1: TypeScript & Komposisi Vue | [⚡ Download S03 (.pptx)](slide_presentasi/SESI_03_TypeScript_dan_Komposisi_Vue.pptx)<br>[👁️ Baca Online S03](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_03_TypeScript_dan_Komposisi_Vue.pptx)<br>[📄 Naskah Slide S03](slide_presentasi/SESI_03_TypeScript_dan_Komposisi_Vue.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_03_typescript_vue/)<br>• [🎯 Solusi Tugas 1](contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html) | ✅ **Rilis Lengkap**<br>🎯 **TUGAS 1 DIBUKA** |
-| **04** | Modul 4 | Dasar-Dasar Ionic Framework & Navigasi | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 💬 Diskusi 4 |
+| **04** | Modul 4 | Dasar-Dasar Ionic Framework & Navigasi | [⚡ Download S04 (.pptx)](slide_presentasi/SESI_04_Dasar_Ionic_dan_Navigasi.pptx)<br>[👁️ Baca Online S04](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_04_Dasar_Ionic_dan_Navigasi.pptx)<br>[📄 Naskah Slide S04](slide_presentasi/SESI_04_Dasar_Ionic_dan_Navigasi.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_04_ionic_dasar_navigasi/)<br>• [Solusi Lab Quest 04](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_17_lab_quest_04_portal_modul_ut.html) | ✅ **Rilis Lengkap**<br>💬 Diskusi 4 |
 | **05** | Modul 5 | Layout Grid, Dynamic Theme, & Form Regex | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 🎯 **TUGAS 2** |
 | **06** | Modul 6-7| Capacitor & Integrasi Platform Android | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 💬 Diskusi 6 |
 | **07** | Modul 8-9| REST API, Local Storage, & Native Plugins | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 🎯 **TUGAS 3** |
@@ -120,6 +121,31 @@ tuweb_mobile2025/
 | **Slide 16** | **Pedoman & Rubrik Penilaian Resmi TUGAS TUTORIAL 1 (0-100)** | [`slide_16_rubrik_tugas_tutorial_1.md`](contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.md) |
 | **Slide 17** | **🎯 MASTER SOLUSI RESMI TUGAS 1:** Kalkulator Nilai & IPS UT | [`slide_17_solusi_tugas_1_kalkulator_nilai.html`](contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html) |
 | **Slide 18** | Jembatan Sesi 04: Transisi Menuju Komponen Mobile Ionic UI | [`slide_18_preview_sesi_04_ionic_ui.html`](contoh_kode_program/sesi_03_typescript_vue/slide_18_preview_sesi_04_ionic_ui.html) |
+
+---
+
+### 📱 Rincian 18 Berkas Mandiri Sesi 04 (Dasar Ionic Framework & Navigasi)
+
+| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run) |
+| :---: | :--- | :--- |
+| **Slide 01** | Pengenalan Ekosistem Ionic UI Toolkit vs Web Standar | [`slide_01_pengenalan_ekosistem_ionic.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_01_pengenalan_ekosistem_ionic.html) |
+| **Slide 02** | Adaptive Styling: Material Design (Android) vs Cupertino (iOS) | [`slide_02_adaptive_styling_md_ios.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_02_adaptive_styling_md_ios.html) |
+| **Slide 03** | Anatomi Baku Halaman: `ion-app`, `ion-page`, `ion-header`, `ion-content` | [`slide_03_anatomi_halaman_ion_page.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_03_anatomi_halaman_ion_page.html) |
+| **Slide 04** | Palet Warna Semantik: `primary`, `secondary`, `success`, `danger` | [`slide_04_palet_warna_tema_mobile.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_04_palet_warna_tema_mobile.html) |
+| **Slide 05** | Variasi Tombol: `expand="block"`, `fill="outline"`, `shape="round"` | [`slide_05_variasi_tombol_ion_button.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_05_variasi_tombol_ion_button.html) |
+| **Slide 06** | Kartu Informasi: `ion-card`, `ion-card-header`, `ion-card-title` | [`slide_06_kartu_informasi_ion_card.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_06_kartu_informasi_ion_card.html) |
+| **Slide 07** | Identitas Visual Mobile: `ion-avatar`, `ion-badge`, & `ion-chip` | [`slide_07_avatar_badge_dan_chip.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_07_avatar_badge_dan_chip.html) |
+| **Slide 08** | Pengelolaan Daftar Kolektif: `ion-list` & Arsitektur Slot `ion-item` | [`slide_08_daftar_list_dan_item.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_08_daftar_list_dan_item.html) |
+| **Slide 09** | Ikonografi Mobile dengan Ribuan Koleksi Resmi Ionicons | [`slide_09_ikonografi_ionicons.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_09_ikonografi_ionicons.html) |
+| **Slide 10** | Filosofi Stack Navigation: Mengapa Mobile Memakai LIFO Stack | [`slide_10_filosofi_stack_navigation.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_10_filosofi_stack_navigation.html) |
+| **Slide 11** | Konfigurasi Perutean: `@ionic/vue-router` & `<ion-router-outlet>` | [`slide_11_struktur_ionic_vue_router.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_11_struktur_ionic_vue_router.html) |
+| **Slide 12** | Transisi Antar Layar: `useRouter().push()` & Parameter URL `:kode` | [`slide_12_pindah_halaman_dan_parameter.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_12_pindah_halaman_dan_parameter.html) |
+| **Slide 13** | Tombol Kembali Alami: `<ion-back-button>` & Kewajiban `default-href` | [`slide_13_tombol_kembali_back_button.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_13_tombol_kembali_back_button.html) |
+| **Slide 14** | Siklus Hidup Masuk Halaman: `ionViewWillEnter` vs `ionViewDidEnter` | [`slide_14_siklus_hidup_masuk_halaman.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_14_siklus_hidup_masuk_halaman.html) |
+| **Slide 15** | Siklus Hidup Keluar: Mencegah Kebocoran Memori & Menghemat Baterai | [`slide_15_siklus_hidup_keluar_halaman.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_15_siklus_hidup_keluar_halaman.html) |
+| **Slide 16** | Diagnosis Cepat & Troubleshooting Routing Komponen Ionic | [`slide_16_troubleshooting_routing_ionic.md`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_16_troubleshooting_routing_ionic.md) |
+| **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 04:** Portal Modul BMP UT Multi-Halaman | [`slide_17_lab_quest_04_portal_modul_ut.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_17_lab_quest_04_portal_modul_ut.html) |
+| **Slide 18** | Jembatan Sesi 05: Responsive 12-Grid, Form Regex, & Pengarahan Tugas 2 | [`slide_18_preview_sesi_05_layout_grid_form.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_18_preview_sesi_05_layout_grid_form.html) |
 
 ---
 

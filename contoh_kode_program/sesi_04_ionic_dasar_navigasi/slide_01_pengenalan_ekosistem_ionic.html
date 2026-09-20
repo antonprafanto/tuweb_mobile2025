@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 01: Ekosistem Ionic Framework — STSI4303</title>
+  <!-- Load Ionic Core Web Components via CDN (Zero-Friction) -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 01 • MODUL 4 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Transformasi Menuju Mobile: Mengenal Ekosistem Ionic Framework</h1>
+    <p style="margin: 0; font-size: 14px;">Beralih dari elemen web konvensional ke komponen antarmuka yang dirancang khusus untuk kenyamanan smartphone.</p>
+  </div>
+
+  <div class="grid">
+    <!-- PANEL SISI WEB DESKTOP BIASA -->
+    <div class="box">
+      <span class="badge" style="background:#E5E7EB;">1. ANTARMUKA WEB STANDAR (HTML BIASA)</span>
+      <h3>Tampilan Datar Peramban Web</h3>
+      <p style="font-size:13px; color:#555;">
+        Elemen tombol dan kartu HTML bawaan peramban dirancang untuk kursor mouse desktop, tidak memiliki animasi transisi sentuhan, dan terlihat kaku di layar ponsel.
+      </p>
+
+      <button style="padding:10px 18px; font-size:14px; cursor:pointer;">
+        Tombol &lt;button&gt; Standar
+      </button>
+
+      <div style="border:1px solid #D1D5DB; padding:12px; margin-top:14px; background:#F9FAFB;">
+        <strong>Informasi Mahasiswa</strong>
+        <p style="font-size:12px; color:#666; margin:4px 0 0 0;">Kotak teks biasa tanpa elevasi bayangan atau lengkungan mobile.</p>
+      </div>
+
+      <pre><code>&lt;!-- HTML Biasa --&gt;
+&lt;button&gt;Simpan Data&lt;/button&gt;
+&lt;div class="card"&gt;Teks&lt;/div&gt;</code></pre>
+    </div>
+
+    <!-- PANEL SISI IONIC MOBILE FRAMEWORK -->
+    <div class="box">
+      <span class="badge" style="background:var(--mint);">2. ANTARMUKA MOBILE ASLI (IONIC UI)</span>
+      <h3>Kenyamanan Smartphone Alami</h3>
+      <p style="font-size:13px; color:#555;">
+        Komponen Ionic memiliki area sentuh jari yang luas (minimal 48px), efek riak (*Material Design Ripple*), dan elevasi bayangan yang dioptimalkan untuk hardware ponsel.
+      </p>
+
+      <!-- Komponen Asli Ionic UI -->
+      <ion-button expand="block" color="primary">
+        📲 Tombol &lt;ion-button&gt; Asli Mobile
+      </ion-button>
+
+      <ion-card style="margin:14px 0 0 0;">
+        <ion-card-header>
+          <ion-card-subtitle>STSI4303 • Universitas Terbuka</ion-card-subtitle>
+          <ion-card-title style="font-size:16px;">Kartu &lt;ion-card&gt; Modern</ion-card-title>
+        </ion-card-header>
+        <ion-card-content style="font-size:13px;">
+          Dilengkapi elevasi visual, jarak padding ergonomis, dan adaptif terhadap tema ponsel.
+        </ion-card-content>
+      </ion-card>
+
+      <pre><code>&lt;!-- Ionic UI Components --&gt;
+&lt;ion-button expand="block" color="primary"&gt;
+  Simpan Data
+&lt;/ion-button&gt;
+&lt;ion-card&gt;...&lt;/ion-card&gt;</code></pre>
+    </div>
+  </div>
+
+</body>
+</html>

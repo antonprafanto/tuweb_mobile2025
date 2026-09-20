@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 04: Palet Warna Tema Mobile — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .color-item {
+      border: 2px solid var(--border);
+      padding: 14px;
+      background: #F9FAFB;
+      box-shadow: 3px 3px 0 var(--border);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 04 • MODUL 4 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Sistem Warna Semantik Ionic: 9 Warna Tema Bawaan</h1>
+    <p style="margin: 0; font-size: 14px;">Menggunakan atribut <code>color="..."</code> tanpa perlu menulis kode CSS manual berulang kali.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>🎨 Palet Warna Mobile Siap Pakai</h3>
+    <p style="font-size:13px; color:#555;">Ionic menyediakan properti <code>color</code> yang secara otomatis mengatur warna latar, teks, dan kontras:</p>
+
+    <div class="color-grid">
+      <!-- 1. Primary -->
+      <div class="color-item">
+        <strong>primary</strong> (Identitas Utama)
+        <ion-button expand="block" color="primary" size="small" style="margin-top:8px;">Tombol Primary</ion-button>
+        <ion-badge color="primary">UT Biru Kampus</ion-badge>
+      </div>
+
+      <!-- 2. Secondary -->
+      <div class="color-item">
+        <strong>secondary</strong> (Aksen Dingin)
+        <ion-button expand="block" color="secondary" size="small" style="margin-top:8px;">Tombol Secondary</ion-button>
+        <ion-badge color="secondary">Sub-Informasi</ion-badge>
+      </div>
+
+      <!-- 3. Success -->
+      <div class="color-item">
+        <strong>success</strong> (Kelulusan / Nilai A)
+        <ion-button expand="block" color="success" size="small" style="margin-top:8px;">Tombol Success</ion-button>
+        <ion-badge color="success">Nilai A (Lulus)</ion-badge>
+      </div>
+
+      <!-- 4. Warning -->
+      <div class="color-item">
+        <strong>warning</strong> (Peringatan / Deadline)
+        <ion-button expand="block" color="warning" size="small" style="margin-top:8px;">Tombol Warning</ion-button>
+        <ion-badge color="warning">Tenggat Tugas 1</ion-badge>
+      </div>
+
+      <!-- 5. Danger -->
+      <div class="color-item">
+        <strong>danger</strong> (Hapus / Bahaya)
+        <ion-button expand="block" color="danger" size="small" style="margin-top:8px;">Tombol Danger</ion-button>
+        <ion-badge color="danger">Drop Mata Kuliah</ion-badge>
+      </div>
+
+      <!-- 6. Dark -->
+      <div class="color-item">
+        <strong>dark</strong> (Gelap / Monokrom)
+        <ion-button expand="block" color="dark" size="small" style="margin-top:8px;">Tombol Dark</ion-button>
+        <ion-badge color="dark">Mode Malam</ion-badge>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 24px;">💡 Cara Penggunaan di Template:</h4>
+    <pre><code>&lt;!-- Tombol dengan warna semantik langsung tanpa CSS tambahan --&gt;
+&lt;ion-button color="primary"&gt;Simpan Profil&lt;/ion-button&gt;
+&lt;ion-button color="danger" fill="outline"&gt;Hapus Akun&lt;/ion-button&gt;
+
+&lt;!-- Lencana Status --&gt;
+&lt;ion-badge color="success"&gt;Aktif Registrasi&lt;/ion-badge&gt;</code></pre>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({}).mount('#app');
+  </script>
+</body>
+</html>

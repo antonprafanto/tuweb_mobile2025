@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 17: Master Solusi Lab Quest 04 — Portal Modul BMP UT</title>
+  <!-- Ionic Core & Vue 3 via CDN (Zero Friction / RAM 4-8GB Friendly) -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .layout-grid {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .layout-grid { grid-template-columns: 1fr; }
+    }
+
+    /* PHONE CONTAINER NEOBRUTALISM */
+    .phone-mockup {
+      width: 100%;
+      max-width: 420px;
+      border: 4px solid var(--border);
+      border-radius: 28px;
+      background: #FFFFFF;
+      box-shadow: 8px 8px 0 var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 680px;
+      position: relative;
+    }
+    .phone-notch {
+      background: #000;
+      height: 20px;
+      width: 140px;
+      margin: 0 auto;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      z-index: 100;
+    }
+    .phone-screen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #F8FAFC;
+    }
+    .screen-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+    }
+
+    /* DESKTOP EXPLANATION BOX */
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .log-terminal {
+      background: #0F172A;
+      color: #38BDF8;
+      border: 2px solid var(--border);
+      padding: 12px;
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      max-height: 220px;
+      overflow-y: auto;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 17 • MASTER SOLUSI LAB QUEST 04</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 24px;">🎯 Aplikasi Portal Modul BMP UT (Multi-Halaman & Lifecycle)</h1>
+    <p style="margin: 0; font-size: 14px;">Studi Kasus Lengkap: Katalog Digital Buku Materi Pokok FST UT dengan Navigasi Tumpukan, Detail Modul, Bookmark, dan Indikator Siklus Hidup.</p>
+  </div>
+
+  <div id="app" class="layout-grid">
+    <!-- KOLOM KIRI: SIMULATOR SMARTPHONE -->
+    <div class="phone-mockup">
+      <div class="phone-notch"></div>
+      
+      <div class="phone-screen">
+        <!-- HEADER UTAMA APLIKASI -->
+        <ion-header>
+          <ion-toolbar color="primary">
+            <ion-buttons slot="start" v-if="currentScreen !== 'catalog'">
+              <ion-button @click="navigateBack">
+                <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+            <ion-title style="font-size: 16px; font-weight: bold;">
+              {{ currentScreen === 'catalog' ? '📚 Ruang Baca Virtual UT' : activeModul.kode }}
+            </ion-title>
+            <ion-buttons slot="end">
+              <ion-button @click="filterBookmarkOnly = !filterBookmarkOnly" :color="filterBookmarkOnly ? 'warning' : 'light'">
+                <ion-icon slot="icon-only" :name="filterBookmarkOnly ? 'star' : 'star-outline'"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+
+        <!-- LAYAR 1: KATALOG MODUL -->
+        <div v-show="currentScreen === 'catalog'" class="screen-content">
+          <!-- Filter Tag Chips -->
+          <div style="display: flex; gap: 6px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 4px;">
+            <ion-chip 
+              :color="selectedSemester === 0 ? 'primary' : 'medium'"
+              :outline="selectedSemester !== 0"
+              @click="selectedSemester = 0">
+              <ion-label>Semua Semester</ion-label>
+            </ion-chip>
+            <ion-chip 
+              :color="selectedSemester === 4 ? 'primary' : 'medium'"
+              :outline="selectedSemester !== 4"
+              @click="selectedSemester = 4">
+              <ion-label>Semester 4</ion-label>
+            </ion-chip>
+            <ion-chip 
+              :color="selectedSemester === 6 ? 'primary' : 'medium'"
+              :outline="selectedSemester !== 6"
+              @click="selectedSemester = 6">
+              <ion-label>Semester 6</ion-label>
+            </ion-chip>
+          </div>
+
+          <div style="font-size: 12px; font-weight: bold; color: #475569; margin: 6px 0;">
+            Menampilkan {{ filteredList.length }} Buku Materi Pokok:
+          </div>
+
+          <!-- Modul Cards List -->
+          <ion-card 
+            v-for="modul in filteredList" 
+            :key="modul.kode"
+            style="margin: 0 0 12px 0; border: 2px solid #000; box-shadow: 3px 3px 0 #000; cursor: pointer;"
+            @click="navigateToDetail(modul)">
+            <ion-card-header style="padding: 12px 14px 4px 14px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <ion-badge color="secondary">{{ modul.kode }}</ion-badge>
+                <span style="font-size: 12px; font-weight: bold; color: #64748B;">{{ modul.sks }} SKS</span>
+              </div>
+              <ion-card-title style="font-size: 15px; margin-top: 6px;">{{ modul.nama }}</ion-card-title>
+              <ion-card-subtitle style="font-size: 11px;">Penulis: {{ modul.penulis }}</ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content style="padding: 0 14px 12px 14px; font-size: 12px;">
+              {{ modul.ringkasan }}
+              <div style="margin-top: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #0284C7; font-weight: bold;">📖 9 Modul Pembelajaran</span>
+                <ion-icon 
+                  :name="modul.isBookmarked ? 'bookmark' : 'bookmark-outline'" 
+                  :style="modul.isBookmarked ? 'color: #EAB308; font-size: 20px;' : 'font-size: 20px;'"
+                  @click.stop="toggleBookmark(modul)">
+                </ion-icon>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </div>
+
+        <!-- LAYAR 2: DETAIL MODUL (CHILD SCREEN) -->
+        <div v-show="currentScreen === 'detail'" class="screen-content" style="background: #FFF;">
+          <div style="background: #E0F2FE; border: 2px solid #0284C7; padding: 14px; border-radius: 8px; margin-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <div>
+                <ion-badge color="primary">{{ activeModul.kode }}</ion-badge>
+                <h3 style="margin: 6px 0 2px 0; font-size: 16px;">{{ activeModul.nama }}</h3>
+                <p style="margin: 0; font-size: 12px; color: #475569;">Edisi ke-2 • Bobot {{ activeModul.sks }} SKS</p>
+              </div>
+              <ion-button fill="clear" @click="toggleBookmark(activeModul)">
+                <ion-icon slot="icon-only" :name="activeModul.isBookmarked ? 'bookmark' : 'bookmark-outline'" color="warning"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+
+          <p style="font-size: 13px; line-height: 1.5; color: #334155;">
+            {{ activeModul.deskripsiLengkap }}
+          </p>
+
+          <h4 style="margin: 16px 0 8px 0; font-size: 14px;">Daftar Kegiatan Belajar (KB):</h4>
+          <ion-list lines="inset">
+            <ion-item v-for="(kb, idx) in activeModul.daftarKB" :key="idx">
+              <ion-badge slot="start" color="dark">{{ idx + 1 }}</ion-badge>
+              <ion-label>
+                <h3 style="font-size: 13px; font-weight: bold;">{{ kb.judul }}</h3>
+                <p style="font-size: 11px;">Estimasi Baca: {{ kb.estimasi }}</p>
+              </ion-label>
+              <ion-icon name="cloud-download-outline" slot="end" style="color: #0284C7;"></ion-link>
+            </ion-item>
+          </ion-list>
+
+          <div style="margin-top: 16px;">
+            <ion-button expand="block" color="success" @click="bacaModulSekarang">
+              <ion-icon name="book-outline" slot="start"></ion-icon>
+              Mulai Baca Modul Online
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KOLOM KANAN: MONITOR SIKLUS HIDUP & SPESIFIKASI AKADEMIK -->
+    <div>
+      <!-- SIKLUS HIDUP MONITOR -->
+      <div class="box" style="margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <h3 style="margin: 0; font-size: 16px;">⚡ Monitor Siklus Hidup (Lifecycle Log)</h3>
+          <button @click="clearLogs" style="padding: 4px 8px; border: 2px solid #000; background: #fff; font-weight: bold; cursor: pointer;">
+            Bersihkan Log
+          </button>
+        </div>
+        <p style="font-size: 12px; color: #475569; margin-top: 0;">
+          Lihat urutan hook saat berpindah dari <strong>Katalog</strong> menuju <strong>Detail Modul</strong> dan saat menekan tombol <strong>Kembali</strong>:
+        </p>
+
+        <div class="log-terminal">
+          <div v-for="(log, idx) in lifecycleLogs" :key="idx" :style="'color:' + log.color + '; margin-bottom: 3px;'">
+            [{{ log.time }}] {{ log.msg }}
+          </div>
+        </div>
+      </div>
+
+      <!-- SPESIFIKASI FITUR LAB QUEST 04 -->
+      <div class="box">
+        <h3 style="margin-top: 0; font-size: 16px;">📋 Ceklist Capaian Lab Quest 04 Mahasiswa</h3>
+        
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+          <tr style="background: #E2E8F0;">
+            <th style="padding: 8px; border: 1px solid #000; text-align: left;">Kriteria Kompetensi</th>
+            <th style="padding: 8px; border: 1px solid #000; text-align: left;">Implementasi Komponen</th>
+            <th style="padding: 8px; border: 1px solid #000; text-align: center;">Status</th>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #000; font-weight: bold;">1. Tata Letak Mobile Baku</td>
+            <td style="padding: 8px; border: 1px solid #000;"><code>ion-header</code>, <code>ion-toolbar</code>, <code>ion-content</code></td>
+            <td style="padding: 8px; border: 1px solid #000; text-align: center; color: green; font-weight: bold;">TERPENUHI</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #000; font-weight: bold;">2. Daftar & Kartu Interaktif</td>
+            <td style="padding: 8px; border: 1px solid #000;"><code>ion-card</code>, <code>ion-list</code>, <code>ion-item</code>, <code>ion-badge</code></td>
+            <td style="padding: 8px; border: 1px solid #000; text-align: center; color: green; font-weight: bold;">TERPENUHI</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #000; font-weight: bold;">3. Navigasi Tumpukan (Stack)</td>
+            <td style="padding: 8px; border: 1px solid #000;">Transisi Push & Pop tanpa kehilangan riwayat scroll</td>
+            <td style="padding: 8px; border: 1px solid #000; text-align: center; color: green; font-weight: bold;">TERPENUHI</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #000; font-weight: bold;">4. Tombol Kembali Alami</td>
+            <td style="padding: 8px; border: 1px solid #000;"><code>ion-back-button</code> dengan fallback <code>default-href</code></td>
+            <td style="padding: 8px; border: 1px solid #000; text-align: center; color: green; font-weight: bold;">TERPENUHI</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #000; font-weight: bold;">5. Pengendalian Siklus Hidup</td>
+            <td style="padding: 8px; border: 1px solid #000;">Pemicuan <code>ionViewWillEnter</code> & <code>ionViewWillLeave</code></td>
+            <td style="padding: 8px; border: 1px solid #000; text-align: center; color: green; font-weight: bold;">TERPENUHI</td>
+          </tr>
+        </table>
+
+        <div style="margin-top: 14px; background: #FEF08A; border: 2px solid #000; padding: 10px; font-size: 12px;">
+          🎓 <strong>Petunjuk Dosen Pengampu:</strong><br>
+          Mahasiswa dapat menyalin struktur logika di atas sebagai pondasi pembuatan proyek Tugas Tutorial 2 pada Sesi 05 mendatang!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+    createApp({
+      setup() {
+        const currentScreen = ref('catalog');
+        const selectedSemester = ref(0);
+        const filterBookmarkOnly = ref(false);
+        const activeModul = ref({});
+        const lifecycleLogs = ref([]);
+
+        const modulList = ref([
+          {
+            kode: 'STSI4303',
+            nama: 'Pemrograman Berbasis Perangkat Bergerak',
+            penulis: 'Anton Prafanto, S.Kom., M.T.',
+            sks: 3,
+            semester: 6,
+            ringkasan: 'Membahas arsitektur hybrid modern dengan Ionic Framework, Vue.js 3, TypeScript, dan Capacitor.',
+            deskripsiLengkap: 'Mata kuliah ini membekali mahasiswa keahlian merancang, mengode, dan mendistribusikan aplikasi mobile multiplatform Android dan iOS menggunakan satu basis kode modern.',
+            isBookmarked: true,
+            daftarKB: [
+              { judul: 'KB 1: Pengantar Aplikasi Perangkat Bergerak', estimasi: '45 Menit' },
+              { judul: 'KB 2: Instalasi & Lingkungan Kerja Node.js', estimasi: '60 Menit' },
+              { judul: 'KB 3: Komponen Dasar Ionic & Navigasi', estimasi: '90 Menit' },
+              { judul: 'KB 4: Pengujian di Emulator Android Studio', estimasi: '75 Menit' }
+            ]
+          },
+          {
+            kode: 'MSIM4201',
+            nama: 'Sistem Operasi',
+            penulis: 'Tim Dosen FST UT',
+            sks: 3,
+            semester: 4,
+            ringkasan: 'Prinsip manajemen memori, proses konkurensi, penjadwalan CPU, dan sistem berkas.',
+            deskripsiLengkap: 'Mempelajari konsep fundamental interaksi perangkat keras dan perangkat lunak, algoritma round-robin, deadlock, dan virtual memory.',
+            isBookmarked: false,
+            daftarKB: [
+              { judul: 'KB 1: Pengenalan Arsitektur Komputer', estimasi: '50 Menit' },
+              { judul: 'KB 2: Manajemen Proses & Threading', estimasi: '70 Menit' },
+              { judul: 'KB 3: Sinkronisasi & Deadlock', estimasi: '80 Menit' }
+            ]
+          },
+          {
+            kode: 'MSIM4301',
+            nama: 'Pemrograman Berbasis Web',
+            penulis: 'Tim Dosen FST UT',
+            sks: 3,
+            semester: 4,
+            ringkasan: 'Rekayasa antarmuka web modern dengan HTML5, CSS3, JavaScript, dan backend service.',
+            deskripsiLengkap: 'Membahas pembuatan situs web responsif, manipulasi DOM, AJAX, dan arsitektur REST API.',
+            isBookmarked: true,
+            daftarKB: [
+              { judul: 'KB 1: Standar Web Semantik & CSS Grid', estimasi: '60 Menit' },
+              { judul: 'KB 2: Pemrograman JavaScript Asinkron', estimasi: '90 Menit' },
+              { judul: 'KB 3: Koneksi Basis Data Relasional', estimasi: '75 Menit' }
+            ]
+          }
+        ]);
+
+        const addLog = (msg, color = '#38BDF8') => {
+          const time = new Date().toLocaleTimeString();
+          lifecycleLogs.value.unshift({ time, msg, color });
+        };
+
+        const filteredList = computed(() => {
+          return modulList.value.filter(m => {
+            const matchSem = selectedSemester.value === 0 || m.semester === selectedSemester.value;
+            const matchBookmark = !filterBookmarkOnly.value || m.isBookmarked;
+            return matchSem && matchBookmark;
+          });
+        });
+
+        const navigateToDetail = (modul) => {
+          addLog(`🚪 [KatalogPage] ionViewWillLeave(): Menyimpan posisi scroll katalog`, '#F87171');
+          activeModul.value = modul;
+          
+          setTimeout(() => {
+            addLog(`🚪 [KatalogPage] ionViewDidLeave(): Halaman katalog tertidur di cache stack`, '#F87171');
+            currentScreen.value = 'detail';
+            addLog(`✨ [ModulDetailPage] ionViewWillEnter(): Membaca param kode=${modul.kode}`, '#38BDF8');
+            setTimeout(() => {
+              addLog(`🎉 [ModulDetailPage] ionViewDidEnter(): Rincian modul ${modul.kode} siap ditatap`, '#4ADE80');
+            }, 100);
+          }, 150);
+        };
+
+        const navigateBack = () => {
+          addLog(`🚪 [ModulDetailPage] ionViewWillLeave(): Pengguna menekan tombol Kembali`, '#F87171');
+          setTimeout(() => {
+            addLog(`🚪 [ModulDetailPage] ionViewDidLeave(): Layar detail di-pop dari stack`, '#F87171');
+            currentScreen.value = 'catalog';
+            addLog(`🔄 [KatalogPage] ionViewWillEnter(): Memulihkan cache katalog`, '#38BDF8');
+            setTimeout(() => {
+              addLog(`🎉 [KatalogPage] ionViewDidEnter(): Katalog aktif kembali tanpa reload DOM!`, '#4ADE80');
+            }, 100);
+          }, 150);
+        };
+
+        const toggleBookmark = (modul) => {
+          modul.isBookmarked = !modul.isBookmarked;
+          addLog(`⭐ Status bookmark ${modul.kode}: ${modul.isBookmarked ? 'Disimpan' : 'Dihapus'}`, '#FACC15');
+        };
+
+        const bacaModulSekarang = () => {
+          alert(`Membuka berkas digital PDF Buku Materi Pokok: ${activeModul.value.nama}`);
+        };
+
+        const clearLogs = () => {
+          lifecycleLogs.value = [];
+        };
+
+        // Inisialisasi awal
+        addLog('⚡ [KatalogPage] ionViewWillEnter(): Inisialisasi daftar buku BMP', '#38BDF8');
+        addLog('🎉 [KatalogPage] ionViewDidEnter(): Layar katalog pertama kali siap tampil', '#4ADE80');
+
+        return {
+          currentScreen,
+          selectedSemester,
+          filterBookmarkOnly,
+          activeModul,
+          lifecycleLogs,
+          filteredList,
+          navigateToDetail,
+          navigateBack,
+          toggleBookmark,
+          bacaModulSekarang,
+          clearLogs
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

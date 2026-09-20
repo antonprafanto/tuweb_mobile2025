@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 11: Struktur Ionic Vue Router — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .tab-btn {
+      border: 2px solid #000;
+      background: #fff;
+      padding: 6px 12px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 6px;
+    }
+    .tab-btn.active {
+      background: var(--yellow);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 11 • MODUL 4 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Konfigurasi Sistem: Integrasi Ionic Vue Router</h1>
+    <p style="margin: 0; font-size: 14px;">Memahami komponen &lt;ion-router-outlet&gt; sebagai pengganti &lt;router-view&gt; untuk mempertahankan animasi dan tumpukan halaman.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PENJELASAN KONSEP & PERBEDAAN -->
+    <div class="box">
+      <h3>⚠️ Perbedaan Krusial: Vue Router Standar vs Ionic Vue</h3>
+      
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 16px;">
+        <tr style="background: #E2E8F0;">
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Unsur</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Vue Router Biasa</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">@ionic/vue-router</th>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">Pembuat Router</td>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">createRouter()</td>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">createRouter() dari @ionic/vue-router</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">Wadah Penampil</td>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;router-view /&gt;</td>
+          <td style="padding: 6px; border: 1px solid #000; font-family: monospace; color: #0284C7; font-weight: bold;">&lt;ion-router-outlet /&gt;</td>
+        </tr>
+        <tr>
+          <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">Dukungan Stack</td>
+          <td style="padding: 6px; border: 1px solid #000;">Tidak ada (replace)</td>
+          <td style="padding: 6px; border: 1px solid #000;">Ya (menjaga DOM & animasi)</td>
+        </tr>
+      </table>
+
+      <div style="background: #FEF08A; border: 2px solid #000; padding: 12px; font-size: 13px;">
+        <strong>🚨 Perhatian Penting untuk Mahasiswa:</strong><br>
+        Jika Anda tidak sengaja menggunakan <code>&lt;router-view&gt;</code> di Ionic, animasi slide iOS/Android tidak akan jalan dan tombol kembali <code>&lt;ion-back-button&gt;</code> akan kehilangan jejak riwayat!
+      </div>
+    </div>
+
+    <!-- CODE SNIPPET EXPLORER -->
+    <div class="box">
+      <div style="margin-bottom: 12px;">
+        <button class="tab-btn" :class="{ active: tab === 'router' }" @click="tab = 'router'">
+          1. router/index.ts
+        </button>
+        <button class="tab-btn" :class="{ active: tab === 'app' }" @click="tab = 'app'">
+          2. App.vue
+        </button>
+      </div>
+
+      <div v-if="tab === 'router'">
+        <pre><code>import { createRouter, createWebHistory } from '@ionic/vue-router';
+import { RouteRecordRaw } from 'vue-router';
+import HomePage from '@/views/HomePage.vue';
+import ModulDetailPage from '@/views/ModulDetailPage.vue';
+
+const routes: Array&lt;RouteRecordRaw&gt; = [
+  {
+    path: '/',
+    redirect: '/home'
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: HomePage
+  },
+  {
+    path: '/modul/:kode',
+    name: 'ModulDetail',
+    component: ModulDetailPage
+  }
+];
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes
+});
+
+export default router;</code></pre>
+      </div>
+
+      <div v-if="tab === 'app'">
+        <pre><code>&lt;template&gt;
+  &lt;ion-app&gt;
+    &lt;!-- Wadah Resmi Pengelola Animasi Halaman --&gt;
+    &lt;ion-router-outlet /&gt;
+  &lt;/ion-app&gt;
+&lt;/template&gt;
+
+&lt;script setup lang="ts"&gt;
+import { IonApp, IonRouterOutlet } from '@ionic/vue';
+&lt;/script&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const tab = ref('router');
+        return { tab };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
