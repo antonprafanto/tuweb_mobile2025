@@ -87,3 +87,12 @@ ios/App/Podfile.lock
 # OS metadata
 .DS_Store
 Thumbs.db
+
+# Dapur Dosen & Perkakas Internal Dosen (Courseware Authoring Tools)
+.dapur_dosen/
+*.py
+__pycache__/
+*.py[cod]
+.venv/
+env/
+

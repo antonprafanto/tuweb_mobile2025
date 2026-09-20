@@ -9,11 +9,9 @@ Selamat datang di repositori resmi materi perkuliahan **Pemrograman Berbasis Per
 
 ```text
 tuweb_mobile2025/
-├── 📁 slide_presentasi/                     # Naskah Slide & Berkas PPTX Neobrutalism
-│   ├── 🎨 00_MASTER_SLIDE_DESIGN_GUIDELINES.md
-│   ├── 📄 SESI_01_Pengantar_dan_Lingkungan_Ionic.md
+├── 📁 slide_presentasi/                     # Bahan Ajar Visual (PPTX) & Naskah Narasi Sesi
 │   ├── 📊 SESI_01_Pengantar_dan_Lingkungan_Ionic.pptx
-│   └── 🐍 generate_slides_s1_neobrutalism.py
+│   └── 📄 SESI_01_Pengantar_dan_Lingkungan_Ionic.md
 │
 ├── 📁 contoh_kode_program/                  # Berkas Kode Mandiri Siap Eksekusi (Zero-Friction)
 │   └── 📁 sesi_01_lingkungan_dan_tools/     # [18 berkas] Node.js, Web Components & KTM Digital
@@ -23,7 +21,6 @@ tuweb_mobile2025/
 │   ├── 📝 PANDUAN_TUGAS_TUTORIAL_1_2_3.md      # Skenario Kasus & Rubrik Tugas 1, 2, 3
 │   └── 💬 PANDUAN_DISKUSI_TUTON.md             # Bahan Inisiasi & Pemicu Diskusi Forum 1-8
 │
-├── 📄 KERANGKA_KERJA_COURSEWARE_GITHUB.md   # Pedoman Standar Courseware Bebas Hambatan Kognitif
 ├── 📄 .gitignore                            # Konfigurasi Pengabaian Berkas Git
 └── 📄 README.md                             # Portal Navigasi Utama Perkuliahan
 ```
