@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 06: Conditional Rendering v-if vs v-show — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .toggle-btn {
+      background: var(--cyan);
+      border: 2px solid var(--border);
+      padding: 10px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border);
+      margin-bottom: 16px;
+    }
+    .target-box {
+      border: 3px solid var(--border);
+      padding: 16px;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    .box-v-if { background: #FEF08A; }
+    .box-v-show { background: #BAE6FD; }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 13px;
+    }
+    th, td { border: 2px solid var(--border); padding: 8px; text-align: left; }
+    th { background: #E5E7EB; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 06 • MODUL 2 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Conditional Rendering: v-if (Bongkar Pasang DOM) vs v-show (CSS Toggle)</h1>
+    <p style="margin: 0; font-size: 14px;">Membedah perbedaan performa memori dan rendering untuk aplikasi perangkat bergerak.</p>
+  </div>
+
+  <div id="app">
+    <button class="toggle-btn" @click="tampilkan = !tampilkan">
+      🔄 Klik Di Sini: Alihkan Tampilan (Status Saat Ini: {{ tampilkan ? 'VISIBLE (ON)' : 'HIDDEN (OFF)' }})
+    </button>
+
+    <div class="grid">
+      <!-- SISI V-IF -->
+      <div class="card">
+        <span class="badge" style="background:var(--yellow);">DIREKTIF v-if</span>
+        <h3>Real DOM Destruction</h3>
+        <p style="font-size: 13px; color: #555;">Jika kondisi bernilai <code>false</code>, elemen benar-benar <strong>dicabut dari memori DOM pohon browser</strong>.</p>
+
+        <!-- Elemen dengan v-if -->
+        <div v-if="tampilkan" id="elemen-vif" class="target-box box-v-if">
+          📦 Elemen ini ada di dalam DOM karena v-if bernilai TRUE.
+        </div>
+        <div v-else class="target-box" style="background:#FEE2E2;">
+          🚫 Elemen telah DIBONGKAR dari DOM (Digantikan comment placeholder).
+        </div>
+
+        <p style="font-size: 12px; margin-top:14px;">
+          Pemeriksaan DOM riil: <br>
+          Elemen ditemukan di DOM? <strong>{{ domVIfAda ? 'YA (Ada di DOM)' : 'TIDAK (Dihapus dari DOM)' }}</strong>
+        </p>
+      </div>
+
+      <!-- SISI V-SHOW -->
+      <div class="card">
+        <span class="badge" style="background:var(--cyan);">DIREKTIF v-show</span>
+        <h3>CSS Display Toggle</h3>
+        <p style="font-size: 13px; color: #555;">Elemen <strong>selalu tetap berada di DOM</strong>, Vue hanya memanipulasi CSS <code>display: none;</code>.</p>
+
+        <!-- Elemen dengan v-show -->
+        <div v-show="tampilkan" id="elemen-vshow" class="target-box box-v-show">
+          👁️ Elemen ini selalu ada di DOM! (Hanya berganti gaya CSS display).
+        </div>
+
+        <p style="font-size: 12px; margin-top:14px;">
+          Pemeriksaan DOM riil: <br>
+          Elemen ditemukan di DOM? <strong>{{ domVShowAda ? 'YA (Selalu ada di DOM)' : 'TIDAK' }}</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- PANDUAN KEPUTUSAN ARSITEKTUR MOBILE -->
+    <div class="card" style="margin-top:20px;">
+      <h3>⚡ Komparasi Kinerja untuk Smartphone (Hemat Baterai & CPU)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Kriteria Komparasi</th>
+            <th><code>v-if</code></th>
+            <th><code>v-show</code></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Biaya Awal (*Initial Render*)</strong></td>
+            <td>Rendah (Jika <code>false</code>, tidak dirender sama sekali).</td>
+            <td>Tinggi (Semua dirender sejak awal ke memori).</td>
+          </tr>
+          <tr>
+            <td><strong>Biaya Alih (*Toggle Cost*)</strong></td>
+            <td>Tinggi (DOM harus di-create dan di-destroy).</td>
+            <td>Sangat Rendah (Hanya ganti properti CSS).</td>
+          </tr>
+          <tr>
+            <td><strong>Rekomendasi Pemakaian Mobile</strong></td>
+            <td>Halaman/Modal yang jarang dibuka (misal: Logout Dialog, Menu Admin).</td>
+            <td>Komponen yang sering di-toggle (misal: Tab Bar, Accordion FAQ, Dark Mode).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, onMounted, onUpdated } = Vue;
+
+    createApp({
+      setup() {
+        const tampilkan = ref(true);
+        const domVIfAda = ref(true);
+        const domVShowAda = ref(true);
+
+        const periksaDom = () => {
+          setTimeout(() => {
+            domVIfAda.value = document.getElementById('elemen-vif') !== null;
+            domVShowAda.value = document.getElementById('elemen-vshow') !== null;
+          }, 50);
+        };
+
+        onMounted(periksaDom);
+        onUpdated(periksaDom);
+
+        return { tampilkan, domVIfAda, domVShowAda };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

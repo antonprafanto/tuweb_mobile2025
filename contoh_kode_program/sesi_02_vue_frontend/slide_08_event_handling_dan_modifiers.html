@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 08: Event Handling & Modifiers — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .outer-card {
+      background: #FEF9C3;
+      border: 3px solid var(--border);
+      padding: 18px;
+      margin-top: 14px;
+      cursor: pointer;
+    }
+    .inner-box {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin-top: 10px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--border);
+      font-size: 14px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+    button {
+      background: var(--cyan);
+      border: 2px solid var(--border);
+      padding: 10px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border);
+    }
+    button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--border); }
+    .log-box {
+      background: #121212;
+      color: #4ADE80;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      height: 120px;
+      overflow-y: auto;
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 08 • MODUL 2 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Penanganan Event (@event) & Event Modifiers (.prevent, .stop)</h1>
+    <p style="margin: 0; font-size: 14px;">Mengendalikan interaksi pengguna dan mencegah aksi bawaan browser tanpa kode rumit.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>💬 Forum Diskusi Tuton: Kirim Tanggapan Mahasiswa</h3>
+
+    <!-- Form dengan .prevent (mencegah reload halaman secara otomatis) -->
+    <form @submit.prevent="kirimPesan">
+      <label>Tuliskan Solusi Diskusi (Tekan Enter atau klik tombol Kirim):</label>
+      <input type="text" v-model="pesan" @keyup.enter="kirimPesan" placeholder="Ketik tanggapan Anda di sini...">
+
+      <button type="submit" style="background:var(--mint);">
+        📤 Kirim Tanggapan (@submit.prevent)
+      </button>
+    </form>
+
+    <!-- Uji Coba Event Bubbling & .stop modifier -->
+    <div class="outer-card" @click="catatLog('Kartu Luar DIKLIK!')">
+      <strong>Kartu Pembungkus Luar</strong> (Punya event click)
+      
+      <div class="inner-box">
+        <p style="margin:0 0 8px 0; font-size:13px;">Uji perbedaan tombol biasa vs tombol dengan <code>.stop</code>:</p>
+        
+        <!-- Tombol TANPA .stop (Akan memicu klik kartu luar) -->
+        <button @click="catatLog('Tombol Biasa diklik')" style="background:#FEE2E2;">
+          Klik Biasa (Event Bocor ke Luar)
+        </button>
+
+        <!-- Tombol DENGAN .stop (Mencegah perambatan bubbling) -->
+        <button @click.stop="catatLog('Tombol .stop diklik')" style="background:var(--cyan);">
+          Klik dengan @click.stop (Aman Terisolasi)
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Event Log -->
+    <h4 style="margin:16px 0 6px 0;">📋 Log Riwayat Event (Terminal Live):</h4>
+    <div class="log-box">
+      <div v-for="(log, i) in logEvents" :key="i">> {{ log }}</div>
+      <div v-if="logEvents.length === 0" style="color:#888;">Belum ada interaksi event...</div>
+    </div>
+    <button @click="logEvents = []" style="margin-top:8px; font-size:11px; padding:4px 8px; background:#E5E7EB;">
+      Bersihkan Log
+    </button>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const pesan = ref('');
+        const logEvents = ref([]);
+
+        const catatLog = (teks) => {
+          const waktu = new Date().toLocaleTimeString();
+          logEvents.value.unshift(`[${waktu}] ${teks}`);
+        };
+
+        const kirimPesan = () => {
+          if (!pesan.value.trim()) return;
+          catatLog(`Pesan Terkirim: "${pesan.value}" (Halaman TIDAK ter-refresh!)`);
+          pesan.value = '';
+        };
+
+        return {
+          pesan,
+          logEvents,
+          catatLog,
+          kirimPesan
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

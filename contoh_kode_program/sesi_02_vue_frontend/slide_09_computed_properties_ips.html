@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 09: Computed Properties & Caching — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+    th, td { border: 2px solid var(--border); padding: 8px 12px; text-align: left; }
+    th { background: #F3F4F6; }
+    select { padding: 4px 8px; border: 2px solid var(--border); font-weight: bold; }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .summary-box {
+      border: 2px solid var(--border);
+      padding: 14px;
+      text-align: center;
+      box-shadow: 3px 3px 0 var(--border);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 09 • MODUL 2 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Properti Terkalkulasi (computed) & Efisiensi Caching</h1>
+    <p style="margin: 0; font-size: 14px;">Menghasilkan data turunan yang dievaluasi ulang HANYA ketika dependensinya berubah.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>📊 Simulasi Kalkulator IPS Mahasiswa UT</h3>
+    <p style="font-size: 13px; color: #555;">Ubah nilai huruf pada tabel di bawah. Perhatikan kalkulasi IPS dan predikat terhitung otomatis secara instan:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Kode & Nama Mata Kuliah</th>
+          <th>SKS</th>
+          <th>Nilai Huruf</th>
+          <th>Bobot Angka</th>
+          <th>Mutu (SKS x Bobot)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="mk in daftarNilai" :key="mk.kode">
+          <td><strong>{{ mk.kode }}</strong> - {{ mk.nama }}</td>
+          <td>{{ mk.sks }} SKS</td>
+          <td>
+            <select v-model="mk.huruf">
+              <option value="A">A (4.00)</option>
+              <option value="B">B (3.00)</option>
+              <option value="C">C (2.00)</option>
+              <option value="D">D (1.00)</option>
+              <option value="E">E (0.00)</option>
+            </select>
+          </td>
+          <td>{{ konversiBobot(mk.huruf) }}</td>
+          <td><strong>{{ mk.sks * konversiBobot(mk.huruf) }}</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Ringkasan Hasil Kalkulasi Computed -->
+    <div class="summary-grid">
+      <div class="summary-box" style="background:#FEF9C3;">
+        <div style="font-size:12px; font-weight:bold;">TOTAL SKS</div>
+        <div style="font-size:26px; font-weight:900;">{{ totalSks }} SKS</div>
+      </div>
+      <div class="summary-box" style="background:#DCFCE7;">
+        <div style="font-size:12px; font-weight:bold;">INDEKS PRESTASI (IPS)</div>
+        <div style="font-size:26px; font-weight:900;">{{ ips }}</div>
+      </div>
+      <div class="summary-box" style="background:#E0E7FF;">
+        <div style="font-size:12px; font-weight:bold;">PREDIKAT AKADEMIK</div>
+        <div style="font-size:16px; font-weight:800; margin-top:6px;">{{ predikat }}</div>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 24px;">💡 Computed Property vs Method Biasa:</h4>
+    <pre><code>// COMPUTED: Memiliki cache memory! Hanya dihitung saat daftarNilai berubah.
+const ips = computed(() => {
+  const totalBobot = daftarNilai.value.reduce((acc, mk) => acc + (mk.sks * konversiBobot(mk.huruf)), 0);
+  return (totalBobot / totalSks.value).toFixed(2);
+});
+
+// METHOD: Dijalankan ulang SETIAP KALI komponen me-render (Boros baterai HP!)
+function hitungIpsMethod() { ... }</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        const daftarNilai = ref([
+          { kode: 'STSI4303', nama: 'Pemrograman Berbasis Perangkat Bergerak', sks: 3, huruf: 'A' },
+          { kode: 'MSIM4206', nama: 'Basis Data Terdistribusi', sks: 3, huruf: 'B' },
+          { kode: 'MSIM4301', nama: 'Rekayasa Perangkat Lunak', sks: 3, huruf: 'A' },
+          { kode: 'MKWU4108', nama: 'Bahasa Indonesia', sks: 2, huruf: 'A' }
+        ]);
+
+        const konversiBobot = (huruf) => {
+          const map = { 'A': 4.0, 'B': 3.0, 'C': 2.0, 'D': 1.0, 'E': 0.0 };
+          return map[huruf] || 0;
+        };
+
+        // 1. Computed Total SKS
+        const totalSks = computed(() => {
+          return daftarNilai.value.reduce((acc, item) => acc + item.sks, 0);
+        });
+
+        // 2. Computed Indeks Prestasi Sementara (IPS)
+        const ips = computed(() => {
+          if (totalSks.value === 0) return '0.00';
+          const totalMutu = daftarNilai.value.reduce((acc, item) => {
+            return acc + (item.sks * konversiBobot(item.huruf));
+          }, 0);
+          return (totalMutu / totalSks.value).toFixed(2);
+        });
+
+        // 3. Computed Predikat Kelulusan
+        const predikat = computed(() => {
+          const skor = parseFloat(ips.value);
+          if (skor >= 3.51) return '🏆 Dengan Pujian (Cumlaude)';
+          if (skor >= 3.00) return '⭐ Sangat Memuaskan';
+          if (skor >= 2.76) return '👍 Memuaskan';
+          return '⚠️ Perlu Perbaikan';
+        });
+
+        return {
+          daftarNilai,
+          konversiBobot,
+          totalSks,
+          ips,
+          predikat
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

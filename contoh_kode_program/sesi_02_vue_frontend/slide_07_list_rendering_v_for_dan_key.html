@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 07: List Rendering v-for & :key — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .input-row { display: flex; gap: 10px; margin-bottom: 18px; }
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid var(--border);
+      font-size: 14px;
+    }
+    button {
+      background: var(--cyan);
+      border: 2px solid var(--border);
+      padding: 10px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border);
+    }
+    button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--border); }
+    .list-item {
+      background: #F9FAFB;
+      border: 2px solid var(--border);
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 2px 2px 0 var(--border);
+    }
+    .btn-delete {
+      background: var(--rose);
+      color: #000;
+      padding: 6px 12px;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      cursor: pointer;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 07 • MODUL 2 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">List Rendering (v-for) & Urgensi Atribut :key Unik</h1>
+    <p style="margin: 0; font-size: 14px;">Merender koleksi data array serta mencegah bug rendering Virtual DOM dengan key identitas.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>📚 Daftar Mata Kuliah Registrasi Mahasiswa</h3>
+
+    <!-- Form Tambah Cepat -->
+    <div class="input-row">
+      <input type="text" v-model="namaMkBaru" @keyup.enter="tambahMk" placeholder="Ketik nama mata kuliah baru lalu tekan Enter...">
+      <button @click="tambahMk">➕ Tambah MK</button>
+    </div>
+
+    <!-- Render List dengan v-for -->
+    <div v-if="daftarMk.length === 0" style="padding:20px; text-align:center; color:#666;">
+      Tidak ada mata kuliah yang terdaftar.
+    </div>
+
+    <div v-for="(mk, index) in daftarMk" :key="mk.id" class="list-item">
+      <div>
+        <span style="font-weight:bold; font-size:14px;">{{ index + 1 }}. {{ mk.nama }}</span>
+        <span style="font-size:12px; background:#E5E7EB; border:1px solid #000; padding:2px 6px; margin-left:8px;">{{ mk.sks }} SKS</span>
+        <div style="font-size:11px; color:#6B7280; margin-top:3px;">ID Unik: {{ mk.id }}</div>
+      </div>
+      <button class="btn-delete" @click="hapusMk(index)">🗑️ Hapus</button>
+    </div>
+
+    <h4 style="margin-top: 24px;">💡 Mengapa :key Sangat Penting di Vue 3?</h4>
+    <pre><code>&lt;!-- CONTOH SALAH: Menggunakan index sebagai key --&gt;
+&lt;li v-for="(item, index) in list" :key="index"&gt;...&lt;/li&gt;
+
+&lt;!-- CONTOH BENAR: Menggunakan ID Unik dari database/model --&gt;
+&lt;li v-for="mk in daftarMk" :key="mk.id"&gt;
+  {{ mk.nama }}
+&lt;/li&gt;</code></pre>
+    <div style="background:#EFF6FF; border-left:4px solid #3B82F6; padding:10px; font-size:13px;">
+      💡 <strong>Penjelasan Algoritma Diffing:</strong> Ketika sebuah baris dihapus, Vue membandingkan Virtual DOM berdasarkan <code>:key</code>. Jika kita hanya memakai <code>index</code>, baris di bawahnya akan bergeser dan mengambil alih index lama, sehingga komponen anak yang memiliki state internal (seperti input formulir) dapat tertukar datanya!
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const namaMkBaru = ref('');
+        const daftarMk = ref([
+          { id: 'STSI4303', nama: 'Pemrograman Berbasis Perangkat Bergerak', sks: 3 },
+          { id: 'MSIM4206', nama: 'Basis Data', sks: 3 },
+          { id: 'MSIM4301', nama: 'Rekayasa Perangkat Lunak', sks: 3 }
+        ]);
+
+        const tambahMk = () => {
+          if (!namaMkBaru.value.trim()) return;
+          daftarMk.value.push({
+            id: 'MK-' + Date.now(), // Generate unique ID
+            nama: namaMkBaru.value.trim(),
+            sks: 3
+          });
+          namaMkBaru.value = '';
+        };
+
+        const hapusMk = (index) => {
+          daftarMk.value.splice(index, 1);
+        };
+
+        return {
+          namaMkBaru,
+          daftarMk,
+          tambahMk,
+          hapusMk
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

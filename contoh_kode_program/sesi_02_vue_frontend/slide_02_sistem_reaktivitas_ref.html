@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 02: Sistem Reaktivitas ref() — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .control-group {
+      background: #F9FAFB;
+      border: 2px solid var(--border);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    button {
+      background: var(--cyan);
+      border: 2px solid var(--border);
+      padding: 8px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border);
+      margin-right: 8px;
+    }
+    button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--border); }
+    .status-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      font-weight: bold;
+      border: 2px solid var(--border);
+    }
+    .status-active { background: var(--mint); }
+    .status-inactive { background: var(--rose); }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 14px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 02 • MODUL 2 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Sistem Reaktivitas Dasar: ref() dan Unboxing .value</h1>
+    <p style="margin: 0; font-size: 14px;">Membungkus tipe data primitif (angka, string, boolean) menjadi objek reaktif.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>📱 Demonstrasi Interaktif State ref()</h3>
+    
+    <!-- Bagian 1: State Numerik -->
+    <div class="control-group">
+      <h4>1. State Numerik (SKS Terambil)</h4>
+      <p>Nilai SKS Saat Ini: <strong>{{ totalSks }} SKS</strong></p>
+      <button @click="tambahSks">Tambah (+3 SKS)</button>
+      <button @click="kurangiSks" style="background:#E5E7EB;">Kurangi (-3 SKS)</button>
+    </div>
+
+    <!-- Bagian 2: State Boolean -->
+    <div class="control-group">
+      <h4>2. State Boolean (Status Registrasi Semester)</h4>
+      <p>Status Mahasiswa: 
+        <span :class="['status-badge', isAktif ? 'status-active' : 'status-inactive']">
+          {{ isAktif ? 'AKTIF MENGIKUTI TUTON' : 'CUTI / BELUM REGISTRASI' }}
+        </span>
+      </p>
+      <button @click="toggleStatus" style="background:var(--purple);">
+        Alihkan Status (Toggle)
+      </button>
+    </div>
+
+    <!-- Bagian 3: Penjelasan Unboxing .value -->
+    <h4>🔍 Aturan Emas ref() yang Wajib Diingat:</h4>
+    <pre><code>// 1. Di dalam JavaScript: WAJIB menggunakan .value
+const totalSks = ref(18);
+totalSks.value += 3; // Mengubah nilai
+
+// 2. Di dalam Template HTML: TIDAK PERLU .value (Otomatis Di-unwrap!)
+&lt;p&gt;Nilai SKS: {{ totalSks }}&lt;/p&gt;</code></pre>
+
+    <div style="background: #FEF3C7; border-left: 4px solid #F59E0B; padding: 12px; font-size: 13px; margin-top: 14px;">
+      💡 <strong>Kenapa butuh .value?</strong> Karena JavaScript primitif (seperti angka dan boolean) di-pass by value. Vue membungkusnya dalam sebuah objek kontainer agar dapat memasang <em>getter & setter</em> untuk melacak kapan datanya diakses dan diubah!
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        // Tipe Primitif Angka
+        const totalSks = ref(18);
+        const tambahSks = () => {
+          if (totalSks.value < 24) totalSks.value += 3;
+        };
+        const kurangiSks = () => {
+          if (totalSks.value > 0) totalSks.value -= 3;
+        };
+
+        // Tipe Primitif Boolean
+        const isAktif = ref(true);
+        const toggleStatus = () => {
+          isAktif.value = !isAktif.value;
+        };
+
+        return {
+          totalSks,
+          tambahSks,
+          kurangiSks,
+          isAktif,
+          toggleStatus
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

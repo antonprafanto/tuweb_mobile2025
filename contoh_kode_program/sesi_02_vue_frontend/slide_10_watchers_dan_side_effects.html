@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 10: Watchers & Side Effects — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--border);
+      font-size: 14px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+    .save-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-weight: bold;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      margin-bottom: 12px;
+    }
+    button {
+      background: var(--cyan);
+      border: 2px solid var(--border);
+      padding: 8px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 10 • MODUL 2 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Pemantau Data (watch) & Efek Samping (Side Effects)</h1>
+    <p style="margin: 0; font-size: 14px;">Mengeksekusi aksi asinkron seperti Auto-Save ke penyimpanan lokal saat data berubah.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>📝 Auto-Save Draft Catatan Belajar Mahasiswa</h3>
+
+    <!-- Status Indikator Penyimpanan -->
+    <div>
+      <span class="save-indicator" :style="{ background: statusWarna }">
+        {{ statusTeks }}
+      </span>
+    </div>
+
+    <label>Judul Catatan Mata Kuliah:</label>
+    <input type="text" v-model="judul" placeholder="Contoh: Rangkuman Modul 2 Vue.js 3">
+
+    <label>Isi Catatan Mandiri:</label>
+    <textarea rows="5" v-model="isi" placeholder="Ketik catatan belajar di sini... Sistem akan otomatis menyimpannya ke browser localStorage secara berkala!"></textarea>
+
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="font-size:12px; color:#666;">
+        Terakhir disinkronisasi: <strong>{{ waktuSimpan || 'Belum pernah disimpan' }}</strong>
+      </span>
+      <button @click="hapusDraft" style="background:#FEE2E2;">
+        🗑️ Bersihkan Draft
+      </button>
+    </div>
+
+    <h4 style="margin-top: 24px;">💡 Perbedaan Inti: computed vs watch</h4>
+    <pre><code>// COMPUTED: Murni untuk menghitung nilai baru tanpa efek samping
+const total = computed(() => harga.value * jumlah.value);
+
+// WATCH: Untuk menjalankan side-effect (I/O, localStorage, HTTP Request)
+watch([judul, isi], ([newJudul, newIsi], [oldJudul, oldIsi]) => {
+  localStorage.setItem('draft_belajar_ut', JSON.stringify({
+    judul: newJudul,
+    isi: newIsi
+  }));
+});</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref, watch } = Vue;
+
+    createApp({
+      setup() {
+        const STORAGE_KEY = 'draft_catatan_ut_stsi4303';
+        
+        // Ambil draft awal dari localStorage jika ada
+        const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        const judul = ref(savedData.judul || '');
+        const isi = ref(savedData.isi || '');
+        const statusTeks = ref('✅ Data Sinkron');
+        const statusWarna = ref('#DCFCE7');
+        const waktuSimpan = ref(savedData.waktu || '');
+
+        // WATCH: Memantau perubahan judul dan isi secara otomatis
+        let timer = null;
+        watch([judul, isi], () => {
+          statusTeks.value = '⏳ Menyimpan draft...';
+          statusWarna.value = '#FEF08A';
+
+          // Debounce 500ms agar hemat operasi I/O disk ponsel
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            const sekarang = new Date().toLocaleTimeString();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({
+              judul: judul.value,
+              isi: isi.value,
+              waktu: sekarang
+            }));
+            waktuSimpan.value = sekarang;
+            statusTeks.value = '💾 Tersimpan di LocalStorage';
+            statusWarna.value = '#DCFCE7';
+          }, 500);
+        });
+
+        const hapusDraft = () => {
+          localStorage.removeItem(STORAGE_KEY);
+          judul.value = '';
+          isi.value = '';
+          waktuSimpan.value = '';
+          statusTeks.value = 'Draft Telah Dibersihkan';
+          statusWarna.value = '#E5E7EB';
+        };
+
+        return {
+          judul,
+          isi,
+          statusTeks,
+          statusWarna,
+          waktuSimpan,
+          hapusDraft
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 14: Emits & Komunikasi Anak-ke-Induk — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 740px;
+      margin: 0 auto;
+    }
+    .item-card {
+      background: #F9FAFB;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: 3px 3px 0 var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .qty-btn {
+      background: #E5E7EB;
+      border: 1px solid #000;
+      padding: 4px 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 14 • MODUL 2 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Komunikasi Komponen Anak ke Induk: Custom Events via emit()</h1>
+    <p style="margin: 0; font-size: 14px;">Filosofi: <em>"Props Down, Events Up"</em>. Anak mengirim sinyal saat terjadi interaksi pengguna.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>🛒 Pemesanan Buku Materi Pokok (BMP) UT Online</h3>
+    <p style="font-size:13px; color:#555;">Komponen anak tidak boleh mengubah data induk secara langsung. Komponen anak memancarkan event <code>emit</code> ke induk:</p>
+
+    <!-- Komponen Anak dipanggil dengan Listener Custom Event -->
+    <div v-if="keranjang.length === 0" style="padding:16px; text-align:center; color:#666;">
+      Keranjang pesanan modul kosong.
+    </div>
+
+    <modul-item
+      v-for="item in keranjang"
+      :key="item.id"
+      :modul="item"
+      @tambah-qty="handleTambahQty"
+      @kurang-qty="handleKurangQty"
+      @hapus-item="handleHapusItem">
+    </modul-item>
+
+    <!-- Ringkasan Total di Induk -->
+    <div style="background:#FEF9C3; border:2px solid #000; padding:14px; margin-top:16px; display:flex; justify-content:space-between; align-items:center;">
+      <span style="font-weight:bold;">TOTAL PEMBAYARAN:</span>
+      <span style="font-size:20px; font-weight:900; color:#15803D;">Rp {{ totalBayar.toLocaleString('id-ID') }}</span>
+    </div>
+
+    <h4 style="margin-top: 24px;">💡 Pola Props Down & Events Up:</h4>
+    <pre><code>// 1. DI KOMPONEN ANAK: Pancarkan event ke induk
+setup(props, { emit }) {
+  const kirimSinyalHapus = () => {
+    emit('hapus-item', props.modul.id); // Payload ID
+  };
+}
+
+// 2. DI KOMPONEN INDUK: Dengarkan dengan @nama-event
+&lt;modul-item @hapus-item="handleHapusItem" /&gt;</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    // KOMPONEN ANAK
+    const ModulItem = {
+      props: {
+        modul: { type: Object, required: true }
+      },
+      emits: ['tambah-qty', 'kurang-qty', 'hapus-item'],
+      template: `
+        <div class="item-card">
+          <div>
+            <div style="font-weight:bold; font-size:14px;">{{ modul.kode }} - {{ modul.judul }}</div>
+            <div style="font-size:12px; color:#4B5563;">Harga: Rp {{ modul.harga.toLocaleString('id-ID') }}</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <button class="qty-btn" @click="$emit('kurang-qty', modul.id)">-</button>
+            <span style="font-weight:bold; min-width:20px; text-align:center;">{{ modul.qty }}</span>
+            <button class="qty-btn" @click="$emit('tambah-qty', modul.id)">+</button>
+            <button @click="$emit('hapus-item', modul.id)" style="background:#FEE2E2; border:1px solid #000; padding:4px 8px; font-size:12px; cursor:pointer; margin-left:6px;">
+              🗑️
+            </button>
+          </div>
+        </div>
+      `
+    };
+
+    // KOMPONEN INDUK
+    createApp({
+      components: {
+        'modul-item': ModulItem
+      },
+      setup() {
+        const keranjang = ref([
+          { id: 'BMP-STSI4303', kode: 'STSI4303', judul: 'Pemrograman Perangkat Bergerak', harga: 75000, qty: 1 },
+          { id: 'BMP-MSIM4206', kode: 'MSIM4206', judul: 'Basis Data', harga: 65000, qty: 2 },
+          { id: 'BMP-MSIM4301', kode: 'MSIM4301', judul: 'Rekayasa Perangkat Lunak', harga: 70000, qty: 1 }
+        ]);
+
+        const handleTambahQty = (id) => {
+          const item = keranjang.value.find(x => x.id === id);
+          if (item) item.qty++;
+        };
+
+        const handleKurangQty = (id) => {
+          const item = keranjang.value.find(x => x.id === id);
+          if (item && item.qty > 1) item.qty--;
+        };
+
+        const handleHapusItem = (id) => {
+          keranjang.value = keranjang.value.filter(x => x.id !== id);
+        };
+
+        const totalBayar = computed(() => {
+          return keranjang.value.reduce((total, item) => total + (item.harga * item.qty), 0);
+        });
+
+        return {
+          keranjang,
+          handleTambahQty,
+          handleKurangQty,
+          handleHapusItem,
+          totalBayar
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

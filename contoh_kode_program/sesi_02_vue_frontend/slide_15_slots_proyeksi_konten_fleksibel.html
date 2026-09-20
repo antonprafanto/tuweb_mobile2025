@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 15: Slots & Proyeksi Konten — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    button {
+      background: var(--cyan);
+      border: 2px solid var(--border);
+      padding: 10px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border);
+      margin-right: 8px;
+    }
+    button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--border); }
+    /* Modal Backdrop & Box */
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 999;
+    }
+    .modal-box {
+      background: #FFFFFF;
+      border: 4px solid var(--border);
+      box-shadow: 8px 8px 0 var(--border);
+      max-width: 480px;
+      width: 100%;
+      padding: 0;
+    }
+    .modal-header {
+      background: var(--yellow);
+      border-bottom: 3px solid var(--border);
+      padding: 14px 18px;
+      font-weight: 900;
+      font-size: 16px;
+    }
+    .modal-body {
+      padding: 18px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .modal-footer {
+      border-top: 2px solid var(--border);
+      padding: 12px 18px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background: #F9FAFB;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 15 • MODUL 2 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Proyeksi Konten Fleksibel: Default Slot & Named Slots (&lt;slot&gt;)</h1>
+    <p style="margin: 0; font-size: 14px;">Menyematkan elemen HTML atau komponen lain ke dalam kerangka komponen secara dinamis.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>📱 Komponen Reusable Dialog Modal Ponsel</h3>
+    <p style="font-size: 13px; color: #555;">Slots memungkinkan kita membuat satu komponen modal yang bisa dipakai untuk berbagai macam pesan (Konfirmasi Hapus, Pengumuman Nilai, dll.):</p>
+
+    <button @click="isModalOpen = true">
+      🔔 Buka Dialog Konfirmasi Pengumpulan Tugas 1
+    </button>
+
+    <!-- Dialog Modal Komponen yang Menggunakan Slot -->
+    <dialog-modal v-if="isModalOpen" @close="isModalOpen = false">
+      <!-- Named Slot: #header -->
+      <template #header>
+        ⚠️ PERINGATAN INTEGRITAS AKADEMIK UT
+      </template>
+
+      <!-- Default Slot: Isi Konten Utama -->
+      <template #default>
+        <p>Apakah Anda yakin akan mengunggah berkas <strong>Tugas Tutorial 1</strong>?</p>
+        <div style="background:#FEF3C7; border:1px solid #000; padding:8px; font-size:12px;">
+          Pastikan Anda telah menyertakan tautan video YouTube unlisted demonstrasi kode Anda berdurasi 3-5 menit sesuai rubrik penilaian FST UT!
+        </div>
+      </template>
+
+      <!-- Named Slot: #footer -->
+      <template #footer>
+        <button @click="isModalOpen = false" style="background:#E5E7EB;">Batal</button>
+        <button @click="kirimTugas" style="background:var(--mint);">Ya, Kumpulkan Sekarang</button>
+      </template>
+    </dialog-modal>
+
+    <h4 style="margin-top: 24px;">💡 Anatomi Named Slot:</h4>
+    <pre><code>&lt;!-- DI DALAM KOMPONEN ANAK (DialogModal.vue) --&gt;
+&lt;div class="modal-box"&gt;
+  &lt;header&gt;&lt;slot name="header"&gt;Judul Default&lt;/slot&gt;&lt;/header&gt;
+  &lt;main&gt;&lt;slot /&gt;&lt;/main&gt; &lt;!-- Default Slot --&gt;
+  &lt;footer&gt;&lt;slot name="footer" /&gt;&lt;/footer&gt;
+&lt;/div&gt;
+
+&lt;!-- DI KOMPONEN INDUK --&gt;
+&lt;dialog-modal&gt;
+  &lt;template #header&gt;Judul Kustom&lt;/template&gt;
+  &lt;p&gt;Konten Body Fleksibel&lt;/p&gt;
+  &lt;template #footer&gt;&lt;button&gt;OK&lt;/button&gt;&lt;/template&gt;
+&lt;/dialog-modal&gt;</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    // DEFINISI KOMPONEN MODAL DENGAN SLOT
+    const DialogModal = {
+      emits: ['close'],
+      template: `
+        <div class="modal-backdrop" @click.self="$emit('close')">
+          <div class="modal-box">
+            <div class="modal-header">
+              <slot name="header">Informasi Modal</slot>
+            </div>
+            <div class="modal-body">
+              <slot></slot>
+            </div>
+            <div class="modal-footer">
+              <slot name="footer">
+                <button @click="$emit('close')">Tutup</button>
+              </slot>
+            </div>
+          </div>
+        </div>
+      `
+    };
+
+    createApp({
+      components: {
+        'dialog-modal': DialogModal
+      },
+      setup() {
+        const isModalOpen = ref(false);
+
+        const kirimTugas = () => {
+          alert('✅ Berkas Tugas 1 Berhasil Dikirimkan ke Sistem Tuton UT!');
+          isModalOpen.value = false;
+        };
+
+        return {
+          isModalOpen,
+          kirimTugas
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

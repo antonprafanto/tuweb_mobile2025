@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 03: Reaktivitas Objek reactive() — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--border);
+      font-size: 14px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+    label { font-size: 13px; font-weight: 700; }
+    .ktm-card {
+      background: #FEF9C3;
+      border: 3px solid var(--border);
+      padding: 18px;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .ktm-header {
+      border-bottom: 2px dashed var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 03 • MODUL 2 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Reaktivitas Objek Majemuk: reactive() & JavaScript Proxy</h1>
+    <p style="margin: 0; font-size: 14px;">Mengelola kumpulan state terkait dalam satu objek tanpa repot menulis <code>.value</code>.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANEL INPUT FORM -->
+    <div class="card">
+      <h3>📝 Form Pembaruan Profil Mahasiswa</h3>
+      <p style="font-size: 13px; color: #555;">Ketik pada kolom di bawah dan saksikan kartu di sebelah kanan terbarui instan:</p>
+
+      <label>Nomor Induk Mahasiswa (NIM):</label>
+      <input type="text" v-model="mhs.nim" placeholder="Contoh: 043123456">
+
+      <label>Nama Lengkap:</label>
+      <input type="text" v-model="mhs.nama" placeholder="Nama mahasiswa">
+
+      <label>Program Studi:</label>
+      <input type="text" v-model="mhs.prodi" placeholder="Contoh: Sistem Informasi">
+
+      <label>Semester Saat Ini:</label>
+      <input type="number" v-model.number="mhs.semester" min="1" max="14">
+
+      <div style="margin-top: 10px;">
+        <button @click="naikkanSemester" style="background:var(--cyan); border:2px solid #000; padding:8px 14px; font-weight:700; cursor:pointer; box-shadow:3px 3px 0 #000;">
+          🎓 Naik Semester (+1)
+        </button>
+      </div>
+    </div>
+
+    <!-- PANEL VISUALISASI KARTU KTM -->
+    <div class="card">
+      <h3>🪪 Kartu Tanda Mahasiswa Digital (KTM)</h3>
+      <div class="ktm-card">
+        <div class="ktm-header">
+          <strong>UNIVERSITAS TERBUKA</strong>
+          <span style="font-size:11px; background:#fff; border:1px solid #000; padding:2px 6px; font-weight:bold;">FST UT</span>
+        </div>
+        <div style="font-size: 14px; line-height: 1.8;">
+          <div><strong>NIM:</strong> {{ mhs.nim || '-' }}</div>
+          <div><strong>Nama:</strong> {{ mhs.nama || '-' }}</div>
+          <div><strong>Prodi:</strong> {{ mhs.prodi || '-' }}</div>
+          <div><strong>Semester:</strong> {{ mhs.semester }}</div>
+          <div><strong>Status:</strong> <span style="background:var(--mint); padding:2px 6px; border:1px solid #000; font-weight:bold; font-size:12px;">Aktif</span></div>
+        </div>
+      </div>
+
+      <h4 style="margin-top: 18px;">💡 Kapan Pakai ref() vs reactive()?</h4>
+      <pre><code>// 1. Gunakan ref() untuk nilai tunggal primitif
+const skor = ref(100);
+
+// 2. Gunakan reactive() untuk satu kesatuan objek
+const mhs = reactive({
+  nim: '043999888',
+  nama: 'Budi Santoso',
+  semester: 5
+});
+// Akses langsung tanpa .value!
+mhs.semester++;</code></pre>
+      <div style="background:#FEE2E2; border-left:4px solid #EF4444; padding:10px; font-size:12px;">
+        ⚠️ <strong>Peringatan Penting:</strong> Jangan melakukan destructuring objek <code>const { nama } = mhs</code> karena reaktivitasnya akan terputus! Jika ingin destructuring, gunakan pembungkus <code>toRefs(mhs)</code>.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, reactive } = Vue;
+
+    createApp({
+      setup() {
+        // reactive() membungkus seluruh objek dalam JavaScript Proxy
+        const mhs = reactive({
+          nim: '041234567',
+          nama: 'Siti Aminah',
+          prodi: 'Sistem Informasi',
+          semester: 4
+        });
+
+        const naikkanSemester = () => {
+          if (mhs.semester < 14) {
+            mhs.semester++; // Langsung diakses tanpa .value!
+          }
+        };
+
+        return {
+          mhs,
+          naikkanSemester
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

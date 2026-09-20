@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 17: Master Solusi Lab Quest 02 — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--border);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      background: #EFF6FF;
+      border: 2px solid var(--border);
+      padding: 12px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .stat-val { font-size: 20px; font-weight: 900; }
+    .stat-lbl { font-size: 11px; font-weight: bold; color: #4B5563; }
+    .item-box {
+      border: 2px solid var(--border);
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      background: #F9FAFB;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    button {
+      background: var(--cyan);
+      border: 2px solid var(--border);
+      padding: 8px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--border);
+    }
+    button:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--border); }
+    button:disabled { background: #D1D5DB; cursor: not-allowed; box-shadow: none; }
+    .badge-sks {
+      background: var(--yellow);
+      border: 1px solid #000;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 2px 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 17 • MASTER SOLUSI LAB QUEST 02</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Aplikasi Manajemen KRS Mandiri Mahasiswa FST UT</h1>
+    <p style="margin: 0; font-size: 14px;">Studi kasus komprehensif mengintegrasikan ref, reactive, computed, directives, event modifiers, dan validasi kuota SKS.</p>
+  </div>
+
+  <div id="app">
+    <!-- PANEL PROFIL & STATISTIK REAKTIF -->
+    <div class="card" style="margin-bottom: 20px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <div>
+          <h2 style="margin:0 0 4px 0;">👤 {{ mahasiswa.nama }} ({{ mahasiswa.nim }})</h2>
+          <div style="font-size:13px; color:#4B5563;">
+            Program Studi: <strong>{{ mahasiswa.prodi }}</strong> • IPK Semester Lalu: <strong>{{ mahasiswa.ipk }}</strong>
+          </div>
+        </div>
+        <div>
+          <span style="font-size:12px; font-weight:bold; background:#DCFCE7; border:2px solid #000; padding:6px 12px; box-shadow:3px 3px 0 #000;">
+            Batas Maksimal Kuota: {{ maxSks }} SKS
+          </span>
+        </div>
+      </div>
+
+      <!-- Ringkasan Statistik Computed -->
+      <div class="stats-bar" style="margin-top:16px;">
+        <div>
+          <div class="stat-val">{{ krs.length }}</div>
+          <div class="stat-lbl">MATA KULIAH TERPILIH</div>
+        </div>
+        <div>
+          <div class="stat-val" :style="{ color: totalSks > maxSks ? '#DC2626' : '#15803D' }">
+            {{ totalSks }} / {{ maxSks }}
+          </div>
+          <div class="stat-lbl">TOTAL SKS TERAMBIL</div>
+        </div>
+        <div>
+          <div class="stat-val">{{ sisaSks }}</div>
+          <div class="stat-lbl">SISA KUOTA SKS</div>
+        </div>
+      </div>
+
+      <!-- Peringatan Kuota -->
+      <div v-if="totalSks >= maxSks" style="background:#FEE2E2; border:2px solid #B91C1C; color:#B91C1C; padding:10px; font-weight:bold; font-size:13px;">
+        ⚠️ Kuota SKS Anda telah penuh ({{ totalSks }} SKS). Anda tidak dapat menambah mata kuliah lagi!
+      </div>
+    </div>
+
+    <!-- GRID DUA KOLOM: KATALOG MATA KULIAH VS KRS SAYA -->
+    <div class="grid">
+      <!-- KOLOM KIRI: KATALOG MATA KULIAH DENGAN SEARCH & FILTER -->
+      <div class="card">
+        <h3>📚 Katalog Mata Kuliah FST UT</h3>
+        
+        <!-- Filter Pencarian Real-Time -->
+        <input type="text" v-model="pencarian" placeholder="🔍 Cari nama mata kuliah atau kode...">
+
+        <select v-model="filterSemester">
+          <option value="0">-- Semua Semester --</option>
+          <option value="1">Semester 1</option>
+          <option value="2">Semester 2</option>
+          <option value="3">Semester 3</option>
+          <option value="4">Semester 4</option>
+          <option value="5">Semester 5</option>
+        </select>
+
+        <div style="font-size:12px; color:#6B7280; margin-bottom:8px;">
+          Menampilkan {{ hasilFilterKatalog.length }} mata kuliah:
+        </div>
+
+        <!-- Daftar Katalog -->
+        <div v-for="mk in hasilFilterKatalog" :key="mk.id" class="item-box">
+          <div>
+            <div style="font-weight:bold; font-size:13px;">{{ mk.kode }} - {{ mk.nama }}</div>
+            <div style="font-size:11px; color:#555;">Semester {{ mk.semester }} • <span class="badge-sks">{{ mk.sks }} SKS</span></div>
+          </div>
+
+          <button
+            v-if="!isSudahDipilih(mk.id)"
+            @click="tambahKeKrs(mk)"
+            :disabled="totalSks + mk.sks > maxSks"
+            style="background:var(--mint); font-size:12px; padding:6px 12px;">
+            + Ambil
+          </button>
+          <span v-else style="font-size:11px; font-weight:bold; color:#15803D; background:#DCFCE7; border:1px solid #15803D; padding:4px 8px;">
+            ✓ Terpilih
+          </span>
+        </div>
+      </div>
+
+      <!-- KOLOM KANAN: KARTU RENCANA STUDI (KRS) SAYA -->
+      <div class="card">
+        <h3>🗂️ Kartu Rencana Studi (KRS) Terdaftar</h3>
+
+        <div v-if="krs.length === 0" style="padding:32px 16px; text-align:center; border:2px dashed #9CA3AF; color:#6B7280; margin:16px 0;">
+          Belum ada mata kuliah yang diambil.<br>Silakan pilih dari katalog di sebelah kiri.
+        </div>
+
+        <div v-for="(mk, idx) in krs" :key="mk.id" class="item-box" style="background:#FFFFFF;">
+          <div>
+            <div style="font-weight:bold; font-size:13px;">{{ idx + 1 }}. {{ mk.kode }} - {{ mk.nama }}</div>
+            <span class="badge-sks">{{ mk.sks }} SKS</span>
+          </div>
+          <button @click="hapusDariKrs(mk.id)" style="background:var(--rose); font-size:12px; padding:6px 10px;">
+            ✕ Hapus
+          </button>
+        </div>
+
+        <!-- Tombol Pengesahan KRS -->
+        <div style="margin-top:20px;">
+          <button
+            @click="simpanKrs"
+            :disabled="krs.length === 0"
+            style="width:100%; background:var(--yellow); padding:12px; font-size:15px; font-weight:900;">
+            💾 Simpan & Ajukan KRS ke Penasihat Akademik
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, reactive, computed } = Vue;
+
+    createApp({
+      setup() {
+        const mahasiswa = reactive({
+          nim: '043889977',
+          nama: 'Ahmad Fauzi',
+          prodi: 'S1 Sistem Informasi',
+          semester: 5,
+          ipk: 3.65
+        });
+
+        // Kuota SKS otomatis berdasarkan IPK semester lalu (Aturan Akademik)
+        const maxSks = computed(() => {
+          return mahasiswa.ipk >= 3.00 ? 24 : 20;
+        });
+
+        // Katalog Pilihan Mata Kuliah FST UT
+        const katalog = ref([
+          { id: 'STSI4303', kode: 'STSI4303', nama: 'Pemrograman Berbasis Perangkat Bergerak', sks: 3, semester: 5 },
+          { id: 'MSIM4206', kode: 'MSIM4206', nama: 'Basis Data Terdistribusi', sks: 3, semester: 3 },
+          { id: 'MSIM4301', kode: 'MSIM4301', nama: 'Rekayasa Perangkat Lunak', sks: 3, semester: 4 },
+          { id: 'MSIM4304', kode: 'MSIM4304', nama: 'Jaringan Komputer', sks: 3, semester: 4 },
+          { id: 'STSI4401', kode: 'STSI4401', nama: 'Keamanan Sistem Informasi', sks: 3, semester: 5 },
+          { id: 'MSIM4101', kode: 'MSIM4101', nama: 'Pengantar Sistem Informasi', sks: 3, semester: 1 },
+          { id: 'MSIM4201', kode: 'MSIM4201', nama: 'Struktur Data & Algoritma', sks: 3, semester: 2 },
+          { id: 'MKWU4108', kode: 'MKWU4108', nama: 'Bahasa Indonesia', sks: 2, semester: 1 },
+          { id: 'MKWU4109', kode: 'MKWU4109', nama: 'Pendidikan Agama Islam', sks: 2, semester: 1 }
+        ]);
+
+        const pencarian = ref('');
+        const filterSemester = ref('0');
+        const krs = ref([
+          { id: 'STSI4303', kode: 'STSI4303', nama: 'Pemrograman Berbasis Perangkat Bergerak', sks: 3, semester: 5 }
+        ]);
+
+        // Filter Katalog Dinamis menggunakan computed()
+        const hasilFilterKatalog = computed(() => {
+          return katalog.value.filter(mk => {
+            const cocokNama = mk.nama.toLowerCase().includes(pencarian.value.toLowerCase()) ||
+                              mk.kode.toLowerCase().includes(pencarian.value.toLowerCase());
+            const cocokSem = filterSemester.value === '0' || mk.semester.toString() === filterSemester.value;
+            return cocokNama && cocokSem;
+          });
+        });
+
+        // Validasi apakah MK sudah dipilih
+        const isSudahDipilih = (id) => {
+          return krs.value.some(item => item.id === id);
+        };
+
+        // Total SKS Terambil (Computed)
+        const totalSks = computed(() => {
+          return krs.value.reduce((total, item) => total + item.sks, 0);
+        });
+
+        // Sisa Kuota SKS
+        const sisaSks = computed(() => {
+          return Math.max(0, maxSks.value - totalSks.value);
+        });
+
+        const tambahKeKrs = (mk) => {
+          if (totalSks.value + mk.sks <= maxSks.value && !isSudahDipilih(mk.id)) {
+            krs.value.push(mk);
+          }
+        };
+
+        const hapusDariKrs = (id) => {
+          krs.value = krs.value.filter(item => item.id !== id);
+        };
+
+        const simpanKrs = () => {
+          alert(`✅ KRS Berhasil Diajukan!\nTotal: ${krs.value.length} Mata Kuliah (${totalSks.value} SKS).\nDokumen digital telah terkirim ke Penasihat Akademik.`);
+        };
+
+        return {
+          mahasiswa,
+          maxSks,
+          pencarian,
+          filterSemester,
+          katalog,
+          krs,
+          hasilFilterKatalog,
+          isSudahDipilih,
+          totalSks,
+          sisaSks,
+          tambahKeKrs,
+          hapusDariKrs,
+          simpanKrs
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

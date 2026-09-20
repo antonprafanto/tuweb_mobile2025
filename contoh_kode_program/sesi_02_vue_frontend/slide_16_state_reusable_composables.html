@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 16: Custom Composables & Clean Architecture — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 14px; }
+    .course-card {
+      border: 2px solid var(--border);
+      padding: 12px;
+      background: #F9FAFB;
+      box-shadow: 2px 2px 0 var(--border);
+    }
+    button {
+      background: var(--cyan);
+      border: 2px solid var(--border);
+      padding: 8px 14px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--border);
+      width: 100%;
+      margin-top: 8px;
+    }
+    button:disabled { background: #D1D5DB; cursor: not-allowed; box-shadow: none; }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 16 • MODUL 2 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">State Management Ringan: Pola Custom Composables (useKRSManager)</h1>
+    <p style="margin: 0; font-size: 14px;">Memisahkan logika bisnis dari tampilan antarmuka (UI) agar kode bersih, modular, dan teruji.</p>
+  </div>
+
+  <div id="app" class="card">
+    <h3>🎓 Pemilihan Mata Kuliah Menggunakan Composable</h3>
+
+    <!-- Status SKS Bar -->
+    <div style="background:#EFF6FF; border:2px solid #000; padding:14px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <span style="font-size:13px; font-weight:bold;">Total Beban SKS:</span>
+        <div style="font-size:22px; font-weight:900;">{{ totalSks }} / 24 SKS</div>
+      </div>
+      <div v-if="isPenuh" style="background:#FEE2E2; border:1px solid #B91C1C; color:#B91C1C; padding:6px 12px; font-weight:bold; font-size:12px;">
+        ⚠️ Batas Maksimal SKS Tercapai!
+      </div>
+      <div v-else style="background:#DCFCE7; border:1px solid #15803D; color:#15803D; padding:6px 12px; font-weight:bold; font-size:12px;">
+        ✅ Sisa Kuota: {{ 24 - totalSks }} SKS
+      </div>
+    </div>
+
+    <!-- Katalog Mata Kuliah -->
+    <h4>Katalog Pilihan:</h4>
+    <div class="grid">
+      <div v-for="mk in katalog" :key="mk.id" class="course-card">
+        <div style="font-weight:bold; font-size:13px;">{{ mk.kode }}</div>
+        <div style="font-size:12px; color:#4B5563; min-height:36px;">{{ mk.nama }}</div>
+        <div style="font-weight:bold; font-size:11px; margin-top:4px;">{{ mk.sks }} SKS</div>
+        
+        <button v-if="!isTerpilih(mk.id)" @click="ambilMk(mk)" :disabled="totalSks + mk.sks > 24">
+          + Ambil Mata Kuliah
+        </button>
+        <button v-else @click="lepasMk(mk.id)" style="background:#FEE2E2;">
+          ✓ Terpilih (Klik Batalkan)
+        </button>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 24px;">💡 Struktur Berkas Composable: <code>useKRSManager.js</code></h4>
+    <pre><code>// Logika bisnis terisolasi 100% dari elemen DOM/HTML!
+export function useKRSManager() {
+  const krs = ref([]);
+  const totalSks = computed(() => krs.value.reduce((sum, item) => sum + item.sks, 0));
+  const isPenuh = computed(() => totalSks.value >= 24);
+
+  const ambilMk = (mk) => {
+    if (totalSks.value + mk.sks <= 24) krs.value.push(mk);
+  };
+  const lepasMk = (id) => {
+    krs.value = krs.value.filter(item => item.id !== id);
+  };
+
+  return { krs, totalSks, isPenuh, ambilMk, lepasMk };
+}</code></pre>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    // DEFINISI CUSTOM COMPOSABLE
+    function useKRSManager() {
+      const krs = ref([]);
+
+      const totalSks = computed(() => {
+        return krs.value.reduce((sum, item) => sum + item.sks, 0);
+      });
+
+      const isPenuh = computed(() => totalSks.value >= 24);
+
+      const isTerpilih = (id) => {
+        return krs.value.some(item => item.id === id);
+      };
+
+      const ambilMk = (mk) => {
+        if (totalSks.value + mk.sks <= 24 && !isTerpilih(mk.id)) {
+          krs.value.push(mk);
+        }
+      };
+
+      const lepasMk = (id) => {
+        krs.value = krs.value.filter(item => item.id !== id);
+      };
+
+      return {
+        krs,
+        totalSks,
+        isPenuh,
+        isTerpilih,
+        ambilMk,
+        lepasMk
+      };
+    }
+
+    createApp({
+      setup() {
+        const katalog = [
+          { id: 1, kode: 'STSI4303', nama: 'Pemrograman Bergerak', sks: 3 },
+          { id: 2, kode: 'MSIM4206', nama: 'Basis Data', sks: 3 },
+          { id: 3, kode: 'MSIM4301', nama: 'Rekayasa Perangkat Lunak', sks: 3 },
+          { id: 4, kode: 'MSIM4304', nama: 'Jaringan Komputer', sks: 3 },
+          { id: 5, kode: 'STSI4401', nama: 'Keamanan Sistem Informasi', sks: 3 },
+          { id: 6, kode: 'MSIM4408', nama: 'Tugas Akhir Program (TAP)', sks: 4 },
+          { id: 7, kode: 'MKWU4108', nama: 'Bahasa Indonesia', sks: 2 },
+          { id: 8, kode: 'MKWU4109', nama: 'Pendidikan Kewarganegaraan', sks: 2 },
+          { id: 9, kode: 'STSI4209', nama: 'Sistem Operasi Mobile', sks: 3 }
+        ];
+
+        // Konsumsi Composable di dalam komponen
+        const { krs, totalSks, isPenuh, isTerpilih, ambilMk, lepasMk } = useKRSManager();
+
+        return {
+          katalog,
+          krs,
+          totalSks,
+          isPenuh,
+          isTerpilih,
+          ambilMk,
+          lepasMk
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 13: Props & Komunikasi Induk-ke-Anak — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .tutor-card {
+      background: #FFFFFF;
+      border: 3px solid var(--border);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 4px 4px 0 var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .badge-mk {
+      display: inline-block;
+      background: var(--yellow);
+      border: 1px solid var(--border);
+      font-size: 11px;
+      font-weight: bold;
+      padding: 2px 6px;
+      margin-top: 4px;
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 13 • MODUL 2 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Komunikasi Komponen: Aliran Data Satu Arah via Props (Parent → Child)</h1>
+    <p style="margin: 0; font-size: 14px;">Komponen induk menyalurkan data ke komponen anak yang dapat digunakan berulang kali (*reusable*).</p>
+  </div>
+
+  <div id="app" style="max-width:760px; margin:0 auto;">
+    <!-- KOMPONEN INDUK (PARENT) -->
+    <div style="background:#FFFFFF; border:3px solid #000; padding:20px; box-shadow:5px 5px 0 #000; margin-bottom:20px;">
+      <h3>👨‍🏫 Komponen Induk: Daftar Tutor Pengampu Tuton FST UT</h3>
+      <p style="font-size:13px; color:#555;">Data array di bawah ini berada di komponen induk dan dikirimkan ke sub-komponen menggunakan atribut <code>:tutor="item"</code>:</p>
+
+      <!-- Mengulang Sub-Komponen Anak dengan Props -->
+      <kartu-tutor
+        v-for="item in listTutor"
+        :key="item.id"
+        :nama="item.nama"
+        :mata-kuliah="item.mk"
+        :kelas="item.kelas"
+        :rating="item.rating">
+      </kartu-tutor>
+    </div>
+
+    <!-- PENJELASAN ATURAN PROPS -->
+    <div style="background:#FFFFFF; border:3px solid #000; padding:20px; box-shadow:5px 5px 0 #000;">
+      <h4>💡 Aturan Emas Aliran Data Satu Arah (One-Way Data Flow):</h4>
+      <pre><code>// 1. Komponen Anak Mendefinisikan Props yang Diterima
+const KartuTutor = {
+  props: {
+    nama: { type: String, required: true },
+    mataKuliah: String,
+    kelas: String,
+    rating: Number
+  },
+  template: `...`
+};
+
+// 2. Komponen Induk Mengirimkan Nilai secara Dinamis
+&lt;kartu-tutor :nama="item.nama" :mata-kuliah="item.mk" /&gt;</code></pre>
+      <div style="background:#FEE2E2; border-left:4px solid #EF4444; padding:10px; font-size:13px;">
+        🚫 <strong>Dilarang Keras:</strong> Komponen anak <em>tidak boleh</em> mengubah langsung nilai <code>props</code> (misal: <code>props.rating = 5</code>). Jika anak ingin mengubah data, ia wajib mengirimkan sinyal event ke induk melalui <code>emit</code>!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    // DEFINISI KOMPONEN ANAK (CHILD COMPONENT)
+    const KartuTutor = {
+      props: {
+        nama: { type: String, required: true },
+        mataKuliah: { type: String, default: 'Mata Kuliah Umum' },
+        kelas: { type: String, default: '01' },
+        rating: { type: Number, default: 5.0 }
+      },
+      template: `
+        <div class="tutor-card">
+          <div>
+            <div style="font-weight:900; font-size:15px;">{{ nama }}</div>
+            <div class="badge-mk">{{ mataKuliah }} (Kelas {{ kelas }})</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:13px; font-weight:bold; color:#D97706;">⭐ {{ rating.toFixed(1) }} / 5.0</div>
+            <span style="font-size:11px; background:#DCFCE7; border:1px solid #000; padding:2px 6px; font-weight:bold;">Tutor Terverifikasi</span>
+          </div>
+        </div>
+      `
+    };
+
+    // APLIKASI INDUK (PARENT APP)
+    createApp({
+      components: {
+        'kartu-tutor': KartuTutor
+      },
+      setup() {
+        const listTutor = ref([
+          { id: 1, nama: 'Anton Prafanto, S.Kom., M.T.', mk: 'STSI4303 Pemrograman Bergerak', kelas: '01', rating: 4.9 },
+          { id: 2, nama: 'Dr. Ir. Hendra Kusuma, M.Kom.', mk: 'MSIM4206 Basis Data', kelas: '03', rating: 4.8 },
+          { id: 3, nama: 'Siti Marlina, S.T., M.Kom.', mk: 'MSIM4301 Rekayasa Perangkat Lunak', kelas: '02', rating: 4.7 }
+        ]);
+
+        return { listTutor };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

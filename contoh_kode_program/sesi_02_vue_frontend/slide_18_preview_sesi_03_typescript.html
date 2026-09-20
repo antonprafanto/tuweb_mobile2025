@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 18: Jembatan Menuju Sesi 03 TypeScript — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+    button {
+      background: var(--purple);
+      color: #000;
+      border: 2px solid var(--border);
+      padding: 10px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border);
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 18 • JEMBATAN MENUJU SESI 03</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Mengapa Vue 3 Butuh TypeScript? Bahaya Bug Runtime vs Proteksi Interface</h1>
+    <p style="margin: 0; font-size: 14px;">Melihat secara langsung bagaimana TypeScript menyelamatkan aplikasi mobile kita dari bug fatal <code>undefined</code>.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- JAVASCRIPT MURNI (SESI 2) -->
+    <div class="card">
+      <span style="background:var(--rose); padding:3px 8px; border:1px solid #000; font-weight:bold; font-size:11px;">
+        JAVASCRIPT MURNI (DYNAMIC TYPING)
+      </span>
+      <h3>⚠️ Bencana Typo Tanpa Peringatan</h3>
+      <p style="font-size:13px; color:#555;">
+        Di JavaScript, jika Anda salah ketik nama properti (misal: <code>mhs.skorIpk</code> padahal aslinya <code>mhs.ipk</code>), JavaScript tidak akan memberi tahu error saat ngoding, melainkan menghasilkan nilai <code>undefined</code> di HP pengguna!
+      </p>
+
+      <div style="background:#FEE2E2; border:2px solid #000; padding:12px; margin:10px 0;">
+        <div>Nama: <strong>{{ mhsJS.nama }}</strong></div>
+        <div>IPK (Typo Akses Properti): <strong style="color:#B91C1C;">{{ hasilKalkulasiJS }}</strong></div>
+      </div>
+
+      <button @click="simulasikanErrorJS" style="background:var(--rose);">
+        💥 Buktikan Typo JavaScript (Klik Di Sini)
+      </button>
+
+      <pre><code>// JavaScript diam saja saat kita typo:
+const hasil = mhs.skorIpk * 25; 
+// undefined * 25 === NaN (Crash logika!)</code></pre>
+    </div>
+
+    <!-- TYPESCRIPT DENGAN INTERFACE (PREVIEW SESI 3) -->
+    <div class="card">
+      <span style="background:var(--mint); padding:3px 8px; border:1px solid #000; font-weight:bold; font-size:11px;">
+        TYPESCRIPT + VUE 3 (STATIC CONTRACT)
+      </span>
+      <h3>🛡️ Proteksi Kontrak Kuat (Interface)</h3>
+      <p style="font-size:13px; color:#555;">
+        Di Sesi 03 pekan depan, kita akan menerapkan <strong>TypeScript Interface</strong>. Jika salah ketik satu huruf saja, editor VS Code langsung memberi garis merah sebelum aplikasi sempat dijalankan!
+      </p>
+
+      <pre><code>// Definisi Kontrak Data (Sesi 03)
+interface Mahasiswa {
+  nim: string;
+  nama: string;
+  ipk: number;
+}
+
+const mhs: Mahasiswa = {
+  nim: '043123456',
+  nama: 'Budi',
+  ipk: 3.75
+};
+
+// ❌ ERROR SAAT KETIK:
+// Property 'skorIpk' does not exist on type 'Mahasiswa'!
+console.log(mhs.skorIpk);</code></pre>
+
+      <div style="background:#EFF6FF; border-left:4px solid #3B82F6; padding:10px; font-size:13px; margin-top:10px;">
+        🚀 <strong>Persiapan Sesi 03:</strong> Kita akan mengupas tuntas TypeScript Interface, Generics, dan <code>&lt;script setup lang="ts"&gt;</code> untuk menyelesaikan <strong>TUGAS TUTORIAL 1</strong>!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const mhsJS = {
+          nim: '043112233',
+          nama: 'Rian Pratama',
+          ipk: 3.80
+        };
+
+        const hasilKalkulasiJS = ref('Belum diuji');
+
+        const simulasikanErrorJS = () => {
+          // Sengaja typo memanggil .skorIpk padahal propertinya .ipk
+          const typoValue = mhsJS.skorIpk; 
+          const kalkulasi = typoValue * 25; // undefined * 25 = NaN
+          hasilKalkulasiJS.value = `Nilai: ${typoValue} (Hasil Kali: ${kalkulasi})`;
+          alert('⚠️ Terjadi bug silent! mhs.skorIpk bernilai undefined, menghasilkan NaN pada aplikasi.');
+        };
+
+        return {
+          mhsJS,
+          hasilKalkulasiJS,
+          simulasikanErrorJS
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

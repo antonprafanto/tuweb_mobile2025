@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 01: Paradigma Imperatif vs Deklaratif — Sesi 02 STSI4303</title>
+  <!-- Load Vue.js 3 via CDN Global Build (Bebas instalasi / Zero-Friction) -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .header h1 { margin: 0 0 6px 0; font-size: 22px; }
+    .header p { margin: 0; font-size: 14px; font-weight: 500; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      margin-bottom: 12px;
+    }
+    .badge-imperative { background: var(--rose); color: #000; }
+    .badge-declarative { background: var(--mint); color: #000; }
+    .counter-display {
+      font-size: 36px;
+      font-weight: 900;
+      padding: 12px;
+      text-align: center;
+      background: #F3F4F6;
+      border: 2px solid var(--border);
+      margin: 14px 0;
+    }
+    button {
+      background: var(--cyan);
+      border: 2px solid var(--border);
+      padding: 10px 18px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border);
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--border); }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+      border-radius: 0;
+      margin-top: 14px;
+    }
+    .note {
+      background: #EFF6FF;
+      border-left: 4px solid #3B82F6;
+      padding: 10px;
+      font-size: 13px;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge" style="background:#fff;">SLIDE 01 • MODUL 2 BMP UT</div>
+    <h1>Paradigma Pemrograman: Imperatif (Vanilla JS) vs Deklaratif (Vue.js 3)</h1>
+    <p>Perhatikan perbedaan cara kerja: Pendekatan manual mencari elemen DOM vs Pendekatan reaktif berbasis state.</p>
+  </div>
+
+  <div class="grid">
+    <!-- PANEL 1: CARA IMPERATIF (VANILLA JS LAMA) -->
+    <div class="box">
+      <span class="badge badge-imperative">CARA IMPERATIF (VANILLA JAVASCRIPT)</span>
+      <h3>Manipulasi DOM Manual</h3>
+      <p style="font-size: 13px; color: #4B5563;">
+        Pengembang harus mencari elemen dengan <code>getElementById</code> dan memerintahkan browser langkah demi langkah bagaimana memperbarui teksnya.
+      </p>
+      
+      <div id="vanilla-counter" class="counter-display">0</div>
+      <button id="btn-vanilla-tambah">Tambah (+1)</button>
+      <button id="btn-vanilla-reset" style="background:#E5E7EB;">Reset</button>
+
+      <pre><code>// 1. Inisialisasi variabel manual
+let count = 0;
+const display = document.getElementById('vanilla-counter');
+
+// 2. Pasang event listener manual
+document.getElementById('btn-vanilla-tambah')
+  .addEventListener('click', () => {
+    count++;
+    // 3. Wajib manual perbarui teks DOM!
+    display.textContent = count;
+  });</code></pre>
+
+      <div class="note">
+        ⚠️ <strong>Kelemahan Imperatif:</strong> Jika ada 10 elemen yang bergantung pada <code>count</code>, Anda harus menulis 10 baris kode mutasi DOM secara manual. Rawan lupa dan rawan bug!
+      </div>
+    </div>
+
+    <!-- PANEL 2: CARA DEKLARATIF (VUE.JS 3 MODERN) -->
+    <div id="vue-app" class="box">
+      <span class="badge badge-declarative">CARA DEKLARATIF (VUE.JS 3 REAKTIF)</span>
+      <h3>Fokus pada Data (State-Driven UI)</h3>
+      <p style="font-size: 13px; color: #4B5563;">
+        Pengembang cukup mendefinisikan data reaktif (<code>ref</code>). Ketika data berubah, antarmuka otomatis memperbarui dirinya sendiri secara cerdas.
+      </p>
+
+      <!-- Template Declarative Binding -->
+      <div class="counter-display">{{ count }}</div>
+      <button @click="tambah">Tambah (+1)</button>
+      <button @click="reset" style="background:#E5E7EB;">Reset</button>
+
+      <pre><code>// Menggunakan Vue 3 Composition API
+const { createApp, ref } = Vue;
+
+createApp({
+  setup() {
+    // Cukup ubah state, UI ikut otomatis!
+    const count = ref(0);
+    const tambah = () => count.value++;
+    const reset = () => count.value = 0;
+
+    return { count, tambah, reset };
+  }
+}).mount('#vue-app');</code></pre>
+
+      <div class="note">
+        ✅ <strong>Kelebihan Deklaratif:</strong> Tidak ada lagi <code>getElementById</code> atau <code>innerHTML</code>. Kode jauh lebih ringkas, aman, dan mudah diuji pada aplikasi mobile berskala besar!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- SKRIP SISI IMPERATIF (VANILLA JS) ---
+    let vanillaCount = 0;
+    const vanillaDisplay = document.getElementById('vanilla-counter');
+    document.getElementById('btn-vanilla-tambah').addEventListener('click', () => {
+      vanillaCount++;
+      vanillaDisplay.textContent = vanillaCount;
+    });
+    document.getElementById('btn-vanilla-reset').addEventListener('click', () => {
+      vanillaCount = 0;
+      vanillaDisplay.textContent = vanillaCount;
+    });
+
+    // --- SKRIP SISI DEKLARATIF (VUE.JS 3) ---
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const count = ref(0);
+        const tambah = () => count.value++;
+        const reset = () => count.value = 0;
+
+        return { count, tambah, reset };
+      }
+    }).mount('#vue-app');
+  </script>
+</body>
+</html>

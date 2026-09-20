@@ -11,10 +11,13 @@ Selamat datang di repositori resmi materi perkuliahan **Pemrograman Berbasis Per
 tuweb_mobile2025/
 ├── 📁 slide_presentasi/                     # Bahan Ajar Visual (PPTX) & Naskah Narasi Sesi
 │   ├── 📊 SESI_01_Pengantar_dan_Lingkungan_Ionic.pptx
-│   └── 📄 SESI_01_Pengantar_dan_Lingkungan_Ionic.md
+│   ├── 📄 SESI_01_Pengantar_dan_Lingkungan_Ionic.md
+│   ├── 📊 SESI_02_Frontend_Modern_Vue.pptx
+│   └── 📄 SESI_02_Frontend_Modern_Vue.md
 │
 ├── 📁 contoh_kode_program/                  # Berkas Kode Mandiri Siap Eksekusi (Zero-Friction)
-│   └── 📁 sesi_01_lingkungan_dan_tools/     # [18 berkas] Node.js, Web Components & KTM Digital
+│   ├── 📁 sesi_01_lingkungan_dan_tools/     # [18 berkas] Node.js, Web Components & KTM Digital
+│   └── 📁 sesi_02_vue_frontend/             # [18 berkas] Vue 3 Reactivity, Directives & KRS Online
 │
 ├── 📁 panduan_tutorial_ut/                  # Instrumen Akademik Resmi FST UT
 │   ├── 📋 RANCANGAN_AKTIVITAS_TUTORIAL_RAT.md  # Silabus RAT/SAT & Peta Kompetensi STSI4303
@@ -32,7 +35,7 @@ tuweb_mobile2025/
 | Sesi | Modul BMP | Topik Pokok Pembahasan | Materi Slide Sesi (PPTX & Naskah) | Berkas Kode Mandiri | Status & Tagihan |
 | :---: | :---: | :--- | :--- | :---: | :---: |
 | **01** | Modul 1 | Pengenalan Lingkungan & Arsitektur Hybrid | [⚡ Download S01 (.pptx)](slide_presentasi/SESI_01_Pengantar_dan_Lingkungan_Ionic.pptx)<br>[👁️ Baca Online S01](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_01_Pengantar_dan_Lingkungan_Ionic.pptx)<br>[📄 Naskah Slide S01](slide_presentasi/SESI_01_Pengantar_dan_Lingkungan_Ionic.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_01_lingkungan_dan_tools/)<br>• [Solusi Lab Quest 01](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html) | ✅ **Rilis Lengkap**<br>💬 Diskusi 1 |
-| **02** | Modul 2 | Frontend Modern Menggunakan Vue.js 3 | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 💬 Diskusi 2 |
+| **02** | Modul 2 | Frontend Modern Menggunakan Vue.js 3 | [⚡ Download S02 (.pptx)](slide_presentasi/SESI_02_Frontend_Modern_Vue.pptx)<br>[👁️ Baca Online S02](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_02_Frontend_Modern_Vue.pptx)<br>[📄 Naskah Slide S02](slide_presentasi/SESI_02_Frontend_Modern_Vue.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_02_vue_frontend/)<br>• [Solusi Lab Quest 02](contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html) | ✅ **Rilis Lengkap**<br>💬 Diskusi 2 |
 | **03** | Modul 3 | Praktikum 1: TypeScript & Komposisi Vue | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 🎯 **TUGAS 1** |
 | **04** | Modul 4 | Dasar-Dasar Ionic Framework & Navigasi | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 💬 Diskusi 4 |
 | **05** | Modul 5 | Layout Grid, Dynamic Theme, & Form Regex | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 🎯 **TUGAS 2** |
@@ -64,6 +67,32 @@ tuweb_mobile2025/
 | **Slide 16** | Cheatsheet Perintah Esensial Terminal & Git untuk Tugas Kuliah | [`slide_16_cheatsheet_terminal_git.md`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_16_cheatsheet_terminal_git.md) |
 | **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 01:** KTM Digital Mahasiswa UT | [`slide_17_lab_quest_01_profil_mahasiswa.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html) |
 | **Slide 18** | Jembatan Sesi 02: Membandingkan DOM Kuno vs Vue.js 3 Reaktif | [`slide_18_preview_sesi_02_vue.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_18_preview_sesi_02_vue.html) |
+
+---
+
+### 📱 Rincian 18 Berkas Mandiri Sesi 02 (Frontend Modern Vue.js 3)
+
+| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run) |
+| :---: | :--- | :--- |
+| **Slide 01** | Paradigma: Komparasi Berdampingan Vanilla JS DOM vs Vue 3 | [`slide_01_paradigma_imperatif_vs_deklaratif.html`](contoh_kode_program/sesi_02_vue_frontend/slide_01_paradigma_imperatif_vs_deklaratif.html) |
+| **Slide 02** | Reaktivitas Primitif: `ref()` dan Unboxing Otomatis `.value` | [`slide_02_sistem_reaktivitas_ref.html`](contoh_kode_program/sesi_02_vue_frontend/slide_02_sistem_reaktivitas_ref.html) |
+| **Slide 03** | Reaktivitas Objek: `reactive()` & Mekanisme ES6 Proxy | [`slide_03_reaktivitas_objek_reactive.html`](contoh_kode_program/sesi_02_vue_frontend/slide_03_reaktivitas_objek_reactive.html) |
+| **Slide 04** | Text Interpolation `{{ }}` & Pengikatan Dinamis `v-bind` (`:`) | [`slide_04_text_interpolation_v_bind.html`](contoh_kode_program/sesi_02_vue_frontend/slide_04_text_interpolation_v_bind.html) |
+| **Slide 05** | Form Masukan Dua Arah `v-model` & Modifiers (`.trim`, `.number`) | [`slide_05_two_way_binding_v_model.html`](contoh_kode_program/sesi_02_vue_frontend/slide_05_two_way_binding_v_model.html) |
+| **Slide 06** | Bedah Performa Memori: `v-if` (Bongkar DOM) vs `v-show` (CSS Toggle) | [`slide_06_conditional_v_if_vs_v_show.html`](contoh_kode_program/sesi_02_vue_frontend/slide_06_conditional_v_if_vs_v_show.html) |
+| **Slide 07** | Render List `v-for` & Urgensi Atribut `:key` Identitas Unik | [`slide_07_list_rendering_v_for_dan_key.html`](contoh_kode_program/sesi_02_vue_frontend/slide_07_list_rendering_v_for_dan_key.html) |
+| **Slide 08** | Penanganan Event (`@click`) & Modifiers (`.prevent`, `.stop`) | [`slide_08_event_handling_dan_modifiers.html`](contoh_kode_program/sesi_02_vue_frontend/slide_08_event_handling_dan_modifiers.html) |
+| **Slide 09** | Properti Terkalkulasi `computed()` & Efisiensi Caching Nilai IPS | [`slide_09_computed_properties_ips.html`](contoh_kode_program/sesi_02_vue_frontend/slide_09_computed_properties_ips.html) |
+| **Slide 10** | Pemantau Data `watch()` & Side Effects (Auto-Save `localStorage`) | [`slide_10_watchers_dan_side_effects.html`](contoh_kode_program/sesi_02_vue_frontend/slide_10_watchers_dan_side_effects.html) |
+| **Slide 11** | Siklus Hidup: `onMounted`, `onUpdated`, & `onUnmounted` (Cleanup RAM) | [`slide_11_lifecycle_hooks_onmounted.html`](contoh_kode_program/sesi_02_vue_frontend/slide_11_lifecycle_hooks_onmounted.html) |
+| **Slide 12** | Anatomi Single File Component (`<template>`, `<script>`, `<style>`) | [`slide_12_komposisi_komponen_sfc.html`](contoh_kode_program/sesi_02_vue_frontend/slide_12_komposisi_komponen_sfc.html) |
+| **Slide 13** | Komunikasi Induk ke Anak: Aliran Data Satu Arah via `props` | [`slide_13_props_aliran_data_induk_anak.html`](contoh_kode_program/sesi_02_vue_frontend/slide_13_props_aliran_data_induk_anak.html) |
+| **Slide 14** | Komunikasi Anak ke Induk: Sinyal Custom Events via `emit()` | [`slide_14_emits_komunikasi_anak_ke_induk.html`](contoh_kode_program/sesi_02_vue_frontend/slide_14_emits_komunikasi_anak_ke_induk.html) |
+| **Slide 15** | Proyeksi Konten Fleksibel: Default Slot & Named Slots (`<slot>`) | [`slide_15_slots_proyeksi_konten_fleksibel.html`](contoh_kode_program/sesi_02_vue_frontend/slide_15_slots_proyeksi_konten_fleksibel.html) |
+| **Slide 16** | Clean Architecture: State Reusable Composable (`useKRSManager`) | [`slide_16_state_reusable_composables.html`](contoh_kode_program/sesi_02_vue_frontend/slide_16_state_reusable_composables.html) |
+| **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 02:** Aplikasi KRS Mandiri Mahasiswa UT | [`slide_17_lab_quest_02_krs_interaktif.html`](contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html) |
+| **Slide 18** | Jembatan Sesi 03: Mengapa Butuh TypeScript Interface? | [`slide_18_preview_sesi_03_typescript.html`](contoh_kode_program/sesi_02_vue_frontend/slide_18_preview_sesi_03_typescript.html) |
+
 
 ---
 

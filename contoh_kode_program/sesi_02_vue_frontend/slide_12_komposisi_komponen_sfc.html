@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 12: Anatomi Single File Component (SFC) — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .tab-btn {
+      background: #E5E7EB;
+      border: 2px solid var(--border);
+      padding: 8px 14px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      margin-right: 6px;
+      box-shadow: 2px 2px 0 var(--border);
+    }
+    .tab-btn.active {
+      background: var(--yellow);
+    }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 14px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 13px;
+      overflow-x: auto;
+      margin-top: 14px;
+      min-height: 240px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 12 • MODUL 2 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Anatomi Single File Component (SFC .vue): Template, Script, & Style Scoped</h1>
+    <p style="margin: 0; font-size: 14px;">Standar arsitektur industri merangkum struktur, perilaku, dan gaya dalam satu berkas modular.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANEL KIRI: BEDAH KODE BERKAS .VUE -->
+    <div class="card">
+      <h3>🧩 Struktur Berkas: <code>KartuMahasiswa.vue</code></h3>
+      <div>
+        <button :class="['tab-btn', activeTab === 'all' ? 'active' : '']" @click="activeTab = 'all'">📄 Lengkap (.vue)</button>
+        <button :class="['tab-btn', activeTab === 'template' ? 'active' : '']" @click="activeTab = 'template'">1. &lt;template&gt;</button>
+        <button :class="['tab-btn', activeTab === 'script' ? 'active' : '']" @click="activeTab = 'script'">2. &lt;script&gt;</button>
+        <button :class="['tab-btn', activeTab === 'style' ? 'active' : '']" @click="activeTab = 'style'">3. &lt;style scoped&gt;</button>
+      </div>
+
+      <pre><code>{{ getSnippet() }}</code></pre>
+    </div>
+
+    <!-- PANEL KANAN: HASIL RENDER INTERAKTIF -->
+    <div class="card">
+      <h3>📱 Live Render Komponen</h3>
+      <p style="font-size:13px; color:#555;">Berikut adalah hasil kompilasi komponen di atas saat dijalankan di aplikasi ponsel:</p>
+
+      <!-- Render Komponen Nyata -->
+      <div style="border:3px solid #000; padding:16px; background:#EFF6FF; box-shadow:4px 4px 0 #000;">
+        <div style="font-weight:bold; font-size:16px; color:#1E40AF;">{{ nama }}</div>
+        <div style="font-size:13px; color:#4B5563;">NIM: {{ nim }} • Semester {{ semester }}</div>
+        <div style="margin-top:10px;">
+          <button @click="semester++" style="background:var(--mint); border:2px solid #000; padding:6px 12px; font-weight:bold; cursor:pointer; box-shadow:2px 2px 0 #000;">
+            🎓 Naik Semester ({{ semester }})
+          </button>
+        </div>
+      </div>
+
+      <div style="background:#FEF3C7; border-left:4px solid #F59E0B; padding:12px; font-size:13px; margin-top:16px;">
+        💡 <strong>Urgensi &lt;style scoped&gt;:</strong> Di aplikasi mobile yang memiliki ratusan komponen, kata kunci <code>scoped</code> memastikan gaya CSS di komponen ini <strong>tidak akan bocor</strong> atau merusak tampilan komponen lain!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const activeTab = ref('all');
+        const nama = ref('Dwi Rahmawati');
+        const nim = ref('048112233');
+        const semester = ref(5);
+
+        const snippets = {
+          all: `<template>
+  <div class="student-card">
+    <h3>{{ nama }}</h3>
+    <p>NIM: {{ nim }} • Semester {{ semester }}</p>
+    <button @click="semester++">Naik Semester</button>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+const nama = ref('Dwi Rahmawati');
+const nim = ref('048112233');
+const semester = ref(5);
+<\/script>
+
+<style scoped>
+.student-card {
+  border: 3px solid #000;
+  padding: 16px;
+  background: #EFF6FF;
+}
+</style>`,
+          template: `<template>
+  <!-- 1. TEMPLATE: Struktur Tampilan HTML -->
+  <div class="student-card">
+    <h3>{{ nama }}</h3>
+    <p>NIM: {{ nim }} • Semester {{ semester }}</p>
+    <button @click="semester++">Naik Semester</button>
+  </div>
+</template>`,
+          script: `<script setup>
+// 2. SCRIPT SETUP: Logika Composition API Modern
+import { ref } from 'vue';
+
+const nama = ref('Dwi Rahmawati');
+const nim = ref('048112233');
+const semester = ref(5);
+<\/script>`,
+          style: `<style scoped>
+/* 3. STYLE SCOPED: Terisolasi khusus komponen ini saja */
+.student-card {
+  border: 3px solid #000;
+  padding: 16px;
+  background: #EFF6FF;
+}
+button {
+  background: #4ADE80;
+  font-weight: bold;
+}
+</style>`
+        };
+
+        const getSnippet = () => snippets[activeTab.value];
+
+        return {
+          activeTab,
+          nama,
+          nim,
+          semester,
+          getSnippet
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

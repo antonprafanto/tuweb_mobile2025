@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 11: Siklus Hidup Lifecycle Hooks — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .timer-display {
+      font-size: 44px;
+      font-weight: 900;
+      text-align: center;
+      padding: 16px;
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      margin: 16px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    button {
+      border: 2px solid var(--border);
+      padding: 10px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border);
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--border); }
+    .log-terminal {
+      background: #121212;
+      color: #38BDF8;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      height: 120px;
+      overflow-y: auto;
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 11 • MODUL 2 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Siklus Hidup Komponen: onMounted, onUpdated, & onUnmounted</h1>
+    <p style="margin: 0; font-size: 14px;">Mengelola inisialisasi resource dan membersihkan memori (mencegah memory leak).</p>
+  </div>
+
+  <div id="app" class="card">
+    <div style="margin-bottom: 16px;">
+      <button @click="showTimer = !showTimer" :style="{ background: showTimer ? '#FEE2E2' : '#DCFCE7' }">
+        {{ showTimer ? '🔴 Bongkar Komponen (Unmount Timer)' : '🟢 Pasang Komponen (Mount Timer)' }}
+      </button>
+    </div>
+
+    <!-- Sub-Komponen Timer -->
+    <timer-widget v-if="showTimer" @log="tambahLog"></timer-widget>
+    
+    <div v-else style="padding: 24px; text-align:center; background:#F3F4F6; border:2px dashed #000;">
+      Komponen Timer sedang <strong>TIDAK AKTIF (Unmounted)</strong>. Interval dibersihkan dari RAM!
+    </div>
+
+    <h4 style="margin-top: 20px;">📋 Log Siklus Hidup Lifecycle (Real-Time):</h4>
+    <div class="log-terminal">
+      <div v-for="(item, idx) in logs" :key="idx">> {{ item }}</div>
+      <div v-if="logs.length === 0" style="color:#666;">Menunggu aktivitas lifecycle...</div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, onMounted, onUpdated, onUnmounted } = Vue;
+
+    // Definisikan Sub-Komponen Timer
+    const TimerWidget = {
+      template: `
+        <div style="background:#FEF9C3; border:2px solid #000; padding:16px;">
+          <div style="font-weight:bold;">⏱️ Pengukur Waktu Sesi Belajar Mandiri:</div>
+          <div class="timer-display">{{ detik }} Detik</div>
+          <button @click="detik += 10" style="background:var(--cyan);">+10 Detik (@click triggers onUpdated)</button>
+        </div>
+      `,
+      emits: ['log'],
+      setup(props, { emit }) {
+        const detik = ref(0);
+        let intervalId = null;
+
+        // 1. onMounted: Dipanggil saat komponen pertama kali menempel di layar
+        onMounted(() => {
+          emit('log', '🟢 [onMounted] TimerWidget terpasang di DOM. Memulai setInterval...');
+          intervalId = setInterval(() => {
+            detik.value++;
+          }, 1000);
+        });
+
+        // 2. onUpdated: Dipanggil saat state berubah dan DOM diperbarui
+        onUpdated(() => {
+          emit('log', `🟡 [onUpdated] Nilai detik diperbarui menjadi: ${detik.value}`);
+        });
+
+        // 3. onUnmounted: WAJIB membersihkan interval agar RAM ponsel tidak bocor
+        onUnmounted(() => {
+          emit('log', '🔴 [onUnmounted] TimerWidget dibongkar! Membersihkan clearInterval...');
+          clearInterval(intervalId);
+        });
+
+        return { detik };
+      }
+    };
+
+    createApp({
+      components: {
+        'timer-widget': TimerWidget
+      },
+      setup() {
+        const showTimer = ref(true);
+        const logs = ref([]);
+
+        const tambahLog = (pesan) => {
+          const t = new Date().toLocaleTimeString();
+          logs.value.unshift(`[${t}] ${pesan}`);
+        };
+
+        return { showTimer, logs, tambahLog };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

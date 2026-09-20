@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 05: Two-Way Data Binding v-model — Sesi 02 STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .form-group { margin-bottom: 14px; }
+    label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      padding: 9px;
+      border: 2px solid var(--border);
+      font-size: 14px;
+    }
+    .checkbox-group, .radio-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+    .checkbox-group label, .radio-group label { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; }
+    pre {
+      background: #121212;
+      color: #38BDF8;
+      padding: 14px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 05 • MODUL 2 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Pengikatan Data Dua Arah (v-model) & Input Modifiers</h1>
+    <p style="margin: 0; font-size: 14px;">Sinkronisasi otomatis antara input antarmuka pengguna dengan state JavaScript.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANEL FORMULIR MASUKAN -->
+    <div class="card">
+      <h3>📋 Formulir Peminatan Riset Skripsi FST UT</h3>
+
+      <div class="form-group">
+        <label>Nama Mahasiswa (.trim modifier):</label>
+        <input type="text" v-model.trim="form.nama" placeholder="Ketik nama lengkap...">
+      </div>
+
+      <div class="form-group">
+        <label>Target Semester Lulus (.number modifier):</label>
+        <input type="number" v-model.number="form.targetSemester" min="7" max="14">
+      </div>
+
+      <div class="form-group">
+        <label>Pilihan Program Studi (Dropdown):</label>
+        <select v-model="form.prodi">
+          <option value="">-- Pilih Program Studi --</option>
+          <option value="Sistem Informasi">S1 Sistem Informasi</option>
+          <option value="Informatika">S1 Informatika</option>
+          <option value="Sains Data">S1 Sains Data</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Fokus Riset Peminatan (Multiple Checkbox):</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" value="Mobile Ionic Vue" v-model="form.minat"> Mobile Ionic Vue</label>
+          <label><input type="checkbox" value="AI & Machine Learning" v-model="form.minat"> AI & ML</label>
+          <label><input type="checkbox" value="Cloud Computing" v-model="form.minat"> Cloud</label>
+          <label><input type="checkbox" value="Cyber Security" v-model="form.minat"> Cyber Security</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Jalur Bimbingan (Radio):</label>
+        <div class="radio-group">
+          <label><input type="radio" value="Reguler Online (Tuton)" v-model="form.jalur"> Reguler Tuton</label>
+          <label><input type="radio" value="Bimbingan Tuweb Khusus" v-model="form.jalur"> Tuweb Khusus</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL INSPEKSI STATE JSON (LIVE STATE) -->
+    <div class="card">
+      <h3>⚡ Live Reaktif State (Data Model JSON)</h3>
+      <p style="font-size: 13px; color: #555;">Ketik atau pilih opsi di sebelah kiri, objek state di bawah terbarui tanpa lag:</p>
+      
+      <pre><code>{{ JSON.stringify(form, null, 2) }}</code></pre>
+
+      <div style="background:#ECFDF5; border-left:4px solid #10B981; padding:12px; font-size:13px; margin-top:14px;">
+        💡 <strong>Tiga Modifiers Sakti v-model:</strong>
+        <ul style="margin:6px 0 0 16px; padding:0;">
+          <li><code>.trim</code> : Otomatis menghapus spasi kosong di awal & akhir.</li>
+          <li><code>.number</code> : Mengonversi string input menjadi angka numerik asli.</li>
+          <li><code>.lazy</code> : Menunda sinkronisasi hingga event <code>change</code> (saat blur).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, reactive } = Vue;
+
+    createApp({
+      setup() {
+        const form = reactive({
+          nama: 'Budi Darmawan',
+          targetSemester: 8,
+          prodi: 'Sistem Informasi',
+          minat: ['Mobile Ionic Vue'],
+          jalur: 'Reguler Online (Tuton)'
+        });
+
+        return { form };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
