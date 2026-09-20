@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 02: Siklus Rilis APK Debug vs Release — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--cyan);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .comp-card {
+      border: 2px solid #000;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 02 • SIKLUS PRODUKSI APLIKASI</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Siklus Rilis: Komparasi APK Debug vs APK Release Signed</h1>
+    <p style="margin: 0; font-size: 14px;">Mengapa berkas APK hasil tombol 'Run' Android Studio tidak boleh dibagikan langsung ke pengguna akhir.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- APK DEBUG -->
+    <div class="box">
+      <div class="comp-card" style="background: #FEE2E2;">
+        <span style="font-weight: 900; font-size: 11px; background: #DC2626; color: #fff; padding: 2px 6px;">
+          HANYA UNTUK PENGEMBANG
+        </span>
+        <h3 style="margin: 8px 0 6px 0; color: #991B1B;">APK Debug (app-debug.apk)</h3>
+        <ul style="font-size: 12px; line-height: 1.6; margin: 0; padding-left: 18px; color: #7F1D1D;">
+          <li><strong>Sertifikat:</strong> Ditandatangani otomatis dengan kunci publik umum (<code>debug.keystore</code> bawaan Android SDK).</li>
+          <li><strong>Ukuran Berkas:</strong> Besar (berisi simbol debug dan kode unminified).</li>
+          <li><strong>Keamanan:</strong> Celah keamanan terbuka (bisa di-attach debugger luar).</li>
+          <li><strong>Google Play Store:</strong> Ditolak 100% oleh sistem verifikasi Google!</li>
+          <li><strong>Instalasi di HP Luar:</strong> Sering memicu pop-up Google Play Protect: <em>"Aplikasi Berbahaya / Tidak Dikenal"</em>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- APK RELEASE -->
+    <div class="box">
+      <div class="comp-card" style="background: #DCFCE7;">
+        <span style="font-weight: 900; font-size: 11px; background: #16A34A; color: #fff; padding: 2px 6px;">
+          STANDAR PRODUKSI RESMI
+        </span>
+        <h3 style="margin: 8px 0 6px 0; color: #166534;">APK Release (app-release.apk)</h3>
+        <ul style="font-size: 12px; line-height: 1.6; margin: 0; padding-left: 18px; color: #14532D;">
+          <li><strong>Sertifikat:</strong> Ditandatangani dengan kunci privat unik milik pengembang (Keystore resmi).</li>
+          <li><strong>Ukuran Berkas:</strong> Sangat ramping (dipangkas 40–60% via optimasi R8/ProGuard).</li>
+          <li><strong>Proteksi Kode:</strong> Kode disamarkan (*obfuscated*) sehingga sulit dibajak / di-decompile.</li>
+          <li><strong>Distribusi Bebas:</strong> Siap dibagikan via WhatsApp, Google Drive, atau diunggah ke Google Play Console!</li>
+          <li><strong>Performa:</strong> Eksekusi bytecode jauh lebih gegas dan hemat baterai.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div style="background: #FEF08A; border: 3px solid #000; padding: 14px; margin-top: 20px; box-shadow: 4px 4px 0 #000;">
+    🎓 <strong>Pertanyaan Ujian UAS yang Sering Muncul:</strong><br>
+    <em>"Mengapa berkas APK yang dihasilkan dalam mode Debug tidak diizinkan diunggah ke Google Play Store?"</em><br>
+    <strong>Jawaban Tepat:</strong> Karena APK Debug ditandatangani oleh sertifikat kunci bawaan yang tidak aman dan tidak memiliki identitas kriptografi unik pengembang.
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({}).mount('#app');
+  </script>
+</body>
+</html>

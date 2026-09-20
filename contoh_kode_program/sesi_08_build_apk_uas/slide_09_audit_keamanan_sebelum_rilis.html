@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 09: Audit Keamanan Pra-Rilis — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--rose);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border: 2px solid #000;
+      margin-bottom: 8px;
+      cursor: pointer;
+      background: #f8fafc;
+      font-size: 12px;
+    }
+    .check-item.checked {
+      background: #dcfce7;
+      border-color: #16a34a;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 09 • QUALITY ASSURANCE & KEAMANAN</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Checklist Audit Keamanan Aplikasi Sebelum Rilis</h1>
+    <p style="margin: 0; font-size: 14px;">5 poin pengujian keamanan wajib sebelum membagikan APK kepada pengguna luas atau mempublikasikan ke store.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- DAFTAR CHECKLIST AUDIT -->
+    <div class="box">
+      <h3>📋 Lembar Periksa Audit Pra-Rilis</h3>
+      <p style="font-size: 12px; color: #64748B;">Centang seluruh poin audit di bawah ini:</p>
+
+      <div class="check-item" :class="{ checked: checks.console }" @click="checks.console = !checks.console">
+        <input type="checkbox" v-model="checks.console" />
+        <span>1. Matikan seluruh <code>console.log()</code> data token/identitas mahasiswa.</span>
+      </div>
+
+      <div class="check-item" :class="{ checked: checks.https }" @click="checks.https = !checks.https">
+        <input type="checkbox" v-model="checks.https" />
+        <span>2. Setel <code>usesCleartextTraffic="false"</code> (Wajib HTTPS di produksi).</span>
+      </div>
+
+      <div class="check-item" :class="{ checked: checks.debugWeb }" @click="checks.debugWeb = !checks.debugWeb">
+        <input type="checkbox" v-model="checks.debugWeb" />
+        <span>3. Nonaktifkan Remote Debugging WebView di build release.</span>
+      </div>
+
+      <div class="check-item" :class="{ checked: checks.perms }" @click="checks.perms = !checks.perms">
+        <input type="checkbox" v-model="checks.perms" />
+        <span>4. Cabut izin yang tidak dibutuhkan dari <code>AndroidManifest.xml</code>.</span>
+      </div>
+
+      <div class="check-item" :class="{ checked: checks.obfuscate }" @click="checks.obfuscate = !checks.obfuscate">
+        <input type="checkbox" v-model="checks.obfuscate" />
+        <span>5. Aktifkan <code>minifyEnabled true</code> (Penyamaran R8 / ProGuard).</span>
+      </div>
+    </div>
+
+    <!-- STATUS KELAYAKAN RILIS -->
+    <div class="box" style="text-align: center;">
+      <h3 style="text-align: left;">🛡️ Status Sertifikasi Kelayakan APK</h3>
+
+      <div style="margin-top: 30px;">
+        <div style="font-size: 54px;">{{ allChecked ? '🎖️' : '⏳' }}</div>
+        <div style="font-size: 18px; font-weight: 900; margin-top: 10px;" :style="{ color: allChecked ? '#16a34a' : '#dc2626' }">
+          {{ allChecked ? 'SIAP DIRILIS KE PRODUKSI!' : 'BELUM LOLOS AUDIT KEAMANAN' }}
+        </div>
+        <p style="font-size: 12px; color: #475569; margin: 10px 0 0 0;">
+          {{ allChecked ? 'Selamat! Seluruh kriteria keamanan dan proteksi data privasi mahasiswa telah terpenuhi secara sempurna.' : 'Lengkapi seluruh 5 centang pada panel sebelah kiri sebelum mendistribusikan berkas APK Anda.' }}
+        </p>
+      </div>
+
+      <div style="margin-top: 24px; font-size: 12px; font-weight: bold; background: #f1f5f9; padding: 10px; border: 2px solid #000;">
+        Poin Audit Terpenuhi: {{ completedCount }} dari 5 Poin
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+    createApp({
+      setup() {
+        const checks = ref({
+          console: true,
+          https: true,
+          debugWeb: false,
+          perms: true,
+          obfuscate: false
+        });
+
+        const completedCount = computed(() => Object.values(checks.value).filter(Boolean).length);
+        const allChecked = computed(() => completedCount.value === 5);
+
+        return { checks, completedCount, allChecked };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

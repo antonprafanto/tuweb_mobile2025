@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 14: Bank Soal UAS Bagian 2 (Soal 16 - 30) — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--cyan);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; max-width: 900px; margin: 0 auto; }
+    .question-card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 18px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .q-number {
+      display: inline-block;
+      background: var(--yellow);
+      border: 2px solid #000;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 2px 8px;
+      margin-bottom: 8px;
+    }
+    .q-text {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .option-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .option-item {
+      border: 2px solid #000;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      background: #F8FAFC;
+      transition: all 0.1s ease;
+    }
+    .option-item:hover {
+      background: #E2E8F0;
+    }
+    .option-item.selected {
+      background: #BAE6FD;
+      border-color: #000;
+      font-weight: bold;
+    }
+    .option-item.correct {
+      background: #DCFCE7 !important;
+      border-color: #15803D !important;
+      color: #15803D;
+      font-weight: bold;
+    }
+    .option-item.incorrect {
+      background: #FEE2E2 !important;
+      border-color: #B91C1C !important;
+      color: #B91C1C;
+    }
+    .explanation-box {
+      margin-top: 12px;
+      padding: 12px;
+      border: 2px dashed #000;
+      background: #EFF6FF;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header" style="max-width: 900px; margin-left: auto; margin-right: auto;">
+    <div class="badge-tag">SLIDE 14 • BANK SOAL UAS BAGIAN 2 (SOAL 16 - 30)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">UAS Simulasi Bagian 2: TypeScript, Ionic Grid, Form & Dark Mode</h1>
+    <p style="margin: 0; font-size: 14px;">Materi Ujian Berdasarkan Modul 3, 4, dan 5 BMP UT STSI4303 / MSIM4401. Silakan uji coba jawaban Anda secara langsung.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <div v-for="(q, idx) in questions" :key="idx" class="question-card">
+      <div class="q-number">SOAL {{ idx + 16 }} • {{ q.module }}</div>
+      <div class="q-text">{{ q.question }}</div>
+
+      <div class="option-list">
+        <div 
+          v-for="(opt, oIdx) in q.options" 
+          :key="oIdx"
+          class="option-item"
+          :class="{
+            selected: userAnswers[idx] === oIdx,
+            correct: showResults && oIdx === q.correct,
+            incorrect: showResults && userAnswers[idx] === oIdx && oIdx !== q.correct
+          }"
+          @click="selectOption(idx, oIdx)"
+        >
+          <strong>{{ ['A', 'B', 'C', 'D'][oIdx] }}.</strong> {{ opt }}
+        </div>
+      </div>
+
+      <div v-if="showResults" class="explanation-box">
+        <strong>💡 Pembahasan Soal {{ idx + 16 }} (Kunci: {{ ['A', 'B', 'C', 'D'][q.correct] }}):</strong><br>
+        {{ q.explanation }}
+      </div>
+    </div>
+
+    <!-- ACTION BAR -->
+    <div style="text-align: center; margin: 20px 0;">
+      <button 
+        @click="toggleReview" 
+        style="background: var(--yellow); border: 3px solid #000; padding: 12px 24px; font-weight: 800; font-size: 15px; cursor: pointer; box-shadow: 4px 4px 0 #000;"
+      >
+        {{ showResults ? '🔄 Sembunyikan Pembahasan & Reset' : '✅ Periksa Kunci Jawaban & Pembahasan Lengkap' }}
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const showResults = ref(false);
+        const userAnswers = ref({});
+
+        const questions = [
+          {
+            module: "Modul 03",
+            question: "Apa hubungan utama antara bahasa pemrograman TypeScript dengan JavaScript standar?",
+            options: [
+              "TypeScript adalah bahasa pemrograman terpisah yang tidak kompatibel dengan browser",
+              "TypeScript adalah superset dari JavaScript yang menambahkan static type checking pada saat fase kompilasi",
+              "TypeScript menggantikan bahasa Java pada sistem operasi Android sepenuhnya",
+              "TypeScript hanya dapat dijalankan di sisi server dan dilarang digunakan di peramban web"
+            ],
+            correct: 1,
+            explanation: "TypeScript adalah superset ketat dari JavaScript. Seluruh kode JavaScript valid adalah kode TypeScript yang valid, dengan penambahan sistem tipe statis yang diperiksa saat kompilasi (transpile ke JS)."
+          },
+          {
+            module: "Modul 03",
+            question: "Pada TypeScript, fitur manakah yang digunakan untuk mendefinisikan 'kontrak struktur data' sebuah objek model seperti Mahasiswa atau MataKuliah?",
+            options: [
+              "directive",
+              "interface",
+              "procedure",
+              "decorator"
+            ],
+            correct: 1,
+            explanation: "interface digunakan dalam TypeScript untuk mendefinisikan bentuk (shape) dan kontrak tipe data sebuah objek secara deklaratif."
+          },
+          {
+            module: "Modul 03",
+            question: "Diberikan deklarasi TypeScript berikut:\ninterface Mahasiswa { nim: string; nama: string; fotoUrl?: string; }\nApa arti tanda tanya (?) pada properti fotoUrl?",
+            options: [
+              "Properti fotoUrl wajib bertipe boolean",
+              "Properti fotoUrl bernilai null secara otomatis",
+              "Properti fotoUrl bersifat opsional (dapat diisi string atau dibiarkan bernilai undefined)",
+              "Menandakan bahwa properti fotoUrl memiliki sintaks error"
+            ],
+            correct: 2,
+            explanation: "Tanda tanya (?) pada deklarasi interface TypeScript menandakan bahwa properti tersebut bersifat opsional (optional property) sehingga tidak menimbulkan compiler error jika tidak diisi."
+          },
+          {
+            module: "Modul 03",
+            question: "Kelebihan utama penerapan Type Safety pada pengembangan aplikasi mobile skala menengah-besar adalah...",
+            options: [
+              "Mengurangi pemakaian kuota data internet saat aplikasi mengunduh berkas dari server",
+              "Mendeteksi kesalahan ketik (typo) dan ketidakcocokan tipe data sedini mungkin sebelum kode dijalankan (runtime error prevention)",
+              "Mempercepat kecepatan baterai ponsel saat aplikasi dijalankan",
+              "Menghilangkan kebutuhan akan tag HTML dalam perancangan antarmuka"
+            ],
+            correct: 1,
+            explanation: "Type safety menangkap potensi bug tipe data (seperti TypeError: Cannot read properties of undefined) pada saat penulisan kode di IDE alih-alih meledak saat aplikasi telah dirilis ke pengguna."
+          },
+          {
+            module: "Modul 03",
+            question: "Manakah sintaks TypeScript yang benar untuk mendefinisikan Union Type yang membatasi nilai variabel 'status' hanya boleh berupa salah satu dari tiga teks tertentu?",
+            options: [
+              "type StatusMhs = 'aktif' && 'cuti' && 'lulus';",
+              "type StatusMhs = 'aktif' | 'cuti' | 'lulus';",
+              "interface StatusMhs = ['aktif', 'cuti', 'lulus'];",
+              "let StatusMhs = enum('aktif', 'cuti', 'lulus');"
+            ],
+            correct: 1,
+            explanation: "Simbol pipa (|) digunakan dalam TypeScript untuk mendefinisikan Union Type, yang menyatakan bahwa variabel tersebut dapat bernilai salah satu dari tipe/literal yang disebutkan."
+          },
+          {
+            module: "Modul 04",
+            question: "Sistem tata letak grid pada Ionic Framework (<ion-grid>) secara default membagi satu baris (<ion-row>) ke dalam berapa total kolom unit?",
+            options: [
+              "6 kolom unit",
+              "8 kolom unit",
+              "10 kolom unit",
+              "12 kolom unit"
+            ],
+            correct: 3,
+            explanation: "Sama halnya dengan standar framework CSS modern, sistem Ionic Grid mengadopsi standar 12 kolom unit (12-column grid system)."
+          },
+          {
+            module: "Modul 04",
+            question: "Jika pengembang ingin membuat sebuah kolom yang menghabiskan lebar penuh (100%) pada layar ponsel kecil, namun hanya menghabiskan setengah lebar (50%) pada layar tablet, atribut manakah yang tepat digunakan pada <ion-col>?",
+            options: [
+              "<ion-col width=\"100%\" tablet=\"50%\">",
+              "<ion-col size=\"12\" size-md=\"6\">",
+              "<ion-col flex=\"1\" media=\"desktop\">",
+              "<ion-col span=\"6\" mobile-span=\"12\">"
+            ],
+            correct: 1,
+            explanation: "Atribut size=\"12\" mengalokasikan 12 kolom (lebar penuh) pada ponsel, sedangkan size-md=\"6\" mengalokasikan 6 kolom (setengah lebar layar) saat breakpoint layar mencapai ukuran medium (tablet/desktop)."
+          },
+          {
+            module: "Modul 04",
+            question: "Komponen Ionic yang paling ideal untuk menyajikan ringkasan kartu informasi yang memuat gambar thumbnail, judul materi, dan tombol aksi adalah...",
+            options: [
+              "<ion-table>",
+              "<ion-panel-box>",
+              "<ion-card>",
+              "<ion-dialog>"
+            ],
+            correct: 2,
+            explanation: "<ion-card> adalah komponen standar Ionic yang dirancang khusus untuk menyajikan kartu konten modern dengan struktur bawaan seperti <ion-card-header>, <ion-card-title>, dan <ion-card-content>."
+          },
+          {
+            module: "Modul 05",
+            question: "Komponen formulir Ionic yang digunakan untuk memberikan pilihan opsi tunggal kepada pengguna dalam bentuk dialog atau popover adalah...",
+            options: [
+              "<ion-select> dan <ion-select-option>",
+              "<ion-radio-group> khusus string",
+              "<ion-toggle-switch>",
+              "<ion-picker-column-native>"
+            ],
+            correct: 0,
+            explanation: "<ion-select> yang membungkus beberapa <ion-select-option> adalah komponen resmi Ionic untuk menangani pemilihan dropdown opsi tunggal maupun majemuk (multiple)."
+          },
+          {
+            module: "Modul 05",
+            question: "Pola Regular Expression (Regex) manakah yang paling akurat untuk memvalidasi Nomor Induk Mahasiswa (NIM) Universitas Terbuka yang terdiri dari tepat 9 digit angka tanpa karakter lain?",
+            options: [
+              "/\\d{9}/",
+              "/^\\d{9}$/",
+              "/^[0-9]+$/",
+              "/^\\w{9}$/"
+            ],
+            correct: 1,
+            explanation: "Pola /^\\d{9}$/ memastikan bahwa dari awal string (^) hingga akhir ($) hanya terdiri dari digit angka (\\d) dengan jumlah tepat 9 digit. Pola tanpa ^ dan $ masih dapat lolos jika ada teks lain di depan/belakang."
+          },
+          {
+            module: "Modul 05",
+            question: "Fungsi dari simbol anchor caret (^) dan dolar ($) dalam ekspresi reguler (Regex) adalah...",
+            options: [
+              "Menandai karakter mata uang dan format akuntansi",
+              "Menentukan bahwa pencocokan pola harus dimulai persis dari awal string (^) dan berakhir persis di akhir string ($)",
+              "Menandakan bahwa pencarian bersifat Case-Insensitive",
+              "Menggandakan string sebanyak dua kali"
+            ],
+            correct: 1,
+            explanation: "Anchor ^ mengunci pencocokan di karakter pertama (start of string), sedangkan $ mengunci pencocokan di karakter terakhir (end of string), memastikan seluruh input cocok dengan pola secara utuh."
+          },
+          {
+            module: "Modul 05",
+            question: "Media query CSS standar yang digunakan oleh Ionic Framework untuk mendeteksi preferensi tema gelap (Dark Mode) pengguna pada sistem operasi adalah...",
+            options: [
+              "@media (color-mode: black)",
+              "@media (prefers-color-scheme: dark)",
+              "@media screen and (theme: night)",
+              "@media (device-theme: dark-only)"
+            ],
+            correct: 1,
+            explanation: "@media (prefers-color-scheme: dark) adalah standar W3C CSS yang secara otomatis mendeteksi apakah sistem operasi ponsel pengguna sedang menggunakan mode gelap atau terang."
+          },
+          {
+            module: "Modul 05",
+            question: "Ketika pengembang ingin menyediakan tombol toggle sakelar di aplikasi agar pengguna dapat beralih antara Dark Mode dan Light Mode secara manual, manipulasi DOM manakah yang dilakukan pada Ionic?",
+            options: [
+              "Menghapus seluruh file CSS dari tag head dokumen",
+              "Menambahkan atau menghapus class CSS '.dark' atau '.ion-palette-dark' pada elemen document.body atau document.documentElement",
+              "Mengubah warna layar dengan fungsi alert()",
+              "Me-restart smartphone pengguna secara otomatis"
+            ],
+            correct: 1,
+            explanation: "Untuk override manual tema di Ionic, pengembang menambahkan atau menghapus class dark pada elemen root HTML atau body (misal: document.body.classList.toggle('dark', isDark))."
+          },
+          {
+            module: "Modul 04",
+            question: "Komponen Ionic yang digunakan untuk menyajikan navigasi berbasis tab di bagian bawah layar smartphone (Bottom Tabs Navigation) adalah...",
+            options: [
+              "<ion-footer-bar>",
+              "<ion-tabs> yang memuat <ion-tab-bar> dan <ion-tab-button>",
+              "<ion-navigation-drawer>",
+              "<ion-breadcrumb-list>"
+            ],
+            correct: 1,
+            explanation: "<ion-tabs> bertindak sebagai container yang membungkus <ion-tab-bar> di slot bottom, di dalamnya terdapat beberapa <ion-tab-button> yang mengarahkan ke tab layar yang berbeda."
+          },
+          {
+            module: "Modul 05",
+            question: "Komponen Ionic yang menampilkan sakelar on/off digital yang ramah sentuhan (touch-friendly) untuk mengaktifkan pengaturan sistem adalah...",
+            options: [
+              "<ion-checkbox-button>",
+              "<ion-toggle>",
+              "<ion-switch-slider>",
+              "<ion-radio-toggle>"
+            ],
+            correct: 1,
+            explanation: "<ion-toggle> adalah komponen UI mobile Ionic yang merepresentasikan kontrol sakelar switch geser iOS/Material Design dengan feedback visual halus."
+          }
+        ];
+
+        const selectOption = (qIdx, oIdx) => {
+          if (!showResults.value) {
+            userAnswers.value[qIdx] = oIdx;
+          }
+        };
+
+        const toggleReview = () => {
+          showResults.value = !showResults.value;
+        };
+
+        return {
+          questions,
+          userAnswers,
+          showResults,
+          selectOption,
+          toggleReview
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

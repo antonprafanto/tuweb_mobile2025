@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 11: Distribusi Google Play Console & Format AAB — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .step-box {
+      border: 2px solid #000;
+      padding: 12px;
+      margin-bottom: 12px;
+      background: #F8FAFC;
+    }
+    .code-snippet {
+      background: #1E293B;
+      color: #38BDF8;
+      font-family: 'Consolas', monospace;
+      padding: 10px;
+      font-size: 12px;
+      border: 2px solid #000;
+      overflow-x: auto;
+      margin-top: 8px;
+    }
+    .btn-action {
+      background: var(--cyan);
+      border: 2px solid #000;
+      padding: 8px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+      transition: all 0.1s ease;
+    }
+    .btn-action:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+    .table-spec {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .table-spec th, .table-spec td {
+      border: 2px solid #000;
+      padding: 8px;
+      text-align: left;
+    }
+    .table-spec th { background: #E2E8F0; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 11 • SESI 08 (DISTRIBUSI PRODUKSI GOOGLE PLAY STORE)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Format Android App Bundle (.aab) & Google Play Console</h1>
+    <p style="margin: 0; font-size: 14px;">Memahami standar distribusi modern Android: Mengapa Google mewajibkan AAB alih-alih APK, alur track rilis pengujian, dan checklist store listing resmi.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANEL 1: APK VS AAB -->
+    <div class="box">
+      <h3>📦 APK Monolithic vs Android App Bundle (.aab)</h3>
+      <p style="font-size: 13px; line-height: 1.5; color: #334155;">
+        Sejak Agustus 2021, Google mewajibkan semua aplikasi baru yang diunggah ke Google Play menggunakan format <strong>Android App Bundle (.aab)</strong>.
+      </p>
+
+      <table class="table-spec">
+        <tr>
+          <th>Aspek</th>
+          <th>APK Stand-alone</th>
+          <th>App Bundle (.aab)</th>
+        </tr>
+        <tr>
+          <td><strong>Isi Berkas</strong></td>
+          <td>Semua ABI (arm64, x86), semua dpi grafis</td>
+          <td>Paket mentah yang dipecah oleh Google Play</td>
+        </tr>
+        <tr>
+          <td><strong>Ukuran Download</strong></td>
+          <td>Lebih besar (~35% lebih berat)</td>
+          <td>Dioptimalkan per perangkat pengguna</td>
+        </tr>
+        <tr>
+          <td><strong>Kegunaan Utama</strong></td>
+          <td>Sideload langsung tanpa Google Play</td>
+          <td>Khusus publikasi Google Play Console</td>
+        </tr>
+      </table>
+
+      <h4 style="margin-top: 16px; margin-bottom: 6px;">🛠️ Perintah Kompilasi AAB Release:</h4>
+      <div class="code-snippet">
+cd android<br>
+./gradlew bundleRelease
+      </div>
+      <p style="font-size: 12px; color: #64748B; margin-top: 6px;">
+        Hasil berkas tersimpan di: <code>android/app/build/outputs/bundle/release/app-release.aab</code>
+      </p>
+    </div>
+
+    <!-- PANEL 2: ALUR TRACK RILIS GOOGLE PLAY -->
+    <div class="box">
+      <h3>🚀 4 Tahapan Rilis (Release Tracks) di Play Console</h3>
+      <p style="font-size: 13px; line-height: 1.5; color: #334155;">
+        Google menerapkan proses rilis bertahap untuk memastikan stabilitas dan keamanan aplikasi sebelum dapat diunduh publik secara luas:
+      </p>
+
+      <div class="step-box" style="border-left: 6px solid #38BDF8;">
+        <strong>1. Internal Testing Track</strong>
+        <p style="font-size: 12px; margin: 4px 0 0 0; color: #475569;">
+          Khusus tim inti developer (maksimal 100 penguji berizin email). Rilis instan tanpa menunggu review Google (hitungan menit).
+        </p>
+      </div>
+
+      <div class="step-box" style="border-left: 6px solid #C084FC;">
+        <strong>2. Closed Testing Track (Syarat 20 Penguji)</strong>
+        <p style="font-size: 12px; margin: 4px 0 0 0; color: #475569;">
+          Kebijakan akun baru Google Play pribadi: Wajib diuji oleh minimal <strong>20 penguji opt-in secara aktif selama minimal 14 hari berturut-turut</strong> sebelum diizinkan apply ke Produksi.
+        </p>
+      </div>
+
+      <div class="step-box" style="border-left: 6px solid #FFE600;">
+        <strong>3. Open Testing Track</strong>
+        <p style="font-size: 12px; margin: 4px 0 0 0; color: #475569;">
+          Terbuka untuk siapa saja di Play Store yang ingin menjadi beta tester tanpa undangan email khusus.
+        </p>
+      </div>
+
+      <div class="step-box" style="border-left: 6px solid #4ADE80;">
+        <strong>4. Production Track (Jalur Utama)</strong>
+        <p style="font-size: 12px; margin: 4px 0 0 0; color: #475569;">
+          Aplikasi live untuk seluruh pengguna global di Google Play Store setelah lolos kurasi review keamanan tim Google Play (biasanya 1–3 hari kerja).
+        </p>
+      </div>
+    </div>
+
+    <!-- PANEL 3: INTERACTIVE CHECKLIST GOOGLE PLAY LISTING -->
+    <div class="box">
+      <h3>📋 Interactive Store Listing Readiness Checklist</h3>
+      <p style="font-size: 13px; color: #475569;">Periksa kelengkapan metadata aplikasi Anda sebelum mengajukan rilis ke Google Play:</p>
+
+      <div v-for="(item, idx) in listingChecklist" :key="idx" class="step-box" :style="{ background: item.checked ? '#DCFCE7' : '#FFF' }">
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
+          <input type="checkbox" v-model="item.checked" style="width: 18px; height: 18px;">
+          <span>{{ item.label }}</span>
+        </label>
+        <p style="margin: 4px 0 0 26px; font-size: 12px; color: #64748B;">{{ item.desc }}</p>
+      </div>
+
+      <div style="margin-top: 14px; padding: 10px; background: #FEF08A; border: 2px solid #000; font-size: 13px;">
+        <strong>Status Kesiapan:</strong> {{ checkedCount }} / {{ listingChecklist.length }} Persyaratan Terpenuhi
+        <div style="font-size: 12px; margin-top: 4px; font-weight: 700; color: checkedCount === listingChecklist.length ? '#15803D' : '#B45309';">
+          {{ checkedCount === listingChecklist.length ? '✅ Siap Kirim Pengajuan Review ke Google Play!' : '⚠️ Masih ada metadata atau aset visual yang belum disiapkan.' }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        const listingChecklist = ref([
+          { label: "App Icon Resolusi Tinggi (512 x 512 px PNG 32-bit)", desc: "Logo tajam tanpa transparansi sudut (Google Play akan menambahkan rounding otomatis)", checked: true },
+          { label: "Feature Graphic (1024 x 500 px JPG/PNG)", desc: "Banner promosi utama di halaman katalog atas", checked: true },
+          { label: "Minimal 2 Screenshot Ponsel (Rasio 16:9 atau 9:16)", desc: "Tangkapan layar asli fitur utama aplikasi tanpa frame palsu", checked: false },
+          { label: "URL Kebijakan Privasi (Privacy Policy)", desc: "Halaman web HTTPS yang menjelaskan izin kamera, gps, dan data pengguna", checked: false },
+          { label: "Deklarasi Keamanan Data (Data Safety Form)", desc: "Formulir transparansi enkripsi data dan pembagian data pihak ketiga", checked: false },
+          { label: "Target SDK API Level Terbaru (Android 14+ / API 34)", desc: "Mematuhi regulasi Google Play policy batas waktu tahunan", checked: true }
+        ]);
+
+        const checkedCount = computed(() => listingChecklist.value.filter(i => i.checked).length);
+
+        return {
+          listingChecklist,
+          checkedCount
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

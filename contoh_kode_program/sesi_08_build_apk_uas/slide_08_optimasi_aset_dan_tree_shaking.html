@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 08: Optimasi Aset & Tree-Shaking — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 08 • EFISIENSI ASET APLIKASI</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Optimasi Aset: Format WebP & Modular Tree-Shaking</h1>
+    <p style="margin: 0; font-size: 14px;">Menjaga bobot aplikasi tetap seringan kapas agar proses download APK cepat dan pemuatan halaman instan.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- FORMAT WEBP -->
+    <div class="box">
+      <h3>🖼️ Kompresi Gambar: PNG vs WebP</h3>
+      <p style="font-size: 13px; line-height: 1.5; color: #334155;">
+        Format gambar lawas seperti PNG dan JPEG memakan kapasitas memori yang besar. Standar industri mobile modern mewajibkan format <strong>WebP</strong> buatan Google yang menghasilkan kualitas visual identik namun ukuran berkas <strong>30%–50% lebih kecil</strong>.
+      </p>
+
+      <div style="background: #F8FAFC; border: 2px solid #000; padding: 12px; margin-top: 14px;">
+        <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px;">
+          <span>Logo Kampus UT (PNG Asli):</span>
+          <strong style="color: #dc2626;">840 KB</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 12px;">
+          <span>Logo Kampus UT (Format WebP):</span>
+          <strong style="color: #16a34a;">195 KB (Hemat 76%)</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- TREE SHAKING IONICONS -->
+    <div class="box">
+      <h3>🌲 Teknik Modular Tree-Shaking pada Ionicons</h3>
+      <p style="font-size: 12px; color: #64748B;">Hindari mengimpor seluruh paket pustaka jika hanya butuh 2 ikon:</p>
+
+      <div style="background: #FEE2E2; border: 2px solid #DC2626; padding: 10px; font-family: monospace; font-size: 11px; margin-bottom: 10px;">
+// SALAH (Mengimpor 1.400+ Ikon Sekaligus = +2.2 MB)
+import * as allIcons from 'ionicons/icons';</div>
+
+      <div style="background: #DCFCE7; border: 2px solid #16A34A; padding: 10px; font-family: monospace; font-size: 11px;">
+// BENAR (Tree-Shaking: Hanya bundel 2 ikon = +8 KB)
+import { bookOutline, personCircle } from 'ionicons/icons';</div>
+
+      <div style="background: #FEF9C3; border: 2px solid #CA8A04; padding: 10px; margin-top: 14px; font-size: 12px;">
+        💡 <strong>Hasil Nyata:</strong> Bundel web yang ramping menjamin waktu boot aplikasi (*cold start*) pada smartphone pengguna turun dari 3.2 detik menjadi <strong>hanya 0.8 detik</strong>!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({}).mount('#app');
+  </script>
+</body>
+</html>

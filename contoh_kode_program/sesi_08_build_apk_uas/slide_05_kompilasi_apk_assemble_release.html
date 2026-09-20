@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 05: Kompilasi assembleRelease — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .btn-build {
+      background: #22c55e;
+      color: #fff;
+      border: 2px solid #000;
+      padding: 10px 16px;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+    }
+    .btn-build:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+    .term-window {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: 'Consolas', monospace;
+      font-size: 11px;
+      padding: 12px;
+      border: 2px solid #000;
+      min-height: 220px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 05 • EKSEKUSI BUILD RELEASE</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Kompilasi APK Stand-alone via <code>assembleRelease</code></h1>
+    <p style="margin: 0; font-size: 14px;">Mengeksekusi proses kompilasi Gradle untuk menghasilkan berkas installer mandiri <code>app-release.apk</code>.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANDUAN PERINTAH -->
+    <div class="box">
+      <h3>🚀 2 Jalur Menghasilkan APK Release</h3>
+
+      <div style="background: #F8FAFC; border: 2px solid #000; padding: 12px; margin-bottom: 12px; font-size: 12px; line-height: 1.6;">
+        <strong>Opsi 1: Lewat Terminal CLI (Lebih Cepat & Hemat RAM)</strong><br>
+        Masuk ke folder <code>android/</code> lalu jalankan Gradle wrapper:<br>
+        <code>cd android</code><br>
+        <code>./gradlew assembleRelease</code> (Linux/Mac) atau <code>.\gradlew.bat assembleRelease</code> (Windows).
+      </div>
+
+      <div style="background: #F8FAFC; border: 2px solid #000; padding: 12px; margin-bottom: 12px; font-size: 12px; line-height: 1.6;">
+        <strong>Opsi 2: Lewat Menu Android Studio</strong><br>
+        Menu <strong>Build</strong> &rarr; <strong>Generate Signed Bundle / APK</strong> &rarr; Pilih <strong>APK</strong> &rarr; Arahkan ke file Keystore &rarr; Pilih varian <strong>release</strong>.
+      </div>
+
+      <button class="btn-build" @click="simulateBuild">
+        ▶ Simulasikan Eksekusi ./gradlew assembleRelease
+      </button>
+    </div>
+
+    <!-- TERMINAL OUTPUT SIMULATOR -->
+    <div class="box">
+      <h3>💻 Jendela Terminal Build Gradle</h3>
+      <div class="term-window">{{ outputText }}</div>
+
+      <div v-if="buildSuccess" style="background: #DCFCE7; border: 2px solid #16A34A; padding: 10px; margin-top: 14px; font-size: 12px; color: #166534;">
+        ✅ <strong>LOKASI BERKAS OUTPUT APK ANDA:</strong><br>
+        <code>android/app/build/outputs/apk/release/app-release.apk</code><br>
+        Berkas inilah yang siap Anda kirimkan ke smartphone rekan kuliah Anda!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const buildSuccess = ref(false);
+        const outputText = ref("PS C:\\UT\\mobile2026\\android> _\nTekan tombol di sebelah kiri untuk menyimulasikan kompilasi...");
+
+        const simulateBuild = () => {
+          buildSuccess.value = false;
+          outputText.value = "PS C:\\UT\\mobile2026\\android> .\\gradlew.bat assembleRelease\n> Starting Gradle Daemon...\n> Task :app:preBuild UP-TO-DATE\n> Task :app:compileReleaseJavaWithJavac\n> Task :app:minifyReleaseWithR8\n> Task :app:packageRelease\n> Task :app:signReleaseBundle\n> Task :app:assembleRelease\n\nBUILD SUCCESSFUL in 14s\n38 actionable tasks: 38 executed";
+          buildSuccess.value = true;
+        };
+
+        return { buildSuccess, outputText, simulateBuild };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

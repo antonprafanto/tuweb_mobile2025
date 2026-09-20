@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 12: Kisi-kisi Komprehensif UAS Modul 1 s.d. 9 — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .module-item {
+      border: 2px solid #000;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #FFF;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .module-item:hover, .module-item.active {
+      background: #FEF08A;
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 #000;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border: 1px solid #000;
+      background: #E2E8F0;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 12 • SESI 08 (KISI-KISI RESMI UAS STSI4303 / MSIM4401)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Pemetaan Kisi-kisi Soal UAS: Modul 1 sampai Modul 9 BMP</h1>
+    <p style="margin: 0; font-size: 14px;">Pedoman belajar terstruktur menghadapi Ujian Akhir Semester berbasis Buku Materi Pokok (BMP) Universitas Terbuka.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANEL 1: DAFTAR MODUL DAN BOBOT -->
+    <div class="box">
+      <h3>📚 Matriks Distribusi 9 Modul BMP</h3>
+      <p style="font-size: 13px; color: #475569;">Klik setiap modul untuk melihat kompetensi spesifik yang akan diujikan:</p>
+
+      <div 
+        v-for="mod in modules" 
+        :key="mod.id" 
+        class="module-item" 
+        :class="{ active: selectedModule.id === mod.id }"
+        @click="selectedModule = mod"
+      >
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong>{{ mod.id }}: {{ mod.title }}</strong>
+          <span class="tag" :style="{ background: mod.color }">{{ mod.weight }}</span>
+        </div>
+        <div style="font-size: 12px; color: #64748B; margin-top: 4px;">{{ mod.focus }}</div>
+      </div>
+    </div>
+
+    <!-- PANEL 2: DETAIL KOMPETENSI TERPILIH -->
+    <div class="box">
+      <h3>🎯 Detail Kompetensi: {{ selectedModule.id }}</h3>
+      <div style="background: #F1F5F9; border: 2px solid #000; padding: 12px; margin-bottom: 14px;">
+        <h4 style="margin: 0 0 6px 0; color: #0F172A;">{{ selectedModule.title }}</h4>
+        <p style="margin: 0; font-size: 13px; color: #334155;"><strong>Estimasi Porsi Soal:</strong> {{ selectedModule.weight }} (~{{ selectedModule.soalCount }} butir soal)</p>
+      </div>
+
+      <h4 style="margin: 12px 0 6px 0;">Topik Inti yang Wajib Dikuasai:</h4>
+      <ul style="font-size: 13px; line-height: 1.6; padding-left: 20px; color: #1E293B;">
+        <li v-for="(topic, idx) in selectedModule.topics" :key="idx">
+          <strong>{{ topic.title }}:</strong> {{ topic.desc }}
+        </li>
+      </ul>
+
+      <div style="margin-top: 16px; padding: 12px; border: 2px dashed #000; background: #FEF3C7; font-size: 12px;">
+        <strong>💡 Pola Soal Tipikal:</strong><br>
+        {{ selectedModule.samplePattern }}
+      </div>
+    </div>
+
+    <!-- PANEL 3: STRATEGI & TIPS SUKSES UAS -->
+    <div class="box">
+      <h3>🏆 Strategi Menjawab Soal UAS UT</h3>
+      <div style="border: 2px solid #000; padding: 12px; margin-bottom: 10px; background: #ECFDF5;">
+        <strong style="color: #047857;">1. Pahami Prinsip Alih-alih Menghafal Sintaks Kering</strong>
+        <p style="font-size: 12px; margin: 4px 0 0 0; color: #065F46;">
+          UAS UT menguji pemahaman arsitektur. Contoh: Mengapa Capacitor membutuhkan WebView? Apa perbedaan reactivity ref vs reactive? Mengapa async/await membutuhkan try/catch?
+        </p>
+      </div>
+
+      <div style="border: 2px solid #000; padding: 12px; margin-bottom: 10px; background: #EFF6FF;">
+        <strong style="color: #1D4ED8;">2. Eliminasi Distractor yang Tidak Masuk Akal</strong>
+        <p style="font-size: 12px; margin: 4px 0 0 0; color: #1E40AF;">
+          Opsi pilihan ganda sering menyisipkan nama atribut palsu (misal <code>v-bind-value</code> bukan <code>v-model</code>, atau tag <code>&lt;ion-table&gt;</code> yang tidak ada di Ionic).
+        </p>
+      </div>
+
+      <div style="border: 2px solid #000; padding: 12px; background: #FFF1F2;">
+        <strong style="color: #BE123C;">3. Manajemen Waktu Pengerjaan</strong>
+        <p style="font-size: 12px; margin: 4px 0 0 0; color: #9F1239;">
+          Ujian 50 soal dalam 90 menit berarti Anda punya ~1.8 menit per soal. Kerjakan soal konsep konseptual cepat terlebih dahulu, simpan soal analisis kode untuk paruh kedua.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const modules = [
+          {
+            id: "Modul 01",
+            title: "Pengenalan Pemrograman Mobile & Hybrid",
+            weight: "10%",
+            soalCount: 5,
+            color: "#BAE6FD",
+            focus: "Konsep Native vs Hybrid vs PWA, WebView container, dan sejarah perkembangan mobile.",
+            topics: [
+              { title: "Native vs Hybrid", desc: "Perbedaan performa, akses hardware, cost development, dan portabilitas lintas platform." },
+              { title: "Peran WebView", desc: "Mesin rendering browser internal (Chromium/WebKit) di dalam aplikasi native wrapper." },
+              { title: "Single Codebase", desc: "Filosofi 'Write Once, Run Everywhere' menggunakan HTML5, CSS3, dan JavaScript." }
+            ],
+            samplePattern: "Soal menanyakan karakteristik aplikasi yang dibangun dengan Ionic: berjalan di dalam container apa dan teknologi inti apa yang digunakannya."
+          },
+          {
+            id: "Modul 02",
+            title: "Web Standards & Vue.js 3 Reactivity",
+            weight: "10%",
+            soalCount: 5,
+            color: "#BBF7D0",
+            focus: "HTML5 semantic, CSS Flexbox/Grid, Composition API, ref(), reactive(), dan directiv v-model.",
+            topics: [
+              { title: "Vue Reactivity", desc: "Mekanisme Proxy modern yang mendeteksi perubahan state variabel secara otomatis." },
+              { title: "Directives", desc: "v-model (two-way binding), v-if/v-else (kondisional DOM), v-for (rendering list)." },
+              { title: "Lifecycle Hooks", desc: "onMounted, onUnmounted, dan eksekusi inisialisasi komponen." }
+            ],
+            samplePattern: "Diberikan potongan kode Vue 3, mahasiswa diminta menentukan output reaktif saat sebuah nilai ref diubah."
+          },
+          {
+            id: "Modul 03",
+            title: "TypeScript & Static Typing",
+            weight: "10%",
+            soalCount: 5,
+            color: "#FDE68A",
+            focus: "Tipe data primitif, Interface, Custom Type, Generic constraints, dan Type Safety.",
+            topics: [
+              { title: "Interface vs Type", desc: "Mendefinisikan kontrak struktur objek model data (seperti Mahasiswa, MataKuliah)." },
+              { title: "Strict Mode", desc: "Mencegah bugs runtime dengan deteksi type mismatch saat kompilasi." },
+              { title: "Union & Optional", desc: "Penggunaan tanda tanya (?) untuk properti opsional dan union type (|)." }
+            ],
+            samplePattern: "Menganalisis kesalahan deklarasi interface atau type error pada passing parameter fungsi."
+          },
+          {
+            id: "Modul 04",
+            title: "Ionic Framework UI & Navigasi",
+            weight: "10%",
+            soalCount: 5,
+            color: "#DDD6FE",
+            focus: "Ionic Web Components, App structure (ion-header, ion-content), ion-router, dan ion-tabs.",
+            topics: [
+              { title: "Komponen Utama", desc: "ion-page, ion-header, ion-toolbar, ion-title, ion-content, ion-card." },
+              { title: "Navigasi Mobile", desc: "Stack-based navigation, transisi swipe-back iOS dan hardware back button Android." },
+              { title: "Tabs Architecture", desc: "Pengaturan tab bar di bagian bawah layar untuk menu navigasi aplikasi mobile." }
+            ],
+            samplePattern: "Menentukan tag komponen Ionic yang tepat untuk membuat kartu informasi atau struktur dasar layar."
+          },
+          {
+            id: "Modul 05",
+            title: "Formulir, Validasi Regex & Tema Gelap",
+            weight: "12%",
+            soalCount: 6,
+            color: "#FECDD3",
+            focus: "Kontrol input mobile, validasi ekspresi reguler (Regex), Ionic Grid, dan CSS media query dark mode.",
+            topics: [
+              { title: "Mobile Input Controls", desc: "ion-input, ion-textarea, ion-select, ion-toggle, ion-datetime." },
+              { title: "Regex Sanitization", desc: "Validasi format NIM (9 digit angka), Email, dan Password menggunakan pattern regex." },
+              { title: "Dark Mode System", desc: "Implementasi prefers-color-scheme dan override class dark secara dinamis." }
+            ],
+            samplePattern: "Pencocokan pola Regex untuk validasi NIM 9 digit atau penggunaan ion-grid, ion-row, ion-col."
+          },
+          {
+            id: "Modul 06",
+            title: "Capacitor Runtime Bridge & Android Studio",
+            weight: "16%",
+            soalCount: 8,
+            color: "#A7F3D0",
+            focus: "Bridge RPC JavaScript ke Java/Kotlin, npx cap sync, AndroidManifest.xml, Gradle, SDK API level.",
+            topics: [
+              { title: "RPC Bridge Protocol", desc: "Penerjemahan window.Capacitor.toNative() menjadi eksekusi fungsi Java native." },
+              { title: "Sinkronisasi Web ke Native", desc: "Perbedaan fungsi npx cap copy vs npx cap sync vs npx cap update." },
+              { title: "AndroidManifest.xml", desc: "Deklarasi izin aplikasi (<uses-permission>) dan konfigurasi launch Activity." }
+            ],
+            samplePattern: "Soal menanyakan perintah Capacitor untuk menyalin aset web sekaligus memperbarui plugin Android native."
+          },
+          {
+            id: "Modul 07",
+            title: "REST API, Offline Storage & Native Hardware",
+            weight: "16%",
+            soalCount: 8,
+            color: "#FED7AA",
+            focus: "HTTP GET/POST asinkron, parsing JSON, Capacitor Preferences/Storage, Camera, dan Geolocation GPS.",
+            topics: [
+              { title: "Komunikasi Asinkron", desc: "Fetch API, penanganan Promise dengan async/await, dan blok try-catch-finally." },
+              { title: "Penyimpanan Offline Key-Value", desc: "Menyimpan data persisten JSON di perangkat pengguna tanpa server." },
+              { title: "Hardware Permissions", desc: "Alur requestPermission() sebelum memanggil Capacitor Camera atau Geolocation." }
+            ],
+            samplePattern: "Alur penanganan kesalahan saat koneksi internet terputus (offline fallback) atau penanganan izin akses GPS."
+          },
+          {
+            id: "Modul 08",
+            title: "Debugging & Performance Profiling",
+            weight: "8%",
+            soalCount: 4,
+            color: "#E9D5FF",
+            focus: "Chrome DevTools Remote Inspect, Logcat Android Studio, identifikasi memory leak, dan layout reflow.",
+            topics: [
+              { title: "Remote Inspection", desc: "Menghubungkan chrome://inspect dengan perangkat ponsel fisik via USB debugging." },
+              { title: "Android Logcat", desc: "Membaca log sistem native level Error, Warning, dan Debug." },
+              { title: "FPS & Paint Performance", desc: "Menghindari layout thrashing dengan CSS transform hardware acceleration." }
+            ],
+            samplePattern: "Menentukan tool yang digunakan untuk menginspeksi elemen HTML dan Console JavaScript pada aplikasi yang berjalan di HP."
+          },
+          {
+            id: "Modul 09",
+            title: "Release APK Stand-alone & Keystore Signing",
+            weight: "8%",
+            soalCount: 4,
+            color: "#FED7AA",
+            focus: "Keytool, digital keystore, signingConfig gradle, ./gradlew assembleRelease, dan instalasi sideload.",
+            topics: [
+              { title: "Digital Keystore", desc: "Sertifikat kriptografi RSA SHA-256 untuk memverifikasi keaslian pengembang aplikasi." },
+              { title: "Assemble vs Bundle", desc: "assembleRelease menghasilkan .apk stand-alone, bundleRelease menghasilkan .aab." },
+              { title: "Security Sideloading", desc: "Izin 'Install from Unknown Sources' pada pengaturan keamanan Android." }
+            ],
+            samplePattern: "Tujuan utama penandatanganan APK dengan digital keystore sebelum didistribusikan ke pengguna."
+          }
+        ];
+
+        const selectedModule = ref(modules[0]);
+
+        return {
+          modules,
+          selectedModule
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 16: Bank Soal UAS Bagian 4 (Soal 46 - 50) — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--rose);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; max-width: 900px; margin: 0 auto; }
+    .question-card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 18px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .q-number {
+      display: inline-block;
+      background: var(--yellow);
+      border: 2px solid #000;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 2px 8px;
+      margin-bottom: 8px;
+    }
+    .q-text {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .option-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .option-item {
+      border: 2px solid #000;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      background: #F8FAFC;
+      transition: all 0.1s ease;
+    }
+    .option-item:hover {
+      background: #E2E8F0;
+    }
+    .option-item.selected {
+      background: #FECDD3;
+      border-color: #000;
+      font-weight: bold;
+    }
+    .option-item.correct {
+      background: #DCFCE7 !important;
+      border-color: #15803D !important;
+      color: #15803D;
+      font-weight: bold;
+    }
+    .option-item.incorrect {
+      background: #FEE2E2 !important;
+      border-color: #B91C1C !important;
+      color: #B91C1C;
+    }
+    .explanation-box {
+      margin-top: 12px;
+      padding: 12px;
+      border: 2px dashed #000;
+      background: #EFF6FF;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header" style="max-width: 900px; margin-left: auto; margin-right: auto;">
+    <div class="badge-tag">SLIDE 16 • BANK SOAL UAS BAGIAN 4 (SOAL 46 - 50)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">UAS Simulasi Bagian 4: Signing Keystore, Build Release & Studi Kasus</h1>
+    <p style="margin: 0; font-size: 14px;">Materi Ujian Tingkat Lanjut Berdasarkan Modul 9 BMP UT STSI4303 / MSIM4401. Silakan uji coba jawaban Anda secara langsung.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <div v-for="(q, idx) in questions" :key="idx" class="question-card">
+      <div class="q-number">SOAL {{ idx + 46 }} • {{ q.module }}</div>
+      <div class="q-text" style="white-space: pre-line;">{{ q.question }}</div>
+
+      <div class="option-list">
+        <div 
+          v-for="(opt, oIdx) in q.options" 
+          :key="oIdx"
+          class="option-item"
+          :class="{
+            selected: userAnswers[idx] === oIdx,
+            correct: showResults && oIdx === q.correct,
+            incorrect: showResults && userAnswers[idx] === oIdx && oIdx !== q.correct
+          }"
+          @click="selectOption(idx, oIdx)"
+        >
+          <strong>{{ ['A', 'B', 'C', 'D'][oIdx] }}.</strong> {{ opt }}
+        </div>
+      </div>
+
+      <div v-if="showResults" class="explanation-box">
+        <strong>💡 Pembahasan Soal {{ idx + 46 }} (Kunci: {{ ['A', 'B', 'C', 'D'][q.correct] }}):</strong><br>
+        {{ q.explanation }}
+      </div>
+    </div>
+
+    <!-- ACTION BAR -->
+    <div style="text-align: center; margin: 20px 0;">
+      <button 
+        @click="toggleReview" 
+        style="background: var(--rose); border: 3px solid #000; padding: 12px 24px; font-weight: 800; font-size: 15px; cursor: pointer; box-shadow: 4px 4px 0 #000; color: #000;"
+      >
+        {{ showResults ? '🔄 Sembunyikan Pembahasan & Reset' : '✅ Periksa Kunci Jawaban & Pembahasan Lengkap' }}
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const showResults = ref(false);
+        const userAnswers = ref({});
+
+        const questions = [
+          {
+            module: "Modul 09",
+            question: "Tujuan utama penandatanganan digital (digital signing) menggunakan berkas Keystore (.keystore / .jks) pada berkas APK release sebelum didistribusikan adalah...",
+            options: [
+              "Mengompres ukuran gambar PNG di dalam aplikasi agar lebih kecil",
+              "Memverifikasi identitas resmi pembuat aplikasi, menjamin keaslian berkas agar tidak dimodifikasi pihak tidak bertanggung jawab, dan prasyarat update aplikasi di Android",
+              "Mengubah warna tema aplikasi menjadi standar sistem Android",
+              "Menghapus kebutuhan izin akses internet dari aplikasi"
+            ],
+            correct: 1,
+            explanation: "Tanda tangan digital dengan Keystore mengautentikasi pengembang aplikasi dan memastikan integritas berkas. Android menolak pembaruan (update) aplikasi jika APK baru ditandatangani dengan sertifikat berbeda."
+          },
+          {
+            module: "Modul 09",
+            question: "Perintah Gradle Wrapper manakah yang tepat dieksekusi di folder 'android/' untuk menghasilkan berkas installer mandiri berekstensi .apk yang siap dikirim via WhatsApp atau Google Drive tanpa melalui Play Store?",
+            options: [
+              "./gradlew bundleRelease",
+              "./gradlew assembleRelease",
+              "./gradlew cleanInstall",
+              "./gradlew runProduction"
+            ],
+            correct: 1,
+            explanation: "./gradlew assembleRelease menghasilkan file APK mandiri (app-release.apk) yang dapat di-sideload langsung di HP mana saja. Sebaliknya, bundleRelease menghasilkan .aab khusus untuk diunggah ke Google Play Console."
+          },
+          {
+            module: "Modul 09",
+            question: "Apa risiko paling fatal jika seorang pengembang kehilangan berkas Keystore rilis dan melupakan password-nya setelah aplikasinya dipublikasikan ke publik?",
+            options: [
+              "Aplikasi yang sudah terpasang di ponsel pengguna akan otomatis terhapus dalam 24 jam",
+              "Pengembang tidak akan pernah bisa merilis berkas update/pembaruan untuk aplikasi tersebut dengan package name yang sama",
+              "Komputer pengembang akan terkunci dan tidak bisa menjalankan Android Studio",
+              "Smartphone pengguna tidak akan dapat mengakses jaringan internet"
+            ],
+            correct: 1,
+            explanation: "Sistem Android melarang pembaruan aplikasi jika package name sama namun ditandatangani dengan keystore berbeda. Kehilangan keystore berarti pengembang terpaksa membuat nama paket baru dan kehilangan seluruh basis pengguna aktifnya."
+          },
+          {
+            module: "Modul 09",
+            question: "Pada konfigurasi build.gradle modul aplikasi (app/build.gradle), apa fungsi dari pengaturan:\nminifyEnabled true\nshrinkResources true\ndi dalam blok buildTypes release?",
+            options: [
+              "Mengaktifkan kompilator R8 / ProGuard untuk menghapus kelas Java yang tidak terpakai (tree shaking native), mengaburkan kode (obfuscation), dan membuang aset yang tidak direferensikan guna memangkas ukuran APK",
+              "Mengharuskan pengguna membayar biaya langganan saat memasang aplikasi",
+              "Mengurangi kualitas resolusi layar ponsel secara drastis saat aplikasi dijalankan",
+              "Menolak instalasi aplikasi pada ponsel yang memiliki kapasitas RAM di bawah 6 GB"
+            ],
+            correct: 0,
+            explanation: "minifyEnabled true mengaktifkan R8 compiler untuk tree-shaking dan obfuskasi kode native, sedangkan shrinkResources true membuang file aset yang tidak terpakai, menghasilkan ukuran file APK yang jauh lebih ramping dan aman."
+          },
+          {
+            module: "Modul 09 (Studi Kasus)",
+            question: "Studi Kasus Produksi:\nSebuah aplikasi Ionic Capacitor berfungsi 100% lancar saat diuji coba pada Google Chrome Desktop dan emulator Android terbaru (API 34). Namun, ketika berkas APK release dipasang pada smartphone fisik mahasiswa dengan Android 8.0 Oreo, aplikasi hanya menampilkan layar putih kosong (White Screen of Death) tanpa ada pesan error di layar.\n\nBerdasarkan prinsip arsitektur hybrid, apa kemungkinan penyebab terbesar dan solusi paling tepat untuk masalah ini?",
+            options: [
+              "Kapasitas memori flash penyimpanan ponsel mahasiswa sudah penuh; solusinya menghapus foto di galeri.",
+              "Android System WebView pada ponsel mahasiswa versi sangat usang dan tidak mendukung sintaks JavaScript modern (ES2020+); solusinya memperbarui WebView lewat Play Store atau mengatur target transpilasi JavaScript di proyek ke ES2015 / ES6.",
+              "Aplikasi memerlukan izin root sebelum dapat dijalankan di Android Oreo.",
+              "Warna background body aplikasi secara tidak sengaja diatur menjadi warna putih transparan."
+            ],
+            correct: 1,
+            explanation: "Gejala White Screen of Death pada perangkat Android lama hampir selalu disebabkan oleh syntax error pada runtime JavaScript karena Android System WebView bawaan belum mendukung fitur JS modern (misal Optional Chaining '?.' atau BigInt). Solusinya adalah melakukan update Android System WebView via Play Store atau mengatur compiler Babel/Vite/TS ke target kompatibilitas ES2015/ES6."
+          }
+        ];
+
+        const selectOption = (qIdx, oIdx) => {
+          if (!showResults.value) {
+            userAnswers.value[qIdx] = oIdx;
+          }
+        };
+
+        const toggleReview = () => {
+          showResults.value = !showResults.value;
+        };
+
+        return {
+          questions,
+          userAnswers,
+          showResults,
+          selectOption,
+          toggleReview
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

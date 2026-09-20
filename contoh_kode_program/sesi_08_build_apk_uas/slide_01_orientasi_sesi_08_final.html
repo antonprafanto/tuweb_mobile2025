@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 01: Orientasi Sesi 08 & Final Release — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .step-box {
+      border: 2px solid #000;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #F8FAFC;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 01 • SESI 08 (MODUL 9 BMP UT - SESI PENUTUP)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Orientasi Sesi 08: Rilis APK Stand-alone & Sukses UAS</h1>
+    <p style="margin: 0; font-size: 14px;">Mencapai garis akhir perkuliahan: Menghasilkan berkas installer mandiri yang siap dipasang di smartphone siapapun dan menaklukkan Ujian Akhir Semester.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PENGANTAR TAHAP AKHIR -->
+    <div class="box">
+      <h3>🏁 Garis Akhir Perjalanan Mobile Developer</h3>
+      <p style="font-size: 13px; line-height: 1.5; color: #334155;">
+        Selamat rekan-rekan mahasiswa FST Universitas Terbuka! Anda telah melewati 7 sesi yang intensif. Sekarang, di Sesi 08 penutup ini, kita akan menyempurnakan aplikasi Anda menjadi <strong>produk nyata yang siap didistribusikan ke masyarakat</strong> tanpa bantuan kabel USB atau laptop.
+      </p>
+
+      <div class="step-box" style="border-left: 5px solid #0284c7;">
+        <strong>1. Pembuatan Keystore Digital:</strong> Sertifikat tanda tangan digital pengembang untuk verifikasi integritas APK.
+      </div>
+      <div class="step-box" style="border-left: 5px solid #16a34a;">
+        <strong>2. Kompilasi APK Release (assembleRelease):</strong> Menghasilkan berkas installer <code>app-release.apk</code> mandiri.
+      </div>
+      <div class="step-box" style="border-left: 5px solid #9333ea;">
+        <strong>3. 50 Bank Soal Komprehensif UAS:</strong> Bedah tuntas kisi-kisi Modul 1 sampai Modul 9 untuk mengunci predikat nilai A!
+      </div>
+    </div>
+
+    <!-- TARGET KELULUSAN & NILAI A -->
+    <div class="box">
+      <div style="background: #DCFCE7; border: 3px solid #16A34A; padding: 16px; box-shadow: 4px 4px 0 #16A34A;">
+        <span style="background: #16A34A; color: #fff; font-weight: 900; font-size: 11px; padding: 2px 8px;">
+          TARGET KELULUSAN MAHASISWA
+        </span>
+        <h3 style="color: #14532D; margin: 10px 0 6px 0;">🎯 Target Sesi 08: Meraih Nilai A Mutlak!</h3>
+        <p style="font-size: 12px; line-height: 1.6; color: #166534; margin: 0 0 10px 0;">
+          Komponen penilaian akhir Universitas Terbuka terdiri dari:
+        </p>
+        <ul style="font-size: 12px; line-height: 1.6; color: #14532D; margin: 0; padding-left: 18px;">
+          <li>Keaktifan Forum Diskusi Sesi 1 s/d 8 (Bobot Partisipasi).</li>
+          <li>Tugas Tutorial 1, 2, dan 3 (Bobot Praktikum 50%).</li>
+          <li>Ujian Akhir Semester / UAS (Bobot Teori & Analisis 50%).</li>
+        </ul>
+      </div>
+
+      <div style="background: #FEF9C3; border: 2px solid #CA8A04; padding: 10px; margin-top: 14px; font-size: 12px;">
+        💡 <strong>Pesan Pak Anton Prafanto:</strong> Pelajari berkas bank soal di Slide 13–16 dan coba simulasi ujian di Slide 17 sebelum hari H pelaksanaan UAS!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({}).mount('#app');
+  </script>
+</body>
+</html>

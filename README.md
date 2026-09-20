@@ -10,19 +10,24 @@ Selamat datang di repositori resmi materi perkuliahan **Pemrograman Berbasis Per
 ```text
 tuweb_mobile2025/
 ├── 📁 slide_presentasi/                     # Bahan Ajar Visual (PPTX) & Naskah Narasi Sesi
-│   ├── 📊 SESI_01_Pengantar_dan_Lingkungan_Ionic.pptx
-│   ├── 📄 SESI_01_Pengantar_dan_Lingkungan_Ionic.md
-│   ├── 📊 SESI_02_Frontend_Modern_Vue.pptx
-│   ├── 📄 SESI_02_Frontend_Modern_Vue.md
-│   ├── 📊 SESI_03_TypeScript_dan_Komposisi_Vue.pptx
-│   └── 📄 SESI_03_TypeScript_dan_Komposisi_Vue.md
+│   ├── 📊 SESI_01_Pengantar_dan_Lingkungan_Ionic.pptx (.md)
+│   ├── 📊 SESI_02_Frontend_Modern_Vue.pptx (.md)
+│   ├── 📊 SESI_03_TypeScript_dan_Komposisi_Vue.pptx (.md)
+│   ├── 📊 SESI_04_Dasar_Ionic_dan_Navigasi.pptx (.md)
+│   ├── 📊 SESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx (.md)
+│   ├── 📊 SESI_06_Capacitor_Bridge_dan_Android_Studio.pptx (.md)
+│   ├── 📊 SESI_07_REST_API_Storage_dan_Native_Plugins.pptx (.md)
+│   └── 📊 SESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.pptx (.md)
 │
 ├── 📁 contoh_kode_program/                  # Berkas Kode Mandiri Siap Eksekusi (Zero-Friction)
 │   ├── 📁 sesi_01_lingkungan_dan_tools/     # [18 berkas] Node.js, Web Components & KTM Digital
 │   ├── 📁 sesi_02_vue_frontend/             # [18 berkas] Vue 3 Reactivity, Directives & KRS Online
 │   ├── 📁 sesi_03_typescript_vue/           # [18 berkas] TypeScript Models, Vue SFC & TUGAS 1
 │   ├── 📁 sesi_04_ionic_dasar_navigasi/     # [18 berkas] Ionic UI, Stack Navigation & Lab Quest 04
-│   └── 📁 sesi_05_layout_grid_form/         # [18 berkas] 12-Grid, Form Regex, Dark Mode & TUGAS 2
+│   ├── 📁 sesi_05_layout_grid_form/         # [18 berkas] 12-Grid, Form Regex, Dark Mode & TUGAS 2
+│   ├── 📁 sesi_06_capacitor_android/        # [18 berkas] Capacitor Bridge, Android Studio & Lab Quest 06
+│   ├── 📁 sesi_07_api_storage_plugins/      # [18 berkas] REST API, Offline Storage, GPS & TUGAS 3
+│   └── 📁 sesi_08_build_apk_uas/            # [18 berkas] Release APK, Keystore Signing, & 50 Bank Soal UAS
 │
 ├── 📁 panduan_tutorial_ut/                  # Instrumen Akademik Resmi FST UT
 │   ├── 📋 RANCANGAN_AKTIVITAS_TUTORIAL_RAT.md  # Silabus RAT/SAT & Peta Kompetensi STSI4303
@@ -46,7 +51,7 @@ tuweb_mobile2025/
 | **05** | Modul 5 | Layout Grid, Dynamic Theme, & Form Regex | [⚡ Download S05 (.pptx)](slide_presentasi/SESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx)<br>[👁️ Baca Online S05](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx)<br>[📄 Naskah Slide S05](slide_presentasi/SESI_05_Layout_Grid_Form_Regex_Dark_Mode.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_05_layout_grid_form/)<br>• [🎯 Solusi Tugas 2](contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html) | ✅ **Rilis Lengkap**<br>🎯 **TUGAS 2 DIBUKA** |
 | **06** | Modul 6-7| Capacitor & Integrasi Platform Android | [⚡ Download S06 (.pptx)](slide_presentasi/SESI_06_Capacitor_Bridge_dan_Android_Studio.pptx)<br>[👁️ Baca Online S06](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_06_Capacitor_Bridge_dan_Android_Studio.pptx)<br>[📄 Naskah Slide S06](slide_presentasi/SESI_06_Capacitor_Bridge_dan_Android_Studio.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_06_capacitor_android/)<br>• [Solusi Lab Quest 06](contoh_kode_program/sesi_06_capacitor_android/slide_17_lab_quest_06_bridge_tester.html) | ✅ **Rilis Lengkap**<br>💬 Diskusi 6 |
 | **07** | Modul 8-9| REST API, Local Storage, & Native Plugins | [⚡ Download S07 (.pptx)](slide_presentasi/SESI_07_REST_API_Storage_dan_Native_Plugins.pptx)<br>[👁️ Baca Online S07](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_07_REST_API_Storage_dan_Native_Plugins.pptx)<br>[📄 Naskah Slide S07](slide_presentasi/SESI_07_REST_API_Storage_dan_Native_Plugins.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_07_api_storage_plugins/)<br>• [🎯 Solusi Tugas 3](contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html) | ✅ **Rilis Lengkap**<br>🎯 **TUGAS 3 DIBUKA** |
-| **08** | Modul 9 | Optimasi Kinerja, Build APK Release & UAS | ⏳ *Sedang Disiapkan* | ⏳ *Rilis Bertahap* | 💬 Diskusi 8 & UAS |
+| **08** | Modul 9 | Optimasi Kinerja, Build APK Release & UAS | [⚡ Download S08 (.pptx)](slide_presentasi/SESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.pptx)<br>[👁️ Baca Online S08](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.pptx)<br>[📄 Naskah Slide S08](slide_presentasi/SESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.md) | [📁 18 Berkas Mandiri](contoh_kode_program/sesi_08_build_apk_uas/)<br>• [Solusi Lab Quest 08 & 50 Soal UAS](contoh_kode_program/sesi_08_build_apk_uas/slide_17_lab_quest_08_apk_validator.html) | ✅ **Rilis Lengkap**<br>🎓 **SEMESTER LENGKAP 100%** |
 
 ---
 
@@ -222,6 +227,31 @@ tuweb_mobile2025/
 | **Slide 16** | **Pedoman & Rubrik Penilaian Resmi TUGAS TUTORIAL 3 (Skala 0–100)** | [`slide_16_rubrik_tugas_tutorial_3.md`](contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.md) |
 | **Slide 17** | **🎯 MASTER SOLUSI RESMI TUGAS TUTORIAL 3:** UT Study Tracker & Presensi Mobile | [`slide_17_solusi_tugas_3_study_tracker.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html) |
 | **Slide 18** | **Jembatan Sesi 08:** Finalisasi Rilis APK Stand-alone, Keystore, & 50 Bank Soal UAS | [`slide_18_preview_sesi_08_build_apk_uas.html`](contoh_kode_program/sesi_07_api_storage_plugins/slide_18_preview_sesi_08_build_apk_uas.html) |
+
+---
+
+### 📱 Rincian 18 Berkas Mandiri Sesi 08 (Build APK Release & 50 Bank Soal UAS)
+
+| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run) |
+| :---: | :--- | :--- |
+| **Slide 01** | Garis Akhir Perkuliahan: Dari Kode Menjadi Berkas Installer APK Mandiri | [`slide_01_orientasi_sesi_08_final.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_01_orientasi_sesi_08_final.html) |
+| **Slide 02** | 5 Tahapan Siklus Rilis Aplikasi Mobile (Development hingga Maintenance) | [`slide_02_siklus_rilis_aplikasi_mobile.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_02_siklus_rilis_aplikasi_mobile.html) |
+| **Slide 03** | Pembuatan Digital Keystore RSA 2048-bit via Utilitas `keytool` | [`slide_03_pembuatan_keystore_digital.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_03_pembuatan_keystore_digital.html) |
+| **Slide 04** | Konfigurasi Otomasi Tanda Tangan Digital pada `android/app/build.gradle` | [`slide_04_konfigurasi_signing_build_gradle.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_04_konfigurasi_signing_build_gradle.html) |
+| **Slide 05** | Eksekusi Kompilasi APK Release Stand-alone via Gradle Wrapper (`assembleRelease`) | [`slide_05_kompilasi_apk_assemble_release.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_05_kompilasi_apk_assemble_release.html) |
+| **Slide 06** | Distribusi & Instalasi Mandiri (Sideloading) APK ke Ponsel Tanpa PC | [`slide_06_instalasi_apk_mandiri_tanpa_pc.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_06_instalasi_apk_mandiri_tanpa_pc.html) |
+| **Slide 07** | Optimasi Biner: Minifikasi Kode & Tree Shaking Native via Kompilator R8 | [`slide_07_optimasi_minifikasi_r8_proguard.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_07_optimasi_minifikasi_r8_proguard.html) |
+| **Slide 08** | Optimasi Web Assets: Kompresi WebP, Tree Shaking ES Modules & Lazy Loading | [`slide_08_optimasi_aset_dan_tree_shaking.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_08_optimasi_aset_dan_tree_shaking.html) |
+| **Slide 09** | Audit Keamanan Pra-Rilis: Proteksi Data, Cleartext HTTPS, & Permissions | [`slide_09_audit_keamanan_sebelum_rilis.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_09_audit_keamanan_sebelum_rilis.html) |
+| **Slide 10** | Distribusi Alternatif: Progressive Web App (PWA) & Service Worker Cache | [`slide_10_pwa_service_worker_offline.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_10_pwa_service_worker_offline.html) |
+| **Slide 11** | Publikasi Google Play Console & Standar Android App Bundle (`.aab`) | [`slide_11_distribusi_google_play_console.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_11_distribusi_google_play_console.html) |
+| **Slide 12** | **Kisi-kisi Resmi Komprehensif UAS**: Pemetaan 9 Modul BMP STSI4303 / MSIM4401 | [`slide_12_kisi_kisi_uas_modul_1_sampai_9.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_12_kisi_kisi_uas_modul_1_sampai_9.html) |
+| **Slide 13** | **Bank Soal UAS Bagian 1 (Soal 01–15)**: Arsitektur Hybrid, Web Standards & Vue 3 | [`slide_13_bank_soal_uas_bagian_1.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_13_bank_soal_uas_bagian_1.html) |
+| **Slide 14** | **Bank Soal UAS Bagian 2 (Soal 16–30)**: TypeScript, Ionic Grid, Form & Dark Mode | [`slide_14_bank_soal_uas_bagian_2.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_14_bank_soal_uas_bagian_2.html) |
+| **Slide 15** | **Bank Soal UAS Bagian 3 (Soal 31–45)**: Capacitor Bridge, REST API, Storage & Sensor | [`slide_15_bank_soal_uas_bagian_3.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_15_bank_soal_uas_bagian_3.html) |
+| **Slide 16** | **Bank Soal UAS Bagian 4 (Soal 46–50)**: Signing Keystore, Build Release & Kasus Produksi | [`slide_16_bank_soal_uas_bagian_4.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_16_bank_soal_uas_bagian_4.html) |
+| **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 08: APK Release Validator & Engine Simulasi 50 Soal UAS** | [`slide_17_lab_quest_08_apk_validator.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_17_lab_quest_08_apk_validator.html) |
+| **Slide 18** | **🎓 Penutup Semester**: Refleksi Perkuliahan & Pesan Dosen Pak Anton Prafanto | [`slide_18_penutup_semester_pesan_dosen.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_18_penutup_semester_pesan_dosen.html) |
 
 ---
 

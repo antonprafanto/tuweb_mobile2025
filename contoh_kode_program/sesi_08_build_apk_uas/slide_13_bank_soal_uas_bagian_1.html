@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 13: Bank Soal UAS Bagian 1 (Soal 01 - 15) — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; max-width: 900px; margin: 0 auto; }
+    .question-card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 18px;
+      box-shadow: 5px 5px 0 var(--border);
+    }
+    .q-number {
+      display: inline-block;
+      background: var(--cyan);
+      border: 2px solid #000;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 2px 8px;
+      margin-bottom: 8px;
+    }
+    .q-text {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .option-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .option-item {
+      border: 2px solid #000;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      background: #F8FAFC;
+      transition: all 0.1s ease;
+    }
+    .option-item:hover {
+      background: #E2E8F0;
+    }
+    .option-item.selected {
+      background: #FEF08A;
+      border-color: #000;
+      font-weight: bold;
+    }
+    .option-item.correct {
+      background: #DCFCE7 !important;
+      border-color: #15803D !important;
+      color: #15803D;
+      font-weight: bold;
+    }
+    .option-item.incorrect {
+      background: #FEE2E2 !important;
+      border-color: #B91C1C !important;
+      color: #B91C1C;
+    }
+    .explanation-box {
+      margin-top: 12px;
+      padding: 12px;
+      border: 2px dashed #000;
+      background: #EFF6FF;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header" style="max-width: 900px; margin-left: auto; margin-right: auto;">
+    <div class="badge-tag">SLIDE 13 • BANK SOAL UAS BAGIAN 1 (SOAL 01 - 15)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">UAS Simulasi Bagian 1: Arsitektur Hybrid, Web Standards & Vue.js 3</h1>
+    <p style="margin: 0; font-size: 14px;">Materi Ujian Berdasarkan Modul 1 dan Modul 2 BMP UT STSI4303 / MSIM4401. Klik opsi jawaban untuk menguji pemahaman Anda secara langsung.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <div v-for="(q, idx) in questions" :key="idx" class="question-card">
+      <div class="q-number">SOAL {{ idx + 1 }} • {{ q.module }}</div>
+      <div class="q-text">{{ q.question }}</div>
+
+      <div class="option-list">
+        <div 
+          v-for="(opt, oIdx) in q.options" 
+          :key="oIdx"
+          class="option-item"
+          :class="{
+            selected: userAnswers[idx] === oIdx,
+            correct: showResults && oIdx === q.correct,
+            incorrect: showResults && userAnswers[idx] === oIdx && oIdx !== q.correct
+          }"
+          @click="selectOption(idx, oIdx)"
+        >
+          <strong>{{ ['A', 'B', 'C', 'D'][oIdx] }}.</strong> {{ opt }}
+        </div>
+      </div>
+
+      <div v-if="showResults" class="explanation-box">
+        <strong>💡 Pembahasan Soal {{ idx + 1 }} (Kunci: {{ ['A', 'B', 'C', 'D'][q.correct] }}):</strong><br>
+        {{ q.explanation }}
+      </div>
+    </div>
+
+    <!-- ACTION BAR -->
+    <div style="text-align: center; margin: 20px 0;">
+      <button 
+        @click="toggleReview" 
+        style="background: var(--mint); border: 3px solid #000; padding: 12px 24px; font-weight: 800; font-size: 15px; cursor: pointer; box-shadow: 4px 4px 0 #000;"
+      >
+        {{ showResults ? '🔄 Sembunyikan Pembahasan & Reset' : '✅ Periksa Kunci Jawaban & Pembahasan Lengkap' }}
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const showResults = ref(false);
+        const userAnswers = ref({});
+
+        const questions = [
+          {
+            module: "Modul 01",
+            question: "Arsitektur aplikasi mobile hybrid seperti yang didukung oleh Ionic dan Capacitor memiliki karakteristik utama berupa...",
+            options: [
+              "Mengompilasi seluruh kode JavaScript secara langsung menjadi kode biner mesin native C++",
+              "Menjalankan kode web (HTML, CSS, JavaScript) di dalam native container bernama WebView dan mengakses sensor perangkat melalui runtime bridge",
+              "Hanya dapat berjalan pada peramban web desktop dan tidak dapat dipasang sebagai file APK pada smartphone Android",
+              "Memerlukan penulisan ulang seluruh logika bisnis secara terpisah dalam bahasa Java untuk Android dan Swift untuk iOS"
+            ],
+            correct: 1,
+            explanation: "Aplikasi hybrid menggunakan single web codebase (HTML/CSS/JS) yang dieksekusi di dalam container WebView native, dengan Capacitor bertindak sebagai bridge komunikasi ke API native hardware."
+          },
+          {
+            module: "Modul 01",
+            question: "Manakah keuntungan paling menonjol dari pendekatan pengembangan aplikasi mobile Hybrid dibandingkan Native murni?",
+            options: [
+              "Efisiensi biaya dan waktu pengembangan berkat satu basis kode (single codebase) untuk platform Android, iOS, dan Web",
+              "Performa rendering grafis 3D setara dengan game AAA berbasis C++ native",
+              "Ukuran file biner APK akhir selalu di bawah 500 Kilobyte tanpa overhead engine",
+              "Tidak memerlukan izin (permission) dari sistem operasi Android saat mengakses kamera maupun GPS"
+            ],
+            correct: 0,
+            explanation: "Keunggulan utama arsitektur hybrid adalah portabilitas tinggi: tim pengembang cukup merawat satu basis kode web untuk mendistribusikannya ke Android, iOS, dan PWA secara simultan."
+          },
+          {
+            module: "Modul 01",
+            question: "Komponen sistem operasi Android yang bertugas merender antarmuka web di dalam aplikasi Ionic / Capacitor adalah...",
+            options: [
+              "Android Virtual Memory Engine",
+              "Android System WebView (berbasis Chromium)",
+              "Dalvik JIT Compiler Native",
+              "Android NDK OpenGL Renderer"
+            ],
+            correct: 1,
+            explanation: "Android System WebView adalah komponen sistem berbasis mesin peramban Chromium yang bertugas menampilkan konten web modern dan mengeksekusi JavaScript pada aplikasi hybrid."
+          },
+          {
+            module: "Modul 02",
+            question: "Mekanisme utama yang digunakan oleh Vue.js versi 3 dalam mendeteksi mutasi data secara otomatis (Reactivity System) didasarkan pada fitur JavaScript modern...",
+            options: [
+              "Object.defineProperty (metode legacy Vue 2)",
+              "JavaScript Proxy API",
+              "Web Socket Continuous Polling",
+              "DOM MutationObserver Event Only"
+            ],
+            correct: 1,
+            explanation: "Vue 3 beralih menggunakan JavaScript Proxy untuk sistem reaktivitasnya, memungkinkan pelacakan mutasi properti objek secara dinamis, penambahan properti baru, dan performa yang jauh lebih tinggi dibanding Object.defineProperty."
+          },
+          {
+            module: "Modul 02",
+            question: "Ketika menggunakan fungsi ref() pada Vue.js 3 Composition API di dalam blok JavaScript, cara yang benar untuk membaca atau memodifikasi nilainya adalah melalui properti...",
+            options: [
+              ".data",
+              ".value",
+              ".state",
+              ".val()"
+            ],
+            correct: 1,
+            explanation: "Variabel reaktif yang dideklarasikan dengan ref() membungkus nilai primitif di dalam objek reaktif, sehingga di dalam blok script kita wajib mengakses properti .value (misal: counter.value++)."
+          },
+          {
+            module: "Modul 02",
+            question: "Perbedaan mendasar antara fungsi ref() dan reactive() pada Vue.js 3 adalah...",
+            options: [
+              "ref() hanya bisa digunakan pada Vue 2, sedangkan reactive() hanya pada Vue 3",
+              "ref() dapat menerima tipe data primitif maupun objek dan membutuhkan .value di script, sedangkan reactive() khusus untuk tipe objek/array dan tidak memerlukan .value",
+              "reactive() tidak mendukung reaktivitas dua arah dengan v-model",
+              "ref() secara otomatis menyimpan data ke dalam memori LocalStorage perangkat"
+            ],
+            correct: 1,
+            explanation: "ref() membungkus nilai primitif maupun objek (diakses via .value), sedangkan reactive() mengonversi objek secara langsung menjadi Proxy reaktif tanpa pembungkus .value."
+          },
+          {
+            module: "Modul 02",
+            question: "Direktif Vue.js yang digunakan untuk mengimplementasikan two-way data binding (ikatan data dua arah) antara state variabel dan elemen formulir input adalah...",
+            options: [
+              "v-bind:value",
+              "v-model",
+              "v-on:input",
+              "v-slot"
+            ],
+            correct: 1,
+            explanation: "Direktif v-model menggabungkan binding nilai ke input sekaligus memperbarui state variabel saat pengguna mengetik, menciptakan komunikasi dua arah yang sinkron."
+          },
+          {
+            module: "Modul 02",
+            question: "Manakah pernyataan yang BENAR mengenai perbedaan antara direktif v-if dan v-show pada Vue.js 3?",
+            options: [
+              "v-show merender elemen secara kondisional dengan menambah/menghapus elemen dari pohon DOM secara fisik",
+              "v-if memiliki biaya render awal yang lebih tinggi daripada v-show",
+              "v-if benar-benar menambahkan atau menghapus elemen dari DOM, sedangkan v-show hanya mengatur properti CSS display: none",
+              "v-show tidak mendukung ekspresi perbandingan logika boolean"
+            ],
+            correct: 2,
+            explanation: "v-if adalah kondisional sejati yang menghancurkan dan menciptakan kembali elemen di DOM, sedangkan v-show selalu merender elemen ke DOM dan hanya menyembunyikannya menggunakan CSS display: none."
+          },
+          {
+            module: "Modul 02",
+            question: "Pada saat melakukan perulangan daftar data menggunakan v-for, mengapa atribut :key sangat diwajibkan oleh Vue.js?",
+            options: [
+              "Sebagai kunci enkripsi keamanan data agar tidak disadap oleh pihak ketiga",
+              "Membantu algoritma Virtual DOM mengidentifikasi identitas unik setiap node secara efisien saat terjadi perubahan urutan atau mutasi data",
+              "Menentukan warna latar belakang setiap baris list secara otomatis",
+              "Mengubah tipe data string menjadi integer secara implisit"
+            ],
+            correct: 1,
+            explanation: "Atribut :key bertindak sebagai identifier unik bagi diffing engine Virtual DOM Vue untuk melacak node elemen mana yang berubah, bergeser, atau dihapus secara efisien."
+          },
+          {
+            module: "Modul 02",
+            question: "Lifecycle hook pada Vue.js 3 Composition API yang paling tepat digunakan untuk mengambil data dari server REST API segera setelah komponen selesai dipasang ke layar adalah...",
+            options: [
+              "onBeforeCreate()",
+              "onMounted()",
+              "onUpdated()",
+              "onUnmounted()"
+            ],
+            correct: 1,
+            explanation: "onMounted() dieksekusi tepat setelah komponen terpasang pada DOM fisik, menjadikannya lokasi standar terbaik untuk inisialisasi pemanggilan fetch/axios API dan sensor perangkat."
+          },
+          {
+            module: "Modul 01",
+            question: "Dalam konteks aplikasi Progressive Web App (PWA), teknologi peramban web yang memungkinkan aplikasi tetap dapat dibuka dan berfungsi saat tidak ada koneksi internet (offline) adalah...",
+            options: [
+              "Service Worker dan Cache API",
+              "Flash Player Plugin",
+              "ActiveX Control Browser",
+              "CSS Media Query Responsive"
+            ],
+            correct: 0,
+            explanation: "Service Worker adalah skrip latar belakang yang bertindak sebagai proxy jaringan klien, mengintersepsi permintaan HTTP dan melayani berkas dari Cache API saat perangkat berada dalam kondisi offline."
+          },
+          {
+            module: "Modul 02",
+            question: "Manakah tag antarmuka Ionic yang berfungsi sebagai kontainer utama area konten yang memiliki kemampuan scrolling native dengan pull-to-refresh?",
+            options: [
+              "<ion-body>",
+              "<ion-content>",
+              "<ion-scroll-view>",
+              "<ion-main-container>"
+            ],
+            correct: 1,
+            explanation: "<ion-content> adalah kontainer utama yang mengelola scrolling antarmuka, virtual scroll, dan interaksi sentuh seperti pull-to-refresh dan infinite scroll."
+          },
+          {
+            module: "Modul 02",
+            question: "Struktur hierarki tata letak halaman standar yang benar pada aplikasi berbasis Ionic Framework adalah...",
+            options: [
+              "<ion-app> -> <ion-page> -> <ion-header> dan <ion-content> -> <ion-footer>",
+              "<ion-window> -> <ion-screen> -> <ion-body>",
+              "<ion-container> -> <ion-canvas> -> <ion-layer>",
+              "<ion-viewport> -> <ion-template> -> <ion-section>"
+            ],
+            correct: 0,
+            explanation: "Hierarki resmi Ionic adalah <ion-app> membungkus keseluruhan aplikasi, lalu setiap rute halaman dibungkus oleh <ion-page>, yang memuat <ion-header>, <ion-content>, dan opsional <ion-footer>."
+          },
+          {
+            module: "Modul 01",
+            question: "Faktor manakah yang paling berkontribusi membuat animasi transisi pada aplikasi hybrid Ionic modern terasa mulus 60 FPS layaknya aplikasi native?",
+            options: [
+              "Penggunaan fungsi setTimeout() berulang-ulang setiap 1 milidetik",
+              "Pemanfaatan properti CSS transform dan opacity yang diakselerasi langsung oleh unit pemroses grafis (GPU Hardware Acceleration)",
+              "Mengurangi resolusi layar smartphone menjadi resolusi VGA standar",
+              "Menonaktifkan garbage collector mesin peramban secara paksa"
+            ],
+            correct: 1,
+            explanation: "Properti CSS transform dan opacity tidak memicu layout reflow maupun repaint pada CPU, melainkan ditangani langsung oleh GPU (Hardware Acceleration), menghasilkan animasi 60 FPS yang mulus."
+          },
+          {
+            module: "Modul 02",
+            question: "Pada berkas HTML yang memuat Ionic Framework secara mandiri tanpa build-tools (Zero-Friction CDN), bagaimana skrip JavaScript Ionic dimuat secara optimal sesuai standar browser modern?",
+            options: [
+              "Menggunakan modul ES dengan tag <script type=\"module\"> dan fallback <script nomodule>",
+              "Wajib diekstrak menjadi file .exe sebelum dapat dieksekusi",
+              "Menggunakan tag <style type=\"text/javascript\"> pada bagian body",
+              "Hanya dapat dimuat menggunakan perintah npm install di server Node.js lokal"
+            ],
+            correct: 0,
+            explanation: "Standar modern Web Components Ionic menggunakan tag <script type=\"module\"> untuk browser modern yang mendukung ES Modules dan tag nomodule untuk kompatibilitas peramban lawas."
+          }
+        ];
+
+        const selectOption = (qIdx, oIdx) => {
+          if (!showResults.value) {
+            userAnswers.value[qIdx] = oIdx;
+          }
+        };
+
+        const toggleReview = () => {
+          showResults.value = !showResults.value;
+        };
+
+        return {
+          questions,
+          userAnswers,
+          showResults,
+          selectOption,
+          toggleReview
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

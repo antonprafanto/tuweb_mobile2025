@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 06: Instalasi APK Mandiri (Sideloading) — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .phone-mock {
+      border: 3px solid #000;
+      background: #18181b;
+      color: #fff;
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 260px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 06 • DISTRIBUSI SIDELOADING</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Distribusi Mandiri: Memasang File APK Tanpa Komputer PC</h1>
+    <p style="margin: 0; font-size: 14px;">Membagikan berkas <code>app-release.apk</code> ke teman sejawat dan dosen via WhatsApp atau Google Drive.</p>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANDUAN LANGKAH SIDELOADING -->
+    <div class="box">
+      <h3>📲 4 Langkah Pemasangan Langsung (Sideloading)</h3>
+      <ol style="font-size: 13px; line-height: 1.6; padding-left: 20px; color: #334155;">
+        <li><strong>Kirim Berkas APK:</strong> Unggah <code>app-release.apk</code> ke Google Drive atau kirim lewat lampiran dokumen WhatsApp.</li>
+        <li><strong>Unduh di Ponsel Target:</strong> Buka tautan di smartphone penerima dan unduh berkas installer.</li>
+        <li><strong>Izin Sumber Tidak Dikenal:</strong> Saat Android memunculkan peringatan keamanan, buka Pengaturan dan aktifkan sakelar <em>"Izinkan dari sumber ini"</em>.</li>
+        <li><strong>Selesai:</strong> Tekan <strong>Instal</strong>. Aplikasi UT Mobile langsung terpasang dan dapat dibuka kapan saja!</li>
+      </ol>
+
+      <div style="background: #FEF3C7; border: 2px solid #D97706; padding: 10px; font-size: 12px;">
+        💡 <strong>Peringatan Google Play Protect:</strong> Karena aplikasi belum terdaftar di Play Store, Google Protect mungkin menampilkan peringatan pengembang tidak dikenal. Klik <em>"More details (Rincian selengkapnya)"</em> &rarr; <em>"Install anyway (Tetap instal)"</em>.
+      </div>
+    </div>
+
+    <!-- SIMULATOR DIALOG ANDROID -->
+    <div class="box">
+      <h3>📱 Simulasi Layar Pemasangan Android</h3>
+
+      <div class="phone-mock">
+        <div style="text-align: center; margin-top: 20px;">
+          <div style="font-size: 44px;">📦</div>
+          <div style="font-weight: bold; font-size: 16px; margin-top: 8px;">UT Mobile Portal</div>
+          <div style="font-size: 11px; color: #a1a1aa; margin-top: 2px;">Versi 1.0.0 (Release) • 8.4 MB</div>
+        </div>
+
+        <div style="margin-top: 30px; border-top: 1px solid #27272a; padding-top: 14px; text-align: center; font-size: 13px;">
+          Apakah Anda ingin menginstal aplikasi ini?
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <button style="flex: 1; padding: 10px; border-radius: 6px; border: none; background: #3f3f46; color: #fff; font-weight: bold; cursor: pointer;">
+            Batal
+          </button>
+          <button style="flex: 1; padding: 10px; border-radius: 6px; border: none; background: #22c55e; color: #fff; font-weight: bold; cursor: pointer;" @click="installed = true">
+            Instal
+          </button>
+        </div>
+
+        <div v-if="installed" style="margin-top: 14px; background: #166534; padding: 8px; border-radius: 6px; text-align: center; font-size: 12px;">
+          ✓ Aplikasi berhasil terpasang di smartphone!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const installed = ref(false);
+        return { installed };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
