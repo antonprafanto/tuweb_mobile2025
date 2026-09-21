@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--purple);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -37,7 +37,29 @@
       background: #fff;
       margin-bottom: 10px;
     }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid #1D4ED8;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #1D4ED8;
+    }
+    .guide-title {
+      font-weight: 900;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    .diagram-card {
+      background: #fff;
+      border: 3px solid #000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000;
+      overflow-x: auto;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
       background: var(--card-bg);
       border: 3px solid var(--border);
@@ -54,14 +76,94 @@
       white-space: pre-wrap;
       margin-bottom: 10px;
     }
+    .source-cite {
+      background: #F1F5F9;
+      border: 2px dashed #64748B;
+      padding: 12px 16px;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #334155;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <div class="badge-tag">SLIDE 07 • OPTIMASI UKURAN & PROTEKSI KODE</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Optimasi Ukuran & Penyamaran Kode dengan R8 / ProGuard</h1>
+    <div class="badge-tag">SLIDE 07 • OPTIMASI UKURAN &amp; PROTEKSI KODE</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Optimasi Ukuran &amp; Penyamaran Kode dengan R8 / ProGuard</h1>
     <p style="margin: 0; font-size: 14px;">Memangkas ukuran berkas APK hingga 50% lebih ramping dan melindungi logika aplikasi dari ancaman reverse engineering.</p>
+  </div>
+
+  <!-- PANDUAN MAHASISWA AWAM -->
+  <div class="guide-box">
+    <div class="guide-title">📘 Panduan Belajar Mahasiswa (Ramah Pemula):</div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E3A8A;">
+      <p style="margin: 0 0 8px 0;">
+        <strong>🎯 Sasaran Konsep:</strong> Menguasai tiga pilar optimasi kompilator modern Android R8: pemangkasan kode mati (*Dead Code Elimination*), penyamaran simbol nama (*Name Obfuscation*), dan pembuangan aset mubazir (*Resource Shrinking*).
+      </p>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (modul simulasi ini), Android Studio, berkas aturan <code>proguard-rules.pro</code>, dan berkas <code>build.gradle</code>.
+      </p>
+      <p style="margin: 0;">
+        <strong>📋 Urutan Pengujian Mandiri:</strong>
+        1. Buka modul ini di Chrome;
+        2. Cermati 3 peran vital mesin R8 pada kartu kiri;
+        3. Bandingkan kode asli yang mudah dicuri dengan hasil obfuscation di kartu kanan untuk membuktikan perlindungan kekayaan intelektual aplikasi Anda!
+      </p>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SVG -->
+  <div class="diagram-card">
+    <h3 style="margin-top:0; margin-bottom:12px; font-size:16px;">🎨 Diagram Arsitektur: Pipeline Kompilator R8 dalam Memangkas &amp; Menyamarkan Kode</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 180" width="100%" height="auto" style="display:block;">
+      <defs>
+        <marker id="arrow-s07" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- 1. Source Bytecode -->
+      <rect x="15" y="30" width="200" height="120" fill="#FEE2E2" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="115" y="58" font-size="12" font-weight="900" text-anchor="middle" fill="#991B1B">1. KODE ASLI &amp; LIB</text>
+      <text x="115" y="78" font-size="10" text-anchor="middle" fill="#334155">Nama Method Jelas</text>
+      <text x="115" y="96" font-size="10" text-anchor="middle" fill="#7F1D1D">Ukuran Besar (~25 MB)</text>
+      <rect x="25" y="112" width="180" height="24" fill="#DC2626" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="115" y="128" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">⚠️ Rawan Decompile</text>
+
+      <!-- Panah 1 -> 2 -->
+      <path d="M 215 90 L 250 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s07)" />
+
+      <!-- 2. R8 Processing Engine -->
+      <rect x="255" y="30" width="220" height="120" fill="#FEF9C3" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="365" y="58" font-size="12" font-weight="900" text-anchor="middle" fill="#B45309">2. MESIN R8 COMPILER</text>
+      <text x="365" y="78" font-size="10" text-anchor="middle" fill="#334155">Tree Shaking (Hapus Mati)</text>
+      <text x="365" y="96" font-size="10" text-anchor="middle" fill="#334155">Obfuscation (Ubah Nama)</text>
+      <rect x="265" y="112" width="200" height="24" fill="#F59E0B" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="365" y="128" font-size="10" font-weight="900" text-anchor="middle" fill="#000">shrinkResources = true</text>
+
+      <!-- Panah 2 -> 3 -->
+      <path d="M 475 90 L 510 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s07)" />
+
+      <!-- 3. ProGuard Rules Exemption -->
+      <rect x="515" y="30" width="190" height="120" fill="#EDE9FE" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="610" y="58" font-size="12" font-weight="900" text-anchor="middle" fill="#6D28D9">3. PROGUARD RULES</text>
+      <text x="610" y="78" font-size="10" text-anchor="middle" fill="#334155">proguard-rules.pro</text>
+      <text x="610" y="96" font-size="10" text-anchor="middle" fill="#64748B">-keep class ... (Bridge)</text>
+      <rect x="525" y="112" width="170" height="24" fill="#7C3AED" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="610" y="128" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">Pertahankan Plugin</text>
+
+      <!-- Panah 3 -> 4 -->
+      <path d="M 705 90 L 740 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s07)" />
+
+      <!-- 4. DEX Output -->
+      <rect x="745" y="30" width="160" height="120" fill="#DCFCE7" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="825" y="58" font-size="12" font-weight="900" text-anchor="middle" fill="#15803D">4. HASIL RAMPING</text>
+      <text x="825" y="78" font-size="10" text-anchor="middle" fill="#334155">classes.dex Ramping</text>
+      <text x="825" y="96" font-size="10" text-anchor="middle" fill="#166534">Pangkas 50% (~12 MB)</text>
+      <rect x="755" y="112" width="140" height="24" fill="#16A34A" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="825" y="128" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">🔒 Aman &amp; Cepat</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -92,17 +194,25 @@
       <div style="font-size: 12px; font-weight: bold; margin-bottom: 4px; color: #dc2626;">Sebelum R8 (Kode Mudah Dicuri):</div>
       <div class="code-box">public class MahasiswaValidator {
     public boolean verifikasiNilai(int sks, double ipk) {
-        return ipk >= 2.0 && sks >= 144;
+        return ipk >= 2.0 &amp;&amp; sks >= 144;
     }
 }</div>
 
       <div style="font-size: 12px; font-weight: bold; margin-bottom: 4px; color: #16a34a;">Setelah R8 Obfuscation (Aman Terlindungi):</div>
       <div class="code-box">public class a {
     public boolean a(int i, double d) {
-        return d >= 2.0 && i >= 144;
+        return d >= 2.0 &amp;&amp; i >= 144;
     }
 }</div>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Sumber Acuan Akademik:</strong><br>
+    1. Modul Pembelajaran Mandiri (BMP) STSI4303/MSIM4401 Pemrograman Berbasis Perangkat Bergerak, Modul 9, Universitas Terbuka.<br>
+    2. Google Android Developers (2024), <em>Shrink, obfuscate, and optimize your app with R8</em>.<br>
+    3. Guardsquare (2024), <em>ProGuard Manual and Rules Configuration for Android</em>.
   </div>
 
   <script>

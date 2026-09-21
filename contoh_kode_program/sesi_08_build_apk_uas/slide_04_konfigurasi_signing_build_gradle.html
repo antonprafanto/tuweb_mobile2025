@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--mint);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -37,7 +37,29 @@
       background: #fff;
       margin-bottom: 10px;
     }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid #1D4ED8;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #1D4ED8;
+    }
+    .guide-title {
+      font-weight: 900;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    .diagram-card {
+      background: #fff;
+      border: 3px solid #000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000;
+      overflow-x: auto;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
       background: var(--card-bg);
       border: 3px solid var(--border);
@@ -53,6 +75,14 @@
       border: 2px solid #000;
       white-space: pre-wrap;
     }
+    .source-cite {
+      background: #F1F5F9;
+      border: 2px dashed #64748B;
+      padding: 12px 16px;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #334155;
+    }
   </style>
 </head>
 <body>
@@ -61,6 +91,78 @@
     <div class="badge-tag">SLIDE 04 • KONFIGURASI GRADLE RELEASE</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Konfigurasi <code>signingConfigs</code> pada <code>android/app/build.gradle</code></h1>
     <p style="margin: 0; font-size: 14px;">Menginstruksikan Gradle untuk menandatangani APK release secara otomatis menggunakan berkas Keystore Anda.</p>
+  </div>
+
+  <!-- PANDUAN MAHASISWA AWAM -->
+  <div class="guide-box">
+    <div class="guide-title">📘 Panduan Belajar Mahasiswa (Ramah Pemula):</div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E3A8A;">
+      <p style="margin: 0 0 8px 0;">
+        <strong>🎯 Sasaran Konsep:</strong> Memahami bagaimana sistem build Gradle mengikat berkas Keystore digital ke tipe kompilasi <code>release</code> melalui konfigurasi blok <code>signingConfigs</code>, serta mempraktikkan keamanan rahasia kredensial.
+      </p>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome, Visual Studio Code / Android Studio, berkas konfigurasi <code>android/app/build.gradle</code>, dan <code>gradle.properties</code>.
+      </p>
+      <p style="margin: 0;">
+        <strong>📋 Urutan Pengujian Mandiri:</strong>
+        1. Buka berkas HTML ini di Chrome untuk mempelajari 4 atribut wajib: <code>storeFile</code>, <code>storePassword</code>, <code>keyAlias</code>, dan <code>keyPassword</code>;
+        2. Perhatikan diagram arsitektur di bawah yang menggambarkan hubungan antara keystore fisik dan blok build release;
+        3. Terapkan pemisahan password ke berkas lokal <code>gradle.properties</code> agar kredensial Anda tidak bocor ke publik!
+      </p>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SVG -->
+  <div class="diagram-card">
+    <h3 style="margin-top:0; margin-bottom:12px; font-size:16px;">🎨 Diagram Arsitektur: Alur Integrasi Keystore pada Gradle Build Pipeline</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 180" width="100%" height="auto" style="display:block;">
+      <defs>
+        <marker id="arrow-s04" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- 1. Keystore File -->
+      <rect x="15" y="30" width="200" height="120" fill="#FCE7F3" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="115" y="58" font-size="12" font-weight="900" text-anchor="middle" fill="#BE185D">1. BERKAS KUNCI FISIK</text>
+      <text x="115" y="78" font-size="10" text-anchor="middle" fill="#334155">android/app/</text>
+      <text x="115" y="96" font-size="10" text-anchor="middle" fill="#BE185D">ut_release.keystore</text>
+      <rect x="25" y="112" width="180" height="24" fill="#EC4899" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="115" y="128" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">RSA 2048-bit Private Key</text>
+
+      <!-- Panah 1 -> 2 -->
+      <path d="M 215 90 L 250 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s04)" />
+
+      <!-- 2. signingConfigs -->
+      <rect x="255" y="30" width="210" height="120" fill="#FEF9C3" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="360" y="58" font-size="12" font-weight="900" text-anchor="middle" fill="#B45309">2. signingConfigs.release</text>
+      <text x="360" y="78" font-size="10" text-anchor="middle" fill="#334155">storeFile: ut_release.keystore</text>
+      <text x="360" y="96" font-size="10" text-anchor="middle" fill="#334155">keyAlias: ut_alias</text>
+      <rect x="265" y="112" width="190" height="24" fill="#F59E0B" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="360" y="128" font-size="10" font-weight="900" text-anchor="middle" fill="#000">storePassword &amp; keyPassword</text>
+
+      <!-- Panah 2 -> 3 -->
+      <path d="M 465 90 L 500 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s04)" />
+
+      <!-- 3. buildTypes.release -->
+      <rect x="505" y="30" width="200" height="120" fill="#E0F2FE" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="605" y="58" font-size="12" font-weight="900" text-anchor="middle" fill="#0369A1">3. buildTypes { release }</text>
+      <text x="605" y="78" font-size="10" text-anchor="middle" fill="#334155">signingConfig signingConfigs.rel</text>
+      <text x="605" y="96" font-size="10" text-anchor="middle" fill="#334155">minifyEnabled true</text>
+      <rect x="515" y="112" width="180" height="24" fill="#0284C7" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="605" y="128" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">shrinkResources true</text>
+
+      <!-- Panah 3 -> 4 -->
+      <path d="M 705 90 L 740 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s04)" />
+
+      <!-- 4. Output Signed APK -->
+      <rect x="745" y="30" width="160" height="120" fill="#DCFCE7" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="825" y="58" font-size="12" font-weight="900" text-anchor="middle" fill="#15803D">4. APK SIGNED</text>
+      <text x="825" y="78" font-size="10" text-anchor="middle" fill="#334155">app-release.apk</text>
+      <text x="825" y="96" font-size="10" text-anchor="middle" fill="#166534">Tanda Tangan Sah</text>
+      <rect x="755" y="112" width="140" height="24" fill="#16A34A" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="825" y="128" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">✅ Siap Edar</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -107,6 +209,14 @@
     }
 }</div>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Sumber Acuan Akademik:</strong><br>
+    1. Modul Pembelajaran Mandiri (BMP) STSI4303/MSIM4401 Pemrograman Berbasis Perangkat Bergerak, Modul 9, Universitas Terbuka.<br>
+    2. Google Android Developers (2024), <em>Configure build variants and signing configs in Gradle</em>.<br>
+    3. Gradle User Manual (2024), <em>Declaring and Managing Properties in gradle.properties</em>.
   </div>
 
   <script>

@@ -99,14 +99,98 @@
       font-size: 13px;
       line-height: 1.5;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid #1D4ED8;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #1D4ED8;
+    }
+    .guide-title {
+      font-weight: 900;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    .diagram-card {
+      background: #fff;
+      border: 3px solid #000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000;
+      overflow-x: auto;
+    }
+    .source-cite {
+      margin-top: 24px;
+      padding: 12px 16px;
+      background: #FFF;
+      border: 2px dashed #64748B;
+      font-size: 12px;
+      color: #475569;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   </style>
 </head>
 <body>
 
   <div class="header" style="max-width: 900px; margin-left: auto; margin-right: auto;">
     <div class="badge-tag">SLIDE 15 • BANK SOAL UAS BAGIAN 3 (SOAL 31 - 45)</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">UAS Simulasi Bagian 3: Capacitor Bridge, API, Storage & Sensor</h1>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">UAS Simulasi Bagian 3: Capacitor Bridge, API, Storage &amp; Sensor</h1>
     <p style="margin: 0; font-size: 14px;">Materi Ujian Berdasarkan Modul 6, 7, dan 8 BMP UT STSI4303 / MSIM4401. Silakan uji coba jawaban Anda secara langsung.</p>
+  </div>
+
+  <!-- GUIDE BOX RAMAH AWAM -->
+  <div class="guide-box" style="max-width: 900px; margin-left: auto; margin-right: auto;">
+    <div class="guide-title">🛠️ Panduan Ujian &amp; Alat Bantu Belajar (Ramah Pemula)</div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E293B;">
+      <div><strong>1. Alat Praktik Terkait:</strong> Chrome Remote Inspect (<code>chrome://inspect</code>), Android Studio Logcat, dan kabel USB ke smartphone fisik.</div>
+      <div><strong>2. Cara Pengerjaan Interaktif:</strong> Klik salah satu kotak opsi jawaban (A, B, C, atau D). Setelah menjawab atau untuk meninjau pembahasan, klik tombol hijau <strong>"Periksa Kunci Jawaban &amp; Pembahasan Lengkap"</strong> di bagian bawah.</div>
+      <div><strong>3. Fokus Materi Bagian 3:</strong> Soal nomor 31 hingga 45 menguji pemahaman Anda seputar:
+        <ul>
+          <li><strong>Modul 06 (Capacitor Runtime):</strong> Protokol komunikasi RPC JavaScript ke Java/Kotlin, berkas izin <code>AndroidManifest.xml</code>, dan sinkronisasi <code>npx cap sync</code>.</li>
+          <li><strong>Modul 07 (REST &amp; Hardware):</strong> Penanganan asinkron <code>fetch()</code> dengan <code>async/await</code> &amp; <code>try-catch</code>, penyimpanan persisten <code>Capacitor Preferences</code>, dan izin akses perangkat keras Camera &amp; Geolocation GPS.</li>
+          <li><strong>Modul 08 (Debugging &amp; Profiling):</strong> Inspeksi elemen DOM pada perangkat Android via USB, pembacaan log sistem di Android Logcat, serta pencegahan memory leak dan jank animasi.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIAGRAM MODUL 6, 7, 8 SVG RESPONSIVE -->
+  <div class="diagram-card" style="max-width: 900px; margin-left: auto; margin-right: auto;">
+    <div style="font-weight: 800; font-size: 13px; margin-bottom: 10px;">📊 DIAGRAM ALUR: DARI JAVASCRIPT ASINKRON KE CAPACITOR RPC BRIDGE DAN REMOTE DEBUGGING</div>
+    <svg viewBox="0 0 860 160" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="max-height: 200px; display: block; font-family: 'Segoe UI', sans-serif;">
+      <rect x="0" y="0" width="860" height="160" fill="#F8FAFC" rx="8" stroke="#000" stroke-width="2"/>
+
+      <!-- Modul 6: RPC Bridge -->
+      <rect x="20" y="30" width="240" height="100" fill="#A7F3D0" stroke="#059669" stroke-width="2.5" rx="6"/>
+      <text x="140" y="55" text-anchor="middle" font-size="12" font-weight="900" fill="#065F46">Modul 6: Capacitor Bridge</text>
+      <text x="140" y="75" text-anchor="middle" font-size="11" fill="#064E3B">window.Capacitor.toNative()</text>
+      <text x="140" y="93" text-anchor="middle" font-size="11" fill="#064E3B">AndroidManifest.xml &amp; Gradle</text>
+      <text x="140" y="112" text-anchor="middle" font-size="10" font-weight="bold" fill="#047857">npx cap sync</text>
+
+      <line x1="260" y1="80" x2="315" y2="80" stroke="#000" stroke-width="3"/>
+      <polygon points="315,75 327,80 315,85" fill="#000"/>
+
+      <!-- Modul 7: Hardware & Storage -->
+      <rect x="330" y="30" width="240" height="100" fill="#FED7AA" stroke="#EA580C" stroke-width="2.5" rx="6"/>
+      <text x="450" y="55" text-anchor="middle" font-size="12" font-weight="900" fill="#9A3412">Modul 7: REST API &amp; Sensor</text>
+      <text x="450" y="75" text-anchor="middle" font-size="11" fill="#431407">async / await fetch(URL)</text>
+      <text x="450" y="93" text-anchor="middle" font-size="11" fill="#431407">Camera.getPhoto() &amp; GPS</text>
+      <text x="450" y="112" text-anchor="middle" font-size="10" font-weight="bold" fill="#C2410C">Capacitor Preferences Offline</text>
+
+      <line x1="570" y1="80" x2="625" y2="80" stroke="#000" stroke-width="3"/>
+      <polygon points="625,75 637,80 625,85" fill="#000"/>
+
+      <!-- Modul 8: Debugging & Profiling -->
+      <rect x="635" y="30" width="205" height="100" fill="#E9D5FF" stroke="#7E22CE" stroke-width="2.5" rx="6"/>
+      <text x="737" y="55" text-anchor="middle" font-size="12" font-weight="900" fill="#6B21A8">Modul 8: Profiling</text>
+      <text x="737" y="75" text-anchor="middle" font-size="11" fill="#3B0764">chrome://inspect Remote</text>
+      <text x="737" y="93" text-anchor="middle" font-size="11" fill="#3B0764">Android Studio Logcat</text>
+      <text x="737" y="112" text-anchor="middle" font-size="10" font-weight="bold" fill="#7E22CE">Deteksi Memory Leak</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -358,5 +442,14 @@
       }
     }).mount('#app');
   </script>
+
+  <div class="source-cite">
+    <strong>📚 Referensi Akademik &amp; Silabus UAS UT:</strong>
+    <ol style="margin: 6px 0 0 16px; padding-left: 0; line-height: 1.5;">
+      <li>Universitas Terbuka. (2024). <em>Buku Materi Pokok STSI4303/MSIM4401: Modul 6 (Capacitor Runtime), Modul 7 (REST API &amp; Hardware Sensor), Modul 8 (Debugging &amp; Profiling)</em>. Tangerang Selatan: Penerbit Universitas Terbuka.</li>
+      <li>Capacitor Documentation Core Team. (2024). <em>Capacitor Cross-Platform Runtime Architecture &amp; Native Bridge Protocol</em>. Ionic / OutSystems.</li>
+      <li>Google Android Open Source Project. (2024). <em>Android Logcat, Remote Debugging with Chrome Inspect, and Performance Profiling</em>. Google Developers.</li>
+    </ol>
+  </div>
 </body>
 </html>

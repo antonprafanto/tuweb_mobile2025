@@ -232,26 +232,26 @@ tuweb_mobile2025/
 
 ### 📱 Rincian 18 Berkas Mandiri Sesi 08 (Build APK Release & 50 Bank Soal UAS)
 
-| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run) |
+| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run di Chrome) |
 | :---: | :--- | :--- |
-| **Slide 01** | Garis Akhir Perkuliahan: Dari Kode Menjadi Berkas Installer APK Mandiri | [`slide_01_orientasi_sesi_08_final.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_01_orientasi_sesi_08_final.html) |
-| **Slide 02** | 5 Tahapan Siklus Rilis Aplikasi Mobile (Development hingga Maintenance) | [`slide_02_siklus_rilis_aplikasi_mobile.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_02_siklus_rilis_aplikasi_mobile.html) |
-| **Slide 03** | Pembuatan Digital Keystore RSA 2048-bit via Utilitas `keytool` | [`slide_03_pembuatan_keystore_digital.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_03_pembuatan_keystore_digital.html) |
-| **Slide 04** | Konfigurasi Otomasi Tanda Tangan Digital pada `android/app/build.gradle` | [`slide_04_konfigurasi_signing_build_gradle.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_04_konfigurasi_signing_build_gradle.html) |
-| **Slide 05** | Eksekusi Kompilasi APK Release Stand-alone via Gradle Wrapper (`assembleRelease`) | [`slide_05_kompilasi_apk_assemble_release.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_05_kompilasi_apk_assemble_release.html) |
-| **Slide 06** | Distribusi & Instalasi Mandiri (Sideloading) APK ke Ponsel Tanpa PC | [`slide_06_instalasi_apk_mandiri_tanpa_pc.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_06_instalasi_apk_mandiri_tanpa_pc.html) |
-| **Slide 07** | Optimasi Biner: Minifikasi Kode & Tree Shaking Native via Kompilator R8 | [`slide_07_optimasi_minifikasi_r8_proguard.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_07_optimasi_minifikasi_r8_proguard.html) |
-| **Slide 08** | Optimasi Web Assets: Kompresi WebP, Tree Shaking ES Modules & Lazy Loading | [`slide_08_optimasi_aset_dan_tree_shaking.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_08_optimasi_aset_dan_tree_shaking.html) |
-| **Slide 09** | Audit Keamanan Pra-Rilis: Proteksi Data, Cleartext HTTPS, & Permissions | [`slide_09_audit_keamanan_sebelum_rilis.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_09_audit_keamanan_sebelum_rilis.html) |
-| **Slide 10** | Distribusi Alternatif: Progressive Web App (PWA) & Service Worker Cache | [`slide_10_pwa_service_worker_offline.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_10_pwa_service_worker_offline.html) |
-| **Slide 11** | Publikasi Google Play Console & Standar Android App Bundle (`.aab`) | [`slide_11_distribusi_google_play_console.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_11_distribusi_google_play_console.html) |
-| **Slide 12** | **Kisi-kisi Resmi Komprehensif UAS**: Pemetaan 9 Modul BMP STSI4303 / MSIM4401 | [`slide_12_kisi_kisi_uas_modul_1_sampai_9.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_12_kisi_kisi_uas_modul_1_sampai_9.html) |
-| **Slide 13** | **Bank Soal UAS Bagian 1 (Soal 01–15)**: Arsitektur Hybrid, Web Standards & Vue 3 | [`slide_13_bank_soal_uas_bagian_1.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_13_bank_soal_uas_bagian_1.html) |
-| **Slide 14** | **Bank Soal UAS Bagian 2 (Soal 16–30)**: TypeScript, Ionic Grid, Form & Dark Mode | [`slide_14_bank_soal_uas_bagian_2.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_14_bank_soal_uas_bagian_2.html) |
-| **Slide 15** | **Bank Soal UAS Bagian 3 (Soal 31–45)**: Capacitor Bridge, REST API, Storage & Sensor | [`slide_15_bank_soal_uas_bagian_3.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_15_bank_soal_uas_bagian_3.html) |
-| **Slide 16** | **Bank Soal UAS Bagian 4 (Soal 46–50)**: Signing Keystore, Build Release & Kasus Produksi | [`slide_16_bank_soal_uas_bagian_4.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_16_bank_soal_uas_bagian_4.html) |
-| **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 08: APK Release Validator & Engine Simulasi 50 Soal UAS** | [`slide_17_lab_quest_08_apk_validator.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_17_lab_quest_08_apk_validator.html) |
-| **Slide 18** | **🎓 Penutup Semester**: Refleksi Perkuliahan & Pesan Dosen Pak Anton Prafanto | [`slide_18_penutup_semester_pesan_dosen.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_18_penutup_semester_pesan_dosen.html) |
+| **Slide 01** | Garis Akhir Perkuliahan: Dari Kode Menjadi Berkas Installer APK Mandiri | [🌐 `slide_01_orientasi_sesi_08_final.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_01_orientasi_sesi_08_final.html) |
+| **Slide 02** | 5 Tahapan Siklus Rilis Aplikasi Mobile (Development hingga Maintenance) | [🌐 `slide_02_siklus_rilis_aplikasi_mobile.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_02_siklus_rilis_aplikasi_mobile.html) |
+| **Slide 03** | Pembuatan Digital Keystore RSA 2048-bit via Utilitas `keytool` | [🌐 `slide_03_pembuatan_keystore_digital.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_03_pembuatan_keystore_digital.html) |
+| **Slide 04** | Konfigurasi Otomasi Tanda Tangan Digital pada `android/app/build.gradle` | [🌐 `slide_04_konfigurasi_signing_build_gradle.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_04_konfigurasi_signing_build_gradle.html) |
+| **Slide 05** | Eksekusi Kompilasi APK Release Stand-alone via Gradle Wrapper (`assembleRelease`) | [🌐 `slide_05_kompilasi_apk_assemble_release.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_05_kompilasi_apk_assemble_release.html) |
+| **Slide 06** | Distribusi & Instalasi Mandiri (Sideloading) APK ke Ponsel Tanpa PC | [🌐 `slide_06_instalasi_apk_mandiri_tanpa_pc.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_06_instalasi_apk_mandiri_tanpa_pc.html) |
+| **Slide 07** | Optimasi Biner: Minifikasi Kode & Tree Shaking Native via Kompilator R8 | [🌐 `slide_07_optimasi_minifikasi_r8_proguard.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_07_optimasi_minifikasi_r8_proguard.html) |
+| **Slide 08** | Optimasi Web Assets: Kompresi WebP, Tree Shaking ES Modules & Lazy Loading | [🌐 `slide_08_optimasi_aset_dan_tree_shaking.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_08_optimasi_aset_dan_tree_shaking.html) |
+| **Slide 09** | Audit Keamanan Pra-Rilis: Proteksi Data, Cleartext HTTPS, & Permissions | [🌐 `slide_09_audit_keamanan_sebelum_rilis.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_09_audit_keamanan_sebelum_rilis.html) |
+| **Slide 10** | Distribusi Alternatif: Progressive Web App (PWA) & Service Worker Cache | [🌐 `slide_10_pwa_service_worker_offline.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_10_pwa_service_worker_offline.html) |
+| **Slide 11** | Publikasi Google Play Console & Standar Android App Bundle (`.aab`) | [🌐 `slide_11_distribusi_google_play_console.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_11_distribusi_google_play_console.html) |
+| **Slide 12** | **Kisi-kisi Resmi Komprehensif UAS**: Pemetaan 9 Modul BMP STSI4303 / MSIM4401 | [🌐 `slide_12_kisi_kisi_uas_modul_1_sampai_9.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_12_kisi_kisi_uas_modul_1_sampai_9.html) |
+| **Slide 13** | **Bank Soal UAS Bagian 1 (Soal 01–15)**: Arsitektur Hybrid, Web Standards & Vue 3 | [🌐 `slide_13_bank_soal_uas_bagian_1.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_13_bank_soal_uas_bagian_1.html) |
+| **Slide 14** | **Bank Soal UAS Bagian 2 (Soal 16–30)**: TypeScript, Ionic Grid, Form & Dark Mode | [🌐 `slide_14_bank_soal_uas_bagian_2.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_14_bank_soal_uas_bagian_2.html) |
+| **Slide 15** | **Bank Soal UAS Bagian 3 (Soal 31–45)**: Capacitor Bridge, REST API, Storage & Sensor | [🌐 `slide_15_bank_soal_uas_bagian_3.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_15_bank_soal_uas_bagian_3.html) |
+| **Slide 16** | **Bank Soal UAS Bagian 4 (Soal 46–50)**: Signing Keystore, Build Release & Kasus Produksi | [🌐 `slide_16_bank_soal_uas_bagian_4.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_16_bank_soal_uas_bagian_4.html) |
+| **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 08: APK Release Validator & Engine Simulasi 50 Soal UAS** | [🌐 `slide_17_lab_quest_08_apk_validator.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_17_lab_quest_08_apk_validator.html) |
+| **Slide 18** | **🎓 Penutup Semester**: Refleksi Perkuliahan & Pesan Dosen Pak Anton Prafanto | [🌐 `slide_18_penutup_semester_pesan_dosen.html`](contoh_kode_program/sesi_08_build_apk_uas/slide_18_penutup_semester_pesan_dosen.html) |
 
 ---
 

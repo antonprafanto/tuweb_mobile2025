@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -37,7 +37,29 @@
       background: #fff;
       margin-bottom: 10px;
     }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid #1D4ED8;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #1D4ED8;
+    }
+    .guide-title {
+      font-weight: 900;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    .diagram-card {
+      background: #fff;
+      border: 3px solid #000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000;
+      overflow-x: auto;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
       background: var(--card-bg);
       border: 3px solid var(--border);
@@ -50,14 +72,94 @@
       margin-bottom: 10px;
       background: #F8FAFC;
     }
+    .source-cite {
+      background: #F1F5F9;
+      border: 2px dashed #64748B;
+      padding: 12px 16px;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #334155;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
     <div class="badge-tag">SLIDE 01 • SESI 08 (MODUL 9 BMP UT - SESI PENUTUP)</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Orientasi Sesi 08: Rilis APK Stand-alone & Sukses UAS</h1>
-    <p style="margin: 0; font-size: 14px;">Mencapai garis akhir perkuliahan: Menghasilkan berkas installer mandiri yang siap dipasang di smartphone siapapun dan menaklukkan Ujian Akhir Semester.</p>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Orientasi Sesi 08: Rilis APK Stand-alone &amp; Sukses UAS</h1>
+    <p style="margin: 0; font-size: 14px;">Mencapai garis akhir perkuliahan: Menghasilkan berkas installer mandiri yang siap dipasang di smartphone siapa pun dan menaklukkan Ujian Akhir Semester.</p>
+  </div>
+
+  <!-- PANDUAN MAHASISWA AWAM -->
+  <div class="guide-box">
+    <div class="guide-title">📘 Panduan Belajar Mahasiswa (Ramah Pemula):</div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E3A8A;">
+      <p style="margin: 0 0 8px 0;">
+        <strong>🎯 Sasaran Sesi:</strong> Memahami alur kerja transformasi kode aplikasi mobile web hybrid menjadi berkas biner mandiri (APK Release bertanda tangan digital), serta menuntaskan persiapan komprehensif 50 Bank Soal UAS STSI4303.
+      </p>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (cukup klik ganda berkas HTML ini), Chrome DevTools (<code>F12</code>), Mode Layar HP (<code>Ctrl + Shift + M</code>), Visual Studio Code, Java JDK (<code>keytool</code>), Android Studio / Gradle Wrapper, dan Smartphone Android fisik.
+      </p>
+      <p style="margin: 0;">
+        <strong>📋 Urutan Pengujian Mandiri:</strong>
+        1. Buka berkas ini langsung di peramban Chrome;
+        2. Pelajari dua pilar penutup: Pilar Engineering (Rilis APK mandiri tanpa ketergantungan PC) dan Pilar Akademik (50 Bank Soal UAS);
+        3. Tinjau diagram peta transformasi di bawah untuk memahami posisi Sesi 08 sebagai jembatan kelulusan dengan nilai A mutlak!
+      </p>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SVG -->
+  <div class="diagram-card">
+    <h3 style="margin-top:0; margin-bottom:12px; font-size:16px;">🎨 Diagram Arsitektur: Alur Transformasi Kode Web Menuju APK Release &amp; Sukses UAS</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 180" width="100%" height="auto" style="display:block;">
+      <defs>
+        <marker id="arrow-s01" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- Step 1: Web Source Code -->
+      <rect x="15" y="30" width="200" height="120" fill="#E0F2FE" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="115" y="58" font-size="12" font-weight="900" text-anchor="middle" fill="#0369A1">1. KODE SUMBER WEB</text>
+      <text x="115" y="80" font-size="11" text-anchor="middle" fill="#334155">Vue 3 + Ionic + TS</text>
+      <text x="115" y="98" font-size="10" text-anchor="middle" fill="#64748B">Sesi 01 s.d. Sesi 07</text>
+      <rect x="30" y="112" width="170" height="24" fill="#0284C7" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="115" y="128" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">npm run build (dist/)</text>
+
+      <!-- Panah 1 -> 2 -->
+      <path d="M 215 90 L 250 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s01)" />
+
+      <!-- Step 2: Native Android Bridge -->
+      <rect x="255" y="30" width="200" height="120" fill="#FEF9C3" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="355" y="58" font-size="12" font-weight="900" text-anchor="middle" fill="#B45309">2. RUNTIME ANDROID</text>
+      <text x="355" y="80" font-size="11" text-anchor="middle" fill="#334155">Folder android/ native</text>
+      <text x="355" y="98" font-size="10" text-anchor="middle" fill="#64748B">Capacitor Bridge Sync</text>
+      <rect x="270" y="112" width="170" height="24" fill="#F59E0B" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="355" y="128" font-size="10" font-weight="900" text-anchor="middle" fill="#000">npx cap sync android</text>
+
+      <!-- Panah 2 -> 3 -->
+      <path d="M 455 90 L 490 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s01)" />
+
+      <!-- Step 3: Keystore Signing & Build -->
+      <rect x="495" y="30" width="200" height="120" fill="#FCE7F3" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="595" y="58" font-size="12" font-weight="900" text-anchor="middle" fill="#BE185D">3. SIGNING &amp; BUILD</text>
+      <text x="595" y="80" font-size="11" text-anchor="middle" fill="#334155">Digital Keystore RSA</text>
+      <text x="595" y="98" font-size="10" text-anchor="middle" fill="#64748B">Minifikasi R8 ProGuard</text>
+      <rect x="510" y="112" width="170" height="24" fill="#EC4899" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="595" y="128" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">./gradlew assembleRelease</text>
+
+      <!-- Panah 3 -> 4 -->
+      <path d="M 695 90 L 730 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s01)" />
+
+      <!-- Step 4: Standalone APK & UAS -->
+      <rect x="735" y="30" width="170" height="120" fill="#DCFCE7" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="820" y="58" font-size="12" font-weight="900" text-anchor="middle" fill="#15803D">4. RILIS &amp; SUKSES UAS</text>
+      <text x="820" y="80" font-size="11" text-anchor="middle" fill="#334155">app-release.apk</text>
+      <text x="820" y="98" font-size="10" text-anchor="middle" fill="#64748B">Sideloading WhatsApp</text>
+      <rect x="745" y="112" width="150" height="24" fill="#16A34A" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="820" y="128" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">🎓 Nilai A UAS UT!</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -92,7 +194,7 @@
         <ul style="font-size: 12px; line-height: 1.6; color: #14532D; margin: 0; padding-left: 18px;">
           <li>Keaktifan Forum Diskusi Sesi 1 s/d 8 (Bobot Partisipasi).</li>
           <li>Tugas Tutorial 1, 2, dan 3 (Bobot Praktikum 50%).</li>
-          <li>Ujian Akhir Semester / UAS (Bobot Teori & Analisis 50%).</li>
+          <li>Ujian Akhir Semester / UAS (Bobot Teori &amp; Analisis 50%).</li>
         </ul>
       </div>
 
@@ -100,6 +202,14 @@
         💡 <strong>Pesan Pak Anton Prafanto:</strong> Pelajari berkas bank soal di Slide 13–16 dan coba simulasi ujian di Slide 17 sebelum hari H pelaksanaan UAS!
       </div>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Sumber Acuan Akademik:</strong><br>
+    1. Modul Pembelajaran Mandiri (BMP) STSI4303/MSIM4401 Pemrograman Berbasis Perangkat Bergerak, Modul 9 (Kompilasi, Distribusi &amp; Pemeliharaan), Universitas Terbuka.<br>
+    2. Google Android Developers (2024), <em>Sign your app, Configure build variants, and Android App Bundles Documentation</em>.<br>
+    3. Gradle User Manual (2024), <em>Build Lifecycle, Tasks, and Gradle Wrapper Execution</em>.
   </div>
 
   <script>

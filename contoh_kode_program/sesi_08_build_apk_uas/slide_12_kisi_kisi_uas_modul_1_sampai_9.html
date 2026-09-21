@@ -19,14 +19,15 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    
     .header {
       background: var(--mint);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +37,28 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid #1D4ED8;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #1D4ED8;
+    }
+    .guide-title {
+      font-weight: 900;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    .diagram-card {
+      background: #fff;
+      border: 3px solid #000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000;
+      overflow-x: auto;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -65,6 +88,14 @@
       background: #E2E8F0;
       margin-right: 6px;
     }
+    .source-cite {
+      margin-top: 24px;
+      padding: 12px 16px;
+      background: #FFF;
+      border: 2px dashed #64748B;
+      font-size: 12px;
+      color: #475569;
+    }
   </style>
 </head>
 <body>
@@ -72,7 +103,57 @@
   <div class="header">
     <div class="badge-tag">SLIDE 12 • SESI 08 (KISI-KISI RESMI UAS STSI4303 / MSIM4401)</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Pemetaan Kisi-kisi Soal UAS: Modul 1 sampai Modul 9 BMP</h1>
-    <p style="margin: 0; font-size: 14px;">Pedoman belajar terstruktur menghadapi Ujian Akhir Semester berbasis Buku Materi Pokok (BMP) Universitas Terbuka.</p>
+    <p style="margin: 0; font-size: 14px;">Pedoman belajar terstruktur menghadapi Ujian Akhir Semester berbasis Buku Materi Pokok (BMP) Universitas Terbuka dengan bobot materi yang proporsional.</p>
+  </div>
+
+  <!-- GUIDE BOX UNTUK AWAM & MAHASISWA UT -->
+  <div class="guide-box">
+    <div class="guide-title">🛠️ Panduan Praktik &amp; Alat Uji Pengembang (Ramah Awam &amp; Pemula)</div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E293B;">
+      <div><strong>1. Sumber Belajar Primer:</strong> Buku Materi Pokok (BMP) UT <em>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 - 3 SKS)</em> dan kumpulan contoh kode HTML runnable di folder <code>contoh_kode_program/</code>.</div>
+      <div><strong>2. Cara Menggunakan Modul Interaktif:</strong> Klik salah satu nama modul pada kartu di bawah. Panel tengah akan langsung memaparkan rincian materi esensial, bobot persentase soal ujian, serta pola tipikal pertanyaan pilihan ganda yang sering muncul di lembar ujian UT.</div>
+      <div><strong>3. Taksonomi Soal UAS UT:</strong> Soal didistribusikan dalam 4 level kognitif Bloom:
+        <ul>
+          <li><strong>C1 Pengetahuan (20%):</strong> Definisi Native vs Hybrid, singkatan SDK, ABI, fungsi RPC Bridge.</li>
+          <li><strong>C2 Pemahaman (30%):</strong> Menjelaskan alur kompilasi Gradle, siklus hidup Service Worker, reaktivitas Vue.</li>
+          <li><strong>C3 Aplikasi (35%):</strong> Menentukan sintaks ekspresi Regex, perintah kompilasi APK, query Ionic Grid.</li>
+          <li><strong>C4 Analisis (15%):</strong> Menganalisis potongan kode TypeScript yang error atau mencari akar penyebab APK crash.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIAGRAM STRUKTUR 9 MODUL BMP UT -->
+  <div class="diagram-card">
+    <div style="font-weight: 800; font-size: 13px; margin-bottom: 10px;">📊 DIAGRAM PIRAMIDA KOMPETENSI 9 MODUL BMP UT MENUJU FULL-STACK MOBILE DEVELOPER</div>
+    <svg viewBox="0 0 880 200" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="max-height: 240px; display: block; font-family: 'Segoe UI', sans-serif;">
+      <rect x="0" y="0" width="880" height="200" fill="#F8FAFC" rx="8" stroke="#000" stroke-width="2"/>
+
+      <!-- Layer 1: Fondasi -->
+      <rect x="30" y="140" width="820" height="45" fill="#BAE6FD" stroke="#000" stroke-width="2" rx="4"/>
+      <text x="50" y="167" font-size="12" font-weight="900" fill="#0369A1">TIER 1 (PONDASI WEB):</text>
+      <text x="210" y="167" font-size="11" font-weight="bold" fill="#0F172A">Modul 01: Pengantar Hybrid &amp; WebView (10%)</text>
+      <text x="490" y="167" font-size="11" font-weight="bold" fill="#0F172A">Modul 02: Web Standards &amp; Vue 3 (10%)</text>
+      <text x="730" y="167" font-size="11" font-weight="bold" fill="#0F172A">Modul 03: TypeScript (10%)</text>
+
+      <!-- Layer 2: Antarmuka -->
+      <rect x="90" y="95" width="700" height="40" fill="#DDD6FE" stroke="#000" stroke-width="2" rx="4"/>
+      <text x="110" y="120" font-size="12" font-weight="900" fill="#6D28D9">TIER 2 (UI &amp; FORM):</text>
+      <text x="270" y="120" font-size="11" font-weight="bold" fill="#0F172A">Modul 04: Ionic Framework Toolkit (10%)</text>
+      <text x="530" y="120" font-size="11" font-weight="bold" fill="#0F172A">Modul 05: Form, Validasi Regex &amp; Dark Mode (12%)</text>
+
+      <!-- Layer 3: Hardware & REST -->
+      <rect x="150" y="55" width="580" height="36" fill="#FED7AA" stroke="#000" stroke-width="2" rx="4"/>
+      <text x="170" y="78" font-size="12" font-weight="900" fill="#C2410C">TIER 3 (BRIDGE &amp; CLOUD):</text>
+      <text x="360" y="78" font-size="11" font-weight="bold" fill="#0F172A">Modul 06: Capacitor Bridge (16%)</text>
+      <text x="545" y="78" font-size="11" font-weight="bold" fill="#0F172A">Modul 07: REST API &amp; Storage (16%)</text>
+
+      <!-- Layer 4: Rilis & Optimasi -->
+      <rect x="230" y="15" width="420" height="35" fill="#BBF7D0" stroke="#000" stroke-width="2" rx="4"/>
+      <text x="250" y="38" font-size="12" font-weight="900" fill="#15803D">TIER 4 (PRODUKSI &amp; UAS):</text>
+      <text x="430" y="38" font-size="11" font-weight="bold" fill="#0F172A">Modul 08: Profiling (8%)</text>
+      <text x="550" y="38" font-size="11" font-weight="bold" fill="#0F172A">Modul 09: Release (8%)</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -128,19 +209,29 @@
       </div>
 
       <div style="border: 2px solid #000; padding: 12px; margin-bottom: 10px; background: #EFF6FF;">
-        <strong style="color: #1D4ED8;">2. Eliminasi Distractor yang Tidak Masuk Akal</strong>
+        <strong style="color: #1D4ED8;">2. Eliminasi Pengecoh (Distractor) yang Tidak Masuk Akal</strong>
         <p style="font-size: 12px; margin: 4px 0 0 0; color: #1E40AF;">
-          Opsi pilihan ganda sering menyisipkan nama atribut palsu (misal <code>v-bind-value</code> bukan <code>v-model</code>, atau tag <code>&lt;ion-table&gt;</code> yang tidak ada di Ionic).
+          Opsi pilihan ganda sering menyisipkan nama atribut palsu (misalnya <code>v-bind-value</code> bukan <code>v-model</code>, atau tag <code>&lt;ion-table&gt;</code> yang tidak pernah ada di Ionic).
         </p>
       </div>
 
       <div style="border: 2px solid #000; padding: 12px; background: #FFF1F2;">
         <strong style="color: #BE123C;">3. Manajemen Waktu Pengerjaan</strong>
         <p style="font-size: 12px; margin: 4px 0 0 0; color: #9F1239;">
-          Ujian 50 soal dalam 90 menit berarti Anda punya ~1.8 menit per soal. Kerjakan soal konsep konseptual cepat terlebih dahulu, simpan soal analisis kode untuk paruh kedua.
+          Ujian 50 soal dalam 90 menit berarti Anda punya ~1.8 menit per soal. Kerjakan soal konsep faktual terlebih dahulu, simpan soal analisis kode untuk paruh kedua.
         </p>
       </div>
     </div>
+  </div>
+
+  <!-- DAFTAR PUSTAKA DAN SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Referensi Akademik &amp; Kurikulum UT:</strong>
+    <ol style="margin: 6px 0 0 16px; padding-left: 0; line-height: 1.5;">
+      <li>Universitas Terbuka. (2024). <em>Buku Materi Pokok STSI4303/MSIM4401: Pemrograman Berbasis Perangkat Bergerak (Edisi Terbaru)</em>. Tangerang Selatan: Penerbit Universitas Terbuka.</li>
+      <li>Anderson, L. W., &amp; Krathwohl, D. R. (2001). <em>A Taxonomy for Learning, Teaching, and Assessing: A Revision of Bloom's Taxonomy of Educational Objectives</em>. Longman.</li>
+      <li>Pusat Pengujian Universitas Terbuka. (2024). <em>Panduan Evaluasi Hasil Belajar &amp; Standar Kisi-kisi Ujian Akhir Semester Sistem Informasi</em>. Universitas Terbuka.</li>
+    </ol>
   </div>
 
   <script>
@@ -155,11 +246,11 @@
             weight: "10%",
             soalCount: 5,
             color: "#BAE6FD",
-            focus: "Konsep Native vs Hybrid vs PWA, WebView container, dan sejarah perkembangan mobile.",
+            focus: "Konsep Native vs Hybrid vs PWA, WebView container, dan arsitektur mobile.",
             topics: [
-              { title: "Native vs Hybrid", desc: "Perbedaan performa, akses hardware, cost development, dan portabilitas lintas platform." },
-              { title: "Peran WebView", desc: "Mesin rendering browser internal (Chromium/WebKit) di dalam aplikasi native wrapper." },
-              { title: "Single Codebase", desc: "Filosofi 'Write Once, Run Everywhere' menggunakan HTML5, CSS3, dan JavaScript." }
+              { title: "Native vs Hybrid", desc: "Perbedaan performa, akses hardware, waktu rilis, dan portabilitas kode antar-platform." },
+              { title: "Peran WebView", desc: "Mesin rendering browser internal (Chromium/WebKit) di dalam wrapper aplikasi native." },
+              { title: "Single Codebase", desc: "Filosofi 'Write Once, Run Everywhere' berbasis HTML5, CSS3, dan JavaScript." }
             ],
             samplePattern: "Soal menanyakan karakteristik aplikasi yang dibangun dengan Ionic: berjalan di dalam container apa dan teknologi inti apa yang digunakannya."
           },
@@ -169,13 +260,13 @@
             weight: "10%",
             soalCount: 5,
             color: "#BBF7D0",
-            focus: "HTML5 semantic, CSS Flexbox/Grid, Composition API, ref(), reactive(), dan directiv v-model.",
+            focus: "HTML5 semantik, CSS Flexbox/Grid, Composition API, ref(), reactive(), dan v-model.",
             topics: [
-              { title: "Vue Reactivity", desc: "Mekanisme Proxy modern yang mendeteksi perubahan state variabel secara otomatis." },
-              { title: "Directives", desc: "v-model (two-way binding), v-if/v-else (kondisional DOM), v-for (rendering list)." },
-              { title: "Lifecycle Hooks", desc: "onMounted, onUnmounted, dan eksekusi inisialisasi komponen." }
+              { title: "Vue Reactivity", desc: "Mekanisme Proxy modern yang mendeteksi perubahan nilai state variabel secara otomatis." },
+              { title: "Directives", desc: "v-model (two-way binding), v-if/v-else (kondisional DOM), v-for (rendering perulangan)." },
+              { title: "Lifecycle Hooks", desc: "onMounted, onUnmounted, dan eksekusi inisialisasi komponen aplikasi." }
             ],
-            samplePattern: "Diberikan potongan kode Vue 3, mahasiswa diminta menentukan output reaktif saat sebuah nilai ref diubah."
+            samplePattern: "Diberikan potongan kode Vue 3, mahasiswa diminta menentukan output reaktif saat sebuah variabel ref diubah."
           },
           {
             id: "Modul 03",
@@ -186,8 +277,8 @@
             focus: "Tipe data primitif, Interface, Custom Type, Generic constraints, dan Type Safety.",
             topics: [
               { title: "Interface vs Type", desc: "Mendefinisikan kontrak struktur objek model data (seperti Mahasiswa, MataKuliah)." },
-              { title: "Strict Mode", desc: "Mencegah bugs runtime dengan deteksi type mismatch saat kompilasi." },
-              { title: "Union & Optional", desc: "Penggunaan tanda tanya (?) untuk properti opsional dan union type (|)." }
+              { title: "Strict Mode", desc: "Mencegah bugs runtime dengan deteksi type mismatch saat kompilasi awal." },
+              { title: "Union & Optional", desc: "Penggunaan tanda tanya (?) untuk properti opsional dan pipa union type (|)." }
             ],
             samplePattern: "Menganalisis kesalahan deklarasi interface atau type error pada passing parameter fungsi."
           },
@@ -197,11 +288,11 @@
             weight: "10%",
             soalCount: 5,
             color: "#DDD6FE",
-            focus: "Ionic Web Components, App structure (ion-header, ion-content), ion-router, dan ion-tabs.",
+            focus: "Ionic Web Components, struktur ion-page, header/content, ion-router, dan ion-tabs.",
             topics: [
               { title: "Komponen Utama", desc: "ion-page, ion-header, ion-toolbar, ion-title, ion-content, ion-card." },
-              { title: "Navigasi Mobile", desc: "Stack-based navigation, transisi swipe-back iOS dan hardware back button Android." },
-              { title: "Tabs Architecture", desc: "Pengaturan tab bar di bagian bawah layar untuk menu navigasi aplikasi mobile." }
+              { title: "Navigasi Mobile", desc: "Stack-based navigation, transisi swipe-back iOS dan tombol back fisik Android." },
+              { title: "Tabs Architecture", desc: "Pengaturan bilah tab di bagian bawah layar untuk menu navigasi aplikasi mobile." }
             ],
             samplePattern: "Menentukan tag komponen Ionic yang tepat untuk membuat kartu informasi atau struktur dasar layar."
           },
@@ -211,7 +302,7 @@
             weight: "12%",
             soalCount: 6,
             color: "#FECDD3",
-            focus: "Kontrol input mobile, validasi ekspresi reguler (Regex), Ionic Grid, dan CSS media query dark mode.",
+            focus: "Kontrol input mobile, validasi ekspresi reguler (Regex), Ionic Grid, dan CSS Dark Mode.",
             topics: [
               { title: "Mobile Input Controls", desc: "ion-input, ion-textarea, ion-select, ion-toggle, ion-datetime." },
               { title: "Regex Sanitization", desc: "Validasi format NIM (9 digit angka), Email, dan Password menggunakan pattern regex." },
@@ -239,7 +330,7 @@
             weight: "16%",
             soalCount: 8,
             color: "#FED7AA",
-            focus: "HTTP GET/POST asinkron, parsing JSON, Capacitor Preferences/Storage, Camera, dan Geolocation GPS.",
+            focus: "HTTP GET/POST asinkron, parsing JSON, Capacitor Storage, Camera, dan Geolocation GPS.",
             topics: [
               { title: "Komunikasi Asinkron", desc: "Fetch API, penanganan Promise dengan async/await, dan blok try-catch-finally." },
               { title: "Penyimpanan Offline Key-Value", desc: "Menyimpan data persisten JSON di perangkat pengguna tanpa server." },

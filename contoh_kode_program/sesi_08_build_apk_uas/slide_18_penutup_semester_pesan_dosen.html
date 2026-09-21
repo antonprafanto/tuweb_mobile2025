@@ -21,12 +21,13 @@
     }
     * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    
     .header {
       background: var(--mint);
       border: 3px solid var(--border);
       padding: 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       text-align: center;
     }
     .badge-tag {
@@ -37,6 +38,28 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid #1D4ED8;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #1D4ED8;
+    }
+    .guide-title {
+      font-weight: 900;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    .diagram-card {
+      background: #fff;
+      border: 3px solid #000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000;
+      overflow-x: auto;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
@@ -77,14 +100,77 @@
       transform: translate(2px, 2px);
       box-shadow: 2px 2px 0 #000;
     }
+    .source-cite {
+      margin-top: 24px;
+      padding: 12px 16px;
+      background: #FFF;
+      border: 2px dashed #64748B;
+      font-size: 12px;
+      color: #475569;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
     <div class="badge-tag">SLIDE 18 • SESI 08 (SESI PENUTUP PERKULIAHAN SEMESTER 2026/2027)</div>
-    <h1 style="margin: 0 0 8px 0; font-size: 26px;">🎓 Refleksi Semester & Langkah Menuju Profesional Mobile Engineer</h1>
+    <h1 style="margin: 0 0 8px 0; font-size: 26px;">🎓 Refleksi Semester &amp; Langkah Menuju Profesional Mobile Engineer</h1>
     <p style="margin: 0; font-size: 15px;">Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 - 3 SKS)</strong></p>
+  </div>
+
+  <!-- GUIDE BOX RAMAH AWAM & PEMULA -->
+  <div class="guide-box">
+    <div class="guide-title">🛠️ Panduan Pasca-Kuliah &amp; Portofolio Karir Industri (Ramah Pemula)</div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E293B;">
+      <div><strong>1. Persiapan Ujian Akhir Semester (UAS):</strong> Kerjakan kembali simulasi 50 soal di Slide 13–17 hingga Anda mencapai akurasi &gt; 85%. Pahami arsitektur dan pola soal tipikal yang dijelaskan di Slide 12.</div>
+      <div><strong>2. Bangun Etalase Publik di GitHub:</strong> Buat repositori khusus bernama <code>ut-mobile-portfolio</code>. Letakkan kode Tugas 1 (IPK Calculator), Tugas 2 (KTM Digital), dan Tugas 3 (Study Tracker) lengkap dengan tangkapan layar antarmuka dan tautan unduh APK release mandiri Anda.</div>
+      <div><strong>3. Cantumkan di CV &amp; LinkedIn:</strong> Publikasikan pencapaian Anda: <em>"Cross-Platform Mobile Developer (Ionic Vue 3, TypeScript, Capacitor, Stand-alone APK Build &amp; Optimization)"</em>. Keterampilan ini sangat dicari oleh startup maupun korporasi enterprise di era digital saat ini.</div>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ROADMAP KARIR SVG RESPONSIVE -->
+  <div class="diagram-card">
+    <div style="font-weight: 800; font-size: 13px; margin-bottom: 10px;">📊 DIAGRAM ROADMAP: PERJALANAN DARI MAHASISWA UT MENUJU SENIOR MOBILE ENGINEER</div>
+    <svg viewBox="0 0 880 160" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="max-height: 200px; display: block; font-family: 'Segoe UI', sans-serif;">
+      <rect x="0" y="0" width="880" height="160" fill="#F8FAFC" rx="8" stroke="#000" stroke-width="2"/>
+
+      <!-- Level 1 -->
+      <rect x="25" y="30" width="180" height="100" fill="#BAE6FD" stroke="#000" stroke-width="2.5" rx="6"/>
+      <text x="115" y="55" text-anchor="middle" font-size="12" font-weight="900" fill="#0369A1">Level 1: Pondasi UT</text>
+      <text x="115" y="75" text-anchor="middle" font-size="11" fill="#0F172A">9 Modul BMP Selesai</text>
+      <text x="115" y="93" text-anchor="middle" font-size="11" fill="#0F172A">Ionic, Vue 3, TypeScript</text>
+      <text x="115" y="112" text-anchor="middle" font-size="10" font-weight="bold" fill="#0284C7">Lulus UAS Nilai A</text>
+
+      <line x1="205" y1="80" x2="250" y2="80" stroke="#000" stroke-width="3"/>
+      <polygon points="250,75 262,80 250,85" fill="#000"/>
+
+      <!-- Level 2 -->
+      <rect x="265" y="30" width="180" height="100" fill="#FEF08A" stroke="#000" stroke-width="2.5" rx="6"/>
+      <text x="355" y="55" text-anchor="middle" font-size="12" font-weight="900" fill="#000">Level 2: Junior Portofolio</text>
+      <text x="355" y="75" text-anchor="middle" font-size="11" fill="#334155">3 Showcase Tugas GitHub</text>
+      <text x="355" y="93" text-anchor="middle" font-size="11" fill="#334155">Build APK Mandiri</text>
+      <text x="355" y="112" text-anchor="middle" font-size="10" font-weight="bold" fill="#B45309">LinkedIn Showcase</text>
+
+      <line x1="445" y1="80" x2="490" y2="80" stroke="#000" stroke-width="3"/>
+      <polygon points="490,75 502,80 490,85" fill="#000"/>
+
+      <!-- Level 3 -->
+      <rect x="505" y="30" width="180" height="100" fill="#BBF7D0" stroke="#000" stroke-width="2.5" rx="6"/>
+      <text x="595" y="55" text-anchor="middle" font-size="12" font-weight="900" fill="#15803D">Level 3: Mid Engineer</text>
+      <text x="595" y="75" text-anchor="middle" font-size="11" fill="#064E3B">Push Notifications (FCM)</text>
+      <text x="595" y="93" text-anchor="middle" font-size="11" fill="#064E3B">SQLite Terenkripsi &amp; AAB</text>
+      <text x="595" y="112" text-anchor="middle" font-size="10" font-weight="bold" fill="#047857">Google Play Release</text>
+
+      <line x1="685" y1="80" x2="730" y2="80" stroke="#000" stroke-width="3"/>
+      <polygon points="730,75 742,80 730,85" fill="#000"/>
+
+      <!-- Level 4 -->
+      <rect x="745" y="30" width="115" height="100" fill="#FECDD3" stroke="#000" stroke-width="2.5" rx="6"/>
+      <text x="802" y="55" text-anchor="middle" font-size="11" font-weight="900" fill="#9F1239">Level 4: Lead</text>
+      <text x="802" y="75" text-anchor="middle" font-size="10" fill="#4C0519">Multi-platform</text>
+      <text x="802" y="93" text-anchor="middle" font-size="10" font-weight="bold" fill="#BE123C">Architecture</text>
+      <text x="802" y="112" text-anchor="middle" font-size="9" fill="#881337">Tech Leader</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -112,13 +198,13 @@
 
     <!-- PANEL 2: ROADMAP PASCA PERKULIAHAN -->
     <div class="box">
-      <h3>🚀 Roadmap Karir & Portofolio Lanjutan</h3>
+      <h3>🚀 Roadmap Karir &amp; Portofolio Lanjutan</h3>
       <p style="font-size: 13px; color: #475569;">Tiga langkah strategis setelah menyelesaikan mata kuliah ini:</p>
 
       <div class="step-box" style="border-left: 6px solid #38BDF8;">
         <strong>1. Rapikan Portofolio GitHub</strong>
         <p style="font-size: 12px; margin: 4px 0 0 0; color: #475569;">
-          Unggah kode Tugas Tutorial 1 (IPK Calculator), Tugas 2 (KTM Digital), dan Tugas 3 (Study Tracker) ke repositori publik Anda dengan README yang memuat screenshot dan video demo.
+          Unggah kode Tugas Tutorial 1 (IPK Calculator), Tugas 2 (KTM Digital), dan Tugas 3 (Study Tracker) ke repositori publik Anda dengan README yang memuat screenshot dan panduan instalasi APK mandiri.
         </p>
       </div>
 
@@ -141,14 +227,14 @@
     <div class="box">
       <h3>🏆 Rangkuman Pencapaian 8 Sesi</h3>
       <div style="font-size: 13px; line-height: 1.8;">
-        <div>✅ <strong>Sesi 01:</strong> Pondasi Web Components & Lingkungan Kerja Zero-Friction</div>
-        <div>✅ <strong>Sesi 02:</strong> Arsitektur Vue 3 Reactivity & Single-File Component</div>
-        <div>✅ <strong>Sesi 03:</strong> TypeScript Static Typing & Master Solusi Tugas 1</div>
-        <div>✅ <strong>Sesi 04:</strong> Ionic UI Toolkit & Navigasi Mobile Stack</div>
-        <div>✅ <strong>Sesi 05:</strong> Layout Grid, Validasi Regex, Dark Mode & Solusi Tugas 2</div>
-        <div>✅ <strong>Sesi 06:</strong> Capacitor Runtime Bridge & Android Studio Environment</div>
-        <div>✅ <strong>Sesi 07:</strong> REST API Asinkron, Offline Storage, GPS & Solusi Tugas 3</div>
-        <div>✅ <strong>Sesi 08:</strong> Kompilasi APK Release, Optimasi R8, & 50 Bank Soal UAS</div>
+        <div>✅ <strong>Sesi 01:</strong> Pondasi Web Components &amp; Lingkungan Kerja Zero-Friction</div>
+        <div>✅ <strong>Sesi 02:</strong> Arsitektur Vue 3 Reactivity &amp; Single-File Component</div>
+        <div>✅ <strong>Sesi 03:</strong> TypeScript Static Typing &amp; Master Solusi Tugas 1</div>
+        <div>✅ <strong>Sesi 04:</strong> Ionic UI Toolkit &amp; Navigasi Mobile Stack</div>
+        <div>✅ <strong>Sesi 05:</strong> Layout Grid, Validasi Regex, Dark Mode &amp; Solusi Tugas 2</div>
+        <div>✅ <strong>Sesi 06:</strong> Capacitor Runtime Bridge &amp; Android Studio Environment</div>
+        <div>✅ <strong>Sesi 07:</strong> REST API Asinkron, Offline Storage, GPS &amp; Solusi Tugas 3</div>
+        <div>✅ <strong>Sesi 08:</strong> Kompilasi APK Release, Optimasi R8, &amp; 50 Bank Soal UAS</div>
       </div>
 
       <div style="margin-top: 18px; text-align: center;">
@@ -157,6 +243,16 @@
         </button>
       </div>
     </div>
+  </div>
+
+  <!-- DAFTAR PUSTAKA DAN SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Referensi Akademik &amp; Standar Kompetensi Lulusan:</strong>
+    <ol style="margin: 6px 0 0 16px; padding-left: 0; line-height: 1.5;">
+      <li>Universitas Terbuka. (2024). <em>Standar Kompetensi Lulusan Program Studi S1 Sistem Informasi &amp; Informatika</em>. Tangerang Selatan: FST Universitas Terbuka.</li>
+      <li>IEEE Computer Society. (2023). <em>Software Engineering Body of Knowledge (SWEBOK Guide V4.0)</em>. IEEE Press.</li>
+      <li>Association for Computing Machinery (ACM). (2024). <em>Curriculum Guidelines for Undergraduate Degree Programs in Information Systems and Software Engineering</em>. ACM/IEEE-CS Joint Task Force.</li>
+    </ol>
   </div>
 
   <script>

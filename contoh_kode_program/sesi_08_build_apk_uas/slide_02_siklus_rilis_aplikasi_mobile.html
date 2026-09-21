@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--cyan);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -37,7 +37,29 @@
       background: #fff;
       margin-bottom: 10px;
     }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid #1D4ED8;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #1D4ED8;
+    }
+    .guide-title {
+      font-weight: 900;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    .diagram-card {
+      background: #fff;
+      border: 3px solid #000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000;
+      overflow-x: auto;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
       background: var(--card-bg);
       border: 3px solid var(--border);
@@ -49,6 +71,14 @@
       padding: 14px;
       margin-bottom: 12px;
     }
+    .source-cite {
+      background: #F1F5F9;
+      border: 2px dashed #64748B;
+      padding: 12px 16px;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #334155;
+    }
   </style>
 </head>
 <body>
@@ -57,6 +87,89 @@
     <div class="badge-tag">SLIDE 02 • SIKLUS PRODUKSI APLIKASI</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Siklus Rilis: Komparasi APK Debug vs APK Release Signed</h1>
     <p style="margin: 0; font-size: 14px;">Mengapa berkas APK hasil tombol 'Run' Android Studio tidak boleh dibagikan langsung ke pengguna akhir.</p>
+  </div>
+
+  <!-- PANDUAN MAHASISWA AWAM -->
+  <div class="guide-box">
+    <div class="guide-title">📘 Panduan Belajar Mahasiswa (Ramah Pemula):</div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E3A8A;">
+      <p style="margin: 0 0 8px 0;">
+        <strong>🎯 Sasaran Konsep:</strong> Memahami 5 tahapan siklus rilis aplikasi mobile (Development, Alpha, Beta, Production, Maintenance), perbedaan teknis mendasar antara APK Debug (<code>app-debug.apk</code>) dan APK Release (<code>app-release.apk</code>), serta aturan versioning semantik (<code>versionCode</code> &amp; <code>versionName</code>).
+      </p>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (cukup klik ganda berkas HTML ini), DevTools (<code>F12</code>), Visual Studio Code, dan Android Studio.
+      </p>
+      <p style="margin: 0;">
+        <strong>📋 Urutan Pengujian Mandiri:</strong>
+        1. Buka berkas ini di peramban Chrome;
+        2. Perhatikan kartu perbandingan merah (Debug) vs hijau (Release);
+        3. Cermati pertanyaan jebakan UAS di bagian bawah mengenai alasan penolakan APK Debug di Google Play Store!
+      </p>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SVG -->
+  <div class="diagram-card">
+    <h3 style="margin-top:0; margin-bottom:12px; font-size:16px;">🎨 Diagram Arsitektur: 5 Fase Siklus Hidup Rilis Aplikasi Mobile</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 180" width="100%" height="auto" style="display:block;">
+      <defs>
+        <marker id="arrow-s02" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- Phase 1: Development -->
+      <rect x="15" y="30" width="160" height="120" fill="#FEE2E2" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="95" y="58" font-size="11" font-weight="900" text-anchor="middle" fill="#991B1B">1. DEVELOPMENT</text>
+      <text x="95" y="78" font-size="10" text-anchor="middle" fill="#334155">Koding &amp; Debugging</text>
+      <text x="95" y="96" font-size="10" text-anchor="middle" fill="#7F1D1D">debug.keystore</text>
+      <rect x="25" y="112" width="140" height="24" fill="#DC2626" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="95" y="128" font-size="9" font-weight="900" text-anchor="middle" fill="#FFF">app-debug.apk</text>
+
+      <!-- Panah 1 -> 2 -->
+      <path d="M 175 90 L 195 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s02)" />
+
+      <!-- Phase 2: Alpha Testing -->
+      <rect x="200" y="30" width="160" height="120" fill="#FEF9C3" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="280" y="58" font-size="11" font-weight="900" text-anchor="middle" fill="#B45309">2. ALPHA TESTING</text>
+      <text x="280" y="78" font-size="10" text-anchor="middle" fill="#334155">Tim Internal QA</text>
+      <text x="280" y="96" font-size="10" text-anchor="middle" fill="#78350F">Uji Fitur &amp; Navigasi</text>
+      <rect x="210" y="112" width="140" height="24" fill="#F59E0B" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="280" y="128" font-size="9" font-weight="900" text-anchor="middle" fill="#000">Log Bug Internal</text>
+
+      <!-- Panah 2 -> 3 -->
+      <path d="M 360 90 L 380 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s02)" />
+
+      <!-- Phase 3: Beta Testing -->
+      <rect x="385" y="30" width="160" height="120" fill="#E0F2FE" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="465" y="58" font-size="11" font-weight="900" text-anchor="middle" fill="#0369A1">3. BETA TESTING</text>
+      <text x="465" y="78" font-size="10" text-anchor="middle" fill="#334155">Pengguna Terbatas</text>
+      <text x="465" y="96" font-size="10" text-anchor="middle" fill="#075985">Pengujian di HP Fisik</text>
+      <rect x="395" y="112" width="140" height="24" fill="#0284C7" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="465" y="128" font-size="9" font-weight="900" text-anchor="middle" fill="#FFF">Umpan Balik UX</text>
+
+      <!-- Panah 3 -> 4 -->
+      <path d="M 545 90 L 565 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s02)" />
+
+      <!-- Phase 4: Production Release -->
+      <rect x="570" y="30" width="170" height="120" fill="#DCFCE7" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="655" y="58" font-size="11" font-weight="900" text-anchor="middle" fill="#15803D">4. PROD RELEASE</text>
+      <text x="655" y="78" font-size="10" text-anchor="middle" fill="#334155">Official Keystore</text>
+      <text x="655" y="96" font-size="10" text-anchor="middle" fill="#166534">R8 Obfuscation</text>
+      <rect x="580" y="112" width="150" height="24" fill="#16A34A" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="655" y="128" font-size="9" font-weight="900" text-anchor="middle" fill="#FFF">app-release.apk / .aab</text>
+
+      <!-- Panah 4 -> 5 -->
+      <path d="M 740 90 L 760 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s02)" />
+
+      <!-- Phase 5: Maintenance -->
+      <rect x="765" y="30" width="140" height="120" fill="#EDE9FE" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="835" y="58" font-size="11" font-weight="900" text-anchor="middle" fill="#6D28D9">5. MAINTENANCE</text>
+      <text x="835" y="78" font-size="10" text-anchor="middle" fill="#334155">Crash Analytics</text>
+      <text x="835" y="96" font-size="10" text-anchor="middle" fill="#5B21B6">Update Patch</text>
+      <rect x="775" y="112" width="120" height="24" fill="#7C3AED" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="835" y="128" font-size="9" font-weight="900" text-anchor="middle" fill="#FFF">versionCode + 1</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -99,6 +212,14 @@
     🎓 <strong>Pertanyaan Ujian UAS yang Sering Muncul:</strong><br>
     <em>"Mengapa berkas APK yang dihasilkan dalam mode Debug tidak diizinkan diunggah ke Google Play Store?"</em><br>
     <strong>Jawaban Tepat:</strong> Karena APK Debug ditandatangani oleh sertifikat kunci bawaan yang tidak aman dan tidak memiliki identitas kriptografi unik pengembang.
+  </div>
+
+  <!-- SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Sumber Acuan Akademik:</strong><br>
+    1. Modul Pembelajaran Mandiri (BMP) STSI4303/MSIM4401 Pemrograman Berbasis Perangkat Bergerak, Modul 9, Universitas Terbuka.<br>
+    2. Google Android Developers (2024), <em>Application Signing, Build Variants, and Release Preparation</em>.<br>
+    3. Semantic Versioning Specification (SemVer 2.0.0), <em>https://semver.org</em>.
   </div>
 
   <script>

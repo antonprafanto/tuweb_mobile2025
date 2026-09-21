@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slide 10: Progressive Web App (PWA) — STSI4303</title>
+  <title>Slide 10: Progressive Web App (PWA) & Service Worker — STSI4303</title>
   <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
@@ -19,14 +19,15 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    
     .header {
       background: var(--cyan);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +37,28 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid #1D4ED8;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #1D4ED8;
+    }
+    .guide-title {
+      font-weight: 900;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    .diagram-card {
+      background: #fff;
+      border: 3px solid #000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000;
+      overflow-x: auto;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -49,64 +72,260 @@
       color: #38bdf8;
       font-family: 'Consolas', monospace;
       font-size: 11px;
-      padding: 10px;
+      padding: 12px;
       border: 2px solid #000;
       white-space: pre-wrap;
+      overflow-x: auto;
+    }
+    .btn-action {
+      background: var(--yellow);
+      border: 2px solid #000;
+      padding: 8px 14px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+      transition: all 0.1s ease;
+    }
+    .btn-action:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid #000;
+      margin-bottom: 8px;
+    }
+    .source-cite {
+      margin-top: 24px;
+      padding: 12px 16px;
+      background: #FFF;
+      border: 2px dashed #64748B;
+      font-size: 12px;
+      color: #475569;
     }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <div class="badge-tag">SLIDE 10 • DISTRIBUSI WEB MODERN (PWA)</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Distribusi Web Berstandar PWA (Progressive Web Apps)</h1>
-    <p style="margin: 0; font-size: 14px;">Memungkinkan aplikasi diinstal langsung ke layar beranda HP dari browser Chrome/Edge tanpa harus melewati Google Play Store.</p>
+    <div class="badge-tag">SLIDE 10 • DISTRIBUSI WEB MODERN (PROGRESSIVE WEB APPS)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Distribusi Web Berstandar PWA & Caching Service Worker</h1>
+    <p style="margin: 0; font-size: 14px;">Membangun aplikasi web mobile yang dapat dipasang di layar utama smartphone tanpa Google Play Store, hemat kuota internet, serta tetap dapat beroperasi secara penuh saat perangkat luring (offline).</p>
+  </div>
+
+  <!-- GUIDE BOX UNTUK AWAM & MAHASISWA UT -->
+  <div class="guide-box">
+    <div class="guide-title">🛠️ Panduan Praktik & Alat Uji Pengembang (Ramah Awam & Pemula)</div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E293B;">
+      <div><strong>1. Alat Utama yang Digunakan:</strong> Buka Google Chrome atau Microsoft Edge di PC/laptop Anda. Tekan <code>F12</code> untuk membuka <em>Chrome DevTools</em>.</div>
+      <div><strong>2. Tab Pengujian PWA:</strong> Masuk ke tab <strong>Application</strong> di DevTools:
+        <ul>
+          <li>Periksa menu <strong>Manifest</strong> di sisi kiri: memastikan logo (192x192 &amp; 512x512), <code>theme_color</code>, dan mode <code>standalone</code> terbaca valid.</li>
+          <li>Periksa menu <strong>Service Workers</strong>: centang opsi <em>Offline</em> untuk menguji apakah aplikasi tetap bisa dibuka tanpa sinyal internet!</li>
+          <li>Periksa menu <strong>Cache Storage</strong>: melihat berkas HTML, CSS, dan JS yang tersimpan di memori lokal browser.</li>
+        </ul>
+      </div>
+      <div><strong>3. Uji Responsivitas Ponsel:</strong> Tekan kombinasi tombol <code>Ctrl + Shift + M</code> untuk mengaktifkan <em>Device Mode</em> (pilih resolusi iPhone 14 atau Samsung Galaxy S20).</div>
+      <div><strong>4. Mengapa Sangat Penting untuk UT?</strong> Mahasiswa Universitas Terbuka tersebar di pelosok nusantara dengan koneksi yang fluktuatif. PWA menjamin portal pembelajaran tetap terbuka seketika bahkan saat kuota habis atau sinyal terputus!</div>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR PWA SVG RESPONSIVE -->
+  <div class="diagram-card">
+    <div style="font-weight: 800; font-size: 13px; margin-bottom: 10px;">📊 DIAGRAM ALUR KERJA: ARSITEKTUR SERVICE WORKER &amp; STRATEGI CACHE FIRST</div>
+    <svg viewBox="0 0 880 220" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="max-height: 250px; display: block; font-family: 'Segoe UI', sans-serif;">
+      <!-- Background Rect -->
+      <rect x="0" y="0" width="880" height="220" fill="#F8FAFC" rx="8" stroke="#000" stroke-width="2"/>
+      
+      <!-- User / UI Layer -->
+      <rect x="30" y="40" width="180" height="140" fill="#FFFFFF" stroke="#000" stroke-width="2.5" rx="6" filter="drop-shadow(3px 3px 0 #000)"/>
+      <rect x="30" y="40" width="180" height="30" fill="#38BDF8" stroke="#000" stroke-width="2.5" rx="6"/>
+      <text x="120" y="60" text-anchor="middle" font-size="12" font-weight="bold" fill="#000">1. Web Browser (UI)</text>
+      <text x="120" y="95" text-anchor="middle" font-size="11" fill="#334155">Halaman Meminta</text>
+      <text x="120" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#0284C7">fetch('/api/data')</text>
+      <text x="120" y="145" text-anchor="middle" font-size="10" fill="#64748B">atau unduh gambar/CSS</text>
+
+      <!-- Panah ke SW -->
+      <line x1="210" y1="110" x2="280" y2="110" stroke="#000" stroke-width="3" stroke-dasharray="4,4"/>
+      <polygon points="280,105 292,110 280,115" fill="#000"/>
+      <text x="250" y="100" text-anchor="middle" font-size="10" font-weight="bold" fill="#B45309">Fetch Event</text>
+
+      <!-- Service Worker Layer (Proxy) -->
+      <rect x="295" y="30" width="230" height="160" fill="#FEF08A" stroke="#000" stroke-width="3" rx="6" filter="drop-shadow(4px 4px 0 #000)"/>
+      <text x="410" y="55" text-anchor="middle" font-size="13" font-weight="900" fill="#000">2. Service Worker Proxy</text>
+      <text x="410" y="75" text-anchor="middle" font-size="10" fill="#475569">Berjalan di Background Thread</text>
+      <rect x="315" y="90" width="190" height="45" fill="#FFF" stroke="#000" stroke-width="1.5" rx="4"/>
+      <text x="410" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#000">Cek Cache Storage Terlebih Dahulu</text>
+      <text x="410" y="124" text-anchor="middle" font-size="9" fill="#15803D">caches.match(event.request)</text>
+      <text x="410" y="165" text-anchor="middle" font-size="10" font-weight="bold" fill="#B91C1C">Apakah Berkas Tersedia di Cache?</text>
+
+      <!-- Panah ke Cache Storage (ADA) -->
+      <line x1="410" y1="190" x2="410" y2="200" stroke="#15803D" stroke-width="2"/>
+      <!-- Percabangan Kanan: Cache Hit -->
+      <line x1="525" y1="95" x2="600" y2="75" stroke="#15803D" stroke-width="2.5"/>
+      <polygon points="598,70 610,75 600,82" fill="#15803D"/>
+      <text x="560" y="70" text-anchor="middle" font-size="9" font-weight="bold" fill="#15803D">YA (Cache Hit)</text>
+
+      <!-- Cache Storage Box -->
+      <rect x="615" y="35" width="230" height="75" fill="#DCFCE7" stroke="#15803D" stroke-width="2" rx="6" filter="drop-shadow(2px 2px 0 #15803D)"/>
+      <text x="730" y="55" text-anchor="middle" font-size="11" font-weight="bold" fill="#166534">3A. Cache Storage (Offline OK)</text>
+      <text x="730" y="72" text-anchor="middle" font-size="10" fill="#15803D">Aplikasi Terbuka Instan (0 ms latency)</text>
+      <text x="730" y="88" text-anchor="middle" font-size="9" fill="#475569">Meskipun Kuota Habis / Mode Pesawat</text>
+
+      <!-- Percabangan Kanan: Cache Miss (Ambil ke Internet) -->
+      <line x1="525" y1="135" x2="600" y2="155" stroke="#0284C7" stroke-width="2.5"/>
+      <polygon points="598,150 610,157 598,162" fill="#0284C7"/>
+      <text x="560" y="160" text-anchor="middle" font-size="9" font-weight="bold" fill="#0284C7">TIDAK (Cache Miss)</text>
+
+      <!-- Cloud Server Box -->
+      <rect x="615" y="125" width="230" height="75" fill="#E0F2FE" stroke="#0284C7" stroke-width="2" rx="6" filter="drop-shadow(2px 2px 0 #0284C7)"/>
+      <text x="730" y="145" text-anchor="middle" font-size="11" font-weight="bold" fill="#075985">3B. Network Server (Online)</text>
+      <text x="730" y="162" text-anchor="middle" font-size="10" fill="#0284C7">Unduh dari Internet &amp; Simpan ke Cache</text>
+      <text x="730" y="178" text-anchor="middle" font-size="9" fill="#475569">fetch(request) -&gt; cache.put()</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
-    <!-- TEORI PWA -->
+    <!-- KOLOM 1: SIMULATOR INTERAKTIF PWA CACHE -->
     <div class="box">
-      <h3>🌐 Mengapa PWA Sangat Ideal untuk Mahasiswa UT?</h3>
+      <h3>⚡ Simulator Service Worker &amp; Offline Cache</h3>
       <p style="font-size: 13px; line-height: 1.5; color: #334155;">
-        Dengan teknologi PWA, satu kode basis Ionic Vue kita dapat didistribusikan lewat URL web biasa. Ketika mahasiswa membukanya di browser HP, muncul prompt otomatis <em>"Tambahkan UT Mobile ke Layar Utama"</em>.
+        Uji coba bagaimana browser bereaksi ketika koneksi internet dimatikan secara mendadak saat mahasiswa sedang membuka aplikasi:
       </p>
 
-      <div style="background: #F8FAFC; border: 2px solid #000; padding: 12px; margin-bottom: 10px; font-size: 12px; line-height: 1.6;">
-        <div>⚡ <strong>Instan Tanpa Kuota Besar:</strong> Ukuran instalasi hanya < 1 MB.</div>
-        <div>📴 <strong>Offline Berkat Service Worker:</strong> Skrip latar belakang menyimpan cache HTML/CSS/JS di browser.</div>
-        <div>📱 <strong>Tampilan Standalone:</strong> Bilah navigasi URL browser disembunyikan persis seperti aplikasi native!</div>
+      <div style="margin-bottom: 14px;">
+        <span class="status-badge" :style="{ background: isOnline ? '#DCFCE7' : '#FEE2E2', color: isOnline ? '#15803D' : '#B91C1C' }">
+          STATUS JARINGAN: {{ isOnline ? '🟢 ONLINE (Tersambung Internet)' : '🔴 OFFLINE (Mode Pesawat / Tanpa Sinyal)' }}
+        </span>
+        <br>
+        <button class="btn-action" @click="toggleNetwork" style="margin-right: 8px;">
+          {{ isOnline ? '📴 Putus Jaringan (Simulasi Offline)' : '📶 Sambung Jaringan (Simulasi Online)' }}
+        </button>
+        <button class="btn-action" style="background: var(--mint);" @click="simulateInstallPrompt">
+          📲 Uji Prompt Install Layar Utama
+        </button>
+      </div>
+
+      <div style="border: 2px solid #000; padding: 12px; background: #F8FAFC; margin-bottom: 14px;">
+        <div style="font-weight: 700; font-size: 12px; margin-bottom: 6px;">Simulasikan Permintaan Berkas (Fetch Request):</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn-action" style="font-size: 11px; padding: 4px 8px;" @click="requestFile('index.html')">Req: index.html</button>
+          <button class="btn-action" style="font-size: 11px; padding: 4px 8px;" @click="requestFile('style.css')">Req: style.css</button>
+          <button class="btn-action" style="font-size: 11px; padding: 4px 8px;" @click="requestFile('api-nilai-mhs.json')">Req: API Nilai</button>
+          <button class="btn-action" style="font-size: 11px; padding: 4px 8px;" @click="requestFile('video-kuliah.mp4')">Req: Video (Belum Dicache)</button>
+        </div>
+      </div>
+
+      <div style="background: #1E293B; color: #38BDF8; font-family: monospace; font-size: 11px; padding: 10px; border: 2px solid #000; max-height: 140px; overflow-y: auto;">
+        <div><strong>[CONSOLE LOG SERVICE WORKER]</strong></div>
+        <div v-for="(log, lIdx) in consoleLogs" :key="lIdx" style="margin-top: 4px;">
+          {{ log }}
+        </div>
       </div>
     </div>
 
-    <!-- BERKAS MANIFEST JSON -->
+    <!-- KOLOM 2: BERKAS KONFIGURASI MANIFEST & SW -->
     <div class="box">
-      <h3>📄 Berkas Konfigurasi: <code>public/manifest.json</code></h3>
-      <div class="code-box">{
+      <h3>📄 Berkas Standar PWA: Manifest &amp; Service Worker</h3>
+      
+      <div style="margin-bottom: 12px;">
+        <strong>1. <code>public/manifest.json</code></strong> (Identitas Aplikasi):
+        <div class="code-box">{
   "short_name": "UT Mobile",
   "name": "Portal Pembelajaran Mobile Universitas Terbuka",
   "icons": [
-    {
-      "src": "/assets/icon/icon-192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "/assets/icon/icon-512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
+    { "src": "/assets/icon/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icon/icon-512.png", "sizes": "512x512", "type": "image/png" }
   ],
   "start_url": "/",
   "background_color": "#FAF8F5",
   "theme_color": "#0284C7",
   "display": "standalone"
 }</div>
+      </div>
+
+      <div>
+        <strong>2. <code>public/sw.js</code></strong> (Logika Caching Luring):
+        <div class="code-box">const CACHE_NAME = 'ut-cache-v1';
+const ASSETS = ['/', '/index.html', '/style.css', '/api-nilai-mhs.json'];
+
+self.addEventListener('install', (e) => {
+  e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(ASSETS)));
+});
+
+self.addEventListener('fetch', (e) => {
+  e.respondWith(
+    caches.match(e.request).then(cached => cached || fetch(e.request))
+  );
+});</div>
+      </div>
     </div>
   </div>
 
+  <!-- DAFTAR PUSTAKA DAN SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Referensi Akademik &amp; Standar Industri:</strong>
+    <ol style="margin: 6px 0 0 16px; padding-left: 0; line-height: 1.5;">
+      <li>W3C Web Application Security Working Group. (2024). <em>Service Workers Specification W3C Recommendation</em>. World Wide Web Consortium.</li>
+      <li>Russell, A. (2015). <em>Progressive Web Apps: Escaping Tabs Without Losing Our Soul</em>. Infrequently Noted Technical Reports.</li>
+      <li>Google Chrome Developer Team. (2024). <em>Progressive Web App Checklist, Offline Storage Architecture, and Core Web Vitals</em>. Google Developers Documentation.</li>
+      <li>Universitas Terbuka. (2024). <em>Buku Materi Pokok STSI4303/MSIM4401: Pemrograman Berbasis Perangkat Bergerak</em>. Penerbit Universitas Terbuka.</li>
+    </ol>
+  </div>
+
   <script>
-    const { createApp } = Vue;
-    createApp({}).mount('#app');
+    const { createApp, ref } = Vue;
+
+    createApp({
+      setup() {
+        const isOnline = ref(true);
+        const cachedFiles = ref(['index.html', 'style.css', 'api-nilai-mhs.json']);
+        const consoleLogs = ref([
+          "🚀 [SW-Init] Service worker terdaftar sukses (scope: '/')",
+          "📦 [SW-Cache] 3 berkas awal berhasil di-cache ke 'ut-cache-v1'"
+        ]);
+
+        const toggleNetwork = () => {
+          isOnline.value = !isOnline.value;
+          const time = new Date().toLocaleTimeString();
+          if (!isOnline.value) {
+            consoleLogs.value.unshift(`[${time}] ⚠️ Mode Pesawat aktif! Sinyal internet terputus.`);
+          } else {
+            consoleLogs.value.unshift(`[${time}] 📶 Terhubung kembali ke jaringan internet.`);
+          }
+        };
+
+        const requestFile = (filename) => {
+          const time = new Date().toLocaleTimeString();
+          if (cachedFiles.value.includes(filename)) {
+            consoleLogs.value.unshift(`[${time}] ✅ [CACHE HIT] Berkas '${filename}' dilayani seketika dari Cache Storage (0 ms)!`);
+          } else {
+            if (isOnline.value) {
+              consoleLogs.value.unshift(`[${time}] 🌐 [CACHE MISS] Mengunduh '${filename}' dari remote server melalui internet...`);
+            } else {
+              consoleLogs.value.unshift(`[${time}] ❌ [NETWORK ERROR] Gagal mengunduh '${filename}'! Berkas belum tersimpan di cache dan perangkat sedang offline.`);
+            }
+          }
+        };
+
+        const simulateInstallPrompt = () => {
+          alert("📲 SIMULASI PROMPT PWA DI BROWSER HP MAHASISWA:\n\n'Tambahkan Portal UT Mobile ke Layar Utama Ponsel Anda?'\n\n[Batal]  |  [Pasang Sekarang (Instal)]\n\nSetelah dipasang, aplikasi memiliki ikon sendiri di App Drawer Android/iOS dan berjalan full-screen tanpa address bar browser!");
+        };
+
+        return {
+          isOnline,
+          cachedFiles,
+          consoleLogs,
+          toggleNetwork,
+          requestFile,
+          simulateInstallPrompt
+        };
+      }
+    }).mount('#app');
   </script>
 </body>
 </html>

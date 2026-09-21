@@ -147,7 +147,48 @@ Dokumen ini memuat daftar topik pemicu diskusi (*discussion prompts*) dan pandua
 
 ---
 
-### 📌 Sesi 8: Kesiapan Rilis (*Production Readiness*) & Keamanan Aplikasi
+### 📌 Sesi 8: Optimasi Kinerja, Build APK Release Stand-alone, Keystore Signing, & Persiapan Komprehensif UAS
 * **Topik Diskusi:**  
-  Sebelum sebuah berkas APK Android dipublikasikan ke Google Play Store atau didistribusikan kepada mahasiswa, berkas tersebut harus melalui proses *build release* dan penandatanganan digital (*code signing / keystore*).  
-  *Pertanyaan:* Mengapa berkas APK mode Debug tidak boleh dirilis ke publik? Sebutkan tiga praktik terbaik (*best practices*) dalam menjaga keamanan kode sumber dan API Key pada aplikasi hybrid berbasis Ionic!
+  Sesi 8 merupakan puncak perkuliahan semester (*Grand Finale*). Mahasiswa dituntut untuk mentransformasikan kode web hybrid menjadi produk biner mandiri yang siap digunakan masyarakat tanpa bergantung pada PC/laptop pengembang, sekaligus mempersiapkan diri menghadapi Ujian Akhir Semester (UAS) yang mencakup keseluruhan 9 Modul Buku Materi Pokok (BMP) UT STSI4303 / MSIM4401.  
+  *Pertanyaan:*  
+  1. Mengapa berkas APK mode Debug dilarang keras dirilis ke publik? Jelaskan peranan sertifikat digital kriptografi Keystore RSA 2048-bit serta risiko fatal apa yang terjadi jika pengembang kehilangan berkas Keystore asli atau kata sandinya!  
+  2. Jelaskan perbedaan mendasar antara perintah kompilasi `./gradlew assembleRelease` (menghasilkan berkas `.apk`) versus `./gradlew bundleRelease` (menghasilkan berkas `.aab`), serta bagaimana kompilator R8 / ProGuard bekerja mereduksi ukuran biner dan melindungi kode sumber dari *reverse engineering*!  
+  3. Dalam studi kasus produksi nyata, sebuah aplikasi berjalan mulus di browser Chrome laptop pengembang, namun saat berkas APK dipasang pada smartphone Android versi lama (Android 8/9), aplikasi mengalami layar putih total (*White Screen of Death*). Analisislah akar masalah teknisnya dan bagaimana strategi penanganannya!
+* **Poin Kunci Jawaban Mahasiswa & Panduan Tutor:**
+  * **Urgensi Keystore Digital Signing & Bahaya APK Debug:**
+    1. *Larangan APK Debug:* Berkas debug ditandatangani dengan sertifikat generik (`debug.keystore`), menyematkan atribut `android:debuggable="true"` yang memungkinkan memori aplikasi di-dump via ADB debugger, dan tidak melalui optimasi kompilator R8 sehingga ukurannya bengkak dan rentan dieksploitasi.
+    2. *Peranan Keystore RSA 2048-bit:* Keystore bertindak sebagai 'KTP digital' resmi pengembang. Sistem Android memverifikasi keaslian biner menggunakan *APK Signature Scheme v2/v3*. Tanda tangan digital menjamin bahwa pembaruan (*update*) aplikasi berasal dari pengembang yang sama dan berkas biner tidak disisipi muatan berbahaya (*tampering*).
+    3. *Risiko Kehilangan Keystore:* Kunci privat bersifat unik secara matematis. Jika berkas Keystore hilang atau password terlupa, pengembang **tidak akan pernah bisa memperbarui aplikasi** yang telah terpasang di perangkat pengguna. Satu-satunya jalan keluar adalah mengganti nama paket (*ApplicationId*) dan memaksa seluruh pengguna mencopot lalu memasang ulang aplikasi dari nol.
+  * **Kompilasi Biner APK vs AAB & Optimasi R8:**
+    1. *assembleRelease (.apk) vs bundleRelease (.aab):* `assembleRelease` menghasilkan biner mandiri monolitik (`.apk`) yang berisi seluruh arsitektur ABI (ARMv7, ARM64, x86) dan seluruh resolusi grafis, sangat ideal untuk instalasi mandiri (*sideloading*) bebas PC via Google Drive / WhatsApp. Sebaliknya, `bundleRelease` menghasilkan format *Android App Bundle* (`.aab`) yang khusus dipublikasikan ke Google Play Console, di mana cloud Google Play akan memecahnya (*Dynamic Delivery*) menjadi split-APKs sesuai tipe ponsel pengunduh (menghemat kuota hingga 35%).
+    2. *Trinitas Optimasi Kompilator R8:*
+       * *Code Shrinking / Tree-Shaking:* Membuang kelas, method, dan field Java/Kotlin pihak ketiga yang tidak pernah dieksekusi.
+       * *Resource Shrinking (`shrinkResources true`):* Menghapus aset gambar dan XML yang tidak terpakai dari folder `res/`.
+       * *Obfuscation:* Menyamarkan nama kelas dan variabel menjadi karakter acak pendek (misal `com.ut.app.DataService` diubah menjadi `a.b.c`), menyulitkan dekompilasi pihak luar.
+    3. *Pengecualian ProGuard:* Kelas refleksi plugin Capacitor wajib dilindungi via `proguard-rules.pro` (`-keep class com.getcapacitor.** { *; }`) agar jembatan RPC JavaScript tidak putus.
+  * **Analisis & Penanganan Insiden White Screen of Death (WSOD):**
+    1. *Akar Masalah:* Aplikasi hybrid mengandalkan mesin *Android System WebView*. Pada perangkat Android lama yang jarang diperbarui, versi Chromium bawaan WebView tertinggal di versi lama (misal Chromium 60) yang belum mendukung sintaks JavaScript modern (ES2020+ seperti *Optional Chaining* `?.`, *Nullish Coalescing* `??`, atau *BigInt*). Hal ini memicu *Uncaught SyntaxError* di latar belakang sehingga DOM gagal dirender, menyisakan layar putih kosong.
+    2. *Solusi Jangka Panjang:* Memperbarui *Android System WebView* melalui Google Play Store, atau menyetel target transpilasi JavaScript pada bundler (Vite/Babel/TypeScript) ke `ES2015` / `ES6` dengan polifil yang memadai.
+  * **Kesiapan Ujian Akhir Semester (UAS) & Penutup Perkuliahan:**
+    Tutor mengarahkan mahasiswa untuk mempelajari matriks 9 Modul BMP UT (Slide 12), mengerjakan simulasi 50 soal UAS berwaktu mundur 90 menit pada Master Solusi Lab Quest 08 (Slide 17), serta menerapkan pesan penutup perkuliahan Pak Anton Prafanto, S.Kom., M.T. (Slide 18) untuk merapikan portofolio GitHub publik sebagai modal karir industri.
+* **Rujukan Berkas Pembelajaran Sesi 08:**
+  Dapat merujuk pada berkas mandiri:
+  * [`slide_01_orientasi_sesi_08_final.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_01_orientasi_sesi_08_final.html)
+  * [`slide_02_siklus_rilis_aplikasi_mobile.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_02_siklus_rilis_aplikasi_mobile.html)
+  * [`slide_03_pembuatan_keystore_digital.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_03_pembuatan_keystore_digital.html)
+  * [`slide_04_konfigurasi_signing_build_gradle.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_04_konfigurasi_signing_build_gradle.html)
+  * [`slide_05_kompilasi_apk_assemble_release.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_05_kompilasi_apk_assemble_release.html)
+  * [`slide_06_instalasi_apk_mandiri_tanpa_pc.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_06_instalasi_apk_mandiri_tanpa_pc.html)
+  * [`slide_07_optimasi_minifikasi_r8_proguard.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_07_optimasi_minifikasi_r8_proguard.html)
+  * [`slide_08_optimasi_aset_dan_tree_shaking.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_08_optimasi_aset_dan_tree_shaking.html)
+  * [`slide_09_audit_keamanan_sebelum_rilis.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_09_audit_keamanan_sebelum_rilis.html)
+  * [`slide_10_pwa_service_worker_offline.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_10_pwa_service_worker_offline.html)
+  * [`slide_11_distribusi_google_play_console.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_11_distribusi_google_play_console.html)
+  * [📋 **Kisi-kisi Resmi 9 Modul BMP UAS:** `slide_12_kisi_kisi_uas_modul_1_sampai_9.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_12_kisi_kisi_uas_modul_1_sampai_9.html)
+  * [`slide_13_bank_soal_uas_bagian_1.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_13_bank_soal_uas_bagian_1.html)
+  * [`slide_14_bank_soal_uas_bagian_2.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_14_bank_soal_uas_bagian_2.html)
+  * [`slide_15_bank_soal_uas_bagian_3.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_15_bank_soal_uas_bagian_3.html)
+  * [`slide_16_bank_soal_uas_bagian_4.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_16_bank_soal_uas_bagian_4.html)
+  * [🏆 **Master Solusi Lab Quest 08 (APK Validator & 50 Soal Exam Engine):** `slide_17_lab_quest_08_apk_validator.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_17_lab_quest_08_apk_validator.html)
+  * [🎓 **Refleksi Semester & Pesan Dosen:** `slide_18_penutup_semester_pesan_dosen.html`](../contoh_kode_program/sesi_08_build_apk_uas/slide_18_penutup_semester_pesan_dosen.html)
+

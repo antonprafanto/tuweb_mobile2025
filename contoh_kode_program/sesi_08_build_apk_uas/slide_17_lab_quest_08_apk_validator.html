@@ -136,6 +136,36 @@
       box-shadow: 8px 8px 0 #000;
       margin-bottom: 24px;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid #1D4ED8;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #1D4ED8;
+    }
+    .guide-title {
+      font-weight: 900;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    .diagram-card {
+      background: #fff;
+      border: 3px solid #000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000;
+      overflow-x: auto;
+    }
+    .source-cite {
+      margin-top: 24px;
+      padding: 12px 16px;
+      background: #FFF;
+      border: 2px dashed #64748B;
+      font-size: 12px;
+      color: #475569;
+    }
   </style>
 </head>
 <body>
@@ -144,8 +174,63 @@
     <!-- HEADER RESMI -->
     <div class="header-neobrutal">
       <div class="badge-tag">🎯 LAB QUEST 08 • MASTER SOLUSI RESMI (STSI4303 / MSIM4401)</div>
-      <h1 style="margin: 0 0 6px 0; font-size: 22px;">APK Release Validator & Engine Simulasi 50 Soal UAS</h1>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">APK Release Validator &amp; Engine Simulasi 50 Soal UAS</h1>
       <p style="margin: 0; font-size: 13px;">Dosen Pengampu: <strong>Pak Anton Prafanto, S.Kom., M.T.</strong> — Program Studi Sistem Informasi / Informatika, FST Universitas Terbuka.</p>
+    </div>
+
+    <!-- GUIDE BOX RAMAH AWAM & PEMULA -->
+    <div class="guide-box">
+      <div class="guide-title">🛠️ Panduan Praktik &amp; Alat Uji Pengembang (Ramah Awam &amp; Pemula)</div>
+      <div style="font-size: 13px; line-height: 1.6; color: #1E293B;">
+        <div><strong>1. Alat yang Digunakan:</strong> Cukup buka berkas HTML ini di Google Chrome / Microsoft Edge di PC atau smartphone Anda. Semua logika audit dan 50 bank soal berjalan 100% mandiri via JavaScript (Zero-Friction, RAM 4-8GB friendly).</div>
+        <div><strong>2. Tab 1: APK Release Readiness Audit:</strong> Gunakan checklist 6 parameter kritis untuk mengaudit proyek Android Capacitor Anda sebelum mendistribusikan APK ke pengguna luar. Tersedia tombol "Perbaiki Otomatis Semua Parameter" untuk panduan instan.</div>
+        <div><strong>3. Tab 2: Engine Simulasi 50 Soal UAS:</strong> Menguji pemahaman Anda secara menyeluruh mencakup Modul 1 sampai Modul 9 BMP UT dengan timer ujian 90 menit, matriks nomor soal interaktif, serta penghitungan nilai akhir dan predikat huruf kelulusan otomatis.</div>
+      </div>
+    </div>
+
+    <!-- DIAGRAM MASTER ALUR SVG RESPONSIVE -->
+    <div class="diagram-card">
+      <div style="font-weight: 800; font-size: 13px; margin-bottom: 10px;">📊 DIAGRAM ALUR: DARI AUDIT KESIAPAN PRODUKSI MENUJU KELULUSAN UJIAN AKHIR SEMESTER</div>
+      <svg viewBox="0 0 880 160" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="max-height: 200px; display: block; font-family: 'Segoe UI', sans-serif;">
+        <rect x="0" y="0" width="880" height="160" fill="#F8FAFC" rx="8" stroke="#000" stroke-width="2"/>
+
+        <!-- Box 1: Audit -->
+        <rect x="25" y="30" width="180" height="100" fill="#C084FC" stroke="#000" stroke-width="2.5" rx="6"/>
+        <text x="115" y="55" text-anchor="middle" font-size="12" font-weight="900" fill="#000">1. Audit Kesiapan APK</text>
+        <text x="115" y="75" text-anchor="middle" font-size="11" fill="#1E1B4B">Signing, Izin Minified</text>
+        <text x="115" y="93" text-anchor="middle" font-size="11" fill="#1E1B4B">Target SDK 34/35</text>
+        <text x="115" y="112" text-anchor="middle" font-size="10" font-weight="bold" fill="#000">Checklist 100% Siap</text>
+
+        <line x1="205" y1="80" x2="250" y2="80" stroke="#000" stroke-width="3"/>
+        <polygon points="250,75 262,80 250,85" fill="#000"/>
+
+        <!-- Box 2: Build Release -->
+        <rect x="265" y="30" width="180" height="100" fill="#FFE600" stroke="#000" stroke-width="2.5" rx="6"/>
+        <text x="355" y="55" text-anchor="middle" font-size="12" font-weight="900" fill="#000">2. Kompilasi Release</text>
+        <text x="355" y="75" text-anchor="middle" font-size="11" fill="#422006">./gradlew assembleRelease</text>
+        <text x="355" y="93" text-anchor="middle" font-size="11" fill="#422006">Biner Stand-alone APK</text>
+        <text x="355" y="112" text-anchor="middle" font-size="10" font-weight="bold" fill="#B45309">Ukuran Ramping (~12 MB)</text>
+
+        <line x1="445" y1="80" x2="490" y2="80" stroke="#000" stroke-width="3"/>
+        <polygon points="490,75 502,80 490,85" fill="#000"/>
+
+        <!-- Box 3: 50 Exam Engine -->
+        <rect x="505" y="30" width="180" height="100" fill="#38BDF8" stroke="#000" stroke-width="2.5" rx="6"/>
+        <text x="595" y="55" text-anchor="middle" font-size="12" font-weight="900" fill="#000">3. Simulasi 50 Soal</text>
+        <text x="595" y="75" text-anchor="middle" font-size="11" fill="#082F49">Modul 1 s.d. 9 Komprehensif</text>
+        <text x="595" y="93" text-anchor="middle" font-size="11" fill="#082F49">Timer 90 Menit</text>
+        <text x="595" y="112" text-anchor="middle" font-size="10" font-weight="bold" fill="#0369A1">Matriks Interaktif Soal</text>
+
+        <line x1="685" y1="80" x2="730" y2="80" stroke="#000" stroke-width="3"/>
+        <polygon points="730,75 742,80 730,85" fill="#000"/>
+
+        <!-- Box 4: Kelulusan -->
+        <rect x="745" y="30" width="115" height="100" fill="#4ADE80" stroke="#000" stroke-width="2.5" rx="6"/>
+        <text x="802" y="55" text-anchor="middle" font-size="11" font-weight="900" fill="#000">4. Kelulusan</text>
+        <text x="802" y="75" text-anchor="middle" font-size="10" fill="#052E16">Skor &gt;= 85</text>
+        <text x="802" y="93" text-anchor="middle" font-size="10" font-weight="bold" fill="#15803D">Grade: A</text>
+        <text x="802" y="112" text-anchor="middle" font-size="9" fill="#065F46">Siap Karir</text>
+      </svg>
     </div>
 
     <!-- TAB NAVIGATION -->
@@ -1055,5 +1140,14 @@
       }
     }).mount('#app');
   </script>
+
+  <div class="source-cite">
+    <strong>📚 Referensi Akademik &amp; Standar Evaluasi Pembelajaran UT:</strong>
+    <ol style="margin: 6px 0 0 16px; padding-left: 0; line-height: 1.5;">
+      <li>Universitas Terbuka. (2024). <em>Buku Materi Pokok STSI4303/MSIM4401: Pemrograman Berbasis Perangkat Bergerak (Modul 1 sampai Modul 9)</em>. Tangerang Selatan: Penerbit Universitas Terbuka.</li>
+      <li>Android Open Source Project. (2024). <em>Android App Signing, R8 Code Shrinking, and Security Best Practices</em>. Google Developers Documentation.</li>
+      <li>Bloom, B. S., et al. (1956/2001). <em>Taxonomy of Educational Objectives: Cognitive Domain</em>. New York: David McKay Company.</li>
+    </ol>
+  </div>
 </body>
 </html>
