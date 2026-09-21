@@ -14,6 +14,21 @@ Sesi kedua ini mengupas tuntas arsitektur **Vue.js 3 Composition API**, fondasi 
 
 ---
 
+## 🛠️ Panduan Alat & Lingkungan Belajar (Ramah Pemula)
+
+Bagi rekan-rekan mahasiswa yang baru pertama kali mempelajari Vue.js 3, materi Sesi 02 ini dirancang menggunakan standar **The Zero-Friction Courseware Framework** yang sangat ramah pemula dan hemat memori (RAM 4–8 GB friendly):
+
+1. **Google Chrome / Peramban Web Desktop:**
+   * **Fungsi:** Menjalankan seluruh 18 berkas contoh program `.html` secara instan tanpa perlu menjalankan server lokal Node.js via protokol `file:///`.
+   * **Cara Penggunaan:** Cukup klik ganda (*double-click*) berkas `.html` yang ingin dipelajari langsung dari File Explorer Windows.
+2. **Google Chrome DevTools (`F12` / `Ctrl + Shift + I`):**
+   * **Fungsi:** Menginspeksi tab **Console** untuk melihat log mutasi reaktivitas data (`ref` dan `reactive`), serta menguji interaktivitas JavaScript secara langsung.
+   * **Simulator Layar Smartphone (`Ctrl + Shift + M`):** Mengaktifkan mode tampilan ponsel (*Toggle Device Toolbar*) untuk menguji responsivitas antarmuka di layar ponsel.
+3. **Visual Studio Code (VS Code):**
+   * **Fungsi:** Editor teks utama untuk membuka, membaca, dan bereksperimen dengan berkas kode. Pasang ekstensi **Vue - Official (Volar)** untuk penyorotan sintaks (*syntax highlighting*) yang optimal.
+
+---
+
 ## 📊 Daftar 18 Slide Pembahasan & Berkas Kode Mandiri
 
 ### 📌 Slide 01: Paradigma Pemrograman: Imperatif (Vanilla JS) vs Deklaratif (Vue.js 3)
