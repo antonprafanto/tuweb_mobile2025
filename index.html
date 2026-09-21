@@ -4,32 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Perkuliahan Pemrograman Perangkat Bergerak (STSI4303) — Universitas Terbuka</title>
-  <meta name="description" content="Portal web interaktif bahan ajar, 144 contoh kode mandiri, panduan tugas tutorial, dan bank soal UAS mata kuliah Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401) Universitas Terbuka.">
+  <meta name="description" content="Portal perkuliahan resmi mata kuliah Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS) Fakultas Sains dan Teknologi, Universitas Terbuka. Dosen Pengampu: Anton Prafanto, S.Kom., M.T.">
   <meta name="author" content="Anton Prafanto, S.Kom., M.T. — Fakultas Sains dan Teknologi Universitas Terbuka">
 
   <!-- Vue 3 Global Standalone CDN -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-  <!-- Google Fonts: Plus Jakarta Sans -->
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
+      --ut-navy: #003366;
       --ut-blue: #005691;
-      --ut-blue-dark: #003358;
-      --ut-yellow: #FFE600;
-      --ut-yellow-hover: #FACC15;
-      --ut-yellow-light: #FEF9C3;
-      --bg: #FAF8F5;
+      --ut-blue-light: #EBF3FA;
+      --ut-gold: #C28E00;
+      --ut-gold-light: #FFF9E6;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
       --card-bg: #FFFFFF;
-      --border: #18181B;
-      --shadow: 4px 4px 0 #18181B;
-      --shadow-lg: 6px 6px 0 #18181B;
-      --shadow-sm: 2px 2px 0 #18181B;
-      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --border-color: #E2E8F0;
+      --border-hover: #CBD5E1;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
     }
 
     * {
@@ -39,10 +51,10 @@
     }
 
     body {
-      font-family: var(--font-main);
-      background-color: var(--bg);
-      color: #18181B;
-      line-height: 1.5;
+      font-family: var(--font-sans);
+      background-color: var(--slate-50);
+      color: var(--slate-900);
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -51,205 +63,201 @@
       text-decoration: none;
     }
 
-    /* Container */
     .container {
-      max-width: 1280px;
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 24px 20px;
+      padding: 32px 20px;
     }
 
-    /* Header & Hero Neo-Brutalist */
-    .hero-banner {
-      background: var(--ut-yellow);
-      border: 3.5px solid var(--border);
-      box-shadow: var(--shadow-lg);
-      padding: 28px 24px;
-      margin-bottom: 24px;
-      position: relative;
-    }
-
-    .top-badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .badge-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
+    /* Top Academic Header */
+    .site-header {
       background: #FFFFFF;
-      border: 2px solid var(--border);
-      box-shadow: 2px 2px 0 var(--border);
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
     }
 
-    .badge-blue {
-      background: var(--ut-blue);
-      color: #FFFFFF;
-      border-color: var(--border);
+    .site-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ut-navy) 0%, var(--ut-blue) 60%, var(--ut-gold) 100%);
     }
 
-    .hero-title {
-      font-size: clamp(22px, 4vw, 36px);
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 8px;
-      color: #000000;
-      text-transform: uppercase;
-      letter-spacing: -0.5px;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(14px, 2vw, 17px);
-      font-weight: 600;
-      color: #1E293B;
-      margin-bottom: 16px;
-    }
-
-    .hero-meta {
+    .institution-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
-      padding-top: 14px;
-      border-top: 2px dashed rgba(0, 0, 0, 0.4);
-      font-size: 14px;
-      font-weight: 600;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--ut-navy);
+    }
+
+    .institution-dot {
+      color: var(--slate-300);
+      font-weight: 400;
+    }
+
+    .header-title {
+      font-size: clamp(22px, 3.2vw, 32px);
+      font-weight: 800;
+      color: var(--slate-900);
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+
+    .header-subtitle {
+      font-size: 15px;
+      color: var(--slate-600);
+      font-weight: 500;
+      margin-bottom: 20px;
+      max-width: 820px;
+    }
+
+    .header-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--slate-100);
+      font-size: 13px;
     }
 
     .meta-item {
       display: flex;
-      align-items: center;
-      gap: 6px;
+      flex-direction: column;
+    }
+
+    .meta-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--slate-400);
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .meta-value {
+      font-weight: 600;
+      color: var(--slate-800);
     }
 
     /* Quick Action Navbar */
-    .action-bar {
+    .quick-nav-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 24px;
     }
 
-    .btn {
+    .nav-btn {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
-      padding: 10px 18px;
-      font-family: var(--font-main);
-      font-size: 13.5px;
-      font-weight: 800;
-      border: 2.5px solid var(--border);
-      box-shadow: var(--shadow);
+      padding: 10px 16px;
       background: #FFFFFF;
-      cursor: pointer;
-      transition: all 0.12s ease-in-out;
-      user-select: none;
-    }
-
-    .btn:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .btn:active {
-      transform: translate(2px, 2px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slate-700);
       box-shadow: var(--shadow-sm);
+      transition: all 0.15s ease;
+      cursor: pointer;
     }
 
-    .btn-primary {
+    .nav-btn:hover {
+      border-color: var(--ut-blue);
+      color: var(--ut-blue);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .nav-btn.primary {
       background: var(--ut-blue);
+      border-color: var(--ut-blue);
       color: #FFFFFF;
     }
 
-    .btn-yellow {
-      background: var(--ut-yellow);
-      color: #000000;
+    .nav-btn.primary:hover {
+      background: var(--ut-navy);
+      border-color: var(--ut-navy);
     }
 
-    .btn-green {
-      background: #4ADE80;
-      color: #000000;
+    .btn-icon {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+      flex-shrink: 0;
     }
 
-    .btn-purple {
-      background: #C084FC;
-      color: #000000;
-    }
-
-    .btn-red {
-      background: #F87171;
-      color: #000000;
-    }
-
-    .btn-sm {
-      padding: 6px 12px;
-      font-size: 12px;
-      border-width: 2px;
-      box-shadow: 2px 2px 0 var(--border);
-    }
-
-    .btn-sm:hover {
-      box-shadow: 3px 3px 0 var(--border);
-    }
-
-    /* Stat Cards Bar */
-    .stats-grid {
+    /* Metrics Stat Row */
+    .stats-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 14px;
+      gap: 12px;
       margin-bottom: 28px;
     }
 
-    .stat-card {
+    .stat-box {
       background: #FFFFFF;
-      border: 2.5px solid var(--border);
-      box-shadow: var(--shadow);
-      padding: 14px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
     }
 
-    .stat-number {
-      font-size: 28px;
+    .stat-val {
+      font-size: 26px;
       font-weight: 800;
-      line-height: 1;
-      margin-bottom: 4px;
+      color: var(--ut-navy);
       font-family: var(--font-mono);
-      color: var(--ut-blue);
+      line-height: 1.1;
+      margin-bottom: 4px;
     }
 
-    .stat-label {
-      font-size: 12px;
-      font-weight: 700;
+    .stat-lbl {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--slate-600);
       text-transform: uppercase;
-      color: #475569;
+      letter-spacing: 0.4px;
     }
 
-    /* Search & Filter Toolbar */
-    .filter-panel {
+    /* Session Filter & Search Panel */
+    .filter-section {
       background: #FFFFFF;
-      border: 3px solid var(--border);
-      box-shadow: var(--shadow);
-      padding: 20px;
-      margin-bottom: 28px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
     }
 
     .search-row {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
-    .search-input-wrap {
+    .search-wrap {
       flex: 1;
       min-width: 260px;
       position: relative;
@@ -257,108 +265,215 @@
 
     .search-input {
       width: 100%;
-      padding: 12px 16px 12px 42px;
-      font-family: var(--font-main);
-      font-size: 15px;
-      font-weight: 600;
-      border: 2.5px solid var(--border);
-      background: #FAF8F5;
-      color: #000;
+      padding: 11px 16px 11px 40px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: var(--slate-50);
+      color: var(--slate-900);
       outline: none;
-      transition: background 0.15s;
+      transition: all 0.15s ease;
     }
 
     .search-input:focus {
       background: #FFFFFF;
-      box-shadow: 3px 3px 0 var(--border);
+      border-color: var(--ut-blue);
+      box-shadow: 0 0 0 3px rgba(0, 86, 145, 0.12);
     }
 
-    .search-icon {
+    .search-svg {
       position: absolute;
       left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 18px;
+      width: 16px;
+      height: 16px;
+      stroke: var(--slate-400);
+      fill: none;
+      stroke-width: 2;
       pointer-events: none;
     }
 
-    .search-clear {
+    .clear-btn {
       position: absolute;
       right: 12px;
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
-      font-size: 16px;
-      font-weight: 800;
+      width: 20px;
+      height: 20px;
       cursor: pointer;
-      color: #64748B;
-      padding: 4px;
-    }
-
-    .search-clear:hover {
-      color: #000000;
-    }
-
-    /* Filter Pills */
-    .pill-group-title {
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: #64748B;
-      margin-bottom: 8px;
+      color: var(--slate-400);
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: center;
     }
 
-    .pill-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
+    .clear-btn:hover {
+      color: var(--slate-700);
     }
 
-    .pill {
-      padding: 6px 12px;
-      font-size: 12.5px;
-      font-weight: 700;
-      border: 2px solid var(--border);
-      background: #FFFFFF;
-      box-shadow: 2px 2px 0 var(--border);
-      cursor: pointer;
-      user-select: none;
-      transition: all 0.1s ease;
-    }
-
-    .pill:hover {
-      background: #FEF9C3;
-      transform: translate(-1px, -1px);
-    }
-
-    .pill.active {
-      background: var(--ut-yellow);
-      box-shadow: 3px 3px 0 var(--border);
-      transform: translate(-1px, -1px);
-    }
-
-    .results-info {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      padding-top: 12px;
-      border-top: 2px solid #E2E8F0;
+    .reset-btn {
+      padding: 10px 16px;
+      font-family: var(--font-sans);
       font-size: 13px;
+      font-weight: 600;
+      background: var(--slate-100);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--slate-700);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .reset-btn:hover {
+      background: var(--slate-200);
+      color: var(--slate-900);
+    }
+
+    /* Tab Segmented Control */
+    .tab-group-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--slate-400);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tab-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .tab-item {
+      padding: 7px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--slate-50);
+      color: var(--slate-700);
+      cursor: pointer;
+      transition: all 0.12s ease;
+      user-select: none;
+    }
+
+    .tab-item:hover {
+      background: #FFFFFF;
+      border-color: var(--slate-300);
+      color: var(--slate-900);
+    }
+
+    .tab-item.active {
+      background: var(--ut-blue);
+      border-color: var(--ut-blue);
+      color: #FFFFFF;
+      box-shadow: 0 1px 2px rgba(0, 86, 145, 0.2);
+    }
+
+    /* Secondary Tag Filter */
+    .tag-filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding-top: 14px;
+      border-top: 1px solid var(--slate-100);
+    }
+
+    .tag-chip {
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      background: #FFFFFF;
+      color: var(--slate-600);
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+
+    .tag-chip:hover {
+      border-color: var(--slate-400);
+      color: var(--slate-900);
+    }
+
+    .tag-chip.active {
+      background: var(--slate-800);
+      border-color: var(--slate-800);
+      color: #FFFFFF;
+    }
+
+    /* Contextual Session Banner */
+    .session-banner {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--ut-blue);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .session-banner-text {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .session-banner-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 2px;
+    }
+
+    .session-banner-modul {
+      font-size: 12.5px;
+      color: var(--slate-600);
+    }
+
+    .session-banner-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Results Counter Bar */
+    .results-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    .results-bar strong {
+      color: var(--slate-900);
       font-weight: 700;
     }
 
     /* Card Grid */
     .catalog-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 18px;
       margin-bottom: 40px;
     }
 
@@ -370,55 +485,94 @@
 
     .course-card {
       background: #FFFFFF;
-      border: 3px solid var(--border);
-      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: all 0.15s ease-in-out;
+      transition: all 0.2s ease;
       position: relative;
     }
 
     .course-card:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: var(--shadow-lg);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
     }
 
-    .card-top {
-      padding: 16px 18px 12px;
-      border-bottom: 2.5px solid var(--border);
-      background: #FAF8F5;
+    .card-head {
+      padding: 14px 18px 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px solid var(--slate-100);
     }
 
-    .card-session-tag {
+    .card-session-info {
       font-size: 11.5px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      font-weight: 700;
       color: var(--ut-blue);
-    }
-
-    .card-badge {
-      font-size: 11px;
-      font-weight: 800;
-      padding: 3px 8px;
-      border: 1.5px solid var(--border);
-      box-shadow: 1.5px 1.5px 0 var(--border);
       text-transform: uppercase;
+      letter-spacing: 0.4px;
     }
 
-    .bg-red { background: #FEE2E2; color: #991B1B; }
-    .bg-purple { background: #F3E8FF; color: #6B21A8; }
-    .bg-yellow { background: #FEF9C3; color: #854D0E; }
-    .bg-cyan { background: #E0F2FE; color: #075985; }
-    .bg-green { background: #DCFCE7; color: #166534; }
-    .bg-orange { background: #FFEDD5; color: #9A3412; }
-    .bg-blue { background: #DBEAFE; color: #1E40AF; }
+    /* Clean Typographic Badges (No Emojis) */
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+    }
 
-    .card-body {
+    .badge-tugas {
+      background: #FEF2F2;
+      color: #991B1B;
+      border-color: #FECACA;
+    }
+
+    .badge-rubrik {
+      background: #FFFBEB;
+      color: #92400E;
+      border-color: #FDE68A;
+    }
+
+    .badge-lab {
+      background: #F5F3FF;
+      color: #5B21B6;
+      border-color: #DDD6FE;
+    }
+
+    .badge-uas {
+      background: #FEFCE8;
+      color: #854D0E;
+      border-color: #FEF08A;
+    }
+
+    .badge-pengantar {
+      background: #ECFDF5;
+      color: #065F46;
+      border-color: #A7F3D0;
+    }
+
+    .badge-preview {
+      background: #EFF6FF;
+      color: #1E40AF;
+      border-color: #BFDBFE;
+    }
+
+    .badge-materi {
+      background: var(--slate-100);
+      color: var(--slate-700);
+      border-color: var(--slate-200);
+    }
+
+    .card-content {
       padding: 16px 18px;
       flex-grow: 1;
       display: flex;
@@ -427,123 +581,175 @@
     }
 
     .card-title {
-      font-size: 16px;
-      font-weight: 800;
+      font-size: 15.5px;
+      font-weight: 700;
       line-height: 1.35;
-      color: #0F172A;
+      color: var(--slate-900);
     }
 
     .card-subcpmk {
       font-size: 12.5px;
-      color: #334155;
-      background: #F1F5F9;
+      color: var(--slate-700);
+      background: var(--slate-50);
       border-left: 3px solid var(--ut-blue);
-      padding: 6px 10px;
-      font-weight: 600;
-      line-height: 1.4;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 8px 12px;
+      line-height: 1.45;
+      font-weight: 500;
     }
 
-    .card-tools {
-      font-size: 11.5px;
-      color: #64748B;
-      font-weight: 600;
+    .card-subcpmk strong {
+      color: var(--slate-900);
+      font-weight: 700;
+    }
+
+    .card-tools-row {
+      font-size: 12px;
+      color: var(--slate-600);
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
     }
 
-    .card-keypoints {
+    .card-tools-row strong {
+      color: var(--slate-700);
+    }
+
+    .card-points {
       margin-top: 4px;
       font-size: 12px;
-      color: #1E293B;
+      color: var(--slate-700);
     }
 
-    .card-keypoints ul {
+    .card-points-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--slate-400);
+      margin-bottom: 4px;
+    }
+
+    .card-points ul {
       padding-left: 18px;
     }
 
-    .card-keypoints li {
-      margin-bottom: 2px;
+    .card-points li {
+      margin-bottom: 3px;
     }
 
-    .card-footer {
+    .card-actions {
       padding: 12px 18px;
-      border-top: 2.5px solid var(--border);
+      border-top: 1px solid var(--slate-100);
       background: #FFFFFF;
       display: flex;
-      gap: 10px;
+      gap: 8px;
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
     }
 
-    .card-footer .btn {
+    .card-btn {
       flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 12px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: all 0.12s ease;
+      user-select: none;
+    }
+
+    .card-btn-secondary {
+      background: var(--slate-50);
+      color: var(--slate-700);
+    }
+
+    .card-btn-secondary:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+    }
+
+    .card-btn-primary {
+      background: var(--ut-blue);
+      border-color: var(--ut-blue);
+      color: #FFFFFF;
+    }
+
+    .card-btn-primary:hover {
+      background: var(--ut-navy);
+      border-color: var(--ut-navy);
     }
 
     /* Empty state */
     .empty-state {
       background: #FFFFFF;
-      border: 3px solid var(--border);
-      box-shadow: var(--shadow);
-      padding: 40px 20px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 48px 24px;
       text-align: center;
       margin-bottom: 40px;
     }
 
-    .empty-icon {
-      font-size: 48px;
+    .empty-svg {
+      width: 48px;
+      height: 48px;
+      stroke: var(--slate-300);
       margin-bottom: 12px;
     }
 
     /* PPTX & Resources Section */
-    .section-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .section-header {
       margin-bottom: 16px;
     }
 
-    .section-title {
-      font-size: 22px;
+    .section-heading {
+      font-size: 20px;
       font-weight: 800;
-      text-transform: uppercase;
+      color: var(--slate-900);
       letter-spacing: -0.3px;
+      margin-bottom: 4px;
     }
 
-    .section-badge {
-      background: var(--ut-yellow);
-      border: 2px solid var(--border);
-      padding: 2px 8px;
-      font-size: 11px;
-      font-weight: 800;
+    .section-desc {
+      font-size: 13.5px;
+      color: var(--slate-600);
     }
 
     .resource-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
+      gap: 14px;
       margin-bottom: 40px;
     }
 
     .resource-card {
       background: #FFFFFF;
-      border: 2.5px solid var(--border);
-      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
       padding: 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      box-shadow: var(--shadow-sm);
     }
 
     .resource-title {
-      font-size: 14.5px;
-      font-weight: 800;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--slate-900);
       margin-bottom: 4px;
     }
 
     .resource-modul {
       font-size: 12px;
-      font-weight: 600;
-      color: #64748B;
-      margin-bottom: 12px;
+      color: var(--slate-500);
+      margin-bottom: 14px;
     }
 
     .resource-actions {
@@ -552,70 +758,103 @@
       gap: 6px;
     }
 
-    /* Help & Guide Section (Ramah Awam) */
-    .guide-banner {
-      background: #EFF6FF;
-      border: 3px solid var(--border);
-      box-shadow: var(--shadow);
-      padding: 24px;
-      margin-bottom: 40px;
-    }
-
-    .guide-title {
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--ut-blue-dark);
-      margin-bottom: 12px;
-      display: flex;
+    .res-btn {
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      gap: 6px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--slate-50);
+      color: var(--slate-700);
+      transition: all 0.12s;
     }
 
-    .guide-steps {
+    .res-btn:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+    }
+
+    .res-btn.primary {
+      background: var(--ut-blue-light);
+      border-color: #BFDBFE;
+      color: var(--ut-blue);
+    }
+
+    .res-btn.primary:hover {
+      background: #DBEAFE;
+    }
+
+    /* Beginner Guide Section */
+    .guide-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .guide-box-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 8px;
+    }
+
+    .guide-steps-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 16px;
-      margin-top: 14px;
+      margin-top: 18px;
     }
 
-    .guide-step-card {
-      background: #FFFFFF;
-      border: 2px solid var(--border);
-      padding: 14px;
-      box-shadow: 2px 2px 0 var(--border);
+    .step-card {
+      background: var(--slate-50);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px;
     }
 
     .step-badge {
       display: inline-block;
-      background: var(--ut-yellow);
-      border: 1.5px solid var(--border);
-      font-size: 11px;
-      font-weight: 800;
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--ut-blue);
+      background: var(--ut-blue-light);
       padding: 2px 8px;
+      border-radius: 4px;
       margin-bottom: 8px;
     }
 
-    .step-heading {
+    .step-title {
       font-size: 13.5px;
-      font-weight: 800;
+      font-weight: 700;
+      color: var(--slate-900);
       margin-bottom: 4px;
     }
 
-    .step-desc {
+    .step-text {
       font-size: 12.5px;
-      color: #334155;
-      line-height: 1.45;
+      color: var(--slate-600);
+      line-height: 1.5;
     }
 
-    /* Interactive Mobile Simulator Modal */
+    /* Interactive Mobile Device Simulator Modal */
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(4px);
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(6px);
       z-index: 9999;
       display: flex;
       align-items: center;
@@ -626,9 +865,10 @@
 
     .modal-window {
       background: #FFFFFF;
-      border: 4px solid var(--border);
-      box-shadow: 8px 8px 0 var(--border);
-      max-width: 1150px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      max-width: 1140px;
       width: 100%;
       max-height: 94vh;
       display: flex;
@@ -637,8 +877,8 @@
     }
 
     .modal-header {
-      background: var(--ut-yellow);
-      border-bottom: 3.5px solid var(--border);
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-color);
       padding: 14px 20px;
       display: flex;
       flex-wrap: wrap;
@@ -647,28 +887,67 @@
       gap: 12px;
     }
 
-    .modal-title-box {
+    .modal-title-area {
       display: flex;
       align-items: center;
       gap: 10px;
       flex: 1;
-      min-width: 250px;
+      min-width: 240px;
     }
 
     .modal-slide-title {
-      font-size: 15px;
-      font-weight: 800;
-      color: #000;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--slate-900);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 500px;
+      max-width: 480px;
     }
 
-    .modal-controls {
+    .modal-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+    }
+
+    .modal-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: #FFFFFF;
+      color: var(--slate-700);
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+
+    .modal-btn:hover {
+      background: var(--slate-50);
+      color: var(--slate-900);
+    }
+
+    .modal-btn.active {
+      background: var(--ut-blue);
+      border-color: var(--ut-blue);
+      color: #FFFFFF;
+    }
+
+    .modal-btn-close {
+      background: var(--slate-100);
+      color: var(--slate-600);
+      padding: 6px 10px;
+    }
+
+    .modal-btn-close:hover {
+      background: #FEE2E2;
+      color: #991B1B;
+      border-color: #FECACA;
     }
 
     .modal-body {
@@ -676,7 +955,7 @@
       flex-direction: row;
       flex: 1;
       overflow: hidden;
-      background: #FAF8F5;
+      background: var(--slate-100);
     }
 
     @media (max-width: 860px) {
@@ -686,57 +965,55 @@
       }
     }
 
-    /* Device Mockup Wrapper */
     .simulator-stage {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      background: #E2E8F0;
+      padding: 24px;
+      background: var(--slate-200);
       overflow: auto;
       min-height: 480px;
     }
 
-    .phone-mockup {
-      background: #111827;
-      border: 4px solid #000000;
-      border-radius: 40px;
-      box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4), inset 0 0 0 2px #374151;
-      padding: 14px 12px;
+    .phone-chassis {
+      background: #0F172A;
+      border: 1px solid #334155;
+      border-radius: 36px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      padding: 12px 10px;
       display: flex;
       flex-direction: column;
       position: relative;
       transition: width 0.2s ease, height 0.2s ease;
     }
 
-    .phone-notch-bar {
+    .phone-top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0 16px 8px;
-      color: #FFFFFF;
+      color: #94A3B8;
       font-size: 11px;
       font-family: var(--font-mono);
-      font-weight: 700;
+      font-weight: 600;
     }
 
-    .phone-camera-hole {
-      width: 12px;
-      height: 12px;
+    .phone-notch-camera {
+      width: 10px;
+      height: 10px;
       background: #000000;
       border-radius: 50%;
-      border: 1.5px solid #1F2937;
+      border: 1px solid #1E293B;
     }
 
     .phone-screen {
       background: #FFFFFF;
-      border-radius: 26px;
+      border-radius: 24px;
       overflow: hidden;
       flex: 1;
       position: relative;
-      border: 1px solid #1E293B;
     }
 
     .phone-screen iframe {
@@ -747,18 +1024,17 @@
       display: block;
     }
 
-    .phone-home-indicator {
-      width: 120px;
+    .phone-bottom-bar {
+      width: 100px;
       height: 4px;
-      background: #6B7280;
+      background: #475569;
       border-radius: 2px;
       margin: 8px auto 0;
     }
 
-    /* Simulator Sidebar Info */
-    .simulator-info-sidebar {
-      width: 380px;
-      border-left: 3.5px solid var(--border);
+    .simulator-drawer {
+      width: 360px;
+      border-left: 1px solid var(--border-color);
       background: #FFFFFF;
       padding: 20px;
       display: flex;
@@ -768,30 +1044,31 @@
     }
 
     @media (max-width: 860px) {
-      .simulator-info-sidebar {
+      .simulator-drawer {
         width: 100%;
         border-left: none;
-        border-top: 3.5px solid var(--border);
+        border-top: 1px solid var(--border-color);
       }
     }
 
-    .sim-info-group {
+    .sim-field {
       margin-bottom: 16px;
     }
 
-    .sim-label {
+    .sim-field-label {
       font-size: 11px;
-      font-weight: 800;
+      font-weight: 700;
       text-transform: uppercase;
-      color: #64748B;
+      letter-spacing: 0.5px;
+      color: var(--slate-400);
       margin-bottom: 4px;
     }
 
-    .sim-val {
+    .sim-field-value {
       font-size: 13.5px;
       font-weight: 600;
-      color: #1E293B;
-      line-height: 1.4;
+      color: var(--slate-800);
+      line-height: 1.45;
     }
 
     .sim-nav-row {
@@ -799,50 +1076,68 @@
       gap: 8px;
       margin-top: 16px;
       padding-top: 14px;
-      border-top: 2px dashed #CBD5E1;
+      border-top: 1px solid var(--slate-100);
     }
 
-    .sim-nav-row .btn {
+    .sim-nav-btn {
       flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--slate-50);
+      color: var(--slate-700);
+      cursor: pointer;
+      transition: all 0.12s;
     }
 
-    /* Footer */
-    .site-footer {
-      background: var(--ut-blue-dark);
+    .sim-nav-btn:hover:not(:disabled) {
+      background: var(--slate-100);
+      color: var(--slate-900);
+    }
+
+    .sim-nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .sim-nav-btn.primary {
+      background: var(--ut-blue);
+      border-color: var(--ut-blue);
       color: #FFFFFF;
-      border-top: 4px solid var(--border);
-      padding: 32px 20px 24px;
-      margin-top: 40px;
     }
 
-    .footer-content {
-      max-width: 1280px;
+    .sim-nav-btn.primary:hover:not(:disabled) {
+      background: var(--ut-navy);
+    }
+
+    /* Site Footer */
+    .site-footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 32px 20px;
+      margin-top: 48px;
+      font-size: 13px;
+      color: var(--slate-600);
+    }
+
+    .footer-inner {
+      max-width: 1240px;
       margin: 0 auto;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
     }
 
-    .footer-text {
-      font-size: 13.5px;
-      line-height: 1.6;
-    }
-
-    .footer-text strong {
-      color: var(--ut-yellow);
-    }
-
-    .footer-badge {
-      display: inline-block;
-      padding: 4px 10px;
-      background: var(--ut-yellow);
-      color: #000000;
-      font-weight: 800;
-      border: 2px solid var(--border);
-      box-shadow: 2px 2px 0 var(--border);
-      font-size: 12px;
+    .footer-brand {
+      font-weight: 700;
+      color: var(--slate-900);
     }
   </style>
 </head>
@@ -851,254 +1146,289 @@
   <div id="app">
     <div class="container">
 
-      <!-- HERO BANNER UT -->
-      <header class="hero-banner">
-        <div class="top-badge-row">
-          <span class="badge-pill badge-blue">🏛️ Universitas Terbuka</span>
-          <span class="badge-pill">Fakultas Sains & Teknologi (FST)</span>
-          <span class="badge-pill">Prodi S1 Sistem Informasi & Informatika</span>
-          <span class="badge-pill" style="background: #4ADE80;">⚡ Zero-Friction Web Courseware</span>
+      <!-- ACADEMIC HEADER -->
+      <header class="site-header">
+        <div class="institution-row">
+          <span>Universitas Terbuka</span>
+          <span class="institution-dot">•</span>
+          <span>Fakultas Sains dan Teknologi</span>
+          <span class="institution-dot">•</span>
+          <span>Prodi S1 Sistem Informasi &amp; S1 Informatika</span>
         </div>
 
-        <h1 class="hero-title">Pemrograman Berbasis Perangkat Bergerak</h1>
-        <p class="hero-subtitle">
-          Portal Web Interaktif & Katalog 144 Berkas Kode Mandiri (STSI4303 / MSIM4401 — 3 SKS)
+        <h1 class="header-title">Pemrograman Berbasis Perangkat Bergerak</h1>
+        <p class="header-subtitle">
+          Portal Perkuliahan Terpadu &amp; Katalog 144 Berkas Contoh Program Mandiri (STSI4303 / MSIM4401 — 3 SKS Praktik).
         </p>
 
-        <div class="hero-meta">
+        <div class="header-meta-grid">
           <div class="meta-item">
-            <span>👨‍🏫 <strong>Dosen Pengampu:</strong> Anton Prafanto, S.Kom., M.T.</span>
+            <span class="meta-label">Dosen Pengampu</span>
+            <span class="meta-value">Anton Prafanto, S.Kom., M.T.</span>
           </div>
           <div class="meta-item">
-            <span>📚 <strong>Buku Materi Pokok (BMP):</strong> Modul 1 – 9 UT</span>
+            <span class="meta-label">Buku Materi Pokok (BMP)</span>
+            <span class="meta-value">Modul 1 – 9 STSI4303 / MSIM4401</span>
           </div>
           <div class="meta-item">
-            <span>🌐 <strong>Teknologi:</strong> Ionic UI • Vue.js 3 • TypeScript • Capacitor</span>
+            <span class="meta-label">Kerangka Kerja &amp; Perkakas</span>
+            <span class="meta-value">Ionic UI • Vue 3 • TypeScript • Capacitor</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Metode Eksekusi</span>
+            <span class="meta-value">Zero-Friction (Tanpa Instalasi Server)</span>
           </div>
         </div>
       </header>
 
-      <!-- QUICK ACTION BAR -->
-      <nav class="action-bar" aria-label="Akses Cepat Dokumen Kuliah">
-        <a href="panduan_tutorial_ut/PANDUAN_DISKUSI_TUTON.md" target="_blank" class="btn btn-yellow" title="Buka Panduan 8 Sesi Diskusi Forum Tuton">
-          💬 Panduan Diskusi Tuton (144 Slide)
+      <!-- QUICK NAVIGATION BAR -->
+      <nav class="quick-nav-bar" aria-label="Navigasi Dokumen Perkuliahan">
+        <a href="panduan_tutorial_ut/PANDUAN_DISKUSI_TUTON.md" target="_blank" class="nav-btn">
+          <svg class="btn-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Panduan Diskusi Tuton (144 Slide)
         </a>
-        <a href="panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md" target="_blank" class="btn btn-red" title="Buka Skenario & Rubrik Penilaian Tugas 1, 2, 3">
-          🎯 Panduan Tugas Tutorial 1, 2, 3
+        <a href="panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md" target="_blank" class="nav-btn">
+          <svg class="btn-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          Panduan Tugas Tutorial 1, 2, 3
         </a>
-        <a href="panduan_tutorial_ut/RANCANGAN_AKTIVITAS_TUTORIAL_RAT.md" target="_blank" class="btn btn-green" title="Buka Silabus Resmi RAT/SAT STSI4303">
-          📋 Silabus RAT / SAT Resmi
+        <a href="panduan_tutorial_ut/RANCANGAN_AKTIVITAS_TUTORIAL_RAT.md" target="_blank" class="nav-btn">
+          <svg class="btn-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+          Silabus RAT / SAT Resmi
         </a>
-        <a href="#pusat-unduhan" class="btn btn-purple" title="Loncat ke Pusat Unduhan 8 Slide Presentasi PPTX">
-          📥 8 Slide Presentasi (.pptx)
+        <a href="#pusat-unduhan" class="nav-btn">
+          <svg class="btn-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          8 Slide Presentasi (.pptx)
         </a>
-        <a href="https://github.com/antonprafanto/tuweb_mobile2025" target="_blank" class="btn btn-primary" title="Buka Repositori Kode Sumber di GitHub">
-          💻 Repositori GitHub
+        <a href="https://github.com/antonprafanto/tuweb_mobile2025" target="_blank" class="nav-btn primary">
+          <svg class="btn-icon" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          Repositori GitHub
         </a>
       </nav>
 
-      <!-- STATS BAR -->
-      <section class="stats-grid" aria-label="Statistik Materi Perkuliahan">
-        <div class="stat-card">
-          <span class="stat-number">8</span>
-          <span class="stat-label">Sesi Perkuliahan</span>
+      <!-- METRICS STATS -->
+      <section class="stats-row" aria-label="Metrik Bahan Perkuliahan">
+        <div class="stat-box">
+          <span class="stat-val">8</span>
+          <span class="stat-lbl">Sesi Perkuliahan</span>
         </div>
-        <div class="stat-card">
-          <span class="stat-number">144</span>
-          <span class="stat-label">Berkas Interaktif</span>
+        <div class="stat-box">
+          <span class="stat-val">144</span>
+          <span class="stat-lbl">Berkas Interaktif</span>
         </div>
-        <div class="stat-card">
-          <span class="stat-number" style="color: #DC2626;">3</span>
-          <span class="stat-label">Tugas Wajib (1, 2, 3)</span>
+        <div class="stat-box">
+          <span class="stat-val" style="color: #B91C1C;">3</span>
+          <span class="stat-lbl">Tugas Wajib (1, 2, 3)</span>
         </div>
-        <div class="stat-card">
-          <span class="stat-number" style="color: #7E22CE;">5</span>
-          <span class="stat-label">Lab Quests Mandiri</span>
+        <div class="stat-box">
+          <span class="stat-val" style="color: #6D28D9;">5</span>
+          <span class="stat-lbl">Lab Quests Mandiri</span>
         </div>
-        <div class="stat-card">
-          <span class="stat-number" style="color: #CA8A04;">50</span>
-          <span class="stat-label">Bank Soal UAS</span>
+        <div class="stat-box">
+          <span class="stat-val" style="color: #B45309;">50</span>
+          <span class="stat-lbl">Bank Soal UAS</span>
         </div>
-        <div class="stat-card">
-          <span class="stat-number" style="color: #16A34A;">0 ms</span>
-          <span class="stat-label">Instan Tanpa Install</span>
+        <div class="stat-box">
+          <span class="stat-val" style="color: #047857;">0 ms</span>
+          <span class="stat-lbl">Instan Tanpa Server</span>
         </div>
       </section>
 
       <!-- FILTER & SEARCH PANEL -->
-      <section class="filter-panel" aria-label="Pencarian dan Penyaringan Materi">
+      <section class="filter-section" aria-label="Pencarian dan Penyaringan Materi">
+        <!-- Search bar -->
         <div class="search-row">
-          <div class="search-input-wrap">
-            <span class="search-icon">🔍</span>
+          <div class="search-wrap">
+            <svg class="search-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input 
               type="text" 
               class="search-input" 
               v-model="searchQuery" 
-              placeholder="Cari topik, nomor slide, kata kunci (misal: Tugas 1, v-model, Regex, GPS, APK, UAS)..."
-              autofocus
+              placeholder="Cari topik, nomor slide, kata kunci (contoh: Tugas 1, v-model, Regex, GPS, APK, UAS)..."
             >
-            <button v-if="searchQuery" class="search-clear" @click="searchQuery = ''" title="Hapus pencarian">✕</button>
+            <button v-if="searchQuery" class="clear-btn" @click="searchQuery = ''" title="Hapus pencarian">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
           </div>
 
-          <button class="btn btn-yellow" @click="resetFilters" title="Kembalikan semua filter ke awal">
-            🔄 Reset Filter
+          <button class="reset-btn" @click="resetFilters" title="Kembalikan semua filter ke tampilan awal">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+            Reset Filter
           </button>
         </div>
 
-        <!-- Filter Sesi -->
-        <div class="pill-group-title">
-          <span>Pilih Sesi Perkuliahan (Modul 1 – 9):</span>
+        <!-- Session Tabs -->
+        <div class="tab-group-title">
+          <span>Pilih Sesi Perkuliahan (Modul 1 – 9 BMP):</span>
           <span>{{ filteredSlides.length }} materi cocok</span>
         </div>
-        <div class="pill-wrap">
+        <div class="tab-nav">
           <button 
-            class="pill" 
+            class="tab-item" 
             :class="{ 'active': activeSession === null && activeCategory === null }"
             @click="selectSession(null)"
           >
-            🌟 Semua Sesi (144)
+            Semua Sesi (144)
           </button>
           <button 
             v-for="s in 8" 
-            :key="'sesi-' + s"
-            class="pill" 
+            :key="'sesi-tab-' + s"
+            class="tab-item" 
             :class="{ 'active': activeSession === s }"
             @click="selectSession(s)"
           >
-            ⚡ Sesi {{ s }}
+            Sesi {{ s }}
           </button>
         </div>
 
-        <!-- Filter Kategori Khusus -->
-        <div class="pill-group-title">
-          <span>Kategori Tagihan Akademik Khusus:</span>
-        </div>
-        <div class="pill-wrap">
+        <!-- Special Academic Category Chips -->
+        <div class="tag-filter-row">
           <button 
-            class="pill" 
+            class="tag-chip" 
             :class="{ 'active': activeCategory === 'tugas' }"
             @click="selectCategory('tugas')"
-            style="border-color: #DC2626;"
           >
-            🎯 Khusus Tugas Wajib 1, 2, 3 (3)
+            Tugas Wajib 1, 2, 3 (3)
           </button>
           <button 
-            class="pill" 
+            class="tag-chip" 
             :class="{ 'active': activeCategory === 'rubrik' }"
             @click="selectCategory('rubrik')"
-            style="border-color: #EA580C;"
           >
-            📋 Rubrik Penilaian Tugas (3)
+            Rubrik Penilaian Tugas (3)
           </button>
           <button 
-            class="pill" 
+            class="tag-chip" 
             :class="{ 'active': activeCategory === 'lab' }"
             @click="selectCategory('lab')"
-            style="border-color: #7E22CE;"
           >
-            🧪 Khusus Lab Quests Mandiri (5)
+            Lab Quests Mandiri (5)
           </button>
           <button 
-            class="pill" 
+            class="tag-chip" 
             :class="{ 'active': activeCategory === 'uas' }"
             @click="selectCategory('uas')"
-            style="border-color: #CA8A04;"
           >
-            🎓 Bank Soal & Simulasi UAS (5)
+            Bank Soal &amp; Simulasi UAS (5)
           </button>
-        </div>
-
-        <!-- Hasil Pencarian Status -->
-        <div class="results-info">
-          <div>
-            Menampilkan <strong>{{ filteredSlides.length }}</strong> dari total <strong>{{ allSlides.length }}</strong> berkas interaktif.
-            <span v-if="searchQuery" style="color: var(--ut-blue);"> (Kata kunci: "<em>{{ searchQuery }}</em>")</span>
-          </div>
-          <div style="font-size: 12px; color: #64748B;">
-            💡 Tip: Klik "📱 Uji di Simulator" untuk menjalankan slide langsung di dalam peramban!
-          </div>
         </div>
       </section>
 
-      <!-- EMPTY STATE JIKA TIDAK DITEMUKAN -->
+      <!-- CONTEXTUAL SESSION BANNER (RAMAH AWAM) -->
+      <div v-if="currentSessionInfo" class="session-banner">
+        <div class="session-banner-text">
+          <div class="session-banner-title">{{ currentSessionInfo.title }}</div>
+          <div class="session-banner-modul">Buku Materi Pokok: {{ currentSessionInfo.modul }} (18 Berkas Mandiri Siap Pakai)</div>
+        </div>
+        <div class="session-banner-actions">
+          <a 
+            :href="'https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/' + currentSessionInfo.pptx" 
+            class="res-btn primary" 
+            download
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Unduh PPTX Sesi {{ activeSession }}
+          </a>
+          <a 
+            :href="'slide_presentasi/' + currentSessionInfo.md" 
+            target="_blank" 
+            class="res-btn"
+          >
+            Naskah Narasi Dosen ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- RESULTS BAR -->
+      <div class="results-bar">
+        <div>
+          Menampilkan <strong>{{ filteredSlides.length }}</strong> dari total <strong>{{ allSlides.length }}</strong> berkas interaktif.
+          <span v-if="searchQuery" style="color: var(--ut-blue);"> (Kata kunci: "<em>{{ searchQuery }}</em>")</span>
+        </div>
+        <div style="font-size: 12px; color: var(--slate-400);">
+          Tip: Klik "Uji di Simulator" untuk mencoba program langsung di layar ponsel.
+        </div>
+      </div>
+
+      <!-- EMPTY STATE -->
       <div v-if="filteredSlides.length === 0" class="empty-state">
-        <div class="empty-icon">🔎</div>
-        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Tidak Ada Materi yang Cocok</h3>
-        <p style="color: #64748B; margin-bottom: 16px;">
+        <svg class="empty-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Materi Tidak Ditemukan</h3>
+        <p style="font-size: 13.5px; color: var(--slate-500); margin-bottom: 16px;">
           Kata kunci "<strong>{{ searchQuery }}</strong>" tidak ditemukan pada judul, Sub-CPMK, atau tags materi.
         </p>
-        <button class="btn btn-yellow" @click="resetFilters">
+        <button class="reset-btn" @click="resetFilters">
           Tampilkan Semua 144 Materi
         </button>
       </div>
 
       <!-- CATALOG CARDS GRID -->
-      <main class="catalog-grid" aria-label="Daftar Kartu Materi">
+      <main class="catalog-grid" aria-label="Katalog Materi Perkuliahan">
         <article 
           v-for="slide in filteredSlides" 
           :key="slide.id" 
           class="course-card"
         >
-          <div class="card-top">
-            <span class="card-session-tag">Sesi {{ slide.session_num }} • Slide {{ slide.slide_num_str }}</span>
-            <span class="card-badge" :class="slide.badge_color">{{ slide.badge_text }}</span>
+          <div class="card-head">
+            <span class="card-session-info">Sesi {{ slide.session_num }} • Slide {{ slide.slide_num_str }}</span>
+            <span class="badge" :class="slide.badge_color">{{ slide.badge_text }}</span>
           </div>
 
-          <div class="card-body">
+          <div class="card-content">
             <h2 class="card-title">{{ slide.title }}</h2>
 
             <div class="card-subcpmk" :title="slide.subcpmk">
               <strong>Sub-CPMK:</strong> {{ slide.subcpmk }}
             </div>
 
-            <div class="card-tools">
-              <span>🛠️ <strong>Alat:</strong> {{ slide.alat }}</span>
+            <div class="card-tools-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+              <span><strong>Alat:</strong> {{ slide.alat }}</span>
             </div>
 
-            <div v-if="slide.poin_kunci && slide.poin_kunci.length > 0" class="card-keypoints">
-              <strong style="font-size: 11.5px; text-transform: uppercase; color: #475569;">Poin Kunci:</strong>
+            <div v-if="slide.poin_kunci && slide.poin_kunci.length > 0" class="card-points">
+              <div class="card-points-label">Poin Kunci:</div>
               <ul>
                 <li v-for="(pk, idx) in slide.poin_kunci" :key="idx">{{ pk }}</li>
               </ul>
             </div>
           </div>
 
-          <div class="card-footer">
+          <div class="card-actions">
             <button 
-              class="btn btn-sm btn-yellow" 
+              class="card-btn card-btn-primary" 
               @click="openSimulator(slide)" 
-              title="Jalankan di simulator HP langsung di laman ini"
+              title="Jalankan di simulator HP langsung di browser"
             >
-              📱 Uji di Simulator
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+              Uji di Simulator
             </button>
             <a 
               :href="slide.rel_path" 
               target="_blank" 
-              class="btn btn-sm btn-primary" 
-              title="Buka berkas langsung di tab baru browser"
+              class="card-btn card-btn-secondary" 
+              title="Buka berkas mandiri di tab baru peramban"
             >
-              👁️ Buka Penuh ↗
+              Buka Tab Baru ↗
             </a>
           </div>
         </article>
       </main>
 
       <!-- PUSAT UNDUHAN BAHAN PRESENTASI (PPTX & MD) -->
-      <section id="pusat-unduhan" class="guide-banner" style="background: #FFFFFF;">
-        <div class="section-title-wrap">
-          <h2 class="section-title">📊 Pusat Unduhan Bahan Presentasi (8 Sesi)</h2>
-          <span class="section-badge">Format PPTX & Naskah Narasi MD</span>
+      <section id="pusat-unduhan" class="filter-section" style="margin-bottom: 32px;">
+        <div class="section-header">
+          <h2 class="section-heading">Pusat Unduhan Bahan Presentasi (8 Sesi)</h2>
+          <p class="section-desc">
+            8 Deck presentasi visual berstandar Masterpiece Dual-Card (18 slide/sesi) dan naskah narasi dosen lengkap dengan diagram alur arsitektur.
+          </p>
         </div>
-        <p style="font-size: 14px; color: #475569; margin-bottom: 20px;">
-          Disediakan 8 deck presentasi visual berstandar Masterpiece Dual-Card (18 slide/sesi) yang dilengkapi tautan 1:1 ke kode sumber di GitHub, serta naskah narasi dosen lengkap dengan diagram alur Mermaid dan referensi PUEBI/EYD.
-        </p>
 
         <div class="resource-grid">
           <div v-for="item in pptxResources" :key="'pptx-' + item.sesi" class="resource-card">
             <div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span class="badge-pill badge-blue" style="font-size: 11px;">Sesi 0{{ item.sesi }}</span>
-                <span class="badge-pill" style="font-size: 10.5px; background: #FEF9C3;">{{ item.badge }}</span>
+                <span class="card-session-info">Sesi 0{{ item.sesi }}</span>
+                <span class="badge badge-materi">{{ item.badge }}</span>
               </div>
               <h3 class="resource-title">{{ item.title }}</h3>
               <p class="resource-modul">{{ item.modul }}</p>
@@ -1107,64 +1437,60 @@
             <div class="resource-actions">
               <a 
                 :href="'https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/' + item.pptx" 
-                class="btn btn-sm btn-yellow" 
+                class="res-btn primary" 
                 download
               >
-                ⚡ Unduh PPTX (Slide Presentasi)
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Unduh PPTX
               </a>
               <a 
                 :href="'https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2F' + item.pptx" 
                 target="_blank" 
-                class="btn btn-sm" 
-                style="background: #E2E8F0;"
+                class="res-btn"
               >
-                👁️ Baca Online di Office Live ↗
+                Baca Online (Office Live) ↗
               </a>
               <a 
                 :href="'slide_presentasi/' + item.md" 
                 target="_blank" 
-                class="btn btn-sm" 
-                style="background: #F1F5F9;"
+                class="res-btn"
               >
-                📄 Naskah Narasi Dosen (Markdown) ↗
+                Naskah Narasi Dosen (MD) ↗
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- PANDUAN PENGGUNAAN RAMAH AWAM -->
-      <section class="guide-banner">
-        <div class="guide-title">
-          <span>💡</span>
-          <span>Panduan Penggunaan Berkas Pembelajaran (Ramah Mahasiswa Awam)</span>
-        </div>
-        <p style="font-size: 13.5px; color: #1E293B;">
-          Seluruh materi pada repositori ini dirancang menggunakan konsep <strong>The Zero-Friction Courseware Framework</strong> agar mahasiswa dapat belajar dan mempraktikkan kode pemrograman mobile secara mudah, tanpa hambatan spesifikasi laptop:
+      <!-- PANDUAN PENGGUNAAN RAMAH MAHASISWA PEMULA -->
+      <section class="guide-box">
+        <h2 class="guide-box-title">Panduan Belajar Mahasiswa Pemula (Zero-Friction)</h2>
+        <p style="font-size: 13.5px; color: var(--slate-600);">
+          Seluruh materi perkuliahan ini dirancang dengan prinsip <strong>The Zero-Friction Courseware Framework</strong> agar mahasiswa dapat mempraktikkan kode program secara mudah tanpa terbebani spesifikasi laptop:
         </p>
 
-        <div class="guide-steps">
-          <div class="guide-step-card">
-            <span class="step-badge">CARA 1: UJI LANGSUNG DARING</span>
-            <h4 class="step-heading">Web Browser & Simulator</h4>
-            <p class="step-desc">
-              Gunakan portal web ini langsung! Cukup klik tombol <strong>"📱 Uji di Simulator"</strong> untuk mencoba aplikasi di berbagai ukuran smartphone, atau klik <strong>"👁️ Buka Penuh"</strong> untuk melihatnya di tab baru.
+        <div class="guide-steps-grid">
+          <div class="step-card">
+            <span class="step-badge">Cara 1: Daring di Peramban</span>
+            <h3 class="step-title">Simulator Web Interaktif</h3>
+            <p class="step-text">
+              Gunakan portal web ini langsung. Cukup klik tombol <strong>"Uji di Simulator"</strong> untuk menguji program di berbagai resolusi layar ponsel pintar, atau klik <strong>"Buka Tab Baru"</strong> untuk melihat tampilan penuh.
             </p>
           </div>
 
-          <div class="guide-step-card">
-            <span class="step-badge">CARA 2: UJI LURING TANPA SERVER</span>
-            <h4 class="step-heading">Klik Ganda di Windows (file:///)</h4>
-            <p class="step-desc">
-              Bila mengunduh repositori ZIP ke komputer lokal, Anda <strong>TIDAK PERLU</strong> menginstal web server atau Node.js! Cukup klik ganda berkas <code>.html</code> dari File Explorer, peramban Chrome akan langsung menjalankannya.
+          <div class="step-card">
+            <span class="step-badge">Cara 2: Luring Tanpa Server</span>
+            <h3 class="step-title">Klik Ganda di Windows</h3>
+            <p class="step-text">
+              Jika mengunduh repositori ke laptop lokal, Anda <strong>tidak perlu menginstal Node.js atau web server</strong>. Cukup klik ganda berkas <code>.html</code> dari File Explorer, peramban Chrome/Edge akan langsung menjalankannya via <code>file:///</code>.
             </p>
           </div>
 
-          <div class="guide-step-card">
-            <span class="step-badge">CARA 3: UJI DI HP FISIK (RAMAH RAM)</span>
-            <h4 class="step-heading">USB Debugging & scrcpy</h4>
-            <p class="step-desc">
-              Untuk menguji aplikasi di smartphone Android fisik Anda tanpa membebani RAM laptop, pelajari panduan <strong>USB Debugging & scrcpy</strong> pada <em>Sesi 01 Slide 13</em> yang memakan memori laptop kurang dari 70 MB!
+          <div class="step-card">
+            <span class="step-badge">Cara 3: Uji Smartphone Fisik</span>
+            <h3 class="step-title">USB Debugging &amp; scrcpy</h3>
+            <p class="step-text">
+              Untuk menguji aplikasi pada smartphone Android fisik tanpa emulator berat, pelajari panduan <strong>USB Debugging &amp; scrcpy</strong> pada <em>Sesi 01 Slide 13</em> yang memakan memori laptop kurang dari 70 MB RAM.
             </p>
           </div>
         </div>
@@ -1177,79 +1503,79 @@
       <div class="modal-window">
         <!-- MODAL HEADER -->
         <div class="modal-header">
-          <div class="modal-title-box">
-            <span class="badge-pill badge-blue">Sesi {{ activeModalSlide.session_num }}</span>
-            <span class="card-badge" :class="activeModalSlide.badge_color">{{ activeModalSlide.badge_text }}</span>
+          <div class="modal-title-area">
+            <span class="card-session-info">Sesi {{ activeModalSlide.session_num }}</span>
+            <span class="badge" :class="activeModalSlide.badge_color">{{ activeModalSlide.badge_text }}</span>
             <h3 class="modal-slide-title" :title="activeModalSlide.title">
               {{ activeModalSlide.title }}
             </h3>
           </div>
 
-          <div class="modal-controls">
-            <!-- Preset Ukuran Gawai -->
+          <div class="modal-actions">
+            <!-- Preset Buttons -->
             <button 
-              class="btn btn-sm" 
-              :class="{ 'btn-yellow': devicePreset === 'pixel' }" 
+              class="modal-btn" 
+              :class="{ 'active': devicePreset === 'pixel' }" 
               @click="setDevice('pixel', 412, 720)"
               title="Preset Layar Android (Google Pixel 7 — 412px)"
             >
-              🤖 Pixel (412)
+              Pixel 7 (412px)
             </button>
             <button 
-              class="btn btn-sm" 
-              :class="{ 'btn-yellow': devicePreset === 'iphone' }" 
+              class="modal-btn" 
+              :class="{ 'active': devicePreset === 'iphone' }" 
               @click="setDevice('iphone', 393, 720)"
-              title="Preset Layar iOS (iPhone 14 Pro — 393px)"
+              title="Preset Layar iOS (iPhone 14 — 393px)"
             >
-              🍏 iPhone (393)
+              iPhone 14 (393px)
             </button>
             <button 
-              class="btn btn-sm" 
-              :class="{ 'btn-yellow': devicePreset === 'tablet' }" 
+              class="modal-btn" 
+              :class="{ 'active': devicePreset === 'tablet' }" 
               @click="setDevice('tablet', 580, 720)"
-              title="Preset Layar Tablet / iPad (580px)"
+              title="Preset Layar Tablet (580px)"
             >
-              📟 Tablet (580)
+              Tablet (580px)
             </button>
             <button 
-              class="btn btn-sm" 
-              :class="{ 'btn-yellow': devicePreset === 'fluid' }" 
+              class="modal-btn" 
+              :class="{ 'active': devicePreset === 'fluid' }" 
               @click="setDevice('fluid', '100%', 720)"
-              title="Mode Layar Responsif Penuh"
+              title="Mode Layar Penuh"
             >
-              🖥️ Lebar Bebas
+              Layar Penuh
             </button>
 
             <!-- Reload Iframe -->
-            <button class="btn btn-sm" @click="reloadIframe" title="Muat ulang halaman simulator">
-              🔄
+            <button class="modal-btn" @click="reloadIframe" title="Muat ulang simulator">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
             </button>
 
             <!-- Open in New Tab -->
-            <a :href="activeModalSlide.rel_path" target="_blank" class="btn btn-sm btn-primary" title="Buka berkas di tab baru">
-              ↗
+            <a :href="activeModalSlide.rel_path" target="_blank" class="modal-btn" title="Buka di tab baru">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
             </a>
 
             <!-- Close Modal -->
-            <button class="btn btn-sm btn-red" @click="closeSimulator" title="Tutup simulator">
-              ✕
+            <button class="modal-btn modal-btn-close" @click="closeSimulator" title="Tutup simulator">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
           </div>
         </div>
 
         <!-- MODAL BODY -->
         <div class="modal-body">
-          <!-- STAGE / MOCKUP GAUGE -->
+          <!-- SIMULATOR STAGE -->
           <div class="simulator-stage">
             <div 
-              class="phone-mockup" 
+              class="phone-chassis" 
               :style="{ width: deviceWidth + (typeof deviceWidth === 'number' ? 'px' : ''), height: deviceHeight + 'px', maxWidth: '100%' }"
             >
-              <!-- Notch Bar -->
-              <div class="phone-notch-bar">
+              <!-- Top Bar -->
+              <div class="phone-top-bar">
                 <span>09:41</span>
-                <div class="phone-camera-hole"></div>
-                <span>5G 📶 100%</span>
+                <div class="phone-notch-camera"></div>
+                <span>100%</span>
               </div>
 
               <!-- Screen with Iframe -->
@@ -1262,63 +1588,63 @@
                 ></iframe>
               </div>
 
-              <!-- Home Indicator Bar -->
-              <div class="phone-home-indicator"></div>
+              <!-- Bottom Bar -->
+              <div class="phone-bottom-bar"></div>
             </div>
           </div>
 
-          <!-- SIDEBAR INFORMASI AKADEMIK SLIDE -->
-          <div class="simulator-info-sidebar">
+          <!-- SIDEBAR DRAWER -->
+          <div class="simulator-drawer">
             <div>
-              <div class="sim-info-group">
-                <div class="sim-label">Topik Materi & Judul Slide</div>
-                <div class="sim-val" style="font-weight: 800; font-size: 15px;">
+              <div class="sim-field">
+                <div class="sim-field-label">Topik Pembahasan</div>
+                <div class="sim-field-value" style="font-size: 15px; color: var(--slate-900);">
                   {{ activeModalSlide.title }}
                 </div>
               </div>
 
-              <div class="sim-info-group">
-                <div class="sim-label">Sub-Capaian Pembelajaran (Sub-CPMK)</div>
-                <div class="sim-val card-subcpmk" style="font-size: 12.5px;">
+              <div class="sim-field">
+                <div class="sim-field-label">Sub-Capaian Pembelajaran (Sub-CPMK)</div>
+                <div class="sim-field-value card-subcpmk">
                   {{ activeModalSlide.subcpmk }}
                 </div>
               </div>
 
-              <div class="sim-info-group">
-                <div class="sim-label">Alat & Lingkungan Pengujian</div>
-                <div class="sim-val" style="font-size: 12.5px;">
-                  🛠️ {{ activeModalSlide.alat }}
+              <div class="sim-field">
+                <div class="sim-field-label">Alat Pengujian</div>
+                <div class="sim-field-value" style="font-size: 13px;">
+                  {{ activeModalSlide.alat }}
                 </div>
               </div>
 
-              <div v-if="activeModalSlide.poin_kunci && activeModalSlide.poin_kunci.length > 0" class="sim-info-group">
-                <div class="sim-label">Poin Kunci Pembahasan</div>
-                <ul style="padding-left: 18px; font-size: 12px; color: #1E293B;">
+              <div v-if="activeModalSlide.poin_kunci && activeModalSlide.poin_kunci.length > 0" class="sim-field">
+                <div class="sim-field-label">Poin Kunci Materi</div>
+                <ul style="padding-left: 18px; font-size: 12.5px; color: var(--slate-700);">
                   <li v-for="(pk, idx) in activeModalSlide.poin_kunci" :key="'sim-pk-' + idx" style="margin-bottom: 4px;">
                     {{ pk }}
                   </li>
                 </ul>
               </div>
 
-              <div class="sim-info-group">
-                <div class="sim-label">Lokasi Berkas di Repositori</div>
-                <code style="font-family: var(--font-mono); font-size: 11px; background: #F1F5F9; padding: 4px 6px; border: 1px solid #CBD5E1; display: block; word-break: break-all;">
+              <div class="sim-field">
+                <div class="sim-field-label">Lokasi Berkas di Repositori</div>
+                <code style="font-family: var(--font-mono); font-size: 11px; background: var(--slate-100); color: var(--slate-700); padding: 4px 6px; border-radius: 4px; display: block; word-break: break-all;">
                   {{ activeModalSlide.rel_path }}
                 </code>
               </div>
             </div>
 
-            <!-- Navigasi Slide Sebelumnya & Berikutnya -->
+            <!-- Slide Navigation -->
             <div class="sim-nav-row">
               <button 
-                class="btn btn-sm" 
+                class="sim-nav-btn" 
                 :disabled="currentSlideIndex <= 0" 
                 @click="navigateSlide(-1)"
               >
                 ← Sebelumnya
               </button>
               <button 
-                class="btn btn-sm btn-yellow" 
+                class="sim-nav-btn primary" 
                 :disabled="currentSlideIndex >= allSlides.length - 1" 
                 @click="navigateSlide(1)"
               >
@@ -1332,23 +1658,20 @@
 
     <!-- SITE FOOTER -->
     <footer class="site-footer">
-      <div class="footer-content">
-        <div class="footer-text">
-          <p>
-            <strong>Fakultas Sains dan Teknologi (FST) — Universitas Terbuka</strong><br>
-            Program Studi S1 Sistem Informasi & S1 Informatika<br>
+      <div class="footer-inner">
+        <div>
+          <p class="footer-brand">Universitas Terbuka — Fakultas Sains dan Teknologi</p>
+          <p style="margin-top: 2px;">
             Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</strong>
           </p>
-          <p style="margin-top: 6px; font-size: 12px; opacity: 0.85;">
-            Dosen Pengampu: <strong>Anton Prafanto, S.Kom., M.T.</strong> • Hak Cipta © 2026 Universitas Terbuka
+          <p style="margin-top: 2px; font-size: 12px; color: var(--slate-400);">
+            Dosen Pengampu: Anton Prafanto, S.Kom., M.T. • Hak Cipta &copy; 2026 Universitas Terbuka
           </p>
         </div>
 
-        <div style="text-align: right;">
-          <span class="footer-badge">🌟 100% Zero-Friction Web Courseware</span>
-          <div style="margin-top: 8px; font-size: 12px; opacity: 0.85;">
-            Dijalankan pada GitHub Pages & Browser Standar
-          </div>
+        <div style="text-align: right; font-size: 12px; color: var(--slate-500);">
+          <span>The Zero-Friction Courseware Framework</span><br>
+          <span>100% Client-Side Web Standards</span>
         </div>
       </div>
     </footer>
@@ -1376,18 +1699,18 @@
     ],
     "category": "pengantar",
     "category_desc": "Kontrak Kuliah & Konsep Dasar",
-    "badge_text": "📌 PENGANTAR SESI",
-    "badge_color": "bg-green",
+    "badge_text": "Pengantar Sesi",
+    "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
-      "slide 1",
-      "vue",
-      "ionic",
-      "sesi 01",
-      "slide 01",
-      "pengantar",
       "sesi 1",
-      "ut"
+      "pengantar",
+      "slide 1",
+      "slide 01",
+      "ut",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "sesi 01"
     ]
   },
   {
@@ -1407,18 +1730,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 02",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 02",
+    "badge_color": "badge-materi",
     "tags": [
-      "slide 02",
-      "stsi4303",
-      "vue",
-      "ionic",
-      "slide 2",
-      "sesi 01",
       "sesi 1",
+      "slide 02",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "sesi 01",
+      "slide 2"
     ]
   },
   {
@@ -1438,18 +1761,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 03",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 03",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 03",
-      "vue",
-      "ionic",
-      "slide 3",
-      "sesi 01",
       "sesi 1",
+      "sesi 01",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "slide 3",
+      "slide 03"
     ]
   },
   {
@@ -1471,16 +1794,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 04",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 04",
+    "badge_color": "badge-materi",
     "tags": [
+      "sesi 1",
+      "sesi 01",
+      "materi",
+      "ut",
+      "ionic",
       "stsi4303",
       "slide 4",
-      "ionic",
-      "ut",
-      "sesi 01",
-      "sesi 1",
-      "materi",
       "slide 04"
     ]
   },
@@ -1501,18 +1824,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 05",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 05",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "ionic",
-      "sesi 01",
-      "slide 5",
-      "slide 05",
       "sesi 1",
+      "slide 5",
       "materi",
-      "ut"
+      "ut",
+      "slide 05",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "sesi 01"
     ]
   },
   {
@@ -1532,16 +1855,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 06",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 06",
+    "badge_color": "badge-materi",
     "tags": [
-      "slide 06",
-      "stsi4303",
-      "sesi 01",
       "sesi 1",
       "materi",
       "ut",
-      "slide 6"
+      "slide 6",
+      "slide 06",
+      "stsi4303",
+      "sesi 01"
     ]
   },
   {
@@ -1563,18 +1886,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 07",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 07",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "ionic",
-      "sesi 01",
-      "slide 7",
-      "slide 07",
       "sesi 1",
+      "slide 7",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "vue",
+      "slide 07",
+      "stsi4303",
+      "sesi 01"
     ]
   },
   {
@@ -1596,17 +1919,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 08",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 08",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 8",
-      "ionic",
-      "sesi 01",
-      "slide 08",
       "sesi 1",
       "materi",
-      "ut"
+      "ut",
+      "slide 08",
+      "slide 8",
+      "ionic",
+      "stsi4303",
+      "sesi 01"
     ]
   },
   {
@@ -1628,16 +1951,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 09",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 09",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 09",
-      "slide 9",
-      "sesi 01",
       "sesi 1",
+      "slide 9",
       "materi",
-      "ut"
+      "ut",
+      "slide 09",
+      "stsi4303",
+      "sesi 01"
     ]
   },
   {
@@ -1659,16 +1982,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 10",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 10",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 10",
-      "ionic",
-      "sesi 01",
       "sesi 1",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "stsi4303",
+      "slide 10",
+      "sesi 01"
     ]
   },
   {
@@ -1690,17 +2013,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 11",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 11",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 11",
-      "vue",
-      "ionic",
-      "sesi 01",
       "sesi 1",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "sesi 01",
+      "slide 11"
     ]
   },
   {
@@ -1722,17 +2045,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 12",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 12",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "ionic",
-      "slide 12",
-      "sesi 01",
       "sesi 1",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "slide 12",
+      "vue",
+      "stsi4303",
+      "sesi 01"
     ]
   },
   {
@@ -1754,15 +2077,15 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 13",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 13",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
       "slide 13",
-      "sesi 01",
       "sesi 1",
       "materi",
-      "ut"
+      "ut",
+      "stsi4303",
+      "sesi 01"
     ]
   },
   {
@@ -1784,17 +2107,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 14",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 14",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 14",
-      "vue",
-      "ionic",
-      "sesi 01",
       "sesi 1",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "sesi 01",
+      "slide 14"
     ]
   },
   {
@@ -1816,17 +2139,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 15",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 15",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "ionic",
-      "sesi 01",
       "sesi 1",
       "materi",
-      "slide 15",
-      "ut"
+      "ut",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "sesi 01",
+      "slide 15"
     ]
   },
   {
@@ -1848,18 +2171,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 16",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 16",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "tugas",
-      "vue",
-      "ionic",
-      "sesi 01",
       "sesi 1",
       "materi",
+      "ut",
+      "ionic",
+      "vue",
+      "tugas",
+      "stsi4303",
       "slide 16",
-      "ut"
+      "sesi 01"
     ]
   },
   {
@@ -1881,17 +2204,17 @@
     ],
     "category": "lab",
     "category_desc": "Lab Quest Mandiri Sesi 01",
-    "badge_text": "🧪 LAB QUEST 01",
-    "badge_color": "bg-purple",
+    "badge_text": "Lab Quest 01",
+    "badge_color": "badge-lab",
     "tags": [
-      "stsi4303",
-      "slide 17",
-      "ionic",
-      "lab",
-      "sesi 01",
       "sesi 1",
-      "lab quest",
-      "ut"
+      "slide 17",
+      "lab",
+      "ut",
+      "ionic",
+      "stsi4303",
+      "sesi 01",
+      "lab quest"
     ]
   },
   {
@@ -1913,17 +2236,17 @@
     ],
     "category": "preview",
     "category_desc": "Jembatan Pengantar ke Sesi 02",
-    "badge_text": "🔮 JEMBATAN SESI 02",
-    "badge_color": "bg-blue",
+    "badge_text": "Jembatan Sesi 02",
+    "badge_color": "badge-preview",
     "tags": [
-      "stsi4303",
-      "vue",
-      "ionic",
-      "slide 18",
-      "preview",
-      "sesi 01",
       "sesi 1",
-      "ut"
+      "slide 18",
+      "ut",
+      "preview",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "sesi 01"
     ]
   },
   {
@@ -1944,17 +2267,17 @@
     ],
     "category": "pengantar",
     "category_desc": "Kontrak Kuliah & Konsep Dasar",
-    "badge_text": "📌 PENGANTAR SESI",
-    "badge_color": "bg-green",
+    "badge_text": "Pengantar Sesi",
+    "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
-      "slide 1",
-      "vue",
-      "sesi 02",
-      "slide 01",
       "pengantar",
+      "slide 1",
+      "slide 01",
       "ut",
-      "sesi 2"
+      "sesi 02",
+      "vue",
+      "sesi 2",
+      "stsi4303"
     ]
   },
   {
@@ -1976,17 +2299,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 02",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 02",
+    "badge_color": "badge-materi",
     "tags": [
       "slide 02",
-      "stsi4303",
-      "vue",
-      "sesi 02",
-      "slide 2",
       "materi",
       "ut",
-      "sesi 2"
+      "sesi 02",
+      "vue",
+      "sesi 2",
+      "stsi4303",
+      "slide 2"
     ]
   },
   {
@@ -2008,17 +2331,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 03",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 03",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 03",
-      "vue",
-      "sesi 02",
-      "slide 3",
       "materi",
       "ut",
-      "sesi 2"
+      "sesi 02",
+      "vue",
+      "sesi 2",
+      "stsi4303",
+      "slide 3",
+      "slide 03"
     ]
   },
   {
@@ -2040,17 +2363,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 04",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 04",
+    "badge_color": "badge-materi",
     "tags": [
+      "materi",
+      "ut",
+      "sesi 02",
+      "vue",
+      "sesi 2",
       "stsi4303",
       "slide 4",
-      "vue",
-      "sesi 02",
-      "ut",
-      "materi",
-      "slide 04",
-      "sesi 2"
+      "slide 04"
     ]
   },
   {
@@ -2071,18 +2394,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 05",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 05",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "ionic",
-      "sesi 02",
       "slide 5",
-      "slide 05",
       "materi",
       "ut",
-      "sesi 2"
+      "sesi 02",
+      "slide 05",
+      "ionic",
+      "vue",
+      "sesi 2",
+      "stsi4303"
     ]
   },
   {
@@ -2103,17 +2426,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 06",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 06",
+    "badge_color": "badge-materi",
     "tags": [
-      "slide 06",
-      "stsi4303",
-      "vue",
-      "sesi 02",
       "materi",
       "ut",
       "slide 6",
-      "sesi 2"
+      "sesi 02",
+      "vue",
+      "slide 06",
+      "sesi 2",
+      "stsi4303"
     ]
   },
   {
@@ -2135,17 +2458,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 07",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 07",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "sesi 02",
       "slide 7",
-      "slide 07",
       "materi",
       "ut",
-      "sesi 2"
+      "sesi 02",
+      "vue",
+      "slide 07",
+      "sesi 2",
+      "stsi4303"
     ]
   },
   {
@@ -2167,17 +2490,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 08",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 08",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 8",
-      "vue",
-      "sesi 02",
-      "slide 08",
       "materi",
       "ut",
-      "sesi 2"
+      "slide 08",
+      "sesi 02",
+      "slide 8",
+      "vue",
+      "sesi 2",
+      "stsi4303"
     ]
   },
   {
@@ -2199,17 +2522,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 09",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 09",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 09",
-      "vue",
       "slide 9",
-      "sesi 02",
       "materi",
       "ut",
-      "sesi 2"
+      "slide 09",
+      "sesi 02",
+      "vue",
+      "sesi 2",
+      "stsi4303"
     ]
   },
   {
@@ -2231,16 +2554,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 10",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 10",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 10",
-      "vue",
-      "sesi 02",
       "materi",
       "ut",
-      "sesi 2"
+      "sesi 02",
+      "vue",
+      "sesi 2",
+      "stsi4303",
+      "slide 10"
     ]
   },
   {
@@ -2261,16 +2584,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 11",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 11",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 11",
-      "vue",
-      "sesi 02",
       "materi",
       "ut",
-      "sesi 2"
+      "sesi 02",
+      "vue",
+      "sesi 2",
+      "stsi4303",
+      "slide 11"
     ]
   },
   {
@@ -2292,16 +2615,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 12",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 12",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "sesi 02",
-      "slide 12",
       "materi",
       "ut",
-      "sesi 2"
+      "sesi 02",
+      "slide 12",
+      "vue",
+      "sesi 2",
+      "stsi4303"
     ]
   },
   {
@@ -2323,16 +2646,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 13",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 13",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
       "slide 13",
-      "vue",
-      "sesi 02",
       "materi",
       "ut",
-      "sesi 2"
+      "sesi 02",
+      "vue",
+      "sesi 2",
+      "stsi4303"
     ]
   },
   {
@@ -2354,16 +2677,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 14",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 14",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 14",
-      "vue",
-      "sesi 02",
       "materi",
       "ut",
-      "sesi 2"
+      "sesi 02",
+      "vue",
+      "sesi 2",
+      "stsi4303",
+      "slide 14"
     ]
   },
   {
@@ -2385,16 +2708,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 15",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 15",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "sesi 02",
       "materi",
-      "slide 15",
       "ut",
-      "sesi 2"
+      "sesi 02",
+      "vue",
+      "sesi 2",
+      "stsi4303",
+      "slide 15"
     ]
   },
   {
@@ -2416,16 +2739,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 16",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 16",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "sesi 02",
       "materi",
-      "slide 16",
       "ut",
-      "sesi 2"
+      "sesi 02",
+      "vue",
+      "sesi 2",
+      "stsi4303",
+      "slide 16"
     ]
   },
   {
@@ -2447,17 +2770,17 @@
     ],
     "category": "lab",
     "category_desc": "Lab Quest Mandiri Sesi 02",
-    "badge_text": "🧪 LAB QUEST 02",
-    "badge_color": "bg-purple",
+    "badge_text": "Lab Quest 02",
+    "badge_color": "badge-lab",
     "tags": [
-      "stsi4303",
       "slide 17",
-      "vue",
-      "sesi 02",
       "lab",
-      "lab quest",
       "ut",
-      "sesi 2"
+      "sesi 02",
+      "vue",
+      "sesi 2",
+      "stsi4303",
+      "lab quest"
     ]
   },
   {
@@ -2479,17 +2802,17 @@
     ],
     "category": "preview",
     "category_desc": "Jembatan Pengantar ke Sesi 03",
-    "badge_text": "🔮 JEMBATAN SESI 03",
-    "badge_color": "bg-blue",
+    "badge_text": "Jembatan Sesi 03",
+    "badge_color": "badge-preview",
     "tags": [
-      "stsi4303",
-      "vue",
       "slide 18",
+      "ut",
       "sesi 02",
       "preview",
-      "typescript",
-      "ut",
-      "sesi 2"
+      "vue",
+      "sesi 2",
+      "stsi4303",
+      "typescript"
     ]
   },
   {
@@ -2511,19 +2834,19 @@
     ],
     "category": "pengantar",
     "category_desc": "Kontrak Kuliah & Konsep Dasar",
-    "badge_text": "📌 PENGANTAR SESI",
-    "badge_color": "bg-green",
+    "badge_text": "Pengantar Sesi",
+    "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
       "slide 1",
-      "tugas",
-      "vue",
-      "ionic",
-      "slide 01",
-      "sesi 3",
       "pengantar",
+      "slide 01",
       "ut",
-      "sesi 03"
+      "sesi 03",
+      "ionic",
+      "vue",
+      "tugas",
+      "stsi4303",
+      "sesi 3"
     ]
   },
   {
@@ -2544,18 +2867,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 02",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 02",
+    "badge_color": "badge-materi",
     "tags": [
       "slide 02",
-      "stsi4303",
-      "vue",
-      "slide 2",
-      "sesi 3",
       "materi",
       "ut",
       "sesi 03",
-      "typescript"
+      "vue",
+      "stsi4303",
+      "typescript",
+      "sesi 3",
+      "slide 2"
     ]
   },
   {
@@ -2577,17 +2900,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 03",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 03",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 03",
-      "vue",
-      "slide 3",
-      "sesi 3",
       "materi",
       "ut",
-      "sesi 03"
+      "sesi 03",
+      "vue",
+      "stsi4303",
+      "slide 3",
+      "sesi 3",
+      "slide 03"
     ]
   },
   {
@@ -2609,17 +2932,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 04",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 04",
+    "badge_color": "badge-materi",
     "tags": [
+      "materi",
+      "ut",
+      "sesi 03",
+      "vue",
       "stsi4303",
       "slide 4",
-      "vue",
-      "sesi 3",
-      "ut",
-      "materi",
       "slide 04",
-      "sesi 03"
+      "sesi 3"
     ]
   },
   {
@@ -2640,17 +2963,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 05",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 05",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "sesi 3",
-      "slide 05",
       "slide 5",
       "materi",
       "ut",
-      "sesi 03"
+      "slide 05",
+      "sesi 03",
+      "vue",
+      "stsi4303",
+      "sesi 3"
     ]
   },
   {
@@ -2671,17 +2994,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 06",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 06",
+    "badge_color": "badge-materi",
     "tags": [
-      "slide 06",
-      "stsi4303",
-      "vue",
-      "sesi 3",
       "materi",
       "ut",
       "slide 6",
-      "sesi 03"
+      "sesi 03",
+      "vue",
+      "slide 06",
+      "stsi4303",
+      "sesi 3"
     ]
   },
   {
@@ -2702,17 +3025,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 07",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 07",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
       "slide 7",
-      "sesi 3",
-      "slide 07",
       "materi",
       "ut",
-      "sesi 03"
+      "sesi 03",
+      "vue",
+      "slide 07",
+      "stsi4303",
+      "sesi 3"
     ]
   },
   {
@@ -2733,17 +3056,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 08",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 08",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 8",
-      "vue",
-      "slide 08",
-      "sesi 3",
       "materi",
       "ut",
-      "sesi 03"
+      "slide 08",
+      "slide 8",
+      "sesi 03",
+      "vue",
+      "stsi4303",
+      "sesi 3"
     ]
   },
   {
@@ -2764,18 +3087,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 09",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 09",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 09",
-      "vue",
       "slide 9",
-      "sesi 3",
       "materi",
       "ut",
+      "slide 09",
       "sesi 03",
-      "typescript"
+      "vue",
+      "stsi4303",
+      "typescript",
+      "sesi 3"
     ]
   },
   {
@@ -2796,16 +3119,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 10",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 10",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 10",
-      "vue",
-      "sesi 3",
       "materi",
       "ut",
-      "sesi 03"
+      "sesi 03",
+      "vue",
+      "stsi4303",
+      "slide 10",
+      "sesi 3"
     ]
   },
   {
@@ -2826,16 +3149,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 11",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 11",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 11",
-      "vue",
-      "sesi 3",
       "materi",
       "ut",
-      "sesi 03"
+      "sesi 03",
+      "vue",
+      "stsi4303",
+      "sesi 3",
+      "slide 11"
     ]
   },
   {
@@ -2856,16 +3179,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 12",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 12",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "slide 12",
-      "sesi 3",
       "materi",
       "ut",
-      "sesi 03"
+      "sesi 03",
+      "slide 12",
+      "vue",
+      "stsi4303",
+      "sesi 3"
     ]
   },
   {
@@ -2886,16 +3209,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 13",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 13",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
       "slide 13",
-      "vue",
-      "sesi 3",
       "materi",
       "ut",
-      "sesi 03"
+      "sesi 03",
+      "vue",
+      "stsi4303",
+      "sesi 3"
     ]
   },
   {
@@ -2916,16 +3239,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 14",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 14",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 14",
-      "vue",
-      "sesi 3",
       "materi",
       "ut",
-      "sesi 03"
+      "sesi 03",
+      "vue",
+      "stsi4303",
+      "slide 14",
+      "sesi 3"
     ]
   },
   {
@@ -2946,16 +3269,16 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 15",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 15",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "sesi 3",
       "materi",
-      "slide 15",
       "ut",
-      "sesi 03"
+      "sesi 03",
+      "vue",
+      "stsi4303",
+      "slide 15",
+      "sesi 3"
     ]
   },
   {
@@ -2976,17 +3299,17 @@
     ],
     "category": "rubrik",
     "category_desc": "Panduan & Rubrik Resmi Tugas Tutorial 1",
-    "badge_text": "📋 RUBRIK TUGAS 1",
-    "badge_color": "bg-orange",
+    "badge_text": "Rubrik Tugas 1",
+    "badge_color": "badge-rubrik",
     "tags": [
-      "stsi4303",
-      "tugas",
-      "vue",
-      "sesi 03",
-      "sesi 3",
-      "slide 16",
+      "rubrik",
       "ut",
-      "rubrik"
+      "sesi 03",
+      "vue",
+      "tugas",
+      "stsi4303",
+      "slide 16",
+      "sesi 3"
     ]
   },
   {
@@ -3008,16 +3331,16 @@
     ],
     "category": "tugas",
     "category_desc": "Tugas Wajib 1: Kalkulator Nilai Akademik UT & Komposisi Vue",
-    "badge_text": "🎯 TUGAS 1 (WAJIB)",
-    "badge_color": "bg-red",
+    "badge_text": "Tugas 1 (Wajib)",
+    "badge_color": "badge-tugas",
     "tags": [
-      "stsi4303",
-      "tugas",
       "slide 17",
-      "vue",
-      "sesi 3",
       "ut",
-      "sesi 03"
+      "sesi 03",
+      "vue",
+      "tugas",
+      "stsi4303",
+      "sesi 3"
     ]
   },
   {
@@ -3039,17 +3362,17 @@
     ],
     "category": "preview",
     "category_desc": "Jembatan Pengantar ke Sesi 04",
-    "badge_text": "🔮 JEMBATAN SESI 04",
-    "badge_color": "bg-blue",
+    "badge_text": "Jembatan Sesi 04",
+    "badge_color": "badge-preview",
     "tags": [
-      "stsi4303",
-      "vue",
-      "ionic",
       "slide 18",
-      "preview",
-      "sesi 3",
       "ut",
-      "sesi 03"
+      "preview",
+      "sesi 03",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "sesi 3"
     ]
   },
   {
@@ -3071,18 +3394,18 @@
     ],
     "category": "pengantar",
     "category_desc": "Kontrak Kuliah & Konsep Dasar",
-    "badge_text": "📌 PENGANTAR SESI",
-    "badge_color": "bg-green",
+    "badge_text": "Pengantar Sesi",
+    "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
-      "sesi 4",
-      "slide 1",
-      "sesi 04",
-      "vue",
-      "ionic",
-      "slide 01",
       "pengantar",
-      "ut"
+      "slide 1",
+      "slide 01",
+      "ut",
+      "ionic",
+      "vue",
+      "sesi 04",
+      "stsi4303",
+      "sesi 4"
     ]
   },
   {
@@ -3104,19 +3427,19 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 02",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 02",
+    "badge_color": "badge-materi",
     "tags": [
       "slide 02",
-      "sesi 4",
-      "stsi4303",
-      "android",
-      "sesi 04",
-      "vue",
-      "ionic",
-      "slide 2",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "android",
+      "vue",
+      "sesi 04",
+      "stsi4303",
+      "slide 2",
+      "sesi 4"
     ]
   },
   {
@@ -3138,18 +3461,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 03",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 03",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 4",
-      "slide 03",
-      "sesi 04",
-      "vue",
-      "ionic",
-      "slide 3",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "vue",
+      "sesi 04",
+      "stsi4303",
+      "slide 3",
+      "sesi 4",
+      "slide 03"
     ]
   },
   {
@@ -3171,18 +3494,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 04",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 04",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 4",
-      "slide 4",
-      "sesi 04",
-      "vue",
-      "ionic",
-      "ut",
       "materi",
-      "slide 04"
+      "ut",
+      "ionic",
+      "vue",
+      "sesi 04",
+      "stsi4303",
+      "slide 4",
+      "slide 04",
+      "sesi 4"
     ]
   },
   {
@@ -3204,18 +3527,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 05",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 05",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 4",
-      "sesi 04",
-      "vue",
-      "ionic",
       "slide 5",
-      "slide 05",
       "materi",
-      "ut"
+      "ut",
+      "slide 05",
+      "ionic",
+      "vue",
+      "sesi 04",
+      "stsi4303",
+      "sesi 4"
     ]
   },
   {
@@ -3237,18 +3560,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 06",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 06",
+    "badge_color": "badge-materi",
     "tags": [
-      "slide 06",
-      "sesi 4",
-      "stsi4303",
-      "sesi 04",
-      "vue",
-      "ionic",
       "materi",
       "ut",
-      "slide 6"
+      "slide 6",
+      "ionic",
+      "vue",
+      "slide 06",
+      "sesi 04",
+      "stsi4303",
+      "sesi 4"
     ]
   },
   {
@@ -3270,18 +3593,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 07",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 07",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 4",
-      "sesi 04",
-      "vue",
-      "ionic",
       "slide 7",
-      "slide 07",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "vue",
+      "slide 07",
+      "sesi 04",
+      "stsi4303",
+      "sesi 4"
     ]
   },
   {
@@ -3303,18 +3626,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 08",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 08",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 4",
-      "slide 8",
-      "sesi 04",
-      "vue",
-      "ionic",
-      "slide 08",
       "materi",
-      "ut"
+      "ut",
+      "slide 08",
+      "slide 8",
+      "ionic",
+      "vue",
+      "sesi 04",
+      "stsi4303",
+      "sesi 4"
     ]
   },
   {
@@ -3336,18 +3659,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 09",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 09",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 4",
-      "slide 09",
-      "sesi 04",
-      "vue",
-      "ionic",
       "slide 9",
       "materi",
-      "ut"
+      "ut",
+      "slide 09",
+      "ionic",
+      "vue",
+      "sesi 04",
+      "stsi4303",
+      "sesi 4"
     ]
   },
   {
@@ -3369,17 +3692,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 10",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 10",
+    "badge_color": "badge-materi",
     "tags": [
+      "materi",
+      "ut",
+      "ionic",
+      "vue",
+      "sesi 04",
       "stsi4303",
       "slide 10",
-      "sesi 4",
-      "sesi 04",
-      "vue",
-      "ionic",
-      "materi",
-      "ut"
+      "sesi 4"
     ]
   },
   {
@@ -3401,17 +3724,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 11",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 11",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 4",
-      "slide 11",
-      "sesi 04",
-      "vue",
-      "ionic",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "vue",
+      "sesi 04",
+      "stsi4303",
+      "slide 11",
+      "sesi 4"
     ]
   },
   {
@@ -3433,17 +3756,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 12",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 12",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 4",
-      "sesi 04",
-      "vue",
+      "materi",
+      "ut",
       "ionic",
       "slide 12",
-      "materi",
-      "ut"
+      "vue",
+      "sesi 04",
+      "stsi4303",
+      "sesi 4"
     ]
   },
   {
@@ -3465,17 +3788,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 13",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 13",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 4",
       "slide 13",
-      "sesi 04",
-      "vue",
-      "ionic",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "vue",
+      "sesi 04",
+      "stsi4303",
+      "sesi 4"
     ]
   },
   {
@@ -3497,17 +3820,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 14",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 14",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 4",
-      "slide 14",
-      "sesi 04",
-      "vue",
-      "ionic",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "vue",
+      "sesi 04",
+      "stsi4303",
+      "slide 14",
+      "sesi 4"
     ]
   },
   {
@@ -3529,17 +3852,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 15",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 15",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 4",
-      "sesi 04",
-      "vue",
-      "ionic",
       "materi",
+      "ut",
+      "ionic",
+      "vue",
+      "sesi 04",
+      "stsi4303",
       "slide 15",
-      "ut"
+      "sesi 4"
     ]
   },
   {
@@ -3561,17 +3884,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 16",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 16",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 4",
-      "sesi 04",
-      "vue",
-      "ionic",
       "materi",
+      "ut",
+      "ionic",
+      "vue",
+      "sesi 04",
+      "stsi4303",
       "slide 16",
-      "ut"
+      "sesi 4"
     ]
   },
   {
@@ -3593,18 +3916,18 @@
     ],
     "category": "lab",
     "category_desc": "Lab Quest Mandiri Sesi 04",
-    "badge_text": "🧪 LAB QUEST 04",
-    "badge_color": "bg-purple",
+    "badge_text": "Lab Quest 04",
+    "badge_color": "badge-lab",
     "tags": [
-      "stsi4303",
-      "sesi 4",
       "slide 17",
-      "sesi 04",
-      "vue",
-      "ionic",
       "lab",
+      "ut",
+      "ionic",
+      "vue",
+      "sesi 04",
+      "stsi4303",
       "lab quest",
-      "ut"
+      "sesi 4"
     ]
   },
   {
@@ -3626,18 +3949,18 @@
     ],
     "category": "preview",
     "category_desc": "Jembatan Pengantar ke Sesi 05",
-    "badge_text": "🔮 JEMBATAN SESI 05",
-    "badge_color": "bg-blue",
+    "badge_text": "Jembatan Sesi 05",
+    "badge_color": "badge-preview",
     "tags": [
-      "stsi4303",
-      "sesi 4",
+      "slide 18",
+      "ut",
+      "preview",
+      "ionic",
+      "vue",
       "tugas",
       "sesi 04",
-      "vue",
-      "slide 18",
-      "ionic",
-      "preview",
-      "ut"
+      "stsi4303",
+      "sesi 4"
     ]
   },
   {
@@ -3659,19 +3982,19 @@
     ],
     "category": "pengantar",
     "category_desc": "Kontrak Kuliah & Konsep Dasar",
-    "badge_text": "📌 PENGANTAR SESI",
-    "badge_color": "bg-green",
+    "badge_text": "Pengantar Sesi",
+    "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
-      "slide 1",
-      "tugas",
-      "vue",
-      "ionic",
-      "slide 01",
-      "sesi 05",
       "pengantar",
+      "slide 1",
+      "slide 01",
+      "ut",
+      "ionic",
+      "vue",
+      "tugas",
       "sesi 5",
-      "ut"
+      "sesi 05",
+      "stsi4303"
     ]
   },
   {
@@ -3693,18 +4016,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 02",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 02",
+    "badge_color": "badge-materi",
     "tags": [
       "slide 02",
-      "stsi4303",
-      "vue",
-      "ionic",
-      "slide 2",
-      "sesi 05",
       "materi",
+      "ut",
+      "ionic",
+      "vue",
       "sesi 5",
-      "ut"
+      "sesi 05",
+      "stsi4303",
+      "slide 2"
     ]
   },
   {
@@ -3726,18 +4049,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 03",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 03",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 03",
-      "vue",
-      "ionic",
-      "slide 3",
-      "sesi 05",
       "materi",
+      "ut",
+      "ionic",
+      "vue",
       "sesi 5",
-      "ut"
+      "sesi 05",
+      "stsi4303",
+      "slide 3",
+      "slide 03"
     ]
   },
   {
@@ -3759,17 +4082,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 04",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 04",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 4",
-      "vue",
-      "ionic",
-      "sesi 05",
-      "ut",
       "materi",
+      "ut",
+      "ionic",
+      "vue",
       "sesi 5",
+      "sesi 05",
+      "slide 4",
+      "stsi4303",
       "slide 04"
     ]
   },
@@ -3792,18 +4115,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 05",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 05",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "ionic",
-      "sesi 05",
-      "slide 05",
       "slide 5",
       "materi",
+      "ut",
+      "slide 05",
+      "ionic",
+      "vue",
       "sesi 5",
-      "ut"
+      "sesi 05",
+      "stsi4303"
     ]
   },
   {
@@ -3825,18 +4148,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 06",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 06",
+    "badge_color": "badge-materi",
     "tags": [
-      "slide 06",
-      "stsi4303",
-      "vue",
-      "ionic",
-      "sesi 05",
       "materi",
-      "sesi 5",
       "ut",
-      "slide 6"
+      "slide 6",
+      "ionic",
+      "vue",
+      "slide 06",
+      "sesi 5",
+      "sesi 05",
+      "stsi4303"
     ]
   },
   {
@@ -3858,18 +4181,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 07",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 07",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "ionic",
       "slide 7",
-      "sesi 05",
-      "slide 07",
       "materi",
+      "ut",
+      "ionic",
+      "vue",
+      "slide 07",
       "sesi 5",
-      "ut"
+      "sesi 05",
+      "stsi4303"
     ]
   },
   {
@@ -3891,18 +4214,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 08",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 08",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 8",
-      "vue",
-      "ionic",
-      "slide 08",
-      "sesi 05",
       "materi",
+      "ut",
+      "slide 08",
+      "slide 8",
+      "ionic",
+      "vue",
       "sesi 5",
-      "ut"
+      "sesi 05",
+      "stsi4303"
     ]
   },
   {
@@ -3924,18 +4247,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 09",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 09",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 09",
-      "vue",
-      "ionic",
       "slide 9",
-      "sesi 05",
       "materi",
+      "ut",
+      "slide 09",
+      "ionic",
+      "vue",
       "sesi 5",
-      "ut"
+      "sesi 05",
+      "stsi4303"
     ]
   },
   {
@@ -3957,17 +4280,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 10",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 10",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 10",
-      "vue",
-      "ionic",
-      "sesi 05",
       "materi",
+      "ut",
+      "ionic",
+      "vue",
       "sesi 5",
-      "ut"
+      "sesi 05",
+      "slide 10",
+      "stsi4303"
     ]
   },
   {
@@ -3989,17 +4312,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 11",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 11",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 11",
-      "vue",
-      "ionic",
-      "sesi 05",
       "materi",
+      "ut",
+      "ionic",
+      "vue",
       "sesi 5",
-      "ut"
+      "sesi 05",
+      "stsi4303",
+      "slide 11"
     ]
   },
   {
@@ -4021,17 +4344,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 12",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 12",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
+      "materi",
+      "ut",
       "ionic",
       "slide 12",
-      "sesi 05",
-      "materi",
+      "vue",
       "sesi 5",
-      "ut"
+      "sesi 05",
+      "stsi4303"
     ]
   },
   {
@@ -4053,17 +4376,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 13",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 13",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
       "slide 13",
-      "vue",
-      "ionic",
-      "sesi 05",
       "materi",
+      "ut",
+      "ionic",
+      "vue",
       "sesi 5",
-      "ut"
+      "sesi 05",
+      "stsi4303"
     ]
   },
   {
@@ -4085,17 +4408,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 14",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 14",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 14",
-      "vue",
-      "ionic",
-      "sesi 05",
       "materi",
+      "ut",
+      "ionic",
+      "vue",
       "sesi 5",
-      "ut"
+      "sesi 05",
+      "stsi4303",
+      "slide 14"
     ]
   },
   {
@@ -4117,17 +4440,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 15",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 15",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "ionic",
-      "sesi 05",
       "materi",
+      "ut",
+      "ionic",
+      "vue",
       "sesi 5",
-      "slide 15",
-      "ut"
+      "sesi 05",
+      "stsi4303",
+      "slide 15"
     ]
   },
   {
@@ -4149,18 +4472,18 @@
     ],
     "category": "rubrik",
     "category_desc": "Panduan & Rubrik Resmi Tugas Tutorial 2",
-    "badge_text": "📋 RUBRIK TUGAS 2",
-    "badge_color": "bg-orange",
+    "badge_text": "Rubrik Tugas 2",
+    "badge_color": "badge-rubrik",
     "tags": [
-      "stsi4303",
-      "tugas",
-      "vue",
-      "ionic",
-      "sesi 05",
-      "sesi 5",
-      "slide 16",
+      "rubrik",
       "ut",
-      "rubrik"
+      "ionic",
+      "vue",
+      "tugas",
+      "sesi 5",
+      "sesi 05",
+      "slide 16",
+      "stsi4303"
     ]
   },
   {
@@ -4182,17 +4505,17 @@
     ],
     "category": "tugas",
     "category_desc": "Tugas Wajib 2: Portal Registrasi KTM Digital & Form Regex",
-    "badge_text": "🎯 TUGAS 2 (WAJIB)",
-    "badge_color": "bg-red",
+    "badge_text": "Tugas 2 (Wajib)",
+    "badge_color": "badge-tugas",
     "tags": [
-      "stsi4303",
-      "tugas",
       "slide 17",
-      "vue",
+      "ut",
       "ionic",
-      "sesi 05",
+      "vue",
+      "tugas",
       "sesi 5",
-      "ut"
+      "sesi 05",
+      "stsi4303"
     ]
   },
   {
@@ -4214,19 +4537,19 @@
     ],
     "category": "preview",
     "category_desc": "Jembatan Pengantar ke Sesi 06",
-    "badge_text": "🔮 JEMBATAN SESI 06",
-    "badge_color": "bg-blue",
+    "badge_text": "Jembatan Sesi 06",
+    "badge_color": "badge-preview",
     "tags": [
-      "stsi4303",
+      "slide 18",
+      "ut",
+      "preview",
+      "ionic",
       "android",
       "vue",
-      "ionic",
-      "slide 18",
-      "preview",
-      "capacitor",
-      "sesi 05",
       "sesi 5",
-      "ut"
+      "sesi 05",
+      "stsi4303",
+      "capacitor"
     ]
   },
   {
@@ -4248,20 +4571,20 @@
     ],
     "category": "pengantar",
     "category_desc": "Kontrak Kuliah & Konsep Dasar",
-    "badge_text": "📌 PENGANTAR SESI",
-    "badge_color": "bg-green",
+    "badge_text": "Pengantar Sesi",
+    "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
+      "pengantar",
       "slide 1",
-      "sesi 6",
-      "android",
-      "vue",
-      "ionic",
       "slide 01",
       "sesi 06",
-      "capacitor",
-      "pengantar",
-      "ut"
+      "ut",
+      "ionic",
+      "android",
+      "vue",
+      "stsi4303",
+      "sesi 6",
+      "capacitor"
     ]
   },
   {
@@ -4283,19 +4606,19 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 02",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 02",
+    "badge_color": "badge-materi",
     "tags": [
       "slide 02",
+      "materi",
+      "sesi 06",
+      "ut",
+      "ionic",
+      "vue",
       "stsi4303",
       "sesi 6",
-      "vue",
-      "ionic",
-      "slide 2",
       "capacitor",
-      "sesi 06",
-      "materi",
-      "ut"
+      "slide 2"
     ]
   },
   {
@@ -4317,18 +4640,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 03",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 03",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 6",
-      "slide 03",
-      "vue",
-      "ionic",
-      "slide 3",
-      "sesi 06",
       "materi",
-      "ut"
+      "sesi 06",
+      "ut",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "slide 3",
+      "sesi 6",
+      "slide 03"
     ]
   },
   {
@@ -4350,19 +4673,19 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 04",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 04",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 6",
-      "slide 4",
-      "vue",
-      "ionic",
-      "capacitor",
+      "materi",
       "sesi 06",
       "ut",
-      "materi",
-      "slide 04"
+      "ionic",
+      "vue",
+      "stsi4303",
+      "slide 4",
+      "slide 04",
+      "sesi 6",
+      "capacitor"
     ]
   },
   {
@@ -4384,19 +4707,19 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 05",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 05",
+    "badge_color": "badge-materi",
     "tags": [
+      "slide 5",
+      "materi",
+      "sesi 06",
+      "ut",
+      "slide 05",
+      "ionic",
+      "vue",
       "stsi4303",
       "sesi 6",
-      "vue",
-      "ionic",
-      "capacitor",
-      "slide 5",
-      "slide 05",
-      "sesi 06",
-      "materi",
-      "ut"
+      "capacitor"
     ]
   },
   {
@@ -4418,19 +4741,19 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 06",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 06",
+    "badge_color": "badge-materi",
     "tags": [
-      "slide 06",
-      "stsi4303",
-      "sesi 6",
+      "materi",
+      "sesi 06",
+      "ut",
+      "slide 6",
+      "ionic",
       "android",
       "vue",
-      "ionic",
-      "sesi 06",
-      "materi",
-      "ut",
-      "slide 6"
+      "slide 06",
+      "stsi4303",
+      "sesi 6"
     ]
   },
   {
@@ -4452,19 +4775,19 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 07",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 07",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 6",
+      "slide 7",
+      "materi",
+      "sesi 06",
+      "ut",
+      "ionic",
       "android",
       "vue",
-      "ionic",
-      "slide 7",
-      "sesi 06",
       "slide 07",
-      "materi",
-      "ut"
+      "stsi4303",
+      "sesi 6"
     ]
   },
   {
@@ -4486,19 +4809,19 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 08",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 08",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 6",
-      "android",
-      "slide 8",
-      "vue",
-      "ionic",
-      "slide 08",
-      "sesi 06",
       "materi",
-      "ut"
+      "sesi 06",
+      "ut",
+      "slide 08",
+      "slide 8",
+      "ionic",
+      "android",
+      "vue",
+      "stsi4303",
+      "sesi 6"
     ]
   },
   {
@@ -4520,18 +4843,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 09",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 09",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 6",
-      "slide 09",
-      "vue",
-      "ionic",
       "slide 9",
-      "sesi 06",
       "materi",
-      "ut"
+      "sesi 06",
+      "ut",
+      "slide 09",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "sesi 6"
     ]
   },
   {
@@ -4553,18 +4876,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 10",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 10",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 10",
-      "sesi 6",
+      "materi",
+      "ut",
+      "sesi 06",
+      "ionic",
       "android",
       "vue",
-      "ionic",
-      "sesi 06",
-      "materi",
-      "ut"
+      "stsi4303",
+      "slide 10",
+      "sesi 6"
     ]
   },
   {
@@ -4586,17 +4909,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 11",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 11",
+    "badge_color": "badge-materi",
     "tags": [
+      "materi",
+      "ut",
+      "sesi 06",
+      "ionic",
+      "vue",
       "stsi4303",
       "sesi 6",
-      "slide 11",
-      "vue",
-      "ionic",
-      "sesi 06",
-      "materi",
-      "ut"
+      "slide 11"
     ]
   },
   {
@@ -4618,17 +4941,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 12",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 12",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 6",
-      "vue",
+      "materi",
+      "ut",
+      "sesi 06",
       "ionic",
       "slide 12",
-      "sesi 06",
-      "materi",
-      "ut"
+      "vue",
+      "stsi4303",
+      "sesi 6"
     ]
   },
   {
@@ -4650,17 +4973,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 13",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 13",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
       "slide 13",
-      "sesi 6",
-      "vue",
-      "ionic",
-      "sesi 06",
       "materi",
-      "ut"
+      "ut",
+      "sesi 06",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "sesi 6"
     ]
   },
   {
@@ -4682,17 +5005,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 14",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 14",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 6",
-      "slide 14",
-      "vue",
-      "ionic",
-      "sesi 06",
       "materi",
-      "ut"
+      "ut",
+      "sesi 06",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "slide 14",
+      "sesi 6"
     ]
   },
   {
@@ -4714,17 +5037,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 15",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 15",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 6",
-      "vue",
-      "ionic",
-      "sesi 06",
       "materi",
-      "slide 15",
-      "ut"
+      "ut",
+      "sesi 06",
+      "sesi 6",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "slide 15"
     ]
   },
   {
@@ -4746,18 +5069,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 16",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 16",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 6",
+      "materi",
+      "ut",
+      "sesi 06",
+      "ionic",
       "android",
       "vue",
-      "ionic",
-      "sesi 06",
-      "materi",
+      "stsi4303",
       "slide 16",
-      "ut"
+      "sesi 6"
     ]
   },
   {
@@ -4779,20 +5102,20 @@
     ],
     "category": "lab",
     "category_desc": "Lab Quest Mandiri Sesi 06",
-    "badge_text": "🧪 LAB QUEST 06",
-    "badge_color": "bg-purple",
+    "badge_text": "Lab Quest 06",
+    "badge_color": "badge-lab",
     "tags": [
+      "lab quest",
+      "lab",
+      "slide 17",
+      "ut",
+      "sesi 06",
+      "ionic",
+      "android",
+      "vue",
       "stsi4303",
       "sesi 6",
-      "android",
-      "slide 17",
-      "vue",
-      "ionic",
-      "lab",
-      "capacitor",
-      "sesi 06",
-      "lab quest",
-      "ut"
+      "capacitor"
     ]
   },
   {
@@ -4814,20 +5137,20 @@
     ],
     "category": "preview",
     "category_desc": "Jembatan Pengantar ke Sesi 07",
-    "badge_text": "🔮 JEMBATAN SESI 07",
-    "badge_color": "bg-blue",
+    "badge_text": "Jembatan Sesi 07",
+    "badge_color": "badge-preview",
     "tags": [
-      "stsi4303",
-      "sesi 6",
-      "storage",
-      "tugas",
-      "vue",
-      "ionic",
       "slide 18",
-      "preview",
-      "api",
+      "storage",
+      "ut",
       "sesi 06",
-      "ut"
+      "preview",
+      "ionic",
+      "vue",
+      "tugas",
+      "api",
+      "stsi4303",
+      "sesi 6"
     ]
   },
   {
@@ -4849,19 +5172,19 @@
     ],
     "category": "pengantar",
     "category_desc": "Kontrak Kuliah & Konsep Dasar",
-    "badge_text": "📌 PENGANTAR SESI",
-    "badge_color": "bg-green",
+    "badge_text": "Pengantar Sesi",
+    "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
       "slide 1",
-      "sesi 07",
-      "tugas",
-      "vue",
-      "ionic",
-      "slide 01",
       "pengantar",
+      "slide 01",
+      "ut",
+      "ionic",
+      "sesi 07",
+      "vue",
       "sesi 7",
-      "ut"
+      "tugas",
+      "stsi4303"
     ]
   },
   {
@@ -4883,19 +5206,19 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 02",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 02",
+    "badge_color": "badge-materi",
     "tags": [
       "slide 02",
-      "stsi4303",
+      "materi",
+      "ut",
+      "ionic",
       "sesi 07",
       "vue",
-      "ionic",
-      "slide 2",
-      "api",
       "sesi 7",
-      "materi",
-      "ut"
+      "api",
+      "stsi4303",
+      "slide 2"
     ]
   },
   {
@@ -4917,18 +5240,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 03",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 03",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 07",
-      "slide 03",
-      "vue",
-      "ionic",
-      "slide 3",
-      "sesi 7",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "sesi 07",
+      "vue",
+      "sesi 7",
+      "stsi4303",
+      "slide 3",
+      "slide 03"
     ]
   },
   {
@@ -4950,17 +5273,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 04",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 04",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 07",
-      "slide 4",
-      "vue",
-      "ionic",
-      "ut",
-      "sesi 7",
       "materi",
+      "ut",
+      "ionic",
+      "sesi 07",
+      "vue",
+      "sesi 7",
+      "stsi4303",
+      "slide 4",
       "slide 04"
     ]
   },
@@ -4983,18 +5306,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 05",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 05",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "slide 5",
+      "materi",
+      "ut",
+      "slide 05",
+      "ionic",
       "sesi 07",
       "vue",
-      "ionic",
-      "slide 5",
-      "slide 05",
       "sesi 7",
-      "materi",
-      "ut"
+      "stsi4303"
     ]
   },
   {
@@ -5016,18 +5339,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 06",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 06",
+    "badge_color": "badge-materi",
     "tags": [
-      "slide 06",
-      "stsi4303",
-      "sesi 07",
-      "vue",
-      "ionic",
-      "sesi 7",
       "materi",
       "ut",
-      "slide 6"
+      "slide 6",
+      "ionic",
+      "sesi 07",
+      "vue",
+      "slide 06",
+      "sesi 7",
+      "stsi4303"
     ]
   },
   {
@@ -5049,19 +5372,19 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 07",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 07",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "slide 7",
+      "materi",
+      "ut",
+      "ionic",
       "sesi 07",
       "vue",
-      "ionic",
-      "slide 07",
-      "slide 7",
-      "capacitor",
       "sesi 7",
-      "materi",
-      "ut"
+      "slide 07",
+      "stsi4303",
+      "capacitor"
     ]
   },
   {
@@ -5083,18 +5406,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 08",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 08",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 07",
-      "slide 8",
-      "vue",
-      "ionic",
-      "slide 08",
-      "sesi 7",
       "materi",
-      "ut"
+      "ut",
+      "slide 08",
+      "slide 8",
+      "ionic",
+      "sesi 07",
+      "vue",
+      "sesi 7",
+      "stsi4303"
     ]
   },
   {
@@ -5116,18 +5439,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 09",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 09",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 07",
-      "slide 09",
-      "vue",
-      "ionic",
       "slide 9",
-      "sesi 7",
       "materi",
-      "ut"
+      "ut",
+      "slide 09",
+      "ionic",
+      "sesi 07",
+      "vue",
+      "sesi 7",
+      "stsi4303"
     ]
   },
   {
@@ -5149,18 +5472,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 10",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 10",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 10",
+      "materi",
+      "ut",
+      "ionic",
       "sesi 07",
       "vue",
-      "ionic",
-      "capacitor",
       "sesi 7",
-      "materi",
-      "ut"
+      "stsi4303",
+      "slide 10",
+      "capacitor"
     ]
   },
   {
@@ -5182,17 +5505,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 11",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 11",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 07",
-      "slide 11",
-      "vue",
-      "ionic",
-      "sesi 7",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "sesi 07",
+      "vue",
+      "sesi 7",
+      "stsi4303",
+      "slide 11"
     ]
   },
   {
@@ -5214,18 +5537,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 12",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 12",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 07",
-      "vue",
-      "ionic",
-      "slide 12",
-      "capacitor",
-      "sesi 7",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "sesi 07",
+      "slide 12",
+      "sesi 7",
+      "vue",
+      "stsi4303",
+      "capacitor"
     ]
   },
   {
@@ -5247,18 +5570,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 13",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 13",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
       "slide 13",
+      "materi",
+      "ut",
+      "ionic",
       "sesi 07",
       "vue",
-      "ionic",
-      "capacitor",
       "sesi 7",
-      "materi",
-      "ut"
+      "stsi4303",
+      "capacitor"
     ]
   },
   {
@@ -5280,17 +5603,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 14",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 14",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 07",
-      "slide 14",
-      "vue",
-      "ionic",
-      "sesi 7",
       "materi",
-      "ut"
+      "ut",
+      "ionic",
+      "sesi 07",
+      "vue",
+      "sesi 7",
+      "stsi4303",
+      "slide 14"
     ]
   },
   {
@@ -5312,18 +5635,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 15",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 15",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "materi",
+      "ut",
+      "ionic",
       "sesi 07",
       "vue",
-      "ionic",
-      "api",
       "sesi 7",
-      "materi",
-      "slide 15",
-      "ut"
+      "api",
+      "stsi4303",
+      "slide 15"
     ]
   },
   {
@@ -5345,17 +5668,17 @@
     ],
     "category": "rubrik",
     "category_desc": "Panduan & Rubrik Resmi Tugas Tutorial 3",
-    "badge_text": "📋 RUBRIK TUGAS 3",
-    "badge_color": "bg-orange",
+    "badge_text": "Rubrik Tugas 3",
+    "badge_color": "badge-rubrik",
     "tags": [
-      "stsi4303",
+      "rubrik",
+      "ut",
       "sesi 07",
-      "tugas",
       "vue",
       "sesi 7",
-      "slide 16",
-      "ut",
-      "rubrik"
+      "tugas",
+      "stsi4303",
+      "slide 16"
     ]
   },
   {
@@ -5377,17 +5700,17 @@
     ],
     "category": "tugas",
     "category_desc": "Tugas Wajib 3: Mobile Study Tracker & REST API Storage",
-    "badge_text": "🎯 TUGAS 3 (WAJIB)",
-    "badge_color": "bg-red",
+    "badge_text": "Tugas 3 (Wajib)",
+    "badge_color": "badge-tugas",
     "tags": [
-      "stsi4303",
-      "sesi 07",
-      "tugas",
       "slide 17",
-      "vue",
+      "ut",
       "ionic",
+      "sesi 07",
+      "vue",
       "sesi 7",
-      "ut"
+      "tugas",
+      "stsi4303"
     ]
   },
   {
@@ -5409,18 +5732,18 @@
     ],
     "category": "preview",
     "category_desc": "Jembatan Pengantar ke Sesi 08",
-    "badge_text": "🔮 JEMBATAN SESI 08",
-    "badge_color": "bg-blue",
+    "badge_text": "Jembatan Sesi 08",
+    "badge_color": "badge-preview",
     "tags": [
-      "stsi4303",
-      "sesi 07",
-      "uas",
-      "vue",
-      "ionic",
       "slide 18",
+      "ut",
       "preview",
+      "ionic",
+      "sesi 07",
+      "vue",
       "sesi 7",
-      "ut"
+      "stsi4303",
+      "uas"
     ]
   },
   {
@@ -5442,19 +5765,19 @@
     ],
     "category": "pengantar",
     "category_desc": "Kontrak Kuliah & Konsep Dasar",
-    "badge_text": "📌 PENGANTAR SESI",
-    "badge_color": "bg-green",
+    "badge_text": "Pengantar Sesi",
+    "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
-      "slide 1",
-      "uas",
-      "vue",
-      "ionic",
-      "sesi 8",
-      "slide 01",
       "pengantar",
+      "slide 1",
+      "slide 01",
+      "ut",
+      "sesi 8",
+      "ionic",
+      "vue",
+      "stsi4303",
       "sesi 08",
-      "ut"
+      "uas"
     ]
   },
   {
@@ -5476,18 +5799,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 02",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 02",
+    "badge_color": "badge-materi",
     "tags": [
       "slide 02",
-      "stsi4303",
-      "vue",
-      "ionic",
-      "sesi 8",
-      "slide 2",
       "materi",
+      "ut",
+      "sesi 8",
+      "ionic",
+      "vue",
+      "stsi4303",
       "sesi 08",
-      "ut"
+      "slide 2"
     ]
   },
   {
@@ -5509,18 +5832,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 03",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 03",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 03",
-      "vue",
-      "ionic",
-      "sesi 8",
-      "slide 3",
       "materi",
+      "ut",
+      "sesi 8",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "slide 3",
       "sesi 08",
-      "ut"
+      "slide 03"
     ]
   },
   {
@@ -5542,18 +5865,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 04",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 04",
+    "badge_color": "badge-materi",
     "tags": [
+      "materi",
+      "ut",
+      "sesi 8",
+      "ionic",
+      "vue",
       "stsi4303",
       "slide 4",
-      "vue",
-      "ionic",
-      "sesi 8",
-      "ut",
-      "materi",
-      "sesi 08",
-      "slide 04"
+      "slide 04",
+      "sesi 08"
     ]
   },
   {
@@ -5575,18 +5898,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 05",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 05",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "ionic",
-      "sesi 8",
       "slide 5",
-      "slide 05",
       "materi",
-      "sesi 08",
-      "ut"
+      "ut",
+      "sesi 8",
+      "slide 05",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "sesi 08"
     ]
   },
   {
@@ -5608,18 +5931,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 06",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 06",
+    "badge_color": "badge-materi",
     "tags": [
+      "materi",
+      "ut",
+      "sesi 8",
+      "slide 6",
+      "ionic",
+      "vue",
       "slide 06",
       "stsi4303",
-      "vue",
-      "ionic",
-      "sesi 8",
-      "materi",
-      "sesi 08",
-      "ut",
-      "slide 6"
+      "sesi 08"
     ]
   },
   {
@@ -5641,18 +5964,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 07",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 07",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "vue",
-      "ionic",
-      "sesi 8",
       "slide 7",
-      "slide 07",
       "materi",
-      "sesi 08",
-      "ut"
+      "ut",
+      "sesi 8",
+      "ionic",
+      "vue",
+      "slide 07",
+      "stsi4303",
+      "sesi 08"
     ]
   },
   {
@@ -5674,18 +5997,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 08",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 08",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 8",
-      "vue",
-      "ionic",
-      "sesi 8",
-      "slide 08",
       "materi",
-      "sesi 08",
-      "ut"
+      "ut",
+      "slide 08",
+      "sesi 8",
+      "slide 8",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "sesi 08"
     ]
   },
   {
@@ -5707,18 +6030,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 09",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 09",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 09",
-      "vue",
-      "ionic",
-      "sesi 8",
       "slide 9",
       "materi",
-      "sesi 08",
-      "ut"
+      "ut",
+      "sesi 8",
+      "slide 09",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "sesi 08"
     ]
   },
   {
@@ -5740,17 +6063,17 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 10",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 10",
+    "badge_color": "badge-materi",
     "tags": [
+      "materi",
+      "ut",
+      "sesi 8",
+      "ionic",
+      "vue",
       "stsi4303",
       "slide 10",
-      "vue",
-      "ionic",
-      "sesi 8",
-      "materi",
-      "sesi 08",
-      "ut"
+      "sesi 08"
     ]
   },
   {
@@ -5772,18 +6095,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 11",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 11",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "android",
-      "slide 11",
-      "vue",
-      "ionic",
-      "sesi 8",
       "materi",
+      "ut",
+      "sesi 8",
+      "ionic",
+      "android",
       "sesi 08",
-      "ut"
+      "vue",
+      "stsi4303",
+      "slide 11"
     ]
   },
   {
@@ -5805,18 +6128,18 @@
     ],
     "category": "materi",
     "category_desc": "Materi Pembahasan Inti",
-    "badge_text": "⚡ MATERI INTI 12",
-    "badge_color": "bg-cyan",
+    "badge_text": "Materi Inti 12",
+    "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "uas",
-      "vue",
-      "ionic",
-      "sesi 8",
-      "slide 12",
       "materi",
+      "ut",
+      "sesi 8",
+      "ionic",
+      "slide 12",
+      "vue",
+      "stsi4303",
       "sesi 08",
-      "ut"
+      "uas"
     ]
   },
   {
@@ -5838,17 +6161,17 @@
     ],
     "category": "uas",
     "category_desc": "Latihan Bank Soal UAS STSI4303 Bagian 1",
-    "badge_text": "🎓 BANK SOAL UAS (BAG. 1)",
-    "badge_color": "bg-yellow",
+    "badge_text": "Bank Soal UAS (Bag. 1)",
+    "badge_color": "badge-uas",
     "tags": [
-      "stsi4303",
       "slide 13",
-      "uas",
-      "vue",
-      "ionic",
+      "ut",
       "sesi 8",
+      "ionic",
+      "vue",
+      "stsi4303",
       "sesi 08",
-      "ut"
+      "uas"
     ]
   },
   {
@@ -5870,18 +6193,18 @@
     ],
     "category": "uas",
     "category_desc": "Latihan Bank Soal UAS STSI4303 Bagian 2",
-    "badge_text": "🎓 BANK SOAL UAS (BAG. 2)",
-    "badge_color": "bg-yellow",
+    "badge_text": "Bank Soal UAS (Bag. 2)",
+    "badge_color": "badge-uas",
     "tags": [
-      "stsi4303",
-      "uas",
-      "slide 14",
-      "vue",
-      "ionic",
-      "sesi 8",
-      "sesi 08",
       "ut",
-      "typescript"
+      "sesi 8",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "typescript",
+      "slide 14",
+      "sesi 08",
+      "uas"
     ]
   },
   {
@@ -5903,20 +6226,20 @@
     ],
     "category": "uas",
     "category_desc": "Latihan Bank Soal UAS STSI4303 Bagian 3",
-    "badge_text": "🎓 BANK SOAL UAS (BAG. 3)",
-    "badge_color": "bg-yellow",
+    "badge_text": "Bank Soal UAS (Bag. 3)",
+    "badge_color": "badge-uas",
     "tags": [
-      "stsi4303",
       "storage",
-      "uas",
-      "slide 15",
-      "vue",
-      "ionic",
+      "ut",
       "sesi 8",
+      "ionic",
+      "vue",
       "api",
       "capacitor",
+      "stsi4303",
+      "slide 15",
       "sesi 08",
-      "ut"
+      "uas"
     ]
   },
   {
@@ -5938,17 +6261,17 @@
     ],
     "category": "uas",
     "category_desc": "Latihan Bank Soal UAS STSI4303 Bagian 4",
-    "badge_text": "🎓 BANK SOAL UAS (BAG. 4)",
-    "badge_color": "bg-yellow",
+    "badge_text": "Bank Soal UAS (Bag. 4)",
+    "badge_color": "badge-uas",
     "tags": [
-      "stsi4303",
-      "uas",
-      "vue",
-      "ionic",
-      "sesi 8",
-      "sesi 08",
       "ut",
-      "slide 16"
+      "sesi 8",
+      "ionic",
+      "vue",
+      "stsi4303",
+      "slide 16",
+      "sesi 08",
+      "uas"
     ]
   },
   {
@@ -5970,19 +6293,19 @@
     ],
     "category": "lab uas",
     "category_desc": "Engine Simulasi 50 Soal UAS (Timer 90m) & APK Release Audit",
-    "badge_text": "🧪 LAB QUEST 08 & 50 UAS",
-    "badge_color": "bg-yellow",
+    "badge_text": "Lab Quest 08 & Simulasi UAS",
+    "badge_color": "badge-uas",
     "tags": [
-      "stsi4303",
-      "uas",
-      "slide 17",
-      "vue",
-      "ionic",
-      "sesi 8",
-      "lab uas",
       "lab quest",
+      "slide 17",
+      "ut",
+      "sesi 8",
+      "ionic",
+      "vue",
+      "lab uas",
+      "stsi4303",
       "sesi 08",
-      "ut"
+      "uas"
     ]
   },
   {
@@ -6004,17 +6327,17 @@
     ],
     "category": "penutup",
     "category_desc": "Refleksi Kuliah & Pesan Dosen Pengampu",
-    "badge_text": "🎓 PENUTUP SEMESTER",
-    "badge_color": "bg-green",
+    "badge_text": "Penutup Semester",
+    "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
-      "vue",
-      "ionic",
       "slide 18",
+      "ut",
       "sesi 8",
+      "ionic",
+      "vue",
       "penutup",
-      "sesi 08",
-      "ut"
+      "stsi4303",
+      "sesi 08"
     ]
   }
 ];
@@ -6044,7 +6367,7 @@
     "pptx": "SESI_03_TypeScript_dan_Komposisi_Vue.pptx",
     "md": "SESI_03_TypeScript_dan_Komposisi_Vue.md",
     "folder": "sesi_03_typescript_vue",
-    "badge": "🎯 TUGAS 1"
+    "badge": "Tugas 1"
   },
   {
     "sesi": 4,
@@ -6062,7 +6385,7 @@
     "pptx": "SESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx",
     "md": "SESI_05_Layout_Grid_Form_Regex_Dark_Mode.md",
     "folder": "sesi_05_layout_grid_form",
-    "badge": "🎯 TUGAS 2"
+    "badge": "Tugas 2"
   },
   {
     "sesi": 6,
@@ -6080,7 +6403,7 @@
     "pptx": "SESI_07_REST_API_Storage_dan_Native_Plugins.pptx",
     "md": "SESI_07_REST_API_Storage_dan_Native_Plugins.md",
     "folder": "sesi_07_api_storage_plugins",
-    "badge": "🎯 TUGAS 3"
+    "badge": "Tugas 3"
   },
   {
     "sesi": 8,
@@ -6089,11 +6412,11 @@
     "pptx": "SESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.pptx",
     "md": "SESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.md",
     "folder": "sesi_08_build_apk_uas",
-    "badge": "🎓 50 SOAL UAS"
+    "badge": "Bank Soal UAS"
   }
 ];
 
-    const { createApp, ref, computed, onMounted } = Vue;
+    const { createApp, ref, computed } = Vue;
 
     createApp({
       setup() {
@@ -6110,6 +6433,12 @@
         const devicePreset = ref('pixel');
         const deviceWidth = ref(412);
         const deviceHeight = ref(720);
+
+        // Current Session Metadata for Banner
+        const currentSessionInfo = computed(() => {
+          if (!activeSession.value) return null;
+          return pptxResources.value.find(p => p.sesi === activeSession.value) || null;
+        });
 
         // Filter Logic
         const filteredSlides = computed(() => {
@@ -6220,6 +6549,7 @@
           searchQuery,
           activeSession,
           activeCategory,
+          currentSessionInfo,
           filteredSlides,
           activeModalSlide,
           devicePreset,
