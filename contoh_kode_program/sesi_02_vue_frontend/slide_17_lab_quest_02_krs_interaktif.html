@@ -90,8 +90,32 @@
       background: var(--yellow);
       border: 1px solid #000;
       font-size: 11px;
-      font-weight: bold;
-      padding: 2px 6px;
+    /* PANDUAN AWAM & DIAGRAM */
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .guide-box h3 { margin: 0 0 8px 0; font-size: 15px; color: #1E40AF; }
+    .guide-box ol { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.6; }
+    .guide-box li { margin-bottom: 6px; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid var(--border);
+      padding: 16px;
+      box-shadow: 4px 4px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .diagram-card h4 { margin: 0 0 12px 0; font-size: 14px; }
+    .source-cite {
+      font-size: 11px;
+      color: #6B7280;
+      margin-top: 20px;
+      border-top: 1px dashed #9CA3AF;
+      padding-top: 8px;
+      text-align: right;
     }
   </style>
 </head>
@@ -101,6 +125,85 @@
     <div class="badge">SLIDE 17 • MASTER SOLUSI LAB QUEST 02</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Aplikasi Manajemen KRS Mandiri Mahasiswa FST UT</h1>
     <p style="margin: 0; font-size: 14px;">Studi kasus komprehensif mengintegrasikan ref, reactive, computed, directives, event modifiers, dan validasi kuota SKS.</p>
+  </div>
+
+  <!-- PANDUAN PRAKTIKUM MAHASISWA -->
+  <div class="guide-box">
+    <h3>📖 Panduan Praktikum Mandiri Mahasiswa (Pemula & Awam)</h3>
+    <ol>
+      <li><strong>🛠️ Alat yang Digunakan:</strong> Buka langsung di <strong>Google Chrome</strong> (atau browser ponsel Anda). Buka <strong>F12</strong> untuk melihat log dan reaktivitas bila diinginkan.</li>
+      <li><strong>🎯 Skenario Uji Coba Terpadu:</strong>
+        <ul>
+          <li>Ketik kata kunci di kolom <strong>🔍 Cari nama mata kuliah...</strong> (contoh: <code>bergerak</code> atau <code>data</code>). Perhatikan daftar katalog langsung terfilter secara instan (0 milidetik).</li>
+          <li>Ubah pilihan dropdown <strong>Semester</strong> untuk memfilter berdasarkan semester paket.</li>
+          <li>Klik tombol <strong>+ Ambil</strong> pada beberapa mata kuliah. Amati 3 kartu statistik di bagian atas (Jumlah MK, Total SKS, Sisa Kuota SKS) langsung berhitung otomatis.</li>
+          <li>Uji batas kuota: coba ambil mata kuliah hingga total SKS mencapai batas maksimal. Tombol penambahan mata kuliah lain otomatis dinonaktifkan (<em>disabled</em>) dan muncul peringatan merah!</li>
+          <li>Klik tombol <strong>💾 Simpan & Ajukan KRS ke Penasihat Akademik</strong> untuk melihat simulasi finalisasi.</li>
+        </ul>
+      </li>
+      <li><strong>💡 Apa yang Terjadi di Balik Layar (Sintesis Sesi 02):</strong> Aplikasi ini memadukan seluruh prinsip fundamental yang kita pelajari: <code>reactive()</code> untuk identitas mahasiswa, <code>ref()</code> untuk katalog & pilihan KRS, <code>computed()</code> berantai untuk kalkulasi kuota & penyaringan teks, serta direktif dua arah <code>v-model</code>. Inilah fondasi pembuatan aplikasi web dan mobile modern berstandar industri!</li>
+    </ol>
+  </div>
+
+  <!-- DIAGRAM BLUEPRINT LAB QUEST -->
+  <div class="diagram-card">
+    <h4>📐 Cetak Biru Arsitektur Aplikasi Mini-SIA KRS FST UT (Integrasi Komprehensif)</h4>
+    <svg viewBox="0 0 760 180" style="width:100%; height:auto; display:block;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- 1. Input & Filter -->
+      <g transform="translate(10, 10)">
+        <rect width="220" height="155" rx="6" fill="#EFF6FF" stroke="#000" stroke-width="2.5"/>
+        <text x="12" y="24" font-weight="900" font-size="11.5" fill="#1E40AF">1. INPUT STATE & FILTER</text>
+        <text x="12" y="40" font-size="10" fill="#555">v-model Reaktif</text>
+
+        <rect x="10" y="50" width="200" height="42" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1"/>
+        <text x="16" y="68" font-size="9.5" font-weight="bold" fill="#0369A1">pencarian = ref('')</text>
+        <text x="16" y="82" font-size="9" fill="#555">filterSemester = ref('0')</text>
+
+        <rect x="10" y="100" width="200" height="44" rx="4" fill="#FEF3C7" stroke="#000" stroke-width="1"/>
+        <text x="16" y="118" font-size="9.5" font-weight="bold" fill="#92400E">Katalog Master (9 MK)</text>
+        <text x="16" y="132" font-size="9" fill="#555">Array referensi sumber data</text>
+      </g>
+
+      <line x1="235" y1="88" x2="265" y2="88" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- 2. Computed Pipeline -->
+      <g transform="translate(270, 10)">
+        <rect width="240" height="155" rx="6" fill="#F3E8FF" stroke="#000" stroke-width="2.5"/>
+        <text x="12" y="24" font-weight="900" font-size="11.5" fill="#7E22CE">2. COMPUTED PIPELINE</text>
+        <text x="12" y="40" font-size="10" fill="#555">Pemrosesan Otomatis Bersih</text>
+
+        <rect x="10" y="50" width="220" height="42" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1"/>
+        <text x="16" y="68" font-size="9.5" font-weight="bold" fill="#7E22CE">hasilFilterKatalog</text>
+        <text x="16" y="82" font-size="9" fill="#555">Filter nama + semester dinamis</text>
+
+        <rect x="10" y="100" width="220" height="44" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1"/>
+        <text x="16" y="118" font-size="9.5" font-weight="bold" fill="#15803D">totalSks & sisaSks</text>
+        <text x="16" y="132" font-size="9" fill="#555">Validasi batas maksimal kuota</text>
+      </g>
+
+      <line x1="515" y1="88" x2="545" y2="88" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- 3. UI Synchronization -->
+      <g transform="translate(550, 10)">
+        <rect width="200" height="155" rx="6" fill="#DCFCE7" stroke="#000" stroke-width="2.5"/>
+        <text x="12" y="24" font-weight="900" font-size="11.5" fill="#15803D">3. UI DUA KOLOM</text>
+        <text x="12" y="40" font-size="10" fill="#555">Presisi & Zero Desync</text>
+
+        <rect x="10" y="50" width="180" height="42" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1"/>
+        <text x="16" y="68" font-size="9" font-weight="bold" fill="#0369A1">Kolom Kiri: Katalog</text>
+        <text x="16" y="82" font-size="8.5" fill="#555">Tombol + Ambil / Terpilih</text>
+
+        <rect x="10" y="100" width="180" height="44" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1"/>
+        <text x="16" y="118" font-size="9" font-weight="bold" fill="#DC2626">Kolom Kanan: KRS Saya</text>
+        <text x="16" y="132" font-size="8.5" fill="#555">Tombol Hapus & Pengesahan</text>
+      </g>
+    </svg>
   </div>
 
   <div id="app">
@@ -215,6 +318,10 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="source-cite">
+    📚 Sumber Referensi: Modul 2 KB 1 & KB 2 BMP UT STSI4303 / MSIM4401 (Praktikum Rekayasa Frontend Berbasis Komponen Reaktif) & Dokumentasi Resmi Vue.js 3 (vuejs.org)
   </div>
 
   <script>

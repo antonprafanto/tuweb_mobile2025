@@ -82,26 +82,26 @@ tuweb_mobile2025/
 
 ### 📱 Rincian 18 Berkas Mandiri Sesi 02 (Frontend Modern Vue.js 3)
 
-| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run) |
+| Slide | Konsep Materi Pembahasan & Diagram Arsitektur | Tautan Berkas Mandiri (Siap Run di Chrome) |
 | :---: | :--- | :--- |
-| **Slide 01** | Paradigma: Komparasi Berdampingan Vanilla JS DOM vs Vue 3 | [`slide_01_paradigma_imperatif_vs_deklaratif.html`](contoh_kode_program/sesi_02_vue_frontend/slide_01_paradigma_imperatif_vs_deklaratif.html) |
-| **Slide 02** | Reaktivitas Primitif: `ref()` dan Unboxing Otomatis `.value` | [`slide_02_sistem_reaktivitas_ref.html`](contoh_kode_program/sesi_02_vue_frontend/slide_02_sistem_reaktivitas_ref.html) |
-| **Slide 03** | Reaktivitas Objek: `reactive()` & Mekanisme ES6 Proxy | [`slide_03_reaktivitas_objek_reactive.html`](contoh_kode_program/sesi_02_vue_frontend/slide_03_reaktivitas_objek_reactive.html) |
-| **Slide 04** | Text Interpolation `{{ }}` & Pengikatan Dinamis `v-bind` (`:`) | [`slide_04_text_interpolation_v_bind.html`](contoh_kode_program/sesi_02_vue_frontend/slide_04_text_interpolation_v_bind.html) |
-| **Slide 05** | Form Masukan Dua Arah `v-model` & Modifiers (`.trim`, `.number`) | [`slide_05_two_way_binding_v_model.html`](contoh_kode_program/sesi_02_vue_frontend/slide_05_two_way_binding_v_model.html) |
-| **Slide 06** | Bedah Performa Memori: `v-if` (Bongkar DOM) vs `v-show` (CSS Toggle) | [`slide_06_conditional_v_if_vs_v_show.html`](contoh_kode_program/sesi_02_vue_frontend/slide_06_conditional_v_if_vs_v_show.html) |
-| **Slide 07** | Render List `v-for` & Urgensi Atribut `:key` Identitas Unik | [`slide_07_list_rendering_v_for_dan_key.html`](contoh_kode_program/sesi_02_vue_frontend/slide_07_list_rendering_v_for_dan_key.html) |
-| **Slide 08** | Penanganan Event (`@click`) & Modifiers (`.prevent`, `.stop`) | [`slide_08_event_handling_dan_modifiers.html`](contoh_kode_program/sesi_02_vue_frontend/slide_08_event_handling_dan_modifiers.html) |
-| **Slide 09** | Properti Terkalkulasi `computed()` & Efisiensi Caching Nilai IPS | [`slide_09_computed_properties_ips.html`](contoh_kode_program/sesi_02_vue_frontend/slide_09_computed_properties_ips.html) |
-| **Slide 10** | Pemantau Data `watch()` & Side Effects (Auto-Save `localStorage`) | [`slide_10_watchers_dan_side_effects.html`](contoh_kode_program/sesi_02_vue_frontend/slide_10_watchers_dan_side_effects.html) |
-| **Slide 11** | Siklus Hidup: `onMounted`, `onUpdated`, & `onUnmounted` (Cleanup RAM) | [`slide_11_lifecycle_hooks_onmounted.html`](contoh_kode_program/sesi_02_vue_frontend/slide_11_lifecycle_hooks_onmounted.html) |
-| **Slide 12** | Anatomi Single File Component (`<template>`, `<script>`, `<style>`) | [`slide_12_komposisi_komponen_sfc.html`](contoh_kode_program/sesi_02_vue_frontend/slide_12_komposisi_komponen_sfc.html) |
-| **Slide 13** | Komunikasi Induk ke Anak: Aliran Data Satu Arah via `props` | [`slide_13_props_aliran_data_induk_anak.html`](contoh_kode_program/sesi_02_vue_frontend/slide_13_props_aliran_data_induk_anak.html) |
-| **Slide 14** | Komunikasi Anak ke Induk: Sinyal Custom Events via `emit()` | [`slide_14_emits_komunikasi_anak_ke_induk.html`](contoh_kode_program/sesi_02_vue_frontend/slide_14_emits_komunikasi_anak_ke_induk.html) |
-| **Slide 15** | Proyeksi Konten Fleksibel: Default Slot & Named Slots (`<slot>`) | [`slide_15_slots_proyeksi_konten_fleksibel.html`](contoh_kode_program/sesi_02_vue_frontend/slide_15_slots_proyeksi_konten_fleksibel.html) |
-| **Slide 16** | Clean Architecture: State Reusable Composable (`useKRSManager`) | [`slide_16_state_reusable_composables.html`](contoh_kode_program/sesi_02_vue_frontend/slide_16_state_reusable_composables.html) |
-| **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 02:** Aplikasi KRS Mandiri Mahasiswa UT | [`slide_17_lab_quest_02_krs_interaktif.html`](contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html) |
-| **Slide 18** | Jembatan Sesi 03: Mengapa Butuh TypeScript Interface? | [`slide_18_preview_sesi_03_typescript.html`](contoh_kode_program/sesi_02_vue_frontend/slide_18_preview_sesi_03_typescript.html) |
+| **Slide 01** | Paradigma: Komparasi Berdampingan Vanilla JS DOM vs Vue 3 (Diagram Spaghetti vs Reaktif) | [🌐 `slide_01_paradigma_imperatif_vs_deklaratif.html`](contoh_kode_program/sesi_02_vue_frontend/slide_01_paradigma_imperatif_vs_deklaratif.html) |
+| **Slide 02** | Reaktivitas Primitif: `ref()` dan Unboxing Otomatis `.value` (Diagram Getter/Setter Wadah) | [🌐 `slide_02_sistem_reaktivitas_ref.html`](contoh_kode_program/sesi_02_vue_frontend/slide_02_sistem_reaktivitas_ref.html) |
+| **Slide 03** | Reaktivitas Objek: `reactive()` & Mekanisme ES6 Proxy (Diagram Interceptor Trap) | [🌐 `slide_03_reaktivitas_objek_reactive.html`](contoh_kode_program/sesi_02_vue_frontend/slide_03_reaktivitas_objek_reactive.html) |
+| **Slide 04** | Text Interpolation `{{ }}` & Pengikatan Dinamis `v-bind` (`:`) (Diagram Binding Alur) | [🌐 `slide_04_text_interpolation_v_bind.html`](contoh_kode_program/sesi_02_vue_frontend/slide_04_text_interpolation_v_bind.html) |
+| **Slide 05** | Form Masukan Dua Arah `v-model` & Modifiers (`.trim`, `.number`) (Diagram Sinkronisasi) | [🌐 `slide_05_two_way_binding_v_model.html`](contoh_kode_program/sesi_02_vue_frontend/slide_05_two_way_binding_v_model.html) |
+| **Slide 06** | Bedah Performa Memori: `v-if` (Bongkar DOM) vs `v-show` (CSS Toggle) (Diagram DOM vs CSS) | [🌐 `slide_06_conditional_v_if_vs_v_show.html`](contoh_kode_program/sesi_02_vue_frontend/slide_06_conditional_v_if_vs_v_show.html) |
+| **Slide 07** | Render List `v-for` & Urgensi Atribut `:key` Identitas Unik (Diagram VDOM Diffing) | [🌐 `slide_07_list_rendering_v_for_dan_key.html`](contoh_kode_program/sesi_02_vue_frontend/slide_07_list_rendering_v_for_dan_key.html) |
+| **Slide 08** | Penanganan Event (`@click`) & Modifiers (`.prevent`, `.stop`) (Diagram Event Bubbling) | [🌐 `slide_08_event_handling_dan_modifiers.html`](contoh_kode_program/sesi_02_vue_frontend/slide_08_event_handling_dan_modifiers.html) |
+| **Slide 09** | Properti Terkalkulasi `computed()` & Efisiensi Caching Nilai IPS (Diagram Caching Pipeline) | [🌐 `slide_09_computed_properties_ips.html`](contoh_kode_program/sesi_02_vue_frontend/slide_09_computed_properties_ips.html) |
+| **Slide 10** | Pemantau Data `watch()` & Side Effects (Auto-Save `localStorage` & Debouncing 500ms) | [🌐 `slide_10_watchers_dan_side_effects.html`](contoh_kode_program/sesi_02_vue_frontend/slide_10_watchers_dan_side_effects.html) |
+| **Slide 11** | Siklus Hidup: `onMounted`, `onUpdated`, & `onUnmounted` (Timeline 4 Fase & Memory Cleanup) | [🌐 `slide_11_lifecycle_hooks_onmounted.html`](contoh_kode_program/sesi_02_vue_frontend/slide_11_lifecycle_hooks_onmounted.html) |
+| **Slide 12** | Anatomi Single File Component (`<template>`, `<script>`, `<style>`) (Diagram SFC Compiler) | [🌐 `slide_12_komposisi_komponen_sfc.html`](contoh_kode_program/sesi_02_vue_frontend/slide_12_komposisi_komponen_sfc.html) |
+| **Slide 13** | Komunikasi Induk ke Anak: Aliran Data Satu Arah via `props` (Diagram Props Down) | [🌐 `slide_13_props_aliran_data_induk_anak.html`](contoh_kode_program/sesi_02_vue_frontend/slide_13_props_aliran_data_induk_anak.html) |
+| **Slide 14** | Komunikasi Anak ke Induk: Sinyal Custom Events via `emit()` (Diagram Events Up) | [🌐 `slide_14_emits_komunikasi_anak_ke_induk.html`](contoh_kode_program/sesi_02_vue_frontend/slide_14_emits_komunikasi_anak_ke_induk.html) |
+| **Slide 15** | Proyeksi Konten Fleksibel: Default Slot & Named Slots (`<slot>`) (Diagram Shell & Injection) | [🌐 `slide_15_slots_proyeksi_konten_fleksibel.html`](contoh_kode_program/sesi_02_vue_frontend/slide_15_slots_proyeksi_konten_fleksibel.html) |
+| **Slide 16** | Clean Architecture: State Reusable Composable (`useKRSManager`) (Diagram Separation of Concerns) | [🌐 `slide_16_state_reusable_composables.html`](contoh_kode_program/sesi_02_vue_frontend/slide_16_state_reusable_composables.html) |
+| **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 02:** Mini-SIA KRS Mandiri Mahasiswa UT (Arsitektur Terpadu) | [🌐 `slide_17_lab_quest_02_krs_interaktif.html`](contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html) |
+| **Slide 18** | Jembatan Sesi 03: Mengapa Butuh TypeScript Interface? (Diagram Runtime Crash vs Type Guard) | [🌐 `slide_18_preview_sesi_03_typescript.html`](contoh_kode_program/sesi_02_vue_frontend/slide_18_preview_sesi_03_typescript.html) |
 
 ---
 

@@ -91,14 +91,32 @@
       gap: 10px;
       background: #F9FAFB;
     }
-    pre {
-      background: #121212;
-      color: #F5F5F5;
-      padding: 12px;
-      border: 2px solid var(--border);
-      font-family: 'Consolas', monospace;
-      font-size: 12px;
-      overflow-x: auto;
+    /* PANDUAN AWAM & DIAGRAM */
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .guide-box h3 { margin: 0 0 8px 0; font-size: 15px; color: #1E40AF; }
+    .guide-box ol { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.6; }
+    .guide-box li { margin-bottom: 6px; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid var(--border);
+      padding: 16px;
+      box-shadow: 4px 4px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .diagram-card h4 { margin: 0 0 12px 0; font-size: 14px; }
+    .source-cite {
+      font-size: 11px;
+      color: #6B7280;
+      margin-top: 20px;
+      border-top: 1px dashed #9CA3AF;
+      padding-top: 8px;
+      text-align: right;
     }
   </style>
 </head>
@@ -108,6 +126,78 @@
     <div class="badge">SLIDE 15 • MODUL 2 BMP UT</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Proyeksi Konten Fleksibel: Default Slot & Named Slots (&lt;slot&gt;)</h1>
     <p style="margin: 0; font-size: 14px;">Menyematkan elemen HTML atau komponen lain ke dalam kerangka komponen secara dinamis.</p>
+  </div>
+
+  <!-- PANDUAN PRAKTIKUM MAHASISWA -->
+  <div class="guide-box">
+    <h3>📖 Panduan Praktikum Mandiri Mahasiswa (Pemula & Awam)</h3>
+    <ol>
+      <li><strong>🛠️ Alat yang Digunakan:</strong> Buka berkas HTML ini di <strong>Google Chrome</strong> atau peramban modern di laptop/ponsel Anda.</li>
+      <li><strong>🎯 Cara Menguji Interaksi:</strong>
+        <ul>
+          <li>Klik tombol <strong>"🔔 Buka Dialog Konfirmasi Pengumpulan Tugas 1"</strong>.</li>
+          <li>Perhatikan jendela dialog modal muncul dengan backdrop transparan hitam. Anda dapat menutup dialog dengan mengklik <strong>"Batal"</strong> atau mengklik area luar (backdrop).</li>
+          <li>Klik <strong>"Ya, Kumpulkan Sekarang"</strong> untuk melihat eksekusi aksi pengiriman tugas.</li>
+        </ul>
+      </li>
+      <li><strong>💡 Apa yang Terjadi di Balik Layar (Proyeksi Slot):</strong> Komponen <code>dialog-modal</code> hanya menyediakan bingkai kerangka HTML & CSS (wadah kosong). Induk pemanggil dapat menyuntikkan isi teks, tombol, maupun elemen custom secara fleksibel melalui <strong>Named Slot</strong> (<code>&lt;template #header&gt;</code>, <code>&lt;template #footer&gt;</code>) dan <strong>Default Slot</strong>. Arsitektur ini mencegah kita membuat puluhan komponen modal yang berbeda-beda hanya untuk mengubah teks judul atau tombolnya!</li>
+    </ol>
+  </div>
+
+  <!-- DIAGRAM PROYEKSI SLOT -->
+  <div class="diagram-card">
+    <h4>📐 Diagram Mekanisme Proyeksi Konten Slot (Content Distribution)</h4>
+    <svg viewBox="0 0 760 180" style="width:100%; height:auto; display:block;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- Panel Kiri: Komponen Induk -->
+      <g transform="translate(10, 10)">
+        <rect width="250" height="155" rx="6" fill="#EFF6FF" stroke="#000" stroke-width="2.5"/>
+        <text x="14" y="24" font-weight="900" font-size="12" fill="#1E40AF">KOMPONEN INDUK (KONTEN)</text>
+        <text x="14" y="42" font-size="10.5" fill="#555">&lt;dialog-modal&gt;</text>
+
+        <rect x="12" y="52" width="226" height="30" rx="4" fill="#FEF3C7" stroke="#000" stroke-width="1.5"/>
+        <text x="20" y="71" font-size="10" font-weight="bold" fill="#B45309">#header: "PERINGATAN AKADEMIK"</text>
+
+        <rect x="12" y="88" width="226" height="30" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1.5"/>
+        <text x="20" y="107" font-size="10" font-weight="bold" fill="#0369A1">#default: &lt;p&gt;Apakah Anda yakin...&lt;/p&gt;</text>
+
+        <rect x="12" y="124" width="226" height="30" rx="4" fill="#DCFCE7" stroke="#000" stroke-width="1.5"/>
+        <text x="20" y="143" font-size="10" font-weight="bold" fill="#15803D">#footer: &lt;button&gt;Kirim&lt;/button&gt;</text>
+      </g>
+
+      <!-- Panah Proyeksi Tengah -->
+      <g transform="translate(270, 20)">
+        <line x1="10" y1="40" x2="150" y2="40" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)"/>
+        <text x="80" y="32" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">Disuntikkan</text>
+
+        <line x1="10" y1="80" x2="150" y2="80" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)"/>
+        <text x="80" y="72" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">ke Slot</text>
+
+        <line x1="10" y1="120" x2="150" y2="120" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)"/>
+        <text x="80" y="112" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">Target</text>
+      </g>
+
+      <!-- Panel Kanan: Kerangka Modal Reusable -->
+      <g transform="translate(440, 10)">
+        <rect width="310" height="155" rx="6" fill="#F9FAFB" stroke="#000" stroke-width="2.5"/>
+        <text x="14" y="24" font-weight="900" font-size="12" fill="#111827">KERANGKA MODAL: &lt;dialog-modal&gt;</text>
+        <text x="14" y="42" font-size="10.5" fill="#555">Wadah Bingkai Modular Reusable</text>
+
+        <rect x="12" y="52" width="286" height="30" rx="4" fill="#FEF3C7" stroke="#000" stroke-dasharray="4 2" stroke-width="1.5"/>
+        <text x="20" y="71" font-size="10" font-weight="bold" fill="#B45309">&lt;slot name="header"&gt;...&lt;/slot&gt;</text>
+
+        <rect x="12" y="88" width="286" height="30" rx="4" fill="#FFFFFF" stroke="#000" stroke-dasharray="4 2" stroke-width="1.5"/>
+        <text x="20" y="107" font-size="10" font-weight="bold" fill="#0369A1">&lt;slot&gt;Konten Tubuh Komponen&lt;/slot&gt;</text>
+
+        <rect x="12" y="124" width="286" height="30" rx="4" fill="#DCFCE7" stroke="#000" stroke-dasharray="4 2" stroke-width="1.5"/>
+        <text x="20" y="143" font-size="10" font-weight="bold" fill="#15803D">&lt;slot name="footer"&gt;...&lt;/slot&gt;</text>
+      </g>
+    </svg>
   </div>
 
   <div id="app" class="card">
@@ -154,6 +244,10 @@
   &lt;p&gt;Konten Body Fleksibel&lt;/p&gt;
   &lt;template #footer&gt;&lt;button&gt;OK&lt;/button&gt;&lt;/template&gt;
 &lt;/dialog-modal&gt;</code></pre>
+  </div>
+
+  <div class="source-cite" style="max-width:720px; margin:20px auto 0 auto;">
+    📚 Sumber Referensi: Modul 2 KB 2 BMP UT STSI4303 / MSIM4401 (Komponen Antarmuka Grafis) & Dokumentasi Resmi Vue.js 3 - Slots (vuejs.org/guide/components/slots.html)
   </div>
 
   <script>

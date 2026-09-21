@@ -68,7 +68,32 @@
       border: 2px solid var(--border);
       font-family: 'Consolas', monospace;
       font-size: 12px;
-      overflow-x: auto;
+    /* PANDUAN AWAM & DIAGRAM */
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .guide-box h3 { margin: 0 0 8px 0; font-size: 15px; color: #1E40AF; }
+    .guide-box ol { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.6; }
+    .guide-box li { margin-bottom: 6px; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid var(--border);
+      padding: 16px;
+      box-shadow: 4px 4px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .diagram-card h4 { margin: 0 0 12px 0; font-size: 14px; }
+    .source-cite {
+      font-size: 11px;
+      color: #6B7280;
+      margin-top: 20px;
+      border-top: 1px dashed #9CA3AF;
+      padding-top: 8px;
+      text-align: right;
     }
   </style>
 </head>
@@ -78,6 +103,75 @@
     <div class="badge">SLIDE 16 • MODUL 2 BMP UT</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">State Management Ringan: Pola Custom Composables (useKRSManager)</h1>
     <p style="margin: 0; font-size: 14px;">Memisahkan logika bisnis dari tampilan antarmuka (UI) agar kode bersih, modular, dan teruji.</p>
+  </div>
+
+  <!-- PANDUAN PRAKTIKUM MAHASISWA -->
+  <div class="guide-box">
+    <h3>📖 Panduan Praktikum Mandiri Mahasiswa (Pemula & Awam)</h3>
+    <ol>
+      <li><strong>🛠️ Alat yang Digunakan:</strong> Buka berkas HTML ini langsung di <strong>Google Chrome</strong> atau peramban web modern Anda.</li>
+      <li><strong>🎯 Cara Menguji Interaksi:</strong>
+        <ul>
+          <li>Klik tombol <strong>+ Ambil Mata Kuliah</strong> pada kartu mata kuliah yang tersedia.</li>
+          <li>Perhatikan indikator <strong>Total Beban SKS</strong> di bagian atas. Ketika mendekati atau mencapai 24 SKS, sistem otomatis mengunci penambahan mata kuliah baru (tombol menjadi nonaktif).</li>
+          <li>Klik tombol <strong>✓ Terpilih (Klik Batalkan)</strong> untuk melepas mata kuliah dan membebaskan kuota SKS kembali.</li>
+        </ul>
+      </li>
+      <li><strong>💡 Apa yang Terjadi di Balik Layar (Filosofi Composables):</strong> Seluruh state (<code>krs</code>), kalkulasi logika (<code>totalSks</code>, <code>isPenuh</code>), dan fungsi manipulasi data (<code>ambilMk</code>, <code>lepasMk</code>) tidak ditaruh langsung di dalam elemen UI, melainkan diisolasi di dalam fungsi reusable bernama <code>useKRSManager()</code>. Hal ini sesuai dengan prinsip <em>Clean Architecture</em>: tampilan UI dapat berganti bentuk, tetapi logika bisnis inti KRS tetap utuh dan dapat diuji secara mandiri (unit testing)!</li>
+    </ol>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR COMPOSABLES -->
+  <div class="diagram-card">
+    <h4>📐 Diagram Arsitektur Pemisahan Tanggung Jawab (Custom Composable Pattern)</h4>
+    <svg viewBox="0 0 760 180" style="width:100%; height:auto; display:block;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+        </marker>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#1D4ED8" />
+        </marker>
+      </defs>
+
+      <!-- Panel Kiri: Lapisan UI Komponen -->
+      <g transform="translate(10, 10)">
+        <rect width="260" height="155" rx="6" fill="#F3F4F6" stroke="#000" stroke-width="2.5"/>
+        <text x="14" y="24" font-weight="900" font-size="12" fill="#111827">LAPISAN UI (KOMPONEN VUE)</text>
+        <text x="14" y="42" font-size="10.5" fill="#555">Fokus: Presentasi & Interaksi Pengguna</text>
+
+        <rect x="12" y="52" width="236" height="42" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1.5"/>
+        <text x="20" y="70" font-size="10" font-weight="bold" fill="#0369A1">&lt;template&gt; Render Kartu & Tombol</text>
+        <text x="20" y="84" font-size="9" fill="#555">Hanya menampilkan nilai dan panggil aksi</text>
+
+        <rect x="12" y="100" width="236" height="44" rx="4" fill="#E0F2FE" stroke="#000" stroke-width="1.5"/>
+        <text x="20" y="118" font-size="9.5" font-weight="bold" fill="#0369A1">Konsumsi State Bersih:</text>
+        <text x="20" y="132" font-family="Consolas" font-size="9" fill="#1E40AF">const { totalSks, ambilMk } = useKRS();</text>
+      </g>
+
+      <!-- Arrow Komunikasi Tengah -->
+      <g transform="translate(280, 20)">
+        <line x1="10" y1="45" x2="140" y2="45" stroke="#1D4ED8" stroke-width="3" marker-end="url(#arrow-blue)"/>
+        <text x="75" y="38" font-size="10" font-weight="bold" text-anchor="middle" fill="#1D4ED8">Aksi: ambilMk(mk)</text>
+
+        <line x1="140" y1="100" x2="10" y2="100" stroke="#15803D" stroke-width="3" marker-end="url(#arrow)"/>
+        <text x="75" y="118" font-size="10" font-weight="bold" text-anchor="middle" fill="#15803D">Reaktif: totalSks, isPenuh</text>
+      </g>
+
+      <!-- Panel Kanan: Custom Composable (Logika Bisnis) -->
+      <g transform="translate(435, 10)">
+        <rect width="315" height="155" rx="6" fill="#FFFBEB" stroke="#000" stroke-width="2.5"/>
+        <text x="14" y="24" font-weight="900" font-size="12" fill="#B45309">LOGIKA MURNI: useKRSManager()</text>
+        <text x="14" y="42" font-size="10.5" fill="#555">Bebas dari DOM (Portable & Unit-Testable)</text>
+
+        <rect x="12" y="52" width="291" height="92" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1.5"/>
+        <text x="20" y="70" font-size="9.5" font-weight="bold" fill="#15803D">• State: const krs = ref([])</text>
+        <text x="20" y="86" font-size="9.5" font-weight="bold" fill="#0369A1">• Rule: totalSks = computed(() =&gt; ...)</text>
+        <text x="20" y="102" font-size="9.5" font-weight="bold" fill="#DC2626">• Rule: isPenuh = computed(() =&gt; total &gt;= 24)</text>
+        <text x="20" y="120" font-size="9.5" font-weight="bold" fill="#7C3AED">• Method: ambilMk(), lepasMk()</text>
+        <text x="20" y="136" font-size="8.5" fill="#6B7280">Dapat dipakai di Web, Mobile App, maupun CLI!</text>
+      </g>
+    </svg>
   </div>
 
   <div id="app" class="card">
@@ -130,6 +224,10 @@ export function useKRSManager() {
 
   return { krs, totalSks, isPenuh, ambilMk, lepasMk };
 }</code></pre>
+  </div>
+
+  <div class="source-cite" style="max-width:780px; margin:20px auto 0 auto;">
+    📚 Sumber Referensi: Modul 2 KB 2 BMP UT STSI4303 / MSIM4401 (State Management Komponen) & Dokumentasi Resmi Vue.js 3 - Composables (vuejs.org/guide/reusability/composables.html)
   </div>
 
   <script>

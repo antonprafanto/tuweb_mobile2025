@@ -83,14 +83,77 @@
       overflow-y: auto;
       margin-top: 14px;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .diagram-card {
+      background: #FFF;
+      border: 3px solid var(--border);
+      padding: 16px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 720px;
+      margin: 0 auto 20px auto;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
-  <div class="header">
+  <div class="header" style="max-width: 720px; margin: 0 auto 20px auto;">
     <div class="badge">SLIDE 08 • MODUL 2 BMP UT</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Penanganan Event (@event) & Event Modifiers (.prevent, .stop)</h1>
     <p style="margin: 0; font-size: 14px;">Mengendalikan interaksi pengguna dan mencegah aksi bawaan browser tanpa kode rumit.</p>
+  </div>
+
+  <div class="guide-box">
+    <strong>💡 Panduan Ramah Pemula:</strong><br>
+    • <strong>Alat yang Digunakan:</strong> Buka berkas ini di <strong>Google Chrome</strong> (klik ganda berkas HTML).<br>
+    • <strong>Uji Mode Mobile:</strong> Tekan <kbd>F12</kbd> lalu <kbd>Ctrl + Shift + M</kbd> untuk simulasi layar ponsel.<br>
+    • <strong>Eksperimen Interaktif:</strong><br>
+      1. Tekan tombol <em>Kirim Tanggapan Diskusi</em>. Berkat <code>@submit.prevent</code>, browser TIDAK reload/kedip putih!<br>
+      2. Klik tombol <em>Beri Like</em> di dalam kotak kuning. Berkat <code>@click.stop</code>, event klik ditahan dan tidak tembus ke kartu induk!
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR EVENT MODIFIERS -->
+  <div class="diagram-card">
+    <h3 style="margin: 0 0 10px 0; font-size: 16px;">📊 Diagram: Cara Kerja .prevent (Cegah Reload) & .stop (Cegah Tembus)</h3>
+    <div style="width: 100%; overflow-x: auto; background: #FFF; border: 2px solid #000; padding: 12px; margin-bottom: 8px;">
+      <svg viewBox="0 0 680 160" width="100%" height="150" xmlns="http://www.w3.org/2000/svg">
+        <!-- KIRI: .PREVENT -->
+        <rect x="10" y="15" width="315" height="135" rx="6" fill="#EFF6FF" stroke="#000" stroke-width="2"/>
+        <text x="25" y="38" font-family="Segoe UI" font-size="12" font-weight="bold" fill="#1D4ED8">1. @submit.prevent</text>
+        <rect x="25" y="50" width="285" height="35" rx="4" fill="#DBEAFE" stroke="#000" stroke-width="1.2"/>
+        <text x="35" y="72" font-family="Consolas" font-size="11">&lt;form @submit.prevent="kirim"&gt;</text>
+        <text x="25" y="105" font-family="Segoe UI" font-size="9.5" fill="#1E40AF">• Memblokir reload standar peramban (F5)</text>
+        <text x="25" y="122" font-family="Segoe UI" font-size="9.5" font-weight="bold" fill="#15803D">✨ Menjaga status aplikasi mobile tetap utuh!</text>
+
+        <!-- KANAN: .STOP -->
+        <rect x="345" y="15" width="325" height="135" rx="6" fill="#FEF9C3" stroke="#000" stroke-width="2"/>
+        <text x="360" y="38" font-family="Segoe UI" font-size="12" font-weight="bold" fill="#854D0E">2. @click.stop (Stop Propagation)</text>
+        <rect x="360" y="50" width="295" height="35" rx="4" fill="#FEF08A" stroke="#000" stroke-width="1.2"/>
+        <text x="370" y="72" font-family="Consolas" font-size="11">&lt;button @click.stop="like"&gt;</text>
+        <text x="360" y="105" font-family="Segoe UI" font-size="9.5" fill="#78350F">• Menghentikan event bubbling ke elemen kartu induk</text>
+        <text x="360" y="122" font-family="Segoe UI" font-size="9.5" font-weight="bold" fill="#B45309">🛡️ Menghindari klik ganda tak sengaja pada kartu mobile</text>
+      </svg>
+    </div>
+    <div class="source-cite">
+      <strong>Referensi Akademik:</strong> BMP UT STSI4303 / MSIM4401 Modul 2 & Dokumentasi Resmi Vue.js 3: "Event Handling - Event Modifiers" (vuejs.org/guide/essentials/event-handling).
+    </div>
   </div>
 
   <div id="app" class="card">

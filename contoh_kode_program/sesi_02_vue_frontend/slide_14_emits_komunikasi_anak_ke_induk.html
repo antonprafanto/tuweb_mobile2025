@@ -59,14 +59,32 @@
       font-weight: bold;
       cursor: pointer;
     }
-    pre {
-      background: #121212;
-      color: #F5F5F5;
-      padding: 12px;
-      border: 2px solid var(--border);
-      font-family: 'Consolas', monospace;
-      font-size: 12px;
-      overflow-x: auto;
+    /* PANDUAN AWAM & DIAGRAM */
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .guide-box h3 { margin: 0 0 8px 0; font-size: 15px; color: #1E40AF; }
+    .guide-box ol { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.6; }
+    .guide-box li { margin-bottom: 6px; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid var(--border);
+      padding: 16px;
+      box-shadow: 4px 4px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .diagram-card h4 { margin: 0 0 12px 0; font-size: 14px; }
+    .source-cite {
+      font-size: 11px;
+      color: #6B7280;
+      margin-top: 20px;
+      border-top: 1px dashed #9CA3AF;
+      padding-top: 8px;
+      text-align: right;
     }
   </style>
 </head>
@@ -76,6 +94,80 @@
     <div class="badge">SLIDE 14 • MODUL 2 BMP UT</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Komunikasi Komponen Anak ke Induk: Custom Events via emit()</h1>
     <p style="margin: 0; font-size: 14px;">Filosofi: <em>"Props Down, Events Up"</em>. Anak mengirim sinyal saat terjadi interaksi pengguna.</p>
+  </div>
+
+  <!-- PANDUAN PRAKTIKUM MAHASISWA -->
+  <div class="guide-box">
+    <h3>📖 Panduan Praktikum Mandiri Mahasiswa (Pemula & Awam)</h3>
+    <ol>
+      <li><strong>🛠️ Alat yang Digunakan:</strong> Buka berkas HTML ini di <strong>Google Chrome</strong>. Gunakan <strong>Developer Tools (F12)</strong> untuk mengamati jalannya aplikasi.</li>
+      <li><strong>🎯 Cara Menguji Interaksi:</strong>
+        <ul>
+          <li>Klik tombol <strong>+</strong> atau <strong>-</strong> pada salah satu modul BMP untuk menambah/mengurangi kuantitas.</li>
+          <li>Klik tombol <strong>🗑️</strong> untuk menghapus modul dari keranjang belanja.</li>
+          <li>Perhatikan kotak hijau <strong>TOTAL PEMBAYARAN</strong> yang seketika berubah otomatis tanpa perlu me-reload halaman!</li>
+        </ul>
+      </li>
+      <li><strong>💡 Apa yang Terjadi di Balik Layar (Filosofi "Events Up"):</strong> Komponen anak (<code>modul-item</code>) tidak memiliki wewenang untuk mengubah atau menghapus data keranjang milik induk secara langsung. Anak hanya bertindak memancarkan sinyal event (<code>$emit('tambah-qty', modul.id)</code>). Komponen induk menangkap sinyal ini lewat pendengar event kustom (<code>@tambah-qty="handleTambahQty"</code>), lalu mengubah state miliknya sendiri secara aman!</li>
+    </ol>
+  </div>
+
+  <!-- DIAGRAM SIKLUS PROPS DOWN & EVENTS UP -->
+  <div class="diagram-card">
+    <h4>📐 Diagram Arsitektur Siklus Dua Arah: Props Down & Events Up</h4>
+    <svg viewBox="0 0 760 180" style="width:100%; height:auto; display:block;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+        </marker>
+        <marker id="arrow-up" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#DC2626" />
+        </marker>
+      </defs>
+
+      <!-- Kotak Induk (Parent) -->
+      <g transform="translate(10, 10)">
+        <rect width="250" height="155" rx="6" fill="#EFF6FF" stroke="#000" stroke-width="2.5"/>
+        <text x="14" y="24" font-weight="900" font-size="12" fill="#1E40AF">KOMPONEN INDUK (PARENT)</text>
+        <text x="14" y="42" font-size="10.5" fill="#555">State Keranjang & Total Bayar</text>
+        
+        <rect x="12" y="52" width="226" height="42" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1"/>
+        <text x="20" y="70" font-size="10" font-weight="bold" fill="#0369A1">State: keranjang = ref([...])</text>
+        <text x="20" y="84" font-size="9" fill="#555">Computed: totalBayar (Kalkulasi Otomatis)</text>
+
+        <rect x="12" y="100" width="226" height="44" rx="4" fill="#FEF3C7" stroke="#000" stroke-width="1"/>
+        <text x="20" y="118" font-size="9.5" font-weight="bold" fill="#92400E">Handler: @tambah-qty="handle..."</text>
+        <text x="20" y="132" font-size="9" fill="#555">Mengubah nilai qty secara aman di induk</text>
+      </g>
+
+      <!-- Saluran Komunikasi di Tengah -->
+      <g transform="translate(270, 20)">
+        <!-- Props Down Line -->
+        <line x1="10" y1="35" x2="160" y2="35" stroke="#15803D" stroke-width="3" marker-end="url(#arrow)"/>
+        <rect x="20" y="12" width="140" height="22" rx="3" fill="#DCFCE7" stroke="#15803D" stroke-width="1"/>
+        <text x="28" y="27" font-weight="bold" font-size="10" fill="#15803D">1. PROPS DOWN: :modul</text>
+
+        <!-- Events Up Line -->
+        <line x1="160" y1="105" x2="10" y2="105" stroke="#DC2626" stroke-width="3" marker-end="url(#arrow-up)"/>
+        <rect x="10" y="115" width="160" height="22" rx="3" fill="#FEE2E2" stroke="#DC2626" stroke-width="1"/>
+        <text x="18" y="130" font-weight="bold" font-size="10" fill="#DC2626">2. EVENTS UP: emit('tambah-qty')</text>
+      </g>
+
+      <!-- Kotak Anak (Child) -->
+      <g transform="translate(460, 10)">
+        <rect width="290" height="155" rx="6" fill="#FFFBEB" stroke="#000" stroke-width="2.5"/>
+        <text x="14" y="24" font-weight="900" font-size="12" fill="#B45309">KOMPONEN ANAK: &lt;modul-item&gt;</text>
+        <text x="14" y="42" font-size="10.5" fill="#555">Item Keranjang Dinamis</text>
+
+        <rect x="12" y="52" width="266" height="42" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1"/>
+        <text x="20" y="70" font-size="10" font-weight="bold" fill="#0369A1">Menerima: props: ['modul']</text>
+        <text x="20" y="84" font-size="9" fill="#555">Menampilkan judul, harga, dan tombol</text>
+
+        <rect x="12" y="100" width="266" height="44" rx="4" fill="#FEE2E2" stroke="#000" stroke-width="1"/>
+        <text x="20" y="118" font-size="9.5" font-weight="bold" fill="#B91C1C">Klik Tombol: $emit('tambah-qty', id)</text>
+        <text x="20" y="132" font-size="9" fill="#555">Kirim sinyal event beserta data payload (ID)</text>
+      </g>
+    </svg>
   </div>
 
   <div id="app" class="card">
@@ -112,6 +204,10 @@ setup(props, { emit }) {
 
 // 2. DI KOMPONEN INDUK: Dengarkan dengan @nama-event
 &lt;modul-item @hapus-item="handleHapusItem" /&gt;</code></pre>
+  </div>
+
+  <div class="source-cite" style="max-width:740px; margin:20px auto 0 auto;">
+    📚 Sumber Referensi: Modul 2 KB 2 BMP UT STSI4303 / MSIM4401 (Rekayasa Perangkat Bergerak) & Dokumentasi Resmi Vue.js 3 - Component Events (vuejs.org/guide/components/events.html)
   </div>
 
   <script>

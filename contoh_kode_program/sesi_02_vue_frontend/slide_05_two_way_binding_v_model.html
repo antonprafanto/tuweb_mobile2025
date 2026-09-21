@@ -59,6 +59,29 @@
       font-size: 13px;
       overflow-x: auto;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .diagram-card {
+      background: #FFF;
+      border: 3px solid var(--border);
+      padding: 16px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -67,6 +90,51 @@
     <div class="badge">SLIDE 05 • MODUL 2 BMP UT</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Pengikatan Data Dua Arah (v-model) & Input Modifiers</h1>
     <p style="margin: 0; font-size: 14px;">Sinkronisasi otomatis antara input antarmuka pengguna dengan state JavaScript.</p>
+  </div>
+
+  <div class="guide-box">
+    <strong>💡 Panduan Ramah Pemula:</strong><br>
+    • <strong>Alat yang Digunakan:</strong> Buka berkas ini di <strong>Google Chrome</strong> (klik ganda berkas HTML).<br>
+    • <strong>Uji Mode Mobile:</strong> Tekan <kbd>F12</kbd> lalu <kbd>Ctrl + Shift + M</kbd> untuk merasakan pengisian formulir di layar sentuh ponsel.<br>
+    • <strong>Eksperimen Interaktif:</strong> Ubah teks nama, pilih dropdown prodi, atau centang fokus riset. Perhatikan bagaimana objek JSON di sebelah kanan terisi secara seketika tanpa perlu tombol simpan manual!
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR V-MODEL -->
+  <div class="diagram-card">
+    <h3 style="margin: 0 0 10px 0; font-size: 16px;">📊 Diagram Arsitektur: Bagaimana v-model Bekerja 2 Arah</h3>
+    <div style="width: 100%; overflow-x: auto; background: #FFF; border: 2px solid #000; padding: 12px; margin-bottom: 8px;">
+      <svg viewBox="0 0 720 160" width="100%" height="150" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow5" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#000"/>
+          </marker>
+        </defs>
+        <!-- BOX KIRI: UI INPUT -->
+        <rect x="15" y="25" width="220" height="110" rx="6" fill="#FEF08A" stroke="#000" stroke-width="2"/>
+        <text x="30" y="50" font-family="Segoe UI" font-size="12" font-weight="bold" fill="#854D0E">📱 ELEMEN INPUT HTML</text>
+        <text x="30" y="75" font-family="Consolas" font-size="11">&lt;input v-model="nama"&gt;</text>
+        <text x="30" y="105" font-family="Segoe UI" font-size="10" fill="#78350F">Kotak isian yang diketik</text>
+        <text x="30" y="120" font-family="Segoe UI" font-size="10" fill="#78350F">oleh jemari mahasiswa</text>
+
+        <!-- SIKLUS ATAS: UI KE STATE -->
+        <path d="M 245 50 L 460 50" stroke="#000" stroke-width="2" marker-end="url(#arrow5)"/>
+        <text x="270" y="42" font-family="Segoe UI" font-size="9.5" font-weight="bold" fill="#B91C1C">1. Event @input (User Mengetik)</text>
+
+        <!-- SIKLUS BAWAH: STATE KE UI -->
+        <path d="M 465 110 L 250 110" stroke="#000" stroke-width="2" marker-end="url(#arrow5)"/>
+        <text x="270" y="128" font-family="Segoe UI" font-size="9.5" font-weight="bold" fill="#15803D">2. Binding :value (Tampilkan Data)</text>
+
+        <!-- BOX KANAN: STATE JAVASCRIPT -->
+        <rect x="475" y="25" width="230" height="110" rx="6" fill="#F0FDF4" stroke="#000" stroke-width="2"/>
+        <text x="490" y="50" font-family="Segoe UI" font-size="12" font-weight="bold" fill="#15803D">💾 STATE DATA JAVASCRIPT</text>
+        <text x="490" y="75" font-family="Consolas" font-size="11">form.nama = "Budi"</text>
+        <text x="490" y="105" font-family="Segoe UI" font-size="10" fill="#166534">Tersimpan dalam memori</text>
+        <text x="490" y="120" font-family="Segoe UI" font-size="10" fill="#166534">reaktif secara seketika</text>
+      </svg>
+    </div>
+    <div class="source-cite">
+      <strong>Referensi Akademik:</strong> BMP UT STSI4303 Modul 2 & Dokumentasi Resmi Vue.js 3: "Form Input Bindings (v-model)" (vuejs.org/guide/essentials/forms).
+    </div>
   </div>
 
   <div id="app" class="grid">

@@ -65,6 +65,33 @@
       margin-top: 14px;
       min-height: 240px;
     }
+    /* PANDUAN AWAM & DIAGRAM */
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .guide-box h3 { margin: 0 0 8px 0; font-size: 15px; color: #1E40AF; }
+    .guide-box ol { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.6; }
+    .guide-box li { margin-bottom: 6px; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid var(--border);
+      padding: 16px;
+      box-shadow: 4px 4px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .diagram-card h4 { margin: 0 0 12px 0; font-size: 14px; }
+    .source-cite {
+      font-size: 11px;
+      color: #6B7280;
+      margin-top: 20px;
+      border-top: 1px dashed #9CA3AF;
+      padding-top: 8px;
+      text-align: right;
+    }
   </style>
 </head>
 <body>
@@ -73,6 +100,90 @@
     <div class="badge">SLIDE 12 • MODUL 2 BMP UT</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Anatomi Single File Component (SFC .vue): Template, Script, & Style Scoped</h1>
     <p style="margin: 0; font-size: 14px;">Standar arsitektur industri merangkum struktur, perilaku, dan gaya dalam satu berkas modular.</p>
+  </div>
+
+  <!-- PANDUAN PRAKTIKUM MAHASISWA -->
+  <div class="guide-box">
+    <h3>📖 Panduan Praktikum Mandiri Mahasiswa (Pemula & Awam)</h3>
+    <ol>
+      <li><strong>🛠️ Alat yang Digunakan:</strong> Buka berkas HTML ini langsung di <strong>Google Chrome</strong> atau peramban web modern Anda. Untuk proyek nyata, gunakan <strong>VS Code</strong> dengan ekstensi <em>Vue - Official (Volar)</em>.</li>
+      <li><strong>🎯 Cara Menguji Interaksi:</strong>
+        <ul>
+          <li>Klik tombol tab di panel kiri (<strong>📄 Lengkap</strong>, <strong>1. &lt;template&gt;</strong>, <strong>2. &lt;script&gt;</strong>, atau <strong>3. &lt;style scoped&gt;</strong>) untuk membaca bedah anatomi tiap bagian.</li>
+          <li>Di panel kanan, klik tombol <strong>"🎓 Naik Semester"</strong> untuk membuktikan komponen memiliki state internal yang mandiri dan reaktif.</li>
+        </ul>
+      </li>
+      <li><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Berkas <code>.vue</code> menyatukan tiga pilar rekayasa web (struktur, logika, gaya) ke dalam satu wadah modular. Compiler bundler (seperti Vite) membedah berkas ini saat proses build: <code>&lt;template&gt;</code> diubah menjadi Virtual DOM Render Function, <code>&lt;script setup&gt;</code> dieksekusi dalam konteks reaktif, dan <code>&lt;style scoped&gt;</code> diberi atribut identitas unik otomatis (misal: <code>data-v-7a7a37b0</code>) sehingga gayanya tidak akan pernah bocor merusak komponen lain!</li>
+    </ol>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SFC -->
+  <div class="diagram-card">
+    <h4>📐 Diagram Alur Arsitektur Single File Component (SFC .vue Compiler)</h4>
+    <svg viewBox="0 0 760 190" style="width:100%; height:auto; display:block;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- 1. Source SFC .vue -->
+      <g transform="translate(10, 10)">
+        <rect width="210" height="165" rx="6" fill="#FFFBEB" stroke="#000" stroke-width="2.5"/>
+        <text x="12" y="24" font-weight="900" font-size="12" fill="#B45309">BERKAS TUNGGAL: Kartu.vue</text>
+        
+        <!-- Template pill -->
+        <rect x="12" y="36" width="186" height="34" rx="4" fill="#E0F2FE" stroke="#000" stroke-width="1.5"/>
+        <text x="20" y="52" font-weight="bold" font-size="11" fill="#0369A1">1. &lt;template&gt;</text>
+        <text x="20" y="64" font-size="9.5" fill="#555">Struktur UI (HTML & Directives)</text>
+
+        <!-- Script pill -->
+        <rect x="12" y="76" width="186" height="34" rx="4" fill="#DCFCE7" stroke="#000" stroke-width="1.5"/>
+        <text x="20" y="92" font-weight="bold" font-size="11" fill="#15803D">2. &lt;script setup&gt;</text>
+        <text x="20" y="104" font-size="9.5" fill="#555">Logika Reaktivitas & TypeScript</text>
+
+        <!-- Style pill -->
+        <rect x="12" y="116" width="186" height="34" rx="4" fill="#FCE7F3" stroke="#000" stroke-width="1.5"/>
+        <text x="20" y="132" font-weight="bold" font-size="11" fill="#BE185D">3. &lt;style scoped&gt;</text>
+        <text x="20" y="144" font-size="9.5" fill="#555">CSS Terisolasi (Zero Leakage)</text>
+      </g>
+
+      <!-- Arrow 1 -> 2 -->
+      <line x1="225" y1="92" x2="275" y2="92" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- 2. Vite / SFC Compiler Engine -->
+      <g transform="translate(280, 25)">
+        <rect width="180" height="135" rx="6" fill="#F3E8FF" stroke="#000" stroke-width="2.5"/>
+        <text x="14" y="24" font-weight="900" font-size="12" fill="#7E22CE">VITE SFC COMPILER</text>
+        <text x="14" y="44" font-size="11" fill="#333">@vitejs/plugin-vue</text>
+        <line x1="14" y1="52" x2="166" y2="52" stroke="#999" stroke-width="1"/>
+        <text x="14" y="70" font-size="10" fill="#444">• Parser AST XML/HTML</text>
+        <text x="14" y="88" font-size="10" fill="#444">• Inject Scope Attribute ID</text>
+        <text x="14" y="106" font-size="10" fill="#444">• Optimizer Tree-Shaking</text>
+        <text x="14" y="124" font-size="9.5" font-weight="bold" fill="#7E22CE">⚡ Hot Module Reload (HMR)</text>
+      </g>
+
+      <!-- Arrow 2 -> 3 -->
+      <line x1="465" y1="92" x2="515" y2="92" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+      <!-- 3. Target Output (Runtime Browser / Mobile) -->
+      <g transform="translate(520, 10)">
+        <rect width="225" height="165" rx="6" fill="#EFF6FF" stroke="#000" stroke-width="2.5"/>
+        <text x="12" y="24" font-weight="900" font-size="12" fill="#1E40AF">PRODUK EKSEKUSI BROWSER</text>
+
+        <rect x="12" y="36" width="201" height="34" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1.5"/>
+        <text x="20" y="52" font-weight="bold" font-size="10.5" fill="#0369A1">Fungsi render() Virtual DOM</text>
+        <text x="20" y="64" font-size="9" fill="#666">Cepat, presisi, minim beban DOM</text>
+
+        <rect x="12" y="76" width="201" height="34" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1.5"/>
+        <text x="20" y="92" font-weight="bold" font-size="10.5" fill="#15803D">Objek Modul JavaScript (ESM)</text>
+        <text x="20" y="104" font-size="9" fill="#666">Siap di-mount ke instance aplikasi</text>
+
+        <rect x="12" y="116" width="201" height="34" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1.5"/>
+        <text x="20" y="132" font-weight="bold" font-size="10.5" fill="#BE185D">Scoped CSS: [data-v-7a7a]</text>
+        <text x="20" y="144" font-size="9" fill="#666">Hanya berlaku untuk elemen kartu ini!</text>
+      </g>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -109,6 +220,10 @@
         💡 <strong>Urgensi &lt;style scoped&gt;:</strong> Di aplikasi mobile yang memiliki ratusan komponen, kata kunci <code>scoped</code> memastikan gaya CSS di komponen ini <strong>tidak akan bocor</strong> atau merusak tampilan komponen lain!
       </div>
     </div>
+  </div>
+
+  <div class="source-cite">
+    📚 Sumber Referensi: Modul 2 KB 2 BMP UT STSI4303 / MSIM4401 (Rekayasa Perangkat Lunak & Pemrograman Perangkat Bergerak) & Dokumentasi Resmi Vue.js 3 - Single File Components (vuejs.org/guide/scaling-up/sfc.html)
   </div>
 
   <script>

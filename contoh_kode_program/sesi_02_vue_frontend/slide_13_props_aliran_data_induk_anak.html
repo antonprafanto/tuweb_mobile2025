@@ -60,7 +60,32 @@
       border: 2px solid var(--border);
       font-family: 'Consolas', monospace;
       font-size: 12px;
-      overflow-x: auto;
+    /* PANDUAN AWAM & DIAGRAM */
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .guide-box h3 { margin: 0 0 8px 0; font-size: 15px; color: #1E40AF; }
+    .guide-box ol { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.6; }
+    .guide-box li { margin-bottom: 6px; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid var(--border);
+      padding: 16px;
+      box-shadow: 4px 4px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .diagram-card h4 { margin: 0 0 12px 0; font-size: 14px; }
+    .source-cite {
+      font-size: 11px;
+      color: #6B7280;
+      margin-top: 20px;
+      border-top: 1px dashed #9CA3AF;
+      padding-top: 8px;
+      text-align: right;
     }
   </style>
 </head>
@@ -70,6 +95,66 @@
     <div class="badge">SLIDE 13 • MODUL 2 BMP UT</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Komunikasi Komponen: Aliran Data Satu Arah via Props (Parent → Child)</h1>
     <p style="margin: 0; font-size: 14px;">Komponen induk menyalurkan data ke komponen anak yang dapat digunakan berulang kali (*reusable*).</p>
+  </div>
+
+  <!-- PANDUAN PRAKTIKUM MAHASISWA -->
+  <div class="guide-box">
+    <h3>📖 Panduan Praktikum Mandiri Mahasiswa (Pemula & Awam)</h3>
+    <ol>
+      <li><strong>🛠️ Alat yang Digunakan:</strong> Cukup gunakan <strong>Google Chrome</strong> untuk melihat hasil render. Buka <strong>Developer Tools (F12)</strong> &gt; tab <em>Console</em> jika ingin bereksperimen.</li>
+      <li><strong>🎯 Cara Menguji Interaksi:</strong>
+        <ul>
+          <li>Perhatikan ketiga kartu tutor di bawah. Seluruh kartu menggunakan satu cetak biru komponen anak yang sama (<code>&lt;kartu-tutor&gt;</code>).</li>
+          <li>Data spesifik seperti nama dosen, kode mata kuliah, kelas, dan nilai rating dikirimkan dari komponen induk (parent) melalui atribut khusus yang disebut <strong>props</strong>.</li>
+        </ul>
+      </li>
+      <li><strong>💡 Apa yang Terjadi di Balik Layar (Prinsip One-Way Data Flow):</strong> Data mengalir tegas hanya dari atas ke bawah (<em>Props Down</em>). Komponen anak bersifat pasif murni menerima masukan (<em>read-only</em>). Anak dilarang keras memodifikasi langsung nilai props (misal: <code>props.rating = 5.0</code>). Jika komponen anak ingin mengubah data, ia harus mengirim sinyal event ke induk melalui mekanisme <code>emit</code> (dibahas pada Slide 14)!</li>
+    </ol>
+  </div>
+
+  <!-- DIAGRAM ALUR PROPS DOWN -->
+  <div class="diagram-card">
+    <h4>📐 Diagram Arsitektur Aliran Data Satu Arah (One-Way Data Flow via Props)</h4>
+    <svg viewBox="0 0 760 170" style="width:100%; height:auto; display:block;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- Komponen Induk (Parent) -->
+      <g transform="translate(10, 10)">
+        <rect width="260" height="150" rx="6" fill="#EFF6FF" stroke="#000" stroke-width="2.5"/>
+        <text x="14" y="24" font-weight="900" font-size="12" fill="#1E40AF">KOMPONEN INDUK (PARENT)</text>
+        <text x="14" y="42" font-size="11" fill="#333">Pemilik Data Sumber Kebenaran</text>
+        <rect x="14" y="52" width="232" height="85" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1.5"/>
+        <text x="22" y="72" font-family="Consolas" font-size="10.5" fill="#1E40AF">const listTutor = ref([</text>
+        <text x="22" y="90" font-family="Consolas" font-size="10.5" fill="#333">  { nama: 'Anton Prafanto',</text>
+        <text x="22" y="106" font-family="Consolas" font-size="10.5" fill="#333">    mk: 'STSI4303', rating: 4.9 }</text>
+        <text x="22" y="124" font-family="Consolas" font-size="10.5" fill="#1E40AF">]);</text>
+      </g>
+
+      <!-- Arrow Tengah (Props Down) -->
+      <g transform="translate(280, 20)">
+        <line x1="10" y1="65" x2="160" y2="65" stroke="#15803D" stroke-width="4" marker-end="url(#arrow)"/>
+        <rect x="25" y="25" width="120" height="28" rx="4" fill="#DCFCE7" stroke="#15803D" stroke-width="1.5"/>
+        <text x="32" y="44" font-weight="bold" font-size="11" fill="#15803D">⬇️ PROPS DOWN</text>
+        <text x="15" y="105" font-size="10" fill="#4B5563" text-anchor="middle" x="85">:nama="item.nama"</text>
+        <text x="15" y="120" font-size="10" fill="#4B5563" text-anchor="middle" x="85">:rating="item.rating"</text>
+      </g>
+
+      <!-- Komponen Anak (Child) -->
+      <g transform="translate(460, 10)">
+        <rect width="290" height="150" rx="6" fill="#FFFBEB" stroke="#000" stroke-width="2.5"/>
+        <text x="14" y="24" font-weight="900" font-size="12" fill="#B45309">KOMPONEN ANAK (REUSABLE CHILD)</text>
+        <text x="14" y="42" font-size="11" fill="#333">&lt;kartu-tutor :nama="..." :rating="..." /&gt;</text>
+        <rect x="14" y="52" width="262" height="85" rx="4" fill="#FFFFFF" stroke="#000" stroke-width="1.5"/>
+        <text x="22" y="72" font-family="Consolas" font-size="10.5" fill="#B45309">props: {</text>
+        <text x="22" y="90" font-family="Consolas" font-size="10.5" fill="#333">  nama: { type: String, req: true },</text>
+        <text x="22" y="106" font-family="Consolas" font-size="10.5" fill="#333">  rating: { type: Number, default: 5 }</text>
+        <text x="22" y="124" font-family="Consolas" font-size="10.5" fill="#DC2626">} // 🔒 READ-ONLY (Imutabel)</text>
+      </g>
+    </svg>
   </div>
 
   <div id="app" style="max-width:760px; margin:0 auto;">
@@ -109,6 +194,10 @@ const KartuTutor = {
         🚫 <strong>Dilarang Keras:</strong> Komponen anak <em>tidak boleh</em> mengubah langsung nilai <code>props</code> (misal: <code>props.rating = 5</code>). Jika anak ingin mengubah data, ia wajib mengirimkan sinyal event ke induk melalui <code>emit</code>!
       </div>
     </div>
+  </div>
+
+  <div class="source-cite" style="max-width:760px; margin:20px auto 0 auto;">
+    📚 Sumber Referensi: Modul 2 KB 2 BMP UT STSI4303 / MSIM4401 (Rekayasa Perangkat Bergerak) & Dokumentasi Resmi Vue.js 3 - Component Props (vuejs.org/guide/components/props.html)
   </div>
 
   <script>

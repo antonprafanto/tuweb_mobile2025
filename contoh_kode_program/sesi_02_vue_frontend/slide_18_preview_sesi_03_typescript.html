@@ -50,15 +50,32 @@
       font-size: 12px;
       overflow-x: auto;
     }
-    button {
-      background: var(--purple);
-      color: #000;
-      border: 2px solid var(--border);
-      padding: 10px 18px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 3px 3px 0 var(--border);
-      margin-top: 10px;
+    /* PANDUAN AWAM & DIAGRAM */
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .guide-box h3 { margin: 0 0 8px 0; font-size: 15px; color: #1E40AF; }
+    .guide-box ol { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.6; }
+    .guide-box li { margin-bottom: 6px; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid var(--border);
+      padding: 16px;
+      box-shadow: 4px 4px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .diagram-card h4 { margin: 0 0 12px 0; font-size: 14px; }
+    .source-cite {
+      font-size: 11px;
+      color: #6B7280;
+      margin-top: 20px;
+      border-top: 1px dashed #9CA3AF;
+      padding-top: 8px;
+      text-align: right;
     }
   </style>
 </head>
@@ -68,6 +85,81 @@
     <div class="badge">SLIDE 18 • JEMBATAN MENUJU SESI 03</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Mengapa Vue 3 Butuh TypeScript? Bahaya Bug Runtime vs Proteksi Interface</h1>
     <p style="margin: 0; font-size: 14px;">Melihat secara langsung bagaimana TypeScript menyelamatkan aplikasi mobile kita dari bug fatal <code>undefined</code>.</p>
+  </div>
+
+  <!-- PANDUAN PRAKTIKUM MAHASISWA -->
+  <div class="guide-box">
+    <h3>📖 Panduan Praktikum Mandiri Mahasiswa (Pemula & Awam)</h3>
+    <ol>
+      <li><strong>🛠️ Alat yang Digunakan:</strong> Buka berkas HTML ini di <strong>Google Chrome</strong> untuk melihat demonstrasi. Untuk mempelajari TypeScript di Sesi 03 pekan depan, siapkan <strong>VS Code</strong> dengan ekstensi <em>TypeScript and JavaScript Language Features</em> serta <em>Vue - Official</em>.</li>
+      <li><strong>🎯 Cara Menguji Interaksi:</strong>
+        <ul>
+          <li>Di panel kiri (<strong>JavaScript Murni</strong>), klik tombol merah <strong>"💥 Buktikan Typo JavaScript (Klik Di Sini)"</strong>.</li>
+          <li>Amati apa yang terjadi: JavaScript tidak mengeluarkan peringatan apa pun sebelum dijalankan. Namun saat tombol diklik, nilai properti yang typo menghasilkan <code>undefined</code> dan hasil perkalian menjadi <code>NaN</code> (Not a Number)!</li>
+          <li>Di panel kanan (<strong>TypeScript + Vue 3</strong>), baca bagaimana <code>interface Mahasiswa</code> mencegah bug fatal tersebut sejak detik pertama Anda mengetik kode di editor.</li>
+        </ul>
+      </li>
+      <li><strong>💡 Apa yang Terjadi di Balik Layar (Perbedaan Paradigma):</strong> JavaScript bertipe dinamis (<em>dynamic typing</em>), artinya keabsahan tipe data baru diperiksa saat aplikasi dijalankan oleh pengguna di ponsel (<em>runtime</em>). Sebaliknya, TypeScript memberlakukan pemeriksaan statis (<em>static type-checking</em>) saat tahap kompilasi. Jika salah ketik satu huruf nama kolom, kode langsung ditolak kompilasi sehingga tidak ada bug typo yang sampai lolos ke pengguna!</li>
+    </ol>
+  </div>
+
+  <!-- DIAGRAM KEAMANAN TYPESCRIPT -->
+  <div class="diagram-card">
+    <h4>📐 Diagram Perbandingan: Bahaya Bug Runtime JavaScript vs Proteksi Dini TypeScript</h4>
+    <svg viewBox="0 0 760 180" style="width:100%; height:auto; display:block;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#DC2626" />
+        </marker>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#15803D" />
+        </marker>
+      </defs>
+
+      <!-- ALUR 1: JAVASCRIPT DINAMIS (RAWAN BUG) -->
+      <g transform="translate(10, 10)">
+        <rect width="210" height="70" rx="4" fill="#FEE2E2" stroke="#000" stroke-width="2"/>
+        <text x="12" y="22" font-weight="900" font-size="11" fill="#991B1B">JAVASCRIPT DINAMIS</text>
+        <text x="12" y="40" font-size="10" fill="#333">Ketik kode salah: mhs.skorIpk</text>
+        <text x="12" y="56" font-size="9.5" fill="#666">Editor tidak memberi tanda error!</text>
+
+        <line x1="215" y1="35" x2="265" y2="35" stroke="#DC2626" stroke-width="2.5" marker-end="url(#arrow-red)"/>
+
+        <rect x="270" y="0" width="200" height="70" rx="4" fill="#FFFBEB" stroke="#000" stroke-width="2"/>
+        <text x="12" y="22" font-weight="bold" font-size="11" fill="#B45309">KOMPILASI / BUILD</text>
+        <text x="12" y="40" font-size="10" fill="#333">Vite / Build LOLOS 100%</text>
+        <text x="12" y="56" font-size="9.5" fill="#666">Kode dikirim ke Google Play / Web</text>
+
+        <line x1="475" y1="35" x2="525" y2="35" stroke="#DC2626" stroke-width="2.5" marker-end="url(#arrow-red)"/>
+
+        <rect x="530" y="0" width="210" height="70" rx="4" fill="#EF4444" stroke="#000" stroke-width="2"/>
+        <text x="12" y="22" font-weight="900" font-size="11" fill="#FFFFFF">💥 RUNTIME CRASH (HP USER)</text>
+        <text x="12" y="40" font-size="10" fill="#FFFFFF">undefined * 25 === NaN</text>
+        <text x="12" y="56" font-size="9" fill="#FEE2E2">Layar putih kosong, rating bintang 1!</text>
+      </g>
+
+      <!-- ALUR 2: TYPESCRIPT STATIS (AMAN & TERJAMIN) -->
+      <g transform="translate(10, 95)">
+        <rect width="210" height="70" rx="4" fill="#E0F2FE" stroke="#000" stroke-width="2"/>
+        <text x="12" y="22" font-weight="900" font-size="11" fill="#0369A1">TYPESCRIPT + INTERFACE</text>
+        <text x="12" y="40" font-size="10" fill="#333">Ketik kode salah: mhs.skorIpk</text>
+        <text x="12" y="56" font-size="9.5" font-weight="bold" fill="#DC2626">🛑 Garis Merah di VS Code!</text>
+
+        <line x1="215" y1="35" x2="265" y2="35" stroke="#15803D" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+
+        <rect x="270" y="0" width="200" height="70" rx="4" fill="#DCFCE7" stroke="#000" stroke-width="2"/>
+        <text x="12" y="22" font-weight="bold" font-size="11" fill="#15803D">KOMPILASI / BUILD CHECK</text>
+        <text x="12" y="40" font-size="10" fill="#333">Ketik ditolak sampai typo dibenahi</text>
+        <text x="12" y="56" font-size="9.5" fill="#15803D">Hanya kode valid yang lolos build!</text>
+
+        <line x1="475" y1="35" x2="525" y2="35" stroke="#15803D" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+
+        <rect x="530" y="0" width="210" height="70" rx="4" fill="#22C55E" stroke="#000" stroke-width="2"/>
+        <text x="12" y="22" font-weight="900" font-size="11" fill="#000000">🛡️ ZERO-CRASH DI HP USER</text>
+        <text x="12" y="40" font-size="10" fill="#000000">Kontrak data terjaga 100%</text>
+        <text x="12" y="56" font-size="9" fill="#052E16">Aplikasi stabil, performa andal!</text>
+      </g>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -126,6 +218,10 @@ console.log(mhs.skorIpk);</code></pre>
         🚀 <strong>Persiapan Sesi 03:</strong> Kita akan mengupas tuntas TypeScript Interface, Generics, dan <code>&lt;script setup lang="ts"&gt;</code> untuk menyelesaikan <strong>TUGAS TUTORIAL 1</strong>!
       </div>
     </div>
+  </div>
+
+  <div class="source-cite">
+    📚 Sumber Referensi: Modul 3 KB 1 BMP UT STSI4303 / MSIM4401 (Tipifikasi Statis & Pemrograman TypeScript Modern) & Dokumentasi Resmi TypeScript (typescriptlang.org)
   </div>
 
   <script>

@@ -81,14 +81,80 @@
       font-size: 12px;
       overflow-x: auto;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .diagram-card {
+      background: #FFF;
+      border: 3px solid var(--border);
+      padding: 16px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 680px;
+      margin: 0 auto 20px auto;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
-  <div class="header">
+  <div class="header" style="max-width: 680px; margin: 0 auto 20px auto;">
     <div class="badge">SLIDE 04 • MODUL 2 BMP UT</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Text Interpolation {{ }} & Pengikatan Atribut Dinamis (v-bind)</h1>
     <p style="margin: 0; font-size: 14px;">Mengikat nilai JavaScript ke dalam teks, atribut HTML, class CSS, dan inline style.</p>
+  </div>
+
+  <div class="guide-box">
+    <strong>💡 Panduan Ramah Pemula:</strong><br>
+    • <strong>Alat yang Digunakan:</strong> Buka berkas ini di <strong>Google Chrome</strong> (klik ganda berkas HTML).<br>
+    • <strong>Uji Mode Mobile:</strong> Tekan <kbd>F12</kbd> lalu <kbd>Ctrl + Shift + M</kbd> untuk mengamati kartu tagihan dalam ukuran layar ponsel.<br>
+    • <strong>Eksperimen Interaktif:</strong> Klik tombol <em>Ubah Status Tagihan</em>. Amati warna border berubah otomatis lewat <code>:class</code> dan tombol <em>Cetak Kartu Ujian</em> yang awalnya nonaktif (disabled) langsung aktif!
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR V-BIND -->
+  <div class="diagram-card">
+    <h3 style="margin: 0 0 10px 0; font-size: 16px;">📊 Diagram: Anatomi Interpolasi Teks vs Pengikatan Atribut (v-bind)</h3>
+    <div style="width: 100%; overflow-x: auto; background: #FFF; border: 2px solid #000; padding: 12px; margin-bottom: 8px;">
+      <svg viewBox="0 0 640 160" width="100%" height="150" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow4" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#000"/>
+          </marker>
+        </defs>
+        <!-- KIRI: INTERPOLASI -->
+        <rect x="10" y="15" width="295" height="130" rx="6" fill="#EFF6FF" stroke="#000" stroke-width="2"/>
+        <text x="25" y="38" font-family="Segoe UI" font-size="12" font-weight="bold" fill="#1D4ED8">A. INTERPOLASI TEKS: {{ data }}</text>
+        <rect x="25" y="50" width="265" height="35" rx="4" fill="#DBEAFE" stroke="#000" stroke-width="1.2"/>
+        <text x="35" y="72" font-family="Consolas" font-size="11">&lt;p&gt;Status: {{ isLunas }}&lt;/p&gt;</text>
+        <text x="25" y="105" font-family="Segoe UI" font-size="9.5" fill="#1E40AF">• Hanya untuk konten di dalam tag HTML</text>
+        <text x="25" y="122" font-family="Segoe UI" font-size="9.5" fill="#DC2626">• ❌ Dilarang dipakai di atribut: &lt;a href="{{ link }}"&gt;</text>
+
+        <!-- KANAN: V-BIND -->
+        <rect x="325" y="15" width="305" height="130" rx="6" fill="#F0FDF4" stroke="#000" stroke-width="2"/>
+        <text x="340" y="38" font-family="Segoe UI" font-size="12" font-weight="bold" fill="#15803D">B. PENGIKATAN ATRIBUT: v-bind: atau :</text>
+        <rect x="340" y="50" width="275" height="35" rx="4" fill="#DCFCE7" stroke="#000" stroke-width="1.2"/>
+        <text x="350" y="72" font-family="Consolas" font-size="11">&lt;button :disabled="!isLunas"&gt;</text>
+        <text x="340" y="105" font-family="Segoe UI" font-size="9.5" fill="#166534">• Shorthand resmi: Cukup ketik tanda titik dua (:)</text>
+        <text x="340" y="122" font-family="Segoe UI" font-size="9.5" font-weight="bold" fill="#15803D">• Mengontrol class, style, disabled, src, href dinamis</text>
+      </svg>
+    </div>
+    <div class="source-cite">
+      <strong>Referensi Akademik:</strong> BMP UT STSI4303 / MSIM4401 Modul 2 & Dokumentasi Resmi Vue.js 3: "Template Syntax - Attribute Bindings" (vuejs.org/guide/essentials/template-syntax).
+    </div>
   </div>
 
   <div id="app" class="card">

@@ -73,6 +73,29 @@
       font-size: 12px;
       overflow-x: auto;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .diagram-card {
+      background: #FFF;
+      border: 3px solid var(--border);
+      padding: 16px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -81,6 +104,60 @@
     <div class="badge">SLIDE 03 • MODUL 2 BMP UT</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Reaktivitas Objek Majemuk: reactive() & JavaScript Proxy</h1>
     <p style="margin: 0; font-size: 14px;">Mengelola kumpulan state terkait dalam satu objek tanpa repot menulis <code>.value</code>.</p>
+  </div>
+
+  <div class="guide-box">
+    <strong>💡 Panduan Ramah Pemula:</strong><br>
+    • <strong>Alat yang Digunakan:</strong> Buka berkas ini di <strong>Google Chrome</strong> (klik ganda dari File Explorer).<br>
+    • <strong>Uji Mode Mobile:</strong> Tekan <kbd>F12</kbd> lalu <kbd>Ctrl + Shift + M</kbd> untuk menguji formulir dalam tata letak smartphone.<br>
+    • <strong>Eksperimen Interaktif:</strong> Ketikkan nama Anda pada kolom form, lalu klik tombol <em>Naik Semester (+1)</em>. Amati bagaimana data objek <code>mhs</code> diperbarui secara instan tanpa perlu menulis <code>.value</code>!
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR REACTIVE PROXY -->
+  <div class="diagram-card">
+    <h3 style="margin: 0 0 10px 0; font-size: 16px;">📊 Diagram Arsitektur: JavaScript ES6 Proxy Trap di Balik reactive()</h3>
+    <div style="width: 100%; overflow-x: auto; background: #FFF; border: 2px solid #000; padding: 12px; margin-bottom: 8px;">
+      <svg viewBox="0 0 740 180" width="100%" height="170" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#000"/>
+          </marker>
+        </defs>
+        <!-- BOX 1: DEV CODE -->
+        <rect x="10" y="20" width="190" height="140" rx="6" fill="#F3F4F6" stroke="#000" stroke-width="2"/>
+        <text x="25" y="45" font-family="Segoe UI, sans-serif" font-size="12" font-weight="bold" fill="#1F2937">1. KODE PENGEMBANG</text>
+        <rect x="20" y="60" width="170" height="40" rx="4" fill="#E5E7EB" stroke="#000" stroke-width="1.5"/>
+        <text x="28" y="85" font-family="Consolas, monospace" font-size="10.5" font-weight="bold">mhs = reactive({...})</text>
+        <text x="25" y="125" font-family="Segoe UI" font-size="10" fill="#4B5563">Mutasi Properti Langsung:</text>
+        <text x="25" y="145" font-family="Consolas, monospace" font-size="11" font-weight="bold" fill="#15803D">👉 mhs.semester++</text>
+
+        <!-- PANAH KE TENGAH -->
+        <line x1="205" y1="80" x2="235" y2="80" stroke="#000" stroke-width="2" marker-end="url(#arrow3)"/>
+
+        <!-- BOX 2: JAVASCRIPT ES6 PROXY -->
+        <rect x="240" y="20" width="240" height="140" rx="6" fill="#FEF08A" stroke="#000" stroke-width="2"/>
+        <text x="255" y="45" font-family="Segoe UI, sans-serif" font-size="12" font-weight="bold" fill="#854D0E">2. ES6 PROXY INTERCEPTOR</text>
+        <rect x="250" y="60" width="220" height="85" rx="4" fill="#FFFBEB" stroke="#000" stroke-width="1.5"/>
+        <text x="260" y="82" font-family="Consolas, monospace" font-size="10.5" font-weight="bold">handler = { get(), set() }</text>
+        <text x="260" y="105" font-family="Segoe UI" font-size="9.5" fill="#78350F">• set(target, key, val):</text>
+        <text x="270" y="120" font-family="Segoe UI" font-size="9" fill="#78350F">1. Simpan nilai baru ke objek asli</text>
+        <text x="270" y="135" font-family="Segoe UI" font-size="9" font-weight="bold" fill="#B45309">2. trigger() Virtual DOM render!</text>
+
+        <!-- PANAH KE KANAN -->
+        <line x1="485" y1="80" x2="515" y2="80" stroke="#000" stroke-width="2" marker-end="url(#arrow3)"/>
+
+        <!-- BOX 3: KTM CARD UI -->
+        <rect x="520" y="20" width="210" height="140" rx="6" fill="#F0FDF4" stroke="#000" stroke-width="2"/>
+        <text x="535" y="45" font-family="Segoe UI, sans-serif" font-size="12" font-weight="bold" fill="#15803D">3. ANTARMUKA DIGITAL</text>
+        <rect x="530" y="60" width="190" height="40" rx="4" fill="#DCFCE7" stroke="#000" stroke-width="1.5"/>
+        <text x="540" y="85" font-family="Consolas, monospace" font-size="11" font-weight="bold">{{ mhs.semester }}</text>
+        <text x="535" y="125" font-family="Segoe UI" font-size="10" fill="#166534">Hasil di Layar:</text>
+        <text x="535" y="145" font-family="Segoe UI" font-size="10.5" font-weight="bold" fill="#15803D">✨ Angka berubah seketika!</text>
+      </svg>
+    </div>
+    <div class="source-cite">
+      <strong>Referensi Akademik:</strong> BMP UT STSI4303 / MSIM4401 Modul 2 & MDN Web Docs: "Proxy and Reflect in JavaScript" (developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy).
+    </div>
   </div>
 
   <div id="app" class="grid">
