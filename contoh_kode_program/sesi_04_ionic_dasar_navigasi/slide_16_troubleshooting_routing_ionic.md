@@ -4,6 +4,10 @@
 > **Institusi:** Fakultas Sains dan Teknologi, Universitas Terbuka  
 > **Materi:** Sesi 04 — Dasar-Dasar Ionic Framework & Navigasi Halaman Mobile
 
+> 💡 **Simulator Diagnostik Interaktif:**  
+> Selain membaca panduan teks ini, Anda dapat menguji langsung simulasi interaktif galat vs solusi di peramban web melalui berkas pendamping:  
+> 👉 [🌐 Buka Simulator: slide_16_troubleshooting_routing_ionic.html](slide_16_troubleshooting_routing_ionic.html) *(Cukup klik ganda di Google Chrome tanpa instalasi server lokal)*
+
 ---
 
 ## 📌 Ringkasan Masalah Umum Mahasiswa
@@ -169,3 +173,29 @@ const keHalamanDetail = (kode: string) => {
 | Refresh Data Saat Kembali | `onMounted()` | `onIonViewWillEnter()` |
 | Navigasi Antar Layar | `window.location` | `router.push()` |
 | Penanganan Back Button | `<ion-back-button>` polos | `<ion-back-button default-href="/home">` |
+
+---
+
+## 🌳 Diagram Pohon Keputusan Diagnostik (Troubleshooting Decision Tree)
+
+```mermaid
+flowchart TD
+    Start["🔍 Deteksi Gejala Galat pada Aplikasi Mobile"] --> F12["Buka DevTools Chrome (F12) & Periksa Tab Console"]
+    F12 --> Q1{"Apakah Layar Putih Kosong Total?"}
+    Q1 -->|Ya| A1["✅ Solusi: Pastikan halaman dibungkus <ion-page> dan konten di dalam <ion-content>"]
+    Q1 -->|Tidak| Q2{"Apakah Tombol Back Tidak Muncul?"}
+    Q2 -->|Ya| A2["✅ Solusi: Gunakan <ion-router-outlet> di App.vue & pasang default-href='/path'"]
+    Q2 -->|Tidak| Q3{"Apakah Data Tidak Berubah Saat Kembali?"}
+    Q3 -->|Ya| A3["✅ Solusi: Pindahkan fungsi muat data dari onMounted() ke onIonViewWillEnter()"]
+    Q3 -->|Tidak| Q4{"Apakah Komponen Tampil Polos Tanpa Gaya?"}
+    Q4 -->|Ya| A4["✅ Solusi: Impor bundel CSS inti @ionic/vue/css/core.css pada main.ts"]
+    Q4 -->|Tidak| Q5{"Apakah Layar Berkedip / Reload Penuh?"}
+    Q5 -->|Ya| A5["✅ Solusi: Ganti window.location.href dengan router.push() bawaan Vue Router"]
+    Q5 -->|Tidak| OK["🎉 Aplikasi Mobile Berjalan Sempurna & Mulus!"]
+```
+
+---
+
+## 📚 Referensi Akademik
+1. **Buku Materi Pokok (BMP) UT:** Prafanto, A., dkk. (2024). *Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)*. Modul 4: Dasar-Dasar Ionic Framework & Navigasi Mobile. Tangerang Selatan: Universitas Terbuka.
+2. **Dokumentasi Resmi Ionic Framework:** *Ionic Vue Navigation & Common Issues Troubleshooting Guide* ([ionicframework.com/docs/vue/navigation](https://ionicframework.com/docs/vue/navigation)).
