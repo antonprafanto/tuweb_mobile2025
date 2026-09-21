@@ -278,4 +278,4 @@ Sesuai Permendikbudristek & Standar Pendidikan Tinggi Jarak Jauh (PTTJJ) Univers
    * Vue.js Official Guide (v3.4+). *Composition API & Reactivity Core*. [https://vuejs.org](https://vuejs.org).
    * TypeScript Documentation (v5.x). *TypeScript Handbook: Interfaces and Type System*. [https://www.typescriptlang.org](https://www.typescriptlang.org).
    * Capacitor by Ionic. *Cross-Platform Native Runtime*. [https://capacitorjs.com](https://capacitorjs.com).
-   * Prafanto, Anton. (2026). *The Zero-Friction Courseware Framework*. GitHub Repository: [https://github.com/antonprafanto/mobile2026.git](https://github.com/antonprafanto/mobile2026.git).
+   * Prafanto, Anton. (2026). *The Zero-Friction Courseware Framework*. GitHub Repository: [https://github.com/antonprafanto/tuweb_mobile2025.git](https://github.com/antonprafanto/tuweb_mobile2025.git).
