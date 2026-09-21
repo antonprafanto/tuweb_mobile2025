@@ -148,6 +148,49 @@ CARA MENJALANKAN (RAMAH PEMULA):
       Laptop Anda <strong>TIDAK RUSAK</strong> dan Anda <strong>TIDAK SALAH</strong> menginstal. Ini adalah fitur proteksi bawaan Windows yang memblokir eksekusi skrip otomatis.
     </div>
 
+  <!-- DIAGRAM ARSITEKTUR KONSEP INLINE SVG -->
+  <div style="max-width: 650px; margin: 0 auto 16px auto; overflow-x: auto; background: #FFF; border: 3px solid #000; padding: 14px; box-shadow: 4px 4px 0 #000;">
+    <div style="font-weight: 800; font-size: 13px; margin-bottom: 10px;">📊 Diagram Pemulihan: Resolusi Galat Kebijakan Eksekusi PowerShell Windows</div>
+    <svg viewBox="0 0 650 135" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-15" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284C7" />
+    </marker>
+  </defs>
+  <!-- Box 1: Error -->
+  <rect x="10" y="20" width="175" height="95" fill="#FEE2E2" stroke="#000" stroke-width="2" />
+  <rect x="13" y="23" width="169" height="20" fill="#FB7185" stroke="#000" stroke-width="1" />
+  <text x="97" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">1. GALAT POWERSHELL</text>
+  <text x="97" y="58" font-family="'Consolas', monospace" font-size="8" font-weight="bold" fill="#9F1239" text-anchor="middle">PSSecurityException</text>
+  <text x="97" y="74" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#4C0519">'running scripts is disabled'</text>
+  <text x="97" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#4C0519">Kebijakan Default: Restricted</text>
+  <text x="97" y="104" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#881337" text-anchor="middle">⚠️ Skrip CLI Terblokir</text>
+
+  <line x1="185" y1="67" x2="215" y2="67" stroke="#0284C7" stroke-width="2" marker-end="url(#arr-15)" />
+
+  <!-- Box 2: Perintah Solusi -->
+  <rect x="220" y="20" width="220" height="95" fill="#FEF9C3" stroke="#000" stroke-width="2" />
+  <rect x="223" y="23" width="214" height="20" fill="#FFE600" stroke="#000" stroke-width="1" />
+  <text x="330" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">2. SOLUSI 1 PERINTAH</text>
+  <text x="330" y="56" font-family="'Consolas', monospace" font-size="8" font-weight="bold" fill="#B45309" text-anchor="middle">Set-ExecutionPolicy</text>
+  <text x="330" y="72" font-family="'Consolas', monospace" font-size="8" font-weight="bold" fill="#B45309" text-anchor="middle">RemoteSigned -Scope CurrentUser</text>
+  <text x="330" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">Tekan [Y] lalu Enter</text>
+  <text x="330" y="104" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#B45309" text-anchor="middle">Aman: Tanpa Akses Admin Penuh</text>
+
+  <line x1="440" y1="67" x2="470" y2="67" stroke="#0284C7" stroke-width="2" marker-end="url(#arr-15)" />
+
+  <!-- Box 3: Sukses -->
+  <rect x="475" y="20" width="165" height="95" fill="#DCFCE7" stroke="#000" stroke-width="2" />
+  <rect x="478" y="23" width="159" height="20" fill="#4ADE80" stroke="#000" stroke-width="1" />
+  <text x="557" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">3. HASIL PEMULIHAN</text>
+  <text x="557" y="58" font-family="'Consolas', monospace" font-size="8" font-weight="bold" fill="#15803D" text-anchor="middle">ionic &amp; vue CLI Lancar</text>
+  <text x="557" y="74" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#14532D">Eksekusi Skrip Terbuka</text>
+  <text x="557" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#14532D">100% Bebas Galat Merah</text>
+  <text x="557" y="104" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#166534" text-anchor="middle">✅ Siap Praktikum</text>
+</svg>
+  </div>
+
+
     <div class="card">
       <h3 style="margin-top:0; color:#DC2626;">❌ Gejala Error Klasik yang Sering Muncul:</h3>
       

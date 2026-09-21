@@ -176,6 +176,49 @@ CARA MENJALANKAN (RAMAH PEMULA):
       Teknologi <strong>HMR (Hot Module Replacement)</strong> di Ionic + Vite mengubah segalanya! Coba eksperimen di bawah ini.
     </div>
 
+  <!-- DIAGRAM ARSITEKTUR KONSEP INLINE SVG -->
+  <div style="max-width: 650px; margin: 0 auto 16px auto; overflow-x: auto; background: #FFF; border: 3px solid #000; padding: 14px; box-shadow: 4px 4px 0 #000;">
+    <div style="font-weight: 800; font-size: 13px; margin-bottom: 10px;">📊 Diagram Mekanisme: Hot Module Replacement (HMR) vs Full Page Reload</div>
+    <svg viewBox="0 0 650 135" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-14" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284C7" />
+    </marker>
+  </defs>
+  <!-- Box 1: Save in Editor -->
+  <rect x="10" y="20" width="145" height="95" fill="#E0F2FE" stroke="#000" stroke-width="2" />
+  <rect x="13" y="23" width="139" height="20" fill="#38BDF8" stroke="#000" stroke-width="1" />
+  <text x="82" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">1. PENYUNTINGAN KODE</text>
+  <text x="82" y="58" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#0369A1" text-anchor="middle">VS Code / Editor</text>
+  <text x="82" y="74" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#334155">Ubah CSS / Vue Template</text>
+  <text x="82" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#334155">Tekan Tombol Ctrl + S</text>
+  <text x="82" y="104" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#0284C7" text-anchor="middle">File Watcher Aktif</text>
+
+  <line x1="155" y1="67" x2="190" y2="67" stroke="#0284C7" stroke-width="2" marker-end="url(#arr-14)" />
+
+  <!-- Box 2: Vite Server -->
+  <rect x="195" y="20" width="180" height="95" fill="#FEF9C3" stroke="#000" stroke-width="2" />
+  <rect x="198" y="23" width="174" height="20" fill="#FFE600" stroke="#000" stroke-width="1" />
+  <text x="285" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">2. VITE HMR WEBSOCKET</text>
+  <text x="285" y="58" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#B45309" text-anchor="middle">Kompilasi Hanya Modul Terubah</text>
+  <text x="285" y="74" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">Waktu Kompilasi: &lt; 30 ms</text>
+  <text x="285" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">Kirim Delta Update via WS</text>
+  <text x="285" y="104" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#B45309" text-anchor="middle">Sangat Cepat &amp; Efisien</text>
+
+  <line x1="375" y1="67" x2="410" y2="67" stroke="#0284C7" stroke-width="2" marker-end="url(#arr-14)" />
+
+  <!-- Box 3: Browser DOM Update -->
+  <rect x="415" y="20" width="225" height="95" fill="#DCFCE7" stroke="#000" stroke-width="2" />
+  <rect x="418" y="23" width="219" height="20" fill="#4ADE80" stroke="#000" stroke-width="1" />
+  <text x="527" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">3. PEMBARUAN TAMPILAN INSTAN</text>
+  <text x="527" y="58" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#15803D" text-anchor="middle">✅ Status Data Formulir Tetap Utuh!</text>
+  <text x="527" y="74" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#14532D">Tanpa Refresh Halaman (No Reload)</text>
+  <text x="527" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#14532D">Animasi Berjalan Mulus</text>
+  <text x="527" y="104" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#166534" text-anchor="middle">Pengalaman Belajar Maksimal</text>
+</svg>
+  </div>
+
+
     <div class="card">
       <div class="split-grid">
         <!-- SIMULASI VS CODE EDITOR -->

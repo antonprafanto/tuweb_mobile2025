@@ -98,6 +98,50 @@
       Halaman ini secara otomatis membaca kemampuan perangkat Anda langsung dari peramban web (browser). Anda tidak perlu mengetikkan apapun untuk mengetahui apakah laptop Anda siap menjalankan praktikum STSI4303!
     </div>
 
+  <!-- DIAGRAM ARSITEKTUR KONSEP INLINE SVG -->
+  <div style="max-width: 650px; margin: 0 auto 16px auto; overflow-x: auto; background: #FFF; border: 3px solid #000; padding: 14px; box-shadow: 4px 4px 0 #000;">
+    <div style="font-weight: 800; font-size: 13px; margin-bottom: 10px;">📊 Diagram Alur: Diagnostik Memori RAM & Pemilihan Jalur Belajar Mahasiswa</div>
+    <svg viewBox="0 0 650 135" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-06" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284C7" />
+    </marker>
+  </defs>
+  <!-- Step 1: Detect -->
+  <rect x="10" y="20" width="145" height="95" fill="#E0F2FE" stroke="#000" stroke-width="2" />
+  <rect x="13" y="23" width="139" height="20" fill="#38BDF8" stroke="#000" stroke-width="1" />
+  <text x="82" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">1. DETEKSI SISTEM</text>
+  <text x="82" y="58" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#0369A1" text-anchor="middle">Uji RAM &amp; CPU Komputer</text>
+  <text x="82" y="74" font-family="'Consolas', monospace" font-size="8" text-anchor="middle" fill="#334155">navigator.deviceMemory</text>
+  <text x="82" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#15803D">Deteksi Otomatis Browser</text>
+  <text x="82" y="104" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#0284C7" text-anchor="middle">Bebas Risiko Crash</text>
+
+  <!-- Arrow 1 to 2 -->
+  <line x1="155" y1="67" x2="190" y2="67" stroke="#0284C7" stroke-width="2" marker-end="url(#arr-06)" />
+
+  <!-- Step 2: 3 Path Choice -->
+  <rect x="195" y="20" width="280" height="95" fill="#FEF9C3" stroke="#000" stroke-width="2" />
+  <rect x="198" y="23" width="274" height="20" fill="#FFE600" stroke="#000" stroke-width="1" />
+  <text x="335" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">2. REKOMENDASI 3 JALUR PRAKTIKUM</text>
+  <text x="335" y="58" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#B45309" text-anchor="middle">🟢 Jalur A (RAM &lt; 4GB): Web First &amp; Chrome DevTools F12</text>
+  <text x="335" y="76" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#0369A1" text-anchor="middle">🔵 Jalur B (RAM 4-8GB): Ponsel Fisik Android &amp; scrcpy</text>
+  <text x="335" y="94" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#7E22CE" text-anchor="middle">🟣 Jalur C (RAM &gt; 8GB): Android Studio &amp; Emulator Native</text>
+
+  <!-- Arrow 2 to 3 -->
+  <line x1="475" y1="67" x2="510" y2="67" stroke="#0284C7" stroke-width="2" marker-end="url(#arr-06)" />
+
+  <!-- Step 3: Result -->
+  <rect x="515" y="20" width="125" height="95" fill="#DCFCE7" stroke="#000" stroke-width="2" />
+  <rect x="518" y="23" width="119" height="20" fill="#4ADE80" stroke="#000" stroke-width="1" />
+  <text x="577" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">3. CAPAIAN</text>
+  <text x="577" y="58" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#15803D" text-anchor="middle">Laptop Dingin</text>
+  <text x="577" y="74" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#14532D">Belajar Lancar</text>
+  <text x="577" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#14532D">100% Lulus UT</text>
+  <text x="577" y="104" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#166534" text-anchor="middle">✅ Nilai Maksimal</text>
+</svg>
+  </div>
+
+
     <!-- HASIL DIAGNOSTIK OTOMATIS -->
     <div class="card">
       <h3 style="margin-top:0;">🔍 Hasil Deteksi Spesifikasi Perangkat Anda Saat Ini:</h3>

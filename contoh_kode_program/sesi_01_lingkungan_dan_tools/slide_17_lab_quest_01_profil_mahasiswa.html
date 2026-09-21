@@ -212,6 +212,60 @@ CARA MENJALANKAN (RAMAH PEMULA):
       Ketikkan identitas asli Anda di panel editor sebelah kiri. Perhatikan bagaimana komponen resmi Ionic (<code>&lt;ion-app&gt;</code>, <code>&lt;ion-card&gt;</code>, <code>&lt;ion-list&gt;</code>) menyusun tampilan kartu di ponsel sebelah kanan secara instan!
     </div>
 
+  <!-- DIAGRAM ARSITEKTUR KONSEP INLINE SVG -->
+  <div style="max-width: 650px; margin: 0 auto 16px auto; overflow-x: auto; background: #FFF; border: 3px solid #000; padding: 14px; box-shadow: 4px 4px 0 #000;">
+    <div style="font-weight: 800; font-size: 13px; margin-bottom: 10px;">📊 Diagram Arsitektur: Komposisi Komponen Kartu Tanda Mahasiswa (KTM) Digital UT</div>
+    <svg viewBox="0 0 650 135" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-17" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284C7" />
+    </marker>
+  </defs>
+  <!-- Comp 1: Card Frame -->
+  <rect x="10" y="20" width="145" height="95" fill="#E0F2FE" stroke="#000" stroke-width="2" />
+  <rect x="13" y="23" width="139" height="20" fill="#38BDF8" stroke="#000" stroke-width="1" />
+  <text x="82" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">1. BINGKAI KARTU</text>
+  <text x="82" y="58" font-family="'Consolas', monospace" font-size="8" font-weight="bold" fill="#0369A1" text-anchor="middle">&lt;ion-card&gt;</text>
+  <text x="82" y="74" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#334155">Warna Biru UT (#005691)</text>
+  <text x="82" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#334155">Efek Bayangan Elegan</text>
+  <text x="82" y="104" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#0284C7" text-anchor="middle">Border Radius 12px</text>
+
+  <line x1="155" y1="67" x2="185" y2="67" stroke="#0284C7" stroke-width="2" marker-end="url(#arr-17)" />
+
+  <!-- Comp 2: Content -->
+  <rect x="190" y="20" width="145" height="95" fill="#FEF9C3" stroke="#000" stroke-width="2" />
+  <rect x="193" y="23" width="139" height="20" fill="#FFE600" stroke="#000" stroke-width="1" />
+  <text x="262" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">2. IDENTITAS RESMI</text>
+  <text x="262" y="58" font-family="'Consolas', monospace" font-size="8" font-weight="bold" fill="#B45309" text-anchor="middle">&lt;ion-card-content&gt;</text>
+  <text x="262" y="74" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">Nama, NIM, Program Studi</text>
+  <text x="262" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">UPBJJ-UT Asal</text>
+  <text x="262" y="104" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#B45309" text-anchor="middle">Data Terstruktur</text>
+
+  <line x1="335" y1="67" x2="365" y2="67" stroke="#0284C7" stroke-width="2" marker-end="url(#arr-17)" />
+
+  <!-- Comp 3: Action Button -->
+  <rect x="370" y="20" width="135" height="95" fill="#DCFCE7" stroke="#000" stroke-width="2" />
+  <rect x="373" y="23" width="129" height="20" fill="#4ADE80" stroke="#000" stroke-width="1" />
+  <text x="437" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">3. TOMBOL VERIFIKASI</text>
+  <text x="437" y="58" font-family="'Consolas', monospace" font-size="8" font-weight="bold" fill="#15803D" text-anchor="middle">&lt;ion-button&gt;</text>
+  <text x="437" y="74" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#14532D">Aksen Kuning (#FFE600)</text>
+  <text x="437" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#14532D">Memicu Validasi QR/Status</text>
+  <text x="437" y="104" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#166534" text-anchor="middle">Interaktif &amp; Ergonomis</text>
+
+  <line x1="505" y1="67" x2="530" y2="67" stroke="#0284C7" stroke-width="2" marker-end="url(#arr-17)" />
+
+  <!-- Comp 4: Alert Feedback -->
+  <rect x="535" y="20" width="105" height="95" fill="#F3E8FF" stroke="#000" stroke-width="2" />
+  <rect x="538" y="23" width="99" height="20" fill="#C084FC" stroke="#000" stroke-width="1" />
+  <text x="587" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">4. RESPON</text>
+  <text x="587" y="58" font-family="'Consolas', monospace" font-size="8" font-weight="bold" fill="#6B21A8" text-anchor="middle">&lt;ion-toast&gt;</text>
+  <text x="587" y="74" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#581C87">Notifikasi Pop-up</text>
+  <text x="587" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#581C87">Mahasiswa Aktif</text>
+  <text x="587" y="104" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#7E22CE" text-anchor="middle">✅ Skor 100</text>
+</svg>
+  </div>
+
+
     <div class="main-grid">
       <!-- PANEL KIRI: FORM EDITOR & RUBRIK PENILAIAN -->
       <div>

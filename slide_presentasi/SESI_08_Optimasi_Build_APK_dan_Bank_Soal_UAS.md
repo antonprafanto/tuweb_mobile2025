@@ -90,7 +90,7 @@ flowchart LR
 
 ### 📌 Slide 01: Orientasi Sesi 08: Rilis APK Stand-alone & Sukses UAS
 * **Sub-CPMK:** Memahami alur kerja transformasi kode sumber web hybrid menjadi berkas biner mandiri dan kesiapan menghadapi UAS.
-* **Alat & Lingkungan Uji:** Google Chrome / Edge di PC atau smartphone, buka berkas HTML via `file:///`.
+* **Alat yang Digunakan:** Google Chrome / Edge di PC atau smartphone, buka berkas HTML via `file:///`.
 * **Narasi Dosen Pengampu:**  
   *"Selamat berjumpa di garis akhir perkuliahan kita, rekan-rekan mahasiswa Fakultas Sains dan Teknologi Universitas Terbuka yang saya banggakan! Di Sesi 08 penutup ini, kita akan merayakan pencapaian besar: mengubah kode yang telah kita susun sejak Sesi 01 menjadi berkas installer mandiri (`.apk`) yang bisa Anda kirimkan lewat WhatsApp atau Google Drive dan langsung dipasang di ponsel keluarga, rekan, atau calon pengguna tanpa perlu kabel data atau laptop. Selain itu, kita akan membedah tuntas 50 bank soal UAS komprehensif agar Anda siap meraih nilai A mutlak!"*
 * **Poin Kunci Pembahasan:**
@@ -115,7 +115,7 @@ flowchart TD
 
 ### 📌 Slide 02: Siklus Rilis Aplikasi Mobile (Development to Maintenance)
 * **Sub-CPMK:** Menganalisis 5 fase siklus hidup rilis aplikasi mobile dari alpha testing hingga pasca rilis.
-* **Alat & Lingkungan Uji:** Google Chrome, DevTools `F12`.
+* **Alat yang Digunakan:** Google Chrome, DevTools `F12`.
 * **Narasi Dosen Pengampu:**  
   *"Membangun aplikasi mobile profesional tidak pernah berhenti ketika kode selesai diketik di editor teks. Terdapat siklus rilis terstruktur yang membedakan seorang pembuat kode amatir dengan insinyur perangkat lunak profesional: fase Development (pengembangan fitur), Alpha Testing (pengujian fungsional internal), Beta Testing (pengujian pada sekelompok pengguna riil), Production Release (distribusi biner terverifikasi), serta Post-Release Monitoring (pemantauan galat crash dan pembaruan berkala). Mari kita pahami setiap tahapannya dengan seksama!"*
 * **Poin Kunci Pembahasan:**
@@ -140,7 +140,7 @@ flowchart LR
 
 ### 📌 Slide 03: Pembuatan Digital Keystore via `keytool`
 * **Sub-CPMK:** Membangun sertifikat kriptografi digital mandiri menggunakan utilitas standar JDK `keytool`.
-* **Alat & Lingkungan Uji:** Terminal PowerShell / Bash / CMD, utilitas JDK `keytool`.
+* **Alat yang Digunakan:** Terminal PowerShell / Bash / CMD, utilitas JDK `keytool`.
 * **Narasi Dosen Pengampu:**  
   *"Sistem operasi Android memberlakukan aturan keamanan mutlak: tidak ada satu pun berkas APK yang diizinkan terpasang tanpa tanda tangan digital yang valid. Sertifikat ini dibungkus di dalam berkas Keystore (`.keystore` atau `.jks`). Kita membuatnya menggunakan utilitas bawaan Java JDK yaitu keytool dengan algoritma RSA 2048-bit dan masa berlaku minimal 10.000 hari (lebih dari 25 tahun). Ingat pesan penting saya: simpan berkas ini dan kata sandinya dengan sangat aman! Jika Anda kehilangan keystore asli, Anda tidak akan pernah bisa memperbarui aplikasi Anda di ponsel pengguna!"*
 * **Poin Kunci Pembahasan:**
@@ -165,7 +165,7 @@ flowchart TD
 
 ### 📌 Slide 04: Konfigurasi Otomasi Signing pada `build.gradle`
 * **Sub-CPMK:** Mengonfigurasi penandatanganan biner otomatis pada skrip Gradle Android Studio.
-* **Alat & Lingkungan Uji:** Visual Studio Code / Editor Teks, berkas `android/app/build.gradle`.
+* **Alat yang Digunakan:** Visual Studio Code / Editor Teks, berkas `android/app/build.gradle`.
 * **Narasi Dosen Pengampu:**  
   *"Menandatangani berkas APK secara manual setiap kali melakukan build tentu sangat melelahkan dan rentan kesalahan manusia. Melalui berkas skrip `android/app/build.gradle`, kita dapat mengonfigurasi blok `signingConfigs` khusus tipe rilis. Kita tautkan berkas keystore, kata sandi, dan alias kuncinya. Di lingkungan industri profesional, kata sandi tidak ditulis langsung (hardcoded) di skrip, melainkan dipanggil dari berkas `gradle.properties` lokal atau variabel sistem (environment variables) demi menjamin keamanan."*
 * **Poin Kunci Pembahasan:**
@@ -191,7 +191,7 @@ flowchart LR
 
 ### 📌 Slide 05: Kompilasi APK Release Stand-alone via Gradle Wrapper
 * **Sub-CPMK:** Mengeksekusi perintah CLI Gradle Wrapper untuk menghasilkan berkas installer mandiri `.apk`.
-* **Alat & Lingkungan Uji:** Terminal shell pada folder `android/`, perintah `./gradlew assembleRelease`.
+* **Alat yang Digunakan:** Terminal shell pada folder `android/`, perintah `./gradlew assembleRelease`.
 * **Narasi Dosen Pengampu:**  
   *"Kini tiba saatnya melahirkan berkas biner mandiri perdana Anda! Masuklah ke subdirektori `android/` melalui terminal, lalu jalankan perintah `./gradlew assembleRelease`. Mesin kompilator Gradle akan bekerja mengompilasi kode sumber Java/Kotlin, memproses seluruh aset web Capacitor, menjalankan penyusutan biner, menandatanganinya dengan sertifikat digital, dan menyelaraskan struktur data berkas (zipalign). Hasil akhirnya adalah berkas `app-release.apk` mandiri yang tersimpan rapi di direktori `build/outputs/apk/release/`!"*
 * **Poin Kunci Pembahasan:**
@@ -216,7 +216,7 @@ flowchart TD
 
 ### 📌 Slide 06: Instalasi Mandiri (Sideloading) APK ke Smartphone Tanpa PC
 * **Sub-CPMK:** Memahami mekanisme sideloading APK, perizinan sumber tidak dikenal, dan pengujian independen.
-* **Alat & Lingkungan Uji:** Smartphone Android fisik, aplikasi File Manager / WhatsApp / Google Drive.
+* **Alat yang Digunakan:** Smartphone Android fisik, aplikasi File Manager / WhatsApp / Google Drive.
 * **Narasi Dosen Pengampu:**  
   *"Setelah berkas `app-release.apk` selesai dibuat, bagaimana cara membagikannya ke orang lain? Sangat mudah: cukup unggah berkas APK tersebut ke Google Drive atau kirimkan langsung melalui chat WhatsApp! Ketika rekan Anda mengetuk berkas tersebut di HP Android, sistem akan menampilkan dialog keamanan 'Install Unknown Apps' (Pasang Aplikasi dari Sumber Tidak Dikenal). Begitu izin diberikan, aplikasi Anda terpasang dengan ikon dan nama resmi, berjalan secara mandiri 100% tanpa butuh kabel USB maupun komputer!"*
 * **Poin Kunci Pembahasan:**
@@ -241,7 +241,7 @@ flowchart LR
 
 ### 📌 Slide 07: Optimasi Biner: Minifikasi R8 & ProGuard Native
 * **Sub-CPMK:** Menerapkan teknik kompresi kode native melalui compiler R8 dan konfigurasi ProGuard.
-* **Alat & Lingkungan Uji:** Visual Studio Code, file `android/app/build.gradle` dan `proguard-rules.pro`.
+* **Alat yang Digunakan:** Visual Studio Code, file `android/app/build.gradle` dan `proguard-rules.pro`.
 * **Narasi Dosen Pengampu:**  
   *"Aplikasi rilis produksi tidak boleh berukuran besar dan boros memori. Google menyematkan kompilator cerdas bernama R8 di dalam Android Gradle Plugin. Dengan menyetel `minifyEnabled true` dan `shrinkResources true`, R8 akan melakukan tree-shaking native: membuang class Java pihak ketiga yang tidak pernah dipakai, mengaburkan nama method menjadi karakter acak (obfuscation) agar kode sulit dibajak, serta memangkas ukuran biner APK hingga 40% lebih ringan!"*
 * **Poin Kunci Pembahasan:**
@@ -276,7 +276,7 @@ flowchart TD
 
 ### 📌 Slide 08: Optimasi Web Assets: Kompresi WebP & Tree Shaking
 * **Sub-CPMK:** Menganalisis teknik optimasi aset front-end untuk mempercepat kecepatan loading awal WebView.
-* **Alat & Lingkungan Uji:** Google Chrome, DevTools `F12` (Tab Network & Console), VS Code.
+* **Alat yang Digunakan:** Google Chrome, DevTools `F12` (Tab Network & Console), VS Code.
 * **Narasi Dosen Pengampu:**  
   *"Di sisi aplikasi web hybrid, kecepatan render awal pada WebView sangat dipengaruhi oleh bobot aset statis. Ubahlah gambar berformat PNG/JPEG yang berat menjadi format WebP modern yang mampu menghemat ukuran hingga 70% tanpa penurunan ketajaman kasat mata. Terapkan pula modular import selektif pada ikon Ionicons untuk memangkas ribuan ikon yang tidak dipakai. Dengan demikian, waktu inisialisasi aplikasi melonjak dari 3.2 detik menjadi 0.8 detik seketika!"*
 * **Poin Kunci Pembahasan:**
@@ -314,7 +314,7 @@ flowchart LR
 
 ### 📌 Slide 09: Audit Keamanan Aplikasi Pra-Rilis
 * **Sub-CPMK:** Melakukan checklist audit keamanan komprehensif pada konfigurasi AndroidManifest dan jaringan.
-* **Alat & Lingkungan Uji:** Editor VS Code, inspeksi berkas `AndroidManifest.xml` dan `capacitor.config.ts`.
+* **Alat yang Digunakan:** Editor VS Code, inspeksi berkas `AndroidManifest.xml` dan `capacitor.config.ts`.
 * **Narasi Dosen Pengampu:**  
   *"Sebelum melepas aplikasi ke tangan masyarakat luas, audit keamanan adalah harga mati yang tidak boleh ditawar! Buka berkas `AndroidManifest.xml`: pastikan `android:debuggable` bernilai false. Larang keras `usesCleartextTraffic` agar aplikasi menolak koneksi HTTP biasa tanpa enkripsi (wajib HTTPS TLS 1.3). Dan bersihkan seluruh deklarasi izin permission yang tidak relevan agar aplikasi Anda tidak dianggap berisiko atau dicurigai sebagai spyware oleh sistem keamanan Android!"*
 * **Poin Kunci Pembahasan:**
@@ -339,7 +339,7 @@ flowchart TD
 
 ### 📌 Slide 10: Distribusi Alternatif: Progressive Web App (PWA) Offline
 * **Sub-CPMK:** Menerapkan Service Worker Cache API dan Web App Manifest untuk instalasi tanpa toko aplikasi.
-* **Alat & Lingkungan Uji:** Google Chrome / Edge, DevTools `F12` (Tab Application $\rightarrow$ Manifest & Service Workers).
+* **Alat yang Digunakan:** Google Chrome / Edge, DevTools `F12` (Tab Application $\rightarrow$ Manifest & Service Workers).
 * **Narasi Dosen Pengampu:**  
   *"Bagaimana jika pengguna Anda memakai ponsel iPhone atau ruang penyimpanan di HP-nya sangat sempit? Solusi modernnya adalah Progressive Web App (PWA). Cukup sediakan berkas `manifest.json` dan skrip latar belakang `sw.js` (Service Worker), maka peramban akan memunculkan prompt 'Tambahkan ke Layar Utama'. Berkas HTML, CSS, dan data disalin ke memori Cache Storage lokal, sehingga aplikasi portal belajar mahasiswa tetap terbuka seketika bahkan saat kuota internet habis!"*
 * **Poin Kunci Pembahasan:**
@@ -364,7 +364,7 @@ flowchart LR
 
 ### 📌 Slide 11: Distribusi Google Play Console & Standar Android App Bundle (.aab)
 * **Sub-CPMK:** Memahami ekosistem rilis Google Play Store, format AAB, dan alur track pengujian rilis.
-* **Alat & Lingkungan Uji:** Browser web Google Play Console (`play.google.com/console`), terminal `./gradlew bundleRelease`.
+* **Alat yang Digunakan:** Browser web Google Play Console (`play.google.com/console`), terminal `./gradlew bundleRelease`.
 * **Narasi Dosen Pengampu:**  
   *"Jika Anda ingin meluncurkan aplikasi ke katalog resmi Google Play Store, Google kini mewajibkan format Android App Bundle (`.aab`) melalui perintah `./gradlew bundleRelease`. Mengapa bukan APK biasa? Karena Play Store memanfaatkan Dynamic Delivery untuk memecah berkas AAB menjadi paket-paket kecil sesuai arsitektur CPU (ARM64 vs ARMv7) dan resolusi layar tiap ponsel pengguna, menghemat ukuran unduh hingga 35%. Anda juga wajib melewati tahapan track pengujian, termasuk aturan 20 penguji selama 14 hari untuk akun baru!"*
 * **Poin Kunci Pembahasan:**
@@ -390,7 +390,7 @@ flowchart TD
 
 ### 📌 Slide 12: Pemetaan Kisi-kisi Soal UAS: Modul 1 sampai Modul 9 BMP
 * **Sub-CPMK:** Memetakan distribusi bobot kompetensi dan pola soal UAS mata kuliah STSI4303 / MSIM4401.
-* **Alat & Lingkungan Uji:** Google Chrome, Buku Materi Pokok (BMP) UT STSI4303/MSIM4401.
+* **Alat yang Digunakan:** Google Chrome, Buku Materi Pokok (BMP) UT STSI4303/MSIM4401.
 * **Narasi Dosen Pengampu:**  
   *"Ujian Akhir Semester di Universitas Terbuka disusun dengan standar mutu akademik yang sangat terukur mengacu pada Buku Materi Pokok (BMP). Modul 1–2 mencakup 20% (Arsitektur Hybrid & Vue 3), Modul 3–5 mencakup 32% (TypeScript, Navigasi UI, Formulir, Regex, Dark Mode), Modul 6–8 mencakup 32% (Capacitor Bridge, Android Studio, REST API, Storage Persisten, Sensor), dan Modul 9 mencakup 16% (Build APK Release & Troubleshooting). Pahami pola soalnya, pelajari taksonomi kognitifnya, dan Anda pasti sukses!"*
 * **Poin Kunci Pembahasan:**
@@ -434,7 +434,7 @@ flowchart TD
 
 ### 📌 Slide 13: Bank Soal UAS Bagian 1 (Soal 01 - 15): Arsitektur Hybrid & Vue.js 3
 * **Sub-CPMK:** Menguji penguasaan konsep arsitektur hybrid, WebView, standar web modern, dan sistem reaktivitas Vue 3.
-* **Alat & Lingkungan Uji:** Google Chrome / Edge, DevTools `F12` Console tab untuk verifikasi ekspresi reaktif.
+* **Alat yang Digunakan:** Google Chrome / Edge, DevTools `F12` Console tab untuk verifikasi ekspresi reaktif.
 * **Narasi Dosen Pengampu:**  
   *"Bagian pertama dari bank soal komprehensif kita menguji pondasi: Mengapa aplikasi hybrid berjalan di dalam container WebView? Bagaimana mesin Vue.js 3 memanfaatkan JavaScript Proxy API untuk mendeteksi perubahan nilai variabel reaktif secara otomatis? Kapan kita harus memilih ref() dibanding reactive()? Dan mengapa direktif v-model begitu esensial dalam pengikatan data dua arah? Mari kita uji jawaban Anda secara langsung pada lembar interaktif ini!"*
 * **Poin Kunci Pembahasan:**
@@ -457,7 +457,7 @@ flowchart LR
 
 ### 📌 Slide 14: Bank Soal UAS Bagian 2 (Soal 16 - 30): TypeScript, Ionic Grid & Dark Mode
 * **Sub-CPMK:** Menguji pemahaman static typing TypeScript, sistem tata letak responsive grid, sanitasi Regex, dan tema gelap.
-* **Alat & Lingkungan Uji:** Google Chrome / Edge, pengujian pola Regex di Console.
+* **Alat yang Digunakan:** Google Chrome / Edge, pengujian pola Regex di Console.
 * **Narasi Dosen Pengampu:**  
   *"Bagian kedua membawa kita ke ranah antarmuka visual dan keamanan tipe data: Mengapa interface dan optional property (?) pada TypeScript sangat ampuh mencegah galat runtime? Bagaimana sistem 12-kolom Ionic Grid secara cerdas mengatur susunan kolom kartu saat dibuka di ponsel versus layar lebar? Dan pola regex seperti apa yang menjamin validasi 9 digit angka NIM mahasiswa UT secara akurat? Kuasai bagian ini untuk mengamankan nilai ujian Anda!"*
 * **Poin Kunci Pembahasan:**
@@ -481,7 +481,7 @@ flowchart LR
 
 ### 📌 Slide 15: Bank Soal UAS Bagian 3 (Soal 31 - 45): Capacitor Bridge, API & Storage
 * **Sub-CPMK:** Menguji kompetensi komunikasi native bridge, integrasi REST API, penyimpanan lokal, dan akses sensor.
-* **Alat & Lingkungan Uji:** Google Chrome DevTools (Tab Network & Application), Android Studio Logcat.
+* **Alat yang Digunakan:** Google Chrome DevTools (Tab Network & Application), Android Studio Logcat.
 * **Narasi Dosen Pengampu:**  
   *"Di bagian ketiga, kita memasuki jantung kapabilitas aplikasi mobile: Bagaimana protokol jembatan Capacitor menerjemahkan pemanggilan JavaScript menjadi eksekusi fungsi native Java/Kotlin? Mengapa npx cap sync wajib dijalankan setiap kali ada pembaruan aset web? Mengapa blok try-catch-finally mutlak diperlukan pada penanganan fetch data jaringan? Dan mengapa Capacitor Preferences jauh lebih andal dibanding localStorage biasa saat memori OS menipis? Ujilah pemahaman Anda sekarang!"*
 * **Poin Kunci Pembahasan:**
@@ -505,7 +505,7 @@ flowchart LR
 
 ### 📌 Slide 16: Bank Soal UAS Bagian 4 (Soal 46 - 50): Keystore, Build & Kasus Produksi
 * **Sub-CPMK:** Menganalisis skenario tingkat lanjut penandatanganan digital, kompilasi Gradle, dan pemecahan masalah (troubleshooting).
-* **Alat & Lingkungan Uji:** Terminal CLI, Android Studio Build Analyzer, Browser Chrome.
+* **Alat yang Digunakan:** Terminal CLI, Android Studio Build Analyzer, Browser Chrome.
 * **Narasi Dosen Pengampu:**  
   *"Lima soal pamungkas ini menguji kematangan Anda sebagai insinyur perangkat lunak: Mengapa penandatanganan biner dengan digital keystore wajib dilakukan? Mengapa perintah assembleRelease berbeda secara fundamental dengan bundleRelease? Dan studi kasus produksi klasik: Mengapa aplikasi yang berjalan sempurna di Chrome desktop tiba-tiba mengalami layar putih total (White Screen of Death) saat dipasang di ponsel Android versi lawas? Pelajari analisis solusinya agar Anda tidak terjebak!"*
 * **Poin Kunci Pembahasan:**
@@ -529,7 +529,7 @@ flowchart LR
 
 ### 📌 Slide 17: Master Solusi Lab Quest 08: APK Release Validator & 50 Soal UAS Engine
 * **Sub-CPMK:** Mengoperasikan simulator audit kesiapan APK rilis dan menuntaskan simulasi penuh 50 soal UAS dengan batas waktu 90 menit.
-* **Alat & Lingkungan Uji:** Google Chrome / Edge di PC atau smartphone, buka berkas HTML mandiri via `file:///`.
+* **Alat yang Digunakan:** Google Chrome / Edge di PC atau smartphone, buka berkas HTML mandiri via `file:///`.
 * **Narasi Dosen Pengampu:**  
   *"Inilah mahakarya praktikum penutup perkuliahan kita: Master Solusi Lab Quest 08! Aplikasi mandiri ini dilengkapi dua instrumen utama: Tab 1 adalah APK Release Readiness Audit untuk memverifikasi apakah proyek Anda sudah memenuhi standar keamanan sebelum dibagikan ke publik. Dan Tab 2 adalah Engine Simulasi Penuh 50 Soal UAS berwaktu mundur 90 menit dengan matriks nomor soal interaktif, penilaian otomatis skala 0–100, serta penentuan predikat kelulusan resmi UT. Ujilah kemampuan Anda sekarang dan raih nilai terbaik!"*
 * **Poin Kunci Pembahasan:**
@@ -559,7 +559,7 @@ flowchart TD
 
 ### 📌 Slide 18: Penutup Semester: Refleksi Perkuliahan & Pesan Dosen
 * **Sub-CPMK:** Memaknai pencapaian kompetensi 8 sesi perkuliahan dan merencanakan pengembangan portofolio karir mobile profesional.
-* **Alat & Lingkungan Uji:** Google Chrome / Edge, akun GitHub publik mahasiswa, profil LinkedIn.
+* **Alat yang Digunakan:** Google Chrome / Edge, akun GitHub publik mahasiswa, profil LinkedIn.
 * **Narasi Dosen Pengampu:**  
   *"Selamat rekan-rekan mahasiswa Universitas Terbuka dari Sabang sampai Merauke! Kalian telah menuntaskan seluruh rangkaian 8 sesi perkuliahan Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401). Kalian telah membuktikan bahwa dengan tekad kuat dan pendekatan zero-friction, mahasiswa UT mampu menguasai ekosistem industri modern: Ionic, Vue 3, TypeScript, Capacitor, hingga rilis mandiri APK. Teruslah berkarya, bangun portofolio GitHub yang membanggakan, dan bawalah manfaat nyata bagi kemajuan bangsa! Sukses besar di UAS dan sampai jumpa di panggung wisuda Universitas Terbuka!"*
 * **Poin Kunci Pembahasan:**

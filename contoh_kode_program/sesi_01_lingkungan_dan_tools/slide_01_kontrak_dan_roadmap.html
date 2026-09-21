@@ -123,6 +123,48 @@
     • <strong>Bagi yang Ingin Mencoba di Terminal:</strong> Buka aplikasi <strong>Visual Studio Code</strong>, buka terminal dengan menekan tombol <kbd>Ctrl + `</kbd> (tanda petik di bawah tombol Esc), lalu ketikkan: <code>node slide_01_kontrak_dan_roadmap.js</code>.
   </div>
 
+  <!-- DIAGRAM ARSITEKTUR KONSEP INLINE SVG -->
+  <div style="max-width: 650px; margin: 0 auto 16px auto; overflow-x: auto; background: #FFF; border: 3px solid #000; padding: 14px; box-shadow: 4px 4px 0 #000;">
+    <div style="font-weight: 800; font-size: 13px; margin-bottom: 10px;">📊 Diagram Alur: Komposisi Evaluasi Akademik & Regulasi Nilai UT (STSI4303)</div>
+    <svg viewBox="0 0 650 135" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-01" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284C7" />
+    </marker>
+  </defs>
+  <!-- Box 1: Tuton 50% -->
+  <rect x="10" y="20" width="185" height="95" fill="#E0F2FE" stroke="#000" stroke-width="2" />
+  <rect x="13" y="23" width="179" height="22" fill="#38BDF8" stroke="#000" stroke-width="1" />
+  <text x="102" y="38" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#000">1. AKTIVITAS TUTON (50%)</text>
+  <text x="102" y="60" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#0369A1" text-anchor="middle">8 Diskusi Online (30%)</text>
+  <text x="102" y="77" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#334155">3 Tugas Tutorial Wajib (70%)</text>
+  <text x="102" y="96" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#15803D" text-anchor="middle">Kuis Formatif &amp; Refleksi</text>
+
+  <!-- Arrow 1 to 2 -->
+  <line x1="195" y1="67" x2="230" y2="67" stroke="#0284C7" stroke-width="2" marker-end="url(#arr-01)" />
+
+  <!-- Box 2: UAS 50% -->
+  <rect x="235" y="20" width="185" height="95" fill="#FEF9C3" stroke="#000" stroke-width="2" />
+  <rect x="238" y="23" width="179" height="22" fill="#FFE600" stroke="#000" stroke-width="1" />
+  <text x="327" y="38" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#000">2. EVALUASI AKHIR (50%)</text>
+  <text x="327" y="60" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#B45309" text-anchor="middle">Ujian Akhir Semester (UAS)</text>
+  <text x="327" y="77" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#78350F">50 Soal Komprehensif (Modul 1-9)</text>
+  <text x="327" y="96" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#B91C1C" text-anchor="middle">⚠️ Syarat: Nilai UAS &gt;= 30</text>
+
+  <!-- Arrow 2 to 3 -->
+  <line x1="420" y1="67" x2="455" y2="67" stroke="#0284C7" stroke-width="2" marker-end="url(#arr-01)" />
+
+  <!-- Box 3: Kelulusan Final -->
+  <rect x="460" y="20" width="180" height="95" fill="#DCFCE7" stroke="#000" stroke-width="2" />
+  <rect x="463" y="23" width="174" height="22" fill="#4ADE80" stroke="#000" stroke-width="1" />
+  <text x="550" y="38" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#000">3. NILAI AKHIR MATA KULIAH</text>
+  <text x="550" y="60" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#15803D" text-anchor="middle">NA = 50% Tuton + 50% UAS</text>
+  <text x="550" y="77" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#14532D">Predikat: Grade A / B / C</text>
+  <text x="550" y="96" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#166534" text-anchor="middle">🎓 Sukses Sarjana FST UT!</text>
+</svg>
+  </div>
+
+
   <div id="app" class="grid">
     <!-- PANEL 1: ROADMAP 8 SESI TUTORIAL -->
     <div class="box">

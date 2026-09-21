@@ -14,6 +14,39 @@ Sesi inisiasi pertama ini membekali rekan-rekan mahasiswa dengan pemahaman kompr
 
 Setiap materi slide dilengkapi berkas interaktif mandiri berekstensi `.html` yang dapat **langsung dijalankan di Google Chrome dengan satu klik ganda (*zero-friction*)**, tanpa memerlukan instalasi compiler berukuran gigabytes.
 
+```mermaid
+flowchart TD
+  subgraph T1 ["1. Fondasi Teori & Arsitektur"]
+    S01_03["Slide 01-03: Kontrak Kuliah, Relevansi Industri, Komparasi Native vs Hybrid"]
+    S04_04["Slide 04: Ekosistem Web Components & Standar Ionic CDN"]
+  end
+
+  subgraph T2 ["2. Perkakas & Diagnostik Lingkungan"]
+    S05_06["Slide 05-06: 4 Perkakas Pengembang & Uji Diagnostik RAM Laptop"]
+    S15_16["Slide 15-16: Solusi PowerShell Windows & Cheatsheet Terminal Git"]
+  end
+
+  subgraph T3 ["3. Komponen Web & Anatomi Aplikasi"]
+    S07_08["Slide 07-08: Tritunggal Web (HTML, CSS, JS) & Hello Hybrid App"]
+    S11_12["Slide 11-12: Ionic CLI 5 Perintah Sakti & Struktur Folder Proyek"]
+  end
+
+  subgraph T4 ["4. Pengujian DevTools & Lab Quest"]
+    S09_10["Slide 09-10: Chrome Device Toolbar (F12) & Viewport Meta Tag"]
+    S13_14["Slide 13-14: USB Debugging scrcpy & Simulasi Live Reload (HMR)"]
+    S17_18["Slide 17-18: Solusi Lab Quest 01 (KTM Digital) & Preview Sesi 02 (Vue 3)"]
+  end
+
+  T1 --> T2
+  T2 --> T3
+  T3 --> T4
+
+  style T1 fill:#E0F2FE,stroke:#0284C7,stroke-width:2px
+  style T2 fill:#FEF9C3,stroke:#F59E0B,stroke-width:2px
+  style T3 fill:#DCFCE7,stroke:#16A34A,stroke-width:2px
+  style T4 fill:#F3E8FF,stroke:#9333EA,stroke-width:2px
+```
+
 ---
 
 ## 🛠️ Panduan Alat & Lingkungan Belajar (Ramah Pemula)
@@ -124,6 +157,25 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Mengidentifikasi keunggulan Web Components bawaan Ionic yang dapat berjalan instan via CDN.
 * **Narasi Dosen:**  
   *"Keajaiban Ionic adalah: rekan-rekan tidak perlu menunggu unduhan paket berukuran gigabytes untuk melihat tombol dan kartu mobile. Cukup tautkan pustaka CDN Ionic di berkas HTML, dan peramban Anda langsung menyajikan tampilan berstandar Google Material Design!"*
+* **Diagram Arsitektur Web Components & CDN Ionic:**
+  ```mermaid
+  flowchart TD
+      subgraph CDN ["1. Distribusi CDN jsDelivr"]
+          ESM["ionic.esm.js (Modul ES Standar)"]
+          CSS["ionic.bundle.css (Gaya Material & iOS)"]
+      end
+
+      subgraph BROWSER ["2. Peramban Web (Google Chrome / WebView)"]
+          CUSTOM["Custom Elements Registry (ion-button, ion-card, ion-badge)"]
+          SHADOW["Shadow DOM (Enkapsulasi Gaya Terisolasi Bebas Bocor)"]
+          RENDER["Mesin Perenderan Native-like UI (60 FPS)"]
+      end
+
+      CDN -->|Dimuat via Tag Script Standar HTML5| CUSTOM
+      CUSTOM --> SHADOW
+      SHADOW --> RENDER
+  ```
+  > 📚 **Referensi:** W3C Web Components Specification & Dokumentasi Arsitektur Resmi Ionic Framework (ionicframework.com/docs).
 * **Alat yang Digunakan:** Google Chrome (coba tester komponen Ionic interaktif & pengubah warna).
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_04_ekosistem_ionic_web_standards.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_04_ekosistem_ionic_web_standards.html)
@@ -159,6 +211,19 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Narasi Dosen:**  
   *"Sebelum mulai menulis kode, mari pastikan kesiapan laptop Anda. Jalankan alat diagnostik ini untuk mendeteksi kapasitas RAM dan mendapatkan rekomendasi jalur belajar yang paling aman agar laptop tetap dingin dan lancar!"*
 * **Poin Kunci:** Rekomendasi Jalur A (Web First & Chrome DevTools), Jalur B (scrcpy & Ponsel Fisik), Jalur C (Android Studio).
+* **Diagram Alur Diagnostik & Penentuan Jalur Belajar:**
+  ```mermaid
+  flowchart TD
+      START["Mulai Diagnostik Laptop Mahasiswa"] --> DETECT["Deteksi Kapasitas RAM Komputer"]
+      DETECT --> COND{"Berapa Ukuran RAM Komputer Anda?"}
+      COND -->|RAM < 4GB| PATH_A["Jalur A: Web First<br/>(Google Chrome DevTools & F12)"]
+      COND -->|RAM 4 - 8GB| PATH_B["Jalur B: USB Debugging<br/>(Ponsel Fisik Android & scrcpy)"]
+      COND -->|RAM > 8GB| PATH_C["Jalur C: Android Studio<br/>(SDK Manager & Emulator Native)"]
+      PATH_A --> GOAL["✅ Semua Jalur Menghasilkan Nilai Maksimal & Lulus Mata Kuliah"]
+      PATH_B --> GOAL
+      PATH_C --> GOAL
+  ```
+  > 📚 **Referensi:** Panduan Spesifikasi Perangkat Komputasi BMP UT STSI4303 Modul 1 & Metodologi Zero-Friction Learning.
 * **Alat yang Digunakan:** Buka berkas HTML di Chrome atau ketik `node slide_06_diagnostik_environment.js` di terminal.
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_06_diagnostik_environment.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_06_diagnostik_environment.html) *(Pendamping: `slide_06_diagnostik_environment.js`)*
@@ -192,6 +257,15 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Membangun antarmuka mobile pertama lengkap dengan status bar, kartu profil, dan deteksi runtime layar sentuh.
 * **Narasi Dosen:**  
   *"Selamat! Ini adalah aplikasi mobile pertama Anda: MyUT Mobile. Berkas ini membuktikan bahwa tanpa kompilasi rumit, Anda sudah bisa membuat aplikasi ponsel fungsional yang membaca resolusi layar dan merespon event sentuhan jari."*
+* **Diagram Arsitektur Komponen 'Hello Hybrid App':**
+  ```mermaid
+  flowchart LR
+      HTML["Dokumen HTML5<br/>(index.html)"] --> VIEWPORT["Pengaturan Skala 1:1<br/>(Viewport Meta Tag)"]
+      VIEWPORT --> SHELL["Bingkai Ponsel Mobile Shell<br/>(Status Bar + Layar Sentuh)"]
+      SHELL --> UI["Komponen UI Ionic<br/>(Kartu Mahasiswa & Profil)"]
+      UI --> EVENT["Pemroses Sentuhan Jari<br/>(Touch & Click Events)"]
+  ```
+  > 📚 **Referensi:** BMP UT STSI4303 Modul 1 (Kegiatan Belajar 2) & Ionic Framework Component Basics.
 * **Alat yang Digunakan:** Google Chrome (tekan F12 lalu Ctrl + Shift + M untuk mode smartphone).
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_08_hello_hybrid_app.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_08_hello_hybrid_app.html)
@@ -223,6 +297,19 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Menganalisis fungsi tag `<meta name="viewport">` dalam menyamakan kanvas aplikasi dengan dimensi fisik gawai.
 * **Narasi Dosen:**  
   *"Pernahkah Anda membuka laman web di ponsel dan teksnya menjadi sekecil semut? Itu terjadi karena peramban mengira Anda menggunakan layar desktop selebar 980px. Dengan menyertakan tag viewport, ponsel otomatis merender aplikasi dengan skala 1:1 yang nyaman dijemari!"*
+* **Diagram Perbandingan Perilaku Viewport Meta Tag:**
+  ```mermaid
+  flowchart TD
+      subgraph NO_VP ["❌ Tanpa Viewport Meta Tag"]
+          DESK["Browser Anggap Layar Desktop (980px)"] --> ZOOM["Halaman Mengecil Jauh (Zoom-Out Ekstrem)"]
+          ZOOM --> BAD["Teks Sekecil Semut & Tombol Sulit Disentuh"]
+      end
+      subgraph WITH_VP ["✅ Dengan Viewport Meta Tag (width=device-width)"]
+          NATIVE["Browser Baca Resolusi Layar Fisik (1:1)"] --> FIT["Lebar Pas 100% Sesuai Layar Ponsel (360px - 414px)"]
+          FIT --> GOOD["Font Nyaman Dibaca & Area Sentuh Ergonomis"]
+      end
+  ```
+  > 📚 **Referensi:** W3C Mobile Web Best Practices & Google Developers Web Fundamentals: "Responsive Web Design Basics".
 * **Alat yang Digunakan:** Google Chrome (tersedia simulator perbandingan 1:1 vs 980px).
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_10_viewport_meta_scaling.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_10_viewport_meta_scaling.html)
@@ -306,6 +393,21 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Memahami mekanisme pembaruan modul instan Vite tanpa mereset status data formulir yang sedang diisi pengguna.
 * **Narasi Dosen:**  
   *"Hot Module Replacement (HMR) membuat pengalaman belajar coding sangat memuaskan. Begitu Anda menekan simpan (Ctrl + S), peramban memperbarui tampilan dalam 30 milidetik tanpa menghapus teks yang baru saja Anda ketik pada formulir!"*
+* **Diagram Mekanisme Kerja Hot Module Replacement (HMR):**
+  ```mermaid
+  sequenceDiagram
+      autonumber
+      participant D as Mahasiswa (VS Code)
+      participant V as Vite HMR Server
+      participant B as Google Chrome Browser
+      D->>D: Menyunting Kode & Tekan Ctrl + S
+      D->>V: Berkas Diperbarui Terdeteksi (File Watcher)
+      V->>V: Kompilasi Ulang Modul yang Berubah (Hanya Modul Tersebut)
+      V->>B: Kirim Sinyal Pembaruan via WebSocket
+      B->>B: Ganti Modul di Memory DOM secara Instan
+      Note over B: Data Formulir & Status Input Tetap Utuh (Tanpa Refresh Halaman)!
+  ```
+  > 📚 **Referensi:** Vite Documentation: "Hot Module Replacement Architecture" & BMP UT STSI4303 Modul 1.
 * **Alat yang Digunakan:** Google Chrome (uji perbandingan HMR vs Full Page Reload).
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_14_hmr_live_reload_demo.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_14_hmr_live_reload_demo.html)
@@ -316,6 +418,15 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Mengatasi galat kebijakan eksekusi skrip (*PSSecurityException*) di terminal Windows dengan solusi 1 langkah aman.
 * **Narasi Dosen:**  
   *"Jika terminal VS Code Anda menampilkan teks merah 'running scripts is disabled on this system', jangan khawatir! Itu bukan laptop yang rusak, melainkan kebijakan keamanan default Windows. Jalankan mantra Set-ExecutionPolicy RemoteSigned satu kali, dan perintah CLI akan berjalan mulus."*
+* **Diagram Solusi Eksekusi Skrip PowerShell:**
+  ```mermaid
+  flowchart TD
+      ERR["Galat Terminal: PSSecurityException<br/>'running scripts is disabled on this system'"] --> CAUSE["Penyebab: Kebijakan Keamanan Default Windows Terkunci (Restricted)"]
+      CAUSE --> CMD["Buka PowerShell -> Ketik Perintah:<br/>Set-ExecutionPolicy RemoteSigned -Scope CurrentUser"]
+      CMD --> VERIFY["Konfirmasi dengan menekan tombol [Y] lalu Enter"]
+      VERIFY --> OK["✅ Skrip CLI (ionic, vue, npm) Berjalan Normal & Aman"]
+  ```
+  > 📚 **Referensi:** Microsoft Learn PowerShell Documentation: "About Execution Policies" & BMP UT STSI4303 Modul 1.
 * **Alat yang Digunakan:** VS Code Terminal atau Windows PowerShell.
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_15_troubleshooting_powershell_cli.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_15_troubleshooting_powershell_cli.html) *(Pendamping: `slide_15_troubleshooting_powershell_cli.md`)*
@@ -326,6 +437,18 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Menguasai perintah esensial navigasi folder dan alur Git untuk mengelola berkas tugas mandiri.
 * **Narasi Dosen:**  
   *"Sebagai calon sarjana bidang teknologi, menguasai perintah terminal seperti cd, ls, dir, git add, dan git commit adalah keterampilan fundamental yang akan mempercepat pengerjaan tugas dan membangun portofolio GitHub Anda."*
+* **Diagram 4 Tingkatan Ekosistem Terminal & Git:**
+  ```mermaid
+  flowchart LR
+      subgraph LOCAL ["Komputer Lokal Mahasiswa"]
+          WD["1. Direktori Kerja<br/>(Working Directory)"] -->|git add .| SA["2. Area Persiapan<br/>(Staging Index)"]
+          SA -->|git commit -m| LR["3. Repositori Lokal<br/>(Local Commit History)"]
+      end
+      subgraph CLOUD ["Layanan Awan"]
+          LR -->|git push origin main| GH["4. Repositori GitHub<br/>(Pengumpulan Tugas Tuton)"]
+      end
+  ```
+  > 📚 **Referensi:** Pro Git Book by Scott Chacon & Ben Straub; BMP UT STSI4303 Modul 1.
 * **Alat yang Digunakan:** Google Chrome (tersedia kolom pencarian cepat dan sandbox latihan terminal).
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_16_cheatsheet_terminal_git.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_16_cheatsheet_terminal_git.html) *(Pendamping: `slide_16_cheatsheet_terminal_git.md`)*
@@ -365,6 +488,19 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Menghubungkan konsep manipulasi DOM imperatif tradisional dengan paradigma reaktif deklaratif Vue.js 3 di Sesi 02.
 * **Narasi Dosen:**  
   *"Di Sesi 01 ini, kita telah menguasai fondasi lingkungan kerja dan komponen mobile pertama kita. Pekan depan di Sesi 02, kita akan melangkah lebih jauh ke dunia modern: bagaimana menyinkronkan data aplikasi dan tampilan secara otomatis tanpa repot menggunakan Vue.js 3!"*
+* **Diagram Paradigma Manipulasi DOM vs Deklaratif Reaktif (Menuju Sesi 02):**
+  ```mermaid
+  flowchart TD
+      subgraph TRADISIONAL ["Sesi 01: Paradigma Imperatif Tradisional"]
+          E1["Cari Elemen: document.getElementById('teks')"] --> E2["Ubah Nilai: elemen.innerHTML = 'Data Baru'"]
+          E2 --> E3["Manual Memantau Setiap Perubahan DOM"]
+      end
+      subgraph MODERN ["Sesi 02: Paradigma Deklaratif Reaktif (Vue.js 3)"]
+          V1["Deklarasikan Status: const pesan = ref('Halo')"] --> V2["Ikatkan ke Tampilan: {{ pesan }}"]
+          V2 --> V3["Otomatis: Saat 'pesan' Berubah, Tampilan Seketika Diperbarui"]
+      end
+  ```
+  > 📚 **Referensi:** Vue.js 3 Official Guide: "Reactivity Fundamentals" & BMP UT STSI4303 Modul 2.
 * **Alat yang Digunakan:** Google Chrome (uji coba komparasi imperatif vs deklaratif reaktif).
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_18_preview_sesi_02_vue.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_18_preview_sesi_02_vue.html)
