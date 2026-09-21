@@ -94,6 +94,23 @@ flowchart TD
   * Notasi kumis ganda `{{ data }}` hanya untuk teks di antara tag pembuka dan penutup.
   * Untuk atribut HTML, gunakan shorthand `:atribut` (contoh: `:disabled="isBelumBayar"`).
   * Pengikatan class dinamis mendukung sintaks objek: `:class="{ 'lunas': isLunas }"`.
+* **Diagram Mekanisme Binding (Mermaid):**
+```mermaid
+flowchart LR
+    subgraph DATA["State Reaktif Vue"]
+        D1["isLunas = true"]
+        D2["warnaBadge = 'badge-sukses'"]
+    end
+    subgraph DIRECTIVE["Pengikatan Atribut :v-bind"]
+        B1[":disabled='!isLunas'"]
+        B2[":class='warnaBadge'"]
+    end
+    subgraph DOM["Elemen UI Browser"]
+        E1["&lt;button disabled=false&gt;"]
+        E2["&lt;span class='badge-sukses'&gt;"]
+    end
+    DATA --> DIRECTIVE --> DOM
+```
 * **Tautan Kode Mandiri:**  
   👉 [🌐 Buka File Interaktif: slide_04_text_interpolation_v_bind.html](../contoh_kode_program/sesi_02_vue_frontend/slide_04_text_interpolation_v_bind.html)
 
@@ -126,6 +143,13 @@ flowchart LR
 * **Poin Kunci:**
   * `v-if`: Toggle cost tinggi, initial render cost rendah (kondisional sejati, elemen dicopot dari DOM).
   * `v-show`: Toggle cost sangat rendah, initial render cost tinggi (elemen tetap di DOM, hanya toggle `display: none`).
+* **Diagram Perbandingan Mekanisme (Mermaid):**
+```mermaid
+flowchart TD
+    Kondisi{"Kondisi Reaktif: isVisible"}
+    Kondisi -->|v-if = false| VIF["DOM Node Dihancurkan &amp; Dicopot<br/>(Toggle Cost Tinggi, Initial Murah)"]
+    Kondisi -->|v-show = false| VSHOW["DOM Node Tetap Ada di Memori<br/>(CSS display: none, Toggle Cepat 0 ms)"]
+```
 * **Tautan Kode Mandiri:**  
   👉 [🌐 Buka File Interaktif: slide_06_conditional_v_if_vs_v_show.html](../contoh_kode_program/sesi_02_vue_frontend/slide_06_conditional_v_if_vs_v_show.html)
 
@@ -166,6 +190,15 @@ flowchart TD
   * Shorthand `@` menggantikan sintaks panjang `v-on:`.
   * `.prevent`: Menghentikan aksi default peramban (seperti reload form submit).
   * `.stop`: Menghentikan propagasi event (*stopPropagation / bubbling*).
+* **Diagram Intersepsi Event (Mermaid):**
+```mermaid
+flowchart LR
+    Click["Sentuhan Pengguna / Tap Button"] --> Evt["Event @submit / @click"]
+    Evt --> Mod{Event Modifiers}
+    Mod -->|.prevent| P1["Blokir Reload Otomatis Browser<br/>(event.preventDefault)"]
+    Mod -->|.stop| P2["Cegah Event Tembus ke Parent<br/>(event.stopPropagation)"]
+    Mod --> Hand["Eksekusi Handler: simpanData()"]
+```
 * **Tautan Kode Mandiri:**  
   👉 [🌐 Buka File Interaktif: slide_08_event_handling_dan_modifiers.html](../contoh_kode_program/sesi_02_vue_frontend/slide_08_event_handling_dan_modifiers.html)
 
@@ -201,6 +234,14 @@ flowchart TD
   * Format sintaks: `watch(sumberData, (nilaiBaru, nilaiLama) => { ... })`.
   * Sangat ideal untuk integrasi REST API, sinkronisasi storage, dan analitik.
   * Dilengkapi teknik *debouncing* untuk menghemat operasi penulisan disk ponsel.
+* **Diagram Alur Debounced Watcher (Mermaid):**
+```mermaid
+flowchart LR
+    Input["Ketik Catatan / Form"] --> State["State Reaktif: drafCatatan"]
+    State --> Watcher["watch(drafCatatan, ...)"]
+    Watcher --> Debounce["Debounce Timer (500 ms)"]
+    Debounce --> SideEffect["Side Effect: Simpan ke localStorage / REST API"]
+```
 * **Tautan Kode Mandiri:**  
   👉 [🌐 Buka File Interaktif: slide_10_watchers_dan_side_effects.html](../contoh_kode_program/sesi_02_vue_frontend/slide_10_watchers_dan_side_effects.html)
 
@@ -361,6 +402,27 @@ flowchart TD
   * Pencarian dan filter semester interaktif secara instan (0 milidetik).
   * Tombol aksi tambah dan hapus mata kuliah dengan proteksi kuota SKS.
   * Ringkasan statistik dinamis (Total SKS, Sisa Kuota SKS, Peringatan Kuota Penuh).
+* **Diagram Alur Mini-SIA KRS (Mermaid):**
+```mermaid
+flowchart TD
+    subgraph INPUT["1. Input Mahasiswa"]
+        S["Ketik Search Keyword"]
+        F["Pilih Semester (1 - 8)"]
+    end
+    subgraph LOGIC["2. Reaktivitas Vue 3"]
+        C1["computed: filterKatalog"]
+        C2["computed: totalSksTerpilih"]
+        C3["computed: sisaBebanSks"]
+        V["Validasi Maksimal 24 SKS"]
+    end
+    subgraph UI["3. Antarmuka Interaktif"]
+        T["Tabel KRS Mandiri"]
+        B["Badge Peringatan Kuota"]
+        A["Tombol Ajukan KRS Online"]
+    end
+    INPUT --> LOGIC
+    LOGIC --> UI
+```
 * **Tautan Kode Mandiri:**  
   👉 [🌐 Buka File Interaktif: slide_17_lab_quest_02_krs_interaktif.html](../contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html)
 
