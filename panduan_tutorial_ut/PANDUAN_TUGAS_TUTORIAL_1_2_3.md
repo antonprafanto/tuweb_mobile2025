@@ -85,3 +85,8 @@ Anda diminta membuat aplikasi mobile **"Aplikasi Pelaporan Presensi & Lokasi Bel
 | 2 | Mekanisme simpan, baca, dan hapus data lokal persisten berfungsi baik | 25 |
 | 3 | Pemanfaatan plugin Capacitor (Geolocation / Camera) berhasil terhubung | 25 |
 | 4 | Arsitektur kode terstruktur, penanganan error (`try-catch`), & video/screenshot demo | 20 |
+
+* **💡 Rujukan Pembelajaran & Alat Bantu Mandiri:**
+  * 🎯 **Kalkulator Skor Rubrik Interaktif:** [`slide_16_rubrik_tugas_tutorial_3.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.html) *(Panduan Teks: [`slide_16_rubrik_tugas_tutorial_3.md`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.md))*
+  * 🎯 **Master Solusi Resmi Tugas Tutorial 3:** [`slide_17_solusi_tugas_3_study_tracker.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html)
+
