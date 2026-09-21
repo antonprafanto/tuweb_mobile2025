@@ -19,7 +19,7 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--purple);
@@ -37,6 +37,29 @@
       background: #fff;
       margin-bottom: 10px;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .guide-title {
+      font-weight: 800;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .diagram-card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
       background: var(--card-bg);
@@ -49,6 +72,7 @@
       padding: 12px;
       margin-bottom: 10px;
       background: #f8fafc;
+      box-shadow: 2px 2px 0 #000;
     }
     .code-box {
       background: #0f172a;
@@ -59,6 +83,14 @@
       border: 2px solid #000;
       white-space: pre-wrap;
     }
+    .source-cite {
+      background: #F1F5F9;
+      border: 2px dashed #64748B;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: #334155;
+      margin-top: 24px;
+    }
   </style>
 </head>
 <body>
@@ -67,6 +99,64 @@
     <div class="badge-tag">SLIDE 14 • POLA DESAIN PERANGKAT LUNAK</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Arsitektur Bersih: Pemisahan Logika via Service Layer</h1>
     <p style="margin: 0; font-size: 14px;">Memisahkan tugas: Komponen Vue hanya mengurusi tampilan UI, sementara urusan API dan Storage dikelola oleh berkas Service terpusat.</p>
+  </div>
+
+  <!-- PANDUAN AWAM -->
+  <div class="guide-box">
+    <div class="guide-title">
+      <span>📘 Panduan Mahasiswa Awam: Memahami Pola Arsitektur Service Layer</span>
+    </div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E3A8A;">
+      <strong>Alat yang Digunakan:</strong> VS Code / Editor Teks (Pisahkan berkas ke dalam folder <code>src/services/</code>).<br>
+      <strong>Prinsip Penting:</strong>
+      <ol style="margin: 6px 0 0 0; padding-left: 20px;">
+        <li>Jangan menulis pemanggilan <code>fetch()</code> atau <code>localStorage</code> langsung di dalam template komponen UI secara berantakan (*spaghetti code*).</li>
+        <li>Kumpulkan seluruh logika simpan, baca, dan fetch ke dalam satu objek tunggal: <code>StudyTrackerService</code>.</li>
+        <li>Komponen UI cukup memanggil <code>await StudyTrackerService.getAll()</code>, sehingga kode Anda sangat bersih dan mudah dinilai penguji Tuton UT!</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SVG -->
+  <div class="diagram-card">
+    <h3 style="margin-top:0; margin-bottom:12px; font-size:16px;">🎨 Diagram Arsitektur: 3 Lapisan Pola Clean Architecture (Service Pattern)</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 170" width="100%" height="auto" style="display:block;">
+      <defs>
+        <marker id="arrow-s14" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- 1. Presentation Layer -->
+      <rect x="20" y="25" width="220" height="120" fill="#BAE6FD" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="130" y="52" font-size="13" font-weight="900" fill="#0369A1" text-anchor="middle">1. PRESENTATION LAYER</text>
+      <text x="130" y="75" font-size="11" text-anchor="middle" fill="#334155">Komponen Vue (*.vue)</text>
+      <text x="130" y="93" font-size="11" text-anchor="middle" fill="#334155">Tombol, Kartu, &amp; Formulir</text>
+      <rect x="35" y="105" width="190" height="24" fill="#0284C7" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="130" y="121" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">Murni Tampilan UI</text>
+
+      <!-- Panah 1 -> 2 -->
+      <path d="M 240 85 L 305 85" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s14)" />
+
+      <!-- 2. Service Layer -->
+      <rect x="315" y="25" width="220" height="120" fill="#FEF08A" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="425" y="52" font-size="13" font-weight="900" text-anchor="middle" fill="#854D0E">2. SERVICE LAYER</text>
+      <text x="425" y="75" font-size="11" text-anchor="middle" fill="#334155">studyTrackerService.ts</text>
+      <text x="425" y="93" font-size="11" text-anchor="middle" fill="#334155">getAll(), create(), sync()</text>
+      <rect x="330" y="105" width="190" height="24" fill="#FFE600" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="425" y="121" font-size="10" font-weight="900" text-anchor="middle">Aturan Bisnis Terpusat</text>
+
+      <!-- Panah 2 -> 3 -->
+      <path d="M 535 85 L 600 85" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s14)" />
+
+      <!-- 3. Infrastructure / Data Source -->
+      <rect x="610" y="25" width="220" height="120" fill="#BBF7D0" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="720" y="52" font-size="13" font-weight="900" text-anchor="middle" fill="#15803D">3. DATA SOURCES</text>
+      <text x="720" y="75" font-size="11" text-anchor="middle" fill="#334155">Open-Meteo REST API</text>
+      <text x="720" y="93" font-size="11" text-anchor="middle" fill="#334155">Preferences &amp; Geolocation</text>
+      <rect x="625" y="105" width="190" height="24" fill="#16A34A" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="720" y="121" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">I/O Network &amp; Hardware</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -123,6 +213,14 @@
   }
 };</div>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Sumber Acuan Akademik:</strong><br>
+    1. Modul Pembelajaran Mandiri (BMP) STSI4303/MSIM4401 Pemrograman Berbasis Perangkat Bergerak, Modul 8 & 9, Universitas Terbuka.<br>
+    2. Martin, R. C. (2017), <em>Clean Architecture: A Craftsman's Guide to Software Structure and Design</em>, Prentice Hall.<br>
+    3. Fowler, M. (2002), <em>Patterns of Enterprise Application Architecture: Service Layer Pattern</em>, Addison-Wesley.
   </div>
 
   <script>

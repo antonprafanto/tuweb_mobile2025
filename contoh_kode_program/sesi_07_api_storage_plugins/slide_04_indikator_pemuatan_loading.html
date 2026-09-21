@@ -19,7 +19,7 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--mint);
@@ -37,6 +37,29 @@
       background: #fff;
       margin-bottom: 10px;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .guide-title {
+      font-weight: 800;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .diagram-card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
       background: var(--card-bg);
@@ -52,6 +75,11 @@
       cursor: pointer;
       box-shadow: 3px 3px 0 #000;
       font-size: 13px;
+      transition: all 0.15s;
+    }
+    .btn-neo:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 #000;
     }
     .btn-neo:active {
       transform: translate(2px, 2px);
@@ -63,6 +91,15 @@
       padding: 16px;
       border-radius: 8px;
       margin-top: 12px;
+      box-shadow: 3px 3px 0 #000;
+    }
+    .source-cite {
+      background: #F1F5F9;
+      border: 2px dashed #64748B;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: #334155;
+      margin-top: 24px;
     }
   </style>
 </head>
@@ -72,6 +109,49 @@
     <div class="badge-tag">SLIDE 04 • EXPERIENCIA PENGGUNA ASINKRON</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Mengelola UX Pemuatan: Spinner & <code>ion-skeleton-text</code></h1>
     <p style="margin: 0; font-size: 14px;">Mencegah kepanikan pengguna saat koneksi lambat dengan indikator pemuatan dan efek kerangka placeholder (Skeleton Shimmer).</p>
+  </div>
+
+  <!-- PANDUAN AWAM -->
+  <div class="guide-box">
+    <div class="guide-title">
+      <span>📘 Panduan Mahasiswa Awam: Eksplorasi UX Pemuatan Data Asinkron</span>
+    </div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E3A8A;">
+      <strong>Alat yang Digunakan:</strong> Google Chrome (Tekan <code>F12</code> &gt; tab <strong>Network</strong> &gt; atur Throttling ke <em>Slow 3G</em> untuk melihat efek lambat nyata).<br>
+      <strong>Langkah Pengujian:</strong>
+      <ol style="margin: 6px 0 0 0; padding-left: 20px;">
+        <li>Klik tombol <strong>Simulasikan Ambil Data Ulang (Latency 2s)</strong> pada panel kiri.</li>
+        <li>Perhatikan kartu profil di panel kanan seketika berubah menjadi kerangka abu-abu beranimasi denyut (<em>shimmer</em>).</li>
+        <li>Setelah 1.8 detik (simulasi respon API tiba), kerangka otomatis berganti menjadi teks dan foto profil asli mahasiswa UT.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SVG -->
+  <div class="diagram-card">
+    <h3 style="margin-top:0; margin-bottom:12px; font-size:16px;">🎨 Diagram Psikologi UX: Komparasi 3 Pola Penanganan Pemuatan Layar</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 170" width="100%" height="auto" style="display:block;">
+      <!-- Pola 1: Blank Screen -->
+      <rect x="20" y="25" width="240" height="120" fill="#FEE2E2" stroke="#DC2626" stroke-width="2.5" rx="6" />
+      <text x="140" y="52" font-size="13" font-weight="900" fill="#991B1B" text-anchor="middle">1. BLANK SCREEN (BURUK)</text>
+      <rect x="50" y="65" width="180" height="35" fill="#FFF" stroke="#DC2626" stroke-width="1.5" rx="4" />
+      <text x="140" y="87" font-size="11" font-weight="800" fill="#DC2626" text-anchor="middle">Layar Putih Kosong</text>
+      <text x="140" y="125" font-size="10" fill="#7F1D1D" text-anchor="middle">Pengguna panik &amp; tutup paksa app</text>
+
+      <!-- Pola 2: Spinner Putar -->
+      <rect x="305" y="25" width="240" height="120" fill="#FEF9C3" stroke="#CA8A04" stroke-width="2.5" rx="6" />
+      <text x="425" y="52" font-size="13" font-weight="900" fill="#854D0E" text-anchor="middle">2. SPINNER PUTAR (STANDAR)</text>
+      <circle cx="425" cy="85" r="16" fill="none" stroke="#CA8A04" stroke-width="3" stroke-dasharray="25 10" />
+      <text x="425" y="125" font-size="10" fill="#713F12" text-anchor="middle">Menunggu pasif tanpa konteks bentuk</text>
+
+      <!-- Pola 3: Skeleton Shimmer -->
+      <rect x="590" y="25" width="240" height="120" fill="#DCFCE7" stroke="#16A34A" stroke-width="2.5" rx="6" />
+      <text x="710" y="52" font-size="13" font-weight="900" fill="#166534" text-anchor="middle">3. SKELETON SHIMMER (TERBAIK)</text>
+      <rect x="620" y="68" width="30" height="30" rx="15" fill="#CBD5E1" />
+      <rect x="660" y="70" width="140" height="10" rx="4" fill="#CBD5E1" />
+      <rect x="660" y="86" width="90" height="8" rx="4" fill="#E2E8F0" />
+      <text x="710" y="125" font-size="10" font-weight="800" fill="#14532D" text-anchor="middle">Persepsi tunggu 50% lebih cepat!</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -116,7 +196,7 @@
         <!-- MODE KONTEN NYATA TELAH TERLOAD -->
         <div v-else>
           <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-            <div style="width: 48px; height: 48px; background: #38bdf8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">
+            <div style="width: 48px; height: 48px; background: #38bdf8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; border: 2px solid #000;">
               🎓
             </div>
             <div>
@@ -134,6 +214,14 @@
         ✓ Status: <strong>{{ loading ? 'Sedang Memuat dari REST API (Skeleton Active)...' : 'Data Selesai Diterima (Render Complete)!' }}</strong>
       </div>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Sumber Acuan Akademik:</strong><br>
+    1. Modul Pembelajaran Mandiri (BMP) STSI4303/MSIM4401 Pemrograman Berbasis Perangkat Bergerak, Modul 8, Universitas Terbuka.<br>
+    2. Nielsen Norman Group (2020), <em>Skeleton Screens: The User-Centered Approach to Perceived Performance</em>.<br>
+    3. Ionic Documentation (2024), <em>ion-skeleton-text and ion-spinner API Component Reference</em>.
   </div>
 
   <script>

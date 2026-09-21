@@ -19,7 +19,7 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--purple);
@@ -37,6 +37,29 @@
       background: #fff;
       margin-bottom: 10px;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .guide-title {
+      font-weight: 800;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .diagram-card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
       background: var(--card-bg);
@@ -50,12 +73,24 @@
       margin-bottom: 8px;
       cursor: pointer;
       background: #f8fafc;
+      transition: all 0.15s;
+    }
+    .storage-option:hover {
+      background: #F1F5F9;
     }
     .storage-option.active {
       background: #ffe600;
       box-shadow: 3px 3px 0 #000;
       transform: translate(-2px, -2px);
       font-weight: bold;
+    }
+    .source-cite {
+      background: #F1F5F9;
+      border: 2px dashed #64748B;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: #334155;
+      margin-top: 24px;
     }
   </style>
 </head>
@@ -65,6 +100,76 @@
     <div class="badge-tag">SLIDE 06 • ARSITEKTUR PERSISTENSI DATA</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Spektrum Opsi Penyimpanan Data Mobile</h1>
     <p style="margin: 0; font-size: 14px;">Memilih media penyimpanan lokal yang tepat: Dari variabel memori RAM, LocalStorage, hingga SQLite dan Capacitor Preferences.</p>
+  </div>
+
+  <!-- PANDUAN AWAM -->
+  <div class="guide-box">
+    <div class="guide-title">
+      <span>📘 Panduan Mahasiswa Awam: Memilih Opsi Penyimpanan Data di Smartphone</span>
+    </div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E3A8A;">
+      <strong>Alat yang Digunakan:</strong> Google Chrome (Buka tab <strong>Application</strong> pada DevTools <code>F12</code> &gt; lihat menu <em>Storage</em> / <em>Local storage</em> / <em>IndexedDB</em>).<br>
+      <strong>Langkah Eksplorasi:</strong>
+      <ol style="margin: 6px 0 0 0; padding-left: 20px;">
+        <li>Klik masing-masing opsi penyimpanan di panel kiri untuk membandingkan kapasitas dan perilakunya.</li>
+        <li>Pahami mengapa <strong>RAM</strong> saja tidak cukup untuk aplikasi mobile (data akan terhapus saat baterai habis atau app ditutup).</li>
+        <li>Untuk <strong>Tugas Tutorial 3</strong>, pilihlah <strong>LocalStorage</strong> atau <strong>Capacitor Preferences</strong> karena sangat ringan, mudah diuji, dan menjamin data catatan belajar tidak lenyap!</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SVG -->
+  <div class="diagram-card">
+    <h3 style="margin-top:0; margin-bottom:12px; font-size:16px;">🎨 Diagram Arsitektur: Spektrum Spektrum Penyimpanan Mobile (Ephemeral vs Persisten)</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 170" width="100%" height="auto" style="display:block;">
+      <defs>
+        <marker id="arrow-s6" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- 1. RAM State -->
+      <rect x="15" y="25" width="150" height="120" fill="#FECDD3" stroke="#000" stroke-width="2" rx="6" />
+      <text x="90" y="52" font-size="12" font-weight="900" fill="#991B1B" text-anchor="middle">1. RAM (State)</text>
+      <text x="90" y="75" font-size="10" text-anchor="middle" fill="#7F1D1D">ref() / reactive()</text>
+      <text x="90" y="93" font-size="10" text-anchor="middle" fill="#7F1D1D">Kapasitas: RAM HP</text>
+      <rect x="25" y="105" width="130" height="22" fill="#FB7185" stroke="#000" stroke-width="1" rx="3" />
+      <text x="90" y="120" font-size="9" font-weight="900" fill="#FFF" text-anchor="middle">Ephemeral (Hilang)</text>
+
+      <!-- 2. LocalStorage -->
+      <rect x="180" y="25" width="150" height="120" fill="#BAE6FD" stroke="#000" stroke-width="2" rx="6" />
+      <text x="255" y="52" font-size="12" font-weight="900" fill="#0369A1" text-anchor="middle">2. LocalStorage</text>
+      <text x="255" y="75" font-size="10" text-anchor="middle" fill="#0C4A6E">Window Storage API</text>
+      <text x="255" y="93" font-size="10" text-anchor="middle" fill="#0C4A6E">Kapasitas: ~5 MB</text>
+      <rect x="190" y="105" width="130" height="22" fill="#38BDF8" stroke="#000" stroke-width="1" rx="3" />
+      <text x="255" y="120" font-size="9" font-weight="900" fill="#000" text-anchor="middle">Sinkron (Cepat/Simpel)</text>
+
+      <!-- 3. Preferences -->
+      <rect x="345" y="15" width="160" height="140" fill="#FEF08A" stroke="#000" stroke-width="3" rx="8" />
+      <rect x="355" y="22" width="140" height="18" fill="#FFE600" stroke="#000" stroke-width="1" rx="3" />
+      <text x="425" y="35" font-size="9" font-weight="900" text-anchor="middle">STANDAR CAPACITOR</text>
+      <text x="425" y="62" font-size="12" font-weight="900" text-anchor="middle">3. Preferences</text>
+      <text x="425" y="80" font-size="10" text-anchor="middle" fill="#334155">SharedPreferences XML</text>
+      <text x="425" y="98" font-size="10" text-anchor="middle" fill="#334155">Kapasitas: Konfigurasi</text>
+      <rect x="355" y="115" width="140" height="24" fill="#4ADE80" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="425" y="131" font-size="10" font-weight="900" text-anchor="middle">Asinkron &amp; Persisten</text>
+
+      <!-- 4. IndexedDB -->
+      <rect x="520" y="25" width="150" height="120" fill="#E9D5FF" stroke="#000" stroke-width="2" rx="6" />
+      <text x="595" y="52" font-size="12" font-weight="900" fill="#7E22CE" text-anchor="middle">4. IndexedDB</text>
+      <text x="595" y="75" font-size="10" text-anchor="middle" fill="#581C87">NoSQL Object Store</text>
+      <text x="595" y="93" font-size="10" text-anchor="middle" fill="#581C87">Kapasitas: Ratusan MB</text>
+      <rect x="530" y="105" width="130" height="22" fill="#C084FC" stroke="#000" stroke-width="1" rx="3" />
+      <text x="595" y="120" font-size="9" font-weight="900" fill="#FFF" text-anchor="middle">Indexed Search</text>
+
+      <!-- 5. SQLite -->
+      <rect x="685" y="25" width="150" height="120" fill="#BBF7D0" stroke="#000" stroke-width="2" rx="6" />
+      <text x="760" y="52" font-size="12" font-weight="900" fill="#15803D" text-anchor="middle">5. SQLite DB</text>
+      <text x="760" y="75" font-size="10" text-anchor="middle" fill="#14532D">Relasional SQL Murni</text>
+      <text x="760" y="93" font-size="10" text-anchor="middle" fill="#14532D">Kapasitas: GigaByte</text>
+      <rect x="695" y="105" width="130" height="22" fill="#4ADE80" stroke="#000" stroke-width="1" rx="3" />
+      <text x="760" y="120" font-size="9" font-weight="900" fill="#000" text-anchor="middle">Tabel &amp; Foreign Key</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -123,6 +228,14 @@
         🎓 <strong>Standar Tugas Tutorial 3:</strong> Mahasiswa dapat memanfaatkan <strong>LocalStorage</strong> atau <strong>Capacitor Preferences</strong> untuk menyimpan catatan sesi belajar secara permanen. Keduanya ramah memori laptop dan bebas dependensi berat!
       </div>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Sumber Acuan Akademik:</strong><br>
+    1. Modul Pembelajaran Mandiri (BMP) STSI4303/MSIM4401 Pemrograman Berbasis Perangkat Bergerak, Modul 9 (Penyimpanan Data Lokal), Universitas Terbuka.<br>
+    2. W3C Recommendation (2022), <em>Web Storage (Second Edition) & Indexed Database API 3.0</em>.<br>
+    3. Google Android Developers (2024), <em>Save key-value data using SharedPreferences</em>.
   </div>
 
   <script>

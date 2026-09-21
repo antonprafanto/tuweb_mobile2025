@@ -19,7 +19,7 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--purple);
@@ -36,6 +36,29 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .guide-title {
+      font-weight: 800;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .diagram-card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -54,6 +77,11 @@
       box-shadow: 3px 3px 0 #000;
       margin-right: 6px;
       margin-bottom: 6px;
+      transition: all 0.15s;
+    }
+    .btn-action:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 #000;
     }
     .btn-action:active {
       transform: translate(2px, 2px);
@@ -68,6 +96,14 @@
       border: 2px solid #000;
       white-space: pre-wrap;
     }
+    .source-cite {
+      background: #F1F5F9;
+      border: 2px dashed #64748B;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: #334155;
+      margin-top: 24px;
+    }
   </style>
 </head>
 <body>
@@ -76,6 +112,74 @@
     <div class="badge-tag">SLIDE 03 • ASYNCHRONOUS JAVASCRIPT</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Pemanggilan Data Asinkron: <code>fetch()</code> & <code>async/await</code></h1>
     <p style="margin: 0; font-size: 14px;">Struktur penanganan request modern dengan pola pertahanan tiga lapis: <code>try { ... } catch (e) { ... } finally { ... }</code>.</p>
+  </div>
+
+  <!-- PANDUAN AWAM -->
+  <div class="guide-box">
+    <div class="guide-title">
+      <span>📘 Panduan Mahasiswa Awam: Pola Eksekusi Jaringan Asinkron</span>
+    </div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E3A8A;">
+      <strong>Alat yang Digunakan:</strong> Google Chrome / DevTools (Tekan <code>F12</code> &gt; tab <strong>Console</strong> atau <strong>Network</strong>).<br>
+      <strong>Langkah Pengujian Simulator:</strong>
+      <ol style="margin: 6px 0 0 0; padding-left: 20px;">
+        <li>Klik tombol <strong>Skenario 200 OK (Sukses)</strong>: Amati data berhasil dimuat ke objek <code>resultData</code> dan loading mati.</li>
+        <li>Klik tombol <strong>Skenario 404 (Not Found)</strong>: Perhatikan bahwa <code>!res.ok</code> memicu eksepsi yang ditangkap oleh blok <code>catch</code>.</li>
+        <li>Klik tombol <strong>Skenario Putus Jaringan</strong>: Simulasikan saat ponsel masuk ke mode pesawat atau offline. Blok <code>finally</code> menjamin spinner pemuatan berhenti berputar.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SVG -->
+  <div class="diagram-card">
+    <h3 style="margin-top:0; margin-bottom:12px; font-size:16px;">🎨 Diagram Arsitektur: Pipeline Pertahanan 3 Blok <code>try-catch-finally</code></h3>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 180" width="100%" height="auto" style="display:block;">
+      <defs>
+        <marker id="arrow-s3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- Step 1: Start &amp; Loading true -->
+      <rect x="15" y="45" width="160" height="90" fill="#FEF08A" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="95" y="75" font-size="13" font-weight="900" text-anchor="middle">1. INISIASI</text>
+      <text x="95" y="95" font-size="11" text-anchor="middle" fill="#334155">isLoading = true</text>
+      <text x="95" y="113" font-size="11" text-anchor="middle" fill="#334155">errorMessage = ''</text>
+
+      <!-- Panah 1 -> 2 -->
+      <path d="M 175 90 L 225 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s3)" />
+
+      <!-- Step 2: Blok TRY -->
+      <rect x="235" y="25" width="220" height="130" fill="#BAE6FD" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="345" y="55" font-size="13" font-weight="900" text-anchor="middle" fill="#0369A1">2. BLOK TRY</text>
+      <text x="345" y="77" font-size="11" text-anchor="middle" fill="#0f172a">• res = await fetch(url)</text>
+      <text x="345" y="97" font-size="11" text-anchor="middle" fill="#dc2626">• if (!res.ok) throw Error</text>
+      <text x="345" y="117" font-size="11" text-anchor="middle" fill="#0f172a">• data = await res.json()</text>
+      <rect x="255" y="126" width="180" height="20" fill="#0284C7" stroke="#000" stroke-width="1" rx="3" />
+      <text x="345" y="140" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">Sukses $\rightarrow$ Simpan State</text>
+
+      <!-- Cabang Galat ke CATCH -->
+      <path d="M 455 105 L 505 105" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-dasharray="4" marker-end="url(#arrow-s3)" />
+      <text x="480" y="98" font-size="9" font-weight="900" fill="#DC2626" text-anchor="middle">Error</text>
+
+      <!-- Step 3: Blok CATCH -->
+      <rect x="515" y="45" width="160" height="90" fill="#FECDD3" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="595" y="75" font-size="13" font-weight="900" text-anchor="middle" fill="#991B1B">3. BLOK CATCH</text>
+      <text x="595" y="95" font-size="11" text-anchor="middle" fill="#7F1D1D">Tangkap err.message</text>
+      <text x="595" y="113" font-size="11" text-anchor="middle" fill="#7F1D1D">Tampilkan ke UI</text>
+
+      <!-- Cabang ke FINALLY -->
+      <path d="M 455 60 L 695 60" fill="none" stroke="#000" stroke-width="2" />
+      <path d="M 675 90 L 695 90" fill="none" stroke="#000" stroke-width="2" />
+      <path d="M 695 60 L 695 90" fill="none" stroke="#000" stroke-width="2" />
+      <path d="M 695 90 L 715 90" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s3)" />
+
+      <!-- Step 4: Blok FINALLY -->
+      <rect x="725" y="45" width="115" height="90" fill="#BBF7D0" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="782" y="75" font-size="13" font-weight="900" text-anchor="middle" fill="#166534">4. FINALLY</text>
+      <text x="782" y="95" font-size="11" text-anchor="middle" fill="#14532D">isLoading</text>
+      <text x="782" y="113" font-size="11" font-weight="900" text-anchor="middle" fill="#14532D">= FALSE</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -141,6 +245,14 @@
         ⚠️ <strong>Jebakan Pemula:</strong> <code>fetch()</code> <strong>TIDAK ME-REJECT</strong> Promise jika server membalas error 404 Not Found atau 500 Server Error! Anda wajib memeriksa kondisi <code>if (!response.ok)</code> secara manual!
       </div>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Sumber Acuan Akademik:</strong><br>
+    1. Modul Pembelajaran Mandiri (BMP) STSI4303/MSIM4401 Pemrograman Berbasis Perangkat Bergerak, Modul 8 (Komunikasi Data Jaringan), Universitas Terbuka.<br>
+    2. MDN Web Docs (2024), <em>How to use the Fetch API & Handling Errors in Asynchronous Code</em>, Mozilla Foundation.<br>
+    3. ECMA International (2023), <em>ECMAScript 2023 Language Specification: Async Functions and Promises</em>.
   </div>
 
   <script>

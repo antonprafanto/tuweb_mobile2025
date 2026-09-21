@@ -19,7 +19,7 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--yellow);
@@ -37,6 +37,29 @@
       background: #fff;
       margin-bottom: 10px;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .guide-title {
+      font-weight: 800;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .diagram-card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
       background: var(--card-bg);
@@ -47,14 +70,29 @@
     .preset-btn {
       background: #f1f5f9;
       border: 2px solid #000;
-      padding: 6px 10px;
-      font-size: 11px;
+      padding: 8px 12px;
+      font-size: 12px;
       font-weight: bold;
       cursor: pointer;
       margin-right: 6px;
       margin-bottom: 6px;
+      transition: all 0.15s;
     }
-    .preset-btn:hover { background: #ffe600; }
+    .preset-btn:hover {
+      background: #ffe600;
+      transform: translate(-1px, -1px);
+    }
+    .preset-btn:active {
+      transform: translate(1px, 1px);
+    }
+    .source-cite {
+      background: #F1F5F9;
+      border: 2px dashed #64748B;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: #334155;
+      margin-top: 24px;
+    }
   </style>
 </head>
 <body>
@@ -63,6 +101,55 @@
     <div class="badge-tag">SLIDE 11 • VALIDASI RADIUS GEOFENCING</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Validasi Presensi Geofencing via Rumus Haversine</h1>
     <p style="margin: 0; font-size: 14px;">Mencegah manipulasi presensi ujian / belajar tatap muka dengan mengukur jarak matematis kelengkungan bumi (Haversine Formula).</p>
+  </div>
+
+  <!-- PANDUAN AWAM -->
+  <div class="guide-box">
+    <div class="guide-title">
+      <span>📘 Panduan Mahasiswa Awam: Simulasi Algoritma Radius Presensi</span>
+    </div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E3A8A;">
+      <strong>Alat yang Digunakan:</strong> Google Chrome / Web Browser (Dapat diuji langsung dengan klik preset lokasi).<br>
+      <strong>Langkah Pengujian:</strong>
+      <ol style="margin: 6px 0 0 0; padding-left: 20px;">
+        <li>Klik tombol preset <strong>Ruang Kuliah (0 m)</strong> atau <strong>Gerbang Kampus (~110 m)</strong>: Sistem menyatakan presensi SAH (&le; 200m).</li>
+        <li>Klik tombol preset <strong>Halte Luar (~510 m)</strong> atau <strong>Rumah Kosan (~15 km)</strong>: Sistem otomatis menolak presensi karena di luar radius geofence.</li>
+        <li>Perhatikan bagaimana fungsi matematika Haversine mengolah <code>lat</code> dan <code>lon</code> menjadi jarak presisi dalam satuan meter.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SVG -->
+  <div class="diagram-card">
+    <h3 style="margin-top:0; margin-bottom:12px; font-size:16px;">🎨 Diagram Arsitektur: Geofencing Radius Presensi Kampus UT</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 180" width="100%" height="auto" style="display:block;">
+      <!-- Zona Geofence Luar (Ditolak) -->
+      <rect x="20" y="15" width="810" height="150" fill="#FEE2E2" stroke="#DC2626" stroke-width="2" rx="8" stroke-dasharray="6 4" />
+      <text x="50" y="38" font-size="12" font-weight="900" fill="#991B1B">ZONA DITOLAK (&gt; 200 Meter)</text>
+
+      <!-- Lingkaran Geofence Sah -->
+      <circle cx="425" cy="90" r="65" fill="#DCFCE7" stroke="#16A34A" stroke-width="2.5" />
+      <text x="425" y="45" font-size="11" font-weight="900" fill="#166534" text-anchor="middle">RADIUS IZIN: ≤ 200 METER</text>
+
+      <!-- Titik Pusat Kampus -->
+      <circle cx="425" cy="90" r="8" fill="#DC2626" stroke="#000" stroke-width="2" />
+      <text x="425" y="112" font-size="10" font-weight="900" text-anchor="middle">UT PUSAT</text>
+
+      <!-- Posisi Mahasiswa 1 (Dalam Lingkaran) -->
+      <circle cx="460" cy="80" r="6" fill="#16A34A" stroke="#000" stroke-width="1.5" />
+      <text x="495" y="80" font-size="9" font-weight="800" fill="#14532D">Mahasiswa A (85m - SAH)</text>
+
+      <!-- Posisi Mahasiswa 2 (Luar Lingkaran) -->
+      <circle cx="680" cy="70" r="6" fill="#DC2626" stroke="#000" stroke-width="1.5" />
+      <text x="730" y="70" font-size="9" font-weight="800" fill="#7F1D1D">Mahasiswa B (510m - DITOLAK)</text>
+
+      <!-- Rumus Haversine Label -->
+      <rect x="40" y="60" width="220" height="85" fill="#FFF" stroke="#000" stroke-width="1.5" rx="4" />
+      <text x="150" y="80" font-size="11" font-weight="900" text-anchor="middle">HAVERSINE FORMULA</text>
+      <text x="150" y="98" font-size="10" text-anchor="middle" fill="#334155">d = 2R × asin(√hav(Δθ))</text>
+      <text x="150" y="116" font-size="10" text-anchor="middle" fill="#334155">Radius Bumi R = 6,371 km</text>
+      <text x="150" y="132" font-size="9" font-weight="800" fill="#0284C7" text-anchor="middle">Output: Jarak Akurat (Meter)</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -88,7 +175,7 @@ function getDistance(lat1, lon1, lat2, lon2) {
 
       <div style="background: #FEF9C3; border: 2px solid #CA8A04; padding: 10px; font-size: 12px;">
         🏛️ <strong>Titik Acuan Target:</strong> Kampus UT Pusat (Pondok Cabe)<br>
-        Koordinat: <code>-6.305021, 106.755812</code> | Radius Izin: <strong>≤ 200 Meter</strong>
+        Koordinat: <code>-6.305021, 106.755812</code> | Radius Izin: <strong>&le; 200 Meter</strong>
       </div>
     </div>
 
@@ -104,7 +191,7 @@ function getDistance(lat1, lon1, lat2, lon2) {
         <button class="preset-btn" @click="setPos(-6.306000, 106.756200, 'Gerbang Depan Kampus')">
           🚪 Gerbang Kampus (~110 m)
         </button>
-        <button class="preset-btn" @click="setPos(-6.309000, 106.758000, 'Halte Bus Luar')">
+        <button class="preset-btn" @click="setPos(-6.309000, 106.758000, 'Halte Luar')">
           🚌 Halte Luar (~510 m)
         </button>
         <button class="preset-btn" @click="setPos(-6.208800, 106.845600, 'Di Rumah / Kosan')">
@@ -130,6 +217,14 @@ function getDistance(lat1, lon1, lat2, lon2) {
         Jarak Anda ({{ calculatedDistance.toFixed(0) }} m) melebihi batas toleransi 200 meter dari gedung kuliah.
       </div>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Sumber Acuan Akademik:</strong><br>
+    1. Modul Pembelajaran Mandiri (BMP) STSI4303/MSIM4401 Pemrograman Berbasis Perangkat Bergerak, Modul 9, Universitas Terbuka.<br>
+    2. Sinnott, R. W. (1984), <em>Virtues of the Haversine</em>, Sky and Telescope, 68(2), 159.<br>
+    3. National Geodetic Survey (NGS), <em>Great-Circle Distance Calculations on the Earth Ellipsoid</em>.
   </div>
 
   <script>

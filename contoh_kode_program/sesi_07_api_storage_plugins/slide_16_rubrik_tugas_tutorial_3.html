@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 16: Kalkulator Rubrik & Pedoman Tugas Tutorial 3 — STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .guide-title {
+      font-weight: 800;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .diagram-card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .score-banner {
+      border: 3px solid var(--border);
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .criterion-card {
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin-bottom: 14px;
+      background: #F8FAFC;
+    }
+    .btn-action {
+      background: var(--yellow);
+      border: 2px solid var(--border);
+      padding: 10px 16px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border);
+      transition: all 0.15s;
+    }
+    .btn-action:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .btn-action:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--border);
+    }
+    .source-cite {
+      background: #F1F5F9;
+      border: 2px dashed #64748B;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: #334155;
+      margin-top: 24px;
+    }
+    .slider-input {
+      width: 100%;
+      height: 8px;
+      accent-color: #000;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 16 • EVALUASI TUGAS TUTORIAL 3 (MODUL 8 & 9 BMP UT)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Kalkulator Rubrik & Pedoman Resmi TUGAS TUTORIAL 3 (Bobot 20%)</h1>
+    <p style="margin: 0; font-size: 14px;">Evaluasi praktikum pamungkas: Rancang bangun aplikasi terintegrasi REST API, penyimpanan lokal offline, dan sensor native Capacitor.</p>
+  </div>
+
+  <!-- PANDUAN AWAM -->
+  <div class="guide-box">
+    <div class="guide-title">
+      <span>📘 Panduan Mahasiswa Awam: Cara Menggunakan Simulator Rubrik Tugas 3</span>
+    </div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E3A8A;">
+      <strong>Alat yang Digunakan:</strong> Google Chrome / Peramban Web Desktop (Bisa diuji tanpa install software apapun).<br>
+      <strong>Langkah Pengujian:</strong>
+      <ol style="margin: 6px 0 0 0; padding-left: 20px;">
+        <li>Geser slider atau pilih rentang capaian pada masing-masing <strong>4 Kriteria Penilaian</strong> di bawah.</li>
+        <li>Perhatikan pembaruan kalkulasi nilai total (skala 0–100) dan grade akademik (A/B/C/D) secara <em>real-time</em>.</li>
+        <li>Buka tab <strong>Checklist Pra-Submit</strong> untuk memastikan laporan PDF, repo GitHub, dan video YouTube sudah lengkap.</li>
+        <li>Gunakan tombol <strong>Salin Format Laporan</strong> untuk mendapatkan struktur draf laporan PDF tugas Anda.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SVG -->
+  <div class="diagram-card">
+    <h3 style="margin-top:0; margin-bottom:12px; font-size:16px;">🎨 Diagram Arsitektur: 4 Pilar Kriteria Penilaian Tugas Tutorial 3</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 200" width="100%" height="auto" style="display:block;">
+      <defs>
+        <marker id="arrow-t3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- Kriteria 1: REST API -->
+      <rect x="10" y="20" width="190" height="110" fill="#BAE6FD" stroke="#000" stroke-width="2.5" rx="6" />
+      <rect x="20" y="10" width="80" height="20" fill="#0284C7" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="60" y="24" font-size="11" font-weight="900" fill="#FFF" text-anchor="middle">PILAR 1</text>
+      <text x="105" y="55" font-size="13" font-weight="900" text-anchor="middle">Live REST API</text>
+      <text x="105" y="75" font-size="11" text-anchor="middle" fill="#334155">fetch() + async/await</text>
+      <text x="105" y="93" font-size="11" text-anchor="middle" fill="#334155">Loading / Skeleton UX</text>
+      <rect x="35" y="102" width="140" height="20" fill="#FFE600" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="105" y="116" font-size="11" font-weight="900" text-anchor="middle">Bobot: 30 Poin</text>
+
+      <!-- Panah 1 ke Total -->
+      <path d="M 200 75 L 220 75" fill="none" stroke="#000" stroke-width="2" marker-end="url(#arrow-t3)" />
+
+      <!-- Kriteria 2: Offline Storage -->
+      <rect x="225" y="20" width="190" height="110" fill="#BBF7D0" stroke="#000" stroke-width="2.5" rx="6" />
+      <rect x="235" y="10" width="80" height="20" fill="#16A34A" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="275" y="24" font-size="11" font-weight="900" fill="#FFF" text-anchor="middle">PILAR 2</text>
+      <text x="320" y="55" font-size="13" font-weight="900" text-anchor="middle">Offline Storage</text>
+      <text x="320" y="75" font-size="11" text-anchor="middle" fill="#334155">CRUD Persisten</text>
+      <text x="320" y="93" font-size="11" text-anchor="middle" fill="#334155">Preferences / LocalStorage</text>
+      <rect x="250" y="102" width="140" height="20" fill="#FFE600" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="320" y="116" font-size="11" font-weight="900" text-anchor="middle">Bobot: 25 Poin</text>
+
+      <!-- Kriteria 3: Native Sensors -->
+      <rect x="440" y="20" width="190" height="110" fill="#E9D5FF" stroke="#000" stroke-width="2.5" rx="6" />
+      <rect x="450" y="10" width="80" height="20" fill="#9333EA" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="490" y="24" font-size="11" font-weight="900" fill="#FFF" text-anchor="middle">PILAR 3</text>
+      <text x="535" y="55" font-size="13" font-weight="900" text-anchor="middle">Native Sensors</text>
+      <text x="535" y="75" font-size="11" text-anchor="middle" fill="#334155">GPS Geolocation /</text>
+      <text x="535" y="93" font-size="11" text-anchor="middle" fill="#334155">Camera Hardware</text>
+      <rect x="465" y="102" width="140" height="20" fill="#FFE600" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="535" y="116" font-size="11" font-weight="900" text-anchor="middle">Bobot: 25 Poin</text>
+
+      <!-- Kriteria 4: Arsitektur &amp; Video -->
+      <rect x="650" y="20" width="190" height="110" fill="#FECDD3" stroke="#000" stroke-width="2.5" rx="6" />
+      <rect x="660" y="10" width="80" height="20" fill="#E11D48" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="700" y="24" font-size="11" font-weight="900" fill="#FFF" text-anchor="middle">PILAR 4</text>
+      <text x="745" y="55" font-size="13" font-weight="900" text-anchor="middle">Arsitektur &amp; Video</text>
+      <text x="745" y="75" font-size="11" text-anchor="middle" fill="#334155">Clean Architecture</text>
+      <text x="745" y="93" font-size="11" text-anchor="middle" fill="#334155">Demo YouTube Unlisted</text>
+      <rect x="675" y="102" width="140" height="20" fill="#FFE600" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="745" y="116" font-size="11" font-weight="900" text-anchor="middle">Bobot: 20 Poin</text>
+
+      <!-- Footer Total Bar -->
+      <rect x="10" y="150" width="830" height="40" fill="#FEF08A" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="425" y="175" font-size="14" font-weight="900" text-anchor="middle">TOTAL NILAI MAKSIMAL TUGAS 3 = 100 POIN (KONTRIBUSI 20% DARI NILAI AKHIR TUTON UT)</text>
+    </svg>
+  </div>
+
+  <!-- APLIKASI INTERAKTIF VUE 3 -->
+  <div id="app" class="grid">
+    <!-- PANEL KIRI: KALKULATOR RUBRIK -->
+    <div class="box">
+      <div class="score-banner" :style="{ background: scoreColor }">
+        <div style="font-size: 12px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">
+          PREDIKSI NILAI TUGAS TUTORIAL 3
+        </div>
+        <div style="font-size: 48px; font-weight: 900; margin: 4px 0;">{{ totalScore }} <span style="font-size: 20px;">/ 100</span></div>
+        <div style="font-size: 14px; font-weight: 800;">
+          Grade: {{ gradeLetter }} ({{ gradeStatus }})
+        </div>
+      </div>
+
+      <h3 style="margin-top: 0;">🎛️ Penyesuaian Capaian Kriteria</h3>
+
+      <!-- Kriteria 1: REST API (30 Poin) -->
+      <div class="criterion-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <strong>1. Integrasi Live Asynchronous REST API</strong>
+          <span style="font-weight: 900; background: #BAE6FD; padding: 2px 8px; border: 1px solid #000;">{{ pilar1 }} / 30</span>
+        </div>
+        <input type="range" min="0" max="30" step="5" v-model.number="pilar1" class="slider-input">
+        <div style="font-size: 11px; color: #475569; margin-top: 4px;">
+          • Mengambil data Open-Meteo cuaca / API publik dengan <code>fetch()</code> & <code>async/await</code>.<br>
+          • Memiliki indikator loading (<code>&lt;ion-spinner&gt;</code> atau <code>&lt;ion-skeleton-text&gt;</code>).
+        </div>
+      </div>
+
+      <!-- Kriteria 2: Offline Storage (25 Poin) -->
+      <div class="criterion-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <strong>2. Offline-First Storage Persisten (CRUD)</strong>
+          <span style="font-weight: 900; background: #BBF7D0; padding: 2px 8px; border: 1px solid #000;">{{ pilar2 }} / 25</span>
+        </div>
+        <input type="range" min="0" max="25" step="5" v-model.number="pilar2" class="slider-input">
+        <div style="font-size: 11px; color: #475569; margin-top: 4px;">
+          • Fitur Simpan (C), Baca (R), dan Hapus (D) catatan belajar mahasiswa.<br>
+          • Data tersimpan persisten di <code>localStorage</code> / <code>@capacitor/preferences</code> dan tidak hilang saat aplikasi direfresh.
+        </div>
+      </div>
+
+      <!-- Kriteria 3: Native Hardware Sensors (25 Poin) -->
+      <div class="criterion-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <strong>3. Integrasi Sensor Hardware Native</strong>
+          <span style="font-weight: 900; background: #E9D5FF; padding: 2px 8px; border: 1px solid #000;">{{ pilar3 }} / 25</span>
+        </div>
+        <input type="range" min="0" max="25" step="5" v-model.number="pilar3" class="slider-input">
+        <div style="font-size: 11px; color: #475569; margin-top: 4px;">
+          • <strong>Geolocation:</strong> Penguncian koordinat latitude & longitude presensi belajar.<br>
+          • <strong>Camera:</strong> Pengambilan foto bukti belajar modul BMP via kamera ponsel.
+        </div>
+      </div>
+
+      <!-- Kriteria 4: Arsitektur & Video (20 Poin) -->
+      <div class="criterion-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <strong>4. Arsitektur Kode, Laporan & Video Demo</strong>
+          <span style="font-weight: 900; background: #FECDD3; padding: 2px 8px; border: 1px solid #000;">{{ pilar4 }} / 20</span>
+        </div>
+        <input type="range" min="0" max="20" step="5" v-model.number="pilar4" class="slider-input">
+        <div style="font-size: 11px; color: #475569; margin-top: 4px;">
+          • Kode rapi terstruktur (Service Pattern, TypeScript/Vue SFC).<br>
+          • Video YouTube unlisted (3–5 menit) menampilkan pengujian di browser/ponsel.
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 10px;">
+        <button class="btn-action" @click="setPerfectScore">⭐ Set Nilai Sempurna (100)</button>
+        <button class="btn-action" style="background:#FFF;" @click="resetScore">🔄 Reset Default</button>
+      </div>
+    </div>
+
+    <!-- PANEL KANAN: CHECKLIST PRA-SUBMIT & TEMPLATE LAPORAN -->
+    <div class="box">
+      <h3 style="margin-top: 0;">📋 Checklist Wajib Pra-Submit Tuton UT</h3>
+      <p style="font-size: 12px; color: #475569;">
+        Centang seluruh item berikut sebelum mengunggah berkas PDF ke LMS Tuton UT:
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+        <label style="font-size: 13px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" v-model="checklist.pdfFormat" style="width: 18px; height: 18px; accent-color: #000;">
+          <span>Nama berkas format baku: <code>Tugas3_NIM_NamaLengkap.pdf</code></span>
+        </label>
+        <label style="font-size: 13px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" v-model="checklist.apiLive" style="width: 18px; height: 18px; accent-color: #000;">
+          <span>Tangkapan layar pemanggilan live REST API cuaca & loading indicator</span>
+        </label>
+        <label style="font-size: 13px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" v-model="checklist.storageCrud" style="width: 18px; height: 18px; accent-color: #000;">
+          <span>Tangkapan layar data tersimpan di LocalStorage / Preferences</span>
+        </label>
+        <label style="font-size: 13px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" v-model="checklist.sensorCaptured" style="width: 18px; height: 18px; accent-color: #000;">
+          <span>Tangkapan layar koordinat GPS / foto kamera bukti belajar</span>
+        </label>
+        <label style="font-size: 13px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" v-model="checklist.githubLink" style="width: 18px; height: 18px; accent-color: #000;">
+          <span>Tautan repositori GitHub publik disertakan dan dapat diakses publik</span>
+        </label>
+        <label style="font-size: 13px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" v-model="checklist.youtubeLink" style="width: 18px; height: 18px; accent-color: #000;">
+          <span>Tautan video demo YouTube unlisted (3–5 menit) aktif & bersuara</span>
+        </label>
+        <label style="font-size: 13px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+          <input type="checkbox" v-model="checklist.originality" style="width: 18px; height: 18px; accent-color: #000;">
+          <span>Surat pernyataan orisinalitas bebas plagiarisme bermaterai/bertandatangan</span>
+        </label>
+      </div>
+
+      <div style="background: #F8FAFC; border: 2px solid #000; padding: 14px; margin-bottom: 16px;">
+        <div style="font-size: 12px; font-weight: 800; margin-bottom: 6px;">
+          Kesiapan Berkas: {{ checkedCount }} dari {{ totalChecklist }} Syarat Terpenuhi
+        </div>
+        <div style="background: #E2E8F0; height: 10px; border: 1px solid #000; border-radius: 4px; overflow: hidden;">
+          <div :style="{ width: readinessPercentage + '%', background: readinessPercentage === 100 ? '#4ADE80' : '#FFE600', height: '100%' }"></div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 10px;">
+        <button class="btn-action" @click="copyReportTemplate">
+          📋 {{ copied ? 'Tersalin ke Clipboard!' : 'Salin Format Laporan PDF' }}
+        </button>
+        <a href="slide_17_solusi_tugas_3_study_tracker.html" style="text-decoration: none;">
+          <button class="btn-action" style="background: var(--mint);">
+            🚀 Buka Master Solusi Tugas 3
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Sumber Acuan Akademik:</strong><br>
+    1. Modul Pembelajaran Mandiri (BMP) STSI4303/MSIM4401 Pemrograman Berbasis Perangkat Bergerak, Modul 8 (Komunikasi Data Jaringan) & Modul 9 (Penyimpanan Data dan Sensor Perangkat Keras), Universitas Terbuka.<br>
+    2. Pedoman Penilaian Tutorial Online (Tuton) Fakultas Sains dan Teknologi (FST), Universitas Terbuka.<br>
+    3. MDN Web Docs (2024), <em>Using the Fetch API & Asynchronous JavaScript</em>.<br>
+    4. Capacitor Official Documentation (2024), <em>Preferences, Geolocation, and Camera Native APIs</em>.
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        const pilar1 = ref(30);
+        const pilar2 = ref(25);
+        const pilar3 = ref(25);
+        const pilar4 = ref(20);
+        const copied = ref(false);
+
+        const checklist = ref({
+          pdfFormat: true,
+          apiLive: true,
+          storageCrud: true,
+          sensorCaptured: true,
+          githubLink: true,
+          youtubeLink: true,
+          originality: true
+        });
+
+        const totalScore = computed(() => {
+          return pilar1.value + pilar2.value + pilar3.value + pilar4.value;
+        });
+
+        const gradeLetter = computed(() => {
+          if (totalScore.value >= 85) return 'A (Sangat Baik)';
+          if (totalScore.value >= 70) return 'B (Baik)';
+          if (totalScore.value >= 55) return 'C (Cukup)';
+          return 'D / E (Kurang / Tidak Lulus)';
+        });
+
+        const gradeStatus = computed(() => {
+          return totalScore.value >= 70 ? 'LULUS MEMUASKAN' : (totalScore.value >= 55 ? 'LULUS MINIMAL' : 'PERLU PERBAIKAN');
+        });
+
+        const scoreColor = computed(() => {
+          if (totalScore.value >= 85) return 'var(--mint)';
+          if (totalScore.value >= 70) return 'var(--cyan)';
+          if (totalScore.value >= 55) return 'var(--yellow)';
+          return 'var(--rose)';
+        });
+
+        const checkedCount = computed(() => {
+          return Object.values(checklist.value).filter(Boolean).length;
+        });
+
+        const totalChecklist = computed(() => {
+          return Object.keys(checklist.value).length;
+        });
+
+        const readinessPercentage = computed(() => {
+          return Math.round((checkedCount.value / totalChecklist.value) * 100);
+        });
+
+        const setPerfectScore = () => {
+          pilar1.value = 30;
+          pilar2.value = 25;
+          pilar3.value = 25;
+          pilar4.value = 20;
+        };
+
+        const resetScore = () => {
+          pilar1.value = 25;
+          pilar2.value = 20;
+          pilar3.value = 20;
+          pilar4.value = 15;
+        };
+
+        const copyReportTemplate = () => {
+          const template = `LAPORAN TUGAS TUTORIAL 3: APLIKASI MOBILE TERINTEGRASI UT STUDY TRACKER
+Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303)
+Fakultas Sains dan Teknologi — Universitas Terbuka
+
+1. IDENTITAS MAHASISWA:
+- Nama Lengkap  : [Nama Mahasiswa]
+- NIM           : [NIM 9 Digit]
+- Program Studi : S1 Sistem Informasi / S1 Informatika
+- UPBJJ-UT      : [Daerah Kampus UT]
+
+2. TAUTAN BERKAS TUGAS:
+- Repositori GitHub : https://github.com/[username]/mobile-ut-study-tracker
+- Video YouTube (Unlisted): https://youtu.be/[video-id]
+
+3. RINGKASAN FITUR APLIKASI:
+a. REST API: Mengambil live weather API Open-Meteo untuk sentra kampus UT.
+b. Offline Storage: Menggunakan LocalStorage / @capacitor/preferences untuk CRUD riwayat belajar.
+c. Native Sensor: Menggunakan @capacitor/geolocation (penguncian koordinat) dan @capacitor/camera (foto modul BMP).
+
+4. LAMPIRAN TANGKAPAN LAYAR:
+[Sematkan 4 tangkapan layar pengujian fitur aplikasi di sini]
+
+5. SURAT PERNYATAAN ORISINALITAS:
+Menyatakan bahwa kode dan laporan tugas ini murni hasil karya mandiri saya tanpa plagiarisme.`;
+
+          navigator.clipboard.writeText(template).then(() => {
+            copied.value = true;
+            setTimeout(() => { copied.value = false; }, 3000);
+          });
+        };
+
+        return {
+          pilar1,
+          pilar2,
+          pilar3,
+          pilar4,
+          totalScore,
+          gradeLetter,
+          gradeStatus,
+          scoreColor,
+          checklist,
+          checkedCount,
+          totalChecklist,
+          readinessPercentage,
+          copied,
+          setPerfectScore,
+          resetScore,
+          copyReportTemplate
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

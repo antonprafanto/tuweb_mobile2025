@@ -98,10 +98,52 @@ Dokumen ini memuat daftar topik pemicu diskusi (*discussion prompts*) dan pandua
 
 ---
 
-### 📌 Sesi 7: Integrasi Layanan Backend & Penyimpanan Data Offline
+### 📌 Sesi 7: Integrasi Layanan Backend, Penyimpanan Data Offline, & Sensor Hardware
 * **Topik Diskusi:**  
-  Aplikasi mobile sering kali harus beroperasi dalam kondisi jaringan internet yang tidak stabil (*unreliable connection*).  
-  *Pertanyaan:* Jelaskan strategi arsitektur yang harus diterapkan agar aplikasi mobile tetap dapat menampilkan data dasar mahasiswa meskipun koneksi internet terputus (*offline-first design*), dengan memanfaatkan kombinasi REST API dan penyimpanan lokal (*Local Storage / Capacitor Preferences*)!
+  Aplikasi mobile sering kali harus beroperasi dalam kondisi jaringan internet yang tidak stabil (*unreliable connection*), terutama bagi mahasiswa Universitas Terbuka yang berdomisili di wilayah pelosok atau kepulauan (3T). Selain itu, aplikasi modern dituntut untuk mampu memanfaatkan sensor perangkat keras seperti GPS dan Kamera guna memverifikasi kehadiran atau aktivitas belajar mandiri.  
+  *Pertanyaan:*  
+  1. Jelaskan strategi arsitektur yang harus diterapkan agar aplikasi mobile tetap dapat menampilkan data catatan belajar mahasiswa meskipun koneksi internet terputus (*offline-first design*), dengan memanfaatkan perpaduan Asynchronous REST API (`fetch()`), strategi *caching* (*Network-First* vs *Cache-First*), dan penyimpanan lokal persisten (*Web LocalStorage* atau *@capacitor/preferences*)!  
+  2. Bagaimana cara mengintegrasikan sensor perangkat keras seperti Geolocation GPS dan Kamera untuk keperluan presensi mandiri yang aman dan anti-titip absen? Mengapa perhitungan jarak spasial antara posisi GPS mahasiswa dan gedung kampus wajib menggunakan Rumus Haversine (*Great-Circle Distance*) dan bukan rumus Euclidean/Pythagoras biasa?
+* **Poin Kunci Jawaban Mahasiswa & Panduan Tutor:**
+  * **Arsitektur Pemanggilan Data Asinkron & Penanganan Galat Berlapis:**
+    1. *Non-Blocking I/O via `fetch()` & `async/await`:* Pemanggilan API ke server cloud (seperti Open-Meteo) wajib berjalan di latar belakang tanpa membekukan antarmuka (*UI thread 60 FPS*).
+    2. *Jebakan `response.ok`:* Fungsi `fetch()` tidak melempar galat Promise ketika server merespons dengan HTTP 404 (Not Found) atau 500 (Server Error). Pengembang wajib melakukan pemeriksaan eksplisit `if (!response.ok) throw new Error(...)`.
+    3. *Pertahanan Tiga Lapis (`try-catch-finally`):* Blok `try` untuk eksekusi request dan parsing JSON; blok `catch` untuk menangkap galat sinyal terputus atau timeout; dan blok `finally` untuk menjamin pemutar indikator (*loading spinner* atau *skeleton shimmer*) pasti berhenti berputar.
+    4. *Psikologi UX Loading:* Penggunaan `<ion-skeleton-text animated>` menghadirkan persepsi waktu tunggu 50% lebih cepat dibanding layar putih kosong (*blank screen*).
+  * **Arsitektur Offline-First & Serialisasi Penyimpanan Persisten:**
+    1. *Komparasi Spektrum Memori:* RAM bersifat sementara (*ephemeral*); LocalStorage (~5MB) mudah digunakan namun sinkron; sedangkan `@capacitor/preferences` merupakan standar resmi Ionic yang bekerja asinkron berbasis Promise dan langsung memetakan datanya ke XML *SharedPreferences* di Android atau *UserDefaults* di iOS.
+    2. *Serialisasi Objek:* Media penyimpanan lokal hanya menerima teks string. Menyimpan array objek secara langsung akan merusak data menjadi `[object Object]`. Pengembang wajib menerapkan `JSON.stringify()` saat menyimpan dan `JSON.parse()` saat membaca kembali data.
+    3. *Strategi Caching (Network-First vs Cache-First):* *Network-First* mencoba mengambil data cloud teranyar terlebih dahulu lalu menyimpannya ke cache lokal (cocok untuk data dinamis); jika offline, data cache disajikan dengan label peringatan. *Cache-First (Stale-While-Revalidate)* menyajikan data cache lokal seketika (0 ms) lalu memperbarui cache di latar belakang tanpa mengganggu pengguna.
+  * **Integrasi Sensor Hardware & Validasi Geofencing:**
+    1. *Akses GPS via `@capacitor/geolocation`:* Mengakses satelit GPS perangkat melalui `Geolocation.getCurrentPosition({ enableHighAccuracy: true })` untuk memperoleh koordinat lintang (*latitude*), bujur (*longitude*), dan radius akurasi dalam meter.
+    2. *Formula Matematika Haversine:* Permukaan bumi melengkung (geoid/bola dengan radius $R \approx 6.371\text{ km}$). Rumus Pythagoras bidang datar tidak akurat untuk koordinat bumi. Algoritma Haversine menghitung jarak busur lingkaran besar (*great-circle distance*) menggunakan fungsi trigonometri ($\sin^2(\Delta\text{lat}/2) + \cos(\text{lat}_1)\cos(\text{lat}_2)\sin^2(\Delta\text{lon}/2)$). Presensi disetujui hanya jika jarak $d \le 500\text{ meter}$ dari koordinat kampus UT daerah.
+    3. *Pemotretan Kamera via `@capacitor/camera`:* Menangkap bukti fisik modul belajar BMP atau swafoto kehadiran. Format `CameraResultType.DataUrl` (string teks Base64) sangat fleksibel karena dapat disimpan langsung ke LocalStorage atau dikirim via JSON REST API.
+    4. *Deteksi Jaringan via `@capacitor/network`:* Memasang listener `networkStatusChange` untuk mengotomatisasi antrean unggah data (*offline sync queue*) saat koneksi internet kembali pulih.
+  * **Arsitektur Bersih (Service Pattern) & Keamanan Token JWT:**
+    1. *Separation of Concerns:* Memisahkan logika kueri API dan storage ke dalam berkas layanan mandiri (`studyTrackerService.ts`) agar komponen antarmuka Vue tetap bersih dan mudah diuji (*unit testing*).
+    2. *Autentikasi Bearer JWT:* Mengamankan endpoint privat dengan menyuntikkan header HTTP `Authorization: Bearer <token>`. Menangani respon 401 Unauthorized untuk mengalihkan pengguna kembali ke form login.
+  * **Pengaitan Evaluasi TUGAS TUTORIAL 3 (Bobot 20% Nilai Tuton):**
+    Mahasiswa wajib memadukan seluruh konsep di atas ke dalam proyek terintegrasi "UT Study Tracker & Presensi Belajar Mobile" sesuai 4 kriteria rubrik resmi (REST API 30 poin, Offline Storage 25 poin, Sensor GPS/Kamera 25 poin, Arsitektur Bersih & Video Demo 20 poin = 100 poin).
+* **Rujukan Berkas Pembelajaran Sesi 07:**
+  Dapat merujuk pada berkas mandiri:
+  * [`slide_01_orientasi_sesi_dan_tugas_3.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_01_orientasi_sesi_dan_tugas_3.html)
+  * [`slide_02_konsep_rest_api_asinkron.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_02_konsep_rest_api_asinkron.html)
+  * [`slide_03_fetch_api_dan_async_await.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_03_fetch_api_dan_async_await.html)
+  * [`slide_04_indikator_pemuatan_loading.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_04_indikator_pemuatan_loading.html)
+  * [`slide_05_integrasi_live_api_cuaca.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_05_integrasi_live_api_cuaca.html)
+  * [`slide_06_komparasi_opsi_penyimpanan_mobile.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_06_komparasi_opsi_penyimpanan_mobile.html)
+  * [`slide_07_capacitor_preferences_kv.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_07_capacitor_preferences_kv.html)
+  * [`slide_08_serialisasi_objek_json_storage.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_08_serialisasi_objek_json_storage.html)
+  * [`slide_09_arsitektur_offline_first_caching.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_09_arsitektur_offline_first_caching.html)
+  * [`slide_10_plugin_geolocation_koordinat.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_10_plugin_geolocation_koordinat.html)
+  * [`slide_11_geofencing_validasi_lokasi_ut.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_11_geofencing_validasi_lokasi_ut.html)
+  * [`slide_12_plugin_camera_capture_photo.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_12_plugin_camera_capture_photo.html)
+  * [`slide_13_plugin_network_status_detection.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_13_plugin_network_status_detection.html)
+  * [`slide_14_clean_architecture_service_pattern.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_14_clean_architecture_service_pattern.html)
+  * [`slide_15_keamanan_token_jwt_dan_interceptor.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_15_keamanan_token_jwt_dan_interceptor.html)
+  * [🌐 **Simulator Rubrik Interaktif:** `slide_16_rubrik_tugas_tutorial_3.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.html) • [📄 **Panduan Teks:** `slide_16_rubrik_tugas_tutorial_3.md`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.md)
+  * [`slide_17_solusi_tugas_3_study_tracker.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html)
+  * [`slide_18_preview_sesi_08_build_apk_uas.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_18_preview_sesi_08_build_apk_uas.html)
 
 ---
 

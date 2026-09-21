@@ -19,7 +19,7 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--cyan);
@@ -36,6 +36,29 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .guide-title {
+      font-weight: 800;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .diagram-card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -54,6 +77,11 @@
       box-shadow: 3px 3px 0 #000;
       margin-right: 6px;
       margin-bottom: 6px;
+      transition: all 0.15s;
+    }
+    .btn-neo:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 #000;
     }
     .btn-neo:active {
       transform: translate(2px, 2px);
@@ -78,6 +106,14 @@
       border: 2px solid #000;
       white-space: pre-wrap;
     }
+    .source-cite {
+      background: #F1F5F9;
+      border: 2px dashed #64748B;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: #334155;
+      margin-top: 24px;
+    }
   </style>
 </head>
 <body>
@@ -86,6 +122,64 @@
     <div class="badge-tag">SLIDE 12 • SENSOR HARDWARE KAMERA</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Integrasi Kamera Perangkat dengan <code>@capacitor/camera</code></h1>
     <p style="margin: 0; font-size: 14px;">Menangkap foto bukti kegiatan belajar mandiri, presensi swafoto, dan dokumen tugas kuliah secara asinkron.</p>
+  </div>
+
+  <!-- PANDUAN AWAM -->
+  <div class="guide-box">
+    <div class="guide-title">
+      <span>📘 Panduan Mahasiswa Awam: Uji Coba Penangkapan Foto Kamera</span>
+    </div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E3A8A;">
+      <strong>Alat yang Digunakan:</strong> Google Chrome / Peramban Web (Di laptop akan membuka webcam atau dialog pemilih berkas; di ponsel akan langsung memicu aplikasi kamera bawaan).<br>
+      <strong>Langkah Pengujian:</strong>
+      <ol style="margin: 6px 0 0 0; padding-left: 20px;">
+        <li>Klik tombol <strong>📷 Buka Kamera / Unggah Foto</strong> untuk mencoba memotret atau mengunggah berkas gambar.</li>
+        <li>Atau klik <strong>🖼️ Pakai Foto Sampel BMP</strong> jika laptop Anda tidak dilengkapi webcam aktif.</li>
+        <li>Amati kotak metadata di bawah foto yang mencatat tipe MIME, ukuran file (KB), dan waktu pengambilan.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SVG -->
+  <div class="diagram-card">
+    <h3 style="margin-top:0; margin-bottom:12px; font-size:16px;">🎨 Diagram Arsitektur: Pipeline Pengambilan Foto via Capacitor Camera Plugin</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 170" width="100%" height="auto" style="display:block;">
+      <defs>
+        <marker id="arrow-s12" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- 1. Trigger App -->
+      <rect x="20" y="25" width="220" height="120" fill="#FEF08A" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="130" y="52" font-size="13" font-weight="900" text-anchor="middle">1. PEMANGGILAN JS</text>
+      <text x="130" y="75" font-size="11" text-anchor="middle" fill="#334155">Camera.getPhoto({</text>
+      <text x="130" y="93" font-size="11" text-anchor="middle" fill="#334155">quality: 85, source: Camera</text>
+      <rect x="35" y="105" width="190" height="24" fill="#FFE600" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="130" y="121" font-size="10" font-weight="900" text-anchor="middle">Intent ACTION_IMAGE_CAPTURE</text>
+
+      <!-- Panah 1 -> 2 -->
+      <path d="M 240 85 L 305 85" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s12)" />
+
+      <!-- 2. Hardware Sensor Lensa -->
+      <rect x="315" y="25" width="220" height="120" fill="#BAE6FD" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="425" y="52" font-size="13" font-weight="900" text-anchor="middle" fill="#0369A1">2. SENSOR LENSA &amp; OS</text>
+      <text x="425" y="75" font-size="11" text-anchor="middle" fill="#334155">Aplikasi Kamera Bawaan HP</text>
+      <text x="425" y="93" font-size="11" text-anchor="middle" fill="#334155">Pemotretan &amp; Kompresi JPEG</text>
+      <rect x="330" y="105" width="190" height="24" fill="#0284C7" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="425" y="121" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">Simpan Buffer Memori</text>
+
+      <!-- Panah 2 -> 3 -->
+      <path d="M 535 85 L 600 85" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-s12)" />
+
+      <!-- 3. Return Payload -->
+      <rect x="610" y="25" width="220" height="120" fill="#BBF7D0" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="720" y="52" font-size="13" font-weight="900" text-anchor="middle" fill="#15803D">3. OUTPUT KE VUE 3</text>
+      <text x="720" y="75" font-size="11" text-anchor="middle" fill="#334155">DataUrl (Base64 String) /</text>
+      <text x="720" y="93" font-size="11" text-anchor="middle" fill="#334155">Local File URI</text>
+      <rect x="625" y="105" width="190" height="24" fill="#16A34A" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="720" y="121" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">Render pada tag &lt;img&gt;</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -143,6 +237,14 @@
         <div>Tipe Data: <code>{{ photoMeta.type }}</code> | Ukuran: <code>{{ photoMeta.size }}</code> | Waktu: <code>{{ photoMeta.time }}</code></div>
       </div>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Sumber Acuan Akademik:</strong><br>
+    1. Modul Pembelajaran Mandiri (BMP) STSI4303/MSIM4401 Pemrograman Berbasis Perangkat Bergerak, Modul 9, Universitas Terbuka.<br>
+    2. Capacitor Plugins Documentation (2024), <em>@capacitor/camera API Reference, Permissions & Web Support</em>.<br>
+    3. Google Android Developers (2024), <em>CameraX and MediaStore API Architecture</em>.
   </div>
 
   <script>

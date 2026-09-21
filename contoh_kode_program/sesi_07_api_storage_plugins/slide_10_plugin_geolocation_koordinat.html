@@ -19,7 +19,7 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--mint);
@@ -37,6 +37,29 @@
       background: #fff;
       margin-bottom: 10px;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .guide-title {
+      font-weight: 800;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .diagram-card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
       background: var(--card-bg);
@@ -47,12 +70,17 @@
     .btn-neo {
       background: var(--yellow);
       border: 2px solid #000;
-      padding: 10px 16px;
+      padding: 12px 16px;
       font-weight: bold;
       font-size: 13px;
       cursor: pointer;
       box-shadow: 3px 3px 0 #000;
       width: 100%;
+      transition: all 0.15s;
+    }
+    .btn-neo:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 #000;
     }
     .btn-neo:active {
       transform: translate(2px, 2px);
@@ -67,6 +95,14 @@
       border: 2px solid #000;
       white-space: pre-wrap;
     }
+    .source-cite {
+      background: #F1F5F9;
+      border: 2px dashed #64748B;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: #334155;
+      margin-top: 24px;
+    }
   </style>
 </head>
 <body>
@@ -75,6 +111,64 @@
     <div class="badge-tag">SLIDE 10 • SENSOR HARDWARE GEOLOCATION</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Integrasi Sensor GPS dengan <code>@capacitor/geolocation</code></h1>
     <p style="margin: 0; font-size: 14px;">Mendapatkan koordinat lintang (*latitude*) dan bujur (*longitude*) untuk presensi lokasi belajar mahasiswa secara presisi.</p>
+  </div>
+
+  <!-- PANDUAN AWAM -->
+  <div class="guide-box">
+    <div class="guide-title">
+      <span>📘 Panduan Mahasiswa Awam: Menguji Sensor Lokasi GPS</span>
+    </div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E3A8A;">
+      <strong>Alat yang Digunakan:</strong> Google Chrome di Laptop / Smartphone (Saat muncul prompt izin lokasi, klik <em>Allow / Izinkan</em>).<br>
+      <strong>Langkah Pengujian:</strong>
+      <ol style="margin: 6px 0 0 0; padding-left: 20px;">
+        <li>Klik tombol <strong>📍 Ambil Titik Lokasi Sekarang</strong> di panel kanan.</li>
+        <li>Browser akan meminta izin akses perangkat keras GPS. Klik <strong>Allow</strong>.</li>
+        <li>Perhatikan koordinat Lintang (Latitude), Bujur (Longitude), dan Radius Akurasi (meter) berhasil dikunci secara presisi. Tersedia tombol langsung menuju Google Maps!</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SVG -->
+  <div class="diagram-card">
+    <h3 style="margin-top:0; margin-bottom:12px; font-size:16px;">🎨 Diagram Arsitektur: Pipeline Triangulasi Satelit GPS ke JavaScript Client</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 170" width="100%" height="auto" style="display:block;">
+      <defs>
+        <marker id="arrow-s10" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- Satelit GPS Luar Angkasa -->
+      <rect x="20" y="25" width="220" height="120" fill="#E0F2FE" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="130" y="52" font-size="13" font-weight="900" fill="#0369A1" text-anchor="middle">1. SATELIT GPS GLOBAL</text>
+      <text x="130" y="75" font-size="11" text-anchor="middle" fill="#334155">Konstelasi GPS / Galileo</text>
+      <text x="130" y="93" font-size="11" text-anchor="middle" fill="#334155">Frekuensi Radio L1 / L5</text>
+      <rect x="40" y="105" width="180" height="24" fill="#38BDF8" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="130" y="121" font-size="10" font-weight="900" text-anchor="middle">Triangulasi 4+ Satelit</text>
+
+      <!-- Sinyal ke Antena HP -->
+      <path d="M 240 85 L 305 85" fill="none" stroke="#0284C7" stroke-width="2.5" marker-end="url(#arrow-s10)" />
+
+      <!-- Android LocationManager -->
+      <rect x="315" y="25" width="220" height="120" fill="#BBF7D0" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="425" y="52" font-size="13" font-weight="900" fill="#15803D" text-anchor="middle">2. HARDWARE CHIP HP</text>
+      <text x="425" y="75" font-size="11" text-anchor="middle" fill="#334155">FusedLocationProviderClient</text>
+      <text x="425" y="93" font-size="11" text-anchor="middle" fill="#334155">ACCESS_FINE_LOCATION</text>
+      <rect x="335" y="105" width="180" height="24" fill="#4ADE80" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="425" y="121" font-size="10" font-weight="900" text-anchor="middle">Hitung Koordinat Mentah</text>
+
+      <!-- Sinyal ke Capacitor Plugin -->
+      <path d="M 535 85 L 600 85" fill="none" stroke="#16A34A" stroke-width="2.5" marker-end="url(#arrow-s10)" />
+
+      <!-- Capacitor Geolocation JS -->
+      <rect x="610" y="25" width="220" height="120" fill="#FEF08A" stroke="#000" stroke-width="2.5" rx="6" />
+      <text x="720" y="52" font-size="13" font-weight="900" text-anchor="middle">3. CAPACITOR PLUGIN</text>
+      <text x="720" y="75" font-size="11" text-anchor="middle" fill="#334155">Geolocation.getCurrentPosition()</text>
+      <text x="720" y="93" font-size="11" text-anchor="middle" fill="#334155">coords: { latitude, longitude }</text>
+      <rect x="630" y="105" width="180" height="24" fill="#FFE600" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="720" y="121" font-size="10" font-weight="900" text-anchor="middle">Siap untuk Presensi UT</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -134,6 +228,14 @@
     </div>
   </div>
 
+  <!-- SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Sumber Acuan Akademik:</strong><br>
+    1. Modul Pembelajaran Mandiri (BMP) STSI4303/MSIM4401 Pemrograman Berbasis Perangkat Bergerak, Modul 9 (Sensor Perangkat Keras), Universitas Terbuka.<br>
+    2. W3C Geolocation API Specification (2022), <em>PositionOptions and Coordinates Interface</em>.<br>
+    3. Capacitor Plugins Documentation (2024), <em>@capacitor/geolocation API Reference & Permissions</em>.
+  </div>
+
   <script>
     const { createApp, ref, computed } = Vue;
     createApp({
@@ -163,7 +265,6 @@
                 loading.value = false;
               },
               (err) => {
-                // Fallback demo coordinates (UT Pusat Pondok Cabe)
                 coords.value = {
                   latitude: -6.305021,
                   longitude: 106.755812,

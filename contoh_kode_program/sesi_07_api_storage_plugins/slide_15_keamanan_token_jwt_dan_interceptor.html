@@ -19,7 +19,7 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--rose);
@@ -37,6 +37,29 @@
       background: #fff;
       margin-bottom: 10px;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .guide-title {
+      font-weight: 800;
+      font-size: 15px;
+      color: #1E40AF;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .diagram-card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 24px;
+    }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
       background: var(--card-bg);
@@ -47,11 +70,12 @@
     .jwt-box {
       font-family: 'Consolas', monospace;
       font-size: 11px;
-      padding: 10px;
+      padding: 12px;
       border: 2px solid #000;
       word-break: break-all;
       background: #f8fafc;
       margin-bottom: 12px;
+      box-shadow: 2px 2px 0 #000;
     }
     .code-box {
       background: #0f172a;
@@ -62,6 +86,14 @@
       border: 2px solid #000;
       white-space: pre-wrap;
     }
+    .source-cite {
+      background: #F1F5F9;
+      border: 2px dashed #64748B;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: #334155;
+      margin-top: 24px;
+    }
   </style>
 </head>
 <body>
@@ -70,6 +102,64 @@
     <div class="badge-tag">SLIDE 15 • OTENTIKASI & KEAMANAN REST API</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Keamanan API: Manajemen Token JWT & Header Authorization</h1>
     <p style="margin: 0; font-size: 14px;">Memahami cara mengamankan transaksi data private mahasiswa menggunakan JSON Web Token (JWT) dan Header Bearer.</p>
+  </div>
+
+  <!-- PANDUAN AWAM -->
+  <div class="guide-box">
+    <div class="guide-title">
+      <span>📘 Panduan Mahasiswa Awam: Prinsip Keamanan Token JWT di Mobile App</span>
+    </div>
+    <div style="font-size: 13px; line-height: 1.6; color: #1E3A8A;">
+      <strong>Alat yang Digunakan:</strong> Google Chrome / DevTools (Tab <strong>Network</strong> &gt; Headers &gt; <em>Request Headers</em> &gt; <code>Authorization: Bearer &lt;token&gt;</code>).<br>
+      <strong>Langkah Pemahaman:</strong>
+      <ol style="margin: 6px 0 0 0; padding-left: 20px;">
+        <li>Pelajari 3 bagian JWT yang dipisahkan oleh tanda titik: Header (Merah), Payload (Biru), dan Signature (Hijau).</li>
+        <li>Ketahui bahwa Payload hanya di-encode Base64 (dapat dibaca siapa saja); jangan pernah menaruh kata sandi akun di sana!</li>
+        <li>Gunakan Header <code>Authorization: Bearer ${token}</code> saat memanggil endpoint privat, dan tangani status <code>401 Unauthorized</code> dengan mengalihkan user ke form login.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SVG -->
+  <div class="diagram-card">
+    <h3 style="margin-top:0; margin-bottom:12px; font-size:16px;">🎨 Diagram Arsitektur: Struktur 3 Segmen Token JWT & Alur Otorisasi Bearer</h3>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 170" width="100%" height="auto" style="display:block;">
+      <defs>
+        <marker id="arrow-s15" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- 1. Header -->
+      <rect x="20" y="25" width="220" height="120" fill="#FECDD3" stroke="#DC2626" stroke-width="2.5" rx="6" />
+      <text x="130" y="52" font-size="13" font-weight="900" fill="#991B1B" text-anchor="middle">1. HEADER (MERAH)</text>
+      <text x="130" y="75" font-size="11" text-anchor="middle" fill="#7F1D1D">Algoritma Enkripsi</text>
+      <text x="130" y="93" font-size="11" text-anchor="middle" fill="#7F1D1D">{ "alg": "HS256", "typ": "JWT" }</text>
+      <rect x="35" y="105" width="190" height="24" fill="#FB7185" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="130" y="121" font-size="10" font-weight="900" text-anchor="middle" fill="#FFF">Base64URL Encoded</text>
+
+      <!-- Titik Pemisah 1 -->
+      <circle cx="270" cy="85" r="5" fill="#000" />
+
+      <!-- 2. Payload -->
+      <rect x="300" y="25" width="240" height="120" fill="#BAE6FD" stroke="#0284C7" stroke-width="2.5" rx="6" />
+      <text x="420" y="52" font-size="13" font-weight="900" fill="#0369A1" text-anchor="middle">2. PAYLOAD (BIRU)</text>
+      <text x="420" y="75" font-size="11" text-anchor="middle" fill="#0C4A6E">Klaim Data Mahasiswa</text>
+      <text x="420" y="93" font-size="11" text-anchor="middle" fill="#0C4A6E">{ "nim": "04123...", "role": "mhs" }</text>
+      <rect x="320" y="105" width="200" height="24" fill="#38BDF8" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="420" y="121" font-size="10" font-weight="900" text-anchor="middle" fill="#000">TIDAK BOLEH SIMPAN PASSWORD</text>
+
+      <!-- Titik Pemisah 2 -->
+      <circle cx="570" cy="85" r="5" fill="#000" />
+
+      <!-- 3. Signature -->
+      <rect x="600" y="25" width="230" height="120" fill="#DCFCE7" stroke="#16A34A" stroke-width="2.5" rx="6" />
+      <text x="715" y="52" font-size="13" font-weight="900" fill="#166534" text-anchor="middle">3. SIGNATURE (HIJAU)</text>
+      <text x="715" y="75" font-size="11" text-anchor="middle" fill="#14532D">Tanda Tangan Kriptografis</text>
+      <text x="715" y="93" font-size="11" text-anchor="middle" fill="#14532D">HMACSHA256(header+payload, secret)</text>
+      <rect x="620" y="105" width="190" height="24" fill="#4ADE80" stroke="#000" stroke-width="1.5" rx="3" />
+      <text x="715" y="121" font-size="10" font-weight="900" text-anchor="middle" fill="#000">Verifikasi Integritas Server</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -117,6 +207,14 @@
         💡 <strong>Penanganan 401:</strong> Jika server membalas dengan status 401 Unauthorized, hapus token di storage dan arahkan user kembali ke form login.
       </div>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK -->
+  <div class="source-cite">
+    <strong>📚 Sumber Acuan Akademik:</strong><br>
+    1. Modul Pembelajaran Mandiri (BMP) STSI4303/MSIM4401 Pemrograman Berbasis Perangkat Bergerak, Modul 8, Universitas Terbuka.<br>
+    2. Internet Engineering Task Force (IETF) RFC 7519 (2015), <em>JSON Web Token (JWT)</em>, tools.ietf.org/html/rfc7519.<br>
+    3. OWASP Foundation (2024), <em>OWASP Mobile Top 10: Insecure Authentication and Authorization</em>.
   </div>
 
   <script>
