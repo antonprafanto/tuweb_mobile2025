@@ -33,7 +33,7 @@ Seluruh 18 berkas kode mandiri di bawah ini menggunakan **standar The Zero-Frict
 ---
 
 ## 🎯 Panduan Praktikum Mandiri & Pengerjaan Tugas Tutorial 2
-1. Pelajari berkas **Rubrik Penilaian** pada [`slide_16_rubrik_tugas_tutorial_2.md`](slide_16_rubrik_tugas_tutorial_2.md).
+1. Pelajari berkas **Rubrik Penilaian & Uji Kalkulator Skor** pada [`slide_16_rubrik_tugas_tutorial_2.html`](slide_16_rubrik_tugas_tutorial_2.html) *(Panduan Teks: [`slide_16_rubrik_tugas_tutorial_2.md`](slide_16_rubrik_tugas_tutorial_2.md))*.
 2. Jalankan dan bedah **Master Solusi** pada [`slide_17_solusi_tugas_2_portal_ktm_registrasi.html`](slide_17_solusi_tugas_2_portal_ktm_registrasi.html).
 3. Modifikasi kode sesuai identitas Anda:
    * Masukkan NIM 9 digit Anda dan nama lengkap asli.
