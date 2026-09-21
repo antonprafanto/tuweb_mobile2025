@@ -10,6 +10,26 @@ Dokumen ini memuat daftar topik pemicu diskusi (*discussion prompts*) dan pandua
   Dalam industri pengembangan aplikasi mobile saat ini, terdapat tiga pendekatan utama: *Native Development* (Kotlin/Swift), *Cross-Platform Native Canvas* (Flutter), dan *Hybrid/Web-view based* (Ionic dengan Capacitor).  
   *Pertanyaan:* Menurut Anda, apa keunggulan utama pendekatan Hybrid (Ionic) dibandingkan pendekatan Native murni ketika sebuah institusi seperti Universitas Terbuka ingin mengembangkan aplikasi portal mahasiswa yang cepat dirilis di Android, iOS, dan Web? Kapan pendekatan hybrid TIDAK disarankan untuk digunakan?
 * **Poin Kunci Jawaban Mahasiswa:** Efisiensi *single codebase* (HTML/CSS/JS), kemudahan pemeliharaan oleh developer web yang sudah ada, akses ke ekosistem npm, serta batasan pada aplikasi game 3D/grafis berat yang membutuhkan akses GPU langsung.
+* **Rujukan Berkas Pembelajaran Sesi 01:**
+  Dapat merujuk pada berkas mandiri:
+  * [`slide_01_kontrak_dan_roadmap.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_01_kontrak_dan_roadmap.html)
+  * [`slide_02_relevansi_mobile_hybrid.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_02_relevansi_mobile_hybrid.html)
+  * [`slide_03_komparasi_arsitektur_mobile.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_03_komparasi_arsitektur_mobile.html)
+  * [`slide_04_ekosistem_ionic_web_standards.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_04_ekosistem_ionic_web_standards.html)
+  * [`slide_05_panduan_instalasi_tools.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_05_panduan_instalasi_tools.html)
+  * [`slide_06_diagnostik_environment.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_06_diagnostik_environment.html)
+  * [`slide_07_anatomi_hybrid_app.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_07_anatomi_hybrid_app.html)
+  * [`slide_08_hello_hybrid_app.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_08_hello_hybrid_app.html)
+  * [`slide_09_chrome_device_toolbar_guide.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_09_chrome_device_toolbar_guide.html)
+  * [`slide_10_viewport_meta_scaling.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_10_viewport_meta_scaling.html)
+  * [`slide_11_ionic_cli_simulator.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_11_ionic_cli_simulator.html)
+  * [`slide_12_struktur_folder_proyek.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_12_struktur_folder_proyek.html)
+  * [🌐 **Panduan USB Debugging & scrcpy:** `slide_13_usb_debugging_scrcpy_guide.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_13_usb_debugging_scrcpy_guide.html) • [📄 **Panduan Teks:** `slide_13_usb_debugging_scrcpy_guide.md`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_13_usb_debugging_scrcpy_guide.md)
+  * [`slide_14_hmr_live_reload_demo.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_14_hmr_live_reload_demo.html)
+  * [🌐 **Troubleshooting PowerShell:** `slide_15_troubleshooting_powershell_cli.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_15_troubleshooting_powershell_cli.html) • [📄 **Panduan Teks:** `slide_15_troubleshooting_powershell_cli.md`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_15_troubleshooting_powershell_cli.md)
+  * [🌐 **Cheatsheet Terminal & Git:** `slide_16_cheatsheet_terminal_git.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_16_cheatsheet_terminal_git.html) • [📄 **Panduan Teks:** `slide_16_cheatsheet_terminal_git.md`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_16_cheatsheet_terminal_git.md)
+  * [🎯 **Master Solusi Lab Quest 01 (KTM Digital Profil):** `slide_17_lab_quest_01_profil_mahasiswa.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html)
+  * [🚀 **Preview Sesi 02 (Vue 3 Frontend Reaktif):** `slide_18_preview_sesi_02_vue.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_18_preview_sesi_02_vue.html)
 
 ---
 
@@ -18,6 +38,26 @@ Dokumen ini memuat daftar topik pemicu diskusi (*discussion prompts*) dan pandua
   Dalam pengembangan antarmuka pengguna berbasis JavaScript konvensional (Vanilla JS), pembaruan tampilan antarmuka saat data berubah sering kali membutuhkan manipulasi DOM manual seperti `document.getElementById().innerText = data`.  
   *Pertanyaan:* Mengapa Vue.js mengadopsi sistem reaktivitas (`ref` dan `reactive`) serta Virtual DOM? Bagaimana konsep deklaratif ini mempermudah pengembang dalam membangun antarmuka aplikasi mobile yang responsif?
 * **Poin Kunci Jawaban Mahasiswa / Panduan Tutor:** Mahasiswa mampu menguraikan pergeseran paradigma dari imperatif (*HOW*) ke deklaratif (*WHAT*); cara kerja *dependency tracking* (getter/setter `ref` dan ES6 Proxy `reactive`); keunggulan Virtual DOM Diffing yang hanya memutakhirkan node yang nilainya berubah tanpa render ulang keseluruhan pohon DOM; serta eliminasi risiko *spaghetti code* dan desinkronisasi data tampilan pada aplikasi mobile.
+* **Rujukan Berkas Pembelajaran Sesi 02:**
+  Dapat merujuk pada berkas mandiri:
+  * [`slide_01_paradigma_imperatif_vs_deklaratif.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_01_paradigma_imperatif_vs_deklaratif.html)
+  * [`slide_02_sistem_reaktivitas_ref.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_02_sistem_reaktivitas_ref.html)
+  * [`slide_03_reaktivitas_objek_reactive.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_03_reaktivitas_objek_reactive.html)
+  * [`slide_04_text_interpolation_v_bind.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_04_text_interpolation_v_bind.html)
+  * [`slide_05_two_way_binding_v_model.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_05_two_way_binding_v_model.html)
+  * [`slide_06_conditional_v_if_vs_v_show.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_06_conditional_v_if_vs_v_show.html)
+  * [`slide_07_list_rendering_v_for_dan_key.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_07_list_rendering_v_for_dan_key.html)
+  * [`slide_08_event_handling_dan_modifiers.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_08_event_handling_dan_modifiers.html)
+  * [`slide_09_computed_properties_ips.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_09_computed_properties_ips.html)
+  * [`slide_10_watchers_dan_side_effects.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_10_watchers_dan_side_effects.html)
+  * [`slide_11_lifecycle_hooks_onmounted.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_11_lifecycle_hooks_onmounted.html)
+  * [`slide_12_komposisi_komponen_sfc.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_12_komposisi_komponen_sfc.html)
+  * [`slide_13_props_aliran_data_induk_anak.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_13_props_aliran_data_induk_anak.html)
+  * [`slide_14_emits_komunikasi_anak_ke_induk.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_14_emits_komunikasi_anak_ke_induk.html)
+  * [`slide_15_slots_proyeksi_konten_fleksibel.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_15_slots_proyeksi_konten_fleksibel.html)
+  * [`slide_16_state_reusable_composables.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_16_state_reusable_composables.html)
+  * [🎯 **Master Solusi Lab Quest 02 (KRS Interaktif):** `slide_17_lab_quest_02_krs_interaktif.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html)
+  * [🚀 **Preview Sesi 03 (TypeScript & Vue):** `slide_18_preview_sesi_03_typescript.html`](../contoh_kode_program/sesi_02_vue_frontend/slide_18_preview_sesi_03_typescript.html)
 
 ---
 
@@ -32,7 +72,26 @@ Dokumen ini memuat daftar topik pemicu diskusi (*discussion prompts*) dan pandua
     2. *Kontrak Data Antarmuka (`interface`):* Menjamin setiap entitas (seperti `MahasiswaUT` dan `MataKuliah`) memiliki tipe data atribut yang sesuai (misal: SKS wajib `number`, bukan string).
     3. *Penyusupan Nilai Asing via Literal Types:* Mengunci nilai huruf hanya pada himpunan legal UT (`'A' | 'B' | 'C' | 'D' | 'E'`), mencegah pengguna atau API mengirimkan data yang merusak perhitungan mutu.
     4. *Penanganan Data Kosong (*Null Safety*):* Memaksa pengembang melakukan pengecekan `if (data)` sebelum mengakses properti objek sehingga terhindar dari galat klasik `Cannot read properties of undefined`.
-  * **Rujukan Kode Pembelajaran:** Dapat merujuk pada berkas mandiri [`slide_02_urgensi_typescript_mobile.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_02_urgensi_typescript_mobile.html), [`slide_04_union_dan_literal_types.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_04_union_dan_literal_types.html), dan [`slide_05_interface_model_mahasiswa.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_05_interface_model_mahasiswa.html).
+  * **Rujukan Berkas Pembelajaran Sesi 03:**
+  Dapat merujuk pada berkas mandiri:
+  * [`slide_01_roadmap_sesi_dan_tugas_1.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_01_roadmap_sesi_dan_tugas_1.html)
+  * [`slide_02_urgensi_typescript_mobile.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_02_urgensi_typescript_mobile.html)
+  * [`slide_03_tipe_primitif_dan_any_hazard.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_03_tipe_primitif_dan_any_hazard.html)
+  * [`slide_04_union_dan_literal_types.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_04_union_dan_literal_types.html)
+  * [`slide_05_interface_model_mahasiswa.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_05_interface_model_mahasiswa.html)
+  * [`slide_06_optional_dan_readonly_properties.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_06_optional_dan_readonly_properties.html)
+  * [`slide_07_generics_array_koleksi.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_07_generics_array_koleksi.html)
+  * [`slide_08_fungsi_type_annotation.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_08_fungsi_type_annotation.html)
+  * [`slide_09_vue3_script_setup_lang_ts.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_09_vue3_script_setup_lang_ts.html)
+  * [`slide_10_typing_ref_dan_reactive.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_10_typing_ref_dan_reactive.html)
+  * [`slide_11_typing_koleksi_array_reaktif.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_11_typing_koleksi_array_reaktif.html)
+  * [`slide_12_typing_computed_properties.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_12_typing_computed_properties.html)
+  * [`slide_13_typing_props_komponen.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_13_typing_props_komponen.html)
+  * [`slide_14_typing_emits_komponen.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_14_typing_emits_komponen.html)
+  * [`slide_15_typing_dom_events.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_15_typing_dom_events.html)
+  * [🌐 **Simulator Rubrik Tugas 1:** `slide_16_rubrik_tugas_tutorial_1.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.html) • [📄 **Panduan Teks:** `slide_16_rubrik_tugas_tutorial_1.md`](../contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.md)
+  * [🎯 **Master Solusi Tugas 1 (Kalkulator Nilai):** `slide_17_solusi_tugas_1_kalkulator_nilai.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html)
+  * [🚀 **Preview Sesi 04 (Ionic Framework):** `slide_18_preview_sesi_04_ionic_ui.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_18_preview_sesi_04_ionic_ui.html)
 
 ---
 
@@ -48,8 +107,26 @@ Dokumen ini memuat daftar topik pemicu diskusi (*discussion prompts*) dan pandua
     1. *Kelemahan `onMounted()` pada Mobile Stack:* Hook bawaan Vue ini hanya berjalan **satu kali** saat komponen pertama kali diinisialisasi ke DOM. Ketika pengguna kembali dari halaman lain, halaman lama tidak di-mount ulang sehingga pemanggilan data di dalam `onMounted()` tidak akan pernah dieksekusi kembali.
     2. *Fase Masuk (`ionViewWillEnter` & `ionViewDidEnter`):* Terpanggil **setiap kali** layar aktif kembali. Mahasiswa wajib memanfaatkan `ionViewWillEnter` untuk mengambil data terbaru dari penyimpanan lokal atau API sebelum animasi transisi dimulai.
     3. *Fase Keluar & Proteksi Baterai (`ionViewWillLeave` & `ionViewDidLeave`):* Karena halaman tidak di-unmount, proses latar belakang seperti `setInterval`, rekaman audio, pemantauan geolokasi GPS, atau koneksi WebSocket akan terus berjalan jika tidak dihentikan manual di `ionViewWillLeave`. Penjelasan aspek proteksi *memory leak* ini menjadi pembeda utama nilai mahasiswa unggul.
-* **Rujukan Kode Pembelajaran:**
-  Dapat merujuk pada berkas mandiri [`slide_10_filosofi_stack_navigation.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_10_filosofi_stack_navigation.html), [`slide_11_struktur_ionic_vue_router.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_11_struktur_ionic_vue_router.html), [`slide_13_tombol_kembali_back_button.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_13_tombol_kembali_back_button.html), [`slide_14_siklus_hidup_masuk_halaman.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_14_siklus_hidup_masuk_halaman.html), [`slide_15_siklus_hidup_keluar_halaman.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_15_siklus_hidup_keluar_halaman.html), [`slide_16_troubleshooting_routing_ionic.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_16_troubleshooting_routing_ionic.html), dan [`slide_17_lab_quest_04_portal_modul_ut.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_17_lab_quest_04_portal_modul_ut.html).
+* **Rujukan Berkas Pembelajaran Sesi 04:**
+  Dapat merujuk pada berkas mandiri:
+  * [`slide_01_pengenalan_ekosistem_ionic.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_01_pengenalan_ekosistem_ionic.html)
+  * [`slide_02_adaptive_styling_md_ios.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_02_adaptive_styling_md_ios.html)
+  * [`slide_03_anatomi_halaman_ion_page.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_03_anatomi_halaman_ion_page.html)
+  * [`slide_04_palet_warna_tema_mobile.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_04_palet_warna_tema_mobile.html)
+  * [`slide_05_variasi_tombol_ion_button.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_05_variasi_tombol_ion_button.html)
+  * [`slide_06_kartu_informasi_ion_card.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_06_kartu_informasi_ion_card.html)
+  * [`slide_07_avatar_badge_dan_chip.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_07_avatar_badge_dan_chip.html)
+  * [`slide_08_daftar_list_dan_item.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_08_daftar_list_dan_item.html)
+  * [`slide_09_ikonografi_ionicons.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_09_ikonografi_ionicons.html)
+  * [`slide_10_filosofi_stack_navigation.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_10_filosofi_stack_navigation.html)
+  * [`slide_11_struktur_ionic_vue_router.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_11_struktur_ionic_vue_router.html)
+  * [`slide_12_pindah_halaman_dan_parameter.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_12_pindah_halaman_dan_parameter.html)
+  * [`slide_13_tombol_kembali_back_button.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_13_tombol_kembali_back_button.html)
+  * [`slide_14_siklus_hidup_masuk_halaman.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_14_siklus_hidup_masuk_halaman.html)
+  * [`slide_15_siklus_hidup_keluar_halaman.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_15_siklus_hidup_keluar_halaman.html)
+  * [🌐 **Konsol Diagnostik Routing:** `slide_16_troubleshooting_routing_ionic.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_16_troubleshooting_routing_ionic.html) • [📄 **Panduan Teks:** `slide_16_troubleshooting_routing_ionic.md`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_16_troubleshooting_routing_ionic.md)
+  * [🎯 **Master Solusi Lab Quest 04 (Portal Modul UT):** `slide_17_lab_quest_04_portal_modul_ut.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_17_lab_quest_04_portal_modul_ut.html)
+  * [🚀 **Preview Sesi 05 (Layout Grid, Form & Theming):** `slide_18_preview_sesi_05_layout_grid_form.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_18_preview_sesi_05_layout_grid_form.html)
 
 ---
 
