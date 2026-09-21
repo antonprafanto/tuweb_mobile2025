@@ -157,6 +157,10 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Mengidentifikasi keunggulan Web Components bawaan Ionic yang dapat berjalan instan via CDN.
 * **Narasi Dosen:**  
   *"Keajaiban Ionic adalah: rekan-rekan tidak perlu menunggu unduhan paket berukuran gigabytes untuk melihat tombol dan kartu mobile. Cukup tautkan pustaka CDN Ionic di berkas HTML, dan peramban Anda langsung menyajikan tampilan berstandar Google Material Design!"*
+* **Poin Kunci:**
+  * Standar W3C Web Components murni yang dapat berjalan langsung di peramban tanpa build step.
+  * Pemanfaatan Shadow DOM untuk enkapsulasi gaya CSS sehingga terisolasi bebas konflik dengan CSS global.
+  * Pengiriman pustaka instan melalui CDN (jsDelivr / unpkg) berbobot 0 MB di harddisk lokal mahasiswa.
 * **Diagram Arsitektur Web Components & CDN Ionic:**
   ```mermaid
   flowchart TD
@@ -234,6 +238,10 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Menguraikan peran struktural, estetika, dan logika interaktivitas dalam arsitektur aplikasi mobile hybrid.
 * **Narasi Dosen:**  
   *"Aplikasi mobile hybrid diibaratkan seperti tubuh manusia: HTML adalah kerangka tulangnya, CSS adalah busana dan penampilannya, JavaScript adalah sistem saraf yang memproses aksi, dan WebView adalah rumah tempat aplikasi tersebut berjalan di smartphone."*
+* **Poin Kunci:**
+  * Tritunggal standar web: HTML5 (tulang struktur), CSS3 (estetika busana), dan JavaScript (saraf logika).
+  * Wadah WebView native sebagai mesin peramban mini berkecepatan tinggi di dalam runtime Android OS.
+  * Jembatan Capacitor Bridge sebagai penerjemah komunikasi dua arah antara JavaScript dan SDK Kotlin/Java.
 * **Diagram 4 Lapisan Arsitektur Hybrid App:**
   ```mermaid
   flowchart TD
@@ -257,6 +265,10 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Membangun antarmuka mobile pertama lengkap dengan status bar, kartu profil, dan deteksi runtime layar sentuh.
 * **Narasi Dosen:**  
   *"Selamat! Ini adalah aplikasi mobile pertama Anda: MyUT Mobile. Berkas ini membuktikan bahwa tanpa kompilasi rumit, Anda sudah bisa membuat aplikasi ponsel fungsional yang membaca resolusi layar dan merespon event sentuhan jari."*
+* **Poin Kunci:**
+  * Inisialisasi wadah utama `<ion-app>` sebagai fondasi kanvas mobile standar Google Material Design.
+  * Penataan bingkai visual lengkap dengan status bar dan palet warna resmi Universitas Terbuka (Biru UT `#005691`).
+  * Penanganan interaksi layar sentuh (*touch/click events*) dan deteksi orientasi gawai secara *real-time*.
 * **Diagram Arsitektur Komponen 'Hello Hybrid App':**
   ```mermaid
   flowchart LR
@@ -276,6 +288,10 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Mengoperasikan Toggle Device Toolbar di peramban untuk simulasi berbagai dimensi smartphone tanpa emulator berat.
 * **Narasi Dosen:**  
   *"Laptop rekan-rekan tidak perlu terbebani emulator berbobot 10GB. Cukup buka Google Chrome, tekan F12, lalu tekan Ctrl + Shift + M. Seketika Anda dapat memilih simulasi layar Pixel 7, iPhone 14 Pro, atau menguji koneksi internet lambat!"*
+* **Poin Kunci:**
+  * Pintasan tombol sakti pengembang web: `F12` (DevTools) dilanjutkan `Ctrl + Shift + M` (Toggle Device Toolbar).
+  * Pemilihan preset dimensi smartphone populer (Pixel 7, Samsung Galaxy, iPhone 14 Pro).
+  * Emulasi sentuhan jari (*touch cursor*) dan simulasi jaringan lambat (*throttling*) super hemat RAM (< 100MB).
 * **Pintasan Tombol Sakti:** `F12` lalu `Ctrl + Shift + M`.
 * **Diagram Alur Pengujian Cepat Device Mode:**
   ```mermaid
@@ -297,6 +313,10 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Menganalisis fungsi tag `<meta name="viewport">` dalam menyamakan kanvas aplikasi dengan dimensi fisik gawai.
 * **Narasi Dosen:**  
   *"Pernahkah Anda membuka laman web di ponsel dan teksnya menjadi sekecil semut? Itu terjadi karena peramban mengira Anda menggunakan layar desktop selebar 980px. Dengan menyertakan tag viewport, ponsel otomatis merender aplikasi dengan skala 1:1 yang nyaman dijemari!"*
+* **Poin Kunci:**
+  * Perilaku default peramban ponsel yang mengasumsikan layar desktop selebar 980px jika tag viewport absen.
+  * Properti `width=device-width` untuk menyamakan lebar bidang pandang web dengan piksel fisik gawai.
+  * Properti `initial-scale=1.0` untuk menjamin ketajaman visual 1:1, kenyamanan membaca, dan area sentuh jari ergonomis.
 * **Diagram Perbandingan Perilaku Viewport Meta Tag:**
   ```mermaid
   flowchart TD
@@ -320,6 +340,10 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Menjelaskan fungsi dan parameter perintah baris `ionic start`, `cd`, `ionic serve`, `ionic build`, dan `npx cap sync`.
 * **Narasi Dosen:**  
   *"Saat proyek aplikasi kita berkembang, kita menggunakan Ionic CLI. Ada 5 perintah utama yang akan menjadi sahabat setia rekan-rekan sejak inisialisasi proyek hingga persiapan rilis ke platform Android."*
+* **Poin Kunci:**
+  * 5 Perintah sakti Ionic CLI: `start` (buat proyek), `cd` (pindah folder), `serve` (live reload), `build` (kompilasi aset), dan `cap sync` (sinkronisasi native).
+  * Manajemen paket lokal mandiri tanpa risiko konflik versi global di laptop mahasiswa.
+  * Siklus otomatisasi konversi dari kode sumber front-end menuju folder distribusi `dist/`.
 * **Diagram Siklus Hidup Perintah Ionic CLI:**
   ```mermaid
   flowchart LR
@@ -339,6 +363,10 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Menavigasi tata letak berkas tampilan, konfigurasi rute, dan aset publik dalam proyek Ionic.
 * **Narasi Dosen:**  
   *"Jangan cemas melihat puluhan folder di proyek Ionic! Tempat kita paling sering menulis kode hanya ada di folder src/views untuk halaman layar dan src/theme untuk memoles warna tema. Folder node_modules tidak boleh diedit manual!"*
+* **Poin Kunci:**
+  * Folder `src/views/` sebagai ruang kerja utama 90% waktu pengembang untuk membuat halaman layar aplikasi.
+  * Folder `src/theme/variables.css` untuk sentralisasi skema warna institusi dan variabel CSS dinamis.
+  * Folder `public/` untuk aset gambar bebas kompilasi dan folder `node_modules/` yang dilarang disunting manual.
 * **Diagram Pohon Struktur Folder Proyek:**
   ```mermaid
   graph TD
@@ -372,6 +400,10 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Mengaktifkan Opsi Pengembang dan USB Debugging pada smartphone Android serta menampilkan layar ke laptop menggunakan `scrcpy`.
 * **Narasi Dosen:**  
   *"Metode favorit pengembang profesional: sambungkan smartphone Android Anda menggunakan kabel data USB. Aktifkan USB Debugging dan jalankan scrcpy. Konsumsi RAM kurang dari 70MB, respons layar 60 FPS bebas patah-patah, dan tidak membuat laptop panas!"*
+* **Poin Kunci:**
+  * Prosedur 7 ketukan sakti pada *Build Number* untuk membuka menu tersembunyi Opsi Pengembang (*Developer Options*).
+  * Handshake keamanan sidik jari kunci RSA antara komputer laptop dan ponsel cerdas via kabel USB.
+  * Pengoperasian utilitas `scrcpy` untuk *screen mirroring* 60 FPS bebas *lag* dengan beban RAM laptop di bawah 70 MB.
 * **Diagram Alur Praktis USB Debugging & scrcpy:**
   ```mermaid
   flowchart TD
@@ -393,6 +425,10 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Memahami mekanisme pembaruan modul instan Vite tanpa mereset status data formulir yang sedang diisi pengguna.
 * **Narasi Dosen:**  
   *"Hot Module Replacement (HMR) membuat pengalaman belajar coding sangat memuaskan. Begitu Anda menekan simpan (Ctrl + S), peramban memperbarui tampilan dalam 30 milidetik tanpa menghapus teks yang baru saja Anda ketik pada formulir!"*
+* **Poin Kunci:**
+  * Kecepatan kompilasi modul delta oleh server Vite dalam hitungan milidetik (< 30ms) via koneksi WebSocket.
+  * Preservasi status data formulir (*state preservation*): teks input pengguna tidak terhapus saat kode diubah.
+  * Keunggulan mutlak dibanding *full page reload* tradisional yang memuat ulang seluruh aset dan mereset status aplikasi.
 * **Diagram Mekanisme Kerja Hot Module Replacement (HMR):**
   ```mermaid
   sequenceDiagram
@@ -418,6 +454,10 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Mengatasi galat kebijakan eksekusi skrip (*PSSecurityException*) di terminal Windows dengan solusi 1 langkah aman.
 * **Narasi Dosen:**  
   *"Jika terminal VS Code Anda menampilkan teks merah 'running scripts is disabled on this system', jangan khawatir! Itu bukan laptop yang rusak, melainkan kebijakan keamanan default Windows. Jalankan mantra Set-ExecutionPolicy RemoteSigned satu kali, dan perintah CLI akan berjalan mulus."*
+* **Poin Kunci:**
+  * Akar masalah galat teks merah Windows: Kebijakan keamanan *ExecutionPolicy Restricted* yang mengunci eksekusi skrip CLI.
+  * Mantra solusi aman: `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser`.
+  * Parameter `-Scope CurrentUser` membatasi izin hanya pada pengguna aktif tanpa menuntut hak akses *Administrator* penuh.
 * **Diagram Solusi Eksekusi Skrip PowerShell:**
   ```mermaid
   flowchart TD
@@ -437,6 +477,10 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Menguasai perintah esensial navigasi folder dan alur Git untuk mengelola berkas tugas mandiri.
 * **Narasi Dosen:**  
   *"Sebagai calon sarjana bidang teknologi, menguasai perintah terminal seperti cd, ls, dir, git add, dan git commit adalah keterampilan fundamental yang akan mempercepat pengerjaan tugas dan membangun portofolio GitHub Anda."*
+* **Poin Kunci:**
+  * Penguasaan perintah terminal esensial: `cd` (navigasi direktori), `dir`/`ls` (inspeksi daftar berkas).
+  * 3 Wilayah arsitektur Git: *Working Directory* $\rightarrow$ *Staging Area* (`git add`) $\rightarrow$ *Local Commit* (`git commit`).
+  * Perintah `git push origin main` untuk mengunggah bukti pengerjaan tugas mandiri ke repositori GitHub publik.
 * **Diagram 4 Tingkatan Ekosistem Terminal & Git:**
   ```mermaid
   flowchart LR
@@ -457,6 +501,12 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 
 ### 📌 Slide 17: 🎯 Master Solusi Lab Quest 01: Kartu Tanda Mahasiswa Digital UT
 * **Sub-CPMK:** Merancang antarmuka kartu identitas mahasiswa interaktif menggunakan komponen resmi Ionic Framework 7 Core via CDN.
+* **Narasi Dosen:**  
+  *"Saatnya membuktikan pemahaman rekan-rekan di Lab Quest 01! Kita akan merancang Kartu Tanda Mahasiswa (KTM) Digital Universitas Terbuka yang elegan dan responsif. Gunakan komponen resmi Ionic seperti `ion-card`, `ion-card-header`, `ion-card-content`, dan `ion-button` dengan balutan warna kebanggaan almamater kita: Biru UT dan Kuning Aksen. Begitu tombol verifikasi ditekan, antarmuka akan menampilkan notifikasi interaktif. Kerjakan tantangan ini dengan penuh percaya diri!"*
+* **Poin Kunci:**
+  * Struktur kartu identitas berbasis komponen semantik Ionic: `ion-card`, `ion-card-header`, `ion-card-content`, dan `ion-button`.
+  * Penerapan identitas visual Universitas Terbuka: Biru Resmi UT (`#005691`) dan Aksen Kuning (`#FFE600`).
+  * Rubrik evaluasi 4 pilar (0–100): Struktur Semantik (25), Branding UT (25), Viewport (25), Interaktivitas Sentuhan (25).
 * **Tantangan Lab:**
   1. Tampilkan kartu identitas dengan Nama, NIM, Program Studi, dan UPBJJ-UT Anda.
   2. Terapkan warna resmi Universitas Terbuka: Biru UT (`#005691`) dan Kuning Aksen (`#FFE600`).
@@ -488,6 +538,10 @@ Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat b
 * **Sub-CPMK:** Menghubungkan konsep manipulasi DOM imperatif tradisional dengan paradigma reaktif deklaratif Vue.js 3 di Sesi 02.
 * **Narasi Dosen:**  
   *"Di Sesi 01 ini, kita telah menguasai fondasi lingkungan kerja dan komponen mobile pertama kita. Pekan depan di Sesi 02, kita akan melangkah lebih jauh ke dunia modern: bagaimana menyinkronkan data aplikasi dan tampilan secara otomatis tanpa repot menggunakan Vue.js 3!"*
+* **Poin Kunci:**
+  * Keterbatasan manipulasi DOM imperatif tradisional (`document.getElementById`): rawan *typo*, kode berbelit, dan sulit dirawat.
+  * Keunggulan paradigma deklaratif reaktif Vue 3: sinkronisasi otomatis status data ke tampilan layar via `ref()` dan `v-model`.
+  * Jembatan kognitif menuju Sesi 02: Penguasaan *Single File Component* (SFC) dan *Composition API* modern.
 * **Diagram Paradigma Manipulasi DOM vs Deklaratif Reaktif (Menuju Sesi 02):**
   ```mermaid
   flowchart TD

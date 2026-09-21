@@ -416,7 +416,7 @@ flowchart TD
 * **Alat yang Digunakan:** Google Chrome / Browser Ponsel.
 * **Narasi Dosen:**  
   *"Selamat rekan-rekan, ini adalah puncak capaian praktikum Sesi 02! Kita menggabungkan seluruh ilmu: pencarian katalog real-time, filter dropdown semester, penambahan mata kuliah ke KRS, kalkulasi reaktif beban SKS dengan `computed`, validasi batas maksimal 24 SKS dengan peringatan badge dinamis, hingga pengajuan dokumen digital. Ini adalah miniatur dari portal Sistem Informasi Akademik UT sungguhan!"*
-* **Fitur Aplikasi:**
+* **Poin Kunci & Fitur Aplikasi:**
   * Pencarian dan filter semester interaktif secara instan (0 milidetik).
   * Tombol aksi tambah dan hapus mata kuliah dengan proteksi kuota SKS.
   * Ringkasan statistik dinamis (Total SKS, Sisa Kuota SKS, Peringatan Kuota Penuh).

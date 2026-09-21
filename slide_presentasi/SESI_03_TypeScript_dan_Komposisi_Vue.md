@@ -430,7 +430,7 @@ pie title Komposisi Bobot Nilai Tugas Tutorial 1 (Total 100%)
 * **Alat yang Digunakan:** Google Chrome / Browser Modern, Visual Studio Code.
 * **Narasi Dosen:**  
   *"Inilah dia mahakarya solusi resmi Tugas Tutorial 1! Kita menggabungkan seluruh pengetahuan yang kita pelajari hari ini ke dalam sebuah aplikasi utuh: Kartu Profil Mahasiswa UT, Formulir Input Nilai dengan validasi ketat, Tabel Rekapitulasi Mata Kuliah yang dinamis, Kalkulator Reaktif otomatis (Total SKS, Total Bobot Mutu, Nilai IPS 2 desimal, Predikat Kelulusan), serta fitur Cetak Ringkasan KTPU. Jadikan berkas `slide_17` ini sebagai tolok ukur utama pengerjaan tugas Anda!"*
-* **Fitur Aplikasi Unggulan:**
+* **Poin Kunci & Fitur Unggulan:**
   * Kontrak Model Data TypeScript (`MahasiswaUT`, `MataKuliah`).
   * Reaktivitas Vue 3 murni (`ref`, `reactive`, `computed`).
   * Konversi skala huruf ke mutu (A=4, B=3, C=2, D=1, E=0).
