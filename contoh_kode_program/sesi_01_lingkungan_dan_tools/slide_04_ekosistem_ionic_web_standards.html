@@ -70,10 +70,52 @@
 <body>
 
   <!-- BANNER PANDUAN PEMULA -->
-  <div class="guide-banner">
+  <div class="guide-box guide-banner">
     <div class="badge-tag">SLIDE 04 • SESI 01 (MODUL 1 BMP UT - WEB STANDARDS)</div>
-    <h2 style="margin: 0 0 4px 0; font-size: 18px;">Ekosistem Ionic Framework & Kekuatan Web Components</h2>
+    <h2 style="margin: 0 0 4px 0; font-size: 18px;">Ekosistem Ionic Framework &amp; Kekuatan Web Components</h2>
     <p style="margin: 0; font-size: 13px;">Menjalankan antarmuka smartphone kelas industri langsung di peramban web tanpa perlu instalasi tools rumit (Zero-Friction CDN).</p>
+  </div>
+
+  <!-- DIAGRAM PENGIRIMAN CDN & WEB COMPONENTS INLINE SVG -->
+  <div style="max-width: 650px; margin: 0 auto 16px auto; overflow-x: auto; background: #FFF; border: 3px solid #000; padding: 14px; box-shadow: 4px 4px 0 #000;">
+    <div style="font-weight: 800; font-size: 13px; margin-bottom: 10px;">📊 Diagram Alur: Pengiriman Pustaka CDN ➔ Registrasi Web Components di Browser</div>
+    <svg viewBox="0 0 600 130" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-cdn" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284C7" />
+        </marker>
+      </defs>
+
+      <!-- Box 1: CDN Cloud -->
+      <rect x="10" y="20" width="175" height="85" fill="#E0F2FE" stroke="#000" stroke-width="2" />
+      <rect x="13" y="23" width="169" height="20" fill="#38BDF8" stroke="#000" stroke-width="1" />
+      <text x="97" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">1. CLOUD CDN HOST</text>
+      <text x="97" y="58" font-family="'Consolas', monospace" font-size="8" font-weight="bold" fill="#0369A1" text-anchor="middle">jsdelivr.net / unpkg</text>
+      <text x="97" y="74" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#334155">@ionic/core dist</text>
+      <text x="97" y="88" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#15803D">Bebas instalasi 0 MB!</text>
+
+      <!-- Arrow 1 to 2 -->
+      <line x1="185" y1="62" x2="220" y2="62" stroke="#0284C7" stroke-width="2" marker-end="url(#arrow-cdn)" />
+
+      <!-- Box 2: Browser Engine -->
+      <rect x="225" y="20" width="175" height="85" fill="#FEF9C3" stroke="#000" stroke-width="2" />
+      <rect x="228" y="23" width="169" height="20" fill="#FFE600" stroke="#000" stroke-width="1" />
+      <text x="312" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">2. BROWSER PARSER</text>
+      <text x="312" y="58" font-family="'Consolas', monospace" font-size="8" font-weight="bold" fill="#B45309" text-anchor="middle">&lt;script type="module"&gt;</text>
+      <text x="312" y="74" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">customElements.define()</text>
+      <text x="312" y="88" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">Registrasi Tag Kustom</text>
+
+      <!-- Arrow 2 to 3 -->
+      <line x1="400" y1="62" x2="435" y2="62" stroke="#0284C7" stroke-width="2" marker-end="url(#arrow-cdn)" />
+
+      <!-- Box 3: Native Web Components -->
+      <rect x="440" y="20" width="150" height="85" fill="#DCFCE7" stroke="#000" stroke-width="2" />
+      <rect x="443" y="23" width="144" height="20" fill="#4ADE80" stroke="#000" stroke-width="1" />
+      <text x="515" y="37" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">3. RENDER NATIVE</text>
+      <text x="515" y="58" font-family="'Consolas', monospace" font-size="8" font-weight="bold" fill="#15803D" text-anchor="middle">&lt;ion-card&gt; &amp; &lt;button&gt;</text>
+      <text x="515" y="74" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#14532D">Shadow DOM Encapsulated</text>
+      <text x="515" y="88" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#166534" text-anchor="middle">✅ W3C Web Standard!</text>
+    </svg>
   </div>
 
   <!-- CONTAINER IONIC APP -->

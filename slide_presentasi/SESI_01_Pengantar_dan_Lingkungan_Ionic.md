@@ -16,6 +16,25 @@ Setiap materi slide dilengkapi berkas interaktif mandiri berekstensi `.html` yan
 
 ---
 
+## 🛠️ Panduan Alat & Lingkungan Belajar (Ramah Pemula)
+
+Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat bergerak, Sesi 01 dirancang menggunakan pendekatan **The Zero-Friction Courseware Framework** yang sangat ringan dan ramah laptop (RAM 4–8 GB friendly):
+
+1. **Google Chrome / Peramban Web Desktop:**
+   * **Fungsi:** Menjalankan seluruh 18 berkas contoh program `.html` secara instan tanpa perlu instalasi compiler lokal atau dev-server yang berat (protokol `file:///`).
+   * **Cara Penggunaan:** Cukup klik ganda (*double-click*) berkas `.html` yang ingin dipelajari langsung dari File Explorer Windows.
+2. **Google Chrome DevTools (`F12` / `Ctrl + Shift + I`):**
+   * **Fungsi:** Menginspeksi tab **Console** untuk menjalankan skrip JavaScript interaktif, mengamati error log, dan memeriksa struktur elemen antarmuka.
+   * **Simulator Layar Smartphone (`Ctrl + Shift + M`):** Mengaktifkan mode **Toggle Device Toolbar** untuk mensimulasikan tampilan berbagai tipe smartphone (iPhone, Samsung Galaxy, Pixel) langsung dari browser Anda.
+3. **Visual Studio Code (VS Code):**
+   * **Fungsi:** Editor teks utama untuk membuka, menyunting, dan mempelajari kode HTML, CSS, dan JavaScript.
+4. **Node.js LTS & Terminal / PowerShell:**
+   * **Fungsi:** Menjalankan skrip diagnostik otomatis kesiapan komputer (`slide_06`) dan perintah simulasi Ionic CLI (`slide_11`).
+5. **Kabel Data USB & Smartphone Android Fisik (Persiapan Praktik):**
+   * **Fungsi:** Untuk persiapan pengujian hemat memori via USB Debugging dan aplikasi *mirroring* ringan `scrcpy` (< 70 MB RAM).
+
+---
+
 ## 📊 Daftar 18 Slide Pembahasan & Berkas Praktikum Mandiri
 
 ### 📌 Slide 01: Kontrak Perkuliahan, Roadmap 8 Sesi & Aturan Nilai UT
