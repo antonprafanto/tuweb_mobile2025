@@ -26,7 +26,7 @@ Seluruh 18 berkas kode mandiri di bawah ini menggunakan **standar The Zero-Frict
 | `13` | `slide_13_dialog_konfirmasi_ion_alert.html` | Dialog modal konfirmasi submit berkas pendaftaran `<ion-alert>` | [Buka Berkas](slide_13_dialog_konfirmasi_ion_alert.html) |
 | `14` | `slide_14_arsitektur_tema_gelap_dark_mode.html` | Teori theming: Variabel global CSS Ionic & adaptasi prefers-color-scheme | [Buka Berkas](slide_14_arsitektur_tema_gelap_dark_mode.html) |
 | `15` | `slide_15_sakelar_tema_dinamis_dark_light.html` | Sakelar tema gelap real-time dengan kelas `.dark` & penyimpanan LocalStorage | [Buka Berkas](slide_15_sakelar_tema_dinamis_dark_light.html) |
-| `16` | `slide_16_rubrik_tugas_tutorial_2.md` | **Pedoman & Rubrik Penilaian Resmi TUGAS TUTORIAL 2 (Skala 0–100)** | [Buka Berkas](slide_16_rubrik_tugas_tutorial_2.md) |
+| `16` | `slide_16_rubrik_tugas_tutorial_2.html`<br>`slide_16_rubrik_tugas_tutorial_2.md` | **Kalkulator Skor Rubrik & Panduan Resmi TUGAS TUTORIAL 2 (0–100)** | [Buka Simulator HTML](slide_16_rubrik_tugas_tutorial_2.html)<br>[Baca Panduan MD](slide_16_rubrik_tugas_tutorial_2.md) |
 | `17` | `slide_17_solusi_tugas_2_portal_ktm_registrasi.html` | **🎯 MASTER SOLUSI RESMI TUGAS TUTORIAL 2 (Portal Layanan & KTM Digital)** | [Buka Berkas](slide_17_solusi_tugas_2_portal_ktm_registrasi.html) |
 | `18` | `slide_18_preview_sesi_06_capacitor_android.html` | **Jembatan Sesi 06: Capacitor Bridge, Android Studio, & USB Debugging** | [Buka Berkas](slide_18_preview_sesi_06_capacitor_android.html) |
 

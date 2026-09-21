@@ -124,6 +124,42 @@
       box-shadow: 6px 6px 0 var(--border);
       color: var(--text);
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+      color: #000;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+      color: #000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -132,7 +168,72 @@
     <div class="header">
       <div class="badge-tag">SLIDE 17 • MASTER SOLUSI RESMI TUGAS TUTORIAL 2</div>
       <h1 style="margin: 0 0 6px 0; font-size: 24px;">🎯 Portal Pendaftaran Layanan Mandiri Mahasiswa UT</h1>
-      <p style="margin: 0; font-size: 14px;">Studi Kasus Lengkap: Form Validasi Regex NIM 9-Digit, Email Kampus @ecampus.ut.ac.id, Sakelar Dark Mode, KTM Digital, & Umpan Balik Toast/Alert.</p>
+      <p style="margin: 0; font-size: 14px;">Studi Kasus Lengkap: Form Validasi Regex NIM 9-Digit, Email Kampus @ecampus.ut.ac.id, Sakelar Dark Mode, KTM Digital, &amp; Umpan Balik Toast/Alert.</p>
+    </div>
+
+    <!-- PANDUAN RAMAH PEMULA -->
+    <div class="guide-box">
+      <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PENGUJIAN MASTER SOLUSI TUGAS TUTORIAL 2</div>
+      <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (cukup klik ganda berkas HTML ini), DevTools (<code>F12</code>), Mode Ponsel (<code>Ctrl + Shift + M</code>), Visual Studio Code.</div>
+      <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi 5 Fitur Kunci:</strong>
+        1. <em>Uji Regex NIM:</em> Ganti NIM menjadi 8 digit atau sisipkan huruf; amati border merah dan pesan galat instan.<br>
+        2. <em>Uji Regex Email:</em> Ganti domain menjadi <code>@gmail.com</code>; amati penolakan domain non-institusi.<br>
+        3. <em>Uji Dark Mode:</em> Klik ikon bulan/matahari di toolbar atas; seluruh aplikasi beralih tema gelap seketika.<br>
+        4. <em>Uji Modal Alert &amp; Toast:</em> Klik tombol <em>"🚀 Terbitkan KTM Digital"</em>; verifikasi dialog konfirmasi <code>&lt;ion-alert&gt;</code> muncul lalu setujui untuk melihat <code>&lt;ion-toast&gt;</code>.<br>
+        5. <em>KTM Digital Reaktif:</em> Buka tab <em>"💳 Kartu KTM Digital"</em>; foto avatar dan identitas otomatis sinkron dengan data yang Anda ketik!
+      </div>
+      <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Seluruh data formulir diikat secara dua arah (<code>v-model</code>) pada objek reaktif Vue 3. Tiga properti komputasi (<code>isNimValid</code>, <code>isNamaValid</code>, <code>isEmailValid</code>) mengawal keabsahan data secara matematis sebelum memicu overlay alert.</div>
+    </div>
+
+    <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
+    <div class="diagram-card">
+      <div class="diagram-title">📊 Diagram Arsitektur Terpadu Master Solusi Tugas Tutorial 2 (Portal Layanan Mandiri UT)</div>
+      <svg viewBox="0 0 800 155" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#000000" />
+          </marker>
+        </defs>
+
+        <!-- Block 1: UI Input Controls -->
+        <rect x="20" y="25" width="170" height="105" fill="#E0F2FE" stroke="#000" stroke-width="2" />
+        <text x="105" y="48" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#0369A1">1. KONTROL INPUT</text>
+        <text x="105" y="68" font-family="'Segoe UI', sans-serif" font-size="9.5" text-anchor="middle" fill="#000">• ion-input (NIM, Nama)</text>
+        <text x="105" y="84" font-family="'Segoe UI', sans-serif" font-size="9.5" text-anchor="middle" fill="#000">• ion-input (Email)</text>
+        <text x="105" y="100" font-family="'Segoe UI', sans-serif" font-size="9.5" text-anchor="middle" fill="#000">• ion-select (Prodi)</text>
+        <text x="105" y="116" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#0369A1">+ Dark Mode Toggle</text>
+
+        <!-- Arrow 1 -->
+        <line x1="190" y1="77" x2="225" y2="77" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- Block 2: Reactive Regex Engine -->
+        <rect x="230" y="25" width="180" height="105" fill="#FEF08A" stroke="#000" stroke-width="2.5" />
+        <text x="320" y="48" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#B45309">2. REGEX VALIDATOR</text>
+        <text x="320" y="70" font-family="'Consolas', monospace" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#000">/^[0-9]{9}$/</text>
+        <text x="320" y="88" font-family="'Consolas', monospace" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#000">/@ecampus\.ut\.ac\.id$/</text>
+        <text x="320" y="114" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#854D0E">computed(isFormValid)</text>
+
+        <!-- Arrow 2 -->
+        <line x1="410" y1="77" x2="445" y2="77" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- Block 3: Two-Tier Dialog Feedback -->
+        <rect x="450" y="25" width="165" height="105" fill="#F3E8FF" stroke="#000" stroke-width="2" />
+        <text x="532" y="48" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#6B21A8">3. DIALOG FEEDBACK</text>
+        <text x="532" y="70" font-family="'Segoe UI', sans-serif" font-size="9.5" text-anchor="middle" fill="#000">Modal &lt;ion-alert&gt;</text>
+        <text x="532" y="88" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#6B21A8">Verifikasi 2 Langkah</text>
+        <text x="532" y="112" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#15803D">&lt;ion-toast&gt; Sukses</text>
+
+        <!-- Arrow 3 -->
+        <line x1="615" y1="77" x2="645" y2="77" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- Block 4: Digital KTM Preview -->
+        <rect x="650" y="20" width="130" height="115" fill="#DCFCE7" stroke="#16A34A" stroke-width="3" />
+        <text x="715" y="44" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#15803D">4. KTM DIGITAL</text>
+        <rect x="660" y="55" width="110" height="42" fill="#0284C7" stroke="#000" stroke-width="1" rx="4" />
+        <text x="715" y="72" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#FFF">KTM FST UT</text>
+        <text x="715" y="86" font-family="'Segoe UI', sans-serif" font-size="7.5" text-anchor="middle" fill="#FEF08A">Avatar &amp; Barcode</text>
+        <text x="715" y="118" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#15803D">Reaktif Real-Time</text>
+      </svg>
     </div>
 
     <div class="layout-grid">
@@ -435,6 +536,11 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- SITASI AKADEMIK RESMI -->
+    <div class="source-cite">
+      📚 <strong>Rujukan Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 5 (Aplikasi Antarmuka Formulir Mobile Terintegrasi); Panduan dan Rubrik Penilaian Resmi Tugas Tutorial 2 FST Universitas Terbuka; Dokumentasi Resmi Ionic Framework (Full Mobile Form &amp; Validation Showcase, 2024).
     </div>
   </div>
 

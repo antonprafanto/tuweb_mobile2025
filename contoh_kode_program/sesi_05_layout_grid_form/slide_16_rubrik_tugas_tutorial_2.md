@@ -7,6 +7,10 @@
 > **Bobot Penilaian:** 20% dari Total Nilai Tutorial Online (Tuton)  
 > **Masa Pengerjaan:** 2 Pekan sejak Sesi 05 dibuka di LMS Tuton
 
+> 🧮 **Kalkulator Skor Rubrik Interaktif:**  
+> Rekan-rekan mahasiswa dapat melakukan simulasi perhitungan skor nilai mandiri (0–100) dan mengecek kelengkapan checklist tugas melalui berkas interaktif:  
+> 👉 [**🌐 Buka Simulator Rubrik Tugas 2: slide_16_rubrik_tugas_tutorial_2.html**](slide_16_rubrik_tugas_tutorial_2.html)
+
 ---
 
 ## 🎯 Capaian Pembelajaran Tugas 2
@@ -44,6 +48,14 @@ Anda ditugaskan sebagai Pengembang Aplikasi Frontend Mobile di Universitas Terbu
 
 ## 📊 Matriks Rubrik Penilaian (Skor Total: 100)
 
+```mermaid
+pie title Komposisi Bobot Penilaian Tugas Tutorial 2 (Total: 100 Poin)
+    "Validasi Pola Regex (NIM & Email)" : 35
+    "Tata Letak & Komponen Ionic UI" : 25
+    "Umpan Balik Dialog Alert & Toast" : 20
+    "Dark Mode, KTM Preview & Video" : 20
+```
+
 | No | Kriteria Evaluasi | Indikator Kinerja Unggul | Skor Maksimal |
 | :-: | :--- | :--- | :-: |
 | **1** | **Tata Letak & Komponen Ionic UI** | Menggunakan komponen resmi Ionic (`ion-page`, `ion-grid`, `ion-card`, `ion-input`, `ion-select`) dengan hierarki rapi dan thumb-friendly. | **25** |
@@ -72,3 +84,10 @@ Anda ditugaskan sebagai Pengembang Aplikasi Frontend Mobile di Universitas Terbu
 3. **Master Solusi Acuan:**
    * Mahasiswa dapat mempelajari arsitektur referensi resmi pada berkas:  
      [`slide_17_solusi_tugas_2_portal_ktm_registrasi.html`](slide_17_solusi_tugas_2_portal_ktm_registrasi.html)
+
+---
+
+## 📚 Referensi Akademik
+* Prafanto, A., dkk. (2024). *Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)*. Modul 5: Tata Letak Grid dan Validasi Formulir Mobile. Tangerang Selatan: Universitas Terbuka.
+* Fakultas Sains dan Teknologi (FST) Universitas Terbuka. (2024). *Panduan Evaluasi Tugas Tutorial Online Mata Kuliah Praktikum*.
+* Ionic Framework Documentation. (2024). *Form Controls, Grid Layout, and Theming Architecture Guide*.

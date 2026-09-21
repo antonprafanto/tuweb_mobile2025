@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--purple);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
@@ -53,14 +78,53 @@
       font-size: 12px;
       overflow-x: auto;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
     <div class="badge-tag">SLIDE 14 • MODUL 5 BMP UT</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Arsitektur Theming: CSS Variables & prefers-color-scheme</h1>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Arsitektur Theming: CSS Variables &amp; prefers-color-scheme</h1>
     <p style="margin: 0; font-size: 14px;">Membedah cara Ionic mengendalikan skema warna terang dan gelap melalui variabel global CSS berstandar Web Components.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; EKSPLORASI MANDIRI</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome / Peramban Web Modern (cukup klik ganda berkas HTML ini), DevTools (<code>F12</code>).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Pelajari tabel variabel warna di bawah. Untuk menguji deteksi prefers-color-scheme secara langsung, buka DevTools (<code>F12</code>) $\rightarrow$ tekan <code>Ctrl + Shift + P</code> $\rightarrow$ ketik <em>"Emulate CSS prefers-color-scheme: dark"</em> dan tekan Enter!</div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Ionic mengisolasi styling komponen di dalam Shadow DOM dan merujuk pada variabel CSS seperti <code>var(--ion-background-color)</code>. Ketika kelas <code>.dark</code> disuntikkan ke elemen <code>&lt;body&gt;</code>, seluruh komponen anak langsung mewarisi warna gelap secara instan tanpa re-render.</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Arsitektur Pewarisan Variabel CSS Tema Terang vs Gelap</div>
+    <svg viewBox="0 0 800 135" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <!-- Light Theme Branch -->
+      <rect x="30" y="15" width="350" height="110" fill="#FFF" stroke="#000" stroke-width="2.5" />
+      <text x="50" y="38" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" fill="#000">☀️ MODE TERANG (:root)</text>
+      <rect x="50" y="50" width="310" height="60" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+      <text x="60" y="68" font-family="'Consolas', monospace" font-size="10" fill="#000">--ion-background-color: #FFFFFF;</text>
+      <text x="60" y="86" font-family="'Consolas', monospace" font-size="10" fill="#000">--ion-text-color: #000000;</text>
+      <text x="60" y="102" font-family="'Consolas', monospace" font-size="9" fill="#64748B">Optimal untuk pencahayaan siang hari</text>
+
+      <!-- Dark Theme Branch -->
+      <rect x="420" y="15" width="350" height="110" fill="#0F172A" stroke="#38BDF8" stroke-width="2.5" />
+      <text x="440" y="38" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" fill="#38BDF8">🌙 MODE GELAP (body.dark)</text>
+      <rect x="440" y="50" width="310" height="60" fill="#1E293B" stroke="#334155" stroke-width="1" />
+      <text x="450" y="68" font-family="'Consolas', monospace" font-size="10" fill="#38BDF8">--ion-background-color: #121212;</text>
+      <text x="450" y="86" font-family="'Consolas', monospace" font-size="10" fill="#F8FAFC">--ion-text-color: #FFFFFF;</text>
+      <text x="450" y="102" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94A3B8">Hemat baterai layar OLED &amp; ramah mata</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -124,6 +188,11 @@ body.dark {
         Pengguna smartphone ada yang menyetel mode gelap otomatis sesuai waktu senja, namun banyak juga yang ingin mengubah mode secara manual melalui sakelar tombol di dalam aplikasi.
       </p>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK RESMI -->
+  <div class="source-cite">
+    📚 <strong>Rujukan Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 5 (Arsitektur Tema &amp; CSS Custom Properties); Dokumentasi Resmi Ionic Framework (Dark Mode &amp; Theming, 2024); W3C CSS Custom Properties for Cascading Variables Module Level 1.
   </div>
 
   <script>

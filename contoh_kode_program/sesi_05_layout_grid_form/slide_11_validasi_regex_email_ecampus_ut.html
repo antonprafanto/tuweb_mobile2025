@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--rose);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
@@ -60,6 +85,15 @@
       font-size: 12px;
       overflow-x: auto;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -68,6 +102,45 @@
     <div class="badge-tag">SLIDE 11 • MODUL 5 BMP UT (KRITERIA TUGAS 2)</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Validasi Pola Regex: Domain Resmi @ecampus.ut.ac.id</h1>
     <p style="margin: 0; font-size: 14px;">Membedah regular expression untuk membatasi pendaftaran hanya bagi pemilik surel institusi Universitas Terbuka.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; EKSPLORASI MANDIRI</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome / Peramban Web Modern (cukup klik ganda berkas HTML ini), DevTools (<code>F12</code>).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Klik salah satu tombol contoh skenario: <em>"✅ Contoh Sah"</em>, <em>"❌ Salah Domain (@gmail.com)"</em>, atau <em>"❌ Salah Akhiran (.com)"</em>. Amati bagaimana pola regex menyaring domain dengan ketat dan memberikan alasan galat spesifik!</div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Titik (.) dalam regex merupakan karakter spesial yang berarti <em>"sembarang karakter"</em>. Oleh karena itu, kita wajib menyisipkan tanda garis miring terbalik (<code>\.</code>) yang disebut <em>escaping</em> agar mesin regex hanya mencocokkan karakter titik harfiah.</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Segmen Regex Surel Kampus: /^[a-zA-Z0-9._%+-]+@ecampus\.ut\.ac\.id$/</div>
+    <svg viewBox="0 0 800 135" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <!-- Username Part -->
+      <rect x="30" y="20" width="230" height="75" fill="#E0F2FE" stroke="#000" stroke-width="2" />
+      <text x="145" y="44" font-family="'Consolas', monospace" font-size="13" font-weight="900" text-anchor="middle" fill="#0369A1">^[a-zA-Z0-9._%+-]+</text>
+      <text x="145" y="68" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">Username Mahasiswa</text>
+      <text x="145" y="84" font-family="'Segoe UI', sans-serif" font-size="8.5" text-anchor="middle" fill="#64748B">Huruf, angka, titik, strip (+)</text>
+
+      <!-- At Symbol -->
+      <rect x="275" y="20" width="60" height="75" fill="#FEF08A" stroke="#000" stroke-width="2" />
+      <text x="305" y="52" font-family="'Consolas', monospace" font-size="22" font-weight="900" text-anchor="middle" fill="#854D0E">@</text>
+      <text x="305" y="80" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#000">Separator</text>
+
+      <!-- Subdomain ecampus -->
+      <rect x="350" y="20" width="140" height="75" fill="#FCE7F3" stroke="#000" stroke-width="2" />
+      <text x="420" y="44" font-family="'Consolas', monospace" font-size="14" font-weight="900" text-anchor="middle" fill="#BE185D">ecampus</text>
+      <text x="420" y="68" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">Subdomain UT</text>
+      <text x="420" y="84" font-family="'Segoe UI', sans-serif" font-size="8.5" text-anchor="middle" fill="#64748B">Wajib eksak</text>
+
+      <!-- Domain Lock .ut.ac.id$ -->
+      <rect x="505" y="20" width="265" height="75" fill="#DCFCE7" stroke="#000" stroke-width="2.5" />
+      <text x="637" y="44" font-family="'Consolas', monospace" font-size="14" font-weight="900" text-anchor="middle" fill="#15803D">\.ut\.ac\.id$</text>
+      <text x="637" y="68" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">Domain Institusi Resmi (Escaped)</text>
+      <text x="637" y="84" font-family="'Segoe UI', sans-serif" font-size="8.5" text-anchor="middle" fill="#15803D">Wajib akhiran .ut.ac.id (Kunci $)</text>
+
+      <text x="400" y="118" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle" fill="#334155">Standar Bobot 35% Penilaian Tugas Tutorial 2 FST Universitas Terbuka</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -114,7 +187,7 @@
       <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 12px;">
         <tr style="background: #E2E8F0;">
           <th style="padding: 6px; border: 1px solid #000; text-align: left;">Segmen Pola</th>
-          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Makna & Penjelasan</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Makna &amp; Penjelasan</th>
         </tr>
         <tr>
           <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">^[a-zA-Z0-9._%+-]+</td>
@@ -140,6 +213,11 @@ export const validasiEmailUT = (email: string): boolean => {
     </div>
   </div>
 
+  <!-- SITASI AKADEMIK RESMI -->
+  <div class="source-cite">
+    📚 <strong>Rujukan Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 5 (Validasi Regex Sisi Klien); Panduan Resmi Tugas Tutorial 2 FST UT; IETF RFC 5322 Internet Message Format.
+  </div>
+
   <script>
     const { createApp, ref, computed } = Vue;
     createApp({
@@ -148,17 +226,23 @@ export const validasiEmailUT = (email: string): boolean => {
         const regexEmailUT = /^[a-zA-Z0-9._%+-]+@ecampus\.ut\.ac\.id$/;
 
         const statusValidasi = computed(() => {
-          const val = emailInput.value.trim().toLowerCase();
-          if (!val) {
-            return { pesan: '⚪ Kolom surel masih kosong.', style: 'background: #F1F5F9; color: #475569;' };
+          if (!emailInput.value) {
+            return {
+              pesan: '⚠️ Kolom surel masih kosong. Masukkan email resmi UT!',
+              style: 'background: #FEF08A; color: #854D0E;'
+            };
           }
-          if (regexEmailUT.test(val)) {
-            return { pesan: '✅ SUREL VALID: Alamat resmi institusi @ecampus.ut.ac.id diterima.', style: 'background: #DCFCE7; color: #15803D;' };
+          if (regexEmailUT.test(emailInput.value.trim().toLowerCase())) {
+            return {
+              pesan: '✅ Surel Valid! Menggunakan domain resmi @ecampus.ut.ac.id.',
+              style: 'background: #DCFCE7; color: #166534;'
+            };
+          } else {
+            return {
+              pesan: '❌ Format Surel Ditolak! Wajib menggunakan domain resmi @ecampus.ut.ac.id.',
+              style: 'background: #FEE2E2; color: #991B1B;'
+            };
           }
-          if (!val.includes('@')) {
-            return { pesan: '⚠️ SUREL INVALID: Wajib menyertakan tanda "@".', style: 'background: #FEF08A; color: #A16207;' };
-          }
-          return { pesan: '❌ SUREL INVALID: Wajib menggunakan domain resmi kampus "@ecampus.ut.ac.id"!', style: 'background: #FEE2E2; color: #B91C1C;' };
         });
 
         return { emailInput, statusValidasi };

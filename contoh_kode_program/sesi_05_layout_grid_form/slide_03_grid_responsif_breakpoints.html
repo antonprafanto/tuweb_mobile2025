@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slide 03: Grid Responsif Breakpoints — STSI4303</title>
+  <title>Slide 03: Grid Responsif & Breakpoints — STSI4303</title>
   <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
-      background: var(--mint);
+      background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -37,6 +37,31 @@
       background: #fff;
       margin-bottom: 10px;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
       background: var(--card-bg);
@@ -46,15 +71,15 @@
     }
     .simulator-container {
       border: 3px solid #000;
-      background: #F1F5F9;
-      padding: 12px;
+      padding: 14px;
+      background: #F8FAFC;
       transition: width 0.3s ease;
-      margin: 0 auto;
-      overflow: hidden;
+      box-shadow: 4px 4px 0 #000;
+      margin-bottom: 14px;
     }
     .col-box {
       border: 2px solid #000;
-      padding: 12px;
+      padding: 10px;
       text-align: center;
       font-weight: bold;
       font-size: 12px;
@@ -69,6 +94,15 @@
       font-size: 12px;
       overflow-x: auto;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -77,6 +111,50 @@
     <div class="badge-tag">SLIDE 03 • MODUL 5 BMP UT</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Tata Letak Responsif: Titik Henti Breakpoints Grid</h1>
     <p style="margin: 0; font-size: 14px;">Menyesuaikan tampilan kolom saat aplikasi dibuka di ponsel layar kecil (portrait), ponsel landscape, maupun tablet iPad.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; EKSPLORASI MANDIRI</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (klik ganda berkas HTML ini), DevTools (<code>F12</code>), Mode Ponsel (<code>Ctrl + Shift + M</code>).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Klik tombol <em>"📱 Ponsel Tegak (340px)"</em> lalu klik <em>"📟 Tablet / Landscape (600px)"</em>. Perhatikan bagaimana dua kotak data mahasiswa yang semula menumpuk ke bawah (1 kolom) langsung bertransformasi menjadi berdampingan (2 kolom) secara instan!</div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Atribut <code>size="12" size-md="6"</code> memadukan CSS Media Query bawaan Ionic. Saat lebar layar $\ge 768\text{px}$ (atau saat container melebar pada simulator), aturan <code>size-md</code> secara otomatis menimpa aturan default <code>size="12"</code>.</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Perubahan Tata Letak: Ponsel Portrait vs Tablet Landscape</div>
+    <svg viewBox="0 0 800 160" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- Smartphone Portrait View -->
+      <rect x="30" y="15" width="220" height="130" fill="#FEF08A" stroke="#000" stroke-width="2.5" />
+      <text x="140" y="35" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">📱 PONSEL TEGAK (&lt; 768px)</text>
+      <rect x="45" y="45" width="190" height="40" fill="#38BDF8" stroke="#000" stroke-width="1.5" />
+      <text x="140" y="68" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">size="12" (Kolom 1: 100%)</text>
+      <rect x="45" y="92" width="190" height="40" fill="#4ADE80" stroke="#000" stroke-width="1.5" />
+      <text x="140" y="115" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">size="12" (Kolom 2: 100%)</text>
+
+      <!-- Transition Arrow -->
+      <line x1="265" y1="80" x2="335" y2="80" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)" />
+      <text x="300" y="72" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#0369A1">size-md="6"</text>
+      <text x="300" y="98" font-family="'Segoe UI', sans-serif" font-size="8.5" text-anchor="middle" fill="#64748B">≥ 768px</text>
+
+      <!-- Tablet Landscape View -->
+      <rect x="350" y="15" width="410" height="130" fill="#EFF6FF" stroke="#000" stroke-width="2.5" />
+      <text x="555" y="35" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">📟 TABLET / LANDSCAPE (≥ 768px)</text>
+      <rect x="370" y="55" width="175" height="70" fill="#38BDF8" stroke="#000" stroke-width="1.5" />
+      <text x="457" y="92" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle" fill="#000">size-md="6" (50%)</text>
+      <text x="457" y="108" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#000">Data NIM Mahasiswa</text>
+
+      <rect x="560" y="55" width="180" height="70" fill="#4ADE80" stroke="#000" stroke-width="1.5" />
+      <text x="650" y="92" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle" fill="#000">size-md="6" (50%)</text>
+      <text x="650" y="108" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#000">Program Studi / UPBJJ</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -106,13 +184,13 @@
           <ion-row>
             <ion-col :size="simMode === 'phone' ? '12' : '6'" style="margin-bottom: 6px;">
               <div class="col-box" style="background: #BAE6FD;">
-                NIM & Nama Mahasiswa<br>
+                NIM &amp; Nama Mahasiswa<br>
                 <span style="font-size: 10px; font-weight: normal;">(Lebar: {{ simMode === 'phone' ? '12 Unit (100%)' : '6 Unit (50%)' }})</span>
               </div>
             </ion-col>
             <ion-col :size="simMode === 'phone' ? '12' : '6'">
               <div class="col-box" style="background: #BBF7D0;">
-                Program Studi & UPBJJ<br>
+                Program Studi &amp; UPBJJ<br>
                 <span style="font-size: 10px; font-weight: normal;">(Lebar: {{ simMode === 'phone' ? '12 Unit (100%)' : '6 Unit (50%)' }})</span>
               </div>
             </ion-col>
@@ -170,6 +248,11 @@
   &lt;/ion-row&gt;
 &lt;/ion-grid&gt;</code></pre>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK RESMI -->
+  <div class="source-cite">
+    📚 <strong>Rujukan Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 5 (Desain Antarmuka Adaptif Mobile); Dokumentasi Resmi Ionic Framework (Responsive Breakpoints, 2024); Google Material Design 3 Responsive Layout Grid Guide.
   </div>
 
   <script>

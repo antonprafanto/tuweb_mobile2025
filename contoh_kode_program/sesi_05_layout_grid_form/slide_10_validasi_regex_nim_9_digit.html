@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
@@ -60,6 +85,15 @@
       font-size: 12px;
       overflow-x: auto;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -68,6 +102,46 @@
     <div class="badge-tag">SLIDE 10 • MODUL 5 BMP UT (KRITERIA TUGAS 2)</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Validasi Pola Regex: Penegakan Format 9 Digit NIM UT</h1>
     <p style="margin: 0; font-size: 14px;">Membedah sintaks ekspresi reguler /^[0-9]{9}$/ untuk menjamin integritas Nomor Induk Mahasiswa Universitas Terbuka.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; EKSPLORASI MANDIRI</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome / Peramban Modern (cukup klik ganda berkas HTML ini), DevTools (<code>F12</code>).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Klik 3 tombol uji cepat: <em>"Isi Contoh Sah (9 Digit)"</em>, <em>"Isi Kurang (6 Digit)"</em>, atau <em>"Isi Huruf (Ada 'A')"</em>. Perhatikan bagaimana kotak umpan balik langsung bereaksi hijau (Valid) atau merah (Galat) secara real-time!</div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Pola <code>/^[0-9]{9}$/.test(nim)</code> mengevaluasi string masukan. Karakter <code>^</code> mengunci awal string, <code>[0-9]</code> hanya membolehkan digit angka 0-9, <code>{9}</code> mewajibkan tepat 9 pengulangan, dan <code>$</code> mengunci akhir string.</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Anatomi Token Regular Expression: /^[0-9]{9}$/</div>
+    <svg viewBox="0 0 800 135" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <!-- Token 1: ^ -->
+      <rect x="30" y="20" width="130" height="75" fill="#E0F2FE" stroke="#000" stroke-width="2" />
+      <text x="95" y="45" font-family="'Consolas', monospace" font-size="20" font-weight="900" text-anchor="middle" fill="#0369A1">^</text>
+      <text x="95" y="68" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">Anchor Awal</text>
+      <text x="95" y="84" font-family="'Segoe UI', sans-serif" font-size="8.5" text-anchor="middle" fill="#64748B">Kunci dari awal</text>
+
+      <!-- Token 2: [0-9] -->
+      <rect x="180" y="20" width="220" height="75" fill="#DCFCE7" stroke="#000" stroke-width="2" />
+      <text x="290" y="45" font-family="'Consolas', monospace" font-size="20" font-weight="900" text-anchor="middle" fill="#15803D">[0-9]</text>
+      <text x="290" y="68" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">Himpunan Karakter Angka</text>
+      <text x="290" y="84" font-family="'Segoe UI', sans-serif" font-size="8.5" text-anchor="middle" fill="#15803D">Menolak huruf, spasi &amp; simbol</text>
+
+      <!-- Token 3: {9} -->
+      <rect x="420" y="20" width="180" height="75" fill="#FEF08A" stroke="#000" stroke-width="2" />
+      <text x="510" y="45" font-family="'Consolas', monospace" font-size="20" font-weight="900" text-anchor="middle" fill="#854D0E">{9}</text>
+      <text x="510" y="68" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">Kuantitas Pasti</text>
+      <text x="510" y="84" font-family="'Segoe UI', sans-serif" font-size="8.5" text-anchor="middle" fill="#854D0E">Wajib PERSIS 9 Digit</text>
+
+      <!-- Token 4: $ -->
+      <rect x="620" y="20" width="150" height="75" fill="#FCE7F3" stroke="#000" stroke-width="2" />
+      <text x="695" y="45" font-family="'Consolas', monospace" font-size="20" font-weight="900" text-anchor="middle" fill="#BE185D">$</text>
+      <text x="695" y="68" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">Anchor Akhir</text>
+      <text x="695" y="84" font-family="'Segoe UI', sans-serif" font-size="8.5" text-anchor="middle" fill="#64748B">Kunci ujung string</text>
+
+      <text x="400" y="118" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle" fill="#334155">Formula Resmi Penilaian TUGAS TUTORIAL 2: /^[0-9]{9}$/</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -115,7 +189,7 @@
       <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 14px;">
         <tr style="background: #E2E8F0;">
           <th style="padding: 6px; border: 1px solid #000; text-align: left;">Simbol Regex</th>
-          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Makna & Peran</th>
+          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Makna &amp; Peran</th>
         </tr>
         <tr>
           <td style="padding: 6px; border: 1px solid #000; font-family: monospace; font-weight: bold;">^</td>
@@ -123,7 +197,7 @@
         </tr>
         <tr>
           <td style="padding: 6px; border: 1px solid #000; font-family: monospace; font-weight: bold;">[0-9]</td>
-          <td style="padding: 6px; border: 1px solid #000;">Karakter yang diizinkan HANYA angka 0 sampai 9 (menolak huruf & spasi).</td>
+          <td style="padding: 6px; border: 1px solid #000;">Karakter yang diizinkan HANYA angka 0 sampai 9 (menolak huruf &amp; spasi).</td>
         </tr>
         <tr>
           <td style="padding: 6px; border: 1px solid #000; font-family: monospace; font-weight: bold;">{9}</td>
@@ -139,10 +213,15 @@
       <pre><code>// Definisi Pola Regex Resmi NIM UT
 const REGEX_NIM_UT = /^[0-9]{9}$/;
 
-export const validasiNIM = (nim: string): boolean => {
+export const validasiNim = (nim: string): boolean => {
   return REGEX_NIM_UT.test(nim.trim());
 };</code></pre>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK RESMI -->
+  <div class="source-cite">
+    📚 <strong>Rujukan Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 5 (Validasi Pola Regular Expression); Panduan Pengerjaan Tugas Tutorial 2 FST UT; ECMA-262 ECMAScript Language Specification (RegExp Objects).
   </div>
 
   <script>
@@ -150,20 +229,26 @@ export const validasiNIM = (nim: string): boolean => {
     createApp({
       setup() {
         const nimInput = ref('043123456');
-        const regexNIM = /^[0-9]{9}$/;
+        const regexNim = /^[0-9]{9}$/;
 
         const statusValidasi = computed(() => {
-          const val = nimInput.value.trim();
-          if (!val) {
-            return { pesan: '⚪ Kolom NIM masih kosong.', style: 'background: #F1F5F9; color: #475569;' };
+          if (!nimInput.value) {
+            return {
+              pesan: '⚠️ Kolom NIM masih kosong. Masukkan 9 digit angka!',
+              style: 'background: #FEF08A; color: #854D0E;'
+            };
           }
-          if (regexNIM.test(val)) {
-            return { pesan: '✅ NIM VALID: Format 9 digit angka sah Universitas Terbuka.', style: 'background: #DCFCE7; color: #15803D;' };
+          if (regexNim.test(nimInput.value)) {
+            return {
+              pesan: '✅ NIM Valid & Sah! Memenuhi pola 9 digit angka resmi UT.',
+              style: 'background: #DCFCE7; color: #166534;'
+            };
+          } else {
+            return {
+              pesan: '❌ Format NIM Galat! Wajib tepat 9 digit angka (tidak boleh huruf/spasi).',
+              style: 'background: #FEE2E2; color: #991B1B;'
+            };
           }
-          if (/[^0-9]/.test(val)) {
-            return { pesan: '❌ NIM INVALID: Terdeteksi karakter selain angka (huruf/simbol)!', style: 'background: #FEE2E2; color: #B91C1C;' };
-          }
-          return { pesan: `⚠️ NIM INVALID: Baru ${val.length} digit (Wajib tepat 9 digit)!`, style: 'background: #FEF08A; color: #A16207;' };
         });
 
         return { nimInput, statusValidasi };

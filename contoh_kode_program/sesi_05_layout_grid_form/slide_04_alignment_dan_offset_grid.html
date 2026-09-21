@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
@@ -67,14 +92,56 @@
       font-size: 12px;
       overflow-x: auto;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
     <div class="badge-tag">SLIDE 04 • MODUL 5 BMP UT</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Presisi Tata Letak: Perataan (Alignment) & Offset Kolom</h1>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Presisi Tata Letak: Perataan (Alignment) &amp; Offset Kolom</h1>
     <p style="margin: 0; font-size: 14px;">Mengatur perataan vertikal/horizontal dan pergeseran kolom (offset) untuk memusatkan kartu formulir login atau profil.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; EKSPLORASI MANDIRI</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome / Peramban Modern, Visual Studio Code.</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Klik 3 tombol konfigurasi di panel playground: <em>"1. Offset Center"</em>, <em>"2. Justify Between"</em>, dan <em>"3. Align Items Center"</em>. Amati bagaimana posisi kotak kartu berubah secara visual di dalam canvas.</div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Atribut <code>offset="2"</code> menerapkan <code>margin-left: 16.666%</code> (2/12 bagian) pada elemen <code>&lt;ion-col&gt;</code>, sementara kelas <code>ion-align-items-center</code> menerapkan <code>align-items: center</code> pada flex container <code>&lt;ion-row&gt;</code>.</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Mekanisme Perhitungan Offset &amp; Flex Centering</div>
+    <svg viewBox="0 0 800 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <!-- Total Baris 12 Unit -->
+      <rect x="30" y="20" width="740" height="110" fill="#F1F5F9" stroke="#000" stroke-width="2.5" />
+      <text x="45" y="42" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" fill="#475569">Total Ruang Baris: 12 Unit Kolom (100%)</text>
+
+      <!-- Offset Space (2 Unit) -->
+      <rect x="50" y="55" width="115" height="60" fill="#E2E8F0" stroke="#000" stroke-width="1.5" stroke-dasharray="4,4" />
+      <text x="107" y="85" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#64748B">offset="2"</text>
+      <text x="107" y="100" font-family="'Segoe UI', sans-serif" font-size="8.5" text-anchor="middle" fill="#64748B">(2 Unit Kosong)</text>
+
+      <!-- Centered Col (8 Unit) -->
+      <rect x="175" y="50" width="450" height="70" fill="#FFE600" stroke="#000" stroke-width="2.5" />
+      <text x="400" y="82" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="900" text-anchor="middle" fill="#000">&lt;ion-col size="8" offset="2"&gt;</text>
+      <text x="400" y="102" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">KARTU FORMULIR LOGIN TERPUSAT SIMETRIS</text>
+
+      <!-- Remaining Space (2 Unit) -->
+      <rect x="635" y="55" width="115" height="60" fill="#E2E8F0" stroke="#000" stroke-width="1.5" stroke-dasharray="4,4" />
+      <text x="692" y="85" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#64748B">Sisa Kanan</text>
+      <text x="692" y="100" font-family="'Segoe UI', sans-serif" font-size="8.5" text-anchor="middle" fill="#64748B">(2 Unit Kosong)</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -87,7 +154,7 @@
           1. Offset Center (Tengah Layar)
         </button>
         <button @click="currentConfig = 'between'" :style="currentConfig === 'between' ? 'background:#38BDF8;font-weight:bold;' : ''" style="padding: 6px 10px; border: 2px solid #000; cursor: pointer;">
-          2. Justify Between (Pojok Kiri & Kanan)
+          2. Justify Between (Pojok Kiri &amp; Kanan)
         </button>
         <button @click="currentConfig = 'vertical'" :style="currentConfig === 'vertical' ? 'background:#4ADE80;font-weight:bold;' : ''" style="padding: 6px 10px; border: 2px solid #000; cursor: pointer;">
           3. Align Items Center (Sejajar Vertikal)
@@ -177,6 +244,11 @@
   &lt;/ion-row&gt;
 &lt;/ion-grid&gt;</code></pre>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK RESMI -->
+  <div class="source-cite">
+    📚 <strong>Rujukan Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 5 (Presisi Tata Letak Kolom Mobile); Dokumentasi Resmi Ionic Framework (ion-grid Offset &amp; Alignment Utilities, 2024).
   </div>
 
   <script>

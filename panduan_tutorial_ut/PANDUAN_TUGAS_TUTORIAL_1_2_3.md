@@ -59,6 +59,10 @@ Anda diminta merancang antarmuka **"Portal Pendaftaran Layanan Mandiri Mahasiswa
 | 3 | Umpan balik interaktif (Toast/Alert konfirmasi berhasil/gagal) | 20 |
 | 4 | Fitur Dark/Light Mode toggle berfungsi mulus dan laporan tangkapan layar jelas | 20 |
 
+* **💡 Rujukan Pembelajaran & Alat Bantu Mandiri:**
+  * 🎯 **Kalkulator Skor Rubrik Interaktif:** [`slide_16_rubrik_tugas_tutorial_2.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.html) *(Panduan Teks: [`slide_16_rubrik_tugas_tutorial_2.md`](../contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.md))*
+  * 🎯 **Master Solusi Resmi Tugas Tutorial 2:** [`slide_17_solusi_tugas_2_portal_ktm_registrasi.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html)
+
 ---
 
 ## 🎯 TUGAS TUTORIAL 3 (Diberikan pada Sesi 7)

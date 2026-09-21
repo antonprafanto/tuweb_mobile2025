@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
@@ -50,14 +75,73 @@
       background: #F8FAFC;
       margin-bottom: 12px;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
     <div class="badge-tag">SLIDE 18 • ROADMAP MATA KULIAH</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Jembatan Menuju Sesi 06: Capacitor Bridge & Android Studio</h1>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Jembatan Menuju Sesi 06: Capacitor Bridge &amp; Android Studio</h1>
     <p style="margin: 0; font-size: 14px;">Melangkah dari peramban desktop menuju ekosistem perangkat fisik smartphone: Menghubungkan kode web kita dengan native SDK Android.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN MAHASISWA AWAM: PERSIAPAN MENUJU DUNIA NATIVE MOBILE</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome, Visual Studio Code, Kabel Data USB Type-C / Micro-USB, Smartphone Android Pribadi (versi Android 8.0 ke atas).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Mempersiapkan Diri:</strong> Pastikan Anda telah menuntaskan penyerahan Tugas Tutorial 2 sebelum Sesi 06 dibuka. Aktifkan opsi <em>Developer Options</em> dan <em>USB Debugging</em> pada ponsel Android Anda untuk praktikum jembatan native di Sesi 06!</div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Di Sesi 06, seluruh kode HTML, CSS, dan JS yang telah kita bangun akan dikemas oleh Capacitor ke dalam folder native <code>android/</code>, lalu dikompilasi oleh Gradle menjadi berkas paket aplikasi Android nyata (APK).</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Peta Jalan Transisi: Dari Antarmuka Web (Sesi 05) Menuju Native Android (Sesi 06)</div>
+    <svg viewBox="0 0 800 145" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- Step 1: Sesi 05 Done -->
+      <rect x="25" y="20" width="215" height="105" fill="#FEF08A" stroke="#000" stroke-width="2" />
+      <text x="132" y="44" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#854D0E">SESI 05 (SELESAI ✅)</text>
+      <text x="132" y="66" font-family="'Segoe UI', sans-serif" font-size="9.5" text-anchor="middle" fill="#000">• 12-Column Responsive Grid</text>
+      <text x="132" y="82" font-family="'Segoe UI', sans-serif" font-size="9.5" text-anchor="middle" fill="#000">• Validasi Regex NIM &amp; Email</text>
+      <text x="132" y="98" font-family="'Segoe UI', sans-serif" font-size="9.5" text-anchor="middle" fill="#000">• Dynamic Dark Mode</text>
+      <text x="132" y="114" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#B45309">🎯 TUGAS TUTORIAL 2 (20%)</text>
+
+      <!-- Arrow 1 -->
+      <line x1="240" y1="72" x2="285" y2="72" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Step 2: Capacitor Bridge -->
+      <rect x="295" y="20" width="220" height="105" fill="#E0F2FE" stroke="#0284C7" stroke-width="2" />
+      <text x="405" y="44" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#0369A1">CAPACITOR BRIDGE</text>
+      <text x="405" y="66" font-family="'Segoe UI', sans-serif" font-size="9.5" text-anchor="middle" fill="#000">@capacitor/core &amp; cli</text>
+      <text x="405" y="84" font-family="'Consolas', monospace" font-size="9" font-weight="bold" text-anchor="middle" fill="#000">npx cap add android</text>
+      <text x="405" y="102" font-family="'Consolas', monospace" font-size="9" font-weight="bold" text-anchor="middle" fill="#000">npx cap sync</text>
+      <text x="405" y="118" font-family="'Segoe UI', sans-serif" font-size="8.5" text-anchor="middle" fill="#0369A1">Ekspor Webview ke Native OS</text>
+
+      <!-- Arrow 2 -->
+      <line x1="515" y1="72" x2="560" y2="72" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Step 3: Android Studio & scrcpy -->
+      <rect x="570" y="20" width="205" height="105" fill="#DCFCE7" stroke="#16A34A" stroke-width="2.5" />
+      <text x="672" y="44" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#15803D">SESI 06 MENDATANG</text>
+      <text x="672" y="66" font-family="'Segoe UI', sans-serif" font-size="9.5" text-anchor="middle" fill="#000">• Android Studio &amp; Gradle</text>
+      <text x="672" y="82" font-family="'Segoe UI', sans-serif" font-size="9.5" text-anchor="middle" fill="#000">• AndroidManifest Permissions</text>
+      <text x="672" y="98" font-family="'Segoe UI', sans-serif" font-size="9.5" text-anchor="middle" fill="#000">• Uji Ponsel Fisik via scrcpy</text>
+      <text x="672" y="114" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#15803D">Solusi Ringan RAM 4-8GB</text>
+    </svg>
   </div>
 
   <div class="grid">
@@ -68,19 +152,19 @@
       <div class="roadmap-card">
         <h4 style="margin: 0 0 4px 0; color: #0284C7;">1. Arsitektur Capacitor Runtime Bridge</h4>
         <p style="margin: 0; font-size: 13px; color: #475569;">
-          Memahami cara Capacitor bertindak sebagai 'jembatan' komunikasi antara JavaScript Webview dengan API native sistem operasi Android & iOS.
+          Memahami cara Capacitor bertindak sebagai 'jembatan' komunikasi antara JavaScript Webview dengan API native sistem operasi Android &amp; iOS.
         </p>
       </div>
 
       <div class="roadmap-card">
-        <h4 style="margin: 0 0 4px 0; color: #16A34A;">2. Bedah Struktur Folder android/ & Gradle</h4>
+        <h4 style="margin: 0 0 4px 0; color: #16A34A;">2. Bedah Struktur Folder android/ &amp; Gradle</h4>
         <p style="margin: 0; font-size: 13px; color: #475569;">
           Membuka proyek di Android Studio, memahami <code>build.gradle</code>, SDK versions (Compile SDK, Target SDK, Min SDK), dan konfigurasi aset ikon aplikasi.
         </p>
       </div>
 
       <div class="roadmap-card">
-        <h4 style="margin: 0 0 4px 0; color: #EA580C;">3. AndroidManifest.xml & Runtime Permissions</h4>
+        <h4 style="margin: 0 0 4px 0; color: #EA580C;">3. AndroidManifest.xml &amp; Runtime Permissions</h4>
         <p style="margin: 0; font-size: 13px; color: #475569;">
           Tata kelola hak akses aplikasi smartphone: Izin akses kamera, penyimpanan memori, konektivitas internet, dan proteksi privasi pengguna.
         </p>
@@ -89,7 +173,7 @@
       <div class="roadmap-card">
         <h4 style="margin: 0 0 4px 0; color: #9333EA;">4. Pengujian di Ponsel Fisik via scrcpy (Hemat RAM)</h4>
         <p style="margin: 0; font-size: 13px; color: #475569;">
-          Solusi bagi mahasiswa bertopologi RAM 4–8GB: Menjalankan aplikasi langsung di smartphone Android pribadi lewat USB Debugging & mirroring layar tanpa beban emulator berat.
+          Solusi bagi mahasiswa bertopologi RAM 4–8GB: Menjalankan aplikasi langsung di smartphone Android pribadi lewat USB Debugging &amp; mirroring layar tanpa beban emulator berat.
         </p>
       </div>
     </div>
@@ -123,6 +207,11 @@
         </ion-button>
       </div>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK RESMI -->
+  <div class="source-cite">
+    📚 <strong>Rujukan Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 6 (Integrasi Platform Native &amp; Capacitor Bridge); Dokumentasi Resmi Capacitor by Ionic (Android Workflow, 2024); Google Android Developer Guide (App Architecture &amp; Permissions).
   </div>
 
 </body>

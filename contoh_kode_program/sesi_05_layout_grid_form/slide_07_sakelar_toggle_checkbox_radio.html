@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--mint);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
@@ -59,14 +84,67 @@
       font-size: 12px;
       overflow-x: auto;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
     <div class="badge-tag">SLIDE 07 • MODUL 5 BMP UT</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Kontrol Pilihan: ion-toggle, ion-checkbox, & ion-radio</h1>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Kontrol Pilihan: ion-toggle, ion-checkbox, &amp; ion-radio</h1>
     <p style="margin: 0; font-size: 14px;">Membedah komponen kendali boolean on/off, seleksi majemuk centang, dan pemilihan jalur tunggal eksklusif.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; EKSPLORASI MANDIRI</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome / Peramban Web Modern (klik ganda berkas HTML ini), DevTools (<code>F12</code>).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Geser sakelar toggle "Pengingat Tugas Tuton", centang kotak persetujuan tata tertib, dan klik salah satu opsi radio skema registrasi UT. Amati kotak hijau di bawah yang langsung merespons perubahan state secara reaktif!</div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> <code>&lt;ion-toggle&gt;</code> dan <code>&lt;ion-checkbox&gt;</code> mengikat nilai bertipe <code>boolean</code>, sedangkan <code>&lt;ion-radio-group&gt;</code> mengikat nilai bertipe <code>string</code> dan secara otomatis memastikan hanya ada 1 opsi aktif dalam grup yang sama (*mutually exclusive*).</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Komparasi Karakteristik Kontrol Pilihan Mobile</div>
+    <svg viewBox="0 0 800 140" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <!-- 1. Toggle -->
+      <rect x="30" y="15" width="225" height="110" fill="#F0FDF4" stroke="#000" stroke-width="2" />
+      <text x="45" y="38" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" fill="#15803D">&lt;ion-toggle&gt; (Sakelar)</text>
+      <!-- Toggle visual -->
+      <rect x="45" y="52" width="50" height="26" rx="13" fill="#4ADE80" stroke="#000" stroke-width="1.5" />
+      <circle cx="82" cy="65" r="10" fill="#FFF" stroke="#000" stroke-width="1.5" />
+      <text x="105" y="69" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#000">Status On/Off</text>
+      <text x="45" y="100" font-family="'Segoe UI', sans-serif" font-size="9" fill="#334155">Nilai: boolean (True/False)</text>
+      <text x="45" y="114" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#64748B">Efek instan tanpa submit</text>
+
+      <!-- 2. Checkbox -->
+      <rect x="285" y="15" width="230" height="110" fill="#EFF6FF" stroke="#000" stroke-width="2" />
+      <text x="300" y="38" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" fill="#0284C7">&lt;ion-checkbox&gt; (Centang)</text>
+      <!-- Checkbox visual -->
+      <rect x="300" y="54" width="22" height="22" fill="#38BDF8" stroke="#000" stroke-width="1.5" />
+      <text x="306" y="70" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#000">✓</text>
+      <text x="330" y="69" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#000">Pilihan Majemuk</text>
+      <text x="300" y="100" font-family="'Segoe UI', sans-serif" font-size="9" fill="#334155">Bisa pilih 0, 1, atau banyak</text>
+      <text x="300" y="114" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#64748B">Syarat persetujuan syarat</text>
+
+      <!-- 3. Radio Group -->
+      <rect x="545" y="15" width="225" height="110" fill="#FEF08A" stroke="#000" stroke-width="2" />
+      <text x="560" y="38" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" fill="#B45309">&lt;ion-radio&gt; (Pilihan Tunggal)</text>
+      <!-- Radio visual -->
+      <circle cx="572" cy="65" r="10" fill="#FFF" stroke="#000" stroke-width="1.5" />
+      <circle cx="572" cy="65" r="5" fill="#000" />
+      <text x="590" y="69" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#000">Mutually Exclusive</text>
+      <text x="560" y="100" font-family="'Segoe UI', sans-serif" font-size="9" fill="#334155">Hanya tepat 1 opsi aktif</text>
+      <text x="560" y="114" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#64748B">Skema layanan UT (SIPAS)</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -87,7 +165,7 @@
           <!-- 2. Checkbox Persetujuan -->
           <ion-item>
             <ion-checkbox v-model="setujuTataTertib" justify="space-between">
-              <span style="font-size: 13px;">Saya setuju menjunjung integritas akademik & anti-plagiasi UT</span>
+              <span style="font-size: 13px;">Saya setuju menjunjung integritas akademik &amp; anti-plagiasi UT</span>
             </ion-checkbox>
           </ion-item>
 
@@ -138,25 +216,29 @@
         </tr>
         <tr>
           <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;ion-radio&gt;</td>
-          <td style="padding: 6px; border: 1px solid #000;">Eksklusif tunggal (hanya 1 dari sekian banyak pilihan sah).</td>
-          <td style="padding: 6px; border: 1px solid #000;">Jalur registrasi, metode bayar bank mitra UT.</td>
+          <td style="padding: 6px; border: 1px solid #000;">Pilihan tunggal dari sekumpulan daftar eksklusif.</td>
+          <td style="padding: 6px; border: 1px solid #000;">Skema layanan UT, jenis kelamin, metode bayar.</td>
         </tr>
       </table>
 
-      <h3>💻 Cuplikan Template</h3>
-      <pre><code>&lt;!-- Sakelar Cepat --&gt;
-&lt;ion-toggle v-model="isDark"&gt;Mode Gelap&lt;/ion-toggle&gt;
+      <h3>💻 Pola Kode Vue 3</h3>
+      <pre><code>&lt;!-- Toggle --&gt;
+&lt;ion-toggle v-model="notif"&gt;Aktifkan Notifikasi&lt;/ion-toggle&gt;
 
-&lt;!-- Radio Group Eksklusif --&gt;
-&lt;ion-radio-group v-model="jalur"&gt;
-  &lt;ion-item&gt;
-    &lt;ion-radio value="A"&gt;SIPAS Non-TTM&lt;/ion-radio&gt;
-  &lt;/ion-item&gt;
-  &lt;ion-item&gt;
-    &lt;ion-radio value="B"&gt;Non-SIPAS&lt;/ion-radio&gt;
-  &lt;/ion-item&gt;
+&lt;!-- Checkbox --&gt;
+&lt;ion-checkbox v-model="setuju"&gt;Persetujuan&lt;/ion-checkbox&gt;
+
+&lt;!-- Radio Group --&gt;
+&lt;ion-radio-group v-model="skema"&gt;
+  &lt;ion-radio value="A"&gt;Skema A&lt;/ion-radio&gt;
+  &lt;ion-radio value="B"&gt;Skema B&lt;/ion-radio&gt;
 &lt;/ion-radio-group&gt;</code></pre>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK RESMI -->
+  <div class="source-cite">
+    📚 <strong>Rujukan Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 5 (Elemen Kontrol Interaktif Mobile); Dokumentasi Resmi Ionic Framework (ion-toggle, ion-checkbox, &amp; ion-radio, 2024).
   </div>
 
   <script>

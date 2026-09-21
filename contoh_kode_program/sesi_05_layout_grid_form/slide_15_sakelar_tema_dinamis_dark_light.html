@@ -26,14 +26,14 @@
       --border: #38BDF8;
       --text: #F8FAFC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; transition: background-color 0.25s, color 0.25s, border-color 0.25s; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; transition: background-color 0.25s, color 0.25s, border-color 0.25s; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: var(--text); }
     .header {
       background: var(--yellow);
       border: 3px solid #000;
       padding: 16px 20px;
       box-shadow: 6px 6px 0 #000;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       color: #000;
     }
     .badge-tag {
@@ -45,6 +45,33 @@
       background: #fff;
       color: #000;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+      color: #000;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+      color: #000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
@@ -69,6 +96,15 @@
       font-size: 12px;
       overflow-x: auto;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -76,8 +112,52 @@
   <div id="app" :class="{ 'dark-mode': isDark }">
     <div class="header">
       <div class="badge-tag">SLIDE 15 • MODUL 5 BMP UT (KRITERIA TUGAS 2)</div>
-      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Peralihan Tema Real-Time: Sakelar Dark & Light Mode</h1>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Peralihan Tema Real-Time: Sakelar Dark &amp; Light Mode</h1>
       <p style="margin: 0; font-size: 14px;">Mengintegrasikan tombol ion-toggle dengan manipulasi kelas body dan penyimpanan persistensi LocalStorage.</p>
+    </div>
+
+    <!-- PANDUAN RAMAH PEMULA -->
+    <div class="guide-box">
+      <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; EKSPLORASI MANDIRI</div>
+      <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome / Peramban Web Modern (cukup klik ganda berkas HTML ini), DevTools (<code>F12</code>).</div>
+      <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Geser tombol <code>&lt;ion-toggle&gt;</code> di panel simulasi ponsel. Seluruh tampilan aplikasi akan langsung bertransformasi mulus menjadi tema gelap! Muat ulang halaman (tekan <code>F5</code>); Anda akan melihat preferensi tema Anda tetap tersimpan berkat <code>localStorage</code>!</div>
+      <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Event <code>@ionChange</code> memicu fungsi <code>toggleTheme</code> yang melakukan dua hal: menyuntikkan kelas <code>.dark-mode</code> pada elemen akar antarmuka dan menyimpan string <code>'dark'</code> atau <code>'light'</code> ke Web Storage browser.</div>
+    </div>
+
+    <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
+    <div class="diagram-card">
+      <div class="diagram-title">📊 Diagram Alur Sakelar Tema &amp; Persistensi LocalStorage</div>
+      <svg viewBox="0 0 800 135" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#000000" />
+          </marker>
+        </defs>
+
+        <!-- Toggle Component -->
+        <rect x="30" y="20" width="190" height="90" fill="#E0F2FE" stroke="#000" stroke-width="2" />
+        <text x="125" y="44" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#0369A1">1. SAKELAR TOGGLE</text>
+        <text x="125" y="66" font-family="'Segoe UI', sans-serif" font-size="10" text-anchor="middle" fill="#000">@ionChange dipicu</text>
+        <text x="125" y="86" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#0369A1">isDark.value = boolean</text>
+
+        <!-- Arrow 1 -->
+        <line x1="220" y1="65" x2="265" y2="65" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- DOM Manipulation -->
+        <rect x="275" y="20" width="240" height="90" fill="#F3E8FF" stroke="#000" stroke-width="2" />
+        <text x="395" y="44" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#6B21A8">2. INJEKSI KELAS CSS</text>
+        <text x="395" y="66" font-family="'Consolas', monospace" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">classList.toggle('dark')</text>
+        <text x="395" y="86" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#6B21A8">CSS Variables Aktif Otomatis</text>
+
+        <!-- Arrow 2 -->
+        <line x1="515" y1="65" x2="560" y2="65" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+
+        <!-- LocalStorage Persistence -->
+        <rect x="570" y="20" width="200" height="90" fill="#DCFCE7" stroke="#16A34A" stroke-width="2.5" />
+        <text x="670" y="44" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#15803D">3. PERSISTENSI DATA</text>
+        <text x="670" y="66" font-family="'Consolas', monospace" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">localStorage.setItem()</text>
+        <text x="670" y="86" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#166534">Dipulihkan saat onMounted()</text>
+      </svg>
     </div>
 
     <div class="grid">
@@ -119,29 +199,26 @@
         
         <pre><code>const isDark = ref(false);
 
-const toggleTheme = (ev: CustomEvent) => {
+const toggleTheme = (ev) => {
   isDark.value = ev.detail.checked;
   
-  // 1. Tambah/Hapus Kelas pada Dokumen HTML
-  document.body.classList.toggle('dark', isDark.value);
-  
-  // 2. Simpan Preferensi agar tidak hilang saat refresh
+  // 1. Simpan Preferensi ke LocalStorage
   localStorage.setItem('theme_ut', isDark.value ? 'dark' : 'light');
 };
 
-// 3. Pulihkan Tema Tersimpan saat Aplikasi Dibuka
+// 2. Pulihkan Tema Tersimpan saat Aplikasi Dibuka
 onMounted(() => {
   const saved = localStorage.getItem('theme_ut');
   if (saved === 'dark') {
     isDark.value = true;
-    document.body.classList.add('dark');
   }
 });</code></pre>
-
-        <div style="margin-top: 14px; background: #FEF08A; border: 2px solid #000; padding: 10px; font-size: 12px; color: #000;">
-          💡 <strong>Kriteria Penilaian Tugas 2:</strong> Penguji akan menguji fitur toggle ini untuk memastikan seluruh elemen (kartu, teks, tombol) berganti warna secara proporsional dan nyaman dipandang!
-        </div>
       </div>
+    </div>
+
+    <!-- SITASI AKADEMIK RESMI -->
+    <div class="source-cite">
+      📚 <strong>Rujukan Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 5 (Dynamic Theming &amp; Storage Persistence); Dokumentasi Resmi Ionic Framework (Dark Palette &amp; Theming, 2024); W3C Web Storage API (localStorage).
     </div>
   </div>
 
@@ -153,12 +230,20 @@ onMounted(() => {
 
         const toggleTheme = (ev) => {
           isDark.value = ev.detail.checked;
-          localStorage.setItem('theme_ut', isDark.value ? 'dark' : 'light');
+          try {
+            localStorage.setItem('theme_ut', isDark.value ? 'dark' : 'light');
+          } catch (e) {
+            console.warn('LocalStorage tidak dapat diakses:', e);
+          }
         };
 
         onMounted(() => {
-          const saved = localStorage.getItem('theme_ut');
-          if (saved === 'dark') isDark.value = true;
+          try {
+            const saved = localStorage.getItem('theme_ut');
+            if (saved === 'dark') {
+              isDark.value = true;
+            }
+          } catch (e) {}
         });
 
         return { isDark, toggleTheme };

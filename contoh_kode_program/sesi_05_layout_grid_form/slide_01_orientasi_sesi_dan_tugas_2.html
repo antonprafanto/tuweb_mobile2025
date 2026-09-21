@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
@@ -55,6 +80,16 @@
       background: #F8FAFC;
       padding: 12px;
       margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
     }
   </style>
 </head>
@@ -62,8 +97,66 @@
 
   <div class="header">
     <div class="badge-tag">SLIDE 01 • SESI 05 (MODUL 5 BMP UT)</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Orientasi Sesi 05: Grid System, Form Regex, Dark Mode, & TUGAS TUTORIAL 2</h1>
-    <p style="margin: 0; font-size: 14px;">Memasuki Fase Antarmuka Adaptif Mobile & Pembukaan Tagihan Resmi Evaluasi Praktikum Kedua (Bobot: 20%).</p>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Orientasi Sesi 05: Grid System, Form Regex, Dark Mode, &amp; TUGAS TUTORIAL 2</h1>
+    <p style="margin: 0; font-size: 14px;">Memasuki Fase Antarmuka Adaptif Mobile &amp; Pembukaan Tagihan Resmi Evaluasi Praktikum Kedua (Bobot: 20%).</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; ORIENTASI MAHASISWA AWAM</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (cukup klik ganda berkas ini), DevTools (<code>F12</code>), Mode Simulator Ponsel (<code>Ctrl + Shift + M</code>), Visual Studio Code (ekstensi <em>Vue - Official Volar</em>).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Pelajari 4 pilar kompetensi Sesi 05 pada kartu di bawah. Perhatikan jadwal tenggat waktu 2 pekan di LMS Tuton UT dan pastikan Anda menguji tata letak responsif pada slide berikutnya dengan meresize jendela peramban.</div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Sesi 05 mengintegrasikan sistem Flexbox 12-kolom bawaan Ionic dengan reaktivitas Vue 3 dan Regular Expression untuk memfilter masukan data sebelum dikirimkan ke server.</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Arsitektur Kompetensi Sesi 05 Menuju Tugas Tutorial 2</div>
+    <svg viewBox="0 0 800 160" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- Box 1: 12-Grid -->
+      <rect x="20" y="30" width="160" height="90" fill="#E0F2FE" stroke="#000" stroke-width="3" />
+      <rect x="24" y="34" width="152" height="24" fill="#38BDF8" stroke="#000" stroke-width="1.5" />
+      <text x="100" y="50" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">1. RESPONSIVE GRID</text>
+      <text x="100" y="78" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#0369A1">ion-grid &amp; 12 Kolom</text>
+      <text x="100" y="98" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#334155">Breakpoints: xs, md, lg</text>
+
+      <!-- Arrow 1 -->
+      <line x1="180" y1="75" x2="215" y2="75" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Box 2: Controls -->
+      <rect x="220" y="30" width="160" height="90" fill="#DCFCE7" stroke="#000" stroke-width="3" />
+      <rect x="224" y="34" width="152" height="24" fill="#4ADE80" stroke="#000" stroke-width="1.5" />
+      <text x="300" y="50" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">2. KONTROL FORMULIR</text>
+      <text x="300" y="78" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#15803D">ion-input, select, toggle</text>
+      <text x="300" y="98" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#334155">Masukan &amp; Pilihan UT</text>
+
+      <!-- Arrow 2 -->
+      <line x1="380" y1="75" x2="415" y2="75" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Box 3: Regex & Dialog -->
+      <rect x="420" y="30" width="160" height="90" fill="#FFEDD5" stroke="#000" stroke-width="3" />
+      <rect x="424" y="34" width="152" height="24" fill="#FB923C" stroke="#000" stroke-width="1.5" />
+      <text x="500" y="50" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">3. REGEX &amp; FEEDBACK</text>
+      <text x="500" y="78" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#C2410C">Pola NIM 9-Digit &amp; Email</text>
+      <text x="500" y="98" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#334155">ion-toast &amp; ion-alert</text>
+
+      <!-- Arrow 3 -->
+      <line x1="580" y1="75" x2="615" y2="75" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+      <!-- Box 4: Master Solution -->
+      <rect x="620" y="25" width="160" height="100" fill="#FEF08A" stroke="#000" stroke-width="3.5" />
+      <rect x="624" y="29" width="152" height="26" fill="#FACC15" stroke="#000" stroke-width="1.5" />
+      <text x="700" y="46" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">🎯 TUGAS TUTORIAL 2</text>
+      <text x="700" y="76" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#B45309">BOBOT RESMI 20%</text>
+      <text x="700" y="96" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#000">KTM Digital &amp; Form Registrasi</text>
+      <text x="700" y="112" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#4338CA">+ Dynamic Dark Mode</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -78,11 +171,11 @@
         </div>
         <h3 style="margin: 10px 0 6px 0; font-size: 18px;">TUGAS TUTORIAL 2 (Unjuk Kinerja Antarmuka)</h3>
         <p style="margin: 0; font-size: 13px; line-height: 1.5;">
-          Studi Kasus: <strong>Portal Pendaftaran Layanan Mandiri Mahasiswa UT (Penerbitan KTM Digital & Registrasi Sesi)</strong>. Mahasiswa wajib mengimplementasikan kontrol formulir Ionic, validasi Regex NIM 9 digit & email kampus, sakelar Dark/Light Mode, serta umpan balik Toast/Alert.
+          Studi Kasus: <strong>Portal Pendaftaran Layanan Mandiri Mahasiswa UT (Penerbitan KTM Digital &amp; Registrasi Sesi)</strong>. Mahasiswa wajib mengimplementasikan kontrol formulir Ionic, validasi Regex NIM 9 digit &amp; email kampus, sakelar Dark/Light Mode, serta umpan balik Toast/Alert.
         </p>
       </div>
 
-      <h4 style="margin: 0 0 10px 0;">🎯 Timeline & Tenggat Waktu Pengumpulan:</h4>
+      <h4 style="margin: 0 0 10px 0;">🎯 Timeline &amp; Tenggat Waktu Pengumpulan:</h4>
       <div class="step-card">
         <strong>1. Waktu Pengerjaan:</strong> 2 Pekan sejak sesi dibuka di LMS Tuton UT.
       </div>
@@ -114,9 +207,9 @@
         </div>
 
         <div style="border-left: 4px solid #EA580C; padding-left: 10px; background: #FFF7ED; padding: 10px;">
-          <strong style="color: #EA580C;">3. Validasi Regex & Umpan Balik Instan</strong>
+          <strong style="color: #EA580C;">3. Validasi Regex &amp; Umpan Balik Instan</strong>
           <p style="margin: 4px 0 0 0; font-size: 12px; color: #334155;">
-            Menerapkan validasi pola Regex ketat (NIM 9 digit angka & email <code>@ecampus.ut.ac.id</code>) disertai notifikasi <code>ion-toast</code> & dialog <code>ion-alert</code>.
+            Menerapkan validasi pola Regex ketat (NIM 9 digit angka &amp; email <code>@ecampus.ut.ac.id</code>) disertai notifikasi <code>ion-toast</code> &amp; dialog <code>ion-alert</code>.
           </p>
         </div>
 
@@ -128,6 +221,11 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK RESMI -->
+  <div class="source-cite">
+    📚 <strong>Rujukan Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 5 (Tata Letak &amp; Komponen Formulir Mobile); Dokumentasi Resmi Ionic Framework (Grid &amp; Theming System, 2024); Panduan Penugasan Tutorial Online FST Universitas Terbuka.
   </div>
 
   <script>

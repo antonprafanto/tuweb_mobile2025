@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--cyan);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
@@ -60,6 +85,15 @@
       font-size: 12px;
       overflow-x: auto;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -68,6 +102,56 @@
     <div class="badge-tag">SLIDE 02 • MODUL 5 BMP UT</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Fondasi Tata Letak: Sistem 12-Kolom Ionic Grid</h1>
     <p style="margin: 0; font-size: 14px;">Membedah wadah pembagi layar &lt;ion-grid&gt;, baris &lt;ion-row&gt;, dan kolom &lt;ion-col&gt; berbasis CSS Flexbox.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; EKSPLORASI MANDIRI</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (cukup klik ganda berkas HTML ini), Konsol Pengembang (<code>F12</code>), Mode Ponsel (<code>Ctrl + Shift + M</code>).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Perhatikan kartu visualisasi di sebelah kiri. Cobalah lakukan *Inspect Element* (klik kanan pada kotak kuning <code>size="12"</code> atau kotak biru <code>size="6"</code> $\rightarrow$ pilih <em>Inspect</em>). Anda akan melihat properti <code>flex: 0 0 50%</code> yang diterapkan secara otomatis oleh Ionic!</div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Di balik elemen kustom <code>&lt;ion-grid&gt;</code>, Ionic mengimplementasikan spesifikasi W3C CSS Flexible Box Layout (Flexbox). Total 1 baris selalu bernilai 12 unit, sehingga pembagian kolom selalu presisi tanpa kalkulasi persentase manual.</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Hierarki &amp; Distribusi 12 Kolom Ionic Grid</div>
+    <svg viewBox="0 0 800 170" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- Outer Grid Container -->
+      <rect x="20" y="20" width="760" height="130" fill="#F8FAFC" stroke="#000" stroke-width="3" stroke-dasharray="6,4" />
+      <text x="35" y="42" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="900" fill="#0284C7">&lt;ion-grid&gt; (Wadah Utama Pembungkus Tata Letak)</text>
+
+      <!-- Row 1 Container -->
+      <rect x="35" y="55" width="730" height="42" fill="#E2E8F0" stroke="#000" stroke-width="2" />
+      <text x="45" y="72" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#334155">&lt;ion-row&gt; (Total 12 Unit)</text>
+
+      <!-- Col A: size 6 -->
+      <rect x="230" y="60" width="255" height="32" fill="#38BDF8" stroke="#000" stroke-width="1.5" />
+      <text x="357" y="80" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#000">&lt;ion-col size="6"&gt; (50% Lebar)</text>
+
+      <!-- Col B: size 6 -->
+      <rect x="495" y="60" width="255" height="32" fill="#BAE6FD" stroke="#000" stroke-width="1.5" />
+      <text x="622" y="80" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#000">&lt;ion-col size="6"&gt; (50% Lebar)</text>
+
+      <!-- Row 2 Container -->
+      <rect x="35" y="103" width="730" height="40" fill="#E2E8F0" stroke="#000" stroke-width="2" />
+      <text x="45" y="120" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#334155">&lt;ion-row&gt;</text>
+
+      <!-- Col 4, 4, 4 -->
+      <rect x="230" y="107" width="166" height="31" fill="#4ADE80" stroke="#000" stroke-width="1.5" />
+      <text x="313" y="127" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">size="4" (33.3%)</text>
+
+      <rect x="403" y="107" width="166" height="31" fill="#86EFAC" stroke="#000" stroke-width="1.5" />
+      <text x="486" y="127" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">size="4" (33.3%)</text>
+
+      <rect x="576" y="107" width="174" height="31" fill="#BBF7D0" stroke="#000" stroke-width="1.5" />
+      <text x="663" y="127" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#000">size="4" (33.3%)</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -178,6 +262,11 @@
         💡 <strong>Aturan Otomatis:</strong> Jika total nilai <code>size</code> dalam satu <code>ion-row</code> melebihi 12, kolom sisanya akan otomatis turun (*wrap*) rapi ke baris berikutnya.
       </div>
     </div>
+  </div>
+
+  <!-- SITASI AKADEMIK RESMI -->
+  <div class="source-cite">
+    📚 <strong>Rujukan Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 5 (Hierarki Layout Mobile); Dokumentasi Resmi Ionic Framework (ion-grid &amp; Flexbox Model, 2024); W3C CSS Flexible Box Layout Module Level 1.
   </div>
 
   <script>
