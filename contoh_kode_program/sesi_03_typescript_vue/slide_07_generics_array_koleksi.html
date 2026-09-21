@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slide 07: Generics pada Koleksi Array — STSI4303</title>
+  <title>Slide 07: Generics pada Koleksi — STSI4303</title>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <style>
     :root {
@@ -39,12 +39,48 @@
       border: 3px solid var(--border);
       padding: 20px;
       box-shadow: 5px 5px 0 var(--border);
-      max-width: 800px;
-      margin: 0 auto;
+      max-width: 820px;
+      margin: 0 auto 20px auto;
     }
-    table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13px; }
-    th, td { border: 2px solid var(--border); padding: 8px 12px; text-align: left; }
-    th { background: #F3F4F6; }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin: 18px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+    th, td {
+      border: 2px solid var(--border);
+      padding: 10px;
+      text-align: left;
+      font-size: 13px;
+    }
+    th {
+      background: var(--yellow);
+    }
     button {
       background: var(--cyan);
       border: 2px solid var(--border);
@@ -74,10 +110,53 @@
   </div>
 
   <div id="app" class="card">
+    <!-- Kotak Panduan Mahasiswa Awam -->
+    <div class="guide-box">
+      <h4>📘 PANDUAN PRAKTIKUM MAHASISWA</h4>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome / Peramban Web Modern.
+      </p>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🎯 Cara Menguji Interaksi:</strong>
+        Klik tombol <strong>"Filter SKS &gt;= 3"</strong> untuk memfilter koleksi mata kuliah. Kemudian klik <strong>"Tampilkan Semua (Reset)"</strong>. Perhatikan bagaimana seluruh iterasi tabel mengenali kolom <code>kode</code>, <code>nama</code>, dan <code>sks</code> dengan keamanan tipe data penuh.
+      </p>
+      <p style="margin: 0;">
+        <strong>💡 Apa yang Terjadi di Balik Layar:</strong>
+        Di JavaScript biasa, array bisa berisi data campur aduk (angka, teks, objek acak). Dengan sintaks generik <code>Array&lt;MataKuliah&gt;</code> atau <code>MataKuliah[]</code>, TypeScript mengunci bahwa SETIAP elemen di dalam array wajib berwujud objek <code>MataKuliah</code>. Operasi seperti <code>.filter()</code> dan <code>.reduce()</code> pun otomatis mendapatkan auto-complete cerdas di VS Code!
+      </p>
+    </div>
+
+    <!-- Diagram Arsitektur Inline SVG -->
+    <div class="diagram-card">
+      <h4 style="margin: 0 0 8px 0; font-size: 13px;">📐 Konsep Generics: Wadah Koleksi Bertipe Ketat</h4>
+      <svg viewBox="0 0 740 130" width="100%" height="130" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow07" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+          </marker>
+        </defs>
+        <!-- Generic Container -->
+        <rect x="10" y="15" width="345" height="100" rx="6" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
+        <text x="25" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#1E40AF">📦 WADAH GENERIK: Array&lt;MataKuliah&gt;</text>
+        <text x="25" y="58" font-family="Consolas" font-size="10" fill="#333">[ { kode: "STSI4303", sks: 3 }, ... ]</text>
+        <text x="25" y="74" font-family="Segoe UI" font-size="9.5" fill="#555">Hanya objek patuh interface yang boleh masuk!</text>
+        <line x1="25" y1="84" x2="330" y2="84" stroke="#DBEAFE" stroke-width="1.5"/>
+        <text x="25" y="102" font-family="Segoe UI" font-weight="bold" font-size="9.5" fill="#15803D">✅ Objek valid: item.sks langsung dikenali number</text>
+
+        <!-- Bahaya Loose Array -->
+        <rect x="380" y="15" width="350" height="100" rx="6" fill="#FEF2F2" stroke="#DC2626" stroke-width="2"/>
+        <text x="395" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#991B1B">❌ ARRAY TANPA TIPE (LOOSE ARRAY)</text>
+        <text x="395" y="58" font-family="Consolas" font-size="10" fill="#333">[ "MK-01", 3, { nama: "Web" }, null ]</text>
+        <text x="395" y="74" font-family="Segoe UI" font-size="9.5" fill="#555">Data campur aduk tanpa kejelasan struktur</text>
+        <line x1="395" y1="84" x2="710" y2="84" stroke="#FEE2E2" stroke-width="1.5"/>
+        <text x="395" y="102" font-family="Segoe UI" font-weight="bold" font-size="9.5" fill="#B91C1C">💥 Runtime Error saat kalkulasi reduce / sum SKS</text>
+      </svg>
+    </div>
+
     <h3>📚 Koleksi Mata Kuliah Bertipe: <code>Array&lt;MataKuliah&gt;</code></h3>
 
     <div style="margin-bottom: 12px;">
-      <button @click="filterSksMinimal(3)">Filter SKS >= 3</button>
+      <button @click="filterSksMinimal(3)">Filter SKS &gt;= 3</button>
       <button @click="resetFilter" style="background:#E5E7EB;">Tampilkan Semua (Reset)</button>
     </div>
 
@@ -100,15 +179,19 @@
       </tbody>
     </table>
 
-    <h4 style="margin-top: 24px;">💡 Dua Cara Menulis Generic Array di TypeScript:</h4>
-    <pre><code>// Format 1: Sintaks Tanda Kurung Siku (Shorthand)
-const listNilai: MataKuliah[] = [ ... ];
+    <h4 style="margin-top: 24px;">💡 Perbandingan Deklarasi Generik di TypeScript:</h4>
+    <pre><code>// 1. Sintaks Kurung Sudut Generik Resmi:
+const listA: Array&lt;MataKuliah&gt; = [];
 
-// Format 2: Sintaks Formal Generics (Array&lt;T&gt;)
-const listKRS: Array&lt;MataKuliah&gt; = [ ... ];
+// 2. Sintaks Shorthand (Paling Populer &amp; Bersih):
+const listB: MataKuliah[] = [];
 
-// Keuntungan Generics: VS Code langsung tahu properti .sks saat di-reduce!
-const totalSks = listKRS.reduce((total, item) => total + item.sks, 0);</code></pre>
+// Keduanya identik 100% dalam keamanan type checking!</code></pre>
+
+    <!-- Sitasi Akademik -->
+    <div class="source-cite">
+      📚 <strong>Referensi Modul:</strong> BMP UT STSI4303 Modul 3: "TypeScript Generics &amp; Koleksi Array" • TypeScript Handbook: "Generics — Working with Generic Type Variables".
+    </div>
   </div>
 
   <script>
@@ -116,21 +199,22 @@ const totalSks = listKRS.reduce((total, item) => total + item.sks, 0);</code></p
 
     createApp({
       setup() {
-        const masterKatalog = [
-          { kode: 'STSI4303', nama: 'Pemrograman Bergerak', sks: 3 },
-          { kode: 'MSIM4206', nama: 'Basis Data Terdistribusi', sks: 3 },
-          { kode: 'MKWU4108', nama: 'Bahasa Indonesia', sks: 2 },
-          { kode: 'MSIM4408', nama: 'Tugas Akhir Program', sks: 4 }
+        const semuaMk = [
+          { kode: 'STSI4303', nama: 'Pemrograman Perangkat Bergerak', sks: 3 },
+          { kode: 'MSIM4401', nama: 'Rekayasa Perangkat Lunak', sks: 3 },
+          { kode: 'MKDU4110', nama: 'Bahasa Indonesia', sks: 2 },
+          { kode: 'MKDU4111', nama: 'Pendidikan Kewarganegaraan', sks: 2 },
+          { kode: 'STSI4202', nama: 'Manajemen Basis Data', sks: 3 }
         ];
 
-        const daftarTampil = ref([...masterKatalog]);
+        const daftarTampil = ref([...semuaMk]);
 
-        const filterSksMinimal = (min) => {
-          daftarTampil.value = masterKatalog.filter(item => item.sks >= min);
+        const filterSksMinimal = (minSks) => {
+          daftarTampil.value = semuaMk.filter(mk => mk.sks >= minSks);
         };
 
         const resetFilter = () => {
-          daftarTampil.value = [...masterKatalog];
+          daftarTampil.value = [...semuaMk];
         };
 
         return { daftarTampil, filterSksMinimal, resetFilter };

@@ -41,6 +41,31 @@
       padding: 20px;
       box-shadow: 5px 5px 0 var(--border);
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin: 18px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
+    }
     button {
       background: var(--cyan);
       border: 2px solid var(--border);
@@ -70,50 +95,104 @@
     <p style="margin: 0; font-size: 14px;">Membandingkan kelemahan silent failure JavaScript murni vs perlindungan compile-time TypeScript.</p>
   </div>
 
-  <div id="app" class="grid">
-    <!-- PANEL JAVASCRIPT TANPA TIPE -->
-    <div class="card">
-      <span class="badge" style="background:var(--rose);">1. JAVASCRIPT MURNI (DYNAMIC TYPING)</span>
-      <h3>⚠️ Bencana Typo & Silent Failure</h3>
-      <p style="font-size:13px; color:#555;">
-        Ketika kita memanggil properti yang salah ketik (misal: <code>mhs.ipkSemester</code> tertulis <code>mhs.ipkSmt</code>), JavaScript tidak akan komplain saat ngoding. Tetapi saat kalkulasi, aplikasi menghasilkan nilai <code>NaN</code>!
-      </p>
-
-      <div style="background:#FEE2E2; border:2px solid #000; padding:12px; font-size:13px;">
-        <div>Nama: <strong>{{ mhsJS.nama }}</strong></div>
-        <div>Hasil Hitung Bobot: <strong style="color:#B91C1C;">{{ hasilJS }}</strong></div>
+  <div id="app">
+    <!-- Kotak Panduan Mahasiswa Awam -->
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="guide-box" style="margin-bottom: 0;">
+        <h4>📘 PANDUAN PRAKTIKUM MAHASISWA</h4>
+        <p style="margin: 0 0 8px 0;">
+          <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome / Peramban Web Modern, DevTools Console (Tekan <code>F12</code>).
+        </p>
+        <p style="margin: 0 0 8px 0;">
+          <strong>🎯 Cara Menguji Interaksi:</strong>
+          1. Klik tombol merah <strong>"💥 Simulasikan Error JavaScript"</strong> di panel kiri. Perhatikan bagaimana nilai bobot berubah menjadi <code>NaN</code> tanpa ada tanda error sama sekali sebelum fungsi dipanggil (*silent failure*).<br>
+          2. Klik tombol hijau <strong>"🛡️ Periksa Proteksi TypeScript"</strong> di panel kanan untuk memahami cara kerja pencegahan typo sejak tahap penulisan kode di VS Code.
+        </p>
+        <p style="margin: 0;">
+          <strong>💡 Apa yang Terjadi di Balik Layar:</strong>
+          JavaScript murni bersifat bertipe dinamis (*loosely typed*). Ketika Anda salah mengetik <code>mhs.ipkSmt</code> padahal aslinya <code>mhs.ipk</code>, JavaScript mengembalikan nilai <code>undefined</code>. Operasi aritmatika <code>undefined * 25</code> menghasilkan <code>NaN</code> yang merusak total IPK mahasiswa. TypeScript Interface mencegah bencana ini secara instan saat waktu kompilasi (*compile-time error*).
+        </p>
       </div>
 
-      <button @click="ujiJavaScript" style="background:var(--rose);">
-        💥 Simulasikan Error JavaScript
-      </button>
+      <!-- Diagram Arsitektur Inline SVG -->
+      <div class="diagram-card">
+        <h4 style="margin: 0 0 8px 0; font-size: 13px;">📐 Perbandingan Alur Eksekusi: JavaScript Dinamis vs TypeScript Type Guard</h4>
+        <svg viewBox="0 0 740 130" width="100%" height="130" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow02" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+            </marker>
+          </defs>
+          <!-- Jalur JS -->
+          <rect x="10" y="15" width="345" height="100" rx="6" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/>
+          <text x="25" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#991B1B">❌ JAVASCRIPT MURNI (DYNAMIC TYPING)</text>
+          <text x="25" y="58" font-family="Consolas" font-size="10" fill="#333">Typo: mhs.skorIpk (undefined)</text>
+          <line x1="195" y1="55" x2="225" y2="55" stroke="#000" stroke-width="1.5" marker-end="url(#arrow02)"/>
+          <text x="235" y="58" font-family="Segoe UI" font-size="10" fill="#B91C1C">Lolos Build Vite</text>
+          <line x1="25" y1="72" x2="25" y2="82" stroke="#000" stroke-width="1.5"/>
+          <text x="25" y="98" font-family="Segoe UI" font-weight="bold" font-size="10.5" fill="#DC2626">💥 Crash di Smartphone Pengguna: NaN</text>
 
-      <pre><code>// JavaScript Murni:
+          <!-- Jalur TS -->
+          <rect x="380" y="15" width="350" height="100" rx="6" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
+          <text x="395" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#166534">✅ TYPESCRIPT (STATIC TYPE CHECKING)</text>
+          <text x="395" y="58" font-family="Consolas" font-size="10" fill="#333">Typo: mhs.skorIpk</text>
+          <line x1="510" y1="55" x2="540" y2="55" stroke="#000" stroke-width="1.5" marker-end="url(#arrow02)"/>
+          <text x="550" y="58" font-family="Segoe UI" font-weight="bold" font-size="10" fill="#B91C1C">Garis Merah Editor</text>
+          <line x1="395" y1="72" x2="395" y2="82" stroke="#000" stroke-width="1.5"/>
+          <text x="395" y="98" font-family="Segoe UI" font-weight="bold" font-size="10.5" fill="#15803D">🛡️ Kompilasi Diblokir: 0 Bug ke Smartphone!</text>
+        </svg>
+      </div>
+
+      <!-- Sitasi Akademik -->
+      <div class="source-cite">
+        📚 <strong>Referensi Modul:</strong> BMP UT STSI4303 Modul 3: "Sistem Tipe Data Statis TypeScript" • Microsoft TypeScript Handbook v5.x: "Why TypeScript Matters in Enterprise Mobile Apps".
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- PANEL JAVASCRIPT TANPA TIPE -->
+      <div class="card">
+        <span class="badge" style="background:var(--rose);">1. JAVASCRIPT MURNI (DYNAMIC TYPING)</span>
+        <h3>⚠️ Bencana Typo &amp; Silent Failure</h3>
+        <p style="font-size:13px; color:#555;">
+          Ketika kita memanggil properti yang salah ketik (misal: <code>mhs.ipkSemester</code> tertulis <code>mhs.ipkSmt</code>), JavaScript tidak akan komplain saat ngoding. Tetapi saat kalkulasi, aplikasi menghasilkan nilai <code>NaN</code>!
+        </p>
+
+        <div style="background:#FEE2E2; border:2px solid #000; padding:12px; font-size:13px;">
+          <div>Nama: <strong>{{ mhsJS.nama }}</strong></div>
+          <div>Hasil Hitung Bobot: <strong style="color:#B91C1C;">{{ hasilJS }}</strong></div>
+        </div>
+
+        <button @click="ujiJavaScript" style="background:var(--rose);">
+          💥 Simulasikan Error JavaScript
+        </button>
+
+        <pre><code>// JavaScript Murni:
 const mhs = { nama: 'Rani', ipk: 3.8 };
 
 // Typo properti: mhs.skorIpk (tidak ada!)
 const hasil = mhs.skorIpk * 25; 
 // undefined * 25 = NaN (Aplikasi Rusak!)</code></pre>
-    </div>
-
-    <!-- PANEL TYPESCRIPT DENGAN INTERFACE -->
-    <div class="card">
-      <span class="badge" style="background:var(--mint);">2. TYPESCRIPT (STATIC TYPE CHECKING)</span>
-      <h3>🛡️ Kontrak Data Mutlak (Interface)</h3>
-      <p style="font-size:13px; color:#555;">
-        TypeScript memaksa pengembang mendeklarasikan bentuk data (kontrak). Jika ada salah ketik 1 huruf saja, editor langsung memblokir kompilasi sebelum kode sempat dikirim ke smartphone!
-      </p>
-
-      <div style="background:#ECFDF5; border:2px solid #000; padding:12px; font-size:13px;">
-        <div>Status Proteksi: <strong style="color:#15803D;">✅ Aktif (VS Code Intellisense)</strong></div>
-        <div>Status Build: <strong style="color:#15803D;">0 Runtime Error Terdeteksi</strong></div>
       </div>
 
-      <button @click="ujiTypeScript" style="background:var(--mint);">
-        🛡️ Periksa Proteksi TypeScript
-      </button>
+      <!-- PANEL TYPESCRIPT DENGAN INTERFACE -->
+      <div class="card">
+        <span class="badge" style="background:var(--mint);">2. TYPESCRIPT (STATIC TYPE CHECKING)</span>
+        <h3>🛡️ Kontrak Data Mutlak (Interface)</h3>
+        <p style="font-size:13px; color:#555;">
+          TypeScript memaksa pengembang mendeklarasikan bentuk data (kontrak). Jika ada salah ketik 1 huruf saja, editor langsung memblokir kompilasi sebelum kode sempat dikirim ke smartphone!
+        </p>
 
-      <pre><code>// TypeScript Interface:
+        <div style="background:#ECFDF5; border:2px solid #000; padding:12px; font-size:13px;">
+          <div>Status Proteksi: <strong style="color:#15803D;">✅ Aktif (VS Code Intellisense)</strong></div>
+          <div>Status Build: <strong style="color:#15803D;">0 Runtime Error Terdeteksi</strong></div>
+        </div>
+
+        <button @click="ujiTypeScript" style="background:var(--mint);">
+          🛡️ Periksa Proteksi TypeScript
+        </button>
+
+        <pre><code>// TypeScript Interface:
 interface Mahasiswa {
   nama: string;
   ipk: number;
@@ -124,6 +203,7 @@ const mhs: Mahasiswa = { nama: 'Rani', ipk: 3.8 };
 // ❌ COMPILE-TIME ERROR:
 // Property 'skorIpk' does not exist on type 'Mahasiswa'!
 console.log(mhs.skorIpk);</code></pre>
+      </div>
     </div>
   </div>
 
@@ -136,15 +216,13 @@ console.log(mhs.skorIpk);</code></pre>
         const hasilJS = ref('Belum dieksekusi');
 
         const ujiJavaScript = () => {
-          // Sengaja panggil nama properti yang salah
-          const typo = mhsJS.ipkSmt; // undefined!
-          const kalkulasi = typo * 25; // NaN
-          hasilJS.value = `Nilai: ${typo} (Hasil Kali: ${kalkulasi})`;
-          alert('⚠️ Terjadi Silent Bug: mhs.ipkSmt bernilai undefined. Hasil kalkulasi menjadi NaN!');
+          const typo = mhsJS.ipkSmt;
+          const hitung = typo * 25;
+          hasilJS.value = isNaN(hitung) ? 'NaN (Not a Number - Error!)' : hitung;
         };
 
         const ujiTypeScript = () => {
-          alert('✅ TypeScript Sukses: Kesalahan penamaan variabel langsung ditolak saat kompilasi!');
+          alert('🛡️ Pada TypeScript, baris `mhs.ipkSmt` akan diberi garis bawah merah oleh editor, sehingga kode tidak akan pernah lolos kompilasi ke APK mobile!');
         };
 
         return { mhsJS, hasilJS, ujiJavaScript, ujiTypeScript };

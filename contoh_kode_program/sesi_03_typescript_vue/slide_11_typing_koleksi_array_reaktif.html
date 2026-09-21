@@ -39,16 +39,41 @@
       border: 3px solid var(--border);
       padding: 20px;
       box-shadow: 5px 5px 0 var(--border);
-      max-width: 780px;
-      margin: 0 auto;
+      max-width: 820px;
+      margin: 0 auto 20px auto;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin: 18px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
     }
     .item-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px;
       background: #F9FAFB;
       border: 2px solid var(--border);
+      padding: 10px 14px;
       margin-bottom: 8px;
     }
     button {
@@ -59,6 +84,7 @@
       cursor: pointer;
       box-shadow: 2px 2px 0 var(--border);
     }
+    button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--border); }
     pre {
       background: #121212;
       color: #F5F5F5;
@@ -79,6 +105,60 @@
   </div>
 
   <div id="app" class="card">
+    <!-- Kotak Panduan Mahasiswa Awam -->
+    <div class="guide-box">
+      <h4>📘 PANDUAN PRAKTIKUM MAHASISWA</h4>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome / Peramban Web Modern.
+      </p>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🎯 Cara Menguji Interaksi:</strong>
+        Klik tombol hijau <strong>"+ Tambah Mata Kuliah Terstruktur"</strong> untuk menyuntikkan data baru ke array. Kemudian klik tombol merah <strong>"✕ Hapus"</strong> pada salah satu baris. Perhatikan mutasi reaktif berjalan mulus dan struktur objek selalu terikat interface <code>MataKuliah</code>.
+      </p>
+      <p style="margin: 0;">
+        <strong>💡 Apa yang Terjadi di Balik Layar:</strong>
+        Dalam pengerjaan Tugas 1, kita akan menambahkan dan menghapus mata kuliah. Dengan deklarasi <code>const daftarMk = ref&lt;MataKuliah[]&gt;([])</code>, compiler TypeScript akan mencegah kita memasukkan objek cacat yang tidak memiliki properti <code>kode</code> atau <code>sks</code>.
+      </p>
+    </div>
+
+    <!-- Diagram Arsitektur Inline SVG -->
+    <div class="diagram-card">
+      <h4 style="margin: 0 0 8px 0; font-size: 13px;">📐 Mutasi Array Koleksi Bertipe: Operasi push() &amp; filter() Terproteksi</h4>
+      <svg viewBox="0 0 740 120" width="100%" height="120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow11" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+          </marker>
+        </defs>
+        <!-- Form / Action Input -->
+        <rect x="10" y="15" width="220" height="90" rx="6" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
+        <text x="25" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#1E40AF">AKSI MUTASI REAKTIF</text>
+        <text x="25" y="58" font-family="Consolas" font-size="10" fill="#333">daftarMk.push(itemBaru)</text>
+        <text x="25" y="74" font-family="Consolas" font-size="10" fill="#333">daftarMk.filter(id !== ...)</text>
+        <text x="25" y="94" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#2563EB">Wajib Sesuai MataKuliah</text>
+
+        <!-- Panah ke Validasi -->
+        <line x1="230" y1="60" x2="270" y2="60" stroke="#000" stroke-width="2" marker-end="url(#arrow11)"/>
+
+        <!-- Type Checker -->
+        <rect x="275" y="15" width="240" height="90" rx="6" fill="#FEF08A" stroke="#000" stroke-width="2"/>
+        <text x="290" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#854D0E">PEMERIKSAAN KONTRAK TS</text>
+        <text x="290" y="58" font-family="Segoe UI" font-size="10" fill="#333">Memeriksa id, kode, nama, sks</text>
+        <text x="290" y="76" font-family="Segoe UI" font-size="10" fill="#333">Mencegah Objek Cacat Masuk</text>
+        <text x="290" y="94" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#B45309">100% Type-Safe Mutation</text>
+
+        <!-- Panah ke Virtual DOM -->
+        <line x1="515" y1="60" x2="555" y2="60" stroke="#000" stroke-width="2" marker-end="url(#arrow11)"/>
+
+        <!-- Render UI -->
+        <rect x="560" y="15" width="170" height="90" rx="6" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+        <text x="575" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#15803D">VIRTUAL DOM DIFF</text>
+        <text x="575" y="58" font-family="Segoe UI" font-size="10" fill="#333">Update Baris Tabel</text>
+        <text x="575" y="76" font-family="Segoe UI" font-size="10" fill="#333">:key="mk.id" Unik</text>
+        <text x="575" y="94" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#166534">0 ms Render Overhead</text>
+      </svg>
+    </div>
+
     <h3>📋 Daftar Mata Kuliah: <code>ref&lt;MataKuliah[]&gt;</code></h3>
 
     <div v-for="mk in daftarMk" :key="mk.id" class="item-row">
@@ -100,10 +180,20 @@ const daftarMk = ref&lt;MataKuliah[]&gt;([
   { id: '1', kode: 'STSI4303', nama: 'Pemrograman Bergerak', sks: 3 }
 ]);
 
-// Fungsi tambah dengan parameter bertipe mutlak:
-const tambahMataKuliah = (item: MataKuliah): void => {
-  daftarMk.value.push(item); // Aman dari salah tipe data!
+// Tambah data (Type Checking ketat):
+const tambah = (item: MataKuliah): void => {
+  daftarMk.value.push(item);
+};
+
+// Hapus data secara aman:
+const hapus = (id: string): void => {
+  daftarMk.value = daftarMk.value.filter(mk => mk.id !== id);
 };</code></pre>
+
+    <!-- Sitasi Akademik -->
+    <div class="source-cite">
+      📚 <strong>Referensi Modul:</strong> BMP UT STSI4303 Modul 3: "Operasi Koleksi Reaktif Bertipe" • Vue.js 3 Docs: "Reactivity Core &amp; TypeScript Arrays".
+    </div>
   </div>
 
   <script>
@@ -112,25 +202,25 @@ const tambahMataKuliah = (item: MataKuliah): void => {
     createApp({
       setup() {
         const daftarMk = ref([
-          { id: '1', kode: 'STSI4303', nama: 'Pemrograman Berbasis Bergerak', sks: 3 },
-          { id: '2', kode: 'MSIM4206', nama: 'Basis Data Terdistribusi', sks: 3 }
+          { id: '1', kode: 'STSI4303', nama: 'Pemrograman Perangkat Bergerak', sks: 3 },
+          { id: '2', kode: 'MSIM4401', nama: 'Rekayasa Perangkat Lunak', sks: 3 }
         ]);
 
-        const hapusMk = (id) => {
-          daftarMk.value = daftarMk.value.filter(x => x.id !== id);
-        };
-
         const tambahDummy = () => {
-          const idBaru = String(Date.now());
+          const idBaru = (daftarMk.value.length + 1).toString();
           daftarMk.value.push({
             id: idBaru,
-            kode: 'MKWU4108',
+            kode: 'MKDU4110',
             nama: 'Bahasa Indonesia',
             sks: 2
           });
         };
 
-        return { daftarMk, hapusMk, tambahDummy };
+        const hapusMk = (id) => {
+          daftarMk.value = daftarMk.value.filter(mk => mk.id !== id);
+        };
+
+        return { daftarMk, tambahDummy, hapusMk };
       }
     }).mount('#app');
   </script>

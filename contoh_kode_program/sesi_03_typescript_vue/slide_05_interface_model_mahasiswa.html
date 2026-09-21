@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 05: Interface Model Mahasiswa & Mata Kuliah — STSI4303</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 820px;
+      margin: 0 auto 20px auto;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin: 18px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--border);
+      font-size: 14px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      background: #FFF;
+    }
+    button {
+      background: var(--mint);
+      border: 2px solid var(--border);
+      padding: 10px 18px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border);
+    }
+    button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--border); }
+    pre {
+      background: #121212;
+      color: #F5F5F5;
+      padding: 12px;
+      border: 2px solid var(--border);
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">SLIDE 05 • MODUL 3 BMP UT</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Kontrak Data Resmi: Interface Model Mahasiswa &amp; Mata Kuliah</h1>
+    <p style="margin: 0; font-size: 14px;">Membangun cetak biru data akademik terstruktur yang digunakan pada Tugas Tutorial 1.</p>
+  </div>
+
+  <div id="app" class="card">
+    <!-- Kotak Panduan Mahasiswa Awam -->
+    <div class="guide-box">
+      <h4>📘 PANDUAN PRAKTIKUM MAHASISWA</h4>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome / Peramban Web Modern, VS Code (Berkas sumber: <code>slide_05_interface_model_mahasiswa.ts</code>).
+      </p>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🎯 Cara Menguji Interaksi:</strong>
+        Isilah formulir mata kuliah di bawah (Kode, Nama, SKS, dan Nilai Huruf). Klik tombol <strong>"Validasi Sesuai Interface MataKuliah"</strong>. Perhatikan bagaimana objek JavaScript yang terbentuk dipastikan sesuai dengan kontrak model TypeScript.
+      </p>
+      <p style="margin: 0;">
+        <strong>💡 Apa yang Terjadi di Balik Layar:</strong>
+        Di TypeScript, kata kunci <code>interface</code> adalah kontrak murni waktu kompilasi (*type erasure*). Interface tidak menghasilkan baris JavaScript saat dibuild (*zero runtime overhead*), namun menjamin setiap komponen antarmuka yang membaca data mata kuliah tidak akan mengalami error salah nama properti.
+      </p>
+    </div>
+
+    <!-- Diagram Arsitektur Inline SVG -->
+    <div class="diagram-card">
+      <h4 style="margin: 0 0 8px 0; font-size: 13px;">📐 Alur Kontrak Data: Dari Interface TypeScript Menjadi Objek Nyata</h4>
+      <svg viewBox="0 0 740 130" width="100%" height="130" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow05" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+          </marker>
+        </defs>
+        <!-- Blueprint Interface -->
+        <rect x="10" y="15" width="260" height="100" rx="6" fill="#F3E8FF" stroke="#9333EA" stroke-width="2"/>
+        <text x="25" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#7E22CE">INTERFACE CETAK BIRU</text>
+        <text x="25" y="56" font-family="Consolas" font-size="10" fill="#333">interface MataKuliah {</text>
+        <text x="35" y="72" font-family="Consolas" font-size="9.5" fill="#333">readonly id: string; kode: string;</text>
+        <text x="35" y="86" font-family="Consolas" font-size="9.5" fill="#333">nama: string; sks: number;</text>
+        <text x="35" y="100" font-family="Consolas" font-size="9.5" fill="#333">nilaiHuruf: NilaiHuruf; }</text>
+
+        <!-- Panah ke Kompiler -->
+        <line x1="275" y1="65" x2="315" y2="65" stroke="#000" stroke-width="2" marker-end="url(#arrow05)"/>
+
+        <!-- Evaluasi Type Check -->
+        <rect x="320" y="15" width="180" height="100" rx="6" fill="#FEF08A" stroke="#000" stroke-width="2"/>
+        <text x="335" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#854D0E">TSC TYPE CHECKER</text>
+        <text x="335" y="58" font-family="Segoe UI" font-size="10" fill="#333">Inspeksi Properti</text>
+        <text x="335" y="75" font-family="Segoe UI" font-size="10" fill="#333">Validasi Tipe Data</text>
+        <text x="335" y="96" font-family="Segoe UI" font-weight="bold" font-size="9" fill="#15803D">Zero Overhead (0 Byte JS)</text>
+
+        <!-- Panah ke Objek -->
+        <line x1="505" y1="65" x2="545" y2="65" stroke="#000" stroke-width="2" marker-end="url(#arrow05)"/>
+
+        <!-- Objek Instansiasi -->
+        <rect x="550" y="15" width="180" height="100" rx="6" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+        <text x="565" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#15803D">OBJEK DATA SAH</text>
+        <text x="565" y="58" font-family="Consolas" font-size="9.5" fill="#333">id: "MK-01"</text>
+        <text x="565" y="74" font-family="Consolas" font-size="9.5" fill="#333">kode: "STSI4303"</text>
+        <text x="565" y="90" font-family="Consolas" font-size="9.5" fill="#333">sks: 3 | nilai: "A"</text>
+      </svg>
+    </div>
+
+    <h3>📝 Form Input Mata Kuliah Sesuai Interface</h3>
+    <label>Kode Mata Kuliah (<code>kode: string</code>):</label>
+    <input type="text" v-model="form.kode" placeholder="Misal: STSI4303">
+
+    <label>Nama Mata Kuliah (<code>nama: string</code>):</label>
+    <input type="text" v-model="form.nama" placeholder="Misal: Pemrograman Berbasis Perangkat Bergerak">
+
+    <label>Beban SKS (<code>sks: number</code>):</label>
+    <input type="number" v-model.number="form.sks" min="1" max="6">
+
+    <label>Nilai Huruf (<code>nilaiHuruf: NilaiHuruf</code>):</label>
+    <select v-model="form.nilaiHuruf">
+      <option value="A">A (Bobot 4.00)</option>
+      <option value="B">B (Bobot 3.00)</option>
+      <option value="C">C (Bobot 2.00)</option>
+      <option value="D">D (Bobot 1.00)</option>
+      <option value="E">E (Bobot 0.00)</option>
+    </select>
+
+    <button @click="validasiObjek">🛡️ Validasi Sesuai Interface MataKuliah</button>
+
+    <div v-if="hasilValidasi" style="background:#F9FAFB; border:2px solid #000; padding:12px; margin-top:14px;">
+      <strong>Hasil Instansiasi Objek MataKuliah:</strong>
+      <pre><code>{{ jsonHasil }}</code></pre>
+    </div>
+
+    <h4 style="margin-top: 24px;">📄 Kode Asli <code>slide_05_interface_model_mahasiswa.ts</code>:</h4>
+    <pre><code>export type NilaiHuruf = 'A' | 'B' | 'C' | 'D' | 'E';
+
+export interface MataKuliah {
+  readonly id: string;
+  kode: string;
+  nama: string;
+  sks: number;
+  nilaiHuruf?: NilaiHuruf;
+}
+
+export interface MahasiswaUT {
+  readonly nim: string;
+  nama: string;
+  programStudi: string;
+  daftarNilai: MataKuliah[];
+}</code></pre>
+
+    <!-- Sitasi Akademik -->
+    <div class="source-cite">
+      📚 <strong>Referensi Modul:</strong> BMP UT STSI4303 Modul 3: "Model Data &amp; Interface TypeScript" • TypeScript Handbook: "Object Types — Interfaces vs Type Aliases".
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, reactive, computed } = Vue;
+
+    createApp({
+      setup() {
+        const form = reactive({
+          kode: 'STSI4303',
+          nama: 'Pemrograman Berbasis Perangkat Bergerak',
+          sks: 3,
+          nilaiHuruf: 'A'
+        });
+
+        const hasilValidasi = ref(false);
+
+        const validasiObjek = () => {
+          if (!form.kode || !form.nama || !form.sks) {
+            alert('Harap lengkapi semua field!');
+            return;
+          }
+          hasilValidasi.value = true;
+        };
+
+        const jsonHasil = computed(() => {
+          return JSON.stringify({
+            id: 'MK-' + Date.now().toString().slice(-4),
+            kode: form.kode,
+            nama: form.nama,
+            sks: form.sks,
+            nilaiHuruf: form.nilaiHuruf
+          }, null, 2);
+        });
+
+        return { form, hasilValidasi, validasiObjek, jsonHasil };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

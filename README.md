@@ -107,26 +107,26 @@ tuweb_mobile2025/
 
 ### 📱 Rincian 18 Berkas Mandiri Sesi 03 (TypeScript & Komposisi Vue — TUGAS 1)
 
-| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run) |
+| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run di Chrome) |
 | :---: | :--- | :--- |
-| **Slide 01** | Roadmap Sesi 03 & Orientasi Tagihan Resmi Tugas Tutorial 1 | [`slide_01_roadmap_sesi_dan_tugas_1.html`](contoh_kode_program/sesi_03_typescript_vue/slide_01_roadmap_sesi_dan_tugas_1.html) |
-| **Slide 02** | Urgensi TypeScript: Mencegah Bug Runtime Typo di Ponsel | [`slide_02_urgensi_typescript_mobile.html`](contoh_kode_program/sesi_03_typescript_vue/slide_02_urgensi_typescript_mobile.html) |
-| **Slide 03** | Tipe Primitif (`string`, `number`, `boolean`) & Bahaya `any` | [`slide_03_tipe_primitif_dan_any_hazard.html`](contoh_kode_program/sesi_03_typescript_vue/slide_03_tipe_primitif_dan_any_hazard.html) |
-| **Slide 04** | Union & Literal Types: Mengunci Pilihan Status Akademik UT | [`slide_04_union_dan_literal_types.html`](contoh_kode_program/sesi_03_typescript_vue/slide_04_union_dan_literal_types.html) |
-| **Slide 05** | Kontrak Data Model Interface `MahasiswaUT` & `MataKuliah` | [`slide_05_interface_model_mahasiswa.ts`](contoh_kode_program/sesi_03_typescript_vue/slide_05_interface_model_mahasiswa.ts) |
-| **Slide 06** | Properti Opsional (`?`) & Mutlak Tak-Terubah (`readonly nim`) | [`slide_06_optional_dan_readonly_properties.html`](contoh_kode_program/sesi_03_typescript_vue/slide_06_optional_dan_readonly_properties.html) |
-| **Slide 07** | Generics Koleksi: `Array<MataKuliah>` vs `MataKuliah[]` | [`slide_07_generics_array_koleksi.html`](contoh_kode_program/sesi_03_typescript_vue/slide_07_generics_array_koleksi.html) |
-| **Slide 08** | Anotasi Tipe Fungsi: Parameter Ketat & Return Type Eksplisit | [`slide_08_fungsi_type_annotation.html`](contoh_kode_program/sesi_03_typescript_vue/slide_08_fungsi_type_annotation.html) |
-| **Slide 09** | Integrasi Vue 3 SFC: `<script setup lang="ts">` Modern | [`slide_09_vue3_script_setup_lang_ts.html`](contoh_kode_program/sesi_03_typescript_vue/slide_09_vue3_script_setup_lang_ts.html) |
-| **Slide 10** | Deklarasi Reaktivitas Bertipe: `ref<T>` vs `reactive<T>` | [`slide_10_typing_ref_dan_reactive.html`](contoh_kode_program/sesi_03_typescript_vue/slide_10_typing_ref_dan_reactive.html) |
-| **Slide 11** | Mengelola Array Koleksi Bertipe: `ref<MataKuliah[]>` | [`slide_11_typing_koleksi_array_reaktif.html`](contoh_kode_program/sesi_03_typescript_vue/slide_11_typing_koleksi_array_reaktif.html) |
-| **Slide 12** | Type Safety Properti Terkalkulasi: `computed<T>()` | [`slide_12_typing_computed_properties.html`](contoh_kode_program/sesi_03_typescript_vue/slide_12_typing_computed_properties.html) |
-| **Slide 13** | Deklarasi Props Komponen Bertipe: `defineProps<T>()` | [`slide_13_typing_props_komponen.html`](contoh_kode_program/sesi_03_typescript_vue/slide_13_typing_props_komponen.html) |
-| **Slide 14** | Deklarasi Emits Komponen Bertipe: `defineEmits<T>()` | [`slide_14_typing_emits_komponen.html`](contoh_kode_program/sesi_03_typescript_vue/slide_14_typing_emits_komponen.html) |
-| **Slide 15** | Penanganan Event Masukan DOM Bertipe (`Event`, `KeyboardEvent`) | [`slide_15_typing_dom_events.html`](contoh_kode_program/sesi_03_typescript_vue/slide_15_typing_dom_events.html) |
-| **Slide 16** | **Pedoman & Rubrik Penilaian Resmi TUGAS TUTORIAL 1 (0-100)** | [`slide_16_rubrik_tugas_tutorial_1.md`](contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.md) |
-| **Slide 17** | **🎯 MASTER SOLUSI RESMI TUGAS 1:** Kalkulator Nilai & IPS UT | [`slide_17_solusi_tugas_1_kalkulator_nilai.html`](contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html) |
-| **Slide 18** | Jembatan Sesi 04: Transisi Menuju Komponen Mobile Ionic UI | [`slide_18_preview_sesi_04_ionic_ui.html`](contoh_kode_program/sesi_03_typescript_vue/slide_18_preview_sesi_04_ionic_ui.html) |
+| **Slide 01** | Roadmap Sesi 03 & Orientasi Tagihan Resmi Tugas Tutorial 1 | [🌐 `slide_01_roadmap_sesi_dan_tugas_1.html`](contoh_kode_program/sesi_03_typescript_vue/slide_01_roadmap_sesi_dan_tugas_1.html) |
+| **Slide 02** | Urgensi TypeScript: Mencegah Bug Runtime Typo di Ponsel | [🌐 `slide_02_urgensi_typescript_mobile.html`](contoh_kode_program/sesi_03_typescript_vue/slide_02_urgensi_typescript_mobile.html) |
+| **Slide 03** | Tipe Primitif (`string`, `number`, `boolean`) & Bahaya `any` | [🌐 `slide_03_tipe_primitif_dan_any_hazard.html`](contoh_kode_program/sesi_03_typescript_vue/slide_03_tipe_primitif_dan_any_hazard.html) |
+| **Slide 04** | Union & Literal Types: Mengunci Pilihan Status Akademik UT | [🌐 `slide_04_union_dan_literal_types.html`](contoh_kode_program/sesi_03_typescript_vue/slide_04_union_dan_literal_types.html) |
+| **Slide 05** | Kontrak Data Model Interface `MahasiswaUT` & `MataKuliah` | [🌐 `slide_05_interface_model_mahasiswa.html`](contoh_kode_program/sesi_03_typescript_vue/slide_05_interface_model_mahasiswa.html) *(Model TS: [`.ts`](contoh_kode_program/sesi_03_typescript_vue/slide_05_interface_model_mahasiswa.ts))* |
+| **Slide 06** | Properti Opsional (`?`) & Mutlak Tak-Terubah (`readonly nim`) | [🌐 `slide_06_optional_dan_readonly_properties.html`](contoh_kode_program/sesi_03_typescript_vue/slide_06_optional_dan_readonly_properties.html) |
+| **Slide 07** | Generics Koleksi: `Array<MataKuliah>` vs `MataKuliah[]` | [🌐 `slide_07_generics_array_koleksi.html`](contoh_kode_program/sesi_03_typescript_vue/slide_07_generics_array_koleksi.html) |
+| **Slide 08** | Anotasi Tipe Fungsi: Parameter Ketat & Return Type Eksplisit | [🌐 `slide_08_fungsi_type_annotation.html`](contoh_kode_program/sesi_03_typescript_vue/slide_08_fungsi_type_annotation.html) |
+| **Slide 09** | Integrasi Vue 3 SFC: `<script setup lang="ts">` Modern | [🌐 `slide_09_vue3_script_setup_lang_ts.html`](contoh_kode_program/sesi_03_typescript_vue/slide_09_vue3_script_setup_lang_ts.html) |
+| **Slide 10** | Deklarasi Reaktivitas Bertipe: `ref<T>` vs `reactive<T>` | [🌐 `slide_10_typing_ref_dan_reactive.html`](contoh_kode_program/sesi_03_typescript_vue/slide_10_typing_ref_dan_reactive.html) |
+| **Slide 11** | Mengelola Array Koleksi Bertipe: `ref<MataKuliah[]>` | [🌐 `slide_11_typing_koleksi_array_reaktif.html`](contoh_kode_program/sesi_03_typescript_vue/slide_11_typing_koleksi_array_reaktif.html) |
+| **Slide 12** | Type Safety Properti Terkalkulasi: `computed<T>()` | [🌐 `slide_12_typing_computed_properties.html`](contoh_kode_program/sesi_03_typescript_vue/slide_12_typing_computed_properties.html) |
+| **Slide 13** | Deklarasi Props Komponen Bertipe: `defineProps<T>()` | [🌐 `slide_13_typing_props_komponen.html`](contoh_kode_program/sesi_03_typescript_vue/slide_13_typing_props_komponen.html) |
+| **Slide 14** | Deklarasi Emits Komponen Bertipe: `defineEmits<T>()` | [🌐 `slide_14_typing_emits_komponen.html`](contoh_kode_program/sesi_03_typescript_vue/slide_14_typing_emits_komponen.html) |
+| **Slide 15** | Penanganan Event Masukan DOM Bertipe (`Event`, `KeyboardEvent`) | [🌐 `slide_15_typing_dom_events.html`](contoh_kode_program/sesi_03_typescript_vue/slide_15_typing_dom_events.html) |
+| **Slide 16** | **Kalkulator Skor Rubrik Resmi TUGAS TUTORIAL 1 (0-100)** | [🌐 `slide_16_rubrik_tugas_tutorial_1.html`](contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.html) *(Panduan: [`.md`](contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.md))* |
+| **Slide 17** | **🎯 MASTER SOLUSI RESMI TUGAS 1:** Kalkulator Nilai & IPS UT | [🌐 `slide_17_solusi_tugas_1_kalkulator_nilai.html`](contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html) |
+| **Slide 18** | Jembatan Sesi 04: Transisi Menuju Komponen Mobile Ionic UI | [🌐 `slide_18_preview_sesi_04_ionic_ui.html`](contoh_kode_program/sesi_03_typescript_vue/slide_18_preview_sesi_04_ionic_ui.html) |
 
 ---
 

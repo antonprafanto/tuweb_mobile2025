@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slide 17: Master Solusi Resmi Tugas Tutorial 1 — STSI4303</title>
-  <!-- Zero-Friction CDN Setup: Vue 3 Global Build -->
+  <title>Slide 17: Solusi Resmi Tugas Tutorial 1 — STSI4303</title>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <style>
     :root {
@@ -23,7 +22,7 @@
       background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
-      box-shadow: 6px 6px 0 var(--border);
+      box-shadow: 5px 5px 0 var(--border);
       margin-bottom: 24px;
     }
     .badge {
@@ -39,28 +38,54 @@
       background: var(--card-bg);
       border: 3px solid var(--border);
       padding: 20px;
-      box-shadow: 6px 6px 0 var(--border);
+      box-shadow: 5px 5px 0 var(--border);
       max-width: 900px;
       margin: 0 auto 20px auto;
     }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin: 18px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
     }
     input, select {
       width: 100%;
-      padding: 9px;
+      padding: 10px;
       border: 2px solid var(--border);
-      font-size: 13px;
+      font-size: 14px;
+      background: #FFF;
       margin-top: 4px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
     }
     button {
-      background: var(--cyan);
+      background: var(--mint);
       border: 2px solid var(--border);
       padding: 10px 18px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       box-shadow: 3px 3px 0 var(--border);
     }
@@ -88,67 +113,130 @@
 
   <div class="header">
     <div class="badge">SLIDE 17 • MASTER SOLUSI RESMI TUGAS TUTORIAL 1</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Kalkulator Nilai Mata Kuliah & Indeks Prestasi (IPS) Mahasiswa UT</h1>
-    <p style="margin: 0; font-size: 14px;">Implementasi acuan resmi berbasis TypeScript Model & Vue 3 Composition API.</p>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Kalkulator Nilai Mata Kuliah &amp; Indeks Prestasi (IPS) Mahasiswa UT</h1>
+    <p style="margin: 0; font-size: 14px;">Implementasi acuan resmi berbasis TypeScript Model &amp; Vue 3 Composition API.</p>
   </div>
 
   <div id="app">
-    <!-- PANEL BIODATA MAHASISWA -->
     <div class="card">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <!-- Kotak Panduan Mahasiswa Awam -->
+      <div class="guide-box">
+        <h4>📘 PANDUAN PENGUJIAN MASTER SOLUSI TUGAS 1</h4>
+        <p style="margin: 0 0 8px 0;">
+          <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (Mode Desktop atau Mode Simulator Ponsel <code>Ctrl + Shift + M</code>).
+        </p>
+        <p style="margin: 0 0 8px 0;">
+          <strong>🎯 Langkah Uji Coba Mandiri:</strong>
+          1. Masukkan kode mata kuliah (misal: <code>STSI4303</code>), nama mata kuliah, beban SKS (1–6), dan pilih nilai huruf (A/B/C/D/E).<br>
+          2. Klik tombol <strong>"+ Tambah ke Daftar Nilai"</strong>.<br>
+          3. Perhatikan pemutakhiran otomatis Total SKS, Total Nilai Mutu, dan Indeks Prestasi Semester (IPS) beserta Predikat Akademik.<br>
+          4. Klik tombol <strong>"🗑️ Hapus"</strong> pada salah satu baris tabel untuk menguji reaktivitas pengurangan nilai.
+        </p>
+        <p style="margin: 0;">
+          <strong>💡 Apa yang Terjadi di Balik Layar:</strong>
+          Seluruh arsitektur dibangun di atas <code>interface MataKuliah</code> dan <code>interface MahasiswaUT</code>. Operasi kalkulasi IPS memanfaatkan <code>computed&lt;number&gt;()</code> murni yang mengeliminasi kebutuhan looping manual saat data berubah.
+        </p>
+      </div>
+
+      <!-- Diagram Arsitektur Inline SVG -->
+      <div class="diagram-card">
+        <h4 style="margin: 0 0 8px 0; font-size: 13px;">📐 Cetak Biru Arsitektur Aplikasi Tugas 1 (Input Form → Model Data → Engine Computed → UI)</h4>
+        <svg viewBox="0 0 840 130" width="100%" height="130" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow17" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+            </marker>
+          </defs>
+          <!-- 1. Input Form -->
+          <rect x="10" y="15" width="180" height="100" rx="6" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
+          <text x="22" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#1E40AF">1. INPUT FORM</text>
+          <text x="22" y="58" font-family="Segoe UI" font-size="10" fill="#333">• Kode &amp; Nama MK</text>
+          <text x="22" y="74" font-family="Segoe UI" font-size="10" fill="#333">• SKS (1-6 Number)</text>
+          <text x="22" y="90" font-family="Segoe UI" font-size="10" fill="#333">• Dropdown Nilai A-E</text>
+          <text x="22" y="104" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#2563EB">v-model Dua Arah</text>
+
+          <!-- Panah 1 ke 2 -->
+          <line x1="190" y1="65" x2="225" y2="65" stroke="#000" stroke-width="2" marker-end="url(#arrow17)"/>
+
+          <!-- 2. TS Model Interface -->
+          <rect x="230" y="15" width="195" height="100" rx="6" fill="#F3E8FF" stroke="#9333EA" stroke-width="2"/>
+          <text x="242" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#7E22CE">2. MODEL TYPESCRIPT</text>
+          <text x="242" y="58" font-family="Consolas" font-size="9.5" fill="#333">interface MataKuliah {</text>
+          <text x="250" y="74" font-family="Consolas" font-size="9.5" fill="#333">kode, nama, sks,</text>
+          <text x="250" y="90" font-family="Consolas" font-size="9.5" fill="#333">nilaiHuruf: NilaiHuruf }</text>
+          <text x="242" y="104" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#7E22CE">Type-Safe Contract</text>
+
+          <!-- Panah 2 ke 3 -->
+          <line x1="425" y1="65" x2="460" y2="65" stroke="#000" stroke-width="2" marker-end="url(#arrow17)"/>
+
+          <!-- 3. Engine Computed -->
+          <rect x="465" y="15" width="180" height="100" rx="6" fill="#FEF08A" stroke="#854D0E" stroke-width="2"/>
+          <text x="477" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#854D0E">3. COMPUTED ENGINE</text>
+          <text x="477" y="58" font-family="Segoe UI" font-size="10" fill="#333">• totalSks = sum(sks)</text>
+          <text x="477" y="74" font-family="Segoe UI" font-size="10" fill="#333">• totalMutu = sum(sks×b)</text>
+          <text x="477" y="90" font-family="Segoe UI" font-size="10" fill="#333">• ips = mutu / sks</text>
+          <text x="477" y="104" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#B45309">Dependency Caching</text>
+
+          <!-- Panah 3 ke 4 -->
+          <line x1="645" y1="65" x2="680" y2="65" stroke="#000" stroke-width="2" marker-end="url(#arrow17)"/>
+
+          <!-- 4. UI Dashboard -->
+          <rect x="685" y="15" width="145" height="100" rx="6" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+          <text x="697" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#15803D">4. UI STATISTIK</text>
+          <text x="697" y="58" font-family="Segoe UI" font-size="10" fill="#333">Total SKS</text>
+          <text x="697" y="74" font-family="Segoe UI" font-size="10" fill="#333">IPS 2 Desimal</text>
+          <text x="697" y="90" font-family="Segoe UI" font-size="10" fill="#333">Badge Predikat</text>
+          <text x="697" y="104" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#166534">Hasil Real-Time</text>
+        </svg>
+      </div>
+
+      <!-- BIODATA MAHASISWA -->
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:#F9FAFB; border:2px solid #000; padding:14px; margin-bottom:18px;">
         <div>
-          <h2 style="margin:0 0 4px 0;">👤 {{ mahasiswa.nama }} (NIM: {{ mahasiswa.nim }})</h2>
-          <div style="font-size:13px; color:#4B5563;">
-            UPBJJ: <strong>{{ mahasiswa.upbjj }}</strong> • Program Studi: <strong>{{ mahasiswa.prodi }}</strong> • Semester: <strong>{{ mahasiswa.semester }}</strong>
+          <h2 style="margin:0 0 4px 0; font-size:18px;">👤 {{ mahasiswa.nama }} (NIM: {{ mahasiswa.nim }})</h2>
+          <div style="font-size:13px; color:#555;">
+            Program Studi: <strong>{{ mahasiswa.programStudi }}</strong> | UPBJJ: <strong>{{ mahasiswa.upbjj }}</strong>
           </div>
         </div>
-        <span style="background:var(--mint); border:2px solid #000; padding:6px 12px; font-weight:bold; font-size:12px; box-shadow:3px 3px 0 #000;">
-          Status: {{ mahasiswa.status }}
-        </span>
+        <div>
+          <span style="background:var(--yellow); border:2px solid #000; padding:4px 10px; font-weight:bold; font-size:12px;">
+            Semester {{ mahasiswa.semesterBerjalan }} • {{ mahasiswa.status }}
+          </span>
+        </div>
       </div>
-    </div>
 
-    <!-- PANEL INPUT FORM & DAFTAR MATA KULIAH -->
-    <div class="card">
-      <h3>➕ Formulir Tambah Nilai Mata Kuliah</h3>
-      <form @submit.prevent="tambahMataKuliah">
-        <div class="grid-2">
-          <div>
-            <label style="font-size:12px; font-weight:bold;">Kode Mata Kuliah:</label>
-            <input type="text" v-model.trim="formMk.kode" placeholder="Misal: STSI4303" required>
-          </div>
-          <div>
-            <label style="font-size:12px; font-weight:bold;">Nama Mata Kuliah:</label>
-            <input type="text" v-model.trim="formMk.nama" placeholder="Misal: Pemrograman Bergerak" required>
-          </div>
+      <!-- FORM TAMBAH MATA KULIAH -->
+      <h3>➕ Tambah Mata Kuliah &amp; Nilai Ujian</h3>
+      <div class="form-grid">
+        <div>
+          <label style="font-size:12px; font-weight:bold;">Kode Mata Kuliah:</label>
+          <input type="text" v-model="formMk.kode" placeholder="Misal: STSI4303">
         </div>
-        <div class="grid-2">
-          <div>
-            <label style="font-size:12px; font-weight:bold;">Beban SKS (1 - 6):</label>
-            <input type="number" v-model.number="formMk.sks" min="1" max="6" required>
-          </div>
-          <div>
-            <label style="font-size:12px; font-weight:bold;">Perolehan Nilai Huruf:</label>
-            <select v-model="formMk.nilaiHuruf">
-              <option value="A">Nilai A (Bobot 4.00)</option>
-              <option value="B">Nilai B (Bobot 3.00)</option>
-              <option value="C">Nilai C (Bobot 2.00)</option>
-              <option value="D">Nilai D (Bobot 1.00)</option>
-              <option value="E">Nilai E (Bobot 0.00)</option>
-            </select>
-          </div>
+        <div>
+          <label style="font-size:12px; font-weight:bold;">Nama Mata Kuliah:</label>
+          <input type="text" v-model="formMk.nama" placeholder="Nama mata kuliah...">
         </div>
-        <button type="submit" style="background:var(--mint); margin-top:6px;">
-          ➕ Simpan ke Daftar Nilai
-        </button>
-      </form>
-
-      <!-- TABEL DAFTAR NILAI -->
-      <h4 style="margin-top: 24px;">📋 Rekapitulasi Nilai Semester Ini:</h4>
-      <div v-if="daftarNilai.length === 0" style="padding:20px; text-align:center; color:#666;">
-        Belum ada mata kuliah yang ditambahkan.
+        <div>
+          <label style="font-size:12px; font-weight:bold;">Beban SKS (1-6):</label>
+          <input type="number" v-model.number="formMk.sks" min="1" max="6">
+        </div>
+        <div>
+          <label style="font-size:12px; font-weight:bold;">Nilai Huruf:</label>
+          <select v-model="formMk.nilaiHuruf">
+            <option value="A">A (Bobot 4.00)</option>
+            <option value="B">B (Bobot 3.00)</option>
+            <option value="C">C (Bobot 2.00)</option>
+            <option value="D">D (Bobot 1.00)</option>
+            <option value="E">E (Bobot 0.00)</option>
+          </select>
+        </div>
       </div>
-      <table v-else>
+
+      <button @click="tambahMataKuliah">+ Tambah ke Daftar Nilai</button>
+
+      <!-- TABEL DAFTAR MATA KULIAH -->
+      <h3 style="margin-top: 24px;">📋 Transkrip Nilai Semester Berjalan (KRS):</h3>
+      <table v-if="mahasiswa.daftarNilai.length > 0">
         <thead>
           <tr>
             <th>Kode</th>
@@ -156,80 +244,82 @@
             <th>SKS</th>
             <th>Nilai</th>
             <th>Bobot</th>
-            <th>Mutu (SKS x Bobot)</th>
+            <th>Mutu (SKS × Bobot)</th>
             <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, idx) in daftarNilai" :key="item.id">
-            <td><strong>{{ item.kode }}</strong></td>
-            <td>{{ item.nama }}</td>
-            <td>{{ item.sks }} SKS</td>
+          <tr v-for="mk in mahasiswa.daftarNilai" :key="mk.id">
+            <td><strong>{{ mk.kode }}</strong></td>
+            <td>{{ mk.nama }}</td>
+            <td>{{ mk.sks }}</td>
+            <td><span style="font-weight:bold;">{{ mk.nilaiHuruf }}</span></td>
+            <td>{{ konversiHurufKeBobot(mk.nilaiHuruf).toFixed(2) }}</td>
+            <td><strong>{{ (mk.sks * konversiHurufKeBobot(mk.nilaiHuruf)).toFixed(2) }}</strong></td>
             <td>
-              <select v-model="item.nilaiHuruf" style="margin:0; padding:2px 4px;">
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-              </select>
-            </td>
-            <td>{{ getBobotAngka(item.nilaiHuruf) }}</td>
-            <td><strong>{{ (item.sks * getBobotAngka(item.nilaiHuruf)).toFixed(1) }}</strong></td>
-            <td>
-              <button @click="hapusMk(item.id)" style="background:var(--rose); padding:4px 8px; font-size:11px;">
-                ✕ Hapus
+              <button @click="hapusMataKuliah(mk.id)" style="background:var(--rose); padding:4px 8px; font-size:12px;">
+                🗑️ Hapus
               </button>
             </td>
           </tr>
         </tbody>
       </table>
+      <div v-else style="padding:20px; text-align:center; background:#F9FAFB; border:2px dashed #999; margin-top:14px;">
+        Belum ada mata kuliah yang dimasukkan. Silakan isi form di atas!
+      </div>
 
-      <!-- SUMMARY HASIL HITUNG IPS -->
+      <!-- STATISTIK SUMMARY KALKULASI IPS -->
       <div class="summary-grid">
+        <div class="summary-box" style="background:#EFF6FF;">
+          <div class="summary-lbl">TOTAL SKS DIAMBIL</div>
+          <div class="summary-val" style="color:#1E40AF;">{{ hasilIPS.totalSks }}</div>
+        </div>
+
         <div class="summary-box" style="background:#FEF9C3;">
-          <div class="summary-val">{{ totalSks }} SKS</div>
-          <div class="summary-lbl">TOTAL SKS TERAMBIL</div>
+          <div class="summary-lbl">TOTAL NILAI MUTU</div>
+          <div class="summary-val" style="color:#854D0E;">{{ hasilIPS.totalMutu.toFixed(2) }}</div>
         </div>
-        <div class="summary-box" style="background:#E0E7FF;">
-          <div class="summary-val">{{ totalMutu.toFixed(1) }}</div>
-          <div class="summary-lbl">TOTAL MUTU NILAI</div>
-        </div>
+
         <div class="summary-box" style="background:#DCFCE7;">
-          <div class="summary-val">{{ ips }}</div>
-          <div class="summary-lbl">INDEKS PRESTASI (IPS)</div>
+          <div class="summary-lbl">INDEKS PRESTASI SEMESTER (IPS)</div>
+          <div class="summary-val" style="color:#15803D;">{{ hasilIPS.ips.toFixed(2) }}</div>
         </div>
+
         <div class="summary-box" style="background:#FCE7F3;">
-          <div class="summary-val" style="font-size:15px; margin-top:4px;">{{ predikat }}</div>
           <div class="summary-lbl">PREDIKAT AKADEMIK</div>
+          <div style="font-size:14px; font-weight:bold; margin-top:8px; color:#9D174D;">
+            {{ hasilIPS.predikat }}
+          </div>
         </div>
       </div>
 
-      <!-- Tombol Aksi Akhir -->
-      <div style="margin-top:20px; display:flex; gap:10px;">
-        <button @click="cetakRingkasan" style="background:var(--yellow);">
-          🖨️ Cetak Ringkasan Nilai
-        </button>
+      <!-- Sitasi Akademik -->
+      <div class="source-cite">
+        📚 <strong>Referensi Modul:</strong> Panduan &amp; Rubrik Tugas Tutorial 1 FST Universitas Terbuka • BMP UT STSI4303 Modul 3: "Aplikasi Kalkulator IPS Berbasis Komposisi &amp; TypeScript".
       </div>
     </div>
   </div>
 
   <script>
-    const { createApp, ref, reactive, computed } = Vue;
+    const { createApp, reactive, ref, computed } = Vue;
 
     createApp({
       setup() {
-        // Model Data Mahasiswa
         const mahasiswa = reactive({
-          nim: '043123456',
-          nama: 'Budi Raharjo',
-          upbjj: 'UPBJJ-UT Jakarta',
-          prodi: 'S1 Sistem Informasi',
-          semester: 5,
-          status: 'Aktif'
+          nim: '043999881',
+          nama: 'Budi Santoso',
+          upbjj: 'Jakarta',
+          programStudi: 'S1 Sistem Informasi',
+          semesterBerjalan: 5,
+          status: 'Aktif',
+          daftarNilai: [
+            { id: '1', kode: 'STSI4303', nama: 'Pemrograman Perangkat Bergerak', sks: 3, nilaiHuruf: 'A' },
+            { id: '2', kode: 'MSIM4401', nama: 'Rekayasa Perangkat Lunak', sks: 3, nilaiHuruf: 'A' },
+            { id: '3', kode: 'STSI4202', nama: 'Manajemen Basis Data', sks: 3, nilaiHuruf: 'B' },
+            { id: '4', kode: 'MKDU4110', nama: 'Bahasa Indonesia', sks: 2, nilaiHuruf: 'A' }
+          ]
         });
 
-        // Form Input Mata Kuliah Baru
         const formMk = reactive({
           kode: '',
           nama: '',
@@ -237,86 +327,62 @@
           nilaiHuruf: 'A'
         });
 
-        // Koleksi Daftar Nilai (Array of Objects)
-        const daftarNilai = ref([
-          { id: '1', kode: 'STSI4303', nama: 'Pemrograman Berbasis Bergerak', sks: 3, nilaiHuruf: 'A' },
-          { id: '2', kode: 'MSIM4206', nama: 'Basis Data Terdistribusi', sks: 3, nilaiHuruf: 'B' },
-          { id: '3', kode: 'MSIM4301', nama: 'Rekayasa Perangkat Lunak', sks: 3, nilaiHuruf: 'A' },
-          { id: '4', kode: 'MKWU4108', nama: 'Bahasa Indonesia', sks: 2, nilaiHuruf: 'A' }
-        ]);
-
-        // Pembantu Konversi Bobot Angka
-        const getBobotAngka = (huruf) => {
-          const peta = { 'A': 4.0, 'B': 3.0, 'C': 2.0, 'D': 1.0, 'E': 0.0 };
-          return peta[huruf] || 0.0;
+        const konversiHurufKeBobot = (huruf) => {
+          switch (huruf) {
+            case 'A': return 4.0;
+            case 'B': return 3.0;
+            case 'C': return 2.0;
+            case 'D': return 1.0;
+            case 'E': return 0.0;
+            default: return 0.0;
+          }
         };
 
-        // 1. Computed Total SKS
-        const totalSks = computed(() => {
-          return daftarNilai.value.reduce((total, item) => total + item.sks, 0);
+        const hasilIPS = computed(() => {
+          const totalSks = mahasiswa.daftarNilai.reduce((tot, mk) => tot + mk.sks, 0);
+          const totalMutu = mahasiswa.daftarNilai.reduce((tot, mk) => tot + (mk.sks * konversiHurufKeBobot(mk.nilaiHuruf)), 0);
+          const ips = totalSks > 0 ? (totalMutu / totalSks) : 0.0;
+
+          let predikat = 'Kurang';
+          if (ips >= 3.51) predikat = 'Dengan Pujian (Cumlaude)';
+          else if (ips >= 3.00) predikat = 'Sangat Memuaskan';
+          else if (ips >= 2.76) predikat = 'Memuaskan';
+          else if (ips >= 2.00) predikat = 'Cukup';
+
+          return { totalSks, totalMutu, ips, predikat };
         });
 
-        // 2. Computed Total Mutu
-        const totalMutu = computed(() => {
-          return daftarNilai.value.reduce((total, item) => {
-            return total + (item.sks * getBobotAngka(item.nilaiHuruf));
-          }, 0);
-        });
-
-        // 3. Computed IPS (2 Desimal)
-        const ips = computed(() => {
-          if (totalSks.value === 0) return '0.00';
-          return (totalMutu.value / totalSks.value).toFixed(2);
-        });
-
-        // 4. Computed Predikat Kelulusan
-        const predikat = computed(() => {
-          const skor = parseFloat(ips.value);
-          if (skor >= 3.51) return '🏆 Dengan Pujian (Cumlaude)';
-          if (skor >= 3.00) return '⭐ Sangat Memuaskan';
-          if (skor >= 2.76) return '👍 Memuaskan';
-          if (skor >= 2.00) return '👌 Cukup';
-          return '⚠️ Kurang';
-        });
-
-        // Method Tambah Mata Kuliah
         const tambahMataKuliah = () => {
-          if (!formMk.kode || !formMk.nama) return;
-          daftarNilai.value.push({
-            id: 'MK-' + Date.now(),
+          if (!formMk.kode || !formMk.nama || !formMk.sks) {
+            alert('Harap lengkapi kode, nama, dan SKS mata kuliah!');
+            return;
+          }
+
+          mahasiswa.daftarNilai.push({
+            id: Date.now().toString(),
             kode: formMk.kode.toUpperCase(),
             nama: formMk.nama,
-            sks: formMk.sks,
+            sks: Number(formMk.sks),
             nilaiHuruf: formMk.nilaiHuruf
           });
-          // Reset form
+
           formMk.kode = '';
           formMk.nama = '';
           formMk.sks = 3;
           formMk.nilaiHuruf = 'A';
         };
 
-        // Method Hapus Mata Kuliah
-        const hapusMk = (id) => {
-          daftarNilai.value = daftarNilai.value.filter(item => item.id !== id);
-        };
-
-        const cetakRingkasan = () => {
-          window.print();
+        const hapusMataKuliah = (id) => {
+          mahasiswa.daftarNilai = mahasiswa.daftarNilai.filter(mk => mk.id !== id);
         };
 
         return {
           mahasiswa,
           formMk,
-          daftarNilai,
-          getBobotAngka,
-          totalSks,
-          totalMutu,
-          ips,
-          predikat,
+          konversiHurufKeBobot,
+          hasilIPS,
           tambahMataKuliah,
-          hapusMk,
-          cetakRingkasan
+          hapusMataKuliah
         };
       }
     }).mount('#app');

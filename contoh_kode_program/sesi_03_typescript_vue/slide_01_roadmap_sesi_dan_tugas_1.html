@@ -42,6 +42,23 @@
       max-width: 820px;
       margin: 0 auto 20px auto;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin: 18px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
     .timeline {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -64,6 +81,14 @@
       display: inline-block;
       margin-bottom: 6px;
     }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
+    }
     pre {
       background: #121212;
       color: #F5F5F5;
@@ -79,11 +104,67 @@
 
   <div class="header">
     <div class="badge">SLIDE 01 • MODUL 3 BMP UT</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Roadmap Sesi 03 & Orientasi Tagihan Resmi: TUGAS TUTORIAL 1</h1>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Roadmap Sesi 03 &amp; Orientasi Tagihan Resmi: TUGAS TUTORIAL 1</h1>
     <p style="margin: 0; font-size: 14px;">Memasuki tahap penguatan tipe data TypeScript dan penugasan mandiri berbobot tinggi.</p>
   </div>
 
   <div id="app" class="card">
+    <!-- Kotak Panduan Mahasiswa Awam -->
+    <div class="guide-box">
+      <h4>📘 PANDUAN PRAKTIKUM MAHASISWA (SESI 03 — TUGAS 1)</h4>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome / Peramban Web Modern, Visual Studio Code (dengan ekstensi <em>Vue - Official Volar</em> dan <em>TypeScript Vue Plugin</em>).
+      </p>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🎯 Cara Menguji Halaman Ini:</strong>
+        Perhatikan pembagian 3 fase roadmap perkuliahan di bawah. Sesi 03 adalah pembuka pengerjaan <strong>Tugas Tutorial 1 (Kalkulator Nilai &amp; IPS Mahasiswa UT)</strong> yang berbobot resmi dalam nilai akhir semester Anda di LMS UT.
+      </p>
+      <p style="margin: 0;">
+        <strong>💡 Apa yang Terjadi di Balik Layar:</strong>
+        Di Sesi 01 &amp; 02, kita menggunakan JavaScript dinamis. Di Sesi 03, kita memperkenalkan <strong>TypeScript</strong> sebagai lapisan keamanan (*type safety*) agar saat mengembangkan aplikasi mobile hybrid berbasis Ionic di Sesi 04 nanti, kode Anda kebal terhadap galat salah ketik properti runtime (*silent failure*).
+      </p>
+    </div>
+
+    <!-- Diagram Arsitektur Inline SVG -->
+    <div class="diagram-card">
+      <h4 style="margin: 0 0 8px 0; font-size: 13px;">📐 Peta Jalan Kurikulum: Posisi Krusial Sesi 03 &amp; Tugas Tutorial 1</h4>
+      <svg viewBox="0 0 740 140" width="100%" height="140" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow01" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+          </marker>
+        </defs>
+        <!-- Fase 1 -->
+        <rect x="10" y="20" width="210" height="95" rx="6" fill="#EFF6FF" stroke="#000" stroke-width="2"/>
+        <text x="25" y="44" font-family="Segoe UI" font-weight="bold" font-size="12" fill="#1E40AF">FASE 1: FONDASI</text>
+        <text x="25" y="65" font-family="Segoe UI" font-size="10.5" fill="#333">• Sesi 01: Arsitektur Hybrid &amp; Tools</text>
+        <text x="25" y="85" font-family="Segoe UI" font-size="10.5" fill="#333">• Sesi 02: Vue 3 Reaktivitas Dasar</text>
+        <text x="25" y="103" font-family="Segoe UI" font-size="9" font-weight="bold" fill="#2563EB">Level: Pemula (0 SKS Beban Tugas)</text>
+
+        <!-- Panah 1 ke 2 -->
+        <line x1="225" y1="67" x2="255" y2="67" stroke="#000" stroke-width="2.5" marker-end="url(#arrow01)"/>
+
+        <!-- Fase 2 (Highlighted) -->
+        <rect x="260" y="15" width="225" height="105" rx="6" fill="#FEF08A" stroke="#000" stroke-width="3"/>
+        <rect x="270" y="22" width="130" height="20" rx="3" fill="#FB7185" stroke="#000" stroke-width="1"/>
+        <text x="275" y="36" font-family="Segoe UI" font-weight="bold" font-size="10.5" fill="#000">⚡ SESI 03 (SAAT INI)</text>
+        <text x="270" y="60" font-family="Segoe UI" font-weight="bold" font-size="12" fill="#854D0E">TypeScript &amp; Komposisi Vue</text>
+        <text x="270" y="78" font-family="Segoe UI" font-size="10" fill="#333">• Model Data Interface Mahasiswa</text>
+        <text x="270" y="94" font-family="Segoe UI" font-size="10" fill="#333">• Type Safety pada Computed</text>
+        <text x="270" y="112" font-family="Segoe UI" font-weight="bold" font-size="9.5" fill="#B91C1C">🎯 TAGIHAN RESMI: TUGAS 1</text>
+
+        <!-- Panah 2 ke 3 -->
+        <line x1="490" y1="67" x2="520" y2="67" stroke="#000" stroke-width="2.5" marker-end="url(#arrow01)"/>
+
+        <!-- Fase 3 -->
+        <rect x="525" y="20" width="205" height="95" rx="6" fill="#F0FDF4" stroke="#000" stroke-width="2"/>
+        <text x="540" y="44" font-family="Segoe UI" font-weight="bold" font-size="12" fill="#15803D">FASE 3: MOBILE UI</text>
+        <text x="540" y="65" font-family="Segoe UI" font-size="10.5" fill="#333">• Sesi 04: Ionic Framework UI</text>
+        <text x="540" y="85" font-family="Segoe UI" font-size="10.5" fill="#333">• Sesi 05: Form, Grid, &amp; TUGAS 2</text>
+        <text x="540" y="103" font-family="Segoe UI" font-size="9" font-weight="bold" fill="#16A34A">Menuju Aplikasi Android Nyata</text>
+      </svg>
+    </div>
+
     <h3>🎯 Posisi Sesi 03 dalam Peta Pembelajaran STSI4303</h3>
     <p style="font-size: 14px; color: #4B5563;">
       Sesi 03 adalah gerbang penilaian resmi pertama Anda di Universitas Terbuka. Di sesi ini, kita mempelajari <strong>TypeScript</strong> dan menerapkannya langsung untuk menyelesaikan <strong>Tugas Tutorial 1</strong>:
@@ -91,21 +172,21 @@
 
     <div class="timeline">
       <div class="timeline-item" style="background:#EFF6FF;">
-        <span class="badge" style="background:var(--yellow);">SESI 01 & 02 (Fondasi)</span>
-        <h4 style="margin:4px 0;">Lingkungan & Vue 3</h4>
+        <span class="badge" style="background:var(--yellow);">SESI 01 &amp; 02 (Fondasi)</span>
+        <h4 style="margin:4px 0;">Lingkungan &amp; Vue 3</h4>
         <p style="font-size:12px; color:#555; margin:0;">Arsitektur Hybrid, Node.js, Git, Reaktivitas (ref, reactive, computed).</p>
       </div>
 
       <div class="timeline-item" style="background:#FEF9C3; border-width:3px;">
         <span class="badge-tugas">⚡ SESI 03 (SAAT INI)</span>
-        <h4 style="margin:4px 0;">TypeScript & TUGAS 1</h4>
-        <p style="font-size:12px; color:#555; margin:0;">Type Safety, Interface, Generics, & Master Solusi Kalkulator Nilai IPS.</p>
+        <h4 style="margin:4px 0;">TypeScript &amp; TUGAS 1</h4>
+        <p style="font-size:12px; color:#555; margin:0;">Type Safety, Interface, Generics, &amp; Master Solusi Kalkulator Nilai IPS.</p>
       </div>
 
       <div class="timeline-item" style="background:#F0FDF4;">
-        <span class="badge" style="background:var(--mint);">SESI 04 & 05 (Mobile UI)</span>
+        <span class="badge" style="background:var(--mint);">SESI 04 &amp; 05 (Mobile UI)</span>
         <h4 style="margin:4px 0;">Ionic Framework</h4>
-        <p style="font-size:12px; color:#555; margin:0;">Komponen UI Mobile Asli, Grid Layout, Dynamic Theme, & TUGAS 2.</p>
+        <p style="font-size:12px; color:#555; margin:0;">Komponen UI Mobile Asli, Grid Layout, Dynamic Theme, &amp; TUGAS 2.</p>
       </div>
     </div>
 
@@ -113,12 +194,17 @@
     <div style="background:#FEF2F2; border:3px solid #DC2626; padding:16px; margin-top:18px; box-shadow:4px 4px 0 #DC2626;">
       <h4 style="margin:0 0 6px 0; color:#991B1B;">📋 Informasi Penting TUGAS TUTORIAL 1:</h4>
       <ul style="margin:0 0 0 18px; padding:0; font-size:13px; line-height:1.7;">
-        <li><strong>Studi Kasus:</strong> Aplikasi Mobile Kalkulator Nilai Mata Kuliah & IPS Mahasiswa FST UT.</li>
+        <li><strong>Studi Kasus:</strong> Aplikasi Mobile Kalkulator Nilai Mata Kuliah &amp; IPS Mahasiswa FST UT.</li>
         <li><strong>Teknologi Wajib:</strong> Vue 3 Composition API + TypeScript Interface.</li>
-        <li><strong>Ketentuan Video:</strong> Wajib menyertakan link video YouTube <em>Unlisted</em> (3–5 menit) demonstrasi kode & wajah mahasiswa.</li>
+        <li><strong>Ketentuan Video:</strong> Wajib menyertakan link video YouTube <em>Unlisted</em> (3–5 menit) demonstrasi kode &amp; wajah mahasiswa.</li>
         <li><strong>Tenggat Waktu:</strong> 2 Pekan sejak Sesi 03 dibuka di LMS UT.</li>
         <li><strong>Master Solusi:</strong> Dibahas tuntas pada <strong>Slide 17</strong> sesi ini!</li>
       </ul>
+    </div>
+
+    <!-- Sitasi Akademik -->
+    <div class="source-cite">
+      📚 <strong>Referensi Modul:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 3: "Pemrograman Berbasis Perangkat Bergerak — TypeScript &amp; Reaktivitas Komposisi" • Rancangan Aktivitas Tutorial (RAT) FST Universitas Terbuka.
     </div>
   </div>
 

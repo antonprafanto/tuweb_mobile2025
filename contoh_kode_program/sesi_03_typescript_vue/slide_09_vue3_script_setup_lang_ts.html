@@ -41,6 +41,40 @@
       padding: 20px;
       box-shadow: 5px 5px 0 var(--border);
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin: 18px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
+    }
+    button {
+      background: var(--cyan);
+      border: 2px solid var(--border);
+      padding: 8px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--border);
+      margin-top: 10px;
+    }
     pre {
       background: #121212;
       color: #F5F5F5;
@@ -50,33 +84,75 @@
       font-size: 12px;
       overflow-x: auto;
     }
-    button {
-      background: var(--purple);
-      border: 2px solid var(--border);
-      padding: 10px 16px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 2px 2px 0 var(--border);
-      margin-top: 10px;
-    }
   </style>
 </head>
 <body>
 
   <div class="header">
     <div class="badge">SLIDE 09 • MODUL 3 BMP UT</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Integrasi Vue 3 & TypeScript: &lt;script setup lang="ts"&gt;</h1>
-    <p style="margin: 0; font-size: 14px;">Standar industri pengembangan aplikasi Ionic Vue modern dengan performa tinggi.</p>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Integrasi Vue 3 &amp; TypeScript: &lt;script setup lang="ts"&gt;</h1>
+    <p style="margin: 0; font-size: 14px;">Membangun komponen Single File Component modern dengan dukungan type inference otomatis.</p>
   </div>
 
-  <div id="app" class="grid">
-    <!-- PANEL KODE SFC -->
-    <div class="card">
-      <h3>📄 Berkas SFC: <code>ProfilTutor.vue</code></h3>
-      <pre><code>&lt;script setup lang="ts"&gt;
+  <div id="app">
+    <!-- Kotak Panduan Mahasiswa Awam -->
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="guide-box" style="margin-bottom: 0;">
+        <h4>📘 PANDUAN PRAKTIKUM MAHASISWA</h4>
+        <p style="margin: 0 0 8px 0;">
+          <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome, Visual Studio Code (Ekstensi <em>Vue - Official Volar</em>).
+        </p>
+        <p style="margin: 0 0 8px 0;">
+          <strong>🎯 Cara Menguji Interaksi:</strong>
+          Pelajari kode Single File Component (SFC) pada panel kiri dan uji interaksi tombol status pada panel kanan. Klik tombol <strong>"Ubah Status Online"</strong> untuk melihat reaktivitas state bertipe <code>Dosen</code>.
+        </p>
+        <p style="margin: 0;">
+          <strong>💡 Apa yang Terjadi di Balik Layar:</strong>
+          Dengan menambahkan atribut <code>lang="ts"</code> pada tag <code>&lt;script setup&gt;</code>, kita tidak perlu lagi menulis kode panjang (*boilerplate*) seperti <code>defineComponent()</code> atau <code>export default { ... }</code>. Seluruh variabel dan fungsi diekspos langsung ke template dengan proteksi tipe penuh!
+        </p>
+      </div>
+
+      <!-- Diagram Arsitektur Inline SVG -->
+      <div class="diagram-card">
+        <h4 style="margin: 0 0 8px 0; font-size: 13px;">📐 Anatomi Single File Component (SFC) Vue 3 Bertipe TypeScript</h4>
+        <svg viewBox="0 0 740 120" width="100%" height="120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Template -->
+          <rect x="10" y="15" width="220" height="90" rx="6" fill="#EFF6FF" stroke="#000" stroke-width="2"/>
+          <text x="25" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#1E40AF">1. &lt;template&gt;</text>
+          <text x="25" y="58" font-family="Segoe UI" font-size="10" fill="#333">Antarmuka Pengguna (UI)</text>
+          <text x="25" y="74" font-family="Segoe UI" font-size="10" fill="#333">Binding Data Reaktif</text>
+          <text x="25" y="92" font-family="Segoe UI" font-size="9" font-weight="bold" fill="#2563EB">Type-Checked Template</text>
+
+          <!-- Script Setup Lang TS -->
+          <rect x="250" y="15" width="240" height="90" rx="6" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+          <text x="265" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#15803D">2. &lt;script setup lang="ts"&gt;</text>
+          <text x="265" y="58" font-family="Segoe UI" font-size="10" fill="#333">Logika Bisnis &amp; Interface</text>
+          <text x="265" y="74" font-family="Consolas" font-size="9.5" fill="#333">const dosen = ref&lt;Dosen&gt;(...)</text>
+          <text x="265" y="92" font-family="Segoe UI" font-size="9" font-weight="bold" fill="#166534">Tanpa Boilerplate Options API</text>
+
+          <!-- Style Scoped -->
+          <rect x="510" y="15" width="220" height="90" rx="6" fill="#FCE7F3" stroke="#BE185D" stroke-width="2"/>
+          <text x="525" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#BE185D">3. &lt;style scoped&gt;</text>
+          <text x="525" y="58" font-family="Segoe UI" font-size="10" fill="#333">Desain Visual CSS</text>
+          <text x="525" y="74" font-family="Segoe UI" font-size="10" fill="#333">Terisolasi ke Komponen Ini</text>
+          <text x="525" y="92" font-family="Segoe UI" font-size="9" font-weight="bold" fill="#9D174D">Mencegah Kebocoran Style</text>
+        </svg>
+      </div>
+
+      <!-- Sitasi Akademik -->
+      <div class="source-cite">
+        📚 <strong>Referensi Modul:</strong> BMP UT STSI4303 Modul 3: "SFC Vue 3 dengan TypeScript" • Vue.js 3 Official Guide: "TypeScript with Composition API — &lt;script setup&gt;".
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- PANEL KODE SFC -->
+      <div class="card">
+        <h3>📄 Berkas SFC: <code>ProfilTutor.vue</code></h3>
+        <pre><code>&lt;script setup lang="ts"&gt;
 import { ref } from 'vue';
 
-// 1. Impor atau Definisikan Interface
+// 1. Definisikan Interface
 interface Dosen {
   nama: string;
   nidn: string;
@@ -94,25 +170,22 @@ const toggleOnline = (): void => {
   dosen.value.isOnline = !dosen.value.isOnline;
 };
 &lt;/script&gt;</code></pre>
-    </div>
-
-    <!-- PANEL HASIL RUNTIME -->
-    <div class="card">
-      <h3>📱 Live Rendering & Type Check</h3>
-      <div style="border:3px solid #000; padding:16px; background:#F9FAFB; box-shadow:4px 4px 0 #000;">
-        <h4 style="margin:0 0 6px 0;">{{ dosen.nama }}</h4>
-        <div style="font-size:13px; color:#555;">NIDN: {{ dosen.nidn }}</div>
-        <div style="margin-top:10px;">
-          Status: 
-          <span :style="{ background: dosen.isOnline ? '#DCFCE7' : '#FEE2E2', padding:'3px 8px', border:'1px solid #000', fontWeight:'bold', fontSize:'12px' }">
-            {{ dosen.isOnline ? '🟢 SIAP BIMBINGAN TUTON' : '🔴 OFFLINE' }}
-          </span>
-        </div>
-        <button @click="toggleOnline">Alihkan Status Tutor</button>
       </div>
 
-      <div style="background:#EFF6FF; border-left:4px solid #3B82F6; padding:10px; font-size:13px; margin-top:14px;">
-        💡 <strong>Keunggulan <code>lang="ts"</code>:</strong> VS Code akan memberikan autocompletion saat Anda mengetik <code>dosen.value.</code> dan melarang penambahan properti baru di luar deklarasi interface!
+      <!-- PANEL HASIL RUNTIME -->
+      <div class="card">
+        <h3>👁️ Hasil Render Kartu Profil</h3>
+        <div style="background:#F9FAFB; border:2px solid #000; padding:16px;">
+          <h4 style="margin:0 0 6px 0;">{{ dosen.nama }}</h4>
+          <p style="margin:0 0 8px 0; font-size:13px; color:#555;">NIDN: {{ dosen.nidn }}</p>
+          <div>
+            Status: 
+            <span :style="{ color: dosen.isOnline ? '#15803D' : '#DC2626', fontWeight: 'bold' }">
+              ● {{ dosen.isOnline ? 'Online Siap Membimbing' : 'Offline / Mengajar' }}
+            </span>
+          </div>
+          <button @click="dosen.isOnline = !dosen.isOnline">Ubah Status Online</button>
+        </div>
       </div>
     </div>
   </div>
@@ -128,11 +201,7 @@ const toggleOnline = (): void => {
           isOnline: true
         });
 
-        const toggleOnline = () => {
-          dosen.value.isOnline = !dosen.value.isOnline;
-        };
-
-        return { dosen, toggleOnline };
+        return { dosen };
       }
     }).mount('#app');
   </script>
