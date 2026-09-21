@@ -4,6 +4,9 @@
 ### Dosen Pengampu: Anton Prafanto, S.Kom., M.T.
 ### Modul Acuan BMP: Modul 2 (MSIM4401/STSI4303 — Rekayasa Perangkat Lunak & Antarmuka Komponen Reaktif)
 
+> ⚡ **Akses Cepat Bahan Sesi 02:**  
+> [📥 Unduh Slide PPTX](https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_02_Frontend_Modern_Vue.pptx) • [👁️ Baca Slide Online](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_02_Frontend_Modern_Vue.pptx) • [📁 18 Berkas Kode Mandiri](../contoh_kode_program/sesi_02_vue_frontend/) • [🎯 Solusi Lab Quest 02](../contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html) • [💬 Panduan Diskusi 2](../panduan_tutorial_ut/PANDUAN_DISKUSI_TUTON.md)
+
 ---
 
 ## 🗺️ Gambaran Umum Sesi

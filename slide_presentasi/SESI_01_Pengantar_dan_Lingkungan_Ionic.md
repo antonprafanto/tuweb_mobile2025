@@ -4,6 +4,9 @@
 ### Dosen Pengampu: Anton Prafanto, S.Kom., M.T.
 ### Modul Acuan BMP: Modul 1 (MSIM4401/STSI4303) — Pengenalan Lingkungan Pengembangan Aplikasi Piranti Bergerak
 
+> ⚡ **Akses Cepat Bahan Sesi 01:**  
+> [📥 Unduh Slide PPTX](https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_01_Pengantar_dan_Lingkungan_Ionic.pptx) • [👁️ Baca Slide Online](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_01_Pengantar_dan_Lingkungan_Ionic.pptx) • [📁 18 Berkas Kode Mandiri](../contoh_kode_program/sesi_01_lingkungan_dan_tools/) • [🎯 Solusi Lab Quest 01](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html) • [💬 Panduan Diskusi 1](../panduan_tutorial_ut/PANDUAN_DISKUSI_TUTON.md)
+
 ---
 
 ## 🗺️ Gambaran Umum Sesi 01

@@ -4,6 +4,9 @@
 ### Dosen Pengampu: Anton Prafanto, S.Kom., M.T.
 ### Modul Acuan BMP: Modul 3 (MSIM4401/STSI4303 — Fondasi Keamanan Tipe Data & Komposisi Antarmuka)
 
+> ⚡ **Akses Cepat Bahan Sesi 03:**  
+> [📥 Unduh Slide PPTX](https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_03_TypeScript_dan_Komposisi_Vue.pptx) • [👁️ Baca Slide Online](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_03_TypeScript_dan_Komposisi_Vue.pptx) • [📁 18 Berkas Kode Mandiri](../contoh_kode_program/sesi_03_typescript_vue/) • [🎯 Master Solusi Tugas 1](../contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html) • [📝 Rubrik Penilaian Tugas 1](../panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md)
+
 ---
 
 ## 🗺️ Gambaran Umum Sesi
