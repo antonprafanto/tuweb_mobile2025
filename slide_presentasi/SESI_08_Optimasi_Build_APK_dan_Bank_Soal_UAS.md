@@ -314,7 +314,7 @@ flowchart LR
 
 ### 📌 Slide 09: Audit Keamanan Aplikasi Pra-Rilis
 * **Sub-CPMK:** Melakukan checklist audit keamanan komprehensif pada konfigurasi AndroidManifest dan jaringan.
-* **Alat & Lingkungan Uji:** Editor VS Code, inspeksi berkas `AndroidManifest.xml` dan `capacitor.config.json`.
+* **Alat & Lingkungan Uji:** Editor VS Code, inspeksi berkas `AndroidManifest.xml` dan `capacitor.config.ts`.
 * **Narasi Dosen Pengampu:**  
   *"Sebelum melepas aplikasi ke tangan masyarakat luas, audit keamanan adalah harga mati yang tidak boleh ditawar! Buka berkas `AndroidManifest.xml`: pastikan `android:debuggable` bernilai false. Larang keras `usesCleartextTraffic` agar aplikasi menolak koneksi HTTP biasa tanpa enkripsi (wajib HTTPS TLS 1.3). Dan bersihkan seluruh deklarasi izin permission yang tidak relevan agar aplikasi Anda tidak dianggap berisiko atau dicurigai sebagai spyware oleh sistem keamanan Android!"*
 * **Poin Kunci Pembahasan:**

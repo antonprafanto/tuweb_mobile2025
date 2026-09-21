@@ -150,7 +150,7 @@ Setiap pertemuan (120 menit) dibagi ke dalam 3 tahapan standar akademik UT:
 * **Pendahuluan (15 Menit):** Mengingatkan tenggat Tugas 2 dan pengenalan jembatan antara web dengan hardware smartphone.
 * **Penyajian (90 Menit):**
   1. Arsitektur Capacitor Bridge vs Cordova klasik.
-  2. Konfigurasi `capacitor.config.json` dan struktur folder `android/`.
+  2. Konfigurasi `capacitor.config.ts` dan struktur folder `android/`.
   3. Bedah `AndroidManifest.xml` dan tata cara meminta *Runtime Permissions*.
   4. Praktik pengujian di ponsel fisik Android melalui USB Debugging dan `scrcpy` (hemat RAM).
   5. Keamanan aplikasi: Sanitasi input masukan terhadap celah XSS dan pengamanan komunikasi HTTPS.

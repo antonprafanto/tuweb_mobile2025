@@ -24,7 +24,7 @@ myut-app/
 │   └── 📄 main.ts               # Titik masuk pertama JavaScript (Entry Point)
 │
 ├── 📁 android/                  # Proyek native Android (dihasilkan oleh Capacitor)
-├── 📄 capacitor.config.json     # Konfigurasi identitas aplikasi (App ID, App Name)
+├── 📄 capacitor.config.ts       # Konfigurasi identitas aplikasi (App ID, App Name)
 ├── 📄 package.json              # Daftar pustaka & skrip eksekusi proyek
 ├── 📄 tsconfig.json             # Konfigurasi compiler bahasa TypeScript
 └── 📄 vite.config.ts            # Konfigurasi bundler kilat Vite
