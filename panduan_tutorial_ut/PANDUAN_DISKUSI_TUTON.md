@@ -70,8 +70,26 @@ Dokumen ini memuat daftar topik pemicu diskusi (*discussion prompts*) dan pandua
     1. *Kesehatan Mata & Efisiensi Energi OLED:* Skema warna gelap (#121212) mengurangi kelelahan mata (*eye strain*) saat mahasiswa belajar di malam hari dan menghemat konsumsi daya baterai hingga 40% pada layar tipe AMOLED/OLED.
     2. *Arsitektur CSS Variables Global:* Pengendalian tema dibangun di atas standar W3C CSS Custom Properties (`--ion-background-color`, `--ion-text-color`), mendeteksi pengaturan sistem operasi via `@media (prefers-color-scheme: dark)`, serta mendukung manipulasi kelas `.dark` dan persistensi pilihan di `localStorage`.
   * **Umpan Balik Dialog Ramah Pengguna:** Menggantikan dialog bawaan browser yang kaku (`alert()`) dengan notifikasi mengambang `<ion-toast>` dan dialog konfirmasi dua langkah `<ion-alert>` sebelum penerbitan berkas resmi.
-* **Rujukan Kode Pembelajaran:**
-  Dapat merujuk pada berkas mandiri [`slide_02_konsep_12_kolom_ion_grid.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_02_konsep_12_kolom_ion_grid.html), [`slide_03_grid_responsif_breakpoints.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_03_grid_responsif_breakpoints.html), [`slide_09_prinsip_validasi_reaktif_form.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_09_prinsip_validasi_reaktif_form.html), [`slide_10_validasi_regex_nim_9_digit.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_10_validasi_regex_nim_9_digit.html), [`slide_11_validasi_regex_email_ecampus_ut.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_11_validasi_regex_email_ecampus_ut.html), [`slide_12_notifikasi_mengambang_ion_toast.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_12_notifikasi_mengambang_ion_toast.html), [`slide_13_dialog_konfirmasi_ion_alert.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_13_dialog_konfirmasi_ion_alert.html), [`slide_14_arsitektur_tema_gelap_dark_mode.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_14_arsitektur_tema_gelap_dark_mode.html), [`slide_15_sakelar_tema_dinamis_dark_light.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_15_sakelar_tema_dinamis_dark_light.html), [`slide_16_rubrik_tugas_tutorial_2.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.html), dan [`slide_17_solusi_tugas_2_portal_ktm_registrasi.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html).
+* **Rujukan Berkas Pembelajaran Sesi 05:**
+  Dapat merujuk pada berkas mandiri:
+  * [`slide_01_orientasi_sesi_dan_tugas_2.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_01_orientasi_sesi_dan_tugas_2.html)
+  * [`slide_02_konsep_12_kolom_ion_grid.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_02_konsep_12_kolom_ion_grid.html)
+  * [`slide_03_grid_responsif_breakpoints.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_03_grid_responsif_breakpoints.html)
+  * [`slide_04_alignment_dan_offset_grid.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_04_alignment_dan_offset_grid.html)
+  * [`slide_05_kontrol_input_teks_ion_input.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_05_kontrol_input_teks_ion_input.html)
+  * [`slide_06_area_teks_dan_pilihan_dropdown.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_06_area_teks_dan_pilihan_dropdown.html)
+  * [`slide_07_sakelar_toggle_checkbox_radio.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_07_sakelar_toggle_checkbox_radio.html)
+  * [`slide_08_pemilih_tanggal_ion_datetime.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_08_pemilih_tanggal_ion_datetime.html)
+  * [`slide_09_prinsip_validasi_reaktif_form.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_09_prinsip_validasi_reaktif_form.html)
+  * [`slide_10_validasi_regex_nim_9_digit.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_10_validasi_regex_nim_9_digit.html)
+  * [`slide_11_validasi_regex_email_ecampus_ut.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_11_validasi_regex_email_ecampus_ut.html)
+  * [`slide_12_notifikasi_mengambang_ion_toast.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_12_notifikasi_mengambang_ion_toast.html)
+  * [`slide_13_dialog_konfirmasi_ion_alert.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_13_dialog_konfirmasi_ion_alert.html)
+  * [`slide_14_arsitektur_tema_gelap_dark_mode.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_14_arsitektur_tema_gelap_dark_mode.html)
+  * [`slide_15_sakelar_tema_dinamis_dark_light.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_15_sakelar_tema_dinamis_dark_light.html)
+  * [🌐 **Simulator Rubrik Tugas 2:** `slide_16_rubrik_tugas_tutorial_2.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.html) • [📄 **Panduan Teks:** `slide_16_rubrik_tugas_tutorial_2.md`](../contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.md)
+  * [🎯 **Master Solusi Tugas 2 (Portal KTM & Registrasi):** `slide_17_solusi_tugas_2_portal_ktm_registrasi.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html)
+  * [🚀 **Preview Sesi 06 (Capacitor & Android Platform):** `slide_18_preview_sesi_06_capacitor_android.html`](../contoh_kode_program/sesi_05_layout_grid_form/slide_18_preview_sesi_06_capacitor_android.html)
 
 ---
 
