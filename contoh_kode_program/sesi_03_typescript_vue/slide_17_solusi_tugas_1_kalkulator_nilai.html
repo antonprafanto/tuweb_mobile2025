@@ -107,6 +107,14 @@
     }
     .summary-val { font-size: 24px; font-weight: 900; }
     .summary-lbl { font-size: 11px; font-weight: bold; color: #4B5563; }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .header, .guide-box, .diagram-card, .form-grid, button, .source-cite, label { display: none !important; }
+      .card { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+      table { border: 1px solid #000; }
+      th, td { border: 1px solid #000; }
+      .summary-box { border: 1px solid #000; box-shadow: none; }
+    }
   </style>
 </head>
 <body>
@@ -293,6 +301,13 @@
         </div>
       </div>
 
+      <!-- Tombol Aksi Cetak Ringkasan KTPU -->
+      <div style="margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap;">
+        <button @click="cetakRingkasan" style="background: var(--cyan); flex: 1;">
+          🖨️ Cetak / Simpan Ringkasan KTPU (Print Summary)
+        </button>
+      </div>
+
       <!-- Sitasi Akademik -->
       <div class="source-cite">
         📚 <strong>Referensi Modul:</strong> Panduan &amp; Rubrik Tugas Tutorial 1 FST Universitas Terbuka • BMP UT STSI4303 Modul 3: "Aplikasi Kalkulator IPS Berbasis Komposisi &amp; TypeScript".
@@ -376,13 +391,18 @@
           mahasiswa.daftarNilai = mahasiswa.daftarNilai.filter(mk => mk.id !== id);
         };
 
+        const cetakRingkasan = () => {
+          window.print();
+        };
+
         return {
           mahasiswa,
           formMk,
           konversiHurufKeBobot,
           hasilIPS,
           tambahMataKuliah,
-          hapusMataKuliah
+          hapusMataKuliah,
+          cetakRingkasan
         };
       }
     }).mount('#app');
