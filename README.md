@@ -1,6 +1,14 @@
 # 📱 BAHAN KULIAH PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303)
 ## Universitas Terbuka — Program Studi S1 Sistem Informasi & Informatika
 
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Web%20Portal-005691?style=for-the-badge&logo=github&logoColor=white)](https://antonprafanto.github.io/tuweb_mobile2025/)
+[![Course](https://img.shields.io/badge/Mata%20Kuliah-STSI4303%20%7C%20MSIM4401-FFE600?style=for-the-badge&labelColor=005691&color=FFE600)](https://antonprafanto.github.io/tuweb_mobile2025/)
+[![SKS](https://img.shields.io/badge/Bobot-3%20SKS%20(Praktik)-16A34A?style=for-the-badge)](https://antonprafanto.github.io/tuweb_mobile2025/)
+[![Zero Friction](https://img.shields.io/badge/Zero--Friction-144%20Slide%20Interaktif-7E22CE?style=for-the-badge)](https://antonprafanto.github.io/tuweb_mobile2025/)
+
+> 🌐 **Akses Publik Langsung (Tanpa Instalasi / Zero-Friction):**  
+> Buka Portal Web Interaktif Resmi di **[https://antonprafanto.github.io/tuweb_mobile2025/](https://antonprafanto.github.io/tuweb_mobile2025/)** untuk mencoba langsung seluruh 144 contoh kode mandiri di dalam simulator smartphone interaktif (Pixel, iPhone, Tablet)!
+
 Selamat datang di repositori resmi materi perkuliahan **Pemrograman Berbasis Perangkat Bergerak (STSI4303 / 3 SKS)** Universitas Terbuka. Repositori ini disusun dengan standar **The Zero-Friction Courseware Framework**, didedikasikan bagi mahasiswa untuk mengakses **Bahan Ajar Presentasi Sesi Perkuliahan**, **Panduan Tutorial & Tugas Mandiri**, serta **Contoh Kode Program Mandiri** berbasis **Ionic Framework**, **Vue.js 3**, **TypeScript**, dan **Capacitor** yang siap dijalankan langsung di peramban web (*Google Chrome*) maupun smartphone fisik.
 
 ---
@@ -9,6 +17,7 @@ Selamat datang di repositori resmi materi perkuliahan **Pemrograman Berbasis Per
 
 ```text
 tuweb_mobile2025/
+├── 🌐 index.html                            # Portal Web Interaktif Resmi (GitHub Pages Live Preview)
 ├── 📁 slide_presentasi/                     # Bahan Ajar Visual (PPTX) & Naskah Narasi Sesi
 │   ├── 📊 SESI_01_Pengantar_dan_Lingkungan_Ionic.pptx (.md)
 │   ├── 📊 SESI_02_Frontend_Modern_Vue.pptx (.md)
@@ -35,7 +44,7 @@ tuweb_mobile2025/
 │   └── 💬 PANDUAN_DISKUSI_TUTON.md             # Bahan Inisiasi & Pemicu Diskusi Forum 1-8
 │
 ├── 📄 .gitignore                            # Konfigurasi Pengabaian Berkas Git
-└── 📄 README.md                             # Portal Navigasi Utama Perkuliahan
+└── 📄 README.md                             # Dokumentasi Utama Repositori
 ```
 
 ---
