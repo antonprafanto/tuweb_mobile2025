@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--rose);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -59,14 +84,76 @@
       border: 1px solid #000;
       margin-bottom: 6px;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
     <div class="badge-tag">SLIDE 15 • KEAMANAN APLIKASI HYBRID</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Keamanan WebView & Bahaya Cross-Site Scripting (XSS)</h1>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Keamanan WebView &amp; Bahaya Cross-Site Scripting (XSS)</h1>
     <p style="margin: 0; font-size: 14px;">Mengapa celah XSS pada aplikasi mobile hybrid jauh lebih berbahaya dibanding web biasa, dan bagaimana mencegahnya.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; MITIGASI KERENTANAN HYBRID</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (berkas ini), DevTools (<code>F12</code>), Visual Studio Code (pemeriksaan berkas <code>index.html</code> dan template Vue).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Ketikkan skrip berbahaya (seperti <code>&lt;script&gt;</code> atau tag gambar rusak <code>&lt;img src=x onerror=...&gt;</code>) pada kotak masukan di panel kanan. Amati bagaimana perlakuan Vue secara default menetralkan kode jahat tersebut menjadi teks murni yang aman.</div>
+    <div style="margin-top: 4px;"><strong>💡 Bahaya Berlipat Ganda:</strong> Pada website biasa, serangan XSS mencuri cookies. Namun pada aplikasi hybrid, kode JavaScript jahat dapat mengeksploitasi <em>Capacitor Bridge</em> untuk membaca berkas rahasia di penyimpanan ponsel korban atau melacak lokasi GPS secara diam-diam!</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR XSS & DEFENSE INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Vektor Ancaman XSS Menembus Bridge vs 3 Lapis Perisai Pertahanan</div>
+    <svg viewBox="0 0 820 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-atk" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#DC2626" />
+        </marker>
+        <marker id="arrow-def" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#16A34A" />
+        </marker>
+      </defs>
+
+      <!-- Threat Source: Attacker Injected JS -->
+      <rect x="20" y="25" width="220" height="95" fill="#FEF2F2" stroke="#DC2626" stroke-width="2.5" />
+      <rect x="24" y="29" width="212" height="22" fill="#FEE2E2" />
+      <text x="130" y="44" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#991B1B">VEKTOR ANCAMAN (XSS INJECTION)</text>
+      <text x="130" y="68" font-family="'Consolas', monospace" font-size="8" fill="#7F1D1D">&lt;img src=x onerror="..."&gt;</text>
+      <text x="130" y="84" font-family="'Segoe UI', sans-serif" font-size="8" fill="#7F1D1D">Skrip jahat terselip via komentar/chat</text>
+      <text x="130" y="100" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#DC2626">Mencoba memanggil Bridge Native!</text>
+
+      <!-- Attack Arrow -->
+      <line x1="240" y1="72" x2="315" y2="72" stroke="#DC2626" stroke-width="2.5" stroke-dasharray="4,2" marker-end="url(#arrow-atk)" />
+
+      <!-- Center Shield: 3 Defensive Layers -->
+      <rect x="320" y="20" width="230" height="105" fill="#FEF9C3" stroke="#B45309" stroke-width="2.5" />
+      <rect x="324" y="24" width="222" height="22" fill="#FDE68A" />
+      <text x="435" y="39" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#78350F">🛡️ 3 LAPIS PERISAI MUTLAK</text>
+      <text x="335" y="62" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#B45309">1. Vue Auto-Escaping: No v-html</text>
+      <text x="335" y="78" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#B45309">2. CSP (Content Security Policy)</text>
+      <text x="335" y="94" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#B45309">3. Capacitor Origin (https://localhost)</text>
+      <text x="335" y="110" font-family="'Segoe UI', sans-serif" font-size="8" fill="#78350F">Blokir Domain Jahat Luar!</text>
+
+      <!-- Safe Arrow to Native -->
+      <line x1="550" y1="72" x2="625" y2="72" stroke="#16A34A" stroke-width="3" marker-end="url(#arrow-def)" />
+
+      <!-- Protected Native Layer -->
+      <rect x="630" y="25" width="170" height="95" fill="#DCFCE7" stroke="#16A34A" stroke-width="2.5" />
+      <text x="715" y="48" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#14532D">DEVICE PROTECTED</text>
+      <text x="715" y="70" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#15803D">✅ File Sistem Aman</text>
+      <text x="715" y="86" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#15803D">✅ GPS Tidak Bocor</text>
+      <text x="715" y="102" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#15803D">✅ Zero Exploit Bridge</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -99,25 +186,30 @@
         <div style="font-size: 12px; color: #1E293B; word-break: break-all;">
           <strong>Output:</strong> {{ userInput }}
         </div>
-        <div style="font-size: 11px; color: #166534; margin-top: 4px;">
-          ✓ Karakter khusus di-escape menjadi entitas teks aman. Kode jahat tidak pernah dieksekusi!
+        <div style="font-size: 11px; color: #16A34A; margin-top: 6px;">
+          ✅ Vue otomatis mengonversi karakter <code>&lt;</code> menjadi <code>&amp;lt;</code> sehingga skrip tidak pernah dieksekusi browser!
         </div>
       </div>
 
-      <div style="margin-top: 12px; border: 2px solid #E11D48; padding: 12px; background: #FFF1F2;">
-        <div class="status-badge" style="background: #FB7185; color: #fff;">CARA RAWAN (v-html Tanpa Filter)</div>
-        <div style="font-size: 12px; color: #9F1239;">
-          ⚠️ Tag HTML akan di-render mentah oleh browser dan memicu payload JavaScript!
+      <div style="margin-top: 12px; border: 2px solid #DC2626; padding: 12px; background: #FEF2F2;">
+        <div class="status-badge" style="background: #FB7185; color: #fff;">CARA RAWAN (v-html Dilarang!)</div>
+        <div style="font-size: 11px; color: #991B1B;">
+          Jika Anda menggunakan <code>v-html="userInput"</code>, peramban akan mengeksekusi tag skrip berbahaya tersebut langsung di dalam WebView!
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> OWASP Mobile Top 10: <em>"M8 - Security Misconfiguration &amp; Client-Side Injections in Hybrid WebViews"</em> (https://owasp.org/www-project-mobile-top-10/) &amp; Capacitor Security Guidelines. Modul 7 BMP STSI4303 Universitas Terbuka.
   </div>
 
   <script>
     const { createApp, ref } = Vue;
     createApp({
       setup() {
-        const userInput = ref("<script>alert('Mencoba akses Capacitor Bridge!')<\/script>");
+        const userInput = ref('<img src=x onerror=alert("XSS_EXPLOIT")>');
         return { userInput };
       }
     }).mount('#app');

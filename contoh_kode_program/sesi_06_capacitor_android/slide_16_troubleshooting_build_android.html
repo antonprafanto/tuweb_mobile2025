@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 16: Troubleshooting Build Android & Gradle — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--rose);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 20px; }
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .btn-neo {
+      background: var(--yellow);
+      border: 2px solid #000;
+      padding: 8px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+      font-size: 12px;
+      transition: all 0.1s ease;
+    }
+    .btn-neo:hover { background: #fde047; }
+    .btn-neo:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #000; }
+    .btn-neo.active { background: #000; color: #fff; }
+    
+    .error-item {
+      border: 2px solid #000;
+      padding: 12px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      background: #f8fafc;
+    }
+    .error-item:hover {
+      background: #e0f2fe;
+      transform: translateX(4px);
+    }
+    .error-item.selected {
+      background: #fef08a;
+      border-color: #000;
+      box-shadow: 4px 4px 0 #000;
+    }
+    .badge-category {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border: 1px solid #000;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .console-snippet {
+      background: #090d16;
+      color: #f87171;
+      font-family: 'Consolas', monospace;
+      font-size: 11px;
+      padding: 12px;
+      border: 2px solid #000;
+      border-radius: 4px;
+      margin: 10px 0;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+    .fix-box {
+      background: #f0fdf4;
+      border: 2px solid #16a34a;
+      padding: 14px;
+      border-radius: 6px;
+      margin-top: 14px;
+      font-size: 13px;
+    }
+    .code-block {
+      background: #1e293b;
+      color: #38bdf8;
+      font-family: 'Consolas', monospace;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      margin: 8px 0;
+      overflow-x: auto;
+    }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 16 • BUKU SAKU DIAGNOSTIK MAHASISWA</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Cheatsheet Diagnostik &amp; Troubleshooting Error Android Studio &amp; Gradle</h1>
+    <p style="margin: 0; font-size: 14px;">Panduan interaktif menyelesaikan 6 eror klasik kompilasi, runtime, dan sinkronisasi Capacitor.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; DIAGNOSTIK MANDIRI MAHASISWA AWAM</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (cukup klik ganda berkas ini), Android Studio (Logcat, Gradle Console, Settings), Terminal / PowerShell (<code>npm run build</code>, <code>npx cap sync</code>), Text Editor (VS Code).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong>
+      <ul style="margin: 4px 0 0 0; padding-left: 18px;">
+        <li>Pilih salah satu dari <strong>6 Kasus Error Klasik</strong> pada daftar sebelah kiri (atau cari kata kunci di kotak pencarian).</li>
+        <li>Pelajari tanda-tanda eror, pesan log konsol, dan <strong>akar penyebab teknisnya</strong> di panel kanan.</li>
+        <li>Klik tombol <strong>"📋 Salin Solusi / Perintah"</strong> untuk menyalin perintah perbaikan langsung ke clipboard laptop Anda!</li>
+      </ul>
+    </div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Sebagian besar error di Sesi 06 bukan karena salah mengetik kode Vue, melainkan ketidakcocokan lingkungan (*environment mismatch*) seperti versi Java SDK, lupa build aset ke <code>dist/</code>, atau kehabisan memori Gradle di laptop RAM 4GB.</div>
+  </div>
+
+  <!-- DIAGRAM POHON KEPUTUSAN DIAGNOSTIK INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Alur Pohon Keputusan Diagnostik Error Android Studio &amp; Capacitor</div>
+    <svg viewBox="0 0 840 160" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#EF4444" />
+        </marker>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284C7" />
+        </marker>
+      </defs>
+
+      <!-- Step 1: Gejala Error -->
+      <rect x="20" y="30" width="180" height="95" fill="#FEE2E2" stroke="#000" stroke-width="3" />
+      <rect x="24" y="34" width="172" height="24" fill="#FB7185" stroke="#000" stroke-width="1.5" />
+      <text x="110" y="50" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">1. GEJALA ERROR</text>
+      <text x="110" y="76" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#991B1B">Build Gagal / Crash</text>
+      <text x="110" y="94" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#7F1D1D">Periksa Terminal &amp; Logcat</text>
+      <text x="110" y="110" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#7F1D1D">Catat kata kunci eror!</text>
+
+      <!-- Arrow 1 -->
+      <line x1="200" y1="77" x2="240" y2="77" stroke="#EF4444" stroke-width="3" marker-end="url(#arrow-red)" />
+
+      <!-- Step 2: Klasifikasi -->
+      <rect x="245" y="30" width="220" height="95" fill="#FEF9C3" stroke="#000" stroke-width="3" />
+      <rect x="249" y="34" width="212" height="24" fill="#FFE600" stroke="#000" stroke-width="1.5" />
+      <text x="355" y="50" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">2. IDENTIFIKASI LAYER</text>
+      <text x="355" y="74" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#78350F">• Web Build: Dist hilang?</text>
+      <text x="355" y="90" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#78350F">• Gradle/JVM: Versi JDK / OOM?</text>
+      <text x="355" y="106" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#78350F">• Device/ADB: Unauthorized / AAPT2?</text>
+
+      <!-- Arrow 2 -->
+      <line x1="465" y1="77" x2="505" y2="77" stroke="#0284C7" stroke-width="3" marker-end="url(#arrow-blue)" />
+
+      <!-- Step 3: Solusi Cepat -->
+      <rect x="510" y="30" width="310" height="95" fill="#DCFCE7" stroke="#000" stroke-width="3" />
+      <rect x="514" y="34" width="302" height="24" fill="#4ADE80" stroke="#000" stroke-width="1.5" />
+      <text x="665" y="50" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">3. EKSEKUSI SOLUSI TEPAT SASARAN</text>
+      <text x="665" y="74" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#166534">Gunakan Standar JBR-17 &amp; Batasi Heap 1024M</text>
+      <text x="665" y="92" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#14532D">Jalankan "npm run build &amp;&amp; npx cap sync"</text>
+      <text x="665" y="108" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#15803D">✅ Proyek Berjalan Dingin &amp; Stabil!</text>
+    </svg>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANEL KIRI: LIST 6 KASUS ERROR -->
+    <div class="box">
+      <h3 style="margin-top: 0;">🚨 6 Kasus Error Kompilasi Klasik</h3>
+      
+      <!-- Filter Pencarian -->
+      <div style="margin-bottom: 14px;">
+        <input 
+          type="text" 
+          v-model="searchQuery" 
+          placeholder="🔍 Cari kata kunci eror (cth: JDK, dist, ADB)..." 
+          style="width: 100%; padding: 8px 12px; border: 2px solid #000; font-size: 12px; box-shadow: 3px 3px 0 #000;"
+        />
+      </div>
+
+      <div style="max-height: 480px; overflow-y: auto; padding-right: 4px;">
+        <div 
+          v-for="err in filteredErrors" 
+          :key="err.id" 
+          :class="['error-item', { selected: selectedError.id === err.id }]"
+          @click="selectError(err)"
+        >
+          <div class="badge-category" :style="{ background: err.badgeColor }">{{ err.category }}</div>
+          <div style="font-weight: 800; font-size: 13px; margin-bottom: 4px; color: #0f172a;">{{ err.title }}</div>
+          <div style="font-size: 11px; color: #64748b;">{{ err.summary }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL KANAN: DETAIL DIAGNOSTIK & SOLUSI -->
+    <div class="box">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <span class="badge-category" :style="{ background: selectedError.badgeColor }">{{ selectedError.category }}</span>
+          <h3 style="margin: 4px 0 6px 0;">{{ selectedError.title }}</h3>
+        </div>
+        <button class="btn-neo" @click="copySolutionCode(selectedError.solutionCode)">
+          📋 Salin Solusi
+        </button>
+      </div>
+
+      <div style="font-size: 13px; color: #334155; margin-bottom: 8px;">
+        <strong>Gejala / Pesan Eror di Konsol:</strong>
+      </div>
+      <div class="console-snippet">{{ selectedError.errorSnippet }}</div>
+
+      <div style="margin-top: 14px; font-size: 13px;">
+        <strong style="color: #b91c1c;">🧐 Akar Masalah Teknis:</strong>
+        <p style="margin: 4px 0 10px 0; color: #475569; line-height: 1.5;">{{ selectedError.rootCause }}</p>
+      </div>
+
+      <!-- KOTAK SOLUSI -->
+      <div class="fix-box">
+        <strong style="color: #15803D;">✅ Langkah Solusi Langkah-demi-Langkah:</strong>
+        <div style="margin-top: 6px; line-height: 1.6;">
+          <div v-for="(step, idx) in selectedError.steps" :key="idx" style="margin-bottom: 6px;">
+            <strong>{{ idx + 1 }}.</strong> {{ step }}
+          </div>
+        </div>
+
+        <div v-if="selectedError.solutionCode" style="margin-top: 10px;">
+          <div style="font-weight: bold; font-size: 11px; color: #0f172a;">Perintah / Konfigurasi yang Digunakan:</div>
+          <div class="code-block">{{ selectedError.solutionCode }}</div>
+        </div>
+      </div>
+
+      <!-- TEST RUNNER SIMULATOR -->
+      <div style="margin-top: 16px; background: #fff7ed; border: 2px solid #ea580c; padding: 12px; border-radius: 6px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong style="font-size: 12px; color: #9a3412;">🧪 Simulator Eksekusi Perbaikan</strong>
+          <button class="btn-neo" style="background: #fdba74; padding: 4px 8px; font-size: 11px;" @click="simulateFix">
+            Jalankan Uji Coba Perbaikan
+          </button>
+        </div>
+        <div v-if="testResult" style="margin-top: 8px; font-family: monospace; font-size: 11px; color: #15803d; font-weight: bold;">
+          {{ testResult }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SITASI SUMBER ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Teknis:</strong> Google Android Developers: <em>"Configure Gradle Builds &amp; JDK Compatibility Matrix"</em> (https://developer.android.com/build) &amp; Capacitor Official Documentation: <em>"Android Troubleshooting &amp; Common Issues"</em> (https://capacitorjs.com/docs/android/troubleshooting). Panduan Praktik STSI4303 Universitas Terbuka.
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        const errors = [
+          {
+            id: 'jdk-mismatch',
+            category: 'KOMPILASI JAVA',
+            badgeColor: '#fed7aa',
+            title: '1. Masalah Versi Java (JDK Mismatch)',
+            summary: 'Unsupported class file major version 65 / Incompatible Java version',
+            errorSnippet: `FAILURE: Build failed with an exception.\n* What went wrong:\nUnsupported class file major version 65\n-- ATAU --\nGradle sync failed: Incompatible Java version`,
+            rootCause: 'Versi Java Development Kit (JDK) yang aktif di komputer mahasiswa terlalu tinggi (misalnya JDK 21 dari perkuliahan Java lanjutan) atau terlalu usang (JDK 8/11) dibanding versi Gradle bawaan proyek Capacitor.',
+            steps: [
+              'Di Android Studio, buka menu File -> Settings (di macOS: Android Studio -> Settings).',
+              'Pilih menu Build, Execution, Deployment -> Build Tools -> Gradle.',
+              'Pada opsi Gradle JDK, klik dropdown lalu pilih "jbr-17" (JetBrains Runtime version 17) yang sudah terpasang bawaan di dalam Android Studio.',
+              'Klik Apply -> OK, lalu klik tombol "Sync Project with Gradle Files" (ikon gajah di kanan atas).'
+            ],
+            solutionCode: `# Tidak perlu baris terminal, atur langsung di GUI Android Studio:
+# File -> Settings -> Build Tools -> Gradle -> Gradle JDK -> Pilih jbr-17`
+          },
+          {
+            id: 'dist-not-found',
+            category: 'WEB BUILD',
+            badgeColor: '#bae6fd',
+            title: '2. Aset Web Hilang (Directory dist Not Found)',
+            summary: 'Cannot copy web assets: Directory dist does not exist',
+            errorSnippet: `[error] Cannot copy web assets: Directory 'dist' does not exist.\n[error] Make sure to build your web assets before syncing (e.g. npm run build).`,
+            rootCause: 'Mahasiswa langsung mengeksekusi "npx cap sync" sebelum menjalankan proses kompilasi bundel aset web Vue / Vite.',
+            steps: [
+              'Jalankan perintah build frontend Vue terlebih dahulu untuk menghasilkan artefak HTML, JS, dan CSS di folder dist/.',
+              'Setelah folder dist/ berhasil terbentuk, jalankan perintah sinkronisasi Capacitor untuk menyalin bundel ke folder android/.'
+            ],
+            solutionCode: `npm run build && npx cap sync`
+          },
+          {
+            id: 'adb-unauthorized',
+            category: 'ADB HARDWARE',
+            badgeColor: '#bbf7d0',
+            title: '3. Status Perangkat unauthorized di ADB',
+            summary: 'List of devices attached: RFCW10J6KLP unauthorized',
+            errorSnippet: `PS C:\\proyek> adb devices\nList of devices attached\nRFCW10J6KLP    unauthorized`,
+            rootCause: 'Kunci publik RSA milik laptop belum disetujui oleh pemilik smartphone saat prompt otorisasi keamanan muncul di layar ponsel.',
+            steps: [
+              'Buka kunci layar smartphone Anda.',
+              'Masuk ke Settings -> Developer Options -> Gulir ke bawah dan ketuk "Revoke USB debugging authorizations" (Cabut otorisasi debugging USB).',
+              'Cabut kabel USB dari laptop, tunggu 3 detik, lalu tancapkan kembali ke port USB laptop.',
+              'Saat dialog "Allow USB debugging?" muncul di layar HP, centang "Always allow from this computer" lalu klik "Allow".'
+            ],
+            solutionCode: `adb kill-server
+adb start-server
+adb devices`
+          },
+          {
+            id: 'aapt2-error',
+            category: 'AAPT2 ASSET',
+            badgeColor: '#fbcfe8',
+            title: '4. Penamaan Berkas Resource Tidak Sah (AAPT2)',
+            summary: 'My Logo.png is not a valid resource name',
+            errorSnippet: `Execution failed for task ':app:processDebugResources'.\n> 'My Logo.png' is not a valid resource name.\n> File names must contain only lowercase a-z, 0-9, or underscore (_).`,
+            rootCause: 'Sistem pengemasan aset Android (AAPT2) melarang keras huruf kapital, spasi, atau tanda minus (-) pada nama berkas di folder res/drawable/.',
+            steps: [
+              'Buka folder android/app/src/main/res/drawable/ atau res/mipmap/.',
+              'Periksa nama berkas gambar ikon/splash screen Anda.',
+              'Ganti nama berkas yang mengandung spasi atau huruf besar (misal: "Logo UT.png" -> "logo_ut.png").',
+              'Jalankan Clean Project dan Build ulang di Android Studio.'
+            ],
+            solutionCode: `# Format nama berkas gambar Android yang sah:
+# ❌ Logo Aplikasi.png
+# ❌ icon-mobile.png
+# ✅ logo_aplikasi.png
+# ✅ ic_launcher_round.png`
+          },
+          {
+            id: 'cleartext-http',
+            category: 'JARINGAN HTTP',
+            badgeColor: '#ddd6fe',
+            title: '5. Lalu Lintas HTTP Ditolak (Cleartext Traffic)',
+            summary: 'net::ERR_CLEARTEXT_NOT_PERMITTED pada API backend lokal',
+            errorSnippet: `GET http://192.168.1.10:8000/api/mahasiswa net::ERR_CLEARTEXT_NOT_PERMITTED\n[error] - Capacitor WebView blocked insecure HTTP request.`,
+            rootCause: 'Sejak Android 9.0 (API level 28), OS secara ketat memblokir seluruh koneksi HTTP polos tanpa enkripsi TLS/HTTPS demi keamanan data.',
+            steps: [
+              'Buka berkas android/app/src/main/AndroidManifest.xml.',
+              'Cari tag <application ... >.',
+              'Tambahkan atribut android:usesCleartextTraffic="true" di dalam tag <application>.',
+              'Simpan berkas, lalu lakukan sinkronisasi dan jalankan ulang aplikasi.'
+            ],
+            solutionCode: `<!-- Di dalam file android/app/src/main/AndroidManifest.xml -->
+<application
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:usesCleartextTraffic="true"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:theme="@style/AppTheme">`
+          },
+          {
+            id: 'oom-gradle',
+            category: 'MEMORI LAPTOP',
+            badgeColor: '#fecdd3',
+            title: '6. Out of Memory (OOM) pada Laptop RAM 4–8GB',
+            summary: 'Gradle build daemon disappeared unexpectedly / OutOfMemoryError',
+            errorSnippet: `Gradle build daemon disappeared unexpectedly (it may have been killed or may have crashed)\njava.lang.OutOfMemoryError: Java heap space`,
+            rootCause: 'Gradle Daemon secara bawaan meminta alokasi heap 2GB–4GB yang melebihi sisa kapasitas RAM fisik bebas pada laptop 4–8GB saat Android Studio dibuka.',
+            steps: [
+              'Buka berkas android/gradle.properties di editor teks Anda.',
+              'Cari baris org.gradle.jvmargs.',
+              'Ubah alokasi memori heap maksimal JVM menjadi 1024m (1GB) yang ramah untuk laptop RAM 4-8GB.',
+              'Tutup program berat lain (seperti browser dengan puluhan tab) saat proses kompilasi awal.'
+            ],
+            solutionCode: `# Di dalam berkas android/gradle.properties:
+org.gradle.jvmargs=-Xmx1024m -XX:MaxMetaspaceSize=512m
+org.gradle.parallel=false
+org.gradle.daemon=true`
+          }
+        ];
+
+        const selectedError = ref(errors[0]);
+        const searchQuery = ref('');
+        const testResult = ref('');
+
+        const filteredErrors = computed(() => {
+          if (!searchQuery.value.trim()) return errors;
+          const q = searchQuery.value.toLowerCase();
+          return errors.filter(e => 
+            e.title.toLowerCase().includes(q) || 
+            e.summary.toLowerCase().includes(q) || 
+            e.category.toLowerCase().includes(q)
+          );
+        });
+
+        const selectError = (err) => {
+          selectedError.value = err;
+          testResult.value = '';
+        };
+
+        const copySolutionCode = (code) => {
+          if (!code) return;
+          navigator.clipboard.writeText(code);
+          alert('Solusi perbaikan berhasil disalin ke clipboard!');
+        };
+
+        const simulateFix = () => {
+          testResult.value = '⏳ Menjalankan verifikasi lingkungan perbaikan...';
+          setTimeout(() => {
+            testResult.value = '✅ BUILD SUCCESSFUL! Masalah "' + selectedError.value.title + '" berhasil dituntaskan!';
+          }, 800);
+        };
+
+        return {
+          errors,
+          selectedError,
+          searchQuery,
+          testResult,
+          filteredErrors,
+          selectError,
+          copySolutionCode,
+          simulateFix
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

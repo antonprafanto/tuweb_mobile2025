@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--cyan);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -62,6 +87,15 @@
       border: 2px solid #000;
       font-weight: bold;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -70,6 +104,53 @@
     <div class="badge-tag">SLIDE 06 • STRUKTUR PROYEK NATIVE</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Anatomi Struktur Folder <code>android/</code></h1>
     <p style="margin: 0; font-size: 14px;">Membedah susunan direktori native hasil scaffolding Capacitor: Mengetahui letak file konfigurasi, aset web, dan kode Java.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; EKSPLORASI DIREKTORI NATIVE</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Visual Studio Code (File Explorer), Android Studio (Project Tool Window mode Android / Project), Google Chrome (berkas ini).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Klik salah satu nama berkas atau folder pada pohon direktori interaktif sebelah kiri. Pelajari fungsi spesifik, tingkat bahaya penyuntingan, dan contoh kode nyatanya di panel sebelah kanan.</div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Di dalam folder <code>android/app/src/main/assets/public/</code>, seluruh bundel JavaScript dan HTML web Anda tersimpan. Saat aplikasi dibuka di HP, Android akan memuat berkas lokal ini ke dalam WebView tanpa memerlukan koneksi internet!</div>
+  </div>
+
+  <!-- DIAGRAM ANATOMI FOLDER INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Arsitektur Direktori android/ &amp; Peran Tiap Komponen</div>
+    <svg viewBox="0 0 820 160" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <!-- Root Box -->
+      <rect x="20" y="20" width="150" height="120" fill="#F1F5F9" stroke="#000" stroke-width="2.5" />
+      <rect x="25" y="25" width="140" height="22" fill="#CBD5E1" />
+      <text x="95" y="40" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle">📁 android/ (Root)</text>
+      <text x="35" y="66" font-family="'Consolas', monospace" font-size="9" fill="#0F172A">• build.gradle</text>
+      <text x="35" y="86" font-family="'Consolas', monospace" font-size="9" fill="#0F172A">• variables.gradle</text>
+      <text x="35" y="106" font-family="'Consolas', monospace" font-size="9" fill="#0F172A">• gradle.properties</text>
+      <text x="35" y="126" font-family="'Consolas', monospace" font-size="9" font-weight="bold" fill="#0284C7">📁 app/ ➔</text>
+
+      <!-- App Sub-branches -->
+      <!-- Branch 1: Java Code -->
+      <rect x="200" y="15" width="280" height="40" fill="#E0F2FE" stroke="#0284C7" stroke-width="1.5" />
+      <text x="210" y="32" font-family="'Consolas', monospace" font-size="10" font-weight="bold" fill="#0369A1">src/main/java/.../MainActivity.java</text>
+      <text x="210" y="46" font-family="'Segoe UI', sans-serif" font-size="9" fill="#334155">Entry point activity: extends BridgeActivity</text>
+
+      <!-- Branch 2: Web Assets -->
+      <rect x="200" y="60" width="280" height="40" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.5" />
+      <text x="210" y="77" font-family="'Consolas', monospace" font-size="10" font-weight="bold" fill="#15803D">src/main/assets/public/</text>
+      <text x="210" y="91" font-family="'Segoe UI', sans-serif" font-size="9" fill="#334155">Tempat salinan bundel dist/ (HTML, JS, CSS)</text>
+
+      <!-- Branch 3: Resources & Manifest -->
+      <rect x="200" y="105" width="280" height="40" fill="#FEF9C3" stroke="#B45309" stroke-width="1.5" />
+      <text x="210" y="122" font-family="'Consolas', monospace" font-size="10" font-weight="bold" fill="#B45309">src/main/AndroidManifest.xml &amp; res/</text>
+      <text x="210" y="136" font-family="'Segoe UI', sans-serif" font-size="9" fill="#334155">Izin kamera/GPS, nama app, dan ikon launcher</text>
+
+      <!-- Right Box: Output APK -->
+      <rect x="520" y="25" width="280" height="110" fill="#FAF5FF" stroke="#9333EA" stroke-width="2" />
+      <rect x="525" y="30" width="270" height="22" fill="#E9D5FF" />
+      <text x="660" y="46" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#581C87">PROSES KOMPILASI GRADLE</text>
+      <text x="535" y="74" font-family="'Segoe UI', sans-serif" font-size="9" fill="#334155">Gradle menggabungkan kode Java + Web Assets +</text>
+      <text x="535" y="90" font-family="'Segoe UI', sans-serif" font-size="9" fill="#334155">Resources menjadi satu paket biner final:</text>
+      <text x="535" y="112" font-family="'Consolas', monospace" font-size="11" font-weight="bold" fill="#7E22CE">📦 app-debug.apk / app-release.aab</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -87,7 +168,7 @@
         <div class="tree-node" style="padding-left: 36px;" :class="{ active: selectedId === 'manifest' }" @click="select('manifest')">📄 src/main/AndroidManifest.xml</div>
         <div class="tree-node" style="padding-left: 36px;" :class="{ active: selectedId === 'main_act' }" @click="select('main_act')">📄 src/main/java/.../MainActivity.java</div>
         <div class="tree-node" style="padding-left: 36px;" :class="{ active: selectedId === 'assets' }" @click="select('assets')">📁 src/main/assets/public/ (Web Dist)</div>
-        <div class="tree-node" style="padding-left: 36px;" :class="{ active: selectedId === 'res' }" @click="select('res')">📁 src/main/res/ (Icons & Strings)</div>
+        <div class="tree-node" style="padding-left: 36px;" :class="{ active: selectedId === 'res' }" @click="select('res')">📁 src/main/res/ (Icons &amp; Strings)</div>
       </div>
     </div>
 
@@ -98,84 +179,81 @@
         <div style="font-size: 13px; line-height: 1.6; color: #1e293b;">
           {{ currentInfo.desc }}
         </div>
-        <div v-if="currentInfo.editAction" style="margin-top: 10px; font-size: 12px; font-weight: bold;" :style="{ color: currentInfo.safeToEdit ? '#16a34a' : '#ea580c' }">
-          🔧 Aturan Pengeditan: {{ currentInfo.editAction }}
-        </div>
       </div>
 
-      <div style="background: #FEF9C3; border: 2px solid #CA8A04; padding: 10px; font-size: 12px;">
-        📌 <strong>Golden Rule Mahasiswa:</strong> Berbeda dengan Cordova di mana folder ini dilarang disentuh, di Capacitor folder <code>android/</code> adalah aset permanen yang wajib Anda <em>commit</em> ke Git!
+      <div style="font-size: 12px; font-weight: bold; margin-bottom: 4px;">Cuplikan / Lokasi Berkas:</div>
+      <div style="background: #0f172a; color: #38bdf8; font-family: 'Consolas', monospace; font-size: 11px; padding: 10px; border: 2px solid #000; overflow-x: auto;">
+        {{ currentInfo.snippet }}
       </div>
     </div>
   </div>
 
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> Google Android Developers: <em>"Projects Overview &amp; Android Studio Directory Structure"</em> (https://developer.android.com/studio/projects). Modul 6 STSI4303 Universitas Terbuka.
+  </div>
+
   <script>
-    const { createApp, ref } = Vue;
+    const { createApp, ref, computed } = Vue;
+
     createApp({
       setup() {
-        const selectedId = ref('manifest');
+        const selectedId = ref('assets');
+
         const infoMap = {
           root: {
-            title: "android/",
-            desc: "Direktori root dari proyek native Android Studio. Berisi seluruh file Gradle, resource Android, kode Java/Kotlin, dan library native yang di-scaffold oleh Capacitor.",
-            safeToEdit: true,
-            editAction: "Commit seluruh folder ini ke Git bersama kode Vue Anda."
+            title: 'Direktori android/',
+            desc: 'Akar dari proyek Android Studio native. Direktori ini dihasilkan sekali saat Anda mengeksekusi "npx cap add android". Berisi file build Gradle, wrapper, dan modul aplikasi.',
+            snippet: 'android/\n├── app/\n├── build.gradle\n├── gradle/\n├── gradlew\n└── variables.gradle'
           },
           build_root: {
-            title: "build.gradle (Project-level)",
-            desc: "Konfigurasi build umum untuk seluruh sub-proyek. Mendefinisikan repository dependensi (google(), mavenCentral()) dan versi Gradle Plugin.",
-            safeToEdit: false,
-            editAction: "Jarang perlu diedit kecuali menambahkan plugin pihak ketiga khusus."
+            title: 'build.gradle (Project-level)',
+            desc: 'Mengonfigurasi repositori dependensi Maven/Google dan versi plugin Android Gradle (AGP) yang berlaku untuk seluruh submodul proyek.',
+            snippet: 'buildscript {\n  repositories {\n    google()\n    mavenCentral()\n  }\n  dependencies {\n    classpath "com.android.tools.build:gradle:8.2.1"\n  }\n}'
           },
           variables: {
-            title: "variables.gradle",
-            desc: "File kunci Capacitor untuk menyelaraskan versi Android SDK! Berisi konstanta minSdk (versi minimum OS Android), targetSdk, compileSdk, dan androidxVersion.",
-            safeToEdit: true,
-            editAction: "Diedit jika Google Play Store mewajibkan peningkatan targetSdk."
+            title: 'variables.gradle',
+            desc: 'Tempat terpusat untuk mendefinisikan versi target Android SDK, compile SDK, min SDK, dan versi pustaka pihak ketiga agar konsisten di seluruh plugin.',
+            snippet: 'ext {\n  minSdkVersion = 22\n  compileSdkVersion = 34\n  targetSdkVersion = 34\n  androidxActivityVersion = "1.8.0"\n}'
           },
           app: {
-            title: "app/",
-            desc: "Modul aplikasi utama yang akan dikompilasi menjadi berkas installer APK atau Android App Bundle (AAB).",
-            safeToEdit: true,
-            editAction: "Modul kerja utama pengembang di Android Studio."
+            title: 'Subdirektori app/',
+            desc: 'Modul aplikasi utama tempat kode Java/Kotlin, manifest, aset web dist, ikon grafis, dan skrip kompilasi modul berada.',
+            snippet: 'android/app/\n├── build.gradle\n└── src/\n    └── main/'
           },
           build_app: {
-            title: "app/build.gradle (App-level)",
-            desc: "Mendefinisikan applicationId, versionCode, versionName, target SDK, serta dependencies eksternal aplikasi Anda.",
-            safeToEdit: true,
-            editAction: "Sering diedit untuk menaikkan versi rilis (versionCode/versionName)."
+            title: 'build.gradle (App-level)',
+            desc: 'Skrip terpenting pengatur paket: Menentukan applicationId unik, versionCode (angka integer naik), versionName (versi rilis cth 1.0.0), serta dependencies plugin.',
+            snippet: 'android {\n  defaultConfig {\n    applicationId "id.ac.ut.mobile"\n    minSdk 22\n    targetSdk 34\n    versionCode 1\n    versionName "1.0.0"\n  }\n}'
           },
           manifest: {
-            title: "AndroidManifest.xml",
-            desc: "Berkas cetak biru (blueprint) aplikasi Android! Menyimpan deklarasi izin perangkat keras (kamera, internet, storage), Activity utama, dan konfigurasi orientasi layar.",
-            safeToEdit: true,
-            editAction: "Wajib diedit saat menambahkan permission baru untuk plugin."
+            title: 'src/main/AndroidManifest.xml',
+            desc: 'Peta identitas aplikasi bagi sistem operasi Android. Mendaftarkan izin berbahaya (Permissions), aktivitas utama launcher, dan orientasi layar ponsel.',
+            snippet: '<manifest xmlns:android="http://schemas.android.com/apk/res/android">\n  <uses-permission android:name="android.permission.INTERNET" />\n  <application android:label="@string/app_name" ...>\n  </application>\n</manifest>'
           },
           main_act: {
-            title: "MainActivity.java",
-            desc: "Titik masuk utama aplikasi saat dibuka pengguna. Berisi class MainActivity yang mewarisi BridgeActivity dari Capacitor, otomatis memuat Chromium WebView.",
-            safeToEdit: false,
-            editAction: "Biarkan default kecuali Anda menulis native Java plugin kustom."
+            title: 'MainActivity.java',
+            desc: 'Titik masuk utama eksekusi Android OS. Kelas ini mewarisi (extends) BridgeActivity bawaan Capacitor yang otomatis menginisialisasi WebView dan jembatan plugin.',
+            snippet: 'package id.ac.ut.mobile;\nimport com.getcapacitor.BridgeActivity;\n\npublic class MainActivity extends BridgeActivity {\n  // Otomatis terhubung dengan Capacitor Bridge!\n}'
           },
           assets: {
-            title: "assets/public/",
-            desc: "Folder target tempat berkas hasil build web (dist/) disalin setiap kali Anda menjalankan perintah 'npx cap sync'.",
-            safeToEdit: false,
-            editAction: "Jangan diedit manual! Otomatis di-update via npx cap sync."
+            title: 'src/main/assets/public/',
+            desc: 'Tempat salinan bundel web hasil kompilasi folder dist/ diletakkan oleh perintah "npx cap sync". Di sinilah berkas index.html, file CSS, dan JS Vue Anda bermukim di HP.',
+            snippet: 'assets/public/\n├── index.html\n├── favicon.png\n└── assets/\n    ├── index.css\n    └── index.js'
           },
           res: {
-            title: "res/ (Resources)",
-            desc: "Menyimpan resource native seperti icon launcher berbagai resolusi layar (mipmap-hdpi s/d xxxhdpi), splash screen (drawable), dan strings.xml (nama aplikasi di sistem OS).",
-            safeToEdit: true,
-            editAction: "Diedit untuk mengganti logo/ikon aplikasi dan splash screen."
+            title: 'src/main/res/',
+            desc: 'Direktori sumber daya grafis dan nilai statis. Menyimpan ikon launcher (mipmap), tema warna XML (values/styles.xml), dan string judul aplikasi (values/strings.xml).',
+            snippet: 'res/\n├── drawable/\n├── mipmap-xxxhdpi/ (Ikon aplikasi resolusi tajam)\n└── values/\n    └── strings.xml'
           }
         };
 
-        const currentInfo = ref(infoMap['manifest']);
+        const currentInfo = computed(() => {
+          return infoMap[selectedId.value] || infoMap['root'];
+        });
 
         const select = (id) => {
           selectedId.value = id;
-          currentInfo.value = infoMap[id];
         };
 
         return { selectedId, currentInfo, select };

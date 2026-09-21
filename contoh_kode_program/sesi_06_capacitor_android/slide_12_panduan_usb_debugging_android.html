@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 12: Panduan Praktik Aktivasi USB Debugging — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .btn-neo {
+      background: var(--yellow);
+      border: 2px solid #000;
+      padding: 8px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+      font-size: 12px;
+      margin-right: 6px;
+      margin-bottom: 6px;
+      transition: all 0.1s ease;
+    }
+    .btn-neo:hover { background: #fde047; }
+    .btn-neo:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #000; }
+    .btn-neo.active { background: #000; color: #fff; }
+    
+    /* Phone Simulator */
+    .phone-mockup {
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+      background: #1e293b;
+      border: 4px solid #000;
+      border-radius: 28px;
+      padding: 12px;
+      box-shadow: 8px 8px 0 #000;
+    }
+    .phone-screen {
+      background: #f8fafc;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px solid #334155;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone-status-bar {
+      background: #0f172a;
+      color: #fff;
+      font-size: 11px;
+      padding: 6px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+    .phone-body {
+      padding: 14px;
+      flex: 1;
+      overflow-y: auto;
+      font-size: 13px;
+    }
+    .phone-row {
+      background: #fff;
+      border: 2px solid #cbd5e1;
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .phone-row:hover {
+      border-color: #0284c7;
+      background: #f0f9ff;
+    }
+    .phone-row.tap-target {
+      border-color: #f59e0b;
+      background: #fef3c7;
+      font-weight: bold;
+    }
+    .phone-row.tap-target:active {
+      transform: scale(0.97);
+      background: #fde68a;
+    }
+    .switch-toggle {
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+      background: #cbd5e1;
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      vertical-align: middle;
+      transition: background 0.2s;
+    }
+    .switch-toggle.on { background: #16a34a; }
+    .switch-toggle::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .switch-toggle.on::after { transform: translateX(20px); }
+    
+    .modal-overlay {
+      background: rgba(0,0,0,0.6);
+      border-radius: 18px;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 10;
+    }
+    .modal-dialog {
+      background: #fff;
+      border: 3px solid #000;
+      border-radius: 12px;
+      padding: 14px;
+      width: 100%;
+      box-shadow: 4px 4px 0 #000;
+      font-size: 12px;
+    }
+    .terminal-box {
+      background: #090d16;
+      color: #38bdf8;
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      padding: 14px;
+      border: 2px solid #000;
+      box-shadow: 4px 4px 0 #000;
+      min-height: 140px;
+    }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 12 • PANDUAN PRAKTIK LAPANGAN (RAMAH RAM 4–8GB)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Panduan Praktik: Aktivasi USB Debugging di Berbagai Merk Smartphone Android</h1>
+    <p style="margin: 0; font-size: 14px;">Simulasi interaktif langkah-demi-langkah membuka Opsi Pengembang, mengaktifkan USB Debugging, dan verifikasi RSA Key.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM MAHASISWA (RAMAH PEMULA &amp; LAPTOP 4–8GB RAM)</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (cukup klik ganda berkas ini), Smartphone Fisik Android (Xiaomi, Samsung, OPPO, Vivo, Pixel, Infinix, dsb.), Kabel Data USB berkualitas baik, Terminal / PowerShell (<code>adb devices</code>).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong>
+      <ol style="margin: 4px 0 0 0; padding-left: 18px;">
+        <li>Pilih <strong>Merk Smartphone</strong> Anda pada tab seleksi di bawah.</li>
+        <li>Pada layar simulator ponsel sebelah kanan, ketuk baris <strong>"Nomor Bentukan (Build Number)"</strong> sebanyak <strong>7 kali berturut-turut</strong> hingga muncul pesan pengembang.</li>
+        <li>Setelah terbuka, aktifkan sakelar <strong>USB Debugging</strong> menjadi <em>ON</em>.</li>
+        <li>Pada dialog otorisasi RSA keamanan yang muncul, centang persetujuan lalu klik <strong>Izinkan (Allow)</strong>.</li>
+        <li>Perhatikan bagaimana status pada terminal <code>adb devices</code> berubah dari <em>offline / unauthorized</em> menjadi <em>device</em> (SIAP DEPLOY)!</li>
+      </ol>
+    </div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Debugging ke ponsel fisik hanya memakan RAM ~50 MB untuk daemon ADB, dibandingkan emulator Android Virtual Device (AVD) yang memakan RAM 4.000 MB (4GB). Ini kunci kelancaran koding bagi mahasiswa UT!</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Alur Komunikasi USB Debugging (Laptop ↔ Smartphone Fisik)</div>
+    <svg viewBox="0 0 820 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#16A34A" />
+        </marker>
+        <marker id="arrow-dark" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- Box 1: Laptop / Dev PC -->
+      <rect x="20" y="25" width="220" height="95" fill="#EFF6FF" stroke="#000" stroke-width="3" />
+      <rect x="24" y="29" width="212" height="24" fill="#38BDF8" stroke="#000" stroke-width="1.5" />
+      <text x="130" y="45" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">LAPTOP / KOMPUTER DOSEN</text>
+      <text x="130" y="72" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#0369A1">Capacitor CLI &amp; Android Studio</text>
+      <text x="130" y="90" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#334155">ADB Client (Port 5037 Server)</text>
+      <text x="130" y="106" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#15803D">Konsumsi RAM: Cuma ~50 MB!</text>
+
+      <!-- Cable Connector -->
+      <line x1="240" y1="72" x2="330" y2="72" stroke="#000" stroke-width="4" stroke-dasharray="6,4" />
+      <circle cx="285" cy="72" r="14" fill="#FFE600" stroke="#000" stroke-width="2" />
+      <text x="285" y="76" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="900" text-anchor="middle" fill="#000">USB</text>
+
+      <!-- Box 2: ADB Daemon & Bridge -->
+      <rect x="330" y="25" width="210" height="95" fill="#FEF9C3" stroke="#000" stroke-width="3" />
+      <rect x="334" y="29" width="202" height="24" fill="#FFE600" stroke="#000" stroke-width="1.5" />
+      <text x="435" y="45" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">OTORISASI KUNCI RSA</text>
+      <text x="435" y="72" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#B45309">Handshake Fingerprint</text>
+      <text x="435" y="90" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#78350F">Verifikasi Kunci Publik Laptop</text>
+      <text x="435" y="106" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#78350F">Mencegah Pembajakan USB Publik</text>
+
+      <!-- Arrow to Device -->
+      <line x1="540" y1="72" x2="575" y2="72" stroke="#16A34A" stroke-width="3" marker-end="url(#arrow-green)" />
+
+      <!-- Box 3: Smartphone Fisik -->
+      <rect x="580" y="25" width="220" height="95" fill="#DCFCE7" stroke="#000" stroke-width="3" />
+      <rect x="584" y="29" width="212" height="24" fill="#4ADE80" stroke="#000" stroke-width="1.5" />
+      <text x="690" y="45" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">SMARTPHONE ANDROID FISIK</text>
+      <text x="690" y="72" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#15803D">Daemon adbd (Linux Kernel)</text>
+      <text x="690" y="90" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#14532D">100% Akses Sensor Hardware</text>
+      <text x="690" y="106" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#14532D">Kamera, GPS, Getar Haptik Asli</text>
+    </svg>
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANEL KIRI: PANDUAN SESUAI MERK & SIMULATOR ADB -->
+    <div class="box">
+      <h3 style="margin-top: 0;">📱 1. Pilih Merk Smartphone Anda</h3>
+      <p style="font-size: 13px; color: #475569; margin-bottom: 12px;">
+        Setiap antarmuka merk Android (MIUI, One UI, ColorOS) meletakkan menu nomor bentukan di lokasi yang sedikit berbeda.
+      </p>
+
+      <div>
+        <button 
+          v-for="brand in brands" 
+          :key="brand.id" 
+          @click="selectBrand(brand)"
+          :class="['btn-neo', { active: selectedBrand.id === brand.id }]">
+          {{ brand.name }}
+        </button>
+      </div>
+
+      <div style="background: #F1F5F9; border: 2px solid #000; padding: 14px; margin: 16px 0; font-size: 13px;">
+        <div style="font-weight: bold; color: #0284C7; font-size: 14px; margin-bottom: 6px;">
+          📍 Jalur Menu di {{ selectedBrand.name }}:
+        </div>
+        <div style="font-family: monospace; background: #fff; padding: 8px; border: 1px solid #cbd5e1; margin-bottom: 8px;">
+          {{ selectedBrand.path }}
+        </div>
+        <div><strong>Item yang Diketuk:</strong> <code style="color: #c026d3;">{{ selectedBrand.targetItem }}</code> (Ketuk 7x berturut-turut).</div>
+        
+        <div v-if="selectedBrand.warning" style="margin-top: 10px; background: #FEF3C7; border-left: 3px solid #D97706; padding: 8px; font-size: 12px; color: #92400E;">
+          <strong>⚠️ Catatan Kritis {{ selectedBrand.name }}:</strong> {{ selectedBrand.warning }}
+        </div>
+      </div>
+
+      <h3>💻 2. Konsol Status Perintah ADB (Laptop)</h3>
+      <p style="font-size: 12px; color: #475569; margin-bottom: 8px;">
+        Jalankan perintah ini di Terminal / PowerShell untuk memeriksa apakah smartphone telah dikenali oleh Android Studio:
+      </p>
+
+      <div class="terminal-box">
+        <div style="color: #a855f7; margin-bottom: 6px;">PS C:\Users\MahasiswaUT\proyek_mobile&gt; adb devices</div>
+        <div style="color: #94a3b8;">List of devices attached</div>
+        <div v-if="!usbConnected" style="color: #64748b; font-style: italic;">
+          (Tidak ada perangkat terdeteksi - colokkan kabel USB!)
+        </div>
+        <div v-else-if="!developerOptionsEnabled || !usbDebuggingEnabled" style="color: #eab308;">
+          {{ deviceSerial }} &nbsp;&nbsp;&nbsp; offline
+          <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">&gt; Debugging USB belum aktif di HP!</div>
+        </div>
+        <div v-else-if="!rsaAuthorized" style="color: #ef4444; font-weight: bold;">
+          {{ deviceSerial }} &nbsp;&nbsp;&nbsp; unauthorized
+          <div style="color: #fca5a5; font-size: 11px; margin-top: 4px;">&gt; Tekan 'Allow' pada jendela popup di layar HP Anda!</div>
+        </div>
+        <div v-else style="color: #4ade80; font-weight: bold;">
+          {{ deviceSerial }} &nbsp;&nbsp;&nbsp; device
+          <div style="color: #86efac; font-size: 11px; margin-top: 4px;">&gt; ✅ Sukses! Perangkat siap menerima build aplikasi Capacitor!</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="btn-neo" @click="resetSimulator">🔄 Reset Simulasi</button>
+        <button class="btn-neo" style="background: #38bdf8;" @click="copyAdbRunCommand">📋 Salin Perintah Run</button>
+      </div>
+    </div>
+
+    <!-- PANEL KANAN: MOCKUP SMARTPHONE INTERAKTIF -->
+    <div class="box" style="display: flex; flex-direction: column; align-items: center;">
+      <h3 style="margin-top: 0; align-self: flex-start;">📱 3. Layar Ponsel Virtual (Coba Langsung)</h3>
+
+      <div class="phone-mockup" style="position: relative;">
+        <div class="phone-screen">
+          <!-- Status Bar -->
+          <div class="phone-status-bar">
+            <span>10:45</span>
+            <span>📶 100% 🔋</span>
+          </div>
+
+          <!-- Phone Body Content -->
+          <div class="phone-body">
+            <!-- TAB 1: ABOUT PHONE (TAP 7 TIMES) -->
+            <div v-if="currentStep === 1">
+              <div style="font-weight: 800; font-size: 14px; margin-bottom: 10px; color: #0f172a;">
+                ⚙️ {{ selectedBrand.aboutTitle }}
+              </div>
+
+              <div class="phone-row">
+                <div style="font-size: 11px; color: #64748b;">Nama Perangkat</div>
+                <div style="font-weight: 600;">{{ selectedBrand.deviceName }}</div>
+              </div>
+
+              <div class="phone-row">
+                <div style="font-size: 11px; color: #64748b;">Versi Android</div>
+                <div style="font-weight: 600;">Android 14 (API 34)</div>
+              </div>
+
+              <div class="phone-row tap-target" @click="handleBuildTap">
+                <div style="font-size: 11px; color: #b45309;">👉 KETUK DI SINI ({{ selectedBrand.targetItem }})</div>
+                <div style="font-size: 13px;">{{ selectedBrand.buildNumberValue }}</div>
+                <div style="font-size: 11px; color: #d97706; margin-top: 4px; font-weight: bold;">
+                  {{ tapRemaining > 0 ? 'Sisa ' + tapRemaining + ' ketukan lagi...' : '🎉 Opsi Pengembang Terbuka!' }}
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB 2: DEVELOPER OPTIONS SCREEN -->
+            <div v-if="currentStep === 2">
+              <div style="font-weight: 800; font-size: 14px; margin-bottom: 10px; color: #0f172a;">
+                🛠️ Opsi Pengembang (Developer Options)
+              </div>
+
+              <div class="phone-row" style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-weight: 600;">Gunakan Opsi Pengembang</div>
+                  <div style="font-size: 10px; color: #64748b;">Sakelar Master Sistem</div>
+                </div>
+                <div :class="['switch-toggle', { on: developerOptionsEnabled }]" @click="toggleDevOptions"></div>
+              </div>
+
+              <div class="phone-row" style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-weight: 600;">Debugging USB (USB Debugging)</div>
+                  <div style="font-size: 10px; color: #64748b;">Mode debug saat USB dicolok</div>
+                </div>
+                <div :class="['switch-toggle', { on: usbDebuggingEnabled }]" @click="toggleUsbDebugging"></div>
+              </div>
+
+              <!-- Extra for Xiaomi -->
+              <div v-if="selectedBrand.id === 'xiaomi'" class="phone-row" style="display: flex; justify-content: space-between; align-items: center; background: #fff7ed;">
+                <div>
+                  <div style="font-weight: 600; color: #c2410c;">Install via USB</div>
+                  <div style="font-size: 10px; color: #9a3412;">Wajib ON di Xiaomi</div>
+                </div>
+                <div :class="['switch-toggle', { on: xiaomiInstallUsb }]" @click="xiaomiInstallUsb = !xiaomiInstallUsb"></div>
+              </div>
+
+              <div style="margin-top: 14px; font-size: 11px; color: #64748b; text-align: center;">
+                Kabel USB saat ini: <strong :style="{ color: usbConnected ? '#16a34a' : '#ef4444' }">{{ usbConnected ? 'TERCOLOK' : 'TERCABUT' }}</strong>
+              </div>
+              <button class="btn-neo" style="width: 100%; margin-top: 8px; font-size: 11px;" @click="toggleUsbCable">
+                {{ usbConnected ? '🔌 Cabut Kabel USB' : '🔌 Colokkan Kabel USB ke Laptop' }}
+              </button>
+            </div>
+          </div>
+
+          <!-- MODAL RSA POPUP -->
+          <div v-if="showRsaModal" class="modal-overlay">
+            <div class="modal-dialog">
+              <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px; color: #0f172a;">
+                Izinkan Debugging USB?
+              </div>
+              <p style="margin: 0 0 10px 0; color: #334155; line-height: 1.4;">
+                Kunci RSA fingerprint komputer ini adalah:<br>
+                <code style="font-size: 10px; color: #2563eb;">3A:5B:C9:F1:88:2D:4E:99:11:AB:CC:77</code>
+              </p>
+              <label style="display: flex; align-items: center; gap: 6px; margin-bottom: 12px; cursor: pointer;">
+                <input type="checkbox" v-model="alwaysAllowRsa" />
+                <span style="font-weight: bold; font-size: 11px;">Selalu izinkan dari komputer ini</span>
+              </label>
+              <div style="display: flex; justify-content: flex-end; gap: 8px;">
+                <button class="btn-neo" style="background: #f1f5f9; padding: 6px 10px;" @click="denyRsa">Batal</button>
+                <button class="btn-neo" style="background: #4ade80; padding: 6px 10px;" @click="allowRsa">Izinkan</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SITASI ILMIAH & STANDAR TEKNIS -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Teknis:</strong> Google Android Open Source Project (AOSP) Developers Documentation: <em>"Configure on-device developer options"</em> (https://developer.android.com/studio/debug/dev-options) &amp; <em>"Android Debug Bridge (adb) Specification &amp; RSA Authentication Protocol"</em> (https://developer.android.com/studio/command-line/adb). Diadaptasi untuk Panduan Praktikum Mandiri STSI4303 Universitas Terbuka.
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        const brands = [
+          {
+            id: 'xiaomi',
+            name: 'Xiaomi / Redmi / POCO',
+            aboutTitle: 'About phone (Tentang Ponsel)',
+            deviceName: 'Redmi Note 12 Pro',
+            path: 'Settings -> About phone -> OS Version / MIUI version',
+            targetItem: 'Versi OS / MIUI',
+            buildNumberValue: 'MIUI Global 14.0.8 (TKOMIXM)',
+            warning: 'Wajib aktifkan 3 opsi: USB Debugging, Install via USB, dan USB Debugging (Security Settings). Memerlukan akun Mi aktif!'
+          },
+          {
+            id: 'samsung',
+            name: 'Samsung (One UI)',
+            aboutTitle: 'About phone (Tentang Ponsel)',
+            deviceName: 'Samsung Galaxy A54 5G',
+            path: 'Settings -> About phone -> Software information -> Build number',
+            targetItem: 'Nomor Bentukan (Build number)',
+            buildNumberValue: 'UP1A.231005.007.A546EXXU6BXC4',
+            warning: 'Pastikan koneksi USB di panel notifikasi dipilih "File Transfer (MTP)", bukan "Charging only".'
+          },
+          {
+            id: 'oppo',
+            name: 'OPPO / Realme',
+            aboutTitle: 'About device (Tentang Perangkat)',
+            deviceName: 'Realme 11 Pro 5G',
+            path: 'Settings -> About device -> Version -> Build number',
+            targetItem: 'Build number',
+            buildNumberValue: 'RMX3771_14.0.0.300',
+            warning: 'Menu Opsi Pengembang berada di dalam "Settings -> Additional Settings (Pengaturan Tambahan)".'
+          },
+          {
+            id: 'vivo',
+            name: 'Vivo / iQOO',
+            aboutTitle: 'About phone',
+            deviceName: 'Vivo V29 5G',
+            path: 'Settings -> System management / About phone -> Software version',
+            targetItem: 'Software version',
+            buildNumberValue: 'PD2223F_EX_A_13.0.12',
+            warning: 'Pada beberapa model, Anda perlu menyalakan USB Debugging setiap kali kabel USB dicolokkan ulang.'
+          },
+          {
+            id: 'infinix',
+            name: 'Infinix / Tecno',
+            aboutTitle: 'My phone',
+            deviceName: 'Infinix NOTE 30',
+            path: 'Settings -> My phone -> Build number',
+            targetItem: 'Build number',
+            buildNumberValue: 'X6833B-H894D-T-GL-230911V218',
+            warning: 'Pastikan fitur Transfer File diizinkan saat pertama kali kabel disambungkan.'
+          },
+          {
+            id: 'pixel',
+            name: 'Google Pixel / Murni',
+            aboutTitle: 'About phone',
+            deviceName: 'Google Pixel 7a',
+            path: 'Settings -> About phone -> Build number',
+            targetItem: 'Build number',
+            buildNumberValue: 'UQ1A.240205.002',
+            warning: 'Antarmuka Android standar AOSP. Lokasi Opsi Pengembang ada di "Settings -> System -> Developer options".'
+          }
+        ];
+
+        const selectedBrand = ref(brands[0]);
+        const currentStep = ref(1);
+        const tapCount = ref(0);
+        const developerOptionsEnabled = ref(false);
+        const usbDebuggingEnabled = ref(false);
+        const xiaomiInstallUsb = ref(false);
+        const usbConnected = ref(true);
+        const showRsaModal = ref(false);
+        const rsaAuthorized = ref(false);
+        const alwaysAllowRsa = ref(true);
+        const deviceSerial = ref('RFCW10J6KLP');
+
+        const tapRemaining = computed(() => {
+          return Math.max(0, 7 - tapCount.value);
+        });
+
+        const selectBrand = (b) => {
+          selectedBrand.value = b;
+          resetSimulator();
+        };
+
+        const handleBuildTap = () => {
+          if (tapCount.value < 7) {
+            tapCount.value++;
+            if (tapCount.value === 7) {
+              developerOptionsEnabled.value = true;
+              setTimeout(() => {
+                currentStep.value = 2;
+              }, 800);
+            }
+          }
+        };
+
+        const toggleDevOptions = () => {
+          developerOptionsEnabled.value = !developerOptionsEnabled.value;
+          if (!developerOptionsEnabled.value) {
+            usbDebuggingEnabled.value = false;
+            showRsaModal.value = false;
+            rsaAuthorized.value = false;
+          }
+        };
+
+        const toggleUsbDebugging = () => {
+          if (!developerOptionsEnabled.value) {
+            alert('Aktifkan switch utama Opsi Pengembang terlebih dahulu!');
+            return;
+          }
+          usbDebuggingEnabled.value = !usbDebuggingEnabled.value;
+          if (usbDebuggingEnabled.value && usbConnected.value && !rsaAuthorized.value) {
+            showRsaModal.value = true;
+          }
+        };
+
+        const toggleUsbCable = () => {
+          usbConnected.value = !usbConnected.value;
+          if (usbConnected.value && usbDebuggingEnabled.value && !rsaAuthorized.value) {
+            showRsaModal.value = true;
+          }
+        };
+
+        const allowRsa = () => {
+          rsaAuthorized.value = true;
+          showRsaModal.value = false;
+        };
+
+        const denyRsa = () => {
+          rsaAuthorized.value = false;
+          showRsaModal.value = false;
+        };
+
+        const resetSimulator = () => {
+          currentStep.value = 1;
+          tapCount.value = 0;
+          developerOptionsEnabled.value = false;
+          usbDebuggingEnabled.value = false;
+          xiaomiInstallUsb.value = false;
+          usbConnected.value = true;
+          showRsaModal.value = false;
+          rsaAuthorized.value = false;
+        };
+
+        const copyAdbRunCommand = () => {
+          navigator.clipboard.writeText('npx cap run android');
+          alert('Perintah "npx cap run android" berhasil disalin ke clipboard Anda!');
+        };
+
+        return {
+          brands,
+          selectedBrand,
+          currentStep,
+          tapCount,
+          tapRemaining,
+          developerOptionsEnabled,
+          usbDebuggingEnabled,
+          xiaomiInstallUsb,
+          usbConnected,
+          showRsaModal,
+          rsaAuthorized,
+          alwaysAllowRsa,
+          deviceSerial,
+          selectBrand,
+          handleBuildTap,
+          toggleDevOptions,
+          toggleUsbDebugging,
+          toggleUsbCable,
+          allowRsa,
+          denyRsa,
+          resetSimulator,
+          copyAdbRunCommand
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

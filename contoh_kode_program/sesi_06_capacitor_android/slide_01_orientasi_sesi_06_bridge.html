@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
@@ -50,14 +75,78 @@
       padding: 12px;
       margin-bottom: 10px;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <div class="badge-tag">SLIDE 01 • SESI 06 (MODUL 6 & 7 BMP UT)</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Orientasi Sesi 06: Capacitor Runtime Bridge & Platform Android</h1>
+    <div class="badge-tag">SLIDE 01 • SESI 06 (MODUL 6 &amp; 7 BMP UT)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Orientasi Sesi 06: Capacitor Runtime Bridge &amp; Platform Android</h1>
     <p style="margin: 0; font-size: 14px;">Melangkah dari peramban desktop menuju ekosistem perangkat native Android: Menghubungkan kode web kita dengan native SDK smartphone.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; ORIENTASI MAHASISWA AWAM</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (cukup klik ganda berkas ini), Visual Studio Code (ekstensi <em>Capacitor / Ionic</em>), Terminal / PowerShell (<code>npx cap</code>), Android Studio Ladybug/Hedgehog, Smartphone Android Fisik + Kabel USB.</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Pelajari 4 target kompetensi Sesi 06 pada panel di bawah. Pahami bagaimana Capacitor bertindak sebagai perantara komunikasi antara kode antarmuka Vue 3 dengan sistem operasi Android native.</div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Di Sesi 01–05, aplikasi kita diuji di peramban Chrome. Mulai Sesi 06, proyek dibungkus ke dalam proyek native Android Gradle seutuhnya (folder <code>android/</code>) yang siap dikompilasi menjadi berkas APK Android.</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Arsitektur Capacitor Bridge 3-Layer (Web ↔ Bridge ↔ Android Native)</div>
+    <svg viewBox="0 0 820 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-bi-right" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284C7" />
+        </marker>
+        <marker id="arrow-bi-left" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#16A34A" />
+        </marker>
+      </defs>
+
+      <!-- Layer 1: Web App -->
+      <rect x="20" y="25" width="220" height="95" fill="#E0F2FE" stroke="#000" stroke-width="3" />
+      <rect x="24" y="29" width="212" height="24" fill="#38BDF8" stroke="#000" stroke-width="1.5" />
+      <text x="130" y="45" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">1. WEB FRONTEND LAYER</text>
+      <text x="130" y="70" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#0369A1">Vue 3 SFC &amp; Ionic UI</text>
+      <text x="130" y="88" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#334155">HTML5, CSS3, &amp; TypeScript</text>
+      <text x="130" y="104" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#334155">Berjalan di Chromium WebView</text>
+
+      <!-- Connection 1: Web <-> Bridge -->
+      <line x1="240" y1="65" x2="285" y2="65" stroke="#0284C7" stroke-width="2.5" marker-end="url(#arrow-bi-right)" />
+      <line x1="285" y1="80" x2="240" y2="80" stroke="#16A34A" stroke-width="2.5" marker-end="url(#arrow-bi-left)" />
+
+      <!-- Layer 2: Capacitor Runtime Bridge -->
+      <rect x="290" y="25" width="240" height="95" fill="#FEF9C3" stroke="#000" stroke-width="3" />
+      <rect x="294" y="29" width="232" height="24" fill="#FFE600" stroke="#000" stroke-width="1.5" />
+      <text x="410" y="45" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">2. CAPACITOR RUNTIME BRIDGE</text>
+      <text x="410" y="70" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#B45309">JSON-RPC Message Passing</text>
+      <text x="410" y="88" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#78350F">@JavascriptInterface &amp; evaluateJS</text>
+      <text x="410" y="104" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#78350F">Asynchronous Non-Blocking Bridge</text>
+
+      <!-- Connection 2: Bridge <-> Native -->
+      <line x1="530" y1="65" x2="575" y2="65" stroke="#0284C7" stroke-width="2.5" marker-end="url(#arrow-bi-right)" />
+      <line x1="575" y1="80" x2="530" y2="80" stroke="#16A34A" stroke-width="2.5" marker-end="url(#arrow-bi-left)" />
+
+      <!-- Layer 3: Native Android -->
+      <rect x="580" y="25" width="220" height="95" fill="#DCFCE7" stroke="#000" stroke-width="3" />
+      <rect x="584" y="29" width="212" height="24" fill="#4ADE80" stroke="#000" stroke-width="1.5" />
+      <text x="690" y="45" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">3. ANDROID NATIVE LAYER</text>
+      <text x="690" y="70" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#15803D">Java / Kotlin &amp; Android SDK</text>
+      <text x="690" y="88" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#14532D">Gradle Build System &amp; Manifest</text>
+      <text x="690" y="104" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#14532D">Kamera, Sensor, GPS, &amp; Haptik</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -65,13 +154,13 @@
     <div class="box">
       <h3>📱 Menyeberangi Jembatan Menuju Android Asli</h3>
       <p style="font-size: 13px; line-height: 1.5; color: #334155;">
-        Dari Sesi 01 hingga Sesi 05, kita telah membangun kode frontend menggunakan Vue 3, TypeScript, dan Ionic UI Toolkit di dalam peramban web desktop. Namun, tujuan akhir mata kuliah ini adalah <strong>menghasilkan aplikasi mobile sejati yang berjalan di smartphone pengguna</strong>.
+        Dari Sesi 01 hingga Sesi 05, kita telah membangun antarmuka frontend menggunakan Vue 3, TypeScript, dan Ionic UI Toolkit di dalam peramban web desktop. Namun, tujuan akhir mata kuliah ini adalah <strong>menghasilkan aplikasi mobile sejati yang berjalan di smartphone pengguna</strong>.
       </p>
 
       <div style="background: #E0F2FE; border: 2px solid #0284C7; padding: 12px; border-radius: 8px; margin-bottom: 14px;">
         <h4 style="margin: 0 0 4px 0; font-size: 14px; color: #0369A1;">🌉 Peran Kunci Capacitor:</h4>
         <p style="margin: 0; font-size: 12px; color: #0c4a6e;">
-          Capacitor adalah runtime cross-platform sumber terbuka dari tim Ionic yang membungkus kode web kita ke dalam WebView native performa tinggi dan membuka akses penuh ke sensor perangkat keras.
+          Capacitor adalah runtime lintas platform (*cross-platform*) sumber terbuka dari tim Ionic yang membungkus kode web ke dalam WebView native berperforma tinggi dan membuka akses penuh ke sensor perangkat keras.
         </p>
       </div>
 
@@ -82,7 +171,7 @@
         <strong>2. Bridge Layer:</strong> Capacitor Runtime (Penerjemah sinyal JS &harr; Java/Kotlin).
       </div>
       <div class="step-card">
-        <strong>3. Native Layer:</strong> Android OS SDK, Android Studio, Gradle, & Hardware Sensors.
+        <strong>3. Native Layer:</strong> Android OS SDK, Android Studio, Gradle, &amp; Hardware Sensors.
       </div>
     </div>
 
@@ -99,14 +188,14 @@
         </div>
 
         <div style="border-left: 4px solid #16A34A; padding-left: 10px; background: #F0FDF4; padding: 10px;">
-          <strong style="color: #16A34A;">2. Bedah Struktur Folder android/ & Gradle</strong>
+          <strong style="color: #16A34A;">2. Bedah Struktur Folder android/ &amp; Gradle</strong>
           <p style="margin: 4px 0 0 0; font-size: 12px; color: #334155;">
             Membuka proyek di Android Studio, mengonfigurasi <code>build.gradle</code>, SDK target, dan ikon aplikasi di folder <code>res/</code>.
           </p>
         </div>
 
         <div style="border-left: 4px solid #EA580C; padding-left: 10px; background: #FFF7ED; padding: 10px;">
-          <strong style="color: #EA580C;">3. AndroidManifest.xml & Runtime Permissions</strong>
+          <strong style="color: #EA580C;">3. AndroidManifest.xml &amp; Runtime Permissions</strong>
           <p style="margin: 4px 0 0 0; font-size: 12px; color: #334155;">
             Tata kelola hak akses aplikasi: Izin kamera, lokasi GPS, penyimpanan memori, dan keamanan WebView.
           </p>
@@ -120,6 +209,11 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> Ionic Team: <em>"Capacitor Architecture &amp; The Cross-Platform Runtime"</em> (https://capacitorjs.com/docs/basics/concept) &amp; Google Android Developers: <em>"Android Studio &amp; Native App Architecture"</em> (https://developer.android.com/guide). Modul 6 &amp; 7 BMP STSI4303 Universitas Terbuka.
   </div>
 
   <script>

@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--mint);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -74,14 +99,74 @@
       border: 2px solid #000;
       white-space: pre-wrap;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <div class="badge-tag">SLIDE 13 • PRESENTASI & MIRRORING EFISIEN</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Mirroring Layar Cepat & Hemat RAM dengan <code>scrcpy</code></h1>
-    <p style="margin: 0; font-size: 14px;">Menampilkan dan mengontrol layar HP Android langsung di layar laptop tanpa lag dan hanya memakan RAM < 70MB.</p>
+    <div class="badge-tag">SLIDE 13 • PRESENTASI &amp; MIRRORING EFISIEN</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Mirroring Layar Cepat &amp; Hemat RAM dengan <code>scrcpy</code></h1>
+    <p style="margin: 0; font-size: 14px;">Menampilkan dan mengontrol layar HP Android langsung di layar laptop tanpa lag dan hanya memakan RAM &lt; 70MB.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; MIRRORING LAYAR PADA DEMO TUGAS UT</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> scrcpy (unduh gratis via Chocolatey: <code>choco install scrcpy</code>, Winget: <code>winget install Genymobile.scrcpy</code>, atau GitHub zip), Terminal / PowerShell, Kabel USB.</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Centang beberapa parameter opsi scrcpy di sebelah kiri (misal: cegah tidur layar, rekam layar MP4, atau matikan layar HP fisik). Perhatikan perintah terminal yang dihasilkan otomatis di bawahnya.</div>
+    <div style="margin-top: 4px;"><strong>💡 Solusi Praktis Ujian / Presentasi:</strong> Mahasiswa dapat mengendalikan smartphone Android cukup menggunakan keyboard dan mouse laptop Anda! Mengetik input teks formulir panjang menjadi jauh lebih cepat daripada mengetik di keyboard sentuh HP.</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR SCRCPY INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Alur Data scrcpy: Proyeksi Video H.264 Berlatensi Rendah via USB</div>
+    <svg viewBox="0 0 820 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-sc" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- Smartphone Android Side -->
+      <rect x="20" y="25" width="230" height="95" fill="#DCFCE7" stroke="#000" stroke-width="2.5" />
+      <rect x="24" y="29" width="222" height="22" fill="#4ADE80" stroke="#000" stroke-width="1.5" />
+      <text x="135" y="44" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#000">SMARTPHONE ANDROID FISIK</text>
+      <text x="135" y="68" font-family="'Consolas', monospace" font-size="9" font-weight="bold" fill="#15803D">scrcpy-server.jar</text>
+      <text x="135" y="84" font-family="'Segoe UI', sans-serif" font-size="8" fill="#334155">Enkoder Video Hardware H.264/H.265</text>
+      <text x="135" y="100" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#166534">60 FPS Native Resolution</text>
+
+      <!-- Connection: USB Stream -->
+      <line x1="250" y1="72" x2="335" y2="72" stroke="#000" stroke-width="3" marker-end="url(#arrow-sc)" />
+      <text x="290" y="62" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" text-anchor="middle" fill="#0284C7">USB Tunnel</text>
+      <text x="290" y="88" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#64748B">&lt; 50ms lag</text>
+
+      <!-- Laptop Side -->
+      <rect x="340" y="25" width="230" height="95" fill="#EFF6FF" stroke="#000" stroke-width="2.5" />
+      <rect x="344" y="29" width="222" height="22" fill="#38BDF8" stroke="#000" stroke-width="1.5" />
+      <text x="455" y="44" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#000">LAPTOP / PC MAHASISWA</text>
+      <text x="455" y="68" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#0369A1">scrcpy Client (C / SDL2 / FFmpeg)</text>
+      <text x="455" y="84" font-family="'Segoe UI', sans-serif" font-size="8" fill="#334155">Dekode Video Instan &amp; Tangkap Input</text>
+      <text x="455" y="100" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#15803D">Konsumsi RAM: Cuma ~45 MB!</text>
+
+      <!-- Forward: Control Input Back -->
+      <line x1="570" y1="72" x2="625" y2="72" stroke="#000" stroke-width="3" marker-end="url(#arrow-sc)" />
+
+      <!-- Display & Keyboard Box -->
+      <rect x="630" y="25" width="170" height="95" fill="#FEF9C3" stroke="#000" stroke-width="2.5" />
+      <text x="715" y="50" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#B45309">KONTROL PENUH</text>
+      <text x="715" y="70" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">🖱️ Klik Mouse = Tap Layar</text>
+      <text x="715" y="86" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">⌨️ Keyboard Laptop = Mengetik</text>
+      <text x="715" y="102" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">🎥 Rekam Demo MP4 Otomatis</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -89,7 +174,7 @@
     <div class="box">
       <h3>⚡ Fitur Unggulan scrcpy untuk Mahasiswa UT</h3>
       <ul style="font-size: 13px; line-height: 1.6; padding-left: 20px; color: #334155;">
-        <li><strong>Ringan & Bebas Iklan:</strong> Dibuat dengan C/Java murni oleh Genymobile, tidak membutuhkan root pada HP.</li>
+        <li><strong>Ringan &amp; Bebas Iklan:</strong> Dibuat dengan C/Java murni oleh Genymobile, tidak membutuhkan root pada HP.</li>
         <li><strong>Latensi Sangat Rendah:</strong> Hanya 35–70 ms pada resolusi native 60 FPS.</li>
         <li><strong>Interaksi Dua Arah:</strong> Mengetik pesan lewat keyboard PC dan mengklik antarmuka dengan mouse laptop!</li>
         <li><strong>Perekaman Video Demo Tugas:</strong> Dapat merekam layar langsung menjadi berkas MP4 untuk bukti tugas tutorial.</li>
@@ -98,65 +183,64 @@
       <h4 style="margin-top: 16px;">🛠️ Generator Perintah Praktis scrcpy:</h4>
       <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; margin-bottom: 12px;">
         <label><input type="checkbox" v-model="optStayAwake" /> <code>--stay-awake</code> (Cegah layar HP sleep saat coding)</label>
-        <label><input type="checkbox" v-model="optLimitRes" /> <code>-m 1024</code> (Batasi resolusi ke 1024px agar hemat resource laptop)</label>
-        <label><input type="checkbox" v-model="optRecord" /> <code>--record demo_tugas_ut.mp4</code> (Rekam demo aplikasi ke file video)</label>
+        <label><input type="checkbox" v-model="optTurnScreenOff" /> <code>--turn-screen-off</code> (Matikan layar fisik HP untuk hemat baterai &amp; panas)</label>
+        <label><input type="checkbox" v-model="optRecord" /> <code>--record demo_tugas.mp4</code> (Rekam layar untuk lampiran tugas UT)</label>
       </div>
 
+      <div style="font-size: 12px; font-weight: bold; margin-bottom: 4px;">Perintah Terminal:</div>
       <div class="code-term">{{ generatedCommand }}</div>
     </div>
 
     <!-- SIMULATOR JENDELA SCRCPY -->
-    <div class="box" style="text-align: center;">
-      <h3 style="text-align: left;">🖥️ Simulasi Jendela scrcpy di Desktop</h3>
+    <div class="box">
+      <h3>🖥️ Pratinjau Tampilan Jendela scrcpy di Laptop</h3>
 
       <div class="scrcpy-window">
-        <div style="display: flex; justify-content: space-between; font-size: 11px; padding-bottom: 6px; border-bottom: 1px solid #27272a; margin-bottom: 8px;">
-          <span>📱 Samsung A54 - scrcpy</span>
-          <span>_ □ ✕</span>
+        <div style="font-size: 11px; padding-bottom: 6px; border-bottom: 1px solid #27272a; margin-bottom: 8px; display: flex; justify-content: space-between;">
+          <span>SM-A546E (scrcpy 2.4)</span>
+          <span>✕</span>
         </div>
 
         <div class="phone-screen">
-          <div style="font-size: 11px; display: flex; justify-content: space-between; opacity: 0.7;">
-            <span>12:00</span>
-            <span>LTE 🔋 98%</span>
+          <div style="font-size: 10px; color: #a1a1aa; text-align: left;">10:30 • 4G • 90%</div>
+          
+          <div style="background: #27272a; padding: 14px; border-radius: 8px; margin: auto 0;">
+            <div style="font-size: 20px;">🎓</div>
+            <div style="font-weight: bold; font-size: 12px; margin-top: 4px;">UT Mobile Learning</div>
+            <div style="font-size: 10px; color: #4ade80; margin-top: 2px;">● Berjalan Lancar di HP Fisik</div>
           </div>
 
-          <div style="border: 2px dashed #38bdf8; padding: 14px; border-radius: 8px; background: rgba(56, 189, 248, 0.1);">
-            <div style="font-size: 24px; margin-bottom: 6px;">🎓</div>
-            <div style="font-weight: bold; font-size: 13px;">Portal UT Mobile</div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">KRS Online Aktif</div>
-            <button style="background: #ffe600; color: #000; border: none; padding: 6px 12px; font-weight: bold; margin-top: 10px; border-radius: 4px; font-size: 11px;">
-              🖱️ Klik via Mouse Laptop
-            </button>
-          </div>
-
-          <div style="display: flex; justify-content: space-around; font-size: 14px; opacity: 0.8; padding-top: 8px;">
-            <span>◀</span>
-            <span>●</span>
-            <span>■</span>
+          <div style="font-size: 9px; color: #71717a;">
+            Gunakan klik mouse untuk sentuh layar, keyboard PC untuk ketik teks.
           </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> Genymobile: <em>"scrcpy: Display and control your Android device over USB"</em> (https://github.com/Genymobile/scrcpy). Panduan Praktikum Mandiri STSI4303 Universitas Terbuka.
+  </div>
+
   <script>
     const { createApp, ref, computed } = Vue;
+
     createApp({
       setup() {
         const optStayAwake = ref(true);
-        const optLimitRes = ref(true);
+        const optTurnScreenOff = ref(false);
         const optRecord = ref(false);
 
         const generatedCommand = computed(() => {
           let cmd = 'scrcpy';
           if (optStayAwake.value) cmd += ' --stay-awake';
-          if (optLimitRes.value) cmd += ' -m 1024';
-          if (optRecord.value) cmd += ' --record demo_tugas_ut.mp4';
+          if (optTurnScreenOff.value) cmd += ' --turn-screen-off';
+          if (optRecord.value) cmd += ' --record=demo_tugas_ut.mp4';
           return cmd;
         });
 
-        return { optStayAwake, optLimitRes, optRecord, generatedCommand };
+        return { optStayAwake, optTurnScreenOff, optRecord, generatedCommand };
       }
     }).mount('#app');
   </script>

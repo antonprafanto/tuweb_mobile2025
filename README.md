@@ -182,26 +182,26 @@ tuweb_mobile2025/
 
 ### 📱 Rincian 18 Berkas Mandiri Sesi 06 (Capacitor Runtime Bridge & Android Studio)
 
-| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run) |
+| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run di Chrome) |
 | :---: | :--- | :--- |
-| **Slide 01** | Orientasi Sesi 06, Sub-CPMK 6 & Roadmap Transformasi ke Native Android | [`slide_01_orientasi_sesi_06_bridge.html`](contoh_kode_program/sesi_06_capacitor_android/slide_01_orientasi_sesi_06_bridge.html) |
-| **Slide 02** | Komparasi Filosofi: Apache Cordova (Black-box) vs Capacitor (Source-first) | [`slide_02_komparasi_capacitor_vs_cordova.html`](contoh_kode_program/sesi_06_capacitor_android/slide_02_komparasi_capacitor_vs_cordova.html) |
-| **Slide 03** | Mekanisme Jembatan: Pesan Dua Arah JS &harr; Java/Kotlin & Simulator RPC | [`slide_03_cara_kerja_runtime_bridge.html`](contoh_kode_program/sesi_06_capacitor_android/slide_03_cara_kerja_runtime_bridge.html) |
-| **Slide 04** | Generator & Validator `capacitor.config.ts`: Penegakan Reverse-Domain appId | [`slide_04_konfigurasi_capacitor_config.html`](contoh_kode_program/sesi_06_capacitor_android/slide_04_konfigurasi_capacitor_config.html) |
-| **Slide 05** | Alur 4 Perintah CLI: `build`, `add android`, `sync`, & `open android` | [`slide_05_alur_perintah_cli_capacitor.html`](contoh_kode_program/sesi_06_capacitor_android/slide_05_alur_perintah_cli_capacitor.html) |
-| **Slide 06** | Visual Tree Explorer: Bedah Struktur Folder `android/`, `app/`, `res/`, `manifest` | [`slide_06_anatomi_folder_android.html`](contoh_kode_program/sesi_06_capacitor_android/slide_06_anatomi_folder_android.html) |
-| **Slide 07** | Konfigurasi `build.gradle`: `minSdk`, `targetSdk`, `compileSdk`, `versionCode` | [`slide_07_konfigurasi_build_gradle.html`](contoh_kode_program/sesi_06_capacitor_android/slide_07_konfigurasi_build_gradle.html) |
-| **Slide 08** | Anatomi `AndroidManifest.xml`: Izin Hardware, Orientasi & Cleartext Traffic | [`slide_08_anatomi_android_manifest.html`](contoh_kode_program/sesi_06_capacitor_android/slide_08_anatomi_android_manifest.html) |
-| **Slide 09** | Pola Runtime Permissions: `checkPermissions()` & `requestPermissions()` | [`slide_09_manajemen_runtime_permissions.html`](contoh_kode_program/sesi_06_capacitor_android/slide_09_manajemen_runtime_permissions.html) |
-| **Slide 10** | Peta Instrumen Android Studio: Toolbar, Gradle Sync, Target Device & Logcat | [`slide_10_pengenalan_android_studio.html`](contoh_kode_program/sesi_06_capacitor_android/slide_10_pengenalan_android_studio.html) |
-| **Slide 11** | Solusi RAM 4–8GB: Kalkulator Beban RAM Emulator (4GB) vs HP Fisik (50MB) | [`slide_11_dilema_ram_emulator_vs_device.html`](contoh_kode_program/sesi_06_capacitor_android/slide_11_dilema_ram_emulator_vs_device.html) |
-| **Slide 12** | Panduan Praktis Aktivasi Opsi Pengembang & USB Debugging Semua Merk HP | [`slide_12_panduan_usb_debugging_android.md`](contoh_kode_program/sesi_06_capacitor_android/slide_12_panduan_usb_debugging_android.md) |
-| **Slide 13** | Mirroring Layar HP Tanpa Lag & Perekam Video Demo via `scrcpy` | [`slide_13_panduan_scrcpy_mirroring.html`](contoh_kode_program/sesi_06_capacitor_android/slide_13_panduan_scrcpy_mirroring.html) |
-| **Slide 14** | Remote Debugging WebView Menggunakan `chrome://inspect` Desktop | [`slide_14_chrome_remote_debugging_inspect.html`](contoh_kode_program/sesi_06_capacitor_android/slide_14_chrome_remote_debugging_inspect.html) |
-| **Slide 15** | Keamanan Arsitektur Hybrid: Hardening WebView, Pencegahan XSS & Skema HTTPS | [`slide_15_keamanan_webview_dan_xss.html`](contoh_kode_program/sesi_06_capacitor_android/slide_15_keamanan_webview_dan_xss.html) |
-| **Slide 16** | Cheatsheet Error Populer: JDK Mismatch, AAPT2, ADB Unauthorized & OOM | [`slide_16_troubleshooting_build_android.md`](contoh_kode_program/sesi_06_capacitor_android/slide_16_troubleshooting_build_android.md) |
-| **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 06:** Capacitor Bridge & Platform Inspector | [`slide_17_lab_quest_06_bridge_tester.html`](contoh_kode_program/sesi_06_capacitor_android/slide_17_lab_quest_06_bridge_tester.html) |
-| **Slide 18** | **Jembatan Sesi 07:** REST API, Offline Storage & Pembukaan TUGAS TUTORIAL 3 | [`slide_18_preview_sesi_07_api_storage.html`](contoh_kode_program/sesi_06_capacitor_android/slide_18_preview_sesi_07_api_storage.html) |
+| **Slide 01** | Orientasi Sesi 06, Sub-CPMK 6 & Roadmap Transformasi ke Native Android | [🌐 `slide_01_orientasi_sesi_06_bridge.html`](contoh_kode_program/sesi_06_capacitor_android/slide_01_orientasi_sesi_06_bridge.html) |
+| **Slide 02** | Komparasi Filosofi: Apache Cordova (Black-box) vs Capacitor (Source-first) | [🌐 `slide_02_komparasi_capacitor_vs_cordova.html`](contoh_kode_program/sesi_06_capacitor_android/slide_02_komparasi_capacitor_vs_cordova.html) |
+| **Slide 03** | Mekanisme Jembatan: Pesan Dua Arah JS &harr; Java/Kotlin & Simulator RPC | [🌐 `slide_03_cara_kerja_runtime_bridge.html`](contoh_kode_program/sesi_06_capacitor_android/slide_03_cara_kerja_runtime_bridge.html) |
+| **Slide 04** | Generator & Validator `capacitor.config.ts`: Penegakan Reverse-Domain appId | [🌐 `slide_04_konfigurasi_capacitor_config.html`](contoh_kode_program/sesi_06_capacitor_android/slide_04_konfigurasi_capacitor_config.html) |
+| **Slide 05** | Alur 4 Perintah CLI: `build`, `add android`, `sync`, & `open android` | [🌐 `slide_05_alur_perintah_cli_capacitor.html`](contoh_kode_program/sesi_06_capacitor_android/slide_05_alur_perintah_cli_capacitor.html) |
+| **Slide 06** | Visual Tree Explorer: Bedah Struktur Folder `android/`, `app/`, `res/`, `manifest` | [🌐 `slide_06_anatomi_folder_android.html`](contoh_kode_program/sesi_06_capacitor_android/slide_06_anatomi_folder_android.html) |
+| **Slide 07** | Konfigurasi `build.gradle`: `minSdk`, `targetSdk`, `compileSdk`, `versionCode` | [🌐 `slide_07_konfigurasi_build_gradle.html`](contoh_kode_program/sesi_06_capacitor_android/slide_07_konfigurasi_build_gradle.html) |
+| **Slide 08** | Anatomi `AndroidManifest.xml`: Izin Hardware, Orientasi & Cleartext Traffic | [🌐 `slide_08_anatomi_android_manifest.html`](contoh_kode_program/sesi_06_capacitor_android/slide_08_anatomi_android_manifest.html) |
+| **Slide 09** | Pola Runtime Permissions: `checkPermissions()` & `requestPermissions()` | [🌐 `slide_09_manajemen_runtime_permissions.html`](contoh_kode_program/sesi_06_capacitor_android/slide_09_manajemen_runtime_permissions.html) |
+| **Slide 10** | Peta Instrumen Android Studio: Toolbar, Gradle Sync, Target Device & Logcat | [🌐 `slide_10_pengenalan_android_studio.html`](contoh_kode_program/sesi_06_capacitor_android/slide_10_pengenalan_android_studio.html) |
+| **Slide 11** | Solusi RAM 4–8GB: Kalkulator Beban RAM Emulator (4GB) vs HP Fisik (50MB) | [🌐 `slide_11_dilema_ram_emulator_vs_device.html`](contoh_kode_program/sesi_06_capacitor_android/slide_11_dilema_ram_emulator_vs_device.html) |
+| **Slide 12** | Panduan Praktis Aktivasi Opsi Pengembang & USB Debugging Semua Merk HP | [🌐 `slide_12_panduan_usb_debugging_android.html`](contoh_kode_program/sesi_06_capacitor_android/slide_12_panduan_usb_debugging_android.html) *(Panduan: [`.md`](contoh_kode_program/sesi_06_capacitor_android/slide_12_panduan_usb_debugging_android.md))* |
+| **Slide 13** | Mirroring Layar HP Tanpa Lag & Perekam Video Demo via `scrcpy` | [🌐 `slide_13_panduan_scrcpy_mirroring.html`](contoh_kode_program/sesi_06_capacitor_android/slide_13_panduan_scrcpy_mirroring.html) |
+| **Slide 14** | Remote Debugging WebView Menggunakan `chrome://inspect` Desktop | [🌐 `slide_14_chrome_remote_debugging_inspect.html`](contoh_kode_program/sesi_06_capacitor_android/slide_14_chrome_remote_debugging_inspect.html) |
+| **Slide 15** | Keamanan Arsitektur Hybrid: Hardening WebView, Pencegahan XSS & Skema HTTPS | [🌐 `slide_15_keamanan_webview_dan_xss.html`](contoh_kode_program/sesi_06_capacitor_android/slide_15_keamanan_webview_dan_xss.html) |
+| **Slide 16** | **Konsol Diagnostik & Solusi 6 Error Android: JDK Mismatch, AAPT2, ADB, OOM** | [🌐 `slide_16_troubleshooting_build_android.html`](contoh_kode_program/sesi_06_capacitor_android/slide_16_troubleshooting_build_android.html) *(Panduan: [`.md`](contoh_kode_program/sesi_06_capacitor_android/slide_16_troubleshooting_build_android.md))* |
+| **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 06:** Capacitor Bridge & Platform Inspector | [🌐 `slide_17_lab_quest_06_bridge_tester.html`](contoh_kode_program/sesi_06_capacitor_android/slide_17_lab_quest_06_bridge_tester.html) |
+| **Slide 18** | **Jembatan Sesi 07:** REST API, Offline Storage & Pembukaan TUGAS TUTORIAL 3 | [🌐 `slide_18_preview_sesi_07_api_storage.html`](contoh_kode_program/sesi_06_capacitor_android/slide_18_preview_sesi_07_api_storage.html) |
 
 ---
 

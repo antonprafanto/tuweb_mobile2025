@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--mint);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -61,6 +86,15 @@
       border: 2px solid #000;
       white-space: pre-wrap;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -71,10 +105,60 @@
     <p style="margin: 0; font-size: 14px;">Mendefinisikan identitas paket aplikasi Android (appId), nama tampilan di layar beranda (appName), dan folder build aset web.</p>
   </div>
 
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; GENERATOR KONFIGURASI</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (cukup klik ganda berkas ini), Visual Studio Code (buka berkas <code>capacitor.config.ts</code> di root proyek), Node.js CLI.</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Ubah isian pada form generator di sebelah kiri (misal ganti nama aplikasi atau ubah <em>appId</em>). Perhatikan pratinjau kode TypeScript di sebelah kanan akan terbarui secara reaktif dan otomatis memvalidasi format reverse domain!</div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Saat perintah <code>npx cap sync</code> dijalankan, nilai dari berkas <code>capacitor.config.ts</code> ini dipetakan secara otomatis ke konfigurasi native Android: <code>appId</code> menjadi <code>applicationId</code> di Gradle, dan <code>appName</code> menjadi string nama aplikasi di <code>res/values/strings.xml</code>.</div>
+  </div>
+
+  <!-- DIAGRAM PEMETAAN KONFIGURASI INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Pemetaan Konfigurasi: capacitor.config.ts ➔ Artefak Native Android</div>
+    <svg viewBox="0 0 820 160" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-map" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284C7" />
+        </marker>
+      </defs>
+
+      <!-- Source: capacitor.config.ts -->
+      <rect x="20" y="20" width="280" height="120" fill="#FEF9C3" stroke="#000" stroke-width="2.5" />
+      <rect x="25" y="25" width="270" height="22" fill="#FFE600" />
+      <text x="160" y="41" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#000">capacitor.config.ts (Single Source)</text>
+      <text x="35" y="68" font-family="'Consolas', monospace" font-size="10" font-weight="bold" fill="#0F172A">• appId: 'id.ac.ut.mobile'</text>
+      <text x="35" y="94" font-family="'Consolas', monospace" font-size="10" font-weight="bold" fill="#0F172A">• appName: 'UT Mobile Portal'</text>
+      <text x="35" y="120" font-family="'Consolas', monospace" font-size="10" font-weight="bold" fill="#0F172A">• webDir: 'dist'</text>
+
+      <!-- Arrow 1 (appId) -->
+      <line x1="300" y1="65" x2="440" y2="45" stroke="#0284C7" stroke-width="2" marker-end="url(#arrow-map)" />
+      <!-- Arrow 2 (appName) -->
+      <line x1="300" y1="90" x2="440" y2="85" stroke="#0284C7" stroke-width="2" marker-end="url(#arrow-map)" />
+      <!-- Arrow 3 (webDir) -->
+      <line x1="300" y1="115" x2="440" y2="125" stroke="#0284C7" stroke-width="2" marker-end="url(#arrow-map)" />
+
+      <!-- Destination 1: build.gradle -->
+      <rect x="450" y="20" width="350" height="36" fill="#EFF6FF" stroke="#0284C7" stroke-width="1.5" />
+      <text x="460" y="36" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#1E40AF">android/app/build.gradle</text>
+      <text x="460" y="48" font-family="'Consolas', monospace" font-size="8" fill="#334155">applicationId "id.ac.ut.mobile"</text>
+
+      <!-- Destination 2: strings.xml -->
+      <rect x="450" y="65" width="350" height="36" fill="#F0FDF4" stroke="#16A34A" stroke-width="1.5" />
+      <text x="460" y="81" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#15803D">android/app/src/main/res/values/strings.xml</text>
+      <text x="460" y="93" font-family="'Consolas', monospace" font-size="8" fill="#334155">&lt;string name="app_name"&gt;UT Mobile Portal&lt;/string&gt;</text>
+
+      <!-- Destination 3: assets/public -->
+      <rect x="450" y="110" width="350" height="36" fill="#FAF5FF" stroke="#9333EA" stroke-width="1.5" />
+      <text x="460" y="126" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#7E22CE">android/app/src/main/assets/public/</text>
+      <text x="460" y="138" font-family="'Consolas', monospace" font-size="8" fill="#334155">Bundel HTML/JS/CSS disalin ke WebView assets</text>
+    </svg>
+  </div>
+
   <div id="app" class="grid">
     <!-- FORM BUILDER & VALIDASI -->
     <div class="box">
-      <h3>⚙️ Generator & Validator Konfigurasi</h3>
+      <h3>⚙️ Generator &amp; Validator Konfigurasi</h3>
       <p style="font-size: 12px; color: #475569;">Sesuaikan parameter di bawah ini untuk menghasilkan berkas konfigurasi resmi:</p>
 
       <label style="font-size: 12px; font-weight: bold;">Nama Aplikasi (appName):</label>
@@ -95,7 +179,7 @@
           Aktifkan Live Reload Server (Pengujian Cepat)
         </label>
         <div v-if="enableLiveReload" style="margin-top: 8px;">
-          <label style="font-size: 11px;">Alamat IP Mesin Lokal & Port:</label>
+          <label style="font-size: 11px;">Alamat IP Mesin Lokal &amp; Port:</label>
           <input class="input-field" v-model="serverUrl" placeholder="http://192.168.1.10:5173" />
         </div>
       </div>
@@ -125,6 +209,11 @@ export default config;</div>
         💡 <strong>Aturan Format Reverse Domain:</strong> <code>appId</code> harus menggunakan format domain terbalik unik dunia (contoh: <code>id.ac.ut.namaaplikasi</code>). ID ini akan menjadi kunci pengenal permanen di Google Play Store dan sistem Android OS!
       </div>
     </div>
+  </div>
+
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> Capacitor Official Documentation: <em>"Configuration Files &amp; Properties Reference"</em> (https://capacitorjs.com/docs/config) &amp; Google Android Developers: <em>"Set the Application ID"</em> (https://developer.android.com/build/configure-app-module#set-application-id). Bahan Ajar STSI4303 Universitas Terbuka.
   </div>
 
   <script>

@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -75,6 +100,15 @@
       font-size: 11px;
       min-height: 180px;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -83,6 +117,61 @@
     <div class="badge-tag">SLIDE 14 • TEKNIK DIAGNOSTIK WEBVIEW</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Inspeksi WebView dengan <code>chrome://inspect</code></h1>
     <p style="margin: 0; font-size: 14px;">Menggunakan kekuatan penuh Google Chrome DevTools desktop untuk men-debug aplikasi yang berjalan di dalam smartphone fisik.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; REMOTE DEBUGGING WEBVIEW</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome Desktop di Laptop, Smartphone Android Fisik yang menjalankan aplikasi Ionic/Capacitor, Kabel USB terhubung.</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Klik tab <strong>Console</strong>, <strong>Elements</strong>, atau <strong>Network</strong> pada simulator DevTools di panel kanan. Amati bagaimana Anda dapat melihat elemen DOM, pesan <code>console.log()</code>, dan permintaan HTTP API langsung dari ponsel nyata!</div>
+    <div style="margin-top: 4px;"><strong>💡 Rahasia Koding Mobile:</strong> Anda tidak perlu menebak mengapa tombol di smartphone tidak berfungsi. Buka <code>chrome://inspect</code>, klik inspect, dan periksa tab Console untuk melihat baris error JavaScript secara persis seperti di laptop!</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR REMOTE DEBUGGING INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Protokol Remote Debugging: Chrome DevTools ↔ Android WebView</div>
+    <svg viewBox="0 0 820 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-dbg" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284C7" />
+        </marker>
+        <marker id="arrow-dbg-back" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#16A34A" />
+        </marker>
+      </defs>
+
+      <!-- Laptop Box -->
+      <rect x="20" y="25" width="240" height="95" fill="#EFF6FF" stroke="#000" stroke-width="2.5" />
+      <rect x="24" y="29" width="232" height="22" fill="#38BDF8" stroke="#000" stroke-width="1.5" />
+      <text x="140" y="44" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#000">LAPTOP GOOGLE CHROME</text>
+      <text x="140" y="68" font-family="'Consolas', monospace" font-size="9" font-weight="bold" fill="#0369A1">chrome://inspect/#devices</text>
+      <text x="140" y="84" font-family="'Segoe UI', sans-serif" font-size="8" fill="#334155">Frontend DevTools UI Lengkap</text>
+      <text x="140" y="100" font-family="'Segoe UI', sans-serif" font-size="8" fill="#334155">Console, Elements, Network, Storage</text>
+
+      <!-- Bi-directional protocol over USB -->
+      <line x1="260" y1="62" x2="335" y2="62" stroke="#0284C7" stroke-width="2.5" marker-end="url(#arrow-dbg)" />
+      <line x1="335" y1="82" x2="260" y2="82" stroke="#16A34A" stroke-width="2.5" marker-end="url(#arrow-dbg-back)" />
+      <text x="298" y="54" font-family="'Segoe UI', sans-serif" font-size="7" font-weight="bold" text-anchor="middle" fill="#0284C7">DevTools Protocol</text>
+      <text x="298" y="96" font-family="'Segoe UI', sans-serif" font-size="7" font-weight="bold" text-anchor="middle" fill="#16A34A">ADB Unix Socket</text>
+
+      <!-- Android Phone Box -->
+      <rect x="340" y="25" width="240" height="95" fill="#DCFCE7" stroke="#000" stroke-width="2.5" />
+      <rect x="344" y="29" width="232" height="22" fill="#4ADE80" stroke="#000" stroke-width="1.5" />
+      <text x="460" y="44" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#000">SMARTPHONE ANDROID FISIK</text>
+      <text x="460" y="68" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#15803D">Capacitor App (WebView Debug)</text>
+      <text x="460" y="84" font-family="'Segoe UI', sans-serif" font-size="8" fill="#14532D">setWebContentsDebuggingEnabled(true)</text>
+      <text x="460" y="100" font-family="'Segoe UI', sans-serif" font-size="8" fill="#14532D">Eksekusi DOM &amp; JS secara Real-time</text>
+
+      <!-- Arrow to Benefit -->
+      <line x1="580" y1="72" x2="625" y2="72" stroke="#000" stroke-width="2" marker-end="url(#arrow-dbg)" />
+
+      <!-- Result Box -->
+      <rect x="630" y="25" width="170" height="95" fill="#FEF9C3" stroke="#000" stroke-width="2.5" />
+      <text x="715" y="48" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#B45309">HASIL AKURAT</text>
+      <text x="715" y="68" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">🐞 Tangkap Eror JS Instan</text>
+      <text x="715" y="84" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">🌐 Pantau REST API Network</text>
+      <text x="715" y="100" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">📱 Live Screencast Display</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -99,14 +188,15 @@
         <li>Klik tautan biru <strong>inspect</strong> untuk membuka jendela DevTools.</li>
       </ol>
 
-      <div style="background: #FEF3C7; border: 2px solid #D97706; padding: 10px; font-size: 12px;">
-        ⚡ <strong>Keuntungan Utama:</strong> Mahasiswa dapat mengedit gaya CSS secara langsung, memantau error JavaScript di console, dan merekam *Network Traffic* API kampus tanpa perlu meng-compile ulang APK!
+      <div style="background: #EFF6FF; border: 2px solid #0284C7; padding: 10px; font-size: 12px;">
+        💡 <strong>Fitur Rahasia: Screencast!</strong><br>
+        Klik ikon smartphone kecil di pojok kiri atas Chrome DevTools untuk menampilkan proyeksi layar sentuh HP langsung di dalam tab DevTools desktop!
       </div>
     </div>
 
-    <!-- SIMULATOR CHROME DEVTOOLS -->
+    <!-- MOCKUP DEVTOOLS DESKTOP -->
     <div class="box">
-      <h3>🖥️ Simulasi DevTools Remote</h3>
+      <h3>🖥️ DevTools — Inspeksi WebView Ponsel</h3>
 
       <div class="devtools-mock">
         <div class="devtools-bar">
@@ -116,32 +206,51 @@
         </div>
 
         <div class="devtools-body">
-          <div v-if="currentTab === 'elements'">
-            <span style="color: #9aa0a6;">&lt;html lang="id"&gt;</span><br>
-            &nbsp;&nbsp;<span style="color: #9aa0a6;">&lt;body class="dark-theme"&gt;</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8ab4f8;">&lt;ion-app&gt;</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8ab4f8;">&lt;ion-content class="ion-padding"&gt;</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #f28b82;">&lt;ion-card&gt;</span> Mahasiswa UT <span style="color: #f28b82;">&lt;/ion-card&gt;</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8ab4f8;">&lt;/ion-content&gt;</span><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8ab4f8;">&lt;/ion-app&gt;</span>
+          <div v-if="currentTab === 'elements'" style="color: #93c5fd;">
+            &lt;html&gt;<br>
+            &nbsp;&nbsp;&lt;body class="ios"&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ion-app id="app"&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ion-header translucent="true"&gt;...&lt;/ion-header&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ion-content class="ion-padding"&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Halo Mahasiswa UT!&lt;/h1&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ion-content&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ion-app&gt;<br>
+            &nbsp;&nbsp;&lt;/body&gt;<br>
+            &lt;/html&gt;
           </div>
 
           <div v-if="currentTab === 'console'">
-            <div style="color: #81c995;">[INFO] Capacitor Web View initialized (Android 14)</div>
-            <div style="color: #8ab4f8;">[DEBUG] Vue 3 Reactivity System Mounted</div>
-            <div style="color: #fdd663;">[WARN] Geolocation permission not yet requested</div>
-            <div style="margin-top: 8px; color: #fff;">&gt; localStorage.getItem('token_mahasiswa_ut')</div>
-            <div style="color: #ce93d8;">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</div>
+            <div style="color: #4ade80;">[INFO:Capacitor] Native bridge ready in 82ms</div>
+            <div style="color: #facc15;">[WARN] Ionic CSS variable --ion-color-step-150 not defined</div>
+            <div style="color: #38bdf8;">&gt; Mahasiswa: Anton Prafanto (NIM: 041234567)</div>
+            <div style="color: #f87171;">[ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED</div>
+            <div style="color: #94a3b8; margin-top: 8px;">&gt; _</div>
           </div>
 
           <div v-if="currentTab === 'network'">
-            <div style="color: #81c995;">200 OK | GET /api/v1/krs | 1.4 kB | 48 ms</div>
-            <div style="color: #81c995;">200 OK | GET /api/v1/profil | 0.8 kB | 32 ms</div>
-            <div style="color: #81c995;">304 NOT MODIFIED | GET /avatar.png | 12 ms</div>
+            <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
+              <tr style="color: #94a3b8; border-bottom: 1px solid #334155; text-align: left;">
+                <th>Name</th><th>Status</th><th>Type</th><th>Time</th>
+              </tr>
+              <tr style="color: #4ade80;">
+                <td>index.html</td><td>200</td><td>document</td><td>4ms</td>
+              </tr>
+              <tr style="color: #4ade80;">
+                <td>index.js</td><td>200</td><td>script</td><td>12ms</td>
+              </tr>
+              <tr style="color: #f87171;">
+                <td>api/login</td><td>500</td><td>fetch</td><td>230ms</td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> Google Chrome for Developers: <em>"Remote Debugging Android Devices &amp; WebViews"</em> (https://developer.chrome.com/docs/devtools/remote-debugging). Modul 7 BMP STSI4303 Universitas Terbuka.
   </div>
 
   <script>

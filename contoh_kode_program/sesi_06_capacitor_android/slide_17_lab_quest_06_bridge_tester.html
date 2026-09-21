@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--mint);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -59,7 +84,9 @@
       box-shadow: 3px 3px 0 #000;
       font-size: 13px;
       margin: 4px;
+      transition: all 0.1s ease;
     }
+    .btn-neo:hover { background: #fde047; }
     .btn-neo:active {
       transform: translate(2px, 2px);
       box-shadow: 1px 1px 0 #000;
@@ -74,20 +101,91 @@
       height: 220px;
       overflow-y: auto;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
     <div class="badge-tag">SLIDE 17 • MASTER SOLUSI LAB QUEST 06 (NILAI MAKSIMAL 100)</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Capacitor Bridge & Android Platform Inspector</h1>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Capacitor Bridge &amp; Android Platform Inspector</h1>
     <p style="margin: 0; font-size: 14px;">Dashboard diagnostik menyeluruh: Mendeteksi platform eksekusi, mensimulasikan panggilan plugin jembatan, dan mencatat lalu lintas komunikasi RPC.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; SOLUSI RESMI LAB QUEST 06</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (cukup klik ganda berkas ini), Smartphone Android Fisik + Kabel USB, Terminal / PowerShell, DevTools (<code>F12</code>).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong>
+      <ol style="margin: 4px 0 0 0; padding-left: 18px;">
+        <li>Perhatikan kartu <em>ENVIRONMENT STATUS</em>: Halaman ini otomatis mendeteksi apakah Anda membuka berkas di peramban web atau di dalam native Android APK.</li>
+        <li>Klik tombol <strong>📳 Uji Haptic Vibrate</strong>, <strong>📋 Uji Salin Clipboard</strong>, atau <strong>🔌 Simulasikan Status Jaringan</strong>.</li>
+        <li>Amati konsol kabel (<em>stream log</em>) di sebelah kanan yang merekam paket request dan response JSON-RPC secara transparan!</li>
+      </ol>
+    </div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Kode ini menerapkan pola <em>Progressive Fallback</em>: jika dijalankan di ponsel fisik dengan Capacitor, getaran haptik asli akan aktif. Jika dibuka di Chrome desktop biasa, kode akan menggunakan Web Vibration API atau mencetak log fallback yang anggun tanpa menyebabkan aplikasi crash!</div>
+  </div>
+
+  <!-- DIAGRAM LAB QUEST INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Arsitektur Lab Quest 06: Router Deteksi Platform &amp; Driver Fallback</div>
+    <svg viewBox="0 0 820 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-lq" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- User Event Trigger -->
+      <rect x="20" y="30" width="170" height="90" fill="#FEF9C3" stroke="#000" stroke-width="2.5" />
+      <text x="105" y="52" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#B45309">AKSI PENGGUNA</text>
+      <text x="105" y="72" font-family="'Consolas', monospace" font-size="9" font-weight="bold" text-anchor="middle">testHaptics()</text>
+      <text x="105" y="88" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">Tombol Ditekan Mahasiswa</text>
+      <text x="105" y="104" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">Trigger Promise Asinkron</text>
+
+      <!-- Arrow to Router -->
+      <line x1="190" y1="75" x2="235" y2="75" stroke="#000" stroke-width="2" marker-end="url(#arrow-lq)" />
+
+      <!-- Platform Detection Router -->
+      <rect x="240" y="25" width="220" height="100" fill="#EFF6FF" stroke="#0284C7" stroke-width="2.5" />
+      <rect x="244" y="29" width="212" height="22" fill="#38BDF8" stroke="#000" stroke-width="1.5" />
+      <text x="350" y="44" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#000">DETEKSI PLATFORM LINGKUNGAN</text>
+      <text x="350" y="68" font-family="'Consolas', monospace" font-size="9" font-weight="bold" text-anchor="middle" fill="#0369A1">Capacitor.isNativePlatform()?</text>
+      <text x="350" y="86" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#334155">Apakah berjalan di dalam APK?</text>
+      <text x="350" y="102" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" text-anchor="middle" fill="#0284C7">Pencabangan Logika Aman</text>
+
+      <!-- Branch Native -->
+      <line x1="460" y1="55" x2="525" y2="40" stroke="#16A34A" stroke-width="2.5" marker-end="url(#arrow-lq)" />
+      <text x="490" y="42" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#16A34A">YES (Native)</text>
+
+      <!-- Destination Native -->
+      <rect x="530" y="15" width="270" height="48" fill="#DCFCE7" stroke="#16A34A" stroke-width="2" />
+      <text x="665" y="34" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#15803D">RUTE NATIVE CAPACITOR BRIDGE</text>
+      <text x="665" y="48" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#14532D">Kirim JSON via RPC ➔ Motor Getar HP Asli</text>
+
+      <!-- Branch Web Fallback -->
+      <line x1="460" y1="95" x2="525" y2="110" stroke="#0284C7" stroke-width="2.5" marker-end="url(#arrow-lq)" />
+      <text x="490" y="116" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#0284C7">NO (Browser)</text>
+
+      <!-- Destination Web Fallback -->
+      <rect x="530" y="85" width="270" height="48" fill="#F8FAFC" stroke="#0284C7" stroke-width="2" />
+      <text x="665" y="104" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#0369A1">RUTE FALLBACK PERAMBAN WEB</text>
+      <text x="665" y="118" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#334155">navigator.vibrate() / Log Mockup Aman</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
     <!-- PANEL DETEKSI PLATFORM & PERANGKAT -->
     <div class="box">
-      <h3>📱 Info Platform & Perangkat</h3>
+      <h3>📱 Info Platform &amp; Perangkat</h3>
 
       <div class="status-card">
         <div style="font-size: 11px; color: #64748B; font-weight: bold;">ENVIRONMENT STATUS:</div>
@@ -130,7 +228,7 @@
           Bersihkan Log
         </button>
       </div>
-      <p style="font-size: 12px; color: #64748B; margin-top: 0;">Mencatat setiap transaksi request/response yang melintasi jembatan JavaScript & Android:</p>
+      <p style="font-size: 12px; color: #64748B; margin-top: 0;">Mencatat setiap transaksi request/response yang melintasi jembatan JavaScript &amp; Android:</p>
 
       <div class="log-stream">
         <div v-if="logs.length === 0" style="color: #64748B;">[00:00:00] Menunggu event pemanggilan bridge...</div>
@@ -149,6 +247,11 @@
         4. [20 Poin] Logging visual paket RPC yang informatif dan responsif.
       </div>
     </div>
+  </div>
+
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> Capacitor Official Documentation: <em>"Plugin Testing &amp; Progressive Web Fallbacks Architecture"</em> (https://capacitorjs.com/docs/plugins) &amp; W3C Generic Sensor API. Lembar Kerja Praktikum STSI4303 Universitas Terbuka.
   </div>
 
   <script>

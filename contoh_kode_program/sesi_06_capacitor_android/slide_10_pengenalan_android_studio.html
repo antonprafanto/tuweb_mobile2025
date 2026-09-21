@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--cyan);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -59,6 +84,7 @@
       gap: 10px;
       align-items: center;
       font-size: 12px;
+      flex-wrap: wrap;
     }
     .ide-btn {
       background: #393b40;
@@ -81,6 +107,15 @@
       border: 2px solid #ffe600;
       background: #2b2d30;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -91,6 +126,48 @@
     <p style="margin: 0; font-size: 14px;">Memahami 4 instrumen vital di Android Studio untuk membangun dan menjalankan aplikasi Ionic ke perangkat.</p>
   </div>
 
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; PENGENALAN AREA KERJA ANDROID STUDIO</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Android Studio (Ladybug / Hedgehog / Iguana), Terminal (<code>npx cap open android</code>), Google Chrome (berkas ini).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Klik salah satu tombol instrumen pada mockup Android Studio di bawah (Toolbar, Project View, Code Editor, Logcat). Pelajari peranan kunci tombol Run hijau (▶) dan sinkronisasi Gradle gajah (🐘).</div>
+    <div style="margin-top: 4px;"><strong>💡 Tombol Paling Vital:</strong> Jika Anda baru saja menambahkan plugin Capacitor baru via NPM (misal <code>@capacitor/preferences</code>), Anda wajib menekan tombol <strong>Sync Project with Gradle Files (🐘)</strong> di pojok kanan atas Android Studio agar kode dependensi terunduh!</div>
+  </div>
+
+  <!-- DIAGRAM AREA KERJA IDE INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Tata Letak Ruang Kerja Android Studio (4 Kuadran Utama)</div>
+    <svg viewBox="0 0 820 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <!-- Toolbar Header -->
+      <rect x="20" y="15" width="780" height="28" fill="#2B2D30" stroke="#000" stroke-width="2" />
+      <text x="35" y="33" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#BCBEC4">Android Studio (android)</text>
+      <rect x="420" y="19" width="160" height="20" fill="#393B40" stroke="#4E5157" />
+      <text x="500" y="33" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#FFE600">📱 [Samsung A54] ▾</text>
+      <circle cx="610" cy="29" r="8" fill="#16A34A" />
+      <polygon points="607,25 615,29 607,33" fill="#fff" />
+      <text x="630" y="33" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#4ADE80">Run (Shift+F10)</text>
+      <text x="730" y="33" font-family="'Segoe UI', sans-serif" font-size="12">🐘 Sync</text>
+
+      <!-- Panel Kiri: Project Tool Window -->
+      <rect x="20" y="47" width="220" height="65" fill="#1E1F22" stroke="#000" stroke-width="1.5" />
+      <text x="30" y="65" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#38BDF8">📁 Project Window (Android View)</text>
+      <text x="30" y="80" font-family="'Segoe UI', sans-serif" font-size="8" fill="#BCBEC4">• app/java/ (MainActivity)</text>
+      <text x="30" y="95" font-family="'Segoe UI', sans-serif" font-size="8" fill="#BCBEC4">• Gradle Scripts/ (build.gradle)</text>
+
+      <!-- Panel Tengah: Editor Code -->
+      <rect x="245" y="47" width="555" height="65" fill="#1E1F22" stroke="#000" stroke-width="1.5" />
+      <text x="260" y="65" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#4ADE80">📄 Editor Tab: AndroidManifest.xml / build.gradle</text>
+      <text x="260" y="82" font-family="'Consolas', monospace" font-size="9" fill="#94A3B8">&lt;application android:label="@string/app_name" ...&gt;</text>
+      <text x="260" y="98" font-family="'Segoe UI', sans-serif" font-size="8" fill="#64748B">Menyunting berkas konfigurasi native secara langsung.</text>
+
+      <!-- Panel Bawah: Logcat & Console -->
+      <rect x="20" y="116" width="780" height="28" fill="#090D16" stroke="#000" stroke-width="2" />
+      <text x="35" y="134" font-family="'Consolas', monospace" font-size="10" font-weight="bold" fill="#38BDF8">📊 Logcat Console:</text>
+      <text x="140" y="134" font-family="'Consolas', monospace" font-size="9" fill="#4ADE80">[Capacitor/Console] Loading app from http://localhost...</text>
+      <text x="650" y="134" font-family="'Segoe UI', sans-serif" font-size="9" fill="#F87171">Filter: package:mine</text>
+    </svg>
+  </div>
+
   <div id="app" class="grid">
     <!-- MOCKUP ANDROID STUDIO -->
     <div class="box" style="padding: 12px;">
@@ -99,84 +176,128 @@
       <div class="ide-mockup">
         <!-- TOOLBAR ATAS -->
         <div class="ide-toolbar">
-          <span style="font-weight: bold; color: #fff;">android [C:\UT\portal]</span>
-          <span class="ide-btn" @click="selectFeature('device')">📱 Samsung SM-A546E (USB) ▼</span>
-          <span class="ide-btn" style="background: #2e7d32; color: #fff;" @click="selectFeature('run')">▶ Run (Shift+F10)</span>
-          <span class="ide-btn" style="background: #0284c7; color: #fff;" @click="selectFeature('sync')">🐘 Sync Project with Gradle</span>
+          <button class="ide-btn" @click="select('toolbar')">⚙️ App Toolbar</button>
+          <span style="color: #6c707e;">|</span>
+          <button class="ide-btn" style="background: #1e3a8a; color: #93c5fd;" @click="select('device')">📱 {{ selectedDevice }}</button>
+          <button class="ide-btn" style="background: #14532d; color: #86efac;" @click="select('run')">▶ Run (Shift + F10)</button>
+          <button class="ide-btn" style="background: #713f12; color: #fde047;" @click="select('sync')">🐘 Sync Gradle</button>
         </div>
 
-        <!-- BODY IDE -->
-        <div style="display: grid; grid-template-columns: 140px 1fr; min-height: 180px;">
-          <!-- SIDEBAR PROYEK -->
-          <div class="ide-panel" :class="{ active: currentFeature === 'tree' }" @click="selectFeature('tree')" style="border-right: 1px solid #393b40; font-size: 11px;">
-            <div style="font-weight: bold; margin-bottom: 6px; color: #9da0a8;">Project (Android)</div>
-            <div>▼ app</div>
-            <div style="padding-left: 10px;">▼ manifests</div>
-            <div style="padding-left: 10px;">▼ java</div>
-            <div style="padding-left: 10px;">▼ res</div>
-            <div style="margin-top: 6px;">▼ Gradle Scripts</div>
+        <!-- AREA UTAMA IDE -->
+        <div style="display: flex; min-height: 220px;">
+          <!-- PROJECT TOOL WINDOW -->
+          <div class="ide-panel" :class="{ active: selectedId === 'project' }" style="width: 35%; border-right: 2px solid #000;" @click="select('project')">
+            <div style="font-weight: bold; font-size: 11px; margin-bottom: 6px; color: #38bdf8;">📁 Project (Android View)</div>
+            <div style="font-size: 11px; line-height: 1.6; font-family: monospace;">
+              ▼ app<br>
+              &nbsp;&nbsp;▼ manifests<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;📄 AndroidManifest.xml<br>
+              &nbsp;&nbsp;▼ java<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;📄 MainActivity<br>
+              &nbsp;&nbsp;▼ res<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;📁 drawable, values<br>
+              ▼ Gradle Scripts<br>
+              &nbsp;&nbsp;📄 build.gradle (Project)<br>
+              &nbsp;&nbsp;📄 build.gradle (Module: app)
+            </div>
           </div>
 
           <!-- EDITOR CODE -->
-          <div class="ide-panel" :class="{ active: currentFeature === 'editor' }" @click="selectFeature('editor')" style="font-family: Consolas; font-size: 11px; padding: 12px;">
-            <span style="color: #cf8e6d;">package</span> id.ac.ut.mobileportal;<br><br>
-            <span style="color: #cf8e6d;">import</span> com.getcapacitor.BridgeActivity;<br><br>
-            <span style="color: #cf8e6d;">public class</span> <span style="color: #56a8f5;">MainActivity</span> <span style="color: #cf8e6d;">extends</span> BridgeActivity {}
+          <div class="ide-panel" :class="{ active: selectedId === 'editor' }" style="width: 65%;" @click="select('editor')">
+            <div style="font-weight: bold; font-size: 11px; margin-bottom: 6px; color: #4ade80;">📄 Editor: MainActivity.java</div>
+            <div style="font-family: monospace; font-size: 11px; color: #94a3b8; line-height: 1.5;">
+              <span style="color: #c084fc;">package</span> id.ac.ut.mobile;<br><br>
+              <span style="color: #c084fc;">import</span> com.getcapacitor.BridgeActivity;<br><br>
+              <span style="color: #c084fc;">public class</span> <span style="color: #38bdf8;">MainActivity</span> <span style="color: #c084fc;">extends</span> <span style="color: #facc15;">BridgeActivity</span> {<br>
+              &nbsp;&nbsp;<span style="color: #64748b;">// Capacitor Bridge otomatis aktif!</span><br>
+              }
+            </div>
           </div>
         </div>
 
-        <!-- LOGCAT CONSOLE BAWAH -->
-        <div class="ide-panel" :class="{ active: currentFeature === 'logcat' }" @click="selectFeature('logcat')" style="background: #141416; border-top: 1px solid #393b40; font-family: Consolas; font-size: 10px; color: #6bb07b; padding: 8px;">
-          [Logcat] Tag: Capacitor | D/Capacitor: Loading app from http://localhost/...
+        <!-- LOGCAT FOOTER -->
+        <div class="ide-panel" :class="{ active: selectedId === 'logcat' }" style="border-top: 2px solid #000; background: #18191b; padding: 8px 12px;" @click="select('logcat')">
+          <div style="font-size: 11px; font-family: monospace; color: #facc15; font-weight: bold;">
+            📊 Logcat (Konsol Debugging Real-time)
+          </div>
+          <div style="font-size: 10px; font-family: monospace; color: #64748b; margin-top: 2px;">
+            [Capacitor] App loaded in 312ms. Bridge connected. Listening for events...
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- DETAIL DAN PENJELASAN -->
+    <!-- PENJELASAN ELEMEN TERPILIH -->
     <div class="box">
-      <h3>🔍 Penjelasan Fitur: <span style="color: #0284c7;">{{ detailTitle }}</span></h3>
-      <div style="background: #F8FAFC; border: 2px solid #000; padding: 14px; min-height: 160px; line-height: 1.6; font-size: 13px;">
-        {{ detailText }}
+      <h3>🔍 Penjelasan Instrumen: <span style="color: #0284c7;">{{ currentInfo.title }}</span></h3>
+
+      <div style="background: #f1f5f9; border: 2px solid #000; padding: 14px; min-height: 140px; margin-bottom: 14px;">
+        <p style="font-size: 13px; line-height: 1.6; margin: 0; color: #1e293b;">
+          {{ currentInfo.desc }}
+        </p>
       </div>
 
-      <div style="background: #FEF3C7; border: 2px solid #D97706; padding: 10px; margin-top: 14px; font-size: 12px;">
-        💡 <strong>Tips Dosen:</strong> Jika ikon run (segitiga hijau) berwarna abu-abu mati, periksa status bar di bawah jendela Android Studio. Biasanya Android Studio sedang menyelesaikan pengunduhan indeks dependensi (Gradle Syncing). Tunggu hingga selesai 100%!
+      <div style="background: #FEF9C3; border: 2px solid #B45309; padding: 12px; font-size: 12px;">
+        💡 <strong>Tips Dosen untuk Mahasiswa UT:</strong> {{ currentInfo.tip }}
       </div>
     </div>
   </div>
 
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> Google Android Developers: <em>"Meet Android Studio &amp; Integrated Development Environment Guide"</em> (https://developer.android.com/studio/intro). Modul 6 STSI4303 Universitas Terbuka.
+  </div>
+
   <script>
-    const { createApp, ref } = Vue;
+    const { createApp, ref, computed } = Vue;
+
     createApp({
       setup() {
-        const currentFeature = ref('run');
-        const detailTitle = ref('Tombol Run (Segitiga Hijau)');
-        const detailText = ref('Mengeksekusi proses kompilasi Gradle untuk menghasilkan berkas APK debug, lalu secara otomatis menginstal dan meluncurkannya ke smartphone target.');
+        const selectedId = ref('run');
+        const selectedDevice = ref('Samsung SM-A546E');
 
-        const selectFeature = (feature) => {
-          currentFeature.value = feature;
-          if (feature === 'run') {
-            detailTitle.value = 'Tombol Run (Segitiga Hijau / Shift+F10)';
-            detailText.value = 'Mengeksekusi proses kompilasi Gradle untuk menghasilkan berkas APK debug, lalu secara otomatis menginstal dan meluncurkannya ke smartphone target.';
-          } else if (feature === 'sync') {
-            detailTitle.value = 'Sync Project with Gradle Files (Ikon Gajah)';
-            detailText.value = 'Menyelaraskan seluruh dependensi library Java/Kotlin yang tercatat di build.gradle. Wajib diklik jika ada perubahan versi SDK atau penambahan plugin baru.';
-          } else if (feature === 'device') {
-            detailTitle.value = 'Target Device Selector';
-            detailText.value = 'Daftar perangkat Android yang terdeteksi oleh sistem ADB (Android Debug Bridge). Mahasiswa dapat memilih antara HP fisik Android via kabel USB atau Android Virtual Device (AVD).';
-          } else if (feature === 'logcat') {
-            detailTitle.value = 'Logcat Console (Jendela Diagnostik Bawah)';
-            detailText.value = 'Menampilkan seluruh aliran log sistem Android OS secara langsung. Mahasiswa dapat melihat error crash native Java, pesan console.log dari JavaScript, dan peringatan izin.';
-          } else if (feature === 'tree') {
-            detailTitle.value = 'Project View Panel';
-            detailText.value = 'Hierarki susunan berkas Android. Sangat direkomendasikan menggunakan sudut pandang tampilan "Android" agar struktur folder disederhanakan dan mudah dinavigasi.';
-          } else if (feature === 'editor') {
-            detailTitle.value = 'MainActivity.java Code Editor';
-            detailText.value = 'Kelas utama yang mewarisi BridgeActivity bawaan Capacitor. Kelas ini bertugas sebagai jembatan pembuka Chromium WebView yang memuat frontend Vue Anda.';
+        const infoMap = {
+          run: {
+            title: 'Tombol Run (Segitiga Hijau ▶)',
+            desc: 'Memicu Gradle untuk mengompilasi APK debug, menghubungkan ke smartphone Android Anda via ADB, menginstal paket biner, dan langsung meluncurkannya di layar smartphone.',
+            tip: 'Gunakan shortcut "Shift + F10" untuk menjalankan ulang aplikasi secara cepat tanpa perlu menyentuh mouse.'
+          },
+          device: {
+            title: 'Target Device Selector Dropdown',
+            desc: 'Daftar perangkat fisik yang terhubung via kabel USB atau emulator Android Virtual Device (AVD). Menampilkan nomor seri dan model ponsel.',
+            tip: 'Jika ponsel fisik Anda tidak muncul di dropdown, periksa kembali izin USB Debugging di layar HP Anda!'
+          },
+          sync: {
+            title: 'Sync Project with Gradle Files (Ikon Gajah 🐘)',
+            desc: 'Membaca ulang seluruh file build.gradle dan mengunduh dependensi pustaka Java/Kotlin yang baru ditambahkan melalui NPM.',
+            tip: 'Wajib ditekan setiap kali Anda menginstal plugin baru atau mengubah file variables.gradle.'
+          },
+          project: {
+            title: 'Project Tool Window (Mode Android)',
+            desc: 'Menyajikan struktur berkas proyek yang disederhanakan khusus komponen Android: Mengelompokkan Manifests, kode Java, dan Gradle Scripts ke dalam folder praktis.',
+            tip: 'Secara bawaan Android Studio menggunakan mode "Android". Jangan bingung jika tampilannya beda dengan VS Code explorer!'
+          },
+          editor: {
+            title: 'Editor Kode (Java / XML)',
+            desc: 'Ruang penyuntingan utama. Mendukung auto-completion, linting kesalahan sintaks, dan navigasi langsung ke dokumentasi resmi Android SDK.',
+            tip: 'Di MainActivity.java, Anda tidak perlu menambahkan banyak kode karena Capacitor Bridge sudah menangani siklus hidup aplikasi secara otomatis.'
+          },
+          logcat: {
+            title: 'Konsol Logcat (Real-time Log)',
+            desc: 'Menampilkan seluruh pesan output sistem operasi Android, termasuk perintah console.log() JavaScript dari aplikasi web Ionic Anda!',
+            tip: 'Ketik "Capacitor" atau "package:mine" pada kotak filter Logcat agar tidak pusing melihat ribuan log sistem Android lainnya.'
           }
         };
 
-        return { currentFeature, detailTitle, detailText, selectFeature };
+        const currentInfo = computed(() => {
+          return infoMap[selectedId.value] || infoMap['run'];
+        });
+
+        const select = (id) => {
+          selectedId.value = id;
+        };
+
+        return { selectedId, selectedDevice, currentInfo, select };
       }
     }).mount('#app');
   </script>

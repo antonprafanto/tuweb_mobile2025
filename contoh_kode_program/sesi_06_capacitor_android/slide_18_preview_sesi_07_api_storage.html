@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -50,14 +75,73 @@
       margin-bottom: 12px;
       background: #f8fafc;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <div class="badge-tag">SLIDE 18 • JEMBATAN SESI 07 & TUGAS TUTORIAL 3</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Menuju Sesi 07: Integrasi REST API, Offline Storage & Sensor</h1>
+    <div class="badge-tag">SLIDE 18 • JEMBATAN SESI 07 &amp; TUGAS TUTORIAL 3</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Menuju Sesi 07: Integrasi REST API, Offline Storage &amp; Sensor</h1>
     <p style="margin: 0; font-size: 14px;">Bersiap menyongsong puncak kapabilitas aplikasi mobile: Mengonsumsi data cloud server, penyimpanan lokal offline, dan TUGAS TUTORIAL 3.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; ROADMAP PERSIAPAN SESI 07</div>
+    <div><strong>🛠️ Alat yang Digunakan Selanjutnya:</strong> Axios / Fetch API, Capacitor Preferences &amp; SQLite, Sensor Kamera &amp; Geolocation GPS, Postman / Thunder Client.</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Mempersiapkan Diri:</strong> Pastikan seluruh alur kerja Capacitor di Sesi 06 (pemeriksaan <code>adb devices</code>, pembukaan Android Studio, dan pengujian via USB Debugging / scrcpy) telah dikuasai dengan lancar. Di Sesi 07, kita akan menghubungkan aplikasi dengan data dunia nyata dari internet!</div>
+    <div style="margin-top: 4px;"><strong>💡 Pengingat Tugas Tutorial 3:</strong> Pada Sesi 07, Tugas Tutorial 3 resmi dibuka dengan bobot nilai tertinggi (20%). Menguasai jembatan Capacitor di Sesi 06 adalah kunci sukses menyelesaikan aplikasi tugas tersebut.</div>
+  </div>
+
+  <!-- DIAGRAM ROADMAP INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Peta Jalan Perkuliahan: Dari Bridge Android Menuju Tugas Tutorial 3 &amp; UAS</div>
+    <svg viewBox="0 0 820 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-rd" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- Step 1: Sesi 06 -->
+      <rect x="20" y="25" width="220" height="95" fill="#FEF9C3" stroke="#000" stroke-width="2.5" />
+      <rect x="24" y="29" width="212" height="22" fill="#FFE600" stroke="#000" stroke-width="1.5" />
+      <text x="130" y="44" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#000">SESI 06 (SEKARANG)</text>
+      <text x="130" y="68" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#B45309">Capacitor Bridge &amp; Android</text>
+      <text x="130" y="86" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">• Runtime RPC &amp; Gradle Config</text>
+      <text x="130" y="102" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">• USB Debugging &amp; scrcpy</text>
+
+      <!-- Arrow 1 to 2 -->
+      <line x1="240" y1="72" x2="285" y2="72" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-rd)" />
+
+      <!-- Step 2: Sesi 07 -->
+      <rect x="290" y="25" width="240" height="95" fill="#EFF6FF" stroke="#0284C7" stroke-width="2.5" />
+      <rect x="294" y="29" width="232" height="22" fill="#38BDF8" stroke="#000" stroke-width="1.5" />
+      <text x="410" y="44" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#000">SESI 07 (PEKAN DEPAN)</text>
+      <text x="410" y="68" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#0369A1">REST API &amp; Sensor Hardware</text>
+      <text x="410" y="86" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#334155">• Konsumsi API Backend Cloud</text>
+      <text x="410" y="102" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#334155">• Offline Storage &amp; Camera Plugin</text>
+
+      <!-- Arrow 2 to 3 -->
+      <line x1="530" y1="72" x2="575" y2="72" stroke="#000" stroke-width="2.5" marker-end="url(#arrow-rd)" />
+
+      <!-- Step 3: Tugas Tutorial 3 & UAS -->
+      <rect x="580" y="25" width="220" height="95" fill="#DCFCE7" stroke="#16A34A" stroke-width="2.5" />
+      <rect x="584" y="29" width="212" height="22" fill="#4ADE80" stroke="#000" stroke-width="1.5" />
+      <text x="690" y="44" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#000">TUGAS TUTORIAL 3 &amp; UAS</text>
+      <text x="690" y="68" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#15803D">Aplikasi Mobile Produksi Final</text>
+      <text x="690" y="86" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#14532D">• Tagihan Evaluasi Bobot 20%</text>
+      <text x="690" y="102" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" text-anchor="middle" fill="#166534">🏆 Portofolio Mobile Developer Siap Kerja!</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -75,12 +159,12 @@
       <div class="preview-card" style="border-left: 6px solid #16a34a;">
         <h4 style="margin: 0 0 4px 0; color: #16a34a;">2. Offline-First Storage Persistence</h4>
         <p style="margin: 0; font-size: 12px; color: #334155; line-height: 1.5;">
-          Menyimpan data katalog modul mata kuliah di memori lokal smartphone via Capacitor Preferences & SQLite, sehingga aplikasi tetap berfungsi lancar saat mahasiswa kehilangan sinyal internet!
+          Menyimpan data katalog modul mata kuliah di memori lokal smartphone via Capacitor Preferences &amp; SQLite, sehingga aplikasi tetap berfungsi lancar saat mahasiswa kehilangan sinyal internet!
         </p>
       </div>
 
       <div class="preview-card" style="border-left: 6px solid #9333ea;">
-        <h4 style="margin: 0 0 4px 0; color: #9333ea;">3. Integrasi Sensor Kamera & Geolocation GPS</h4>
+        <h4 style="margin: 0 0 4px 0; color: #9333ea;">3. Integrasi Sensor Kamera &amp; Geolocation GPS</h4>
         <p style="margin: 0; font-size: 12px; color: #334155; line-height: 1.5;">
           Memotret bukti registrasi menggunakan <code>@capacitor/camera</code> dan memvalidasi koordinat lokasi mahasiswa saat presensi ujian daerah.
         </p>
@@ -98,18 +182,20 @@
           Tugas Tutorial 3 adalah tugas praktikum penutup berbobot nilai terbesar sebelum Ujian Akhir Semester (UAS). Mahasiswa akan merakit aplikasi utuh yang mengombinasikan:
         </p>
         <ul style="font-size: 12px; line-height: 1.6; color: #991B1B; margin: 0; padding-left: 18px;">
-          <li>Konsumsi live REST API data perkuliahan UT.</li>
-          <li>Penyimpanan cache offline saat mode pesawat / tanpa sinyal.</li>
-          <li>Fitur scan kamera atau penangkapan foto berkas ujian.</li>
-          <li>Kompilasi APK debug siap pasang di smartphone fisik.</li>
+          <li>Antarmuka Form Validasi Regex (dari Sesi 05).</li>
+          <li>Kompilasi Bridge Platform Android (dari Sesi 06).</li>
+          <li>Pengambilan Data API &amp; Penyimpanan Offline (dari Sesi 07).</li>
         </ul>
-      </div>
-
-      <div style="background: #FEF9C3; border: 2px solid #CA8A04; padding: 12px; margin-top: 14px; font-size: 12px;">
-        💡 <strong>Pesan Pak Anton Prafanto:</strong><br>
-        <em>"Kuasai konsep jembatan Capacitor di Sesi 06 ini dengan seksama. Fondasi yang kokoh pada alur Gradle dan perizinan Android akan membuat pengerjaan Tugas 3 Anda di Sesi 07 berjalan mulus tanpa kendala teknis!"</em>
+        <p style="font-size: 12px; color: #7F1D1D; margin: 10px 0 0 0; font-weight: bold;">
+          Persiapkan lingkungan Android Studio Anda dengan matang mulai hari ini!
+        </p>
       </div>
     </div>
+  </div>
+
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> Kurikulum &amp; Silabus Program Studi Sistem Informasi: <em>"Rancangan Aktivitas Tutorial (RAT) &amp; Satuan Acara Tutorial (SAT) STSI4303"</em>. Universitas Terbuka (2025/2026).
   </div>
 
   <script>

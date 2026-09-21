@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--mint);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -61,6 +86,15 @@
       border: 2px solid #000;
       white-space: pre-wrap;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -69,6 +103,51 @@
     <div class="badge-tag">SLIDE 07 • BUILD SYSTEM GRADLE</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Konfigurasi Android SDK pada <code>build.gradle</code></h1>
     <p style="margin: 0; font-size: 14px;">Memahami peranan <code>minSdk</code>, <code>targetSdk</code>, <code>compileSdk</code>, <code>versionCode</code>, dan <code>versionName</code>.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; MANAJEMEN VERSI GRADLE</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Visual Studio Code / Android Studio (buka berkas <code>android/app/build.gradle</code> atau <code>android/variables.gradle</code>), Google Chrome (berkas ini).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Ubah pilihan <em>minSdk</em>, <em>targetSdk</em>, atau naikkan <em>versionCode</em> pada formulir sebelah kiri. Amati bagaimana blok skrip Gradle di sebelah kanan beradaptasi secara otomatis.</div>
+    <div style="margin-top: 4px;"><strong>💡 Catatan Wajib Play Store:</strong> Google Play Store mewajibkan <code>targetSdk</code> minimal API 34 (Android 14) untuk seluruh aplikasi baru. Setiap kali merilis pembaruan, nilai <code>versionCode</code> wajib dinaikkan satu angka (+1) agar tidak ditolak sistem!</div>
+  </div>
+
+  <!-- DIAGRAM SPEKTRUM SDK INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Spektrum Android SDK: minSdk vs targetSdk vs compileSdk</div>
+    <svg viewBox="0 0 820 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <!-- Axis line -->
+      <line x1="50" y1="80" x2="760" y2="80" stroke="#000" stroke-width="4" />
+      <polygon points="760,74 775,80 760,86" fill="#000" />
+
+      <!-- Point 1: API 22 (minSdk) -->
+      <circle cx="150" cy="80" r="10" fill="#EF4444" stroke="#000" stroke-width="2" />
+      <rect x="70" y="20" width="160" height="46" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.5" />
+      <text x="150" y="38" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#991B1B">minSdk = 22</text>
+      <text x="150" y="52" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#7F1D1D">Android 5.1 (Batas Bawah Instal)</text>
+      <line x1="150" y1="66" x2="150" y2="70" stroke="#DC2626" stroke-width="2" />
+
+      <!-- Forbidden Zone -->
+      <text x="80" y="105" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#DC2626">⛔ Di bawah API 22: DITOLAK</text>
+
+      <!-- Point 2: API 34 (targetSdk) -->
+      <circle cx="500" cy="80" r="10" fill="#16A34A" stroke="#000" stroke-width="2" />
+      <rect x="420" y="20" width="160" height="46" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.5" />
+      <text x="500" y="38" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#14532D">targetSdk = 34</text>
+      <text x="500" y="52" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#166534">Android 14 (Standar Perilaku)</text>
+      <line x1="500" y1="66" x2="500" y2="70" stroke="#16A34A" stroke-width="2" />
+
+      <!-- Allowed Zone -->
+      <text x="320" y="105" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#15803D">✅ Rentang Perangkat yang Didukung (99%+ Populasi HP)</text>
+
+      <!-- Point 3: API 34+ (compileSdk) -->
+      <circle cx="700" cy="80" r="10" fill="#0284C7" stroke="#000" stroke-width="2" />
+      <rect x="620" y="20" width="160" height="46" fill="#E0F2FE" stroke="#0284C7" stroke-width="1.5" />
+      <text x="700" y="38" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#0369A1">compileSdk = 34</text>
+      <text x="700" y="52" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#0284C7">Kompilasi Kode Java/Kotlin</text>
+      <line x1="700" y1="66" x2="700" y2="70" stroke="#0284C7" stroke-width="2" />
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -98,47 +177,57 @@
 
       <div class="input-row">
         <label>Version Code (Integer Internal):</label>
-        <input type="number" v-model.number="versionCode" />
-        <div style="font-size: 11px; color: #64748B; margin-top: 2px;">Wajib bertambah (+1) setiap update baru ke Play Store.</div>
+        <input type="number" v-model.number="versionCode" min="1" />
+        <div style="font-size: 11px; color: #64748B; margin-top: 2px;">Wajib naik +1 setiap kali merilis update baru.</div>
       </div>
 
       <div class="input-row">
-        <label>Version Name (String Tampilan):</label>
+        <label>Version Name (String untuk Pengguna):</label>
         <input type="text" v-model="versionName" placeholder="1.0.0" />
-        <div style="font-size: 11px; color: #64748B; margin-top: 2px;">Format Semantic Versioning (Mayor.Minor.Patch) untuk user.</div>
+        <div style="font-size: 11px; color: #64748B; margin-top: 2px;">Versi semantik yang tampil di Info Aplikasi smartphone.</div>
       </div>
     </div>
 
     <!-- PREVIEW GRADLE CODE -->
     <div class="box">
-      <h3>📄 Berkas Konfigurasi Gradle</h3>
+      <h3>📄 File: <code>android/app/build.gradle</code></h3>
+      <div class="code-box">android {
+    namespace "id.ac.ut.mobilelearning"
+    compileSdk {{ targetSdk }}
 
-      <div style="font-size: 12px; font-weight: bold; margin-bottom: 4px;">1. android/variables.gradle:</div>
-      <div class="code-box" style="margin-bottom: 14px;">ext {
-    minSdkVersion = {{ minSdk }}
-    compileSdkVersion = {{ targetSdk }}
-    targetSdkVersion = {{ targetSdk }}
-    androidxActivityVersion = '1.8.0'
-    androidxAppCompatVersion = '1.6.1'
+    defaultConfig {
+        applicationId "id.ac.ut.mobilelearning"
+        minSdk {{ minSdk }}
+        targetSdk {{ targetSdk }}
+        versionCode {{ versionCode }}
+        versionName "{{ versionName }}"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 }</div>
 
-      <div style="font-size: 12px; font-weight: bold; margin-bottom: 4px;">2. android/app/build.gradle:</div>
-      <div class="code-box">defaultConfig {
-    applicationId "id.ac.ut.mobileportal"
-    minSdkVersion rootProject.ext.minSdkVersion
-    targetSdkVersion rootProject.ext.targetSdkVersion
-    versionCode {{ versionCode }}
-    versionName "{{ versionName }}"
-    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-}</div>
+      <div style="background: #F0FDF4; border: 2px solid #16A34A; padding: 10px; margin-top: 14px; font-size: 12px;">
+        ✅ <strong>Best Practice Capacitor:</strong> Ubah nilai ini secara global melalui berkas <code>android/variables.gradle</code> agar semua plugin Capacitor otomatis menyelaraskan diri ke SDK yang sama!
+      </div>
     </div>
+  </div>
+
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> Google Play Console Policy: <em>"Meet Google Play's Target API Level Requirement"</em> (https://developer.android.com/google/play/requirements/target-sdk) &amp; Android Gradle Plugin DSL Specifications. BMP STSI4303 Universitas Terbuka.
   </div>
 
   <script>
     const { createApp, ref } = Vue;
     createApp({
       setup() {
-        const minSdk = ref(24);
+        const minSdk = ref(22);
         const targetSdk = ref(34);
         const versionCode = ref(1);
         const versionName = ref('1.0.0');

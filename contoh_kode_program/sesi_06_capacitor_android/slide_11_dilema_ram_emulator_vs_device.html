@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -83,6 +108,15 @@
       box-shadow: 3px 3px 0 #000;
       transform: translate(-1px, -1px);
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -93,101 +127,142 @@
     <p style="margin: 0; font-size: 14px;">Mengapa mahasiswa UT dengan laptop RAM 4–8GB sangat disarankan menggunakan smartphone fisik lewat USB Debugging.</p>
   </div>
 
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; SIMULASI BEBAN MEMORI RAM</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Task Manager Windows (<code>Ctrl + Shift + Esc</code>), Smartphone Android Fisik, Kabel Data USB, Google Chrome (berkas ini).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Coba ganti kapasitas RAM laptop Anda (4 GB vs 8 GB vs 16 GB) dan ubah target pengujian antara <em>Emulator AVD</em> vs <em>Smartphone Fisik</em>. Perhatikan indikator baris memori di bawah dan peringatan status <strong>OUT OF MEMORY / CRASH</strong> yang muncul pada laptop 4–8GB!</div>
+    <div style="margin-top: 4px;"><strong>💡 Kesimpulan Dosen:</strong> Menggunakan smartphone fisik pribadi via USB Debugging memotong beban konsumsi RAM dari ~4.000 MB menjadi hanya ~50 MB. Laptop tetap dingin, kipas hening, dan koding berjalan lancar!</div>
+  </div>
+
+  <!-- DIAGRAM BEBAN RAM INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Komparasi Beban RAM: Emulator AVD (~4.000 MB) vs ADB Daemon (~50 MB)</div>
+    <svg viewBox="0 0 820 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <!-- Top: Emulator AVD Breakdown -->
+      <rect x="20" y="20" width="375" height="120" fill="#FEF2F2" stroke="#DC2626" stroke-width="2.5" />
+      <rect x="25" y="25" width="365" height="22" fill="#FEE2E2" />
+      <text x="210" y="41" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#991B1B">SKENARIO A: EMULATOR ANDROID (AVD QEMU)</text>
+      <text x="35" y="66" font-family="'Segoe UI', sans-serif" font-size="9" fill="#7F1D1D">• Windows OS Dasar: ~2.800 MB RAM</text>
+      <text x="35" y="84" font-family="'Segoe UI', sans-serif" font-size="9" fill="#7F1D1D">• Android Studio + Gradle Daemon: ~2.500 MB RAM</text>
+      <text x="35" y="102" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#DC2626">• Emulator VM QEMU: ~3.800 MB RAM (Sangat Berat!)</text>
+      <text x="35" y="126" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" fill="#991B1B">💥 Total: ~9.100 MB ➔ PASTI HANG DI LAPTOP 4–8GB!</text>
+
+      <!-- Bottom: Physical Phone Breakdown -->
+      <rect x="425" y="20" width="375" height="120" fill="#F0FDF4" stroke="#16A34A" stroke-width="2.5" />
+      <rect x="430" y="25" width="365" height="22" fill="#DCFCE7" />
+      <text x="615" y="41" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="900" text-anchor="middle" fill="#14532D">SKENARIO B: SMARTPHONE FISIK VIA USB (DIREKOMENDASIKAN)</text>
+      <text x="440" y="66" font-family="'Segoe UI', sans-serif" font-size="9" fill="#14532D">• Windows OS Dasar: ~2.800 MB RAM</text>
+      <text x="440" y="84" font-family="'Segoe UI', sans-serif" font-size="9" fill="#14532D">• Android Studio / Headless CLI: ~1.200 MB RAM</text>
+      <text x="440" y="102" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" fill="#16A34A">• ADB Daemon Bridge: HANYA ~50 MB RAM! 🎉</text>
+      <text x="440" y="126" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" fill="#15803D">✅ Total: ~4.050 MB ➔ SANGAT LANCAR &amp; DINGIN!</text>
+    </svg>
+  </div>
+
   <div id="app" class="grid">
     <!-- KALKULATOR BEBAN MEMORI RAM -->
     <div class="box">
       <h3>📊 Simulator Konsumsi Beban RAM Laptop</h3>
 
-      <label style="font-size: 12px; font-weight: bold;">Pilih Kapasitas RAM Laptop Anda:</label>
+      <div style="font-size: 12px; font-weight: bold; margin-bottom: 4px;">Pilih Kapasitas RAM Laptop Anda:</div>
       <div class="radio-btn">
-        <div class="toggle-card" :class="{ selected: laptopRam === 4 }" @click="laptopRam = 4">4 GB RAM</div>
-        <div class="toggle-card" :class="{ selected: laptopRam === 8 }" @click="laptopRam = 8">8 GB RAM</div>
-        <div class="toggle-card" :class="{ selected: laptopRam === 16 }" @click="laptopRam = 16">16 GB RAM</div>
+        <div class="toggle-card" :class="{ selected: totalRam === 4 }" @click="totalRam = 4">RAM 4 GB</div>
+        <div class="toggle-card" :class="{ selected: totalRam === 8 }" @click="totalRam = 8">RAM 8 GB</div>
+        <div class="toggle-card" :class="{ selected: totalRam === 16 }" @click="totalRam = 16">RAM 16 GB</div>
       </div>
 
-      <label style="font-size: 12px; font-weight: bold; margin-top: 16px; display: block;">Pilih Metode Pengujian:</label>
+      <div style="font-size: 12px; font-weight: bold; margin-top: 14px; margin-bottom: 4px;">Pilih Target Uji Coba:</div>
       <div class="radio-btn">
-        <div class="toggle-card" :class="{ selected: method === 'emulator' }" @click="method = 'emulator'">
-          ⚠️ Emulator AVD (Virtual)
+        <div class="toggle-card" :class="{ selected: targetDevice === 'emulator' }" @click="targetDevice = 'emulator'">
+          🤖 Emulator AVD (Virtual)
         </div>
-        <div class="toggle-card" :class="{ selected: method === 'device' }" @click="method = 'device'">
-          ✅ Ponsel Fisik (USB)
+        <div class="toggle-card" :class="{ selected: targetDevice === 'physical' }" @click="targetDevice = 'physical'">
+          📱 HP Fisik Pribadi (USB)
         </div>
       </div>
 
+      <!-- VISUAL BAR MEMORI -->
       <div class="ram-bar-container">
-        <div class="ram-segment" style="background: #94a3b8; width: 25%;">Windows OS (2.0 GB)</div>
-        <div class="ram-segment" style="background: #38bdf8; width: 22%;">IDE & Tools (1.8 GB)</div>
-        <div v-if="method === 'emulator'" class="ram-segment" style="background: #fb7185; width: 45%;">AVD Image (3.6 GB)</div>
-        <div v-else class="ram-segment" style="background: #4ade80; width: 5%;">ADB (0.06 GB)</div>
+        <div class="ram-segment" style="background: #38bdf8;" :style="{ width: (osRam / totalRam * 100) + '%' }">
+          OS: {{ osRam }}GB
+        </div>
+        <div class="ram-segment" style="background: #c084fc;" :style="{ width: (ideRam / totalRam * 100) + '%' }">
+          IDE: {{ ideRam }}GB
+        </div>
+        <div class="ram-segment" :style="{ background: targetDevice === 'emulator' ? '#fb7185' : '#4ade80', width: (deviceRam / totalRam * 100) + '%' }">
+          {{ targetDevice === 'emulator' ? 'AVD: ' + deviceRam + 'GB' : 'ADB: 0.05GB' }}
+        </div>
       </div>
 
-      <div style="font-size: 13px; font-weight: bold;">
-        Total RAM Terpakai: {{ totalUsedRam.toFixed(1) }} GB dari {{ laptopRam }} GB
+      <!-- STATUS & KESIMPULAN -->
+      <div v-if="isOom" style="background: #fee2e2; border: 2px solid #dc2626; padding: 12px; color: #7f1d1d; font-size: 12px;">
+        🚨 <strong>PERINGATAN MEMORI PENUH (OUT OF MEMORY):</strong><br>
+        Beban yang diminta ({{ totalUsage.toFixed(1) }} GB) melebihi kapasitas fisik laptop ({{ totalRam }} GB). Laptop Anda dipastikan mengalami <em>freeze</em>, kipas berdengung kencang, dan Android Studio akan dipaksa tertutup (force close)!
       </div>
-
-      <div v-if="totalUsedRam > laptopRam" style="background: #FEE2E2; border: 2px solid #DC2626; padding: 10px; margin-top: 10px; font-size: 12px; color: #991B1B;">
-        🚨 <strong>OUT OF MEMORY / THRESHOLD TERLAMPAUI!</strong><br>
-        Laptop akan mengalami <em>disk thrashing</em> parah, Android Studio crash, dan peramban freeze. Gunakan opsi <strong>Ponsel Fisik</strong>!
-      </div>
-      <div v-else style="background: #DCFCE7; border: 2px solid #16A34A; padding: 10px; margin-top: 10px; font-size: 12px; color: #166534;">
-        🟢 <strong>LINGKUNGAN PENGEMBANGAN SEHAT & MULUS!</strong><br>
-        Beban memori sangat ringan. Laptop Anda bekerja dingin dan proses kompilasi berlangsung cepat.
+      <div v-else style="background: #dcfce7; border: 2px solid #16a34a; padding: 12px; color: #14532d; font-size: 12px;">
+        ✅ <strong>KONDISI AMAN (STABIL):</strong><br>
+        Beban memori ({{ totalUsage.toFixed(1) }} GB) berada di bawah ambang batas {{ totalRam }} GB. Sistem operasi memiliki cukup ruang bebas untuk menjalankan compiler dengan lancar.
       </div>
     </div>
 
-    <!-- TABEL KOMPARASI ILMIAH -->
+    <!-- 3 KEUNTUNGAN HP FISIK -->
     <div class="box">
-      <h3>⚖️ Matriks Perbandingan Efisiensi</h3>
-      <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px;">
-        <thead>
-          <tr style="background: #f1f5f9; border-bottom: 2px solid #000;">
-            <th style="padding: 8px; text-align: left;">Parameter</th>
-            <th style="padding: 8px; text-align: left;">Emulator AVD</th>
-            <th style="padding: 8px; text-align: left;">Ponsel Fisik (USB)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-bottom: 1px solid #cbd5e1;">
-            <td style="padding: 8px; font-weight: bold;">Beban RAM PC</td>
-            <td style="padding: 8px; color: #dc2626;">3.0 s/d 4.5 GB</td>
-            <td style="padding: 8px; color: #16a34a; font-weight: bold;">~50 s/d 70 MB</td>
-          </tr>
-          <tr style="border-bottom: 1px solid #cbd5e1;">
-            <td style="padding: 8px; font-weight: bold;">Sensasi Sentuhan</td>
-            <td style="padding: 8px;">Kursor Mouse (Kaku)</td>
-            <td style="padding: 8px; color: #16a34a;">Multi-touch Layar Asli</td>
-          </tr>
-          <tr style="border-bottom: 1px solid #cbd5e1;">
-            <td style="padding: 8px; font-weight: bold;">Akurasi Sensor</td>
-            <td style="padding: 8px;">Simulasi Data Palsu</td>
-            <td style="padding: 8px; color: #16a34a;">Sensor Nyata (GPS/Kamera)</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; font-weight: bold;">Rekomendasi UT</td>
-            <td style="padding: 8px; color: #64748b;">Hanya jika RAM $\ge$ 16GB</td>
-            <td style="padding: 8px; color: #16a34a; font-weight: 800;">Wajib untuk RAM 4–8GB ⭐</td>
-          </tr>
-        </tbody>
-      </table>
+      <h3>🏆 3 Alasan Wajib Pakai Smartphone Fisik di UT</h3>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
+        <div style="border-left: 4px solid #16a34a; background: #f0fdf4; padding: 10px; font-size: 12px;">
+          <strong style="color: #15803d; font-size: 13px;">1. Penghematan 98% Beban Memori</strong>
+          <p style="margin: 4px 0 0 0; color: #334155;">
+            Emulator AVD membutuhkan minimal 3.5 GB RAM tersendiri. Sebaliknya, menyambungkan ponsel fisik hanya memakan ~50 MB memori untuk daemon <code>adb.exe</code> di Windows.
+          </p>
+        </div>
+
+        <div style="border-left: 4px solid #0284c7; background: #f0f9ff; padding: 10px; font-size: 12px;">
+          <strong style="color: #0369a1; font-size: 13px;">2. Sensor Hardware 100% Nyata</strong>
+          <p style="margin: 4px 0 0 0; color: #334155;">
+            Uji coba kamera barcode, GPS akurat, getaran haptic feedback, dan gestur multi-touch layar sentuh tidak dapat disimulasikan secara sempurna di emulator.
+          </p>
+        </div>
+
+        <div style="border-left: 4px solid #9333ea; background: #faf5ff; padding: 10px; font-size: 12px;">
+          <strong style="color: #7e22ce; font-size: 13px;">3. Kolaborasi Layar Tanpa Beban via scrcpy</strong>
+          <p style="margin: 4px 0 0 0; color: #334155;">
+            Tampilan ponsel dapat diproyeksikan ke layar laptop secara jernih dan berlatensi ultra-rendah menggunakan aplikasi open source gratis <code>scrcpy</code>!
+          </p>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> Google Android Developers: <em>"Run Apps on a Hardware Device"</em> (https://developer.android.com/studio/run/device) &amp; Android Virtual Device (AVD) Minimum Hardware Requirements. Panduan Praktikum STSI4303 Universitas Terbuka.
   </div>
 
   <script>
     const { createApp, ref, computed } = Vue;
+
     createApp({
       setup() {
-        const laptopRam = ref(8);
-        const method = ref('device');
+        const totalRam = ref(8);
+        const targetDevice = ref('physical');
 
-        const totalUsedRam = computed(() => {
-          const os = 2.0;
-          const tools = 1.8;
-          const extra = method.value === 'emulator' ? 3.6 : 0.06;
-          return os + tools + extra;
+        const osRam = ref(2.5);
+        const ideRam = ref(2.2);
+
+        const deviceRam = computed(() => {
+          return targetDevice.value === 'emulator' ? 3.8 : 0.05;
         });
 
-        return { laptopRam, method, totalUsedRam };
+        const totalUsage = computed(() => {
+          return osRam.value + ideRam.value + deviceRam.value;
+        });
+
+        const isOom = computed(() => {
+          return totalUsage.value > totalRam.value;
+        });
+
+        return { totalRam, targetDevice, osRam, ideRam, deviceRam, totalUsage, isOom };
       }
     }).mount('#app');
   </script>

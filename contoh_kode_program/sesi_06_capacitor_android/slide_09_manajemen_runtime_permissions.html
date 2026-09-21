@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--purple);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -52,6 +77,7 @@
       font-size: 14px;
       cursor: pointer;
       box-shadow: 3px 3px 0 #000;
+      transition: all 0.1s ease;
     }
     .btn-action:active {
       transform: translate(2px, 2px);
@@ -84,14 +110,88 @@
       font-weight: bold;
       cursor: pointer;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <div class="badge-tag">SLIDE 09 • KEAMANAN & PRIVASI PENGGUNA</div>
+    <div class="badge-tag">SLIDE 09 • KEAMANAN &amp; PRIVASI PENGGUNA</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Manajemen Hak Akses Runtime (Runtime Permissions)</h1>
     <p style="margin: 0; font-size: 14px;">Mekanisme perizinan dinamis Android: Alur <code>checkPermissions()</code> dan <code>requestPermissions()</code> pada TypeScript.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; SIMULASI DIALOG IZIN RUNTIME</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (berkas ini), DevTools (<code>F12</code>), Smartphone Android Fisik.</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Klik tombol <strong>"📸 Buka Kamera Scanner KTM"</strong> di simulator ponsel sebelah kanan. Perhatikan bagaimana dialog izin sistem Android muncul secara kontekstual, lalu uji respon aplikasi saat Anda memilih tombol "Hanya Saat Aplikasi Digunakan" vs "Jangan Izinkan".</div>
+    <div style="margin-top: 4px;"><strong>💡 Prinsip Desain UX Mobile:</strong> Jangan meminta izin hardware saat pertama kali aplikasi diinstal (*cold launch*). Mintalah izin hanya ketika pengguna secara sengaja menekan tombol fitur (misalnya saat mahasiswa hendak memindai presensi QR code).</div>
+  </div>
+
+  <!-- DIAGRAM STATE MACHINE IZIN INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Mesin Status (State Machine) Izin Runtime Android</div>
+    <svg viewBox="0 0 820 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-sm" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- Start State -->
+      <circle cx="60" cy="75" r="16" fill="#FFE600" stroke="#000" stroke-width="2.5" />
+      <text x="60" y="80" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle">START</text>
+
+      <!-- Transition 1 -->
+      <line x1="76" y1="75" x2="115" y2="75" stroke="#000" stroke-width="2" marker-end="url(#arrow-sm)" />
+
+      <!-- Step 1: checkPermissions() -->
+      <rect x="120" y="35" width="160" height="80" fill="#EFF6FF" stroke="#0284C7" stroke-width="2" />
+      <text x="200" y="58" font-family="'Consolas', monospace" font-size="10" font-weight="bold" text-anchor="middle" fill="#0369A1">checkPermissions()</text>
+      <text x="200" y="78" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#334155">Periksa status di OS</text>
+      <text x="200" y="94" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#334155">granted / prompt / denied</text>
+
+      <!-- Branch Already Granted -->
+      <path d="M 280 50 Q 360 20 540 20 L 575 20" fill="none" stroke="#16A34A" stroke-width="2" marker-end="url(#arrow-sm)" />
+      <text x="420" y="16" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#15803D">Status === 'granted'</text>
+
+      <!-- Branch Need Request -->
+      <line x1="280" y1="85" x2="335" y2="85" stroke="#000" stroke-width="2" marker-end="url(#arrow-sm)" />
+      <text x="310" y="100" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#B45309">'prompt'</text>
+
+      <!-- Step 2: requestPermissions() -->
+      <rect x="340" y="45" width="170" height="80" fill="#FEF9C3" stroke="#B45309" stroke-width="2" />
+      <text x="425" y="68" font-family="'Consolas', monospace" font-size="10" font-weight="bold" text-anchor="middle" fill="#B45309">requestPermissions()</text>
+      <text x="425" y="88" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#78350F">Tampilkan Dialog OS</text>
+      <text x="425" y="104" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">Pengguna Memilih</text>
+
+      <!-- Request Allowed -->
+      <line x1="510" y1="70" x2="575" y2="40" stroke="#16A34A" stroke-width="2" marker-end="url(#arrow-sm)" />
+      <text x="540" y="50" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#15803D">Izinkan</text>
+
+      <!-- Success State -->
+      <rect x="580" y="15" width="220" height="46" fill="#DCFCE7" stroke="#16A34A" stroke-width="2" />
+      <text x="690" y="34" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#15803D">✅ KAMERA TERBUKA</text>
+      <text x="690" y="48" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#14532D">Scan QR Presensi Berhasil!</text>
+
+      <!-- Request Denied -->
+      <line x1="510" y1="100" x2="575" y2="115" stroke="#DC2626" stroke-width="2" marker-end="url(#arrow-sm)" />
+      <text x="540" y="125" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" fill="#DC2626">Tolak</text>
+
+      <!-- Denied State -->
+      <rect x="580" y="90" width="220" height="46" fill="#FEE2E2" stroke="#DC2626" stroke-width="2" />
+      <text x="690" y="109" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#991B1B">❌ AKSES DITOLAK</text>
+      <text x="690" y="123" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#7F1D1D">Tampilkan Petunjuk Buka Pengaturan</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -99,107 +199,115 @@
     <div class="box">
       <h3>🔐 Alur Pengecekan Izin di Capacitor</h3>
       <p style="font-size: 13px; line-height: 1.5; color: #334155;">
-        Pada Android modern (API 23+), mendeklarasikan izin di <code>AndroidManifest.xml</code> saja <strong>tidak cukup</strong> untuk izin kategori <em>Dangerous</em> (Kamera, Lokasi, Penyimpanan).
+        Sejak Android 6.0 (Marshmallow), aplikasi tidak boleh langsung membuka hardware sensitif tanpa izin sadar dari pengguna saat runtime.
       </p>
 
-      <div style="background: #F1F5F9; border: 2px solid #000; padding: 10px; font-family: monospace; font-size: 12px; margin-bottom: 12px;">
-<span style="color: #2563eb;">import</span> { Camera } <span style="color: #2563eb;">from</span> <span style="color: #16a34a;">'@capacitor/camera'</span>;
+      <div style="background: #0f172a; color: #f8fafc; font-family: 'Consolas', monospace; font-size: 11px; padding: 12px; border: 2px solid #000; margin-bottom: 12px; overflow-x: auto;">
+import { Camera } from '@capacitor/camera';
 
-<span style="color: #64748b;">// 1. Cek status izin saat ini</span>
-<span style="color: #2563eb;">const</span> status = <span style="color: #2563eb;">await</span> Camera.checkPermissions();
+// 1. Cek status izin terkini:
+const check = await Camera.checkPermissions();
 
-<span style="color: #2563eb;">if</span> (status.camera !== <span style="color: #16a34a;">'granted'</span>) {
-  <span style="color: #64748b;">// 2. Minta izin secara interaktif ke user</span>
-  <span style="color: #2563eb;">const</span> req = <span style="color: #2563eb;">await</span> Camera.requestPermissions();
-  <span style="color: #2563eb;">if</span> (req.camera !== <span style="color: #16a34a;">'granted'</span>) {
-    alert(<span style="color: #16a34a;">"Akses kamera ditolak oleh pengguna!"</span>);
-    <span style="color: #2563eb;">return</span>;
+if (check.camera !== 'granted') {
+  // 2. Jika belum diizinkan, minta dialog pop-up:
+  const req = await Camera.requestPermissions();
+  if (req.camera !== 'granted') {
+    alert('Izin kamera ditolak! Buka Pengaturan HP.');
+    return;
   }
 }
-<span style="color: #64748b;">// 3. Izin didapat -> Lanjutkan buka kamera</span>
-      </div>
 
-      <button class="btn-action" @click="triggerCamera">
-        📸 Uji Buka Kamera (Trigger Permission)
-      </button>
-      <div style="margin-top: 10px; font-size: 12px;">
-        Status Izin Kamera Saat Ini:
-        <strong :style="{ color: permissionState === 'granted' ? '#16a34a' : (permissionState === 'denied' ? '#dc2626' : '#d97706') }">
-          {{ permissionState.toUpperCase() }}
-        </strong>
+// 3. Izin sah, jalankan kamera:
+const image = await Camera.getPhoto({...});</div>
+
+      <div style="background: #EFF6FF; border: 2px solid #0284C7; padding: 10px; font-size: 12px;">
+        💡 <strong>Status Izin yang Mungkin Diterima:</strong>
+        <ul style="margin: 4px 0 0 0; padding-left: 18px;">
+          <li><code>granted</code>: Akses penuh disetujui.</li>
+          <li><code>prompt</code>: Pengguna belum pernah ditanya (tampilkan dialog).</li>
+          <li><code>denied</code>: Pengguna menolak (jangan tanya berulang kali, arahkan ke App Settings).</li>
+        </ul>
       </div>
     </div>
 
-    <!-- SIMULATOR INTERAKTIF SMARTPHONE ANDROID -->
+    <!-- SIMULATOR DIALOG ANDROID -->
     <div class="box">
-      <h3>📱 Simulator Perilaku Sistem Android</h3>
+      <h3>📱 Simulator Antarmuka Smartphone</h3>
+
       <div class="phone-mockup">
-        <div style="display: flex; justify-content: space-between; font-size: 11px; opacity: 0.8; margin-bottom: 10px;">
-          <span>UT Mobile 4G</span>
-          <span>12:00</span>
-          <span>100% 🔋</span>
+        <div style="font-size: 12px; margin-bottom: 12px; display: flex; justify-content: space-between;">
+          <span>UT Mobile Presensi</span>
+          <span>🔋 85%</span>
         </div>
 
-        <div v-if="!showDialog && permissionState === 'granted'" style="background: #166534; padding: 14px; border-radius: 8px; text-align: center;">
-          ✅ <strong>Kamera Aktif Berhasil Dibuka!</strong><br>
-          <span style="font-size: 12px;">Sensor kamera siap memotret KTM Mahasiswa UT.</span>
+        <button class="btn-action" style="width: 100%;" @click="triggerCameraAction">
+          📸 Buka Kamera Scanner KTM
+        </button>
+
+        <div style="margin-top: 14px; font-size: 12px; color: #cbd5e1; text-align: center;">
+          Status Izin Saat Ini: <strong :style="{ color: permissionStatus === 'granted' ? '#4ade80' : '#f87171' }">{{ permissionStatus.toUpperCase() }}</strong>
         </div>
 
-        <div v-else-if="!showDialog && permissionState === 'denied'" style="background: #991b1b; padding: 14px; border-radius: 8px; text-align: center;">
-          ❌ <strong>Akses Ditolak Pengguna</strong><br>
-          <span style="font-size: 12px;">Aplikasi dialihkan ke pesan edukatif agar mahasiswa mengaktifkannya lewat Settings.</span>
+        <div v-if="cameraActive" style="margin-top: 16px; background: #000; padding: 20px; border-radius: 8px; text-align: center; border: 2px solid #4ade80;">
+          <div style="font-size: 24px;">📷</div>
+          <div style="color: #4ade80; font-size: 12px; font-weight: bold; margin-top: 4px;">Kamera Aktif — Mengarahkan ke Barcode KTM...</div>
+          <button class="btn-action" style="background: #fb7185; margin-top: 10px; font-size: 11px; padding: 6px 12px;" @click="cameraActive = false">Tutup Kamera</button>
         </div>
 
-        <div v-else-if="!showDialog" style="text-align: center; padding-top: 40px; color: #94a3b8; font-size: 13px;">
-          Tekan tombol <em>"Uji Buka Kamera"</em> di sebelah kiri untuk menyimulasikan permintaan izin Android.
-        </div>
-
-        <!-- DIALOG PERMISSION ANDROID NATIVE SIMULATED -->
+        <!-- DIALOG POPUP OS -->
         <div v-if="showDialog" class="android-dialog">
-          <div style="font-size: 20px; text-align: center; margin-bottom: 6px;">📷</div>
-          <div style="font-weight: bold; font-size: 14px; text-align: center;">Izinkan UT Mobile mengambil gambar dan merekam video?</div>
-          <div style="margin-top: 14px;">
-            <button class="dialog-btn" style="background: #e2e8f0;" @click="grantPermission">
-              Saat aplikasi digunakan
-            </button>
-            <button class="dialog-btn" style="background: #e2e8f0;" @click="grantPermission">
-              Hanya kali ini
-            </button>
-            <button class="dialog-btn" style="background: #fee2e2; color: #b91c1c;" @click="denyPermission">
-              Jangan izinkan
-            </button>
-          </div>
+          <div style="font-weight: 800; font-size: 13px; margin-bottom: 4px;">Izinkan UT Mobile mengambil gambar dan merekam video?</div>
+          <div style="font-size: 11px; color: #64748B; margin-bottom: 12px;">Diperlukan untuk memindai kartu mahasiswa (KTM) saat presensi tutorial tatap muka/web.</div>
+
+          <button class="dialog-btn" style="background: #E0F2FE; color: #0284C7;" @click="respondPermission('granted')">
+            Saat aplikasi digunakan
+          </button>
+          <button class="dialog-btn" style="background: #E0F2FE; color: #0284C7;" @click="respondPermission('granted')">
+            Hanya kali ini
+          </button>
+          <button class="dialog-btn" style="background: #F1F5F9; color: #64748B;" @click="respondPermission('denied')">
+            Jangan izinkan
+          </button>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> Google Android Developers: <em>"Request App Permissions &amp; Best Practices"</em> (https://developer.android.com/training/permissions/requesting) &amp; Capacitor Camera Plugin Permissions Guide. Bahan Kuliah STSI4303 Universitas Terbuka.
+  </div>
+
   <script>
     const { createApp, ref } = Vue;
+
     createApp({
       setup() {
-        const permissionState = ref('prompt');
+        const permissionStatus = ref('prompt');
         const showDialog = ref(false);
+        const cameraActive = ref(false);
 
-        const triggerCamera = () => {
-          if (permissionState.value === 'granted') {
-            alert("Izin sudah aktif! Kamera siap digunakan.");
-          } else {
+        const triggerCameraAction = () => {
+          if (permissionStatus.value === 'granted') {
+            cameraActive.value = true;
+          } else if (permissionStatus.value === 'prompt') {
             showDialog.value = true;
+          } else {
+            alert('Akses kamera ditolak permanen! Buka Pengaturan Smartphone -> Aplikasi -> UT Mobile -> Izin Kamera.');
           }
         };
 
-        const grantPermission = () => {
-          permissionState.value = 'granted';
+        const respondPermission = (status) => {
+          permissionStatus.value = status;
           showDialog.value = false;
+          if (status === 'granted') {
+            cameraActive.value = true;
+          } else {
+            cameraActive.value = false;
+          }
         };
 
-        const denyPermission = () => {
-          permissionState.value = 'denied';
-          showDialog.value = false;
-        };
-
-        return { permissionState, showDialog, triggerCamera, grantPermission, denyPermission };
+        return { permissionStatus, showDialog, cameraActive, triggerCameraAction, respondPermission };
       }
     }).mount('#app');
   </script>

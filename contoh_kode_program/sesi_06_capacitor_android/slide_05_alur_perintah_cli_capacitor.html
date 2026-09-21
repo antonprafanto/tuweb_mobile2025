@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -67,6 +92,15 @@
       min-height: 220px;
       white-space: pre-wrap;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -75,6 +109,63 @@
     <div class="badge-tag">SLIDE 05 • WORKFLOW PENGEMBANGAN</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Alur 4 Perintah Kunci Capacitor CLI</h1>
     <p style="margin: 0; font-size: 14px;">Pipeline wajib dari kompilasi bundel web Vue hingga sinkronisasi ke proyek native Android Studio.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; WORKFLOW PIPELINE CLI</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Terminal / PowerShell di VS Code (<code>Ctrl + `</code>), Node.js (<code>npm</code> / <code>npx</code>), Android Studio.</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Klik salah satu kartu tahapan di panel sebelah kiri. Perhatikan simulasi perintah dan hasil output log terminal yang muncul di panel simulator sebelah kanan.</div>
+    <div style="margin-top: 4px;"><strong>💡 Kesalahan Paling Sering:</strong> Mahasiswa sering langsung mengetik <code>npx cap sync</code> tanpa menjalankan <code>npm run build</code> terlebih dahulu. Jika folder <code>dist/</code> belum diperbarui, maka perubahan kode di Vue tidak akan pernah masuk ke dalam smartphone!</div>
+  </div>
+
+  <!-- DIAGRAM PIPELINE CLI INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Siklus Pipeline Capacitor: Dari Vue Source ke Android Studio</div>
+    <svg viewBox="0 0 820 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-cli" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#000000" />
+        </marker>
+      </defs>
+
+      <!-- Step 1: npm run build -->
+      <rect x="20" y="30" width="170" height="90" fill="#EFF6FF" stroke="#000" stroke-width="2.5" />
+      <text x="105" y="52" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#0284C7">1. BUILD BUNDLE</text>
+      <text x="105" y="72" font-family="'Consolas', monospace" font-size="9" font-weight="bold" text-anchor="middle">npm run build</text>
+      <text x="105" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#475569">Vite compile Vue SFC</text>
+      <text x="105" y="104" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#475569">Menghasilkan folder dist/</text>
+
+      <!-- Arrow 1 -->
+      <line x1="190" y1="75" x2="225" y2="75" stroke="#000" stroke-width="2" marker-end="url(#arrow-cli)" />
+
+      <!-- Step 2: cap add android -->
+      <rect x="230" y="30" width="170" height="90" fill="#FEF9C3" stroke="#000" stroke-width="2.5" />
+      <text x="315" y="52" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#B45309">2. ADD PLATFORM</text>
+      <text x="315" y="72" font-family="'Consolas', monospace" font-size="9" font-weight="bold" text-anchor="middle">npx cap add android</text>
+      <text x="315" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">Scaffold folder android/</text>
+      <text x="315" y="104" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">(Cukup 1x di awal proyek)</text>
+
+      <!-- Arrow 2 -->
+      <line x1="400" y1="75" x2="435" y2="75" stroke="#000" stroke-width="2" marker-end="url(#arrow-cli)" />
+
+      <!-- Step 3: cap sync -->
+      <rect x="440" y="30" width="170" height="90" fill="#DCFCE7" stroke="#000" stroke-width="2.5" />
+      <text x="525" y="52" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#15803D">3. SINKRONISASI</text>
+      <text x="525" y="72" font-family="'Consolas', monospace" font-size="9" font-weight="bold" text-anchor="middle">npx cap sync</text>
+      <text x="525" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#166534">Salin dist/ ke assets/</text>
+      <text x="525" y="104" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#166534">Update Gradle dependencies</text>
+
+      <!-- Arrow 3 -->
+      <line x1="610" y1="75" x2="645" y2="75" stroke="#000" stroke-width="2" marker-end="url(#arrow-cli)" />
+
+      <!-- Step 4: cap open android -->
+      <rect x="650" y="30" width="150" height="90" fill="#FAF5FF" stroke="#000" stroke-width="2.5" />
+      <text x="725" y="52" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#7E22CE">4. BUKA STUDIO</text>
+      <text x="725" y="72" font-family="'Consolas', monospace" font-size="9" font-weight="bold" text-anchor="middle">npx cap open android</text>
+      <text x="725" y="90" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#6B21A8">Buka Android Studio</text>
+      <text x="725" y="104" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#6B21A8">Siap Run / Build APK</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -96,7 +187,7 @@
       </div>
 
       <div class="pipeline-step" :class="{ active: currentStep === 3 }" @click="selectStep(3)">
-        <strong>Langkah 3: Sinkronisasi Aset & Plugin (Wajib Tiap Ada Perubahan)</strong>
+        <strong>Langkah 3: Sinkronisasi Aset &amp; Plugin (Wajib Tiap Ada Perubahan)</strong>
         <div style="font-size: 12px; font-family: monospace; color: #1E293B; margin-top: 4px;">$ npx cap sync</div>
         <div style="font-size: 11px; color: #475569; margin-top: 2px;">Menyalin berkas <code>dist/</code> ke native assets folder dan mengonfigurasi gradle plugin.</div>
       </div>
@@ -112,7 +203,7 @@
     <div class="box">
       <h3>💻 Simulator Output Terminal (PowerShell / Bash)</h3>
       <div class="term-window">
-<span style="color: #22c55e;">PS C:\UT\mobile2026></span> {{ commandText }}
+<span style="color: #22c55e;">PS C:\UT\mobile2026&gt;</span> {{ commandText }}
 ------------------------------------------------------------
 {{ terminalOutput }}
       </div>
@@ -121,6 +212,11 @@
         ⚠️ <strong>Kesalahan Umum Mahasiswa:</strong> Melakukan <code>npx cap sync</code> tanpa menjalankan <code>npm run build</code> terlebih dahulu. Akibatnya, perubahan kode Vue terbaru tidak akan tampak di smartphone karena folder <code>dist/</code> masih menyimpan bundel lama!
       </div>
     </div>
+  </div>
+
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> Capacitor Official CLI Documentation: <em>"Capacitor Command Line Interface Reference"</em> (https://capacitorjs.com/docs/cli). Panduan Praktikum Modul 6 STSI4303 Universitas Terbuka.
   </div>
 
   <script>

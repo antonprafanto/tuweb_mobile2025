@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -62,6 +87,15 @@
       margin-bottom: 8px;
       font-size: 13px;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -72,10 +106,50 @@
     <p style="margin: 0; font-size: 14px;">Kontrak resmi antara aplikasi Anda dengan sistem operasi Android: Deklarasi izin hardware, konfigurasi Activity, dan orientasi layar.</p>
   </div>
 
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; DEKLARASI MANIFEST KONTRAK</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Visual Studio Code / Android Studio (buka <code>android/app/src/main/AndroidManifest.xml</code>), Google Chrome (berkas ini).</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Centang atau hilangkan centang pada izin Kamera, Lokasi, atau Penyimpanan Media di panel kiri. Perhatikan bagaimana tag <code>&lt;uses-permission&gt;</code> ditambahkan secara dinamis ke dalam berkas XML di panel kanan.</div>
+    <div style="margin-top: 4px;"><strong>💡 Konsekuensi Penting:</strong> Jika sebuah plugin (seperti <code>@capacitor/camera</code>) dipanggil dari kode JavaScript, namun izin <code>android.permission.CAMERA</code> belum dideklarasikan di Manifest, maka Android OS akan langsung melempar <code>SecurityException</code> dan aplikasi akan mengalami *crash* seketika!</div>
+  </div>
+
+  <!-- DIAGRAM HIERARKI MANIFEST INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Hierarki Struktur XML: AndroidManifest.xml</div>
+    <svg viewBox="0 0 820 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <!-- Root Tag <manifest> -->
+      <rect x="20" y="25" width="170" height="95" fill="#FEF9C3" stroke="#000" stroke-width="2.5" />
+      <text x="105" y="46" font-family="'Consolas', monospace" font-size="11" font-weight="900" text-anchor="middle" fill="#B45309">&lt;manifest&gt;</text>
+      <text x="105" y="68" font-family="'Segoe UI', sans-serif" font-size="9" text-anchor="middle" fill="#78350F">Root XML Node</text>
+      <text x="105" y="86" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">Deklarasi Namespace</text>
+      <text x="105" y="102" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">xmlns:android=...</text>
+
+      <!-- Branch 1: uses-permission -->
+      <line x1="190" y1="55" x2="230" y2="55" stroke="#000" stroke-width="2" />
+      <rect x="230" y="30" width="220" height="42" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.5" />
+      <text x="340" y="47" font-family="'Consolas', monospace" font-size="10" font-weight="bold" text-anchor="middle" fill="#991B1B">&lt;uses-permission&gt;</text>
+      <text x="340" y="62" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#7F1D1D">CAMERA, INTERNET, ACCESS_FINE_LOCATION</text>
+
+      <!-- Branch 2: application -->
+      <line x1="190" y1="95" x2="230" y2="95" stroke="#000" stroke-width="2" />
+      <rect x="230" y="80" width="220" height="50" fill="#DCFCE7" stroke="#16A34A" stroke-width="1.5" />
+      <text x="340" y="97" font-family="'Consolas', monospace" font-size="10" font-weight="bold" text-anchor="middle" fill="#15803D">&lt;application&gt;</text>
+      <text x="340" y="112" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#166534">icon, label, theme, cleartextTraffic</text>
+
+      <!-- Sub-branch 3: activity -->
+      <line x1="450" y1="105" x2="490" y2="105" stroke="#000" stroke-width="2" />
+      <rect x="490" y="65" width="310" height="70" fill="#EFF6FF" stroke="#0284C7" stroke-width="2" />
+      <text x="645" y="83" font-family="'Consolas', monospace" font-size="10" font-weight="bold" text-anchor="middle" fill="#0369A1">&lt;activity android:name=".MainActivity"&gt;</text>
+      <text x="645" y="100" font-family="'Consolas', monospace" font-size="8" text-anchor="middle" fill="#334155">&lt;intent-filter&gt;: android.intent.action.MAIN</text>
+      <text x="645" y="116" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="bold" text-anchor="middle" fill="#0284C7">🎯 Menjadi Ikon Launcher yang dapat dibuka di Home Screen</text>
+    </svg>
+  </div>
+
   <div id="app" class="grid">
     <!-- TOGGLE IZIN & FITUR -->
     <div class="box">
-      <h3>📋 Pilih Izin & Konfigurasi Fitur</h3>
+      <h3>📋 Pilih Izin &amp; Konfigurasi Fitur</h3>
       <p style="font-size: 12px; color: #64748B;">Aktifkan hak akses yang dibutuhkan aplikasi portal Anda:</p>
 
       <div style="background: #F8FAFC; border: 2px solid #000; padding: 12px; margin-bottom: 14px;">
@@ -98,24 +172,17 @@
       </div>
 
       <div style="background: #FEF3C7; border: 2px solid #D97706; padding: 12px; font-size: 12px;">
-        <label style="display: flex; align-items: center; gap: 8px; font-weight: bold; cursor: pointer;">
-          <input type="checkbox" v-model="allowCleartext" />
-          Izinkan HTTP Tidak Terenkripsi (Cleartext Traffic)
-        </label>
-        <p style="margin: 6px 0 0 0; color: #92400E; font-size: 11px;">
-          Hanya diaktifkan selama pengujian di jaringan lokal (development). Di mode produksi, Android 9+ mewajibkan HTTPS demi keamanan enkripsi data mahasiswa!
-        </p>
+        ⚠️ <strong>Aturan Android 6.0+ (API 23):</strong> Mendeklarasikan izin di berkas Manifest saja <em>belum cukup</em> untuk izin kategori berbahaya (*dangerous permissions* seperti Kamera &amp; Lokasi). Mahasiswa tetap wajib meminta izin runtime secara interaktif di layar pengguna!
       </div>
     </div>
 
-    <!-- PREVIEW XML -->
+    <!-- PREVIEW MANIFEST -->
     <div class="box">
-      <h3>📄 Berkas: <code>android/app/src/main/AndroidManifest.xml</code></h3>
+      <h3>📄 File: <code>AndroidManifest.xml</code></h3>
       <div class="xml-code">&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="id.ac.ut.mobileportal"&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"&gt;
 
-    &lt;!-- Permissions --&gt;
+    &lt;!-- Deklarasi Hak Akses Hardware --&gt;
     &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
 <span v-if="permCamera">    &lt;uses-permission android:name="android.permission.CAMERA" /&gt;
 </span><span v-if="permLocation">    &lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /&gt;
@@ -128,8 +195,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        <span v-if="allowCleartext" style="color: #f59e0b;">android:usesCleartextTraffic="true"</span><span v-else>android:usesCleartextTraffic="false"</span>&gt;
+        android:theme="@style/AppTheme"&gt;
 
         &lt;activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
@@ -143,10 +209,16 @@
                 &lt;action android:name="android.intent.action.MAIN" /&gt;
                 &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
             &lt;/intent-filter&gt;
+
         &lt;/activity&gt;
     &lt;/application&gt;
 &lt;/manifest&gt;</div>
     </div>
+  </div>
+
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> Google Android Open Source Project: <em>"App Manifest Overview &amp; The &lt;uses-permission&gt; Element"</em> (https://developer.android.com/guide/topics/manifest/manifest-intro). BMP STSI4303 Universitas Terbuka.
   </div>
 
   <script>
@@ -156,10 +228,9 @@
         const permInternet = ref(true);
         const permCamera = ref(true);
         const permLocation = ref(false);
-        const permStorage = ref(true);
-        const allowCleartext = ref(false);
+        const permStorage = ref(false);
 
-        return { permInternet, permCamera, permLocation, permStorage, allowCleartext };
+        return { permInternet, permCamera, permLocation, permStorage };
       }
     }).mount('#app');
   </script>

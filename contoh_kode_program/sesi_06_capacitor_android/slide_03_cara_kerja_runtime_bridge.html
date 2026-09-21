@@ -19,14 +19,14 @@
       --rose: #FB7185;
       --purple: #C084FC;
     }
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
       background: var(--purple);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 6px 6px 0 var(--border);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .badge-tag {
       display: inline-block;
@@ -36,6 +36,31 @@
       border: 2px solid var(--border);
       background: #fff;
       margin-bottom: 10px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1D4ED8;
+    }
+    .guide-box strong { color: #1E40AF; }
+    .diagram-card {
+      background: #FFFFFF;
+      border: 3px solid #000000;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 #000000;
+    }
+    .diagram-title {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
     .box {
@@ -53,7 +78,9 @@
       box-shadow: 3px 3px 0 #000;
       font-size: 13px;
       margin: 4px 0;
+      transition: all 0.1s ease;
     }
+    .btn-neo:hover { background: #fde047; }
     .btn-neo:active {
       transform: translate(2px, 2px);
       box-shadow: 1px 1px 0 #000;
@@ -68,6 +95,15 @@
       max-height: 240px;
       overflow-y: auto;
     }
+    .source-cite {
+      background: #F8FAFC;
+      border-left: 4px solid #64748B;
+      padding: 10px 14px;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #334155;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -76,6 +112,70 @@
     <div class="badge-tag">SLIDE 03 • ARSITEKTUR RUNTIME CAPACITOR</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Cara Kerja Runtime Bridge: Pesan Dua Arah (Web &harr; Native)</h1>
     <p style="margin: 0; font-size: 14px;">Bagaimana fungsi JavaScript <code>await Haptics.vibrate()</code> diterjemahkan menjadi kode mesin <code>Vibrator.vibrate()</code> di Android OS.</p>
+  </div>
+
+  <!-- PANDUAN RAMAH PEMULA -->
+  <div class="guide-box">
+    <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM &amp; INSPEKSI LALU LINTAS BRIDGE</div>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (cukup klik ganda berkas ini), DevTools Console (<code>F12</code>), Visual Studio Code.</div>
+    <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong>
+      <ol style="margin: 4px 0 0 0; padding-left: 18px;">
+        <li>Klik tombol <strong>📳 Haptics.vibrate()</strong>, <strong>📍 Geolocation.get()</strong>, atau <strong>📱 Device.getInfo()</strong> di kotak simulator.</li>
+        <li>Amati konsol kabel (<em>wire log</em>) di bawahnya: Anda akan melihat paket JSON permintaan <code>WEB-&gt;NATIVE</code> dikirim, disusul paket tanggapan <code>NATIVE-&gt;WEB</code> yang mengembalikan nilai kembalian ke JavaScript <code>Promise</code>.</li>
+      </ol>
+    </div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Karena kode web di dalam WebView terisolasi (*sandboxed*), Capacitor menggunakan antarmuka Android <code>@JavascriptInterface</code> untuk menerima JSON dari web, lalu memanggil fungsi native di thread terpisah agar antarmuka pengguna tidak pernah macet (*zero lag*).</div>
+  </div>
+
+  <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
+  <div class="diagram-card">
+    <div class="diagram-title">📊 Diagram Pipeline Pesan Melintasi Jembatan (Bridge RPC Pipeline)</div>
+    <svg viewBox="0 0 820 160" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow-blue-br" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284C7" />
+        </marker>
+        <marker id="arrow-green-br" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="#16A34A" />
+        </marker>
+      </defs>
+
+      <!-- Step 1: Vue Code Call -->
+      <rect x="20" y="30" width="170" height="95" fill="#E0F2FE" stroke="#000" stroke-width="2.5" />
+      <text x="105" y="52" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#0369A1">1. PEMANGGILAN JS</text>
+      <text x="105" y="74" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" text-anchor="middle">await Haptics.vibrate()</text>
+      <text x="105" y="92" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#475569">Membuat JS Promise</text>
+      <text x="105" y="106" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#475569">&amp; callbackId unik</text>
+
+      <!-- Arrow 1 to 2 -->
+      <line x1="190" y1="65" x2="225" y2="65" stroke="#0284C7" stroke-width="2.5" marker-end="url(#arrow-blue-br)" />
+
+      <!-- Step 2: Serialization -->
+      <rect x="230" y="30" width="170" height="95" fill="#FEF9C3" stroke="#000" stroke-width="2.5" />
+      <text x="315" y="52" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#B45309">2. SERIALISASI JSON</text>
+      <text x="315" y="74" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" text-anchor="middle">@JavascriptInterface</text>
+      <text x="315" y="92" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">Kirim via postMessage()</text>
+      <text x="315" y="106" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#78350F">Kanal Aman Terisolasi</text>
+
+      <!-- Arrow 2 to 3 -->
+      <line x1="400" y1="65" x2="435" y2="65" stroke="#0284C7" stroke-width="2.5" marker-end="url(#arrow-blue-br)" />
+
+      <!-- Step 3: Native Execution -->
+      <rect x="440" y="30" width="170" height="95" fill="#DCFCE7" stroke="#000" stroke-width="2.5" />
+      <text x="525" y="52" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#15803D">3. EKSEKUSI NATIVE</text>
+      <text x="525" y="74" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" text-anchor="middle">Vibrator.vibrate(300)</text>
+      <text x="525" y="92" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#166534">Java Thread Pool</text>
+      <text x="525" y="106" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#166534">Motor Getar Bergerak</text>
+
+      <!-- Arrow 3 to 4 (Return Back) -->
+      <path d="M 610 77 Q 635 77 635 105 Q 635 135 410 135 Q 210 135 210 100" fill="none" stroke="#16A34A" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrow-green-br)" />
+
+      <!-- Step 4: Callback Resolution -->
+      <rect x="630" y="30" width="170" height="75" fill="#F3E8FF" stroke="#000" stroke-width="2.5" />
+      <text x="715" y="52" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#7E22CE">4. RESOLVE PROMISE</text>
+      <text x="715" y="72" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="bold" text-anchor="middle">evaluateJavascript()</text>
+      <text x="715" y="88" font-family="'Segoe UI', sans-serif" font-size="8" text-anchor="middle" fill="#6B21A8">Promise Terpenuhi di Vue</text>
+    </svg>
   </div>
 
   <div id="app" class="grid">
@@ -97,7 +197,7 @@
       </div>
 
       <div style="background: #FEF3C7; border: 2px solid #B45309; padding: 10px; font-size: 12px;">
-        ⚡ <strong>Keunggulan Capacitor:</strong> Semua pemanggilan native bersifat <em>Asynchronous & Non-Blocking</em>. UI thread peramban tetap mulus 60 FPS tanpa jeda freeze!
+        ⚡ <strong>Keunggulan Capacitor:</strong> Semua pemanggilan native bersifat <em>Asynchronous &amp; Non-Blocking</em>. UI thread peramban tetap mulus 60 FPS tanpa jeda freeze!
       </div>
     </div>
 
@@ -130,6 +230,11 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- SITASI ILMIAH -->
+  <div class="source-cite">
+    <strong>Sitasi Sumber &amp; Rujukan Akademik:</strong> Google Android Open Source Project: <em>"WebView: addJavascriptInterface &amp; evaluateJavascript Specifications"</em> (https://developer.android.com/reference/android/webkit/WebView) &amp; Capacitor Team: <em>"Bridge Architecture &amp; Custom Plugin Development"</em> (https://capacitorjs.com/docs/plugins). BMP STSI4303 Universitas Terbuka.
   </div>
 
   <script>
