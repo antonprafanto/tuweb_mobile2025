@@ -22,6 +22,20 @@ Setiap materi slide dilengkapi berkas interaktif mandiri berekstensi `.html` yan
 * **Poin Kunci:**
   * Komposisi Nilai Tuton: Keaktifan 8 Diskusi (30%) + 3 Tugas Tutorial Wajib (70%).
   * Formula Nilai Akhir: 50% Nilai Tuton + 50% Nilai UAS (Syarat: Nilai UAS $\ge 30$).
+* **Diagram Alur Evaluasi Akademik & Roadmap:**
+  ```mermaid
+  flowchart LR
+      subgraph TUTON ["Aktivitas Tuton Online (Bobot 50%)"]
+          D["8 Sesi Diskusi<br/>(Bobot 30%)"]
+          T["3 Tugas Tutorial Wajib<br/>(Bobot 70%)"]
+      end
+      subgraph UAS ["Evaluasi Akhir (Bobot 50%)"]
+          U["Ujian Akhir Semester (UAS)<br/>Syarat: Nilai UAS >= 30"]
+      end
+      D & T --> NT["Nilai Tuton Terkumpul"]
+      NT & U --> NA["🎯 Nilai Akhir Kelulusan STSI4303"]
+  ```
+  > 📚 **Referensi:** Katalog Kurikulum FST Universitas Terbuka & Buku Panduan Penyelenggaraan Pembelajaran Berbantuan Komputer UT.
 * **Alat yang Digunakan:** Buka Google Chrome (klik ganda berkas HTML) atau VS Code.
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_01_kontrak_dan_roadmap.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_01_kontrak_dan_roadmap.html) *(Pendamping: `slide_01_kontrak_dan_roadmap.js`)*
@@ -33,6 +47,23 @@ Setiap materi slide dilengkapi berkas interaktif mandiri berekstensi `.html` yan
 * **Narasi Dosen:**  
   *"Bayangkan sebuah kampus besar seperti UT dengan lebih dari 400.000 mahasiswa yang menggunakan berbagai jenis gawai. Jika kita membuat aplikasi menggunakan Native murni terpisah (tim Android Kotlin dan tim iPhone Swift), biayanya membengkak 3 kali lipat. Dengan arsitektur Hybrid, kita merawat 1 basis kode tunggal untuk Android, iOS, dan Web!"*
 * **Poin Kunci:** Strategi *single codebase*, efisiensi waktu hingga ~66%, kemudahan perawatan jangka panjang.
+* **Diagram Komparasi Tim & Basis Kode:**
+  ```mermaid
+  flowchart TD
+      subgraph NATIVE ["❌ Pendekatan Native Tradisional (3 Basis Kode Terpisah)"]
+          N1["📱 Tim Android (Kotlin / Java)<br/>Tools: Android Studio"]
+          N2["🍏 Tim iOS (Swift / Obj-C)<br/>Tools: Xcode di macOS"]
+          N3["🌐 Tim Web Portal (HTML / CSS / JS)<br/>Tools: Web Browser"]
+      end
+
+      subgraph HYBRID ["✅ Pendekatan Hybrid Modern (1 Single Codebase)"]
+          H1["🚀 1 Basis Kode Standar Web Bersama<br/>(Vue.js 3 + TypeScript + Ionic Web Components)"]
+          H1 -->|Distribusi via Capacitor| C1["🤖 Android APK / AAB"]
+          H1 -->|Distribusi via Capacitor| C2["🍏 iOS IPA Package"]
+          H1 -->|Distribusi via Server| C3["🌐 Web Portal PWA"]
+      end
+  ```
+  > 📚 **Referensi:** BMP UT STSI4303 Modul 1 (Konsep Arsitektur Aplikasi Bergerak) & Ionic Industry Report 2026.
 * **Alat yang Digunakan:** Google Chrome (tersedia kalkulator efisiensi interaktif & diagram SVG).
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_02_relevansi_mobile_hybrid.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_02_relevansi_mobile_hybrid.html)
@@ -44,6 +75,23 @@ Setiap materi slide dilengkapi berkas interaktif mandiri berekstensi `.html` yan
 * **Narasi Dosen:**  
   *"Aplikasi Native berbicara langsung ke sistem operasi. Cross-platform menggambar elemen antarmuka lewat mesin grafisnya sendiri. Sedangkan Hybrid menggunakan WebView modern yang dijembatani oleh Capacitor ke perangkat keras. Untuk aplikasi portal universitas, bisnis, dan layanan publik, Hybrid adalah pilihan paling efisien dan stabil."*
 * **Poin Kunci:** Analogi tumpukan lapisan, perbandingan performa, dan pertimbangan pemilihan arsitektur.
+* **Diagram Tumpukan Lapisan (Layer Stack):**
+  ```mermaid
+  flowchart LR
+      subgraph NATIVE ["1. Native Murni"]
+          N_UI["UI Native (XML/SwiftUI)"] --> N_OS["OS Android / iOS"] --> N_HW["Hardware Gawai"]
+      end
+      subgraph HYBRID ["2. Hybrid (Ionic)"]
+          H_UI["Web Components (HTML/CSS/JS)"] --> H_WV["WebView Container"] --> H_CP["Capacitor Bridge"] --> H_HW["Hardware Gawai"]
+      end
+      subgraph CROSS ["3. Cross-Platform (Flutter)"]
+          C_UI["Widget Grafis Sendiri"] --> C_SK["Skia / Impeller Engine"] --> C_HW["Hardware Gawai"]
+      end
+      subgraph PWA ["4. PWA (Browser Web)"]
+          P_UI["Laman Web Responsif"] --> P_BR["Peramban (Chrome/Safari)"]
+      end
+  ```
+  > 📚 **Referensi:** BMP UT STSI4303 Modul 1 & W3C Web on Mobile Devices Specification.
 * **Alat yang Digunakan:** Google Chrome (tersedia selector tumpukan arsitektur interaktif).
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_03_komparasi_arsitektur_mobile.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_03_komparasi_arsitektur_mobile.html)
@@ -65,6 +113,19 @@ Setiap materi slide dilengkapi berkas interaktif mandiri berekstensi `.html` yan
 * **Narasi Dosen:**  
   *"Ada 4 perkakas gratis yang wajib disiapkan: Visual Studio Code sebagai editor utama, Node.js versi LTS sebagai mesin runtime, Git SCM untuk mencatat riwayat perubahan dan mengumpulkan tugas, serta Google Chrome untuk pengujian tampilan ponsel."*
 * **Poin Kunci:** Verifikasi perintah di terminal (`node -v`, `npm -v`, `git --version`).
+* **Diagram Ekosistem 4 Perkakas Pengembang:**
+  ```mermaid
+  flowchart LR
+      VS["💻 1. Visual Studio Code<br/>(Editor Kode & Terminal Utama)"]
+      NODE["🟢 2. Node.js LTS<br/>(Mesin Runtime & Manajer Paket NPM)"]
+      GIT["🐙 3. Git SCM<br/>(Pencatat Riwayat & Pengumpul Tugas)"]
+      CHROME["🌐 4. Google Chrome<br/>(Simulasi Layar Smartphone DevTools)"]
+
+      VS <-->|Jalankan CLI| NODE
+      VS <-->|Rekam Komit| GIT
+      VS <-->|Pratinjau Aplikasi| CHROME
+  ```
+  > 📚 **Referensi:** Panduan Instalasi Perkakas Pengembangan BMP UT STSI4303 Modul 1 & Node.js Foundation Documentation.
 * **Alat yang Digunakan:** VS Code Terminal (`Ctrl + ~`) atau Windows PowerShell.
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_05_panduan_instalasi_tools.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_05_panduan_instalasi_tools.html) *(Pendamping: `slide_05_panduan_instalasi_tools.js`)*
@@ -86,6 +147,19 @@ Setiap materi slide dilengkapi berkas interaktif mandiri berekstensi `.html` yan
 * **Sub-CPMK:** Menguraikan peran struktural, estetika, dan logika interaktivitas dalam arsitektur aplikasi mobile hybrid.
 * **Narasi Dosen:**  
   *"Aplikasi mobile hybrid diibaratkan seperti tubuh manusia: HTML adalah kerangka tulangnya, CSS adalah busana dan penampilannya, JavaScript adalah sistem saraf yang memproses aksi, dan WebView adalah rumah tempat aplikasi tersebut berjalan di smartphone."*
+* **Diagram 4 Lapisan Arsitektur Hybrid App:**
+  ```mermaid
+  flowchart TD
+      L1["1. Lapisan Aplikasi Web (HTML5 Tulang + CSS3 Busana + JS/Vue Saraf)"]
+      L2["2. Wadah WebView Container (Mesin Browser Native Android / iOS)"]
+      L3["3. Jembatan Native / Capacitor Bridge (Penerjemah JS <-> Kotlin/Swift)"]
+      L4["4. Perangkat Keras Smartphone (Kamera, GPS, Sensor Getar, File System)"]
+
+      L1 -->|Dirender secara visual di dalam| L2
+      L2 -->|Panggil API sistem lewat| L3
+      L3 -->|Mengakses sensor fisik gawai| L4
+  ```
+  > 📚 **Referensi:** BMP UT STSI4303 Modul 1 & Dokumentasi Arsitektur Resmi Ionic Framework (ionicframework.com/docs/intro/architecture).
 * **Alat yang Digunakan:** Google Chrome (tersedia sakelar interaktif untuk menyalakan/mematikan CSS dan JS).
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_07_anatomi_hybrid_app.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_07_anatomi_hybrid_app.html)
@@ -107,6 +181,16 @@ Setiap materi slide dilengkapi berkas interaktif mandiri berekstensi `.html` yan
 * **Narasi Dosen:**  
   *"Laptop rekan-rekan tidak perlu terbebani emulator berbobot 10GB. Cukup buka Google Chrome, tekan F12, lalu tekan Ctrl + Shift + M. Seketika Anda dapat memilih simulasi layar Pixel 7, iPhone 14 Pro, atau menguji koneksi internet lambat!"*
 * **Pintasan Tombol Sakti:** `F12` lalu `Ctrl + Shift + M`.
+* **Diagram Alur Pengujian Cepat Device Mode:**
+  ```mermaid
+  flowchart TD
+      S1["Buka Berkas HTML di Google Chrome"] --> S2["Tekan Tombol F12 (Buka DevTools)"]
+      S2 --> S3["Tekan Ctrl + Shift + M (Toggle Device Toolbar)"]
+      S3 --> S4["Pilih Preset: Pixel 7 / iPhone 14 Pro"]
+      S4 --> S5["Kursor Berubah Jadi Titik Sentuh Jari (Touch Emulation)"]
+      S5 --> S6["✅ Uji Tampilan Mobile Selesai (< 100MB RAM, Bebas Lemot!)"]
+  ```
+  > 📚 **Referensi:** Google Chrome DevTools Documentation: "Simulate mobile devices with Device Mode" & BMP UT STSI4303 Modul 1.
 * **Alat yang Digunakan:** Google Chrome / Microsoft Edge.
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_09_chrome_device_toolbar_guide.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_09_chrome_device_toolbar_guide.html)
@@ -127,6 +211,15 @@ Setiap materi slide dilengkapi berkas interaktif mandiri berekstensi `.html` yan
 * **Sub-CPMK:** Menjelaskan fungsi dan parameter perintah baris `ionic start`, `cd`, `ionic serve`, `ionic build`, dan `npx cap sync`.
 * **Narasi Dosen:**  
   *"Saat proyek aplikasi kita berkembang, kita menggunakan Ionic CLI. Ada 5 perintah utama yang akan menjadi sahabat setia rekan-rekan sejak inisialisasi proyek hingga persiapan rilis ke platform Android."*
+* **Diagram Siklus Hidup Perintah Ionic CLI:**
+  ```mermaid
+  flowchart LR
+      C1["1. ionic start<br/>(Inisialisasi Proyek)"] --> C2["2. cd myApp<br/>(Masuk ke Direktori)"]
+      C2 --> C3["3. ionic serve<br/>(Live Reload di Browser)"]
+      C3 --> C4["4. ionic build<br/>(Kompilasi Berkas Dist)"]
+      C4 --> C5["5. npx cap sync<br/>(Sinkronkan ke Android)"]
+  ```
+  > 📚 **Referensi:** Dokumentasi Resmi Ionic CLI Command Reference (ionicframework.com/docs/cli) & BMP UT STSI4303 Modul 1.
 * **Alat yang Digunakan:** VS Code Terminal (`Ctrl + ~`) untuk mempraktikkan perintah yang disalin dari simulator web.
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_11_ionic_cli_simulator.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_11_ionic_cli_simulator.html) *(Pendamping: `slide_11_ionic_cli_simulator.js`)*
@@ -137,6 +230,29 @@ Setiap materi slide dilengkapi berkas interaktif mandiri berekstensi `.html` yan
 * **Sub-CPMK:** Menavigasi tata letak berkas tampilan, konfigurasi rute, dan aset publik dalam proyek Ionic.
 * **Narasi Dosen:**  
   *"Jangan cemas melihat puluhan folder di proyek Ionic! Tempat kita paling sering menulis kode hanya ada di folder src/views untuk halaman layar dan src/theme untuk memoles warna tema. Folder node_modules tidak boleh diedit manual!"*
+* **Diagram Pohon Struktur Folder Proyek:**
+  ```mermaid
+  graph TD
+      ROOT["📁 my-app/ (Akar Proyek)"]
+      SRC["📁 src/ (Area Kerja Utama Mahasiswa)"]
+      PUBLIC["📁 public/ (Aset Statis Gambar & Ikon)"]
+      NM["📁 node_modules/ ⚠️ (Jangan Pernah Diedit Manual!)"]
+      VIEWS["📁 views/ (Halaman Layar Aplikasi)"]
+      COMP["📁 components/ (Komponen Kartu & Tombol)"]
+      THEME["📁 theme/ (Warna Biru UT variables.css)"]
+      ROUTER["📄 router/index.ts (Navigasi Antar Halaman)"]
+      APP["📄 App.vue & main.ts (Titik Masuk Utama)"]
+
+      ROOT --> SRC
+      ROOT --> PUBLIC
+      ROOT --> NM
+      SRC --> VIEWS
+      SRC --> COMP
+      SRC --> THEME
+      SRC --> ROUTER
+      SRC --> APP
+  ```
+  > 📚 **Referensi:** Panduan Struktur Proyek Ionic Framework & Vue.js 3 Project Scaffolding Standard.
 * **Alat yang Digunakan:** Google Chrome (eksplorasi pohon folder interaktif) & VS Code.
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_12_struktur_folder_proyek.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_12_struktur_folder_proyek.html) *(Pendamping: `slide_12_struktur_folder_proyek.js`)*
@@ -147,6 +263,17 @@ Setiap materi slide dilengkapi berkas interaktif mandiri berekstensi `.html` yan
 * **Sub-CPMK:** Mengaktifkan Opsi Pengembang dan USB Debugging pada smartphone Android serta menampilkan layar ke laptop menggunakan `scrcpy`.
 * **Narasi Dosen:**  
   *"Metode favorit pengembang profesional: sambungkan smartphone Android Anda menggunakan kabel data USB. Aktifkan USB Debugging dan jalankan scrcpy. Konsumsi RAM kurang dari 70MB, respons layar 60 FPS bebas patah-patah, dan tidak membuat laptop panas!"*
+* **Diagram Alur Praktis USB Debugging & scrcpy:**
+  ```mermaid
+  flowchart TD
+      U1["1. Buka Menu 'Setelan / Pengaturan' di HP Android"] --> U2["2. Masuk 'Tentang Ponsel' -> Cari 'Nomor Versi / Build Number'"]
+      U2 --> U3["3. Ketuk 'Nomor Versi' Sebanyak 7 Kali Berturut-turut"]
+      U3 --> U4["4. Masuk ke 'Opsi Pengembang' -> Aktifkan 'USB Debugging'"]
+      U4 --> U5["5. Sambungkan HP ke Laptop Menggunakan Kabel Data USB"]
+      U5 --> U6["6. Centang 'Selalu Izinkan dari Komputer Ini' pada Layar HP"]
+      U6 --> U7["7. Jalankan scrcpy di Terminal Laptop -> Layar HP Tampil 60 FPS!"]
+  ```
+  > 📚 **Referensi:** Android Developers Official Guide: "Configure on-device developer options" & Genymobile scrcpy Open Source Documentation.
 * **Alat yang Digunakan:** Ponsel Android + Kabel USB + Berkas `scrcpy.exe`.
 * **Tautan Kode Mandiri:**  
   👉 [🌐 `slide_13_usb_debugging_scrcpy_guide.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_13_usb_debugging_scrcpy_guide.html) *(Pendamping: `slide_13_usb_debugging_scrcpy_guide.md`)*
@@ -189,6 +316,22 @@ Setiap materi slide dilengkapi berkas interaktif mandiri berekstensi `.html` yan
   1. Tampilkan kartu identitas dengan Nama, NIM, Program Studi, dan UPBJJ-UT Anda.
   2. Terapkan warna resmi Universitas Terbuka: Biru UT (`#005691`) dan Kuning Aksen (`#FFE600`).
   3. Lengkapi dengan tombol verifikasi keaslian kartu yang memunculkan notifikasi responsif.
+* **Diagram Arsitektur Komponen KTM Digital:**
+  ```mermaid
+  flowchart TD
+      subgraph IONIC_UI ["Komponen Resmi Ionic Framework 7 Core (via CDN)"]
+          CARD["ion-card (Kontainer Bingkai KTM Berbayang)"]
+          HEADER["ion-card-header (Kop Logo & Nama Universitas Terbuka)"]
+          CONTENT["ion-card-content (Biodata Mahasiswa: Nama, NIM, Prodi, UPBJJ)"]
+          BTN["ion-button (Tombol Interaktif Verifikasi Status)"]
+          TOAST["ion-toast / Alert Notifikasi (Respon Berhasil Verifikasi)"]
+      end
+      CARD --> HEADER
+      CARD --> CONTENT
+      CARD --> BTN
+      BTN -->|Memicu Event Sentuhan| TOAST
+  ```
+  > 📚 **Referensi:** Ionic Framework UI Components Documentation: Card & Button Components & Panduan Tugas Mandiri BMP UT STSI4303 Modul 1.
 * **Rubrik Penilaian Mandiri (0–100):** Struktur Semantik Ionic (25 Poin) + Branding UT (25 Poin) + Responsivitas Viewport (25 Poin) + Interaktivitas Sentuhan (25 Poin).
 * **Alat yang Digunakan:** Google Chrome (tersedia form editor langsung dan tombol salin seluruh kode untuk pengumpulan tugas).
 * **Tautan Master Solusi:**  
