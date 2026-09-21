@@ -42,12 +42,37 @@
       border: 3px solid var(--border);
       padding: 20px;
       box-shadow: 5px 5px 0 var(--border);
-      max-width: 840px;
-      margin: 0 auto;
+      max-width: 860px;
+      margin: 0 auto 20px auto;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin: 18px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
     }
     .toggle-bar {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       margin-bottom: 18px;
     }
     .btn-toggle {
@@ -56,12 +81,16 @@
       font-weight: 800;
       cursor: pointer;
       box-shadow: 3px 3px 0 var(--border);
+      flex: 1;
+      font-size: 13.5px;
     }
+    .btn-toggle:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--border); }
     .preview-container {
       background: #F3F4F6;
       border: 3px solid var(--border);
       padding: 20px;
       margin-top: 16px;
+      box-shadow: 4px 4px 0 var(--border);
     }
     pre {
       background: #121212;
@@ -83,6 +112,67 @@
   </div>
 
   <div id="app" class="card">
+    <!-- Kotak Panduan Mahasiswa Awam -->
+    <div class="guide-box">
+      <h4>📘 PANDUAN PENGUJIAN ADAPTIVE STYLING</h4>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (Mode Simulator Ponsel <code>Ctrl + Shift + M</code>).
+      </p>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🎯 Cara Menguji Interaksi:</strong>
+        1. Klik tombol <strong>"🤖 Mode Android (Material Design)"</strong>. Perhatikan judul toolbar merapat ke kiri, tombol dengan huruf kapital tegas dan efek ripple.<br>
+        2. Klik tombol <strong>"🍏 Mode iPhone (Cupertino iOS)"</strong>. Perhatikan judul toolbar otomatis bergeser ke tengah (*center-aligned*), tombol dengan font lebih membulat halus, dan komponen segment berubah gaya pil transparan khas iOS.<br>
+        3. Perhatikan bahwa baris kode komponen di balik layar sama sekali tidak diubah!
+      </p>
+      <p style="margin: 0;">
+        <strong>💡 Apa yang Terjadi di Balik Layar:</strong>
+        Secara default, Ionic secara cerdas membaca informasi <code>navigator.userAgent</code> pada perangkat pengguna. Jika perangkat terdeteksi sebagai Android, Ionic menginjeksi stylesheet Material Design (<code>mode="md"</code>). Jika terdeteksi sebagai perangkat Apple (iOS/iPadOS), Ionic menginjeksi stylesheet Cupertino (<code>mode="ios"</code>). Anda juga dapat memaksakannya secara global melalui atribut <code>mode</code> pada <code>&lt;ion-app&gt;</code>.
+      </p>
+    </div>
+
+    <!-- Diagram Arsitektur Inline SVG -->
+    <div class="diagram-card">
+      <h4 style="margin: 0 0 8px 0; font-size: 13px;">📐 Alur Logika: Mekanisme Adaptive Styling pada Ionic Runtime Engine</h4>
+      <svg viewBox="0 0 800 120" width="100%" height="120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow02" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+          </marker>
+        </defs>
+        <!-- Basis Kode Tunggal -->
+        <rect x="10" y="15" width="190" height="90" rx="6" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
+        <text x="22" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#1E40AF">1. SINGLE CODEBASE</text>
+        <text x="22" y="58" font-family="Consolas" font-size="9.5" fill="#333">&lt;ion-toolbar&gt;</text>
+        <text x="22" y="74" font-family="Consolas" font-size="9.5" fill="#333">&lt;ion-button&gt;</text>
+        <text x="22" y="92" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#2563EB">Basis Kode Vue Bersama</text>
+
+        <!-- Cabang ke Platform Sniffer -->
+        <line x1="200" y1="60" x2="250" y2="60" stroke="#000" stroke-width="2" marker-end="url(#arrow02)"/>
+
+        <!-- Platform Sniffer -->
+        <rect x="255" y="15" width="195" height="90" rx="6" fill="#FEF08A" stroke="#854D0E" stroke-width="2"/>
+        <text x="267" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#854D0E">2. PLATFORM DETECTOR</text>
+        <text x="267" y="58" font-family="Segoe UI" font-size="10" fill="#333">• Periksa User-Agent</text>
+        <text x="267" y="74" font-family="Segoe UI" font-size="10" fill="#333">• Evaluasi Mode Override</text>
+        <text x="267" y="92" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#B45309">Otomatisasi Tanpa Konfigurasi</text>
+
+        <!-- Cabang Atas ke Android -->
+        <line x1="450" y1="45" x2="520" y2="35" stroke="#000" stroke-width="2" marker-end="url(#arrow02)"/>
+        <!-- Cabang Bawah ke iOS -->
+        <line x1="450" y1="75" x2="520" y2="85" stroke="#000" stroke-width="2" marker-end="url(#arrow02)"/>
+
+        <!-- Output Android MD -->
+        <rect x="525" y="10" width="265" height="46" rx="5" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+        <text x="535" y="28" font-family="Segoe UI" font-weight="bold" font-size="10.5" fill="#15803D">🤖 Android Material Design (mode="md")</text>
+        <text x="535" y="44" font-family="Segoe UI" font-size="9" fill="#333">Judul kiri, font Roboto, efek riak sentuhan (ripple)</text>
+
+        <!-- Output iOS Cupertino -->
+        <rect x="525" y="65" width="265" height="46" rx="5" fill="#FCE7F3" stroke="#BE185D" stroke-width="2"/>
+        <text x="535" y="83" font-family="Segoe UI" font-weight="bold" font-size="10.5" fill="#BE185D">🍏 iPhone Cupertino Style (mode="ios")</text>
+        <text x="535" y="99" font-family="Segoe UI" font-size="9" fill="#333">Judul tengah, font San Francisco, transisi geser</text>
+      </svg>
+    </div>
+
     <h3>📱 Simulator Mode Tampilan Platform</h3>
     <p style="font-size:13px; color:#555;">Klik tombol di bawah untuk melihat bagaimana komponen Ionic berganti wujud:</p>
 
@@ -97,7 +187,7 @@
 
     <!-- Container Preview dengan Mode Dinamis -->
     <div class="preview-container">
-      <h4 style="margin:0 0 10px 0;">Mode Aktif: <strong>{{ currentMode.toUpperCase() }}</strong></h4>
+      <h4 style="margin:0 0 10px 0;">Mode Aktif Saat Ini: <strong>{{ currentMode.toUpperCase() }}</strong></h4>
 
       <!-- Toolbar Dinamis -->
       <ion-toolbar :mode="currentMode" color="primary">
@@ -132,8 +222,13 @@
 // Jika dibuka di Android -> Otomatis render Material Design (md).
 // Jika dibuka di iPhone  -> Otomatis render Cupertino (ios).
 
-// 2. Pemaksaan Mode Manual (Jika dibutuhkan):
+// 2. Pemaksaan Mode Manual (Jika aplikasi menghendaki konsistensi satu gaya):
 &lt;ion-app mode="ios"&gt;...&lt;/ion-app&gt;</code></pre>
+
+    <!-- Sitasi Akademik -->
+    <div class="source-cite">
+      📚 <strong>Referensi Modul:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 4: "Adaptive Styling &amp; Tema Multiplatform" • Dokumentasi Resmi Ionic: "Platform Detection &amp; Mode Configuration".
+    </div>
   </div>
 
   <script>

@@ -42,14 +42,40 @@
       border: 3px solid var(--border);
       padding: 20px;
       box-shadow: 5px 5px 0 var(--border);
-      max-width: 800px;
-      margin: 0 auto;
+      max-width: 860px;
+      margin: 0 auto 20px auto;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin: 18px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
     }
     .section-box {
       border: 2px solid var(--border);
       padding: 14px;
       background: #F9FAFB;
       margin-bottom: 14px;
+      box-shadow: 3px 3px 0 var(--border);
     }
     pre {
       background: #121212;
@@ -66,18 +92,77 @@
 
   <div class="header">
     <div class="badge">SLIDE 05 • MODUL 4 BMP UT</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Ragam Konfigurasi Tombol Mobile: ion-button (Expand, Fill, & Shape)</h1>
-    <p style="margin: 0; font-size: 14px;">Merancang tombol ergonomis yang mudah ditekan jempol pengguna di berbagai sudut layar.</p>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Ragam Konfigurasi Tombol Mobile: ion-button (Expand, Fill, &amp; Shape)</h1>
+    <p style="margin: 0; font-size: 14px;">Merancang tombol ergonomis yang mudah dijangkau jempol pengguna di berbagai sudut layar smartphone.</p>
   </div>
 
   <div id="app" class="card">
+    <!-- Kotak Panduan Mahasiswa Awam -->
+    <div class="guide-box">
+      <h4>📘 PANDUAN PRAKTIKUM &amp; ERGONOMI TOMBOL MOBILE</h4>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (Mode Simulator Ponsel <code>Ctrl + Shift + M</code>).
+      </p>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🎯 Cara Menguji Interaksi:</strong>
+        1. Bandingkan tombol <code>expand="block"</code> (dengan margin kiri-kanan) dan <code>expand="full"</code> (menempel tanpa celah ke pinggir layar).<br>
+        2. Perhatikan properti isian <code>fill="solid"</code> (kontras penuh), <code>fill="outline"</code> (garis batas luar), dan <code>fill="clear"</code> (teks polos transparan).<br>
+        3. Coba klik tombol dengan bentuk membulat <code>shape="round"</code> dan ukuran <code>size="large"</code>.
+      </p>
+      <p style="margin: 0;">
+        <strong>💡 Apa yang Terjadi di Balik Layar:</strong>
+        Dalam riset <em>Mobile Thumb-Zone</em>, mayoritas pengguna smartphone mengoperasikan layar dengan satu jempol tangan. Tombol aksi primer (seperti "Kirim Tugas" atau "Simpan KRS") sangat disarankan memakai <code>expand="block"</code> dengan tinggi minimal 48px agar jempol pengguna dapat menekan tombol dengan akurat tanpa risiko salah pencet.
+      </p>
+    </div>
+
+    <!-- Diagram Arsitektur Inline SVG -->
+    <div class="diagram-card">
+      <h4 style="margin: 0 0 8px 0; font-size: 13px;">📐 Prinsip Ergonomi Mobile: Zona Jangkauan Jempol (Thumb-Zone) &amp; Hierarki Tombol</h4>
+      <svg viewBox="0 0 800 120" width="100%" height="120" xmlns="http://www.w3.org/2000/svg">
+        <!-- Bingkai Ponsel Sederhana -->
+        <rect x="15" y="10" width="120" height="100" rx="12" fill="#1E293B" stroke="#000" stroke-width="2"/>
+        <!-- Layar Dalam -->
+        <rect x="23" y="18" width="104" height="84" rx="4" fill="#E2E8F0"/>
+        <!-- Zona Sulit (Merah) -->
+        <rect x="25" y="20" width="100" height="24" fill="#FCA5A5"/>
+        <text x="32" y="36" font-family="Segoe UI" font-size="8" font-weight="bold" fill="#7F1D1D">Zona Sulit (Top)</text>
+        <!-- Zona Regang (Kuning) -->
+        <rect x="25" y="46" width="100" height="24" fill="#FEF08A"/>
+        <text x="32" y="62" font-family="Segoe UI" font-size="8" font-weight="bold" fill="#713F12">Zona Regang (Mid)</text>
+        <!-- Zona Alami Jempol (Hijau) -->
+        <rect x="25" y="72" width="100" height="28" fill="#86EFAC"/>
+        <text x="32" y="89" font-family="Segoe UI" font-size="8" font-weight="bold" fill="#14532D">Zona Jempol (Easy)</text>
+
+        <!-- Keterangan Properti 1: Expand -->
+        <rect x="160" y="15" width="195" height="90" rx="6" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
+        <text x="172" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#1E40AF">1. PROPERTI EXPAND</text>
+        <text x="172" y="58" font-family="Segoe UI" font-size="10" fill="#333">• block: Lebar penuh ber-margin</text>
+        <text x="172" y="74" font-family="Segoe UI" font-size="10" fill="#333">• full: Lebar rapat tepi</text>
+        <text x="172" y="92" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#2563EB">Target sentuh jempol optimal</text>
+
+        <!-- Keterangan Properti 2: Fill -->
+        <rect x="375" y="15" width="200" height="90" rx="6" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+        <text x="387" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#15803D">2. PROPERTI FILL</text>
+        <text x="387" y="58" font-family="Segoe UI" font-size="10" fill="#333">• solid: Aksi primer (Kirim)</text>
+        <text x="387" y="74" font-family="Segoe UI" font-size="10" fill="#333">• outline: Aksi sekunder (Batal)</text>
+        <text x="387" y="92" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#166534">• clear: Teks transparan link</text>
+
+        <!-- Keterangan Properti 3: Shape & Size -->
+        <rect x="595" y="15" width="195" height="90" rx="6" fill="#FEF08A" stroke="#854D0E" stroke-width="2"/>
+        <text x="607" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#854D0E">3. SHAPE &amp; SIZE</text>
+        <text x="607" y="58" font-family="Segoe UI" font-size="10" fill="#333">• shape="round": Gaya pill</text>
+        <text x="607" y="74" font-family="Segoe UI" font-size="10" fill="#333">• size="small|default|large"</text>
+        <text x="607" y="92" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#B45309">Adaptif estetika modern</text>
+      </svg>
+    </div>
+
     <h3>📱 Demonstrasi Variasi Tombol Mobile</h3>
 
     <!-- 1. Expand Block vs Full -->
     <div class="section-box">
-      <strong>1. Properti Expand (Lebar Penuh):</strong>
+      <strong>1. Properti Expand (Lebar Penuh Layar):</strong>
       <ion-button expand="block" color="primary" style="margin-top:8px;">
-        expand="block" (Lebar penuh dengan margin samping)
+        expand="block" (Lebar penuh dengan margin samping yang rapi)
       </ion-button>
       <ion-button expand="full" color="secondary" style="margin-top:8px;">
         expand="full" (Menempel rapat ujung ke ujung layar)
@@ -86,26 +171,26 @@
 
     <!-- 2. Properti Fill -->
     <div class="section-box">
-      <strong>2. Properti Fill (Gaya Isian):</strong>
+      <strong>2. Properti Fill (Gaya Isian &amp; Hierarki Visual):</strong>
       <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
-        <ion-button fill="solid" color="success">fill="solid" (Default)</ion-button>
-        <ion-button fill="outline" color="success">fill="outline"</ion-button>
-        <ion-button fill="clear" color="success">fill="clear" (Teks Saja)</ion-button>
+        <ion-button fill="solid" color="success">fill="solid" (Aksi Primer)</ion-button>
+        <ion-button fill="outline" color="success">fill="outline" (Aksi Sekunder)</ion-button>
+        <ion-button fill="clear" color="success">fill="clear" (Teks Transparan)</ion-button>
       </div>
     </div>
 
     <!-- 3. Shape & Size -->
     <div class="section-box">
-      <strong>3. Properti Shape & Size:</strong>
+      <strong>3. Properti Shape &amp; Size (Bentuk &amp; Ukuran):</strong>
       <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:8px;">
         <ion-button shape="round" color="tertiary">shape="round" (Kapsul Bulat)</ion-button>
         <ion-button size="small" color="dark">size="small"</ion-button>
-        <ion-button size="large" color="warning">size="large"</ion-button>
+        <ion-button size="large" color="warning">size="large" (Ukuran Besar)</ion-button>
       </div>
     </div>
 
     <h4 style="margin-top: 24px;">💡 Cuplikan Sintaks:</h4>
-    <pre><code>&lt;!-- Tombol Utama Aksi Form (Rekomendasi Terbaik) --&gt;
+    <pre><code>&lt;!-- Tombol Utama Aksi Form (Rekomendasi Terbaik Jempol) --&gt;
 &lt;ion-button expand="block" color="primary" shape="round"&gt;
   Kirim Tugas Tutorial 1
 &lt;/ion-button&gt;
@@ -114,6 +199,11 @@
 &lt;ion-button expand="block" fill="clear" color="medium"&gt;
   Kembali ke Menu Utama
 &lt;/ion-button&gt;</code></pre>
+
+    <!-- Sitasi Akademik -->
+    <div class="source-cite">
+      📚 <strong>Referensi Modul:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 4: "Komponen Tombol &amp; Interaksi Sentuhan" • Steven Hoober (2017): "Designing for Touch &amp; Mobile Thumb Zones".
+    </div>
   </div>
 
   <script>

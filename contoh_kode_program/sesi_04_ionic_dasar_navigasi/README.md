@@ -26,7 +26,7 @@ Seluruh berkas kode di bawah ini menggunakan **standar The Zero-Friction Coursew
 | `13` | `slide_13_tombol_kembali_back_button.html` | Tombol kembali otomatis `<ion-back-button>` dan penanganan `default-href` | [Buka Berkas](slide_13_tombol_kembali_back_button.html) |
 | `14` | `slide_14_siklus_hidup_masuk_halaman.html` | Pemantauan siklus hidup masuk: `ionViewWillEnter` vs `ionViewDidEnter` | [Buka Berkas](slide_14_siklus_hidup_masuk_halaman.html) |
 | `15` | `slide_15_siklus_hidup_keluar_halaman.html` | Pemantauan siklus hidup keluar: `ionViewWillLeave` vs `ionViewDidLeave` | [Buka Berkas](slide_15_siklus_hidup_keluar_halaman.html) |
-| `16` | `slide_16_troubleshooting_routing_ionic.md` | Panduan pemecahan masalah: Layar putih, tombol back hilang, dan route loop | [Buka Berkas](slide_16_troubleshooting_routing_ionic.md) |
+| `16` | `slide_16_troubleshooting_routing_ionic.html`<br>`slide_16_troubleshooting_routing_ionic.md` | **Konsol Diagnostik Interaktif & Panduan Pemecahan Masalah:** Layar putih, tombol back hilang, data caching, dan CSS hilang | [Buka Simulator HTML](slide_16_troubleshooting_routing_ionic.html)<br>[Baca Panduan MD](slide_16_troubleshooting_routing_ionic.md) |
 | `17` | `slide_17_lab_quest_04_portal_modul_ut.html` | **🎯 MASTER SOLUSI LAB QUEST 04: Portal Modul BMP UT Multi-Halaman** | [Buka Berkas](slide_17_lab_quest_04_portal_modul_ut.html) |
 | `18` | `slide_18_preview_sesi_05_layout_grid_form.html` | **Jembatan Sesi 05: Responsive 12-Grid, Form Regex, & Pengarahan Tugas 2** | [Buka Berkas](slide_18_preview_sesi_05_layout_grid_form.html) |
 

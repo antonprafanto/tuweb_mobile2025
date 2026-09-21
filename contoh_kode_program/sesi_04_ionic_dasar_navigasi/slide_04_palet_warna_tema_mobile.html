@@ -42,12 +42,37 @@
       border: 3px solid var(--border);
       padding: 20px;
       box-shadow: 5px 5px 0 var(--border);
-      max-width: 820px;
-      margin: 0 auto;
+      max-width: 860px;
+      margin: 0 auto 20px auto;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin: 18px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
     }
     .color-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 14px;
       margin-top: 16px;
     }
@@ -77,6 +102,60 @@
   </div>
 
   <div id="app" class="card">
+    <!-- Kotak Panduan Mahasiswa Awam -->
+    <div class="guide-box">
+      <h4>📘 PANDUAN PENGUJIAN TEMA WARNA SEMANTIK</h4>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome / Peramban Web Modern.
+      </p>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🎯 Cara Menguji Interaksi:</strong>
+        1. Amati kartu-kartu warna semantik di bawah ini. Coba klik masing-masing tombol untuk melihat efek riak sentuhan (*ripple*) yang warnanya serasi otomatis.<br>
+        2. Perhatikan teks label lencana (badge) dan tombol: Ionic secara otomatis menghitung warna teks (putih atau hitam) agar rasio kontras terbaca jelas (memenuhi standar aksesibilitas WCAG).<br>
+        3. Pelajari bagaimana atribut <code>color="primary"</code> dapat diterapkan ke beragam komponen berbeda.
+      </p>
+      <p style="margin: 0;">
+        <strong>💡 Apa yang Terjadi di Balik Layar:</strong>
+        Ionic mengelola warna secara modular melalui variabel CSS (*CSS Custom Properties*) seperti <code>--ion-color-primary</code> dan <code>--ion-color-primary-contrast</code>. Saat Anda menetapkan <code>color="success"</code>, komponen secara internal mengaktifkan kelas CSS yang mengontrol latar belakang, batas, dan teks kontras secara otomatis.
+      </p>
+    </div>
+
+    <!-- Diagram Arsitektur Inline SVG -->
+    <div class="diagram-card">
+      <h4 style="margin: 0 0 8px 0; font-size: 13px;">📐 Peta Spektrum: Peran Semantik Warna pada Antarmuka Mobile Ionic</h4>
+      <svg viewBox="0 0 800 110" width="100%" height="110" xmlns="http://www.w3.org/2000/svg">
+        <!-- 1. Primary -->
+        <rect x="10" y="15" width="145" height="80" rx="6" fill="#3880FF" stroke="#000" stroke-width="2"/>
+        <text x="20" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#FFF">primary</text>
+        <text x="20" y="56" font-family="Segoe UI" font-size="9" fill="#E0EDFF">Identitas Kampus UT</text>
+        <text x="20" y="74" font-family="Segoe UI" font-size="8.5" fill="#FFF">Tombol Nav &amp; Header</text>
+
+        <!-- 2. Success -->
+        <rect x="170" y="15" width="145" height="80" rx="6" fill="#2DD36F" stroke="#000" stroke-width="2"/>
+        <text x="180" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#000">success</text>
+        <text x="180" y="56" font-family="Segoe UI" font-size="9" fill="#064E3B">Kelulusan &amp; Nilai A</text>
+        <text x="180" y="74" font-family="Segoe UI" font-size="8.5" fill="#000">Konfirmasi Berhasil</text>
+
+        <!-- 3. Warning -->
+        <rect x="330" y="15" width="145" height="80" rx="6" fill="#FFC409" stroke="#000" stroke-width="2"/>
+        <text x="340" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#000">warning</text>
+        <text x="340" y="56" font-family="Segoe UI" font-size="9" fill="#713F12">Peringatan / Deadline</text>
+        <text x="340" y="74" font-family="Segoe UI" font-size="8.5" fill="#000">Tenggat Registrasi</text>
+
+        <!-- 4. Danger -->
+        <rect x="490" y="15" width="145" height="80" rx="6" fill="#EB445A" stroke="#000" stroke-width="2"/>
+        <text x="500" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#FFF">danger</text>
+        <text x="500" y="56" font-family="Segoe UI" font-size="9" fill="#FFE4E6">Aksi Destruktif</text>
+        <text x="500" y="74" font-family="Segoe UI" font-size="8.5" fill="#FFF">Hapus &amp; Drop MK</text>
+
+        <!-- 5. Dark / Medium -->
+        <rect x="650" y="15" width="140" height="80" rx="6" fill="#222428" stroke="#000" stroke-width="2"/>
+        <text x="660" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#FFF">dark</text>
+        <text x="660" y="56" font-family="Segoe UI" font-size="9" fill="#D1D5DB">Monokrom &amp; Footer</text>
+        <text x="660" y="74" font-family="Segoe UI" font-size="8.5" fill="#FFF">Status Non-Aktif</text>
+      </svg>
+    </div>
+
     <h3>🎨 Palet Warna Mobile Siap Pakai</h3>
     <p style="font-size:13px; color:#555;">Ionic menyediakan properti <code>color</code> yang secara otomatis mengatur warna latar, teks, dan kontras:</p>
 
@@ -129,8 +208,13 @@
 &lt;ion-button color="primary"&gt;Simpan Profil&lt;/ion-button&gt;
 &lt;ion-button color="danger" fill="outline"&gt;Hapus Akun&lt;/ion-button&gt;
 
-&lt;!-- Lencana Status --&gt;
+&lt;!-- Lencana Status Akademik --&gt;
 &lt;ion-badge color="success"&gt;Aktif Registrasi&lt;/ion-badge&gt;</code></pre>
+
+    <!-- Sitasi Akademik -->
+    <div class="source-cite">
+      📚 <strong>Referensi Modul:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 4: "Sistem Pewarnaan Semantik &amp; Tema Mobile" • Dokumentasi Resmi Ionic: "Colors &amp; CSS Custom Properties".
+    </div>
   </div>
 
   <script>

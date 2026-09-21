@@ -38,6 +38,31 @@
       background: #fff;
       margin-bottom: 10px;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin-bottom: 20px;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 20px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
+    }
     .layout-grid {
       display: grid;
       grid-template-columns: 420px 1fr;
@@ -108,8 +133,77 @@
 
   <div class="header">
     <div class="badge-tag">SLIDE 17 • MASTER SOLUSI LAB QUEST 04</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 24px;">🎯 Aplikasi Portal Modul BMP UT (Multi-Halaman & Lifecycle)</h1>
+    <h1 style="margin: 0 0 6px 0; font-size: 24px;">🎯 Aplikasi Portal Modul BMP UT (Multi-Halaman &amp; Lifecycle)</h1>
     <p style="margin: 0; font-size: 14px;">Studi Kasus Lengkap: Katalog Digital Buku Materi Pokok FST UT dengan Navigasi Tumpukan, Detail Modul, Bookmark, dan Indikator Siklus Hidup.</p>
+  </div>
+
+  <!-- 📘 KOTAK PANDUAN MAHASISWA AWAM -->
+  <div class="guide-box">
+    <h4>📘 Panduan Mahasiswa Awam: Uji Mandiri Portal Modul BMP UT</h4>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (cukup klik ganda berkas HTML ini), mode Responsive Device Toolbar (tekan <code>Ctrl + Shift + M</code>), dan konsol pengembang DevTools (<code>F12</code>).</div>
+    <div><strong>🎯 Cara Menguji Interaksi:</strong>
+      <ol style="margin: 4px 0 0 18px; padding: 0;">
+        <li>Gunakan tombol <strong>Filter Semester</strong> (Semua, Semester 4, Semester 6) di dalam ponsel untuk memfilter modul.</li>
+        <li>Klik ikon <strong>Bintang</strong> di toolbar ponsel untuk mengaktifkan filter bookmark khusus.</li>
+        <li>Klik salah satu kartu modul (misal: <strong>STSI4303</strong>) untuk melakukan navigasi dorong (<em>push</em>) ke layar detail.</li>
+        <li>Amati kolom kanan: <strong>⚡ Monitor Siklus Hidup</strong> secara langsung mencatat perpindahan hook (<em>leave</em> $\rightarrow$ <em>enter</em>).</li>
+        <li>Tekan tombol panah kembali (<strong>⬅</strong>) di kiri atas toolbar untuk kembali ke katalog tanpa memuat ulang data dari awal!</li>
+      </ol>
+    </div>
+    <div><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Aplikasi mengimplementasikan arsitektur tumpukan (<em>Stack Navigation</em>). Layar katalog tidak dihancurkan saat mahasiswa melihat detail, sehingga posisi gulir (scroll) dan status filter tetap tersimpan utuh di memori perangkat.</div>
+  </div>
+
+  <!-- 🎨 DIAGRAM VEKTOR INLINE SVG BERGAYA NEO-BRUTALISM (100% VALID XML) -->
+  <div class="diagram-card">
+    <h4 style="margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase;">Arsitektur Navigasi Tumpukan &amp; Siklus Hidup Portal BMP UT</h4>
+    <svg viewBox="0 0 900 170" width="100%" height="170" xmlns="http://www.w3.org/2000/svg" style="background:#FAF8F5; border:1px solid #000; border-radius:4px;">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+        </marker>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#16A34A" />
+        </marker>
+      </defs>
+
+      <!-- Layar 1: Katalog -->
+      <rect x="30" y="25" width="220" height="120" fill="#EFF6FF" stroke="#000" stroke-width="2.5" rx="4" />
+      <rect x="35" y="30" width="210" height="24" fill="#3B82F6" stroke="#000" stroke-width="1.5" />
+      <text x="140" y="47" fill="#FFF" font-size="12" font-weight="bold" text-anchor="middle">LAYAR 1: KATALOG BMP</text>
+      <text x="140" y="75" fill="#000" font-size="11" text-anchor="middle">Filter Chips (Sem 4 / 6)</text>
+      <text x="140" y="93" fill="#000" font-size="11" text-anchor="middle">Daftar Kartu ion-card</text>
+      <text x="140" y="111" fill="#000" font-size="11" text-anchor="middle">State Bookmark Reaktif</text>
+      <text x="140" y="130" fill="#1E40AF" font-size="10" font-weight="bold" text-anchor="middle">Status: Cache di Tumpukan</text>
+
+      <!-- Panah Push (Atas): Katalog -> Detail -->
+      <path d="M 255 60 L 360 60" fill="none" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)" />
+      <text x="307" y="52" fill="#000" font-size="10" font-weight="bold" text-anchor="middle">Push (Pilih Modul)</text>
+
+      <!-- Panah Pop (Bawah): Detail -> Katalog -->
+      <path d="M 360 110 L 255 110" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-dasharray="4,3" marker-end="url(#arrow-green)" />
+      <text x="307" y="125" fill="#16A34A" font-size="10" font-weight="bold" text-anchor="middle">Pop (Tombol Kembali)</text>
+
+      <!-- Layar 2: Detail Modul -->
+      <rect x="365" y="25" width="230" height="120" fill="#FEF3C7" stroke="#000" stroke-width="2.5" rx="4" />
+      <rect x="370" y="30" width="220" height="24" fill="#F59E0B" stroke="#000" stroke-width="1.5" />
+      <text x="480" y="47" fill="#000" font-size="12" font-weight="bold" text-anchor="middle">LAYAR 2: DETAIL MODUL</text>
+      <text x="480" y="75" fill="#000" font-size="11" text-anchor="middle">Header ion-back-button</text>
+      <text x="480" y="93" fill="#000" font-size="11" text-anchor="middle">Daftar KB: ion-list &amp; item</text>
+      <text x="480" y="111" fill="#000" font-size="11" text-anchor="middle">Tombol Baca PDF Online</text>
+      <text x="480" y="130" fill="#78350F" font-size="10" font-weight="bold" text-anchor="middle">Status: Puncak Tumpukan (Active)</text>
+
+      <!-- Panah ke Lifecycle State Engine -->
+      <path d="M 600 85 L 645 85" fill="none" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+
+      <!-- Panel Lifecycle Engine -->
+      <rect x="650" y="25" width="220" height="120" fill="#0F172A" stroke="#000" stroke-width="2.5" rx="4" />
+      <rect x="655" y="30" width="210" height="22" fill="#1E293B" stroke="#38BDF8" stroke-width="1" />
+      <text x="760" y="46" fill="#38BDF8" font-size="11" font-weight="bold" text-anchor="middle">⚡ MESIN SIKLUS HIDUP</text>
+      <text x="665" y="70" fill="#F87171" font-size="10.5" font-family="monospace">1. ionViewWillLeave</text>
+      <text x="665" y="88" fill="#F87171" font-size="10.5" font-family="monospace">2. ionViewDidLeave</text>
+      <text x="665" y="106" fill="#38BDF8" font-size="10.5" font-family="monospace">3. ionViewWillEnter</text>
+      <text x="665" y="124" fill="#4ADE80" font-size="10.5" font-family="monospace">4. ionViewDidEnter</text>
+    </svg>
   </div>
 
   <div id="app" class="layout-grid">
@@ -221,7 +315,7 @@
                 <h3 style="font-size: 13px; font-weight: bold;">{{ kb.judul }}</h3>
                 <p style="font-size: 11px;">Estimasi Baca: {{ kb.estimasi }}</p>
               </ion-label>
-              <ion-icon name="cloud-download-outline" slot="end" style="color: #0284C7;"></ion-link>
+              <ion-icon name="cloud-download-outline" slot="end" style="color: #0284C7;"></ion-icon>
             </ion-item>
           </ion-list>
 
@@ -272,13 +366,13 @@
             <td style="padding: 8px; border: 1px solid #000; text-align: center; color: green; font-weight: bold;">TERPENUHI</td>
           </tr>
           <tr>
-            <td style="padding: 8px; border: 1px solid #000; font-weight: bold;">2. Daftar & Kartu Interaktif</td>
+            <td style="padding: 8px; border: 1px solid #000; font-weight: bold;">2. Daftar &amp; Kartu Interaktif</td>
             <td style="padding: 8px; border: 1px solid #000;"><code>ion-card</code>, <code>ion-list</code>, <code>ion-item</code>, <code>ion-badge</code></td>
             <td style="padding: 8px; border: 1px solid #000; text-align: center; color: green; font-weight: bold;">TERPENUHI</td>
           </tr>
           <tr>
             <td style="padding: 8px; border: 1px solid #000; font-weight: bold;">3. Navigasi Tumpukan (Stack)</td>
-            <td style="padding: 8px; border: 1px solid #000;">Transisi Push & Pop tanpa kehilangan riwayat scroll</td>
+            <td style="padding: 8px; border: 1px solid #000;">Transisi Push &amp; Pop tanpa kehilangan riwayat scroll</td>
             <td style="padding: 8px; border: 1px solid #000; text-align: center; color: green; font-weight: bold;">TERPENUHI</td>
           </tr>
           <tr>
@@ -288,7 +382,7 @@
           </tr>
           <tr>
             <td style="padding: 8px; border: 1px solid #000; font-weight: bold;">5. Pengendalian Siklus Hidup</td>
-            <td style="padding: 8px; border: 1px solid #000;">Pemicuan <code>ionViewWillEnter</code> & <code>ionViewWillLeave</code></td>
+            <td style="padding: 8px; border: 1px solid #000;">Pemicuan <code>ionViewWillEnter</code> &amp; <code>ionViewWillLeave</code></td>
             <td style="padding: 8px; border: 1px solid #000; text-align: center; color: green; font-weight: bold;">TERPENUHI</td>
           </tr>
         </table>
@@ -299,6 +393,11 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- 📚 SITASI AKADEMIK RESMI -->
+  <div class="source-cite">
+    <strong>Referensi Akademik:</strong> Modul 4 BMP STSI4303/MSIM4401 — Rekayasa Antarmuka Aplikasi Perangkat Bergerak Berbasis Komponen Reaktif Ionic Framework; Dokumentasi Resmi <em>Ionic Vue Navigation &amp; Lifecycle Architecture</em> (<a href="https://ionicframework.com/docs/vue/navigation" target="_blank">ionicframework.com/docs/vue/navigation</a>).
   </div>
 
   <script>

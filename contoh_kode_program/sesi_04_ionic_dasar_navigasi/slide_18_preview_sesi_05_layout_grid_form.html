@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slide 18: Preview Sesi 05 — STSI4303</title>
+  <title>Slide 18: Preview Sesi 05 & Pengarahan Tugas Tutorial 2 — STSI4303</title>
   <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
@@ -37,6 +37,31 @@
       background: #fff;
       margin-bottom: 10px;
     }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin-bottom: 20px;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 20px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
+    }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .box {
       background: var(--card-bg);
@@ -62,14 +87,75 @@
 
   <div class="header">
     <div class="badge-tag">SLIDE 18 • ROADMAP MATA KULIAH</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Jembatan Menuju Sesi 05 & Pengarahan Tugas Tutorial 2</h1>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Jembatan Menuju Sesi 05 &amp; Pengarahan Tugas Tutorial 2</h1>
     <p style="margin: 0; font-size: 14px;">Mempersiapkan eksplorasi sistem 12-kolom responsif, validasi data masukan formulir, tema gelap dinamis, dan asesmen resmi Tugas Tutorial 2.</p>
+  </div>
+
+  <!-- 📘 KOTAK PANDUAN MAHASISWA AWAM -->
+  <div class="guide-box">
+    <h4>📘 Panduan Mahasiswa Awam: Peta Jalan Menuju Sesi 05 &amp; Tugas Tutorial 2</h4>
+    <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome untuk pratinjau, Visual Studio Code untuk menyusun kode proyek mandiri, serta perkakas web interaktif seperti Regex101 untuk latihan pola ekspresi reguler.</div>
+    <div><strong>🎯 Cara Menguji Pemahaman:</strong>
+      <ol style="margin: 4px 0 0 18px; padding: 0;">
+        <li>Pelajari alur jembatan kurikulum pada diagram di bawah dari Sesi 04 menuju Sesi 05.</li>
+        <li>Tinjau 4 pilar fitur yang wajib dikuasai untuk menyelesaikan proyek Tugas Tutorial 2 berbobot 20%.</li>
+        <li>Gunakan tombol tautan di panel kanan untuk meninjau kembali fondasi logika dari Sesi 03 jika diperlukan.</li>
+      </ol>
+    </div>
+    <div><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Di Sesi 05, tata letak statis akan ditransformasikan menjadi tata letak fleksibel multi-resolusi menggunakan sistem CSS Flexbox Grid 12-kolom bawaan Ionic (<code>&lt;ion-grid&gt;</code>), dipadukan dengan kontrol validasi masukan data real-time sebelum dikirimkan ke backend.</div>
+  </div>
+
+  <!-- 🎨 DIAGRAM VEKTOR INLINE SVG BERGAYA NEO-BRUTALISM (100% VALID XML) -->
+  <div class="diagram-card">
+    <h4 style="margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase;">Peta Jalan Kompetensi Pembelajaran Sesi 04 ke Sesi 05</h4>
+    <svg viewBox="0 0 900 160" width="100%" height="160" xmlns="http://www.w3.org/2000/svg" style="background:#FAF8F5; border:1px solid #000; border-radius:4px;">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+        </marker>
+      </defs>
+
+      <!-- Kotak Sesi 04 (Fondasi) -->
+      <rect x="25" y="25" width="230" height="110" fill="#E0F2FE" stroke="#000" stroke-width="2.5" rx="4" />
+      <rect x="30" y="30" width="220" height="24" fill="#0284C7" stroke="#000" stroke-width="1.5" />
+      <text x="140" y="47" fill="#FFF" font-size="12" font-weight="bold" text-anchor="middle">SESI 04 (SELESAI)</text>
+      <text x="140" y="75" fill="#000" font-size="11" text-anchor="middle">Ekosistem Ionic &amp; Web Comp.</text>
+      <text x="140" y="93" fill="#000" font-size="11" text-anchor="middle">Komponen UI Baku &amp; Card</text>
+      <text x="140" y="111" fill="#000" font-size="11" text-anchor="middle">Stack Router &amp; Lifecycle Hooks</text>
+      <text x="140" y="127" fill="#0369A1" font-size="10" font-weight="bold" text-anchor="middle">Status: Paham Arsitektur Dasar</text>
+
+      <!-- Panah Sesi 04 -> Sesi 05 -->
+      <line x1="260" y1="80" x2="315" y2="80" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)" />
+      <text x="288" y="72" fill="#000" font-size="10" font-weight="bold" text-anchor="middle">Integrasi</text>
+
+      <!-- Kotak Sesi 05 (Mendatang) -->
+      <rect x="325" y="25" width="260" height="110" fill="#FEF08A" stroke="#000" stroke-width="2.5" rx="4" />
+      <rect x="330" y="30" width="250" height="24" fill="#EAB308" stroke="#000" stroke-width="1.5" />
+      <text x="455" y="47" fill="#000" font-size="12" font-weight="bold" text-anchor="middle">SESI 05: GRID &amp; FORM VALIDATION</text>
+      <text x="455" y="75" fill="#000" font-size="11" text-anchor="middle">1. Responsif Grid 12-Kolom</text>
+      <text x="455" y="93" fill="#000" font-size="11" text-anchor="middle">2. Formulir Interaktif &amp; Kontrol Input</text>
+      <text x="455" y="111" fill="#000" font-size="11" text-anchor="middle">3. Validasi Regex &amp; Umpan Balik</text>
+      <text x="455" y="127" fill="#78350F" font-size="10" font-weight="bold" text-anchor="middle">4. Adaptasi Tema Gelap (Dark Mode)</text>
+
+      <!-- Panah Sesi 05 -> Tugas Tutorial 2 -->
+      <line x1="590" y1="80" x2="645" y2="80" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)" />
+      <text x="618" y="72" fill="#000" font-size="10" font-weight="bold" text-anchor="middle">Asesmen</text>
+
+      <!-- Kotak Target: Tugas Tutorial 2 -->
+      <rect x="655" y="25" width="220" height="110" fill="#DCFCE7" stroke="#000" stroke-width="2.5" rx="4" />
+      <rect x="660" y="30" width="210" height="24" fill="#16A34A" stroke="#000" stroke-width="1.5" />
+      <text x="765" y="47" fill="#FFF" font-size="12" font-weight="bold" text-anchor="middle">TUGAS TUTORIAL 2 (BOBOT 20%)</text>
+      <text x="765" y="75" fill="#000" font-size="11" text-anchor="middle">Aplikasi Registrasi Mahasiswa</text>
+      <text x="765" y="93" fill="#000" font-size="11" text-anchor="middle">Multi-halaman + Formulir Lengkap</text>
+      <text x="765" y="111" fill="#000" font-size="11" text-anchor="middle">Validasi NIM &amp; Surel UT</text>
+      <text x="765" y="127" fill="#15803D" font-size="10" font-weight="bold" text-anchor="middle">Target Nilai: A (Maksimal 100)</text>
+    </svg>
   </div>
 
   <div class="grid">
     <!-- 4 PILAR UTAMA SESI 05 -->
     <div class="box">
-      <h3>🚀 4 Pilar Pembelajaran Sesi 05 Mendatang</h3>
+      <h3 style="margin-top: 0;">🚀 4 Pilar Pembelajaran Sesi 05 Mendatang</h3>
       
       <div class="preview-card">
         <h4 style="margin: 0 0 4px 0; color: #0284C7;">1. Sistem Tata Letak 12-Kolom (ion-grid)</h4>
@@ -79,21 +165,21 @@
       </div>
 
       <div class="preview-card">
-        <h4 style="margin: 0 0 4px 0; color: #16A34A;">2. Elemen Input Data & Kontrol Formulir</h4>
+        <h4 style="margin: 0 0 4px 0; color: #16A34A;">2. Elemen Input Data &amp; Kontrol Formulir</h4>
         <p style="margin: 0; font-size: 13px; color: #475569;">
           Penerapan <code>&lt;ion-input&gt;</code>, <code>&lt;ion-textarea&gt;</code>, <code>&lt;ion-select&gt;</code>, <code>&lt;ion-toggle&gt;</code>, dan <code>&lt;ion-datetime&gt;</code>.
         </p>
       </div>
 
       <div class="preview-card">
-        <h4 style="margin: 0 0 4px 0; color: #9333EA;">3. Validasi Masukan Reaktif & Regex</h4>
+        <h4 style="margin: 0 0 4px 0; color: #9333EA;">3. Validasi Masukan Reaktif &amp; Regex</h4>
         <p style="margin: 0; font-size: 13px; color: #475569;">
           Memastikan integritas data: NIM 9-digit, format surel resmi ecampus.ut.ac.id, dan peringatan visual seketika (instant feedback).
         </p>
       </div>
 
       <div class="preview-card">
-        <h4 style="margin: 0 0 4px 0; color: #DC2626;">4. Adaptasi Dark Mode & Skema Warna</h4>
+        <h4 style="margin: 0 0 4px 0; color: #DC2626;">4. Adaptasi Dark Mode &amp; Skema Warna</h4>
         <p style="margin: 0; font-size: 13px; color: #475569;">
           Mendukung peralihan otomatis ke tema malam (Dark Theme) berdasarkan preferensi sistem operasi ponsel pengguna.
         </p>
@@ -109,7 +195,7 @@
           </span>
           <span style="font-weight: 800; font-size: 13px; color: #DC2626;">BOBOT: 20%</span>
         </div>
-        <h3 style="margin: 6px 0; font-size: 18px;">Aplikasi Registrasi Kegiatan & Formulir Mahasiswa</h3>
+        <h3 style="margin: 6px 0; font-size: 18px;">Aplikasi Registrasi Kegiatan &amp; Formulir Mahasiswa</h3>
         <p style="font-size: 13px; line-height: 1.5; margin-bottom: 10px;">
           Pada Sesi 05, mahasiswa UT akan mengerjakan <strong>Tugas Tutorial 2</strong>. Tugas ini menguji kemampuan Anda menggabungkan seluruh komponen Ionic, perutean multi-halaman, serta formulir validasi reaktif.
         </p>
@@ -130,6 +216,11 @@
         </ion-button>
       </div>
     </div>
+  </div>
+
+  <!-- 📚 SITASI AKADEMIK RESMI -->
+  <div class="source-cite">
+    <strong>Referensi Akademik:</strong> Silabus Kurikulum Mata Kuliah STSI4303/MSIM4401 — Pemrograman Berbasis Perangkat Bergerak, Fakultas Sains dan Teknologi, Universitas Terbuka; Rencana Pelaksanaan Pembelajaran (RPP) Sesi 04 &amp; 05; Panduan Penugasan Asesmen Tugas Tutorial 2.
   </div>
 
 </body>

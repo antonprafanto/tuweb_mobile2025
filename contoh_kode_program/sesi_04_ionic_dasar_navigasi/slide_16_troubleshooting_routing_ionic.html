@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 16: Panduan Pemecahan Masalah (Troubleshooting) Routing Ionic — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    .header {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      margin-bottom: 24px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 10px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 5px 5px 0 var(--border);
+      max-width: 1000px;
+      margin: 0 auto 20px auto;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin: 18px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
+    }
+    .tab-btn {
+      padding: 8px 14px;
+      font-weight: 800;
+      font-size: 12.5px;
+      border: 2px solid #000;
+      background: #FFF;
+      box-shadow: 3px 3px 0 #000;
+      cursor: pointer;
+      transition: transform 0.1s, background-color 0.1s;
+    }
+    .tab-btn:hover { background: #FEF08A; }
+    .tab-btn.active {
+      background: var(--yellow);
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+    .code-box {
+      background: #1E293B;
+      color: #F8FAFC;
+      padding: 14px;
+      border: 2px solid #000;
+      font-family: 'Consolas', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+    .sim-panel {
+      border: 2px solid #000;
+      padding: 16px;
+      background: #FFF;
+      box-shadow: 4px 4px 0 #000;
+      margin-top: 16px;
+    }
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 768px) {
+      .split-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge-tag">SLIDE 16 • PANDUAN PEMECAHAN MASALAH (TROUBLESHOOTING)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Konsol Diagnostik & Solusi Galat Routing Komponen Ionic</h1>
+    <p style="margin: 0; font-size: 14px;">Identifikasi Cepat 5 Galat Klasik Mahasiswa: Layar Putih, Tombol Kembali Macet, Data Tidak Berubah, Komponen Polos, dan Masalah Navigasi.</p>
+  </div>
+
+  <div id="app" class="card">
+
+    <!-- 📘 KOTAK PANDUAN MAHASISWA AWAM -->
+    <div class="guide-box">
+      <h4>📘 Panduan Mahasiswa Awam: Diagnostik Galat Perutean Mobile</h4>
+      <div><strong>🛠️ Alat yang Digunakan:</strong> Peramban Google Chrome, Konsol Pengembang Chrome DevTools (tekan tombol <code>F12</code> lalu klik tab <strong>Console</strong>), serta editor kode visual (Visual Studio Code).</div>
+      <div><strong>🎯 Cara Menguji Interaksi:</strong>
+        <ol style="margin: 4px 0 0 18px; padding: 0;">
+          <li>Klik tombol tab galat (1 sampai 5) di bawah untuk memeriksa studi kasus galat yang kerap dihadapi pemula.</li>
+          <li>Bandingkan kolom <strong>❌ Kode Salah</strong> dengan kolom <strong>✅ Kode Solusi</strong>.</li>
+          <li>Amati area <strong>Simulasi Efek Visual</strong> untuk melihat dampak kesalahan pada antarmuka ponsel secara langsung!</li>
+        </ol>
+      </div>
+      <div><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Ionic memanfaatkan Web Components dengan enkapsulasi Shadow DOM dan manajemen tumpukan navigasi (Stack Navigation). Kesalahan umum seperti salah memilih pembungkus (<code>&lt;router-view&gt;</code> alih-alih <code>&lt;ion-router-outlet&gt;</code>) memutus rantai animasi CSS dan siklus hidup (lifecycle hooks).</div>
+    </div>
+
+    <!-- 🎨 DIAGRAM VEKTOR INLINE SVG BERGAYA NEO-BRUTALISM (100% VALID XML) -->
+    <div class="diagram-card">
+      <h4 style="margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase;">Mekanisme 4 Tahap Pemecahan Masalah Routing Ionic</h4>
+      <svg viewBox="0 0 900 170" width="100%" height="170" xmlns="http://www.w3.org/2000/svg" style="background:#FAF8F5; border:1px solid #000; border-radius:4px;">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#000" />
+          </marker>
+        </defs>
+
+        <!-- Langkah 1: Gejala Galat -->
+        <rect x="20" y="30" width="180" height="100" fill="#FEE2E2" stroke="#000" stroke-width="2.5" rx="4" />
+        <rect x="25" y="35" width="170" height="24" fill="#EF4444" stroke="#000" stroke-width="1.5" />
+        <text x="110" y="52" fill="#FFF" font-size="12" font-weight="bold" text-anchor="middle">1. GEJALA ANOMALI</text>
+        <text x="110" y="80" fill="#000" font-size="11" text-anchor="middle">Layar Putih / Tombol Hilang /</text>
+        <text x="110" y="98" fill="#000" font-size="11" text-anchor="middle">Data Tidak Mau Ter-refresh</text>
+        <text x="110" y="116" fill="#991B1B" font-size="10" font-weight="bold" text-anchor="middle">Buka Chrome DevTools (F12)</text>
+
+        <!-- Panah 1 -> 2 -->
+        <line x1="200" y1="80" x2="235" y2="80" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+        <!-- Langkah 2: Inspeksi Hirarki & Outlet -->
+        <rect x="245" y="30" width="190" height="100" fill="#FEF3C7" stroke="#000" stroke-width="2.5" rx="4" />
+        <rect x="250" y="35" width="180" height="24" fill="#F59E0B" stroke="#000" stroke-width="1.5" />
+        <text x="340" y="52" fill="#000" font-size="12" font-weight="bold" text-anchor="middle">2. INSPEKSI DOM &amp; OUTLET</text>
+        <text x="340" y="80" fill="#000" font-size="11" text-anchor="middle">Cek Pembungkus &lt;ion-app&gt;</text>
+        <text x="340" y="98" fill="#000" font-size="11" text-anchor="middle">Wadah: &lt;ion-router-outlet&gt;</text>
+        <text x="340" y="116" fill="#78350F" font-size="10" font-weight="bold" text-anchor="middle">Bukan &lt;router-view&gt; polos</text>
+
+        <!-- Panah 2 -> 3 -->
+        <line x1="435" y1="80" x2="470" y2="80" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+        <!-- Langkah 3: Validasi Lifecycle Hook -->
+        <rect x="480" y="30" width="190" height="100" fill="#E0F2FE" stroke="#000" stroke-width="2.5" rx="4" />
+        <rect x="485" y="35" width="180" height="24" fill="#0284C7" stroke="#000" stroke-width="1.5" />
+        <text x="575" y="52" fill="#FFF" font-size="12" font-weight="bold" text-anchor="middle">3. ATUR SIKLUS HIDUP</text>
+        <text x="575" y="80" fill="#000" font-size="11" text-anchor="middle">Halaman dicache di Stack</text>
+        <text x="575" y="98" fill="#000" font-size="11" text-anchor="middle">onMounted() tak dipanggil ulang</text>
+        <text x="575" y="116" fill="#0369A1" font-size="10" font-weight="bold" text-anchor="middle">Ganti ke ionViewWillEnter</text>
+
+        <!-- Panah 3 -> 4 -->
+        <line x1="670" y1="80" x2="705" y2="80" stroke="#000" stroke-width="2.5" marker-end="url(#arrow)" />
+
+        <!-- Langkah 4: Solusi & Verifikasi -->
+        <rect x="715" y="30" width="165" height="100" fill="#DCFCE7" stroke="#000" stroke-width="2.5" rx="4" />
+        <rect x="720" y="35" width="155" height="24" fill="#16A34A" stroke="#000" stroke-width="1.5" />
+        <text x="797" y="52" fill="#FFF" font-size="12" font-weight="bold" text-anchor="middle">4. APLIKASI NORMAL</text>
+        <text x="797" y="80" fill="#000" font-size="11" text-anchor="middle">Navigasi Halus (SPA)</text>
+        <text x="797" y="98" fill="#000" font-size="11" text-anchor="middle">Tombol Back Muncul</text>
+        <text x="797" y="116" fill="#15803D" font-size="10" font-weight="bold" text-anchor="middle">0 Memory Leak</text>
+      </svg>
+    </div>
+
+    <!-- TAB NAVIGASI 5 MASALAH UMUM -->
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+      <button 
+        v-for="(item, idx) in issues" 
+        :key="idx"
+        class="tab-btn"
+        :class="{ active: selectedIndex === idx }"
+        @click="selectedIndex = idx">
+        {{ item.navTitle }}
+      </button>
+    </div>
+
+    <!-- DETAIL MASALAH TERPILIH -->
+    <div class="sim-panel">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px;">
+        <h3 style="margin: 0; font-size: 16px; color: #1E293B;">
+          {{ currentIssue.title }}
+        </h3>
+        <span style="background: #000; color: #FFF; padding: 2px 8px; font-size: 11px; font-weight: bold;">
+          KASUS #{{ selectedIndex + 1 }} DARI 5
+        </span>
+      </div>
+
+      <div style="margin-bottom: 12px; font-size: 13.5px; line-height: 1.5;">
+        <strong style="color: #DC2626;">🔍 Gejala:</strong> {{ currentIssue.symptom }}<br>
+        <strong style="color: #D97706;">⚡ Penyebab Utama:</strong> {{ currentIssue.cause }}
+      </div>
+
+      <!-- PERBANDINGAN KODE: SALAH VS BENAR -->
+      <div class="split-grid">
+        <div>
+          <div style="background: #FEE2E2; border: 2px solid #DC2626; padding: 6px 10px; font-weight: bold; font-size: 12px; color: #991B1B; margin-bottom: 4px;">
+            ❌ KODE YANG SALAH / KELIRU
+          </div>
+          <div class="code-box" style="border-color: #DC2626;">
+            <pre style="margin: 0;">{{ currentIssue.wrongCode }}</pre>
+          </div>
+        </div>
+
+        <div>
+          <div style="background: #DCFCE7; border: 2px solid #16A34A; padding: 6px 10px; font-weight: bold; font-size: 12px; color: #166534; margin-bottom: 4px;">
+            ✅ KODE SOLUSI YANG TEPAT &amp; BAKU
+          </div>
+          <div class="code-box" style="border-color: #16A34A;">
+            <pre style="margin: 0;">{{ currentIssue.correctCode }}</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIMULATOR INTERAKTIF EFEK VISUAL -->
+      <div style="margin-top: 18px; border-top: 2px dashed #CBD5E1; padding-top: 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <h4 style="margin: 0; font-size: 13.5px;">📱 Simulasi Interaktif: Coba Toggle Mode di Bawah!</h4>
+          <div style="display: flex; gap: 8px;">
+            <button 
+              @click="simMode = 'wrong'" 
+              :style="simMode === 'wrong' ? 'background: #EF4444; color: #FFF;' : 'background: #FFF;'" 
+              style="padding: 4px 10px; border: 2px solid #000; font-weight: bold; font-size: 11.5px; cursor: pointer;">
+              Lihat Efek Error ❌
+            </button>
+            <button 
+              @click="simMode = 'correct'" 
+              :style="simMode === 'correct' ? 'background: #22C55E; color: #000;' : 'background: #FFF;'" 
+              style="padding: 4px 10px; border: 2px solid #000; font-weight: bold; font-size: 11.5px; cursor: pointer;">
+              Lihat Efek Solusi ✅
+            </button>
+          </div>
+        </div>
+
+        <!-- Wadah Tampilan Layar Simulasi Ponsel -->
+        <div style="border: 2px solid #000; background: #F8FAFC; border-radius: 8px; padding: 14px; min-height: 120px; display: flex; align-items: center; justify-content: center; text-align: center;">
+          
+          <!-- Kasus 1: Blank Screen -->
+          <div v-if="selectedIndex === 0">
+            <div v-if="simMode === 'wrong'" style="background: #FFF; border: 1px dashed #DC2626; padding: 30px; width: 300px; color: #94A3B8; font-size: 12px;">
+              [Layar Putih Kosong Total]<br>
+              <small style="color: #DC2626;">Elemen konten tersembunyi karena kehilangan viewport container ion-content</small>
+            </div>
+            <div v-else style="background: #FFF; border: 2px solid #000; padding: 16px; width: 300px; box-shadow: 3px 3px 0 #000;">
+              <div style="background: #0284C7; color: #FFF; padding: 6px; font-weight: bold; font-size: 12px; margin-bottom: 8px;">Toolbar: Ruang Baca UT</div>
+              <div style="font-size: 12px; color: #334155;">Selamat datang! Konten terisi sempurna dan dapat di-scroll secara mulus.</div>
+            </div>
+          </div>
+
+          <!-- Kasus 2: Back Button -->
+          <div v-if="selectedIndex === 1">
+            <div v-if="simMode === 'wrong'" style="background: #0284C7; color: #FFF; padding: 10px 16px; width: 320px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 11px; opacity: 0.5;">(Tombol Back Tidak Muncul)</span>
+              <span style="font-size: 13px; font-weight: bold;">Detail Modul UT</span>
+              <span style="font-size: 11px;">🔍</span>
+            </div>
+            <div v-else style="background: #0284C7; color: #FFF; padding: 10px 16px; width: 320px; display: flex; justify-content: space-between; align-items: center;">
+              <button style="background: #FFF; border: 1px solid #000; padding: 2px 6px; font-size: 11px; font-weight: bold; cursor: pointer;">⬅ Kembali</button>
+              <span style="font-size: 13px; font-weight: bold;">Detail Modul UT</span>
+              <span style="font-size: 11px;">🔍</span>
+            </div>
+          </div>
+
+          <!-- Kasus 3: Caching Data Refresh -->
+          <div v-if="selectedIndex === 2">
+            <div v-if="simMode === 'wrong'" style="background: #FFF; border: 2px solid #000; padding: 12px; width: 320px; text-align: left;">
+              <div style="font-size: 11px; color: #DC2626; font-weight: bold;">onMounted() hanya jalan 1x saat inisialisasi:</div>
+              <div style="font-size: 13px; margin-top: 4px;">Data Mahasiswa: <strong>Anton (Data Lama)</strong></div>
+              <div style="font-size: 11px; color: #64748B;">Perubahan profil di layar form tidak masuk ke sini!</div>
+            </div>
+            <div v-else style="background: #FFF; border: 2px solid #000; padding: 12px; width: 320px; text-align: left;">
+              <div style="font-size: 11px; color: #16A34A; font-weight: bold;">onIonViewWillEnter() jalan setiap halaman aktif:</div>
+              <div style="font-size: 13px; margin-top: 4px;">Data Mahasiswa: <strong>Anton Prafanto, S.Kom., M.T. (Terbaru!)</strong></div>
+              <div style="font-size: 11px; color: #16A34A;">✅ Data diperbarui otomatis dari storage/API</div>
+            </div>
+          </div>
+
+          <!-- Kasus 4: Missing CSS -->
+          <div v-if="selectedIndex === 3">
+            <div v-if="simMode === 'wrong'" style="background: #FFF; border: 1px solid #94A3B8; padding: 12px; width: 300px; text-align: left;">
+              <p style="margin: 0; font-family: 'Times New Roman'; font-size: 14px;">Simpan Perubahan</p>
+              <small style="color: #DC2626;">ion-button tampil seperti teks biasa tanpa styling dan ripple effect!</small>
+            </div>
+            <div v-else style="width: 300px;">
+              <button style="background: #0284C7; color: #FFF; border: 2px solid #000; padding: 8px 18px; font-weight: bold; border-radius: 4px; box-shadow: 2px 2px 0 #000; cursor: pointer; width: 100%;">
+                💾 Simpan Perubahan (Styled Component)
+              </button>
+            </div>
+          </div>
+
+          <!-- Kasus 5: Window Location vs Router Push -->
+          <div v-if="selectedIndex === 4">
+            <div v-if="simMode === 'wrong'" style="background: #FEE2E2; border: 2px solid #DC2626; padding: 14px; width: 320px; font-size: 12px;">
+              ⚠️ <strong>window.location.href:</strong><br>
+              Memicu Full Page Reload! Browser berkedip putih, state aplikasi hilang, dan konsumsi memori melonjak.
+            </div>
+            <div v-else style="background: #DCFCE7; border: 2px solid #16A34A; padding: 14px; width: 320px; font-size: 12px;">
+              ⚡ <strong>router.push('/modul'):</strong><br>
+              Transisi halaman Single Page Application (SPA) sehalus aplikasi native tanpa kedipan layar!
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 📚 SITASI AKADEMIK RESMI -->
+    <div class="source-cite">
+      <strong>Referensi Akademik:</strong> Modul 4 BMP STSI4303/MSIM4401 — Dasar-Dasar Ionic Framework &amp; Navigasi Halaman Bergerak; Dokumentasi Resmi <em>Ionic Framework Troubleshooting Guide &amp; Ionic Vue Navigation Architecture</em> (<a href="https://ionicframework.com/docs/vue/navigation" target="_blank">ionicframework.com/docs/vue/navigation</a>).
+    </div>
+
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        const selectedIndex = ref(0);
+        const simMode = ref('wrong');
+
+        const issues = ref([
+          {
+            navTitle: '1. Layar Putih',
+            title: 'Kasus 1: Layar Putih Kosong (Blank White Screen)',
+            symptom: 'Terminal build sukses 0 galat, namun saat berpindah halaman layar ponsel/browser hanya menampilkan bidang putih kosong total.',
+            cause: 'Komponen tampilan anak tidak dibungkus dengan tag <ion-page> dan <ion-content>.',
+            wrongCode: `<!-- Salah: Menggunakan div HTML polos -->
+<template>
+  <div class="halaman-detail">
+    <h2>Judul Modul Pembelajaran</h2>
+    <p>Isi modul UT tidak muncul karena terpotong.</p>
+  </div>
+</template>`,
+            correctCode: `<!-- Benar: Menggunakan wadah hierarki baku Ionic -->
+<template>
+  <ion-page>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Judul Modul</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <p>Isi modul tampil sempurna dan scrollable!</p>
+    </ion-content>
+  </ion-page>
+</template>`
+          },
+          {
+            navTitle: '2. Back Button Hilang',
+            title: 'Kasus 2: Tombol Kembali (<ion-back-button>) Tidak Muncul',
+            symptom: 'Toolbar halaman anak tidak memunculkan panah kembali, membuat pengguna terjebak.',
+            cause: 'Halaman dibuka langsung dari URL / reload F5 sehingga history stack kosong, atau lupa menambahkan fallback default-href.',
+            wrongCode: `<!-- Salah: Tombol polos tanpa rute cadangan -->
+<ion-toolbar color="primary">
+  <ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+  </ion-buttons>
+  <ion-title>Detail Modul</ion-title>
+</ion-toolbar>`,
+            correctCode: `<!-- Benar: Sediakan default-href sebagai jaminan rute -->
+<ion-toolbar color="primary">
+  <ion-buttons slot="start">
+    <ion-back-button 
+      default-href="/katalog" 
+      text="Kembali">
+    </ion-back-button>
+  </ion-buttons>
+  <ion-title>Detail Modul</ion-title>
+</ion-toolbar>`
+          },
+          {
+            navTitle: '3. Data Tidak Ter-update',
+            title: 'Kasus 3: Data Halaman Tidak Ter-update Saat Navigasi Balik',
+            symptom: 'Mahasiswa mengubah data di halaman formulir, lalu kembali ke halaman utama, namun data lama masih tertampil.',
+            cause: 'Mengandalkan hook onMounted() milik Vue standar yang tidak dipanggil ulang karena halaman disimpan di stack cache.',
+            wrongCode: `// Salah: Hanya terpanggil sekali saat komponen dimuat awal
+import { onMounted, ref } from 'vue';
+
+const daftarKRS = ref([]);
+onMounted(() => {
+  // Tidak akan terpanggil saat navigasi balik!
+  daftarKRS.value = ambilDataTerbaru();
+});`,
+            correctCode: `// Benar: Gunakan hook spesifik mobile milik Ionic
+import { onIonViewWillEnter, ref } from '@ionic/vue';
+
+const daftarKRS = ref([]);
+// Terpanggil SETIAP KALI halaman menjadi aktif di layar
+onIonViewWillEnter(() => {
+  daftarKRS.value = ambilDataTerbaru();
+});`
+          },
+          {
+            navTitle: '4. Komponen Polos',
+            title: 'Kasus 4: Komponen Tampil Polos Sebagai Elemen Teks Mentah',
+            symptom: 'Tag <ion-button> atau <ion-card> tampil seperti font standar browser tanpa estetika mobile dan tanpa ripple effect.',
+            cause: 'Paket stylesheet global Ionic Core CSS belum diimpor pada berkas main.ts atau index.html.',
+            wrongCode: `// Salah: main.ts hanya mengimpor createApp tanpa CSS
+import { createApp } from 'vue';
+import { IonicVue } from '@ionic/vue';
+import App from './App.vue';
+
+const app = createApp(App).use(IonicVue);
+app.mount('#app');`,
+            correctCode: `// Benar: Wajib mengimpor CSS bundle inti Ionic
+import { createApp } from 'vue';
+import { IonicVue } from '@ionic/vue';
+import App from './App.vue';
+
+/* Core CSS & Utility Bundle */
+import '@ionic/vue/css/core.css';
+import '@ionic/vue/css/normalize.css';
+import '@ionic/vue/css/structure.css';
+import '@ionic/vue/css/typography.css';
+
+const app = createApp(App).use(IonicVue);
+app.mount('#app');`
+          },
+          {
+            navTitle: '5. Navigasi Merusak Aplikasi',
+            title: 'Kasus 5: Menggunakan window.location Merusak Siklus SPA',
+            symptom: 'Layar berkedip putih, aplikasi memuat ulang dari awal (reload), dan state form hilang saat tombol navigasi ditekan.',
+            cause: 'Menggunakan manipulasi URL klasik browser alih-alih Ionic Vue Router.',
+            wrongCode: `// Salah: Memaksa browser melakukan hard-reload HTTP
+const keDetail = (id) => {
+  window.location.href = '/detail/' + id;
+};`,
+            correctCode: `// Benar: Gunakan useRouter untuk navigasi Single Page Application
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const keDetail = (id) => {
+  router.push('/detail/' + id);
+};`
+          }
+        ]);
+
+        const currentIssue = computed(() => issues.value[selectedIndex.value]);
+
+        return {
+          selectedIndex,
+          simMode,
+          issues,
+          currentIssue
+        };
+      }
+    }).mount('#app');
+  </script>
+
+</body>
+</html>

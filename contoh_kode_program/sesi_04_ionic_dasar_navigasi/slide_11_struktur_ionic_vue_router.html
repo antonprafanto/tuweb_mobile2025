@@ -22,7 +22,7 @@
     * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
-      background: var(--mint);
+      background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 5px 5px 0 var(--border);
@@ -37,20 +37,54 @@
       background: #fff;
       margin-bottom: 10px;
     }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-    .box {
+    .card {
       background: var(--card-bg);
       border: 3px solid var(--border);
       padding: 20px;
       box-shadow: 5px 5px 0 var(--border);
+      max-width: 960px;
+      margin: 0 auto 20px auto;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin: 18px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-top: 16px; }
+    .box {
+      background: #FAF8F5;
+      border: 2px solid var(--border);
+      padding: 18px;
+      box-shadow: 3px 3px 0 var(--border);
     }
     .tab-btn {
       border: 2px solid #000;
       background: #fff;
-      padding: 6px 12px;
+      padding: 6px 14px;
       font-weight: bold;
       cursor: pointer;
       margin-right: 6px;
+      box-shadow: 2px 2px 0 #000;
     }
     .tab-btn.active {
       background: var(--yellow);
@@ -71,75 +105,106 @@
   <div class="header">
     <div class="badge-tag">SLIDE 11 • MODUL 4 BMP UT</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Konfigurasi Sistem: Integrasi Ionic Vue Router</h1>
-    <p style="margin: 0; font-size: 14px;">Memahami komponen &lt;ion-router-outlet&gt; sebagai pengganti &lt;router-view&gt; untuk mempertahankan animasi dan tumpukan halaman.</p>
+    <p style="margin: 0; font-size: 14px;">Memahami komponen &lt;ion-router-outlet&gt; sebagai pengganti &lt;router-view&gt; untuk mempertahankan animasi geser dan tumpukan halaman.</p>
   </div>
 
-  <div id="app" class="grid">
-    <!-- PENJELASAN KONSEP & PERBEDAAN -->
-    <div class="box">
-      <h3>⚠️ Perbedaan Krusial: Vue Router Standar vs Ionic Vue</h3>
-      
-      <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 16px;">
-        <tr style="background: #E2E8F0;">
-          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Unsur</th>
-          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Vue Router Biasa</th>
-          <th style="padding: 6px; border: 1px solid #000; text-align: left;">@ionic/vue-router</th>
-        </tr>
-        <tr>
-          <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">Pembuat Router</td>
-          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">createRouter()</td>
-          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">createRouter() dari @ionic/vue-router</td>
-        </tr>
-        <tr>
-          <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">Wadah Penampil</td>
-          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;router-view /&gt;</td>
-          <td style="padding: 6px; border: 1px solid #000; font-family: monospace; color: #0284C7; font-weight: bold;">&lt;ion-router-outlet /&gt;</td>
-        </tr>
-        <tr>
-          <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">Dukungan Stack</td>
-          <td style="padding: 6px; border: 1px solid #000;">Tidak ada (replace)</td>
-          <td style="padding: 6px; border: 1px solid #000;">Ya (menjaga DOM & animasi)</td>
-        </tr>
-      </table>
-
-      <div style="background: #FEF08A; border: 2px solid #000; padding: 12px; font-size: 13px;">
-        <strong>🚨 Perhatian Penting untuk Mahasiswa:</strong><br>
-        Jika Anda tidak sengaja menggunakan <code>&lt;router-view&gt;</code> di Ionic, animasi slide iOS/Android tidak akan jalan dan tombol kembali <code>&lt;ion-back-button&gt;</code> akan kehilangan jejak riwayat!
-      </div>
+  <div id="app" class="card">
+    <!-- Kotak Panduan Mahasiswa Awam -->
+    <div class="guide-box">
+      <h4>📘 PANDUAN PRAKTIKUM &amp; ARSITEKTUR ROUTER MOBILE</h4>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome / Visual Studio Code.
+      </p>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🎯 Cara Menguji Interaksi:</strong>
+        1. Klik tombol tab <strong>"1. router/index.ts"</strong> untuk mempelajari pembuatan instans router dengan pustaka <code>@ionic/vue-router</code>.<br>
+        2. Klik tombol tab <strong>"2. App.vue"</strong> untuk melihat penempatan komponen penampung wajib <code>&lt;ion-router-outlet /&gt;</code> di berkas induk aplikasi.<br>
+        3. Pelajari tabel perbedaan kritis di panel kiri: mengapa pengembang tidak boleh menggunakan <code>&lt;router-view&gt;</code> standar pada aplikasi mobile Ionic.
+      </p>
+      <p style="margin: 0;">
+        <strong>💡 Apa yang Terjadi di Balik Layar:</strong>
+        Pustaka <code>@ionic/vue-router</code> membungkus <em>Vue Router 4</em> resmi dengan kemampuan mengelola tumpukan elemen halaman (*stack transitions*). Komponen <code>&lt;ion-router-outlet&gt;</code> menampung beberapa node halaman sekaligus di dalam DOM, mengatur animasi transisi geser layar, dan menyinkronkan event tombol kembali fisik (*hardware back button*) pada ponsel Android.
+      </p>
     </div>
 
-    <!-- CODE SNIPPET EXPLORER -->
-    <div class="box">
-      <div style="margin-bottom: 12px;">
-        <button class="tab-btn" :class="{ active: tab === 'router' }" @click="tab = 'router'">
-          1. router/index.ts
-        </button>
-        <button class="tab-btn" :class="{ active: tab === 'app' }" @click="tab = 'app'">
-          2. App.vue
-        </button>
+    <!-- Diagram Arsitektur Inline SVG -->
+    <div class="diagram-card">
+      <h4 style="margin: 0 0 8px 0; font-size: 13px;">📐 Perbandingan Alur Penampung Layar: Vue Router Biasa vs Ionic Vue Router</h4>
+      <svg viewBox="0 0 800 120" width="100%" height="120" xmlns="http://www.w3.org/2000/svg">
+        <!-- Kasus A: Vue Router Biasa -->
+        <rect x="10" y="10" width="375" height="100" rx="6" fill="#FEE2E2" stroke="#DC2626" stroke-width="2"/>
+        <text x="22" y="32" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#991B1B">❌ VUE ROUTER BIASA (&lt;router-view&gt;)</text>
+        <text x="22" y="52" font-family="Segoe UI" font-size="9.5" fill="#333">• Menghancurkan (unmount) halaman Home saat pindah</text>
+        <text x="22" y="68" font-family="Segoe UI" font-size="9.5" fill="#333">• Animasi geser mobile gagal / macet</text>
+        <text x="22" y="86" font-family="Segoe UI" font-size="9.5" fill="#333">• Tombol &lt;ion-back-button&gt; kehilangan riwayat stack</text>
+        <text x="22" y="102" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#DC2626">Tidak direkomendasikan untuk aplikasi mobile</text>
+
+        <!-- Kasus B: Ionic Router Outlet -->
+        <rect x="415" y="10" width="375" height="100" rx="6" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+        <text x="427" y="32" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#15803D">✅ IONIC VUE ROUTER (&lt;ion-router-outlet&gt;)</text>
+        <text x="427" y="52" font-family="Segoe UI" font-size="9.5" fill="#333">• Mempertahankan halaman Home dalam cache memori</text>
+        <text x="427" y="68" font-family="Segoe UI" font-size="9.5" fill="#333">• Animasi geser iOS/Android berjalan 60 FPS mulus</text>
+        <text x="427" y="86" font-family="Segoe UI" font-size="9.5" fill="#333">• Mendukung tombol kembali perangkat keras Android</text>
+        <text x="427" y="102" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#166534">Standar Baku Industri Arsitektur Mobile</text>
+      </svg>
+    </div>
+
+    <!-- AREA PENJELASAN & TAB KODE -->
+    <div class="grid">
+      <!-- PENJELASAN KONSEP & PERBEDAAN -->
+      <div class="box">
+        <h3 style="margin: 0 0 12px 0; font-size:16px;">⚠️ Perbedaan Krusial: Vue Router Standar vs Ionic Vue</h3>
+        
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 16px;">
+          <tr style="background: #E2E8F0;">
+            <th style="padding: 6px; border: 1px solid #000; text-align: left;">Unsur</th>
+            <th style="padding: 6px; border: 1px solid #000; text-align: left;">Vue Router Biasa</th>
+            <th style="padding: 6px; border: 1px solid #000; text-align: left;">@ionic/vue-router</th>
+          </tr>
+          <tr>
+            <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">Pembuat Router</td>
+            <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">createRouter()</td>
+            <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">createRouter() dari @ionic/vue-router</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">Wadah Penampil</td>
+            <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;router-view /&gt;</td>
+            <td style="padding: 6px; border: 1px solid #000; font-family: monospace; color: #0284C7; font-weight: bold;">&lt;ion-router-outlet /&gt;</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px; border: 1px solid #000; font-weight: bold;">Dukungan Stack</td>
+            <td style="padding: 6px; border: 1px solid #000;">Tidak ada (replace)</td>
+            <td style="padding: 6px; border: 1px solid #000;">Ya (menjaga DOM &amp; animasi)</td>
+          </tr>
+        </table>
+
+        <div style="background: #FEF08A; border: 2px solid #000; padding: 10px; font-size: 12.5px;">
+          <strong>🚨 Perhatian Penting untuk Mahasiswa:</strong><br>
+          Jika Anda tidak sengaja menggunakan <code>&lt;router-view&gt;</code> di Ionic, animasi slide iOS/Android tidak akan jalan dan tombol kembali <code>&lt;ion-back-button&gt;</code> akan kehilangan jejak riwayat!
+        </div>
       </div>
 
-      <div v-if="tab === 'router'">
-        <pre><code>import { createRouter, createWebHistory } from '@ionic/vue-router';
+      <!-- CODE SNIPPET EXPLORER -->
+      <div class="box">
+        <div style="margin-bottom: 12px;">
+          <button class="tab-btn" :class="{ active: tab === 'router' }" @click="tab = 'router'">
+            1. router/index.ts
+          </button>
+          <button class="tab-btn" :class="{ active: tab === 'app' }" @click="tab = 'app'">
+            2. App.vue
+          </button>
+        </div>
+
+        <div v-if="tab === 'router'">
+          <pre><code>import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import HomePage from '@/views/HomePage.vue';
 import ModulDetailPage from '@/views/ModulDetailPage.vue';
 
 const routes: Array&lt;RouteRecordRaw&gt; = [
-  {
-    path: '/',
-    redirect: '/home'
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    component: HomePage
-  },
-  {
-    path: '/modul/:kode',
-    name: 'ModulDetail',
-    component: ModulDetailPage
-  }
+  { path: '/', redirect: '/home' },
+  { path: '/home', component: HomePage },
+  { path: '/modul/:kode', component: ModulDetailPage }
 ];
 
 const router = createRouter({
@@ -148,10 +213,10 @@ const router = createRouter({
 });
 
 export default router;</code></pre>
-      </div>
+        </div>
 
-      <div v-if="tab === 'app'">
-        <pre><code>&lt;template&gt;
+        <div v-if="tab === 'app'">
+          <pre><code>&lt;template&gt;
   &lt;ion-app&gt;
     &lt;!-- Wadah Resmi Pengelola Animasi Halaman --&gt;
     &lt;ion-router-outlet /&gt;
@@ -161,7 +226,13 @@ export default router;</code></pre>
 &lt;script setup lang="ts"&gt;
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
 &lt;/script&gt;</code></pre>
+        </div>
       </div>
+    </div>
+
+    <!-- Sitasi Akademik -->
+    <div class="source-cite">
+      📚 <strong>Referensi Modul:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 4: "Arsitektur Perutean Mobile &amp; @ionic/vue-router" • Dokumentasi Resmi Ionic: "Vue Navigation &amp; ion-router-outlet".
     </div>
   </div>
 

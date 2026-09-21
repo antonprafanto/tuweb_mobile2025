@@ -40,6 +40,16 @@ Dokumen ini memuat daftar topik pemicu diskusi (*discussion prompts*) dan pandua
 * **Topik Diskusi:**  
   Navigasi pada aplikasi mobile berbeda dengan navigasi halaman web biasa. Aplikasi mobile mempertahankan riwayat halaman dalam bentuk tumpukan (*stack navigation*).  
   *Pertanyaan:* Bagaimana Ionic Vue Router mengelola perpindahan halaman? Jelaskan perbedaan fungsi antara event siklus hidup biasa (seperti `onMounted`) dengan event siklus hidup spesifik Ionic seperti `ionViewDidEnter` dan `ionViewWillLeave`!
+* **Poin Kunci Jawaban Mahasiswa & Panduan Tutor:**
+  * **Arsitektur Pengelolaan Tumpukan (Stack Navigation):**
+    1. *Prinsip LIFO (Last In, First Out):* Saat navigasi dilakukan dengan `router.push()`, halaman baru ditumpuk di atas halaman lama. Wadah `<ion-router-outlet>` mempertahankan halaman sebelumnya di dalam memori cache DOM ponsel. Hal ini menjamin posisi scroll, status filter, dan input form tidak hilang saat pengguna kembali.
+    2. *Peran `<ion-back-button>` & `default-href`:* Mengonsumsi riwayat tumpukan untuk melakukan navigasi mundur (*pop*). Atribut `default-href` wajib disertakan sebagai proteksi rute cadangan jika pengguna membuka URL rincian secara langsung atau setelah memuat ulang peramban.
+  * **Komparasi Siklus Hidup (Vue Lifecycle vs Ionic Mobile Lifecycle):**
+    1. *Kelemahan `onMounted()` pada Mobile Stack:* Hook bawaan Vue ini hanya berjalan **satu kali** saat komponen pertama kali diinisialisasi ke DOM. Ketika pengguna kembali dari halaman lain, halaman lama tidak di-mount ulang sehingga pemanggilan data di dalam `onMounted()` tidak akan pernah dieksekusi kembali.
+    2. *Fase Masuk (`ionViewWillEnter` & `ionViewDidEnter`):* Terpanggil **setiap kali** layar aktif kembali. Mahasiswa wajib memanfaatkan `ionViewWillEnter` untuk mengambil data terbaru dari penyimpanan lokal atau API sebelum animasi transisi dimulai.
+    3. *Fase Keluar & Proteksi Baterai (`ionViewWillLeave` & `ionViewDidLeave`):* Karena halaman tidak di-unmount, proses latar belakang seperti `setInterval`, rekaman audio, pemantauan geolokasi GPS, atau koneksi WebSocket akan terus berjalan jika tidak dihentikan manual di `ionViewWillLeave`. Penjelasan aspek proteksi *memory leak* ini menjadi pembeda utama nilai mahasiswa unggul.
+* **Rujukan Kode Pembelajaran:**
+  Dapat merujuk pada berkas mandiri [`slide_10_filosofi_stack_navigation.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_10_filosofi_stack_navigation.html), [`slide_11_struktur_ionic_vue_router.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_11_struktur_ionic_vue_router.html), [`slide_13_tombol_kembali_back_button.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_13_tombol_kembali_back_button.html), [`slide_14_siklus_hidup_masuk_halaman.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_14_siklus_hidup_masuk_halaman.html), [`slide_15_siklus_hidup_keluar_halaman.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_15_siklus_hidup_keluar_halaman.html), dan [`slide_17_lab_quest_04_portal_modul_ut.html`](../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_17_lab_quest_04_portal_modul_ut.html).
 
 ---
 

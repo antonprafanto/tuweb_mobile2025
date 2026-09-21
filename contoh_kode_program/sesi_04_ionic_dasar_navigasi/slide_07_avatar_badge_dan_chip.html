@@ -22,7 +22,7 @@
     * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
-      background: var(--mint);
+      background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 5px 5px 0 var(--border);
@@ -37,18 +37,51 @@
       background: #fff;
       margin-bottom: 10px;
     }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-    .box {
+    .card {
       background: var(--card-bg);
       border: 3px solid var(--border);
       padding: 20px;
       box-shadow: 5px 5px 0 var(--border);
+      max-width: 960px;
+      margin: 0 auto 20px auto;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin: 18px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-top: 16px; }
+    .box {
+      background: #FAF8F5;
+      border: 2px solid var(--border);
+      padding: 18px;
+      box-shadow: 3px 3px 0 var(--border);
     }
     .card-profile {
       border: 2px solid var(--border);
-      background: #F8FAFC;
+      background: #FFF;
       padding: 16px;
-      border-radius: 8px;
+      box-shadow: 3px 3px 0 var(--border);
     }
     pre {
       background: #121212;
@@ -65,94 +98,151 @@
 
   <div class="header">
     <div class="badge-tag">SLIDE 07 • MODUL 4 BMP UT</div>
-    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Identitas Visual Mobile: ion-avatar, ion-badge, & ion-chip</h1>
-    <p style="margin: 0; font-size: 14px;">Menyajikan indikator status, jumlah notifikasi unread, dan tag kategori interaktif pada aplikasi mobile.</p>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Identitas Visual Mobile: ion-avatar, ion-badge, &amp; ion-chip</h1>
+    <p style="margin: 0; font-size: 14px;">Menyajikan indikator status mahasiswa, jumlah notifikasi belum dibaca, dan tag filter minat interaktif.</p>
   </div>
 
-  <div id="app" class="grid">
-    <!-- PANEL KOMPONEN LIVE -->
-    <div class="box">
-      <h3>📱 Preview Komponen Mobile</h3>
-
-      <!-- Profile Header with Avatar & Badge -->
-      <div class="card-profile">
-        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
-          <ion-avatar style="width: 56px; height: 56px; border: 2px solid #000;">
-            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=BudiUT" alt="Avatar Mahasiswa" />
-          </ion-avatar>
-          <div>
-            <h4 style="margin: 0; font-size: 16px;">Budi Santoso</h4>
-            <p style="margin: 2px 0 0 0; font-size: 12px; color: #64748B;">NIM: 043123456 • Sistem Informasi</p>
-            <div style="margin-top: 4px;">
-              <ion-badge color="success">Aktif 2026.1</ion-badge>
-              <ion-badge color="warning" style="margin-left: 6px;">IPK: 3.85</ion-badge>
-            </div>
-          </div>
-        </div>
-
-        <hr style="border: none; border-top: 1px dashed #CBD5E1; margin: 12px 0;">
-
-        <!-- Interactive Chips -->
-        <p style="font-size: 13px; font-weight: bold; margin: 0 0 8px 0;">🏷️ Kategori Minat Mahasiswa (Klik Chip):</p>
-        <div style="display: flex; flex-wrap: wrap; gap: 4px;">
-          <ion-chip 
-            v-for="(cat, idx) in categories" 
-            :key="idx" 
-            :color="cat.selected ? 'primary' : 'medium'"
-            :outline="!cat.selected"
-            @click="toggleCategory(idx)">
-            <ion-icon name="checkmark-circle" v-if="cat.selected"></ion-icon>
-            <ion-label>{{ cat.name }}</ion-label>
-          </ion-chip>
-        </div>
-
-        <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 10px; border: 1px solid #CBD5E1; border-radius: 6px;">
-          <span style="font-size: 13px;">Notifikasi Belum Dibaca:</span>
-          <ion-badge color="danger">{{ unreadCount }} Baru</ion-badge>
-        </div>
-      </div>
+  <div id="app" class="card">
+    <!-- Kotak Panduan Mahasiswa Awam -->
+    <div class="guide-box">
+      <h4>📘 PANDUAN PRAKTIKUM &amp; KOMPONEN MIKRO MOBILE</h4>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (Mode Simulator Ponsel <code>Ctrl + Shift + M</code>).
+      </p>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🎯 Cara Menguji Interaksi:</strong>
+        1. Amati foto profil mahasiswa di panel kiri yang dibungkus oleh <code>&lt;ion-avatar&gt;</code>: otomatis terpotong bundar sempurna tanpa CSS border-radius manual.<br>
+        2. Perhatikan <code>&lt;ion-badge&gt;</code> berwarna hijau ("Aktif 2026.1") dan merah ("3 Baru") yang menyajikan informasi ringkas ber-kontras tinggi.<br>
+        3. Klik pada masing-masing chip kategori minat (misal: "Vue 3", "Capacitor"). Perhatikan bagaimana status aktif berganti secara interaktif.
+      </p>
+      <p style="margin: 0;">
+        <strong>💡 Apa yang Terjadi di Balik Layar:</strong>
+        Komponen mikro (*micro-components*) seperti avatar, badge, dan chip dirancang untuk menghemat ruang vertikal layar smartphone. <code>&lt;ion-chip&gt;</code> sangat efektif digunakan sebagai filter multi-seleksi cepat yang ramah jangkauan jempol.
+      </p>
     </div>
 
-    <!-- PANEL PENJELASAN ELEMEN -->
-    <div class="box">
-      <h3>🔍 Tiga Pilar Identitas Ringkas</h3>
-      <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 14px;">
-        <tr style="background: #E2E8F0;">
-          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Komponen</th>
-          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Fungsi Utama</th>
-          <th style="padding: 6px; border: 1px solid #000; text-align: left;">Ciri Khas</th>
-        </tr>
-        <tr>
-          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;ion-avatar&gt;</td>
-          <td style="padding: 6px; border: 1px solid #000;">Foto profil / ikon pengguna</td>
-          <td style="padding: 6px; border: 1px solid #000;">Auto-crop bentuk lingkaran bundar sempurna.</td>
-        </tr>
-        <tr>
-          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;ion-badge&gt;</td>
-          <td style="padding: 6px; border: 1px solid #000;">Pemberitahuan counter / status label</td>
-          <td style="padding: 6px; border: 1px solid #000;">Pill kecil dengan warna kontras (danger/success).</td>
-        </tr>
-        <tr>
-          <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;ion-chip&gt;</td>
-          <td style="padding: 6px; border: 1px solid #000;">Filter cepat, tag topik, tombol seleksi</td>
-          <td style="padding: 6px; border: 1px solid #000;">Interaktif, dapat diklik & memiliki ikon.</td>
-        </tr>
-      </table>
+    <!-- Diagram Arsitektur Inline SVG -->
+    <div class="diagram-card">
+      <h4 style="margin: 0 0 8px 0; font-size: 13px;">📐 Anatomi 3 Komponen Identitas Visual Mikro Mobile</h4>
+      <svg viewBox="0 0 800 110" width="100%" height="110" xmlns="http://www.w3.org/2000/svg">
+        <!-- 1. ion-avatar -->
+        <rect x="10" y="10" width="250" height="90" rx="6" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
+        <circle cx="50" cy="55" r="24" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="2"/>
+        <text x="43" y="60" font-family="Segoe UI" font-size="16">👤</text>
+        <text x="85" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#1E40AF">&lt;ion-avatar&gt;</text>
+        <text x="85" y="56" font-family="Segoe UI" font-size="9.5" fill="#333">• Auto-crop bundar 100%</text>
+        <text x="85" y="72" font-family="Segoe UI" font-size="9.5" fill="#333">• Rasio 1:1 foto profil</text>
+        <text x="85" y="88" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#2563EB">Foto Identitas Pengguna</text>
 
-      <h3>💻 Cuplikan Template</h3>
-      <pre><code>&lt;!-- Avatar Bundar --&gt;
-&lt;ion-avatar&gt;
-  &lt;img src="foto_profil.png" /&gt;
-&lt;/ion-avatar&gt;
+        <!-- 2. ion-badge -->
+        <rect x="275" y="10" width="250" height="90" rx="6" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+        <rect x="290" y="44" width="48" height="24" rx="12" fill="#15803D"/>
+        <text x="299" y="60" font-family="Segoe UI" font-size="11" font-weight="bold" fill="#FFF">3</text>
+        <text x="350" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#15803D">&lt;ion-badge&gt;</text>
+        <text x="350" y="56" font-family="Segoe UI" font-size="9.5" fill="#333">• Pill badge kontras tinggi</text>
+        <text x="350" y="72" font-family="Segoe UI" font-size="9.5" fill="#333">• Status &amp; jumlah unread</text>
+        <text x="350" y="88" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#166534">Indikator Metrik Cepat</text>
+
+        <!-- 3. ion-chip -->
+        <rect x="540" y="10" width="250" height="90" rx="6" fill="#FEF08A" stroke="#854D0E" stroke-width="2"/>
+        <rect x="555" y="44" width="70" height="24" rx="12" fill="#FFE600" stroke="#000" stroke-width="1.5"/>
+        <text x="565" y="60" font-family="Segoe UI" font-size="9.5" font-weight="bold" fill="#000">✓ Vue 3</text>
+        <text x="635" y="38" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#854D0E">&lt;ion-chip&gt;</text>
+        <text x="635" y="56" font-family="Segoe UI" font-size="9.5" fill="#333">• Tag filter interaktif</text>
+        <text x="635" y="72" font-family="Segoe UI" font-size="9.5" fill="#333">• Event @click terintegrasi</text>
+        <text x="635" y="88" font-family="Segoe UI" font-size="8.5" font-weight="bold" fill="#B45309">Seleksi Topik &amp; Filter</text>
+      </svg>
+    </div>
+
+    <!-- AREA PREVIEW & KODE -->
+    <div class="grid">
+      <!-- PANEL KOMPONEN LIVE -->
+      <div class="box">
+        <h3 style="margin: 0 0 12px 0;">📱 Pratinjau Komponen Mobile</h3>
+
+        <!-- Profile Header with Avatar & Badge -->
+        <div class="card-profile">
+          <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
+            <ion-avatar style="width: 56px; height: 56px; border: 2px solid #000;">
+              <img src="https://api.dicebear.com/7.x/bottts/svg?seed=BudiUT" alt="Avatar Mahasiswa" />
+            </ion-avatar>
+            <div>
+              <h4 style="margin: 0; font-size: 16px;">Budi Santoso</h4>
+              <p style="margin: 2px 0 0 0; font-size: 12px; color: #64748B;">NIM: 043123456 • S1 Sistem Informasi</p>
+              <div style="margin-top: 4px;">
+                <ion-badge color="success">Aktif 2026.1</ion-badge>
+                <ion-badge color="warning" style="margin-left: 6px;">IPK: 3.85</ion-badge>
+              </div>
+            </div>
+          </div>
+
+          <hr style="border: none; border-top: 1px dashed #CBD5E1; margin: 12px 0;">
+
+          <!-- Interactive Chips -->
+          <p style="font-size: 13px; font-weight: bold; margin: 0 0 8px 0;">🏷️ Kategori Minat Mahasiswa (Klik Chip):</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <ion-chip 
+              v-for="(cat, idx) in categories" 
+              :key="idx" 
+              :color="cat.selected ? 'primary' : 'medium'"
+              :outline="!cat.selected"
+              @click="toggleCategory(idx)">
+              <ion-icon name="checkmark-circle" v-if="cat.selected"></ion-icon>
+              <ion-label>{{ cat.name }}</ion-label>
+            </ion-chip>
+          </div>
+
+          <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; padding: 10px; border: 1px solid #CBD5E1;">
+            <span style="font-size: 13px;">Notifikasi Belum Dibaca:</span>
+            <ion-badge color="danger">{{ unreadCount }} Baru</ion-badge>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL PENJELASAN ELEMEN -->
+      <div class="box">
+        <h3 style="margin: 0 0 12px 0;">🔍 Tiga Pilar Identitas Ringkas</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 12.5px; margin-bottom: 14px;">
+          <tr style="background: #E2E8F0;">
+            <th style="padding: 6px; border: 1px solid #000; text-align: left;">Komponen</th>
+            <th style="padding: 6px; border: 1px solid #000; text-align: left;">Fungsi Utama</th>
+            <th style="padding: 6px; border: 1px solid #000; text-align: left;">Ciri Khas</th>
+          </tr>
+          <tr>
+            <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;ion-avatar&gt;</td>
+            <td style="padding: 6px; border: 1px solid #000;">Foto profil pengguna</td>
+            <td style="padding: 6px; border: 1px solid #000;">Auto-crop lingkaran bundar sempurna.</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;ion-badge&gt;</td>
+            <td style="padding: 6px; border: 1px solid #000;">Counter / status label</td>
+            <td style="padding: 6px; border: 1px solid #000;">Pill kecil dengan warna kontras.</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px; border: 1px solid #000; font-family: monospace;">&lt;ion-chip&gt;</td>
+            <td style="padding: 6px; border: 1px solid #000;">Filter tag interaktif</td>
+            <td style="padding: 6px; border: 1px solid #000;">Dapat diklik, memuat ikon &amp; label.</td>
+          </tr>
+        </table>
+
+        <h4 style="margin: 12px 0 6px 0;">💻 Cuplikan Template:</h4>
+        <pre><code>&lt;!-- Avatar Bundar --&gt;
+&lt;ion-avatar&gt;&lt;img src="foto.png" /&gt;&lt;/ion-avatar&gt;
 
 &lt;!-- Badge Status --&gt;
-&lt;ion-badge color="danger"&gt;3 Notifikasi&lt;/ion-badge&gt;
+&lt;ion-badge color="danger"&gt;3 Baru&lt;/ion-badge&gt;
 
 &lt;!-- Chip Interaktif --&gt;
 &lt;ion-chip :outline="!isActive" @click="toggle"&gt;
   &lt;ion-icon name="checkmark-circle"&gt;&lt;/ion-icon&gt;
-  &lt;ion-label&gt;Pemrograman Mobile&lt;/ion-label&gt;
+  &lt;ion-label&gt;Vue 3&lt;/ion-label&gt;
 &lt;/ion-chip&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Sitasi Akademik -->
+    <div class="source-cite">
+      📚 <strong>Referensi Modul:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 4: "Komponen Identitas Visual &amp; Indikator Mikro" • Dokumentasi Resmi Ionic: "Avatar, Badge, and Chip Components".
     </div>
   </div>
 

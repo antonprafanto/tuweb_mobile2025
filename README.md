@@ -134,24 +134,24 @@ tuweb_mobile2025/
 
 | Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run) |
 | :---: | :--- | :--- |
-| **Slide 01** | Pengenalan Ekosistem Ionic UI Toolkit vs Web Standar | [`slide_01_pengenalan_ekosistem_ionic.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_01_pengenalan_ekosistem_ionic.html) |
-| **Slide 02** | Adaptive Styling: Material Design (Android) vs Cupertino (iOS) | [`slide_02_adaptive_styling_md_ios.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_02_adaptive_styling_md_ios.html) |
-| **Slide 03** | Anatomi Baku Halaman: `ion-app`, `ion-page`, `ion-header`, `ion-content` | [`slide_03_anatomi_halaman_ion_page.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_03_anatomi_halaman_ion_page.html) |
-| **Slide 04** | Palet Warna Semantik: `primary`, `secondary`, `success`, `danger` | [`slide_04_palet_warna_tema_mobile.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_04_palet_warna_tema_mobile.html) |
-| **Slide 05** | Variasi Tombol: `expand="block"`, `fill="outline"`, `shape="round"` | [`slide_05_variasi_tombol_ion_button.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_05_variasi_tombol_ion_button.html) |
-| **Slide 06** | Kartu Informasi: `ion-card`, `ion-card-header`, `ion-card-title` | [`slide_06_kartu_informasi_ion_card.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_06_kartu_informasi_ion_card.html) |
-| **Slide 07** | Identitas Visual Mobile: `ion-avatar`, `ion-badge`, & `ion-chip` | [`slide_07_avatar_badge_dan_chip.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_07_avatar_badge_dan_chip.html) |
-| **Slide 08** | Pengelolaan Daftar Kolektif: `ion-list` & Arsitektur Slot `ion-item` | [`slide_08_daftar_list_dan_item.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_08_daftar_list_dan_item.html) |
-| **Slide 09** | Ikonografi Mobile dengan Ribuan Koleksi Resmi Ionicons | [`slide_09_ikonografi_ionicons.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_09_ikonografi_ionicons.html) |
-| **Slide 10** | Filosofi Stack Navigation: Mengapa Mobile Memakai LIFO Stack | [`slide_10_filosofi_stack_navigation.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_10_filosofi_stack_navigation.html) |
-| **Slide 11** | Konfigurasi Perutean: `@ionic/vue-router` & `<ion-router-outlet>` | [`slide_11_struktur_ionic_vue_router.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_11_struktur_ionic_vue_router.html) |
-| **Slide 12** | Transisi Antar Layar: `useRouter().push()` & Parameter URL `:kode` | [`slide_12_pindah_halaman_dan_parameter.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_12_pindah_halaman_dan_parameter.html) |
-| **Slide 13** | Tombol Kembali Alami: `<ion-back-button>` & Kewajiban `default-href` | [`slide_13_tombol_kembali_back_button.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_13_tombol_kembali_back_button.html) |
-| **Slide 14** | Siklus Hidup Masuk Halaman: `ionViewWillEnter` vs `ionViewDidEnter` | [`slide_14_siklus_hidup_masuk_halaman.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_14_siklus_hidup_masuk_halaman.html) |
-| **Slide 15** | Siklus Hidup Keluar: Mencegah Kebocoran Memori & Menghemat Baterai | [`slide_15_siklus_hidup_keluar_halaman.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_15_siklus_hidup_keluar_halaman.html) |
-| **Slide 16** | Diagnosis Cepat & Troubleshooting Routing Komponen Ionic | [`slide_16_troubleshooting_routing_ionic.md`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_16_troubleshooting_routing_ionic.md) |
-| **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 04:** Portal Modul BMP UT Multi-Halaman | [`slide_17_lab_quest_04_portal_modul_ut.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_17_lab_quest_04_portal_modul_ut.html) |
-| **Slide 18** | Jembatan Sesi 05: Responsive 12-Grid, Form Regex, & Pengarahan Tugas 2 | [`slide_18_preview_sesi_05_layout_grid_form.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_18_preview_sesi_05_layout_grid_form.html) |
+| **Slide 01** | Pengenalan Ekosistem Ionic UI Toolkit vs Web Standar | [🌐 `slide_01_pengenalan_ekosistem_ionic.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_01_pengenalan_ekosistem_ionic.html) |
+| **Slide 02** | Adaptive Styling: Material Design (Android) vs Cupertino (iOS) | [🌐 `slide_02_adaptive_styling_md_ios.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_02_adaptive_styling_md_ios.html) |
+| **Slide 03** | Anatomi Baku Halaman: `ion-app`, `ion-page`, `ion-header`, `ion-content` | [🌐 `slide_03_anatomi_halaman_ion_page.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_03_anatomi_halaman_ion_page.html) |
+| **Slide 04** | Palet Warna Semantik: `primary`, `secondary`, `success`, `danger` | [🌐 `slide_04_palet_warna_tema_mobile.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_04_palet_warna_tema_mobile.html) |
+| **Slide 05** | Variasi Tombol: `expand="block"`, `fill="outline"`, `shape="round"` | [🌐 `slide_05_variasi_tombol_ion_button.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_05_variasi_tombol_ion_button.html) |
+| **Slide 06** | Kartu Informasi: `ion-card`, `ion-card-header`, `ion-card-title` | [🌐 `slide_06_kartu_informasi_ion_card.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_06_kartu_informasi_ion_card.html) |
+| **Slide 07** | Identitas Visual Mobile: `ion-avatar`, `ion-badge`, & `ion-chip` | [🌐 `slide_07_avatar_badge_dan_chip.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_07_avatar_badge_dan_chip.html) |
+| **Slide 08** | Pengelolaan Daftar Kolektif: `ion-list` & Arsitektur Slot `ion-item` | [🌐 `slide_08_daftar_list_dan_item.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_08_daftar_list_dan_item.html) |
+| **Slide 09** | Ikonografi Mobile dengan Ribuan Koleksi Resmi Ionicons | [🌐 `slide_09_ikonografi_ionicons.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_09_ikonografi_ionicons.html) |
+| **Slide 10** | Filosofi Stack Navigation: Mengapa Mobile Memakai LIFO Stack | [🌐 `slide_10_filosofi_stack_navigation.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_10_filosofi_stack_navigation.html) |
+| **Slide 11** | Konfigurasi Perutean: `@ionic/vue-router` & `<ion-router-outlet>` | [🌐 `slide_11_struktur_ionic_vue_router.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_11_struktur_ionic_vue_router.html) |
+| **Slide 12** | Transisi Antar Layar: `useRouter().push()` & Parameter URL `:kode` | [🌐 `slide_12_pindah_halaman_dan_parameter.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_12_pindah_halaman_dan_parameter.html) |
+| **Slide 13** | Tombol Kembali Alami: `<ion-back-button>` & Kewajiban `default-href` | [🌐 `slide_13_tombol_kembali_back_button.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_13_tombol_kembali_back_button.html) |
+| **Slide 14** | Siklus Hidup Masuk Halaman: `ionViewWillEnter` vs `ionViewDidEnter` | [🌐 `slide_14_siklus_hidup_masuk_halaman.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_14_siklus_hidup_masuk_halaman.html) |
+| **Slide 15** | Siklus Hidup Keluar: Mencegah Kebocoran Memori & Menghemat Baterai | [🌐 `slide_15_siklus_hidup_keluar_halaman.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_15_siklus_hidup_keluar_halaman.html) |
+| **Slide 16** | **Konsol Diagnostik Interaktif & Solusi Masalah Perutean** | [🌐 `slide_16_troubleshooting_routing_ionic.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_16_troubleshooting_routing_ionic.html) *(Panduan: [`.md`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_16_troubleshooting_routing_ionic.md))* |
+| **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 04:** Portal Modul BMP UT Multi-Halaman | [🌐 `slide_17_lab_quest_04_portal_modul_ut.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_17_lab_quest_04_portal_modul_ut.html) |
+| **Slide 18** | Jembatan Sesi 05: Responsive 12-Grid, Form Regex, & Pengarahan Tugas 2 | [🌐 `slide_18_preview_sesi_05_layout_grid_form.html`](contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_18_preview_sesi_05_layout_grid_form.html) |
 
 ---
 

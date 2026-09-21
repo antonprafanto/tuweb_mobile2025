@@ -22,7 +22,7 @@
     * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
     .header {
-      background: var(--purple);
+      background: var(--yellow);
       border: 3px solid var(--border);
       padding: 16px 20px;
       box-shadow: 5px 5px 0 var(--border);
@@ -37,12 +37,45 @@
       background: #fff;
       margin-bottom: 10px;
     }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-    .box {
+    .card {
       background: var(--card-bg);
       border: 3px solid var(--border);
       padding: 20px;
       box-shadow: 5px 5px 0 var(--border);
+      max-width: 960px;
+      margin: 0 auto 20px auto;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      border-left: 6px solid #1D4ED8;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .guide-box h4 { margin: 0 0 6px 0; color: #1E40AF; font-size: 14px; }
+    .diagram-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin: 18px 0;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px dashed #ccc;
+      padding-top: 8px;
+      font-style: italic;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-top: 16px; }
+    .box {
+      background: #FAF8F5;
+      border: 2px solid var(--border);
+      padding: 18px;
+      box-shadow: 3px 3px 0 var(--border);
     }
     .icon-grid {
       display: grid;
@@ -51,15 +84,16 @@
     }
     .icon-card {
       border: 2px solid var(--border);
-      background: #F8FAFC;
+      background: #FFF;
       padding: 12px 8px;
       text-align: center;
       cursor: pointer;
-      transition: transform 0.15s ease;
+      box-shadow: 2px 2px 0 var(--border);
+      transition: transform 0.1s ease;
     }
     .icon-card:hover {
-      background: #FEF08A;
-      transform: translateY(-2px);
+      background: var(--yellow);
+      transform: translate(-1px, -1px);
     }
     pre {
       background: #121212;
@@ -77,72 +111,122 @@
   <div class="header">
     <div class="badge-tag">SLIDE 09 • MODUL 4 BMP UT</div>
     <h1 style="margin: 0 0 6px 0; font-size: 22px;">Bahasa Visual Antarmuka: Perpustakaan Resmi Ionicons</h1>
-    <p style="margin: 0; font-size: 14px;">Memanfaatkan ribuan ikon vektor sumber terbuka untuk navigasi tab, tombol aksi, dan status informasi.</p>
+    <p style="margin: 0; font-size: 14px;">Memanfaatkan ribuan ikon vektor sumber terbuka untuk navigasi tab, tombol aksi, dan indikator status informasi.</p>
   </div>
 
-  <div id="app" class="grid">
-    <!-- PREVIEW DAFTAR IKON -->
-    <div class="box">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <h3 style="margin: 0;">📱 Koleksi Ikon Populer</h3>
-        <select v-model="selectedStyle" style="padding: 4px 8px; border: 2px solid #000; font-weight: bold;">
-          <option value="outline">Outline (-outline)</option>
-          <option value="filled">Filled (Default)</option>
-          <option value="sharp">Sharp (-sharp)</option>
-        </select>
-      </div>
+  <div id="app" class="card">
+    <!-- Kotak Panduan Mahasiswa Awam -->
+    <div class="guide-box">
+      <h4>📘 PANDUAN PRAKTIKUM &amp; VARIAN GAYA IONICONS</h4>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🛠️ Alat yang Digunakan:</strong> Google Chrome / Peramban Web Modern.
+      </p>
+      <p style="margin: 0 0 8px 0;">
+        <strong>🎯 Cara Menguji Interaksi:</strong>
+        1. Ubah opsi pada dropdown di panel kiri: coba pilih <em>Outline (-outline)</em>, <em>Filled (Default)</em>, atau <em>Sharp (-sharp)</em>.<br>
+        2. Perhatikan bagaimana 9 ikon di bawahnya otomatis berubah gaya visualnya secara serentak.<br>
+        3. Klik pada salah satu kartu ikon (misal: "Modul / Buku" atau "Mahasiswa") untuk melihat kode tag <code>&lt;ion-icon&gt;</code> yang siap disalin pada kotak informasi bawah.
+      </p>
+      <p style="margin: 0;">
+        <strong>💡 Apa yang Terjadi di Balik Layar:</strong>
+        Ionicons adalah aset ikon SVG berbasis vektor murni yang terintegrasi langsung ke dalam runtime Ionic. Ikon ini mendukung penskalaan tak terbatas tanpa pecah (resolusi retina), dapat diwarnai secara langsung dengan CSS <code>color</code> atau atribut semantik Ionic, serta mematuhi konvensi 3 varian: <code>-outline</code> untuk iOS, <code>filled</code> untuk status aktif, dan <code>-sharp</code> untuk Material Design Android.
+      </p>
+    </div>
 
-      <div class="icon-grid">
-        <div 
-          v-for="icon in iconList" 
-          :key="icon.base" 
-          class="icon-card"
-          @click="activeIcon = getFullIconName(icon.base)">
-          <ion-icon 
-            :name="getFullIconName(icon.base)" 
-            style="font-size: 32px; color: #0284C7;">
-          </ion-icon>
-          <div style="font-size: 11px; font-weight: bold; margin-top: 6px; word-break: break-all;">
-            {{ icon.label }}
+    <!-- Diagram Arsitektur Inline SVG -->
+    <div class="diagram-card">
+      <h4 style="margin: 0 0 8px 0; font-size: 13px;">📐 3 Varian Anatomi Penamaan Ionicons Berdasarkan Konteks Platform</h4>
+      <svg viewBox="0 0 800 110" width="100%" height="110" xmlns="http://www.w3.org/2000/svg">
+        <!-- Varian 1: Outline -->
+        <rect x="10" y="10" width="250" height="90" rx="6" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
+        <text x="22" y="34" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#1E40AF">1. GAYA OUTLINE (name="...-outline")</text>
+        <text x="22" y="54" font-family="Segoe UI" font-size="9.5" fill="#333">• Garis batas tipis 1.5px bersih</text>
+        <text x="22" y="70" font-family="Segoe UI" font-size="9.5" fill="#333">• Standar iOS &amp; status non-aktif</text>
+        <text x="22" y="88" font-family="Consolas" font-size="9" font-weight="bold" fill="#2563EB">name="book-outline"</text>
+
+        <!-- Varian 2: Filled -->
+        <rect x="275" y="10" width="250" height="90" rx="6" fill="#FEF08A" stroke="#854D0E" stroke-width="2"/>
+        <text x="287" y="34" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#854D0E">2. GAYA FILLED (name="...")</text>
+        <text x="287" y="54" font-family="Segoe UI" font-size="9.5" fill="#333">• Isian solid tebal penuh</text>
+        <text x="287" y="70" font-family="Segoe UI" font-size="9.5" fill="#333">• Penanda tab aktif / terpilih</text>
+        <text x="287" y="88" font-family="Consolas" font-size="9" font-weight="bold" fill="#854D0E">name="book"</text>
+
+        <!-- Varian 3: Sharp -->
+        <rect x="540" y="10" width="250" height="90" rx="6" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+        <text x="552" y="34" font-family="Segoe UI" font-weight="bold" font-size="11" fill="#15803D">3. GAYA SHARP (name="...-sharp")</text>
+        <text x="552" y="54" font-family="Segoe UI" font-size="9.5" fill="#333">• Sudut siku geometris tegas</text>
+        <text x="552" y="70" font-family="Segoe UI" font-size="9.5" fill="#333">• Ciri khas Android Material</text>
+        <text x="552" y="88" font-family="Consolas" font-size="9" font-weight="bold" fill="#15803D">name="book-sharp"</text>
+      </svg>
+    </div>
+
+    <!-- PREVIEW DAFTAR & PENJELASAN -->
+    <div class="grid">
+      <!-- PREVIEW DAFTAR IKON -->
+      <div class="box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h3 style="margin: 0; font-size:16px;">📱 Koleksi Ikon Populer</h3>
+          <select v-model="selectedStyle" style="padding: 6px 10px; border: 2px solid #000; font-weight: bold; background:#FFF;">
+            <option value="outline">Outline (-outline)</option>
+            <option value="filled">Filled (Default)</option>
+            <option value="sharp">Sharp (-sharp)</option>
+          </select>
+        </div>
+
+        <div class="icon-grid">
+          <div 
+            v-for="icon in iconList" 
+            :key="icon.base" 
+            class="icon-card"
+            @click="activeIcon = getFullIconName(icon.base)">
+            <ion-icon 
+              :name="getFullIconName(icon.base)" 
+              style="font-size: 30px; color: #0284C7;">
+            </ion-icon>
+            <div style="font-size: 10.5px; font-weight: bold; margin-top: 6px; word-break: break-all;">
+              {{ icon.label }}
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 16px; background: #EEF2FF; border: 2px solid #000; padding: 12px; box-shadow: 2px 2px 0 #000;">
+          <strong>Ikon Terpilih Saat Ini:</strong>
+          <div style="display: flex; align-items: center; gap: 12px; margin-top: 6px;">
+            <ion-icon :name="activeIcon" style="font-size: 32px; color: #4338CA;"></ion-icon>
+            <div>
+              <code style="font-weight: bold; font-size: 12.5px;">&lt;ion-icon name="{{ activeIcon }}"&gt;&lt;/ion-icon&gt;</code>
+            </div>
           </div>
         </div>
       </div>
 
-      <div style="margin-top: 16px; background: #EEF2FF; border: 2px solid #000; padding: 12px;">
-        <strong>Ikon Terpilih:</strong>
-        <div style="display: flex; align-items: center; gap: 12px; margin-top: 8px;">
-          <ion-icon :name="activeIcon" style="font-size: 36px; color: #4338CA;"></ion-icon>
-          <div>
-            <code style="font-weight: bold; font-size: 13px;">&lt;ion-icon name="{{ activeIcon }}"&gt;&lt;/ion-icon&gt;</code>
-          </div>
-        </div>
+      <!-- PENJELASAN TEKNIS -->
+      <div class="box">
+        <h3 style="margin: 0 0 12px 0; font-size:16px;">🎨 Pengaturan Ukuran &amp; Warna</h3>
+        <p style="font-size: 13px; line-height: 1.5; margin-top:0;">
+          Karena Ionicons adalah vektor SVG, ukuran dapat diatur melalui properti CSS <code>font-size</code> atau atribut bawaan <code>size="small|large"</code>:
+        </p>
+
+        <pre><code>&lt;!-- Atribut Tema Semantik Resmi Ionic --&gt;
+&lt;ion-icon name="heart" color="danger" size="large"&gt;&lt;/ion-icon&gt;
+
+&lt;!-- Gaya Kustom Ukuran Pixel Bebas --&gt;
+&lt;ion-icon 
+  name="school-outline" 
+  style="font-size: 36px; color: #0284C7;"&gt;
+&lt;/ion-icon&gt;
+
+&lt;!-- Ikon di dalam Tombol --&gt;
+&lt;ion-button color="primary"&gt;
+  &lt;ion-icon slot="start" name="cloud-download-outline"&gt;&lt;/ion-icon&gt;
+  Unduh Modul
+&lt;/ion-button&gt;</code></pre>
       </div>
     </div>
 
-    <!-- PENJELASAN TEKNIS -->
-    <div class="box">
-      <h3>🎨 3 Varian Gaya Ionicons</h3>
-      <p style="font-size: 13px; line-height: 1.5;">
-        Ionicons secara cerdas menyesuaikan tampilan berdasarkan mode platform:
-      </p>
-      <ul style="font-size: 13px; line-height: 1.6; padding-left: 20px;">
-        <li><strong>Outline (Garis Tipis)</strong>: Default tampilan iOS modern untuk kesan minimalis & bersih.</li>
-        <li><strong>Filled (Solid Penuh)</strong>: Tampilan tebal biasanya untuk status aktif / terpilih.</li>
-        <li><strong>Sharp (Sudut Tajam)</strong>: Tampilan geometris khas Material Design di platform Android.</li>
-      </ul>
-
-      <h3>⚙️ Pengaturan Ukuran & Warna</h3>
-      <p style="font-size: 13px; line-height: 1.5;">
-        Ikon adalah font vektor SVG, sehingga ukuran dikontrol via <code>font-size</code> atau atribut <code>size="small|large"</code>, dan warna dikontrol melalui CSS <code>color</code> atau atribut tema Ionic:
-      </p>
-      <pre><code>&lt;!-- Atribut Warna Resmi Ionic --&gt;
-&lt;ion-icon name="heart" color="danger" size="large"&gt;&lt;/ion-icon&gt;
-
-&lt;!-- Gaya Kustom Inline CSS --&gt;
-&lt;ion-icon 
-  name="school-outline" 
-  style="font-size: 48px; color: #0284C7;"&gt;
-&lt;/ion-icon&gt;</code></pre>
+    <!-- Sitasi Akademik -->
+    <div class="source-cite">
+      📚 <strong>Referensi Modul:</strong> Buku Materi Pokok (BMP) UT STSI4303/MSIM4401 Modul 4: "Ikonografi &amp; Visual Affordance Antarmuka Mobile" • Ionicons Official Icon Library: "Icon Variants &amp; Best Practices".
     </div>
   </div>
 
@@ -154,15 +238,15 @@
         const activeIcon = ref('book-outline');
 
         const iconList = [
-          { base: 'book', label: 'Modul / Buku' },
-          { base: 'school', label: 'Kampus / Kuliah' },
+          { base: 'book', label: 'Modul / BMP' },
+          { base: 'school', label: 'Kampus UT' },
           { base: 'person', label: 'Mahasiswa' },
-          { base: 'time', label: 'Jadwal / Jam' },
-          { base: 'checkmark-circle', label: 'Status Selesai' },
+          { base: 'time', label: 'Jadwal' },
+          { base: 'checkmark-circle', label: 'Lulus / Selesai' },
           { base: 'alert-circle', label: 'Peringatan' },
-          { base: 'cloud-download', label: 'Unduh BMP' },
-          { base: 'chatbubble-ellipses', label: 'Forum Diskusi' },
-          { base: 'settings', label: 'Pengaturan' }
+          { base: 'cloud-download', label: 'Unduh' },
+          { base: 'chatbubble-ellipses', label: 'Forum Tuton' },
+          { base: 'settings', label: 'Setelan' }
         ];
 
         const getFullIconName = (base) => {
