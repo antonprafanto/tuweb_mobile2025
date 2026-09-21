@@ -1,63 +1,140 @@
 <!DOCTYPE html>
 <!--
 =====================================================================
-MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303) - UT
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303)
+INSTITUSI   : FAKULTAS SAINS DAN TEKNOLOGI - UNIVERSITAS TERBUKA
+DOSEN       : ANTON PRAFANTO, S.Kom., M.T.
 SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
-SLIDE 07    : ANATOMI APLIKASI HYBRID (TRITUNGGAL WEB: HTML, CSS, JS)
+SLIDE 07    : ANATOMI APLIKASI MOBILE HYBRID & PERAN WEBVIEW CONTAINER
 =====================================================================
-CARA MENJALANKAN:
-Cukup klik ganda berkas ini untuk membuka langsung di browser Anda!
+CARA MENJALANKAN (RAMAH PEMULA):
+1. Anda TIDAK PERLU menginstal Node.js atau server apa pun untuk mencoba file ini.
+2. Cukup klik ganda (double-click) file ini langsung dari File Explorer Windows.
+3. Berkas akan otomatis terbuka di browser Google Chrome / Microsoft Edge.
 =====================================================================
 -->
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slide 07 - Anatomi Aplikasi Mobile Hybrid</title>
-  <style id="mobileStyle">
+  <title>Slide 07: Anatomi Aplikasi Mobile Hybrid — STSI4303 UT</title>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+      --blue-ut: #005691;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #F1F5F9;
+      background-color: var(--bg);
       margin: 0;
       padding: 20px;
+      color: #000;
       display: flex;
       justify-content: center;
     }
+    .container {
+      max-width: 920px;
+      width: 100%;
+    }
+    .header-banner {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 8px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .card {
+      background: var(--card);
+      border: 3px solid var(--border);
+      box-shadow: 6px 6px 0 var(--border);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    /* Smartphone Mockup */
     .phone-mockup {
-      width: 340px;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
       background: #FFFFFF;
       border-radius: 28px;
-      border: 8px solid #1E293B;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+      border: 6px solid #1E293B;
+      box-shadow: 0 16px 30px rgba(0,0,0,0.15);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      height: 520px;
+      height: 480px;
+      transition: all 0.3s ease;
+    }
+    .phone-notch {
+      height: 22px;
+      background: #1E293B;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .phone-speaker {
+      width: 60px;
+      height: 4px;
+      background: #64748B;
+      border-radius: 4px;
     }
     .header-bar {
-      background: #0284C7;
+      background: var(--blue-ut);
       color: white;
-      padding: 16px;
+      padding: 14px;
       font-weight: bold;
       text-align: center;
-      font-size: 16px;
+      font-size: 15px;
     }
     .content-area {
       padding: 16px;
       flex: 1;
       overflow-y: auto;
+      background: #F8FAFC;
     }
     .profile-card {
-      background: #F8FAFC;
-      border: 1px solid #E2E8F0;
+      background: #FFFFFF;
+      border: 2px solid #CBD5E1;
       border-radius: 12px;
-      padding: 16px;
+      padding: 14px;
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .avatar {
-      width: 64px;
-      height: 64px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
       background: #BAE6FD;
       display: inline-flex;
@@ -65,84 +142,259 @@ Cukup klik ganda berkas ini untuk membuka langsung di browser Anda!
       justify-content: center;
       font-size: 24px;
       margin-bottom: 8px;
+      border: 2px solid var(--blue-ut);
     }
     .action-btn {
       width: 100%;
-      background: #0284C7;
+      background: var(--blue-ut);
       color: white;
       border: none;
       padding: 12px;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      transition: background 0.2s ease;
     }
-    .controls {
-      margin-left: 24px;
-      max-width: 320px;
+    .action-btn:hover {
+      background: #003e68;
     }
+    /* Control Box */
     .ctrl-box {
-      background: #FFFFFF;
       border: 2px solid #000;
       padding: 14px;
-      box-shadow: 4px 4px 0 #000;
+      background: #F8FAFC;
       margin-bottom: 12px;
       font-size: 13px;
+      line-height: 1.5;
+    }
+    .btn-toggle {
+      padding: 8px 12px;
+      font-weight: bold;
+      border: 2px solid #000;
+      background: var(--yellow);
+      cursor: pointer;
+      box-shadow: 2px 2px 0 #000;
+      margin-right: 6px;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+    }
+    .btn-toggle:active {
+      transform: translate(2px, 2px);
+      box-shadow: 0 0 0 #000;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
-  <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 20px;">
-    <!-- Simulasi HP -->
-    <div class="phone-mockup" id="mockup">
-      <div class="header-bar">Universitas Terbuka Mobile</div>
-      <div class="content-area">
-        <div class="profile-card">
-          <div class="avatar">🎓</div>
-          <h3 style="margin: 4px 0;">Budi Santoso</h3>
-          <p style="margin: 0; color: #64748B; font-size: 13px;">NIM: 041234567 • Sistem Informasi</p>
+
+  <div class="container">
+    <div class="header-banner">
+      <div class="badge-tag">SLIDE 07 • SESI 01 (MODUL 1 BMP UT - ANATOMI APLIKASI HYBRID)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Anatomi Aplikasi Hybrid: Tritunggal Web di Dalam Cangkang Mobile</h1>
+      <p style="margin: 0; font-size: 13px;">Bagaimana gabungan HTML (Tulang), CSS (Busana), dan JavaScript (Saraf) disulap menjadi aplikasi smartphone melalui jendela sakti bernama <strong>WebView Container</strong>.</p>
+    </div>
+
+    <div class="guide-box">
+      <strong>💡 Panduan Ramah Pemula:</strong><br>
+      Aplikasi mobile hybrid sejatinya adalah website canggih berstandar tinggi yang dibungkus oleh aplikasi Android/iOS asli. 
+      Coba gunakan tombol interaktif di bawah untuk menyalakan/mematikan komponen anatomi, dan amati langsung bagaimana tampilan pada layar ponsel berubah!
+    </div>
+
+    <!-- DIAGRAM VISUAL ARSITEKTUR HYBRID APP -->
+    <div class="card">
+      <h3 style="margin-top:0;">📊 Diagram Arsitektur: Lapisan Demi Lapisan Aplikasi Hybrid</h3>
+      <p style="font-size:13px; color:#475569;">
+        Diagram ini memperlihatkan bagaimana kode web Anda berkomunikasi dengan perangkat keras ponsel fisik:
+      </p>
+
+      <div style="width: 100%; overflow-x: auto; background: #FFF; border: 2px solid #000; padding: 12px; margin-bottom: 16px;">
+        <svg viewBox="0 0 760 260" width="100%" height="240" xmlns="http://www.w3.org/2000/svg">
+          <!-- LAYER 1: WEB APP (TOP) -->
+          <rect x="20" y="15" width="720" height="55" rx="8" fill="#FEF08A" stroke="#000" stroke-width="2"/>
+          <text x="35" y="38" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" fill="#000">1. LAPISAN APLIKASI WEB (HTML5 + CSS3 + VUE 3 / JAVASCRIPT)</text>
+          <text x="35" y="56" font-family="Segoe UI, sans-serif" font-size="12" fill="#4B5563">Struktur antarmuka visual, tema warna, validasi form, dan logika interaksi yang Anda tulis.</text>
+
+          <!-- PANAH KE BAWAH 1 -->
+          <line x1="380" y1="70" x2="380" y2="90" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
+
+          <!-- LAYER 2: WEBVIEW CONTAINER -->
+          <rect x="20" y="90" width="720" height="55" rx="8" fill="#BAE6FD" stroke="#000" stroke-width="2"/>
+          <text x="35" y="113" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" fill="#0369A1">2. WADAH MESIN PERAMBAN NATIVE (ANDROID WEBVIEW / IOS WKWEBVIEW)</text>
+          <text x="35" y="131" font-family="Segoe UI, sans-serif" font-size="12" fill="#0369A1">Mesin peramban tanpa bilah URL (address bar) yang merender kode web secara cepat & terisolasi.</text>
+
+          <!-- PANAH KE BAWAH 2 -->
+          <line x1="380" y1="145" x2="380" y2="165" stroke="#000" stroke-width="2"/>
+
+          <!-- LAYER 3: CAPACITOR BRIDGE -->
+          <rect x="20" y="165" width="340" height="70" rx="8" fill="#BBF7D0" stroke="#000" stroke-width="2"/>
+          <text x="35" y="190" font-family="Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#166534">3A. JEMBATAN NATIVE (CAPACITOR / CORDOVA)</text>
+          <text x="35" y="210" font-family="Segoe UI, sans-serif" font-size="11" fill="#15803D">Menerjemahkan perintah JavaScript ke Java/Kotlin (Android) atau Swift/Obj-C (iOS).</text>
+
+          <!-- LAYER 4: HARDWARE SENSOR -->
+          <rect x="380" y="165" width="360" height="70" rx="8" fill="#FED7AA" stroke="#000" stroke-width="2"/>
+          <text x="395" y="190" font-family="Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#9A3412">3B. FITUR PERANGKAT KERAS (HARDWARE)</text>
+          <text x="395" y="210" font-family="Segoe UI, sans-serif" font-size="11" fill="#C2410C">Kamera, GPS Geolocation, Getar (Haptics), Notifikasi Push, Penyimpanan Lokal SQLite.</text>
+        </svg>
+      </div>
+
+      <div class="source-cite">
+        <strong>Referensi Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303 Modul 1 (Konsep Arsitektur Aplikasi Mobile Berbasis Web) & Dokumentasi Arsitektur Resmi Ionic Framework (ionicframework.com/docs/intro/architecture).
+      </div>
+    </div>
+
+    <!-- INTERAKTIF: SIMULASI ANATOMI APLIKASI HYBRID -->
+    <div class="card">
+      <h3 style="margin-top:0;">🧪 Eksperimen Laboratorium: Bongkar Pasang Elemen Anatomi</h3>
+      <p style="font-size:13px; color:#475569;">
+        Mari buktikan apa yang terjadi jika salah satu pilar anatomi dihilangkan dari aplikasi mobile kita:
+      </p>
+
+      <div class="grid-2">
+        <!-- SIMULASI LAYAR PONSEL -->
+        <div>
+          <div class="phone-mockup" id="phoneMockup">
+            <div class="phone-notch"><div class="phone-speaker"></div></div>
+            <div class="header-bar" id="appHeader">Universitas Terbuka Mobile</div>
+            <div class="content-area" id="appContent">
+              <div class="profile-card" id="cardMhs">
+                <div class="avatar" id="avatarMhs">🎓</div>
+                <h3 style="margin: 4px 0;" id="namaMhs">Budi Santoso</h3>
+                <p style="margin: 0; color: #64748B; font-size: 12.5px;" id="prodiMhs">NIM: 041234567 • Sistem Informasi</p>
+              </div>
+
+              <p style="font-size: 13px; line-height: 1.5; color: #334155;" id="teksDeskripsi">
+                Aplikasi mobile hybrid menyajikan antarmuka visual yang modern, responsif terhadap sentuhan jari, dan terhubung dengan basis data akademik UT secara seketika.
+              </p>
+
+              <button class="action-btn" id="btnSentuh" onclick="simulasiSentuh()">Sentuh Tombol Presensi</button>
+              
+              <div id="statusRespon" style="margin-top: 12px; font-size: 12px; text-align: center; color: var(--blue-ut); font-weight: bold; min-height: 16px;"></div>
+            </div>
+          </div>
         </div>
-        <p style="font-size: 13px; line-height: 1.5; color: #334155;">
-          Aplikasi mobile hybrid adalah halaman web yang didandani dengan tampilan khas ponsel (*mobile viewport*) dan berjalan di dalam mesin peramban bawaan sistem (*WebView*).
-        </p>
-        <button class="action-btn" id="demoBtn" onclick="klikAksi()">Sentuh Saya</button>
-        <div id="statusText" style="margin-top: 12px; font-size: 12px; text-align: center; color: #0284C7; font-weight: bold;"></div>
+
+        <!-- PANEL KONTROL EKSPERIMEN -->
+        <div>
+          <div class="ctrl-box">
+            <h4 style="margin-top:0; color:#0F172A;">⚙️ Uji Coba Komponen Anatomi:</h4>
+            
+            <button class="btn-toggle" onclick="toggleCSS()">
+              🎨 Sakelar CSS: <span id="labelCSS">ON (Rapi)</span>
+            </button>
+            <button class="btn-toggle" onclick="toggleJS()">
+              🧠 Sakelar JS: <span id="labelJS">ON (Aktif)</span>
+            </button>
+            <button class="btn-toggle" style="background:#BAE6FD;" onclick="simulasiGetar()">
+              📳 Panggil Native Bridge (Getar)
+            </button>
+
+            <div id="diagnosaAnatomi" style="margin-top:12px; padding:10px; background:#EFF6FF; border-left:4px solid #0284C7; font-size:12px;">
+              <strong>Kondisi Saat Ini:</strong> Seluruh pilar (HTML, CSS, JS) berfungsi 100%. Tampilan indah dan tombol merespon sentuhan dengan cepat.
+            </div>
+          </div>
+
+          <div class="ctrl-box">
+            <h4 style="margin-top:0; color:#0F172A;">📖 Makna Filosofis 3 Pilar:</h4>
+            <p><strong>1. HTML (Tulang/Struktur):</strong> Tanpa HTML, tidak ada tombol, teks, maupun kartu mahasiswa.</p>
+            <p><strong>2. CSS (Busana/Tampilan):</strong> Tanpa CSS, halaman tampak seperti dokumen Microsoft Word tahun 1995 tanpa gaya ponsel!</p>
+            <p><strong>3. JavaScript (Saraf/Aksi):</strong> Tanpa JS, tombol secantik apa pun akan mati rasa dan tidak merespon saat diklik.</p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Panel Penjelasan Edukatif -->
-    <div class="controls">
-      <div class="ctrl-box">
-        <h4 style="margin-top:0;">🧩 Tritunggal Aplikasi Hybrid:</h4>
-        <p><strong>1. HTML (Tulang/Struktur):</strong> Elemen pembentuk seperti `<div>`, `<h3>`, `<button>`.</p>
-        <p><strong>2. CSS (Baju/Tampilan):** Memberikan batas melengkung, warna biru UT, dan tata letak khas ponsel.</p>
-        <p><strong>3. JavaScript (Saraf/Logika):** Memberi respon saat tombol disentuh pengguna.</p>
-      </div>
-
-      <div class="ctrl-box">
-        <h4 style="margin-top:0;">🧪 Eksperimen Belajar:</h4>
-        <button onclick="toggleCSS()" style="padding:6px 10px; cursor:pointer; font-weight:bold; width:100%; margin-bottom:6px;">
-          Sakelar Efek CSS (Nyalakan / Matikan)
-        </button>
-        <small style="color: #64748B;">Lihat apa jadinya bila aplikasi mobile kehilangan sentuhan CSS!</small>
-      </div>
-    </div>
   </div>
 
   <script>
     let cssAktif = true;
-    const styleEl = document.getElementById('mobileStyle');
-    const cssContent = styleEl.innerHTML;
+    let jsAktif = true;
 
     function toggleCSS() {
       cssAktif = !cssAktif;
-      styleEl.innerHTML = cssAktif ? cssContent : "body { font-family: serif; padding: 20px; }";
+      const phone = document.getElementById('phoneMockup');
+      const header = document.getElementById('appHeader');
+      const card = document.getElementById('cardMhs');
+      const avatar = document.getElementById('avatarMhs');
+      const btn = document.getElementById('btnSentuh');
+      const label = document.getElementById('labelCSS');
+      const diag = document.getElementById('diagnosaAnatomi');
+
+      if (!cssAktif) {
+        label.innerText = "OFF (Polos)";
+        phone.style.borderRadius = "0px";
+        phone.style.border = "1px solid #000";
+        header.style.background = "#fff";
+        header.style.color = "#000";
+        header.style.borderBottom = "1px solid #000";
+        card.style.border = "none";
+        card.style.background = "transparent";
+        avatar.style.display = "none";
+        btn.style.background = "#E2E8F0";
+        btn.style.color = "#000";
+        btn.style.boxShadow = "none";
+        diag.innerHTML = "<strong>⚠️ Efek CSS Dimatikan:</strong> Lihat! Struktur HTML masih ada, namun tampilannya kembali ke bentuk dasar web tahun 1995 yang kaku dan tidak nyaman digunakan di ponsel.";
+      } else {
+        label.innerText = "ON (Rapi)";
+        phone.style.borderRadius = "28px";
+        phone.style.border = "6px solid #1E293B";
+        header.style.background = "var(--blue-ut)";
+        header.style.color = "white";
+        header.style.borderBottom = "none";
+        card.style.border = "2px solid #CBD5E1";
+        card.style.background = "#FFFFFF";
+        avatar.style.display = "inline-flex";
+        btn.style.background = "var(--blue-ut)";
+        btn.style.color = "white";
+        btn.style.boxShadow = "0 2px 4px rgba(0,0,0,0.15)";
+        diag.innerHTML = "<strong>✅ CSS Dinyalakan Kembali:</strong> Desain mobile hybrid kembali anggun dengan palet warna khas Universitas Terbuka.";
+      }
     }
 
-    function klikAksi() {
-      document.getElementById('statusText').innerText = 
-        "✅ JavaScript Berjalan: Tombol berhasil merespon sentuhan!";
+    function toggleJS() {
+      jsAktif = !jsAktif;
+      const label = document.getElementById('labelJS');
+      const diag = document.getElementById('diagnosaAnatomi');
+      if (!jsAktif) {
+        label.innerText = "OFF (Mati Rasa)";
+        diag.innerHTML = "<strong>⚠️ Saraf JavaScript Dimatikan:</strong> Sekarang coba sentuh tombol presensi di layar ponsel. Tombol tidak akan merespon apa pun karena logika aplikasinya dinonaktifkan!";
+      } else {
+        label.innerText = "ON (Aktif)";
+        diag.innerHTML = "<strong>✅ JavaScript Aktif Kembali:</strong> Tombol kini dapat memproses klik, mengirim data, dan memanggil sensor native!";
+      }
+    }
+
+    function simulasiSentuh() {
+      const status = document.getElementById('statusRespon');
+      if (!jsAktif) {
+        status.innerHTML = "<span style='color:#DC2626;'>❌ Gagal: JavaScript tidak aktif!</span>";
+        return;
+      }
+      status.innerHTML = "<span style='color:#059669;'>✅ Sukses: Presensi tercatat pada " + new Date().toLocaleTimeString('id-ID') + " WIB!</span>";
+      setTimeout(() => {
+        status.innerHTML = "";
+      }, 4000);
+    }
+
+    function simulasiGetar() {
+      const status = document.getElementById('statusRespon');
+      if ('vibrate' in navigator) {
+        navigator.vibrate([100, 50, 100]);
+        status.innerHTML = "<span style='color:#7C3AED;'>📳 Capacitor Bridge: Perintah getar fisik berhasil dikirim ke perangkat!</span>";
+      } else {
+        status.innerHTML = "<span style='color:#7C3AED;'>📳 [Simulasi Sensor]: Jembatan Capacitor memicu sinyal getar (Haptics) pada ponsel fisik.</span>";
+      }
+      setTimeout(() => {
+        status.innerHTML = "";
+      }, 3500);
     }
   </script>
 </body>

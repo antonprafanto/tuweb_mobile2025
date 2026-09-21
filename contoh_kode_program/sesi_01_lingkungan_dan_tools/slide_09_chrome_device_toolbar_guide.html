@@ -1,112 +1,258 @@
 <!DOCTYPE html>
 <!--
 =====================================================================
-MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303) - UT
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303)
+INSTITUSI   : FAKULTAS SAINS DAN TEKNOLOGI - UNIVERSITAS TERBUKA
+DOSEN       : ANTON PRAFANTO, S.Kom., M.T.
 SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
-SLIDE 09    : PANDUAN PENGUJIAN DENGAN CHROME DEVICE TOOLBAR
+SLIDE 09    : PANDUAN PENGUJIAN DENGAN CHROME DEVICE TOOLBAR (DEVICE MODE)
 =====================================================================
-CARA MENJALANKAN:
-1. Buka berkas ini di Google Chrome.
-2. Ikuti 3 langkah praktis di bawah untuk mengaktifkan Device Mode!
+CARA MENJALANKAN (RAMAH PEMULA):
+1. Buka berkas ini di browser Google Chrome atau Microsoft Edge.
+2. Tekan tombol F12 pada keyboard Anda untuk membuka Developer Tools.
+3. Tekan kombinasi tombol Ctrl + Shift + M untuk menyalakan Device Toolbar!
 =====================================================================
 -->
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slide 09 - Panduan Chrome Device Toolbar</title>
+  <title>Slide 09: Panduan Chrome Device Toolbar — STSI4303 UT</title>
   <style>
+    :root {
+      --bg: #FAF8F5;
+      --card: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+      --blue-ut: #005691;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
     body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: #FAF8F5;
-      padding: 24px;
+      background-color: var(--bg);
       margin: 0;
+      padding: 20px;
+      color: #000;
       display: flex;
       justify-content: center;
     }
-    .wrapper { max-width: 650px; width: 100%; }
-    .badge {
-      background: #FFE600;
-      border: 2px solid #000;
-      font-weight: bold;
-      font-size: 12px;
-      padding: 4px 10px;
-      box-shadow: 3px 3px 0 #000;
+    .container {
+      max-width: 920px;
+      width: 100%;
+    }
+    .header-banner {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
       display: inline-block;
-      margin-bottom: 12px;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 8px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
     }
     .card {
-      background: #FFF;
-      border: 2.5px solid #000;
-      box-shadow: 6px 6px 0 #000;
+      background: var(--card);
+      border: 3px solid var(--border);
+      box-shadow: 6px 6px 0 var(--border);
       padding: 24px;
+      margin-bottom: 20px;
     }
-    .step-box {
-      border: 2px solid #000;
+    .step-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .step-card {
+      border: 2px solid var(--border);
       background: #F8FAFC;
-      padding: 14px;
-      margin-bottom: 12px;
+      padding: 16px;
+      font-size: 13px;
+      line-height: 1.6;
     }
-    .shortcut {
+    .shortcut-badge {
       background: #000;
       color: #FFE600;
       padding: 3px 8px;
       font-family: Consolas, monospace;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: bold;
       border-radius: 4px;
+      display: inline-block;
     }
-    .live-indicator {
-      margin-top: 16px;
-      padding: 12px;
+    .live-monitor {
       background: #E0F2FE;
       border: 2px solid #0284C7;
-      font-weight: bold;
+      padding: 16px;
+      border-radius: 8px;
       text-align: center;
-      font-size: 14px;
+      margin-top: 16px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <div class="badge">STSI4303 • SESI 01 • SLIDE 09</div>
+
+  <div class="container">
+    <div class="header-banner">
+      <div class="badge-tag">SLIDE 09 • SESI 01 (MODUL 1 BMP UT - PENGUJIAN DEVICE TOOLBAR)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Chrome Device Toolbar: Menguji Aplikasi Ponsel Tanpa Emulator Berat</h1>
+      <p style="margin: 0; font-size: 13px;">Teknik efisien menguji tata letak responsif, simulasi sentuhan jari, dan simulasi jaringan internet lambat langsung dari browser Anda.</p>
+    </div>
+
+    <div class="guide-box">
+      <strong>💡 Panduan Ramah Pemula:</strong><br>
+      Anda tidak perlu mengunduh Android Studio Emulator seberat 10 GB yang membuat laptop lemot dan cepat panas. 
+      Google Chrome dan Microsoft Edge sudah memiliki fitur <strong>Device Mode</strong> bawaan kelas industri yang sangat ringan (&lt; 100 MB RAM).
+    </div>
+
+    <!-- DIAGRAM VISUAL CHROME DEVTOOLS TOP BAR -->
     <div class="card">
-      <h2 style="margin-top:0;">📱 3 Langkah Menguji Tampilan Ponsel di Google Chrome</h2>
-      <p>
-        Sebagai pengembang aplikasi mobile modern, Anda <strong>TIDAK PERLU</strong> mengunduh emulator Android Studio berukuran puluhan gigabyte yang membuat laptop panas. Google Chrome sudah menyediakan emulator bawaan yang sangat ringan!
+      <h3 style="margin-top:0;">📊 Peta Navigasi: Anatomi Bilah Chrome Device Toolbar</h3>
+      <p style="font-size:13px; color:#475569;">
+        Kenali tombol-tombol sakti di bagian atas layar saat Device Mode diaktifkan:
       </p>
 
-      <div class="step-box">
-        <strong>Langkah 1: Buka Panel Developer Tools</strong><br>
-        Tekan tombol <span class="shortcut">F12</span> pada keyboard Anda, atau klik kanan di mana saja lalu pilih <em>Inspect (Periksa)</em>.
+      <div style="width: 100%; overflow-x: auto; background: #FFF; border: 2px solid #000; padding: 12px; margin-bottom: 16px;">
+        <svg viewBox="0 0 760 210" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+          <!-- FRAME BILAH ATAS DEVTOOLS -->
+          <rect x="10" y="15" width="740" height="65" rx="6" fill="#1E293B" stroke="#000" stroke-width="2"/>
+          
+          <!-- TOMBOL 1: TOGGLE DEVICE TOOLBAR -->
+          <rect x="25" y="27" width="40" height="40" rx="4" fill="#FFE600" stroke="#000" stroke-width="1.5"/>
+          <text x="37" y="52" font-family="Segoe UI, sans-serif" font-size="18">📱</text>
+
+          <!-- DROPDOWN 2: DIMENSIONS -->
+          <rect x="80" y="27" width="150" height="40" rx="4" fill="#334155" stroke="#475569" stroke-width="1"/>
+          <text x="95" y="46" font-family="Segoe UI, sans-serif" font-size="12" fill="#94A3B8">Dimensi Layar:</text>
+          <text x="95" y="60" font-family="Segoe UI, sans-serif" font-size="12" font-weight="bold" fill="#FFF">Pixel 7 ▼</text>
+
+          <!-- INPUT 3: RESOLUSI LEBAR X TINGGI -->
+          <rect x="245" y="27" width="130" height="40" rx="4" fill="#334155" stroke="#475569" stroke-width="1"/>
+          <text x="258" y="52" font-family="Consolas, monospace" font-size="13" font-weight="bold" fill="#38BDF8">412 x 915</text>
+
+          <!-- DROPDOWN 4: ZOOM LEVEL -->
+          <rect x="390" y="27" width="80" height="40" rx="4" fill="#334155" stroke="#475569" stroke-width="1"/>
+          <text x="408" y="52" font-family="Segoe UI, sans-serif" font-size="12" font-weight="bold" fill="#FFF">100% ▼</text>
+
+          <!-- DROPDOWN 5: THROTTLING (JARINGAN) -->
+          <rect x="485" y="27" width="130" height="40" rx="4" fill="#334155" stroke="#475569" stroke-width="1"/>
+          <text x="498" y="46" font-family="Segoe UI, sans-serif" font-size="11" fill="#94A3B8">Jaringan Data:</text>
+          <text x="498" y="60" font-family="Segoe UI, sans-serif" font-size="12" font-weight="bold" fill="#4ADE80">Fast 3G ▼</text>
+
+          <!-- TOMBOL 6: ROTASI LAYAR -->
+          <rect x="630" y="27" width="40" height="40" rx="4" fill="#334155" stroke="#475569" stroke-width="1"/>
+          <text x="642" y="52" font-family="Segoe UI, sans-serif" font-size="16" fill="#FFF">🔄</text>
+
+          <!-- GARIS PENUNJUK & LABEL PENJELASAN -->
+          <line x1="45" y1="75" x2="45" y2="125" stroke="#000" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="25" y="140" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#000">1. Shortcut Sakti</text>
+          <text x="25" y="154" font-family="Segoe UI, sans-serif" font-size="10.5" fill="#475569">(Ctrl + Shift + M)</text>
+
+          <line x1="155" y1="75" x2="155" y2="125" stroke="#000" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="120" y="140" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#000">2. Preset Ponsel</text>
+          <text x="120" y="154" font-family="Segoe UI, sans-serif" font-size="10.5" fill="#475569">(iPhone, Galaxy, Pixel)</text>
+
+          <line x1="310" y1="75" x2="310" y2="125" stroke="#000" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="280" y="140" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#000">3. Resolusi Piksel</text>
+          <text x="280" y="154" font-family="Segoe UI, sans-serif" font-size="10.5" fill="#475569">(CSS Pixels Layar)</text>
+
+          <line x1="550" y1="75" x2="550" y2="125" stroke="#000" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="490" y="140" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#000">4. Simulasi Koneksi UT</text>
+          <text x="490" y="154" font-family="Segoe UI, sans-serif" font-size="10.5" fill="#475569">(Uji performa di daerah 3G)</text>
+
+          <line x1="650" y1="75" x2="650" y2="125" stroke="#000" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="620" y="140" font-family="Segoe UI, sans-serif" font-size="11" font-weight="bold" fill="#000">5. Rotasi HP</text>
+          <text x="620" y="154" font-family="Segoe UI, sans-serif" font-size="10.5" fill="#475569">(Portrait / Landscape)</text>
+        </svg>
       </div>
 
-      <div class="step-box">
-        <strong>Langkah 2: Aktifkan Toggle Device Toolbar</strong><br>
-        Tekan kombinasi tombol sakti: <span class="shortcut">Ctrl + Shift + M</span> (Windows) atau <span class="shortcut">Cmd + Shift + M</span> (Mac).
+      <div class="source-cite">
+        <strong>Referensi Akademik:</strong> Dokumentasi Resmi Google Chrome DevTools: "Simulate mobile devices with Device Mode" (developer.chrome.com/docs/devtools/device-mode/) & BMP UT STSI4303 Modul 1.
+      </div>
+    </div>
+
+    <!-- 3 LANGKAH PRAKTIS EKSEKUSI -->
+    <div class="card">
+      <h3 style="margin-top:0;">🚀 3 Langkah Praktis Mengaktifkan Device Toolbar di Laptop Anda:</h3>
+      
+      <div class="step-grid">
+        <div class="step-card">
+          <div style="font-weight:bold; color:var(--blue-ut); margin-bottom:6px;">LANGKAH 1: BUKA DEVTOOLS</div>
+          Tekan tombol <span class="shortcut-badge">F12</span> pada keyboard Anda, atau klik kanan sembarang di halaman ini lalu pilih <strong>Inspect (Periksa)</strong>.
+        </div>
+
+        <div class="step-card">
+          <div style="font-weight:bold; color:var(--blue-ut); margin-bottom:6px;">LANGKAH 2: AKTIFKAN DEVICE MODE</div>
+          Tekan tombol sakti: <span class="shortcut-badge">Ctrl + Shift + M</span> (Windows) atau <span class="shortcut-badge">Cmd + Shift + M</span> (Mac).
+        </div>
+
+        <div class="step-card">
+          <div style="font-weight:bold; color:var(--blue-ut); margin-bottom:6px;">LANGKAH 3: PILIH PERANGKAT</div>
+          Klik menu pilihan di sudut kiri atas dan pilih <strong>iPhone 14 Pro</strong> atau <strong>Pixel 7</strong>. Kursor Anda akan otomatis berubah menjadi lingkaran sentuhan jari!
+        </div>
       </div>
 
-      <div class="step-box">
-        <strong>Langkah 3: Pilih Model Smartphone</strong><br>
-        Di bagian atas layar peramban, pilih preset: <em>Pixel 7</em>, <em>iPhone 14 Pro</em>, atau <em>Responsive</em> untuk menguji rotasi layar portrait dan landscape!
-      </div>
-
-      <div class="live-indicator" id="dimensiLive">
-        Dimensi Jendela Anda Saat Ini: Mendeteksi...
+      <!-- LIVE DETEKTOR UKURAN JENDELA -->
+      <div class="live-monitor" id="liveSizeDetector">
+        Mendeteksi ukuran layar peramban Anda...
       </div>
     </div>
   </div>
 
   <script>
-    function perbaruiDimensi() {
+    function updateLiveSize() {
       const w = window.innerWidth;
       const h = window.innerHeight;
-      const mode = w < 600 ? "📱 Mode Smartphone Terdeteksi!" : "💻 Mode Layar Laptop/Desktop";
-      document.getElementById('dimensiLive').innerHTML = 
-        `Ukuran Layar: <strong>${w} x ${h} px</strong><br><span style="color:#0369A1;">${mode}</span>`;
+      let statusKategori = "";
+      let icon = "";
+
+      if (w < 600) {
+        statusKategori = "📱 Mode Smartphone (Mobile Viewport) Aktif!";
+        icon = "🎉 Sempurna! Anda sedang melihat tampilan aplikasi persis seperti di genggaman layar ponsel.";
+      } else if (w < 1024) {
+        statusKategori = "📲 Mode Tablet (Medium Viewport) Aktif!";
+        icon = "💡 Bagus! Tampilan ini menyerupai layar iPad atau tablet Android.";
+      } else {
+        statusKategori = "💻 Mode Laptop / Desktop Terdeteksi.";
+        icon = "👉 Tips: Tekan F12 lalu tekan <strong>Ctrl + Shift + M</strong> untuk mengubah jendela ini ke tampilan ponsel!";
+      }
+
+      document.getElementById('liveSizeDetector').innerHTML = `
+        <strong>Dimensi Jendela Anda Saat Ini:</strong> ${w} x ${h} piksel CSS<br>
+        <span style="font-size:15px; font-weight:bold; color:#0369A1;">${statusKategori}</span><br>
+        <span style="font-size:12.5px; color:#475569;">${icon}</span>
+      `;
     }
-    window.addEventListener('resize', perbaruiDimensi);
-    perbaruiDimensi();
+
+    window.addEventListener('resize', updateLiveSize);
+    updateLiveSize();
   </script>
 </body>
 </html>

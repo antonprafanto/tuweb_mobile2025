@@ -1,77 +1,322 @@
 <!DOCTYPE html>
 <!--
 =====================================================================
-MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303) - UT
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303)
+INSTITUSI   : FAKULTAS SAINS DAN TEKNOLOGI - UNIVERSITAS TERBUKA
+DOSEN       : ANTON PRAFANTO, S.Kom., M.T.
 SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
 SLIDE 08    : HELLO HYBRID WORLD (APLIKASI MOBILE PERTAMA ANDA)
 =====================================================================
-CARA MENJALANKAN:
-1. Klik ganda berkas ini untuk membuka langsung di Google Chrome / Edge.
-2. Coba klik tombol "Sentuh Interaksi Mobile" untuk melihat respon instan!
+CARA MENJALANKAN (RAMAH PEMULA):
+1. Anda TIDAK PERLU menginstal compiler Android berukuran puluhan gigabyte!
+2. Cukup klik ganda berkas ini di File Explorer untuk membuka di Google Chrome.
+3. Tekan F12 lalu tekan tombol kombinasi Ctrl + Shift + M untuk melihat
+   dalam mode simulasi smartphone presisi.
 =====================================================================
 -->
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Slide 08 - Hello Hybrid World UT</title>
+  <title>Slide 08: Hello Hybrid World — STSI4303 UT</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: #FAF8F5; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 12px; }
-    
-    /* Frame Simulasi Smartphone */
-    .mobile-frame { width: 100%; max-width: 380px; height: 640px; background: #ffffff; border-radius: 28px; box-shadow: 0 12px 32px rgba(0,0,0,0.18); overflow: hidden; display: flex; flex-direction: column; border: 6px solid #1E293B; }
-    .status-bar { height: 24px; background: #005691; color: white; font-size: 11px; display: flex; justify-content: space-between; align-items: center; padding: 0 16px; font-weight: bold; }
-    .app-header { background: #005691; color: #ffffff; padding: 16px; text-align: center; font-size: 17px; font-weight: 600; }
-    .content { padding: 18px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
-    .card { background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 12px; padding: 14px; }
-    .card h3 { color: #005691; margin-bottom: 6px; font-size: 15px; }
-    .card p { font-size: 13px; color: #475569; line-height: 1.5; }
-    .btn { background: #005691; color: white; border: none; border-radius: 8px; padding: 12px; font-size: 14px; font-weight: bold; cursor: pointer; text-align: center; }
-    .btn:active { background: #003e68; }
-    .device-info { font-size: 12px; color: #334155; background: #E2E8F0; padding: 10px; border-radius: 6px; line-height: 1.6; }
+    :root {
+      --bg: #FAF8F5;
+      --card: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+      --blue-ut: #005691;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+    body {
+      background-color: var(--bg);
+      margin: 0;
+      padding: 20px;
+      color: #000;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 920px;
+      width: 100%;
+    }
+    .header-banner {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 8px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .card {
+      background: var(--card);
+      border: 3px solid var(--border);
+      box-shadow: 6px 6px 0 var(--border);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 800px) {
+      .grid-layout { grid-template-columns: 1fr; }
+    }
+    /* Smartphone Frame */
+    .mobile-frame {
+      width: 100%;
+      max-width: 340px;
+      height: 580px;
+      background: #FFFFFF;
+      border-radius: 32px;
+      border: 6px solid #1E293B;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+    }
+    .status-bar {
+      height: 26px;
+      background: var(--blue-ut);
+      color: white;
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      font-weight: bold;
+    }
+    .app-header {
+      background: var(--blue-ut);
+      color: #ffffff;
+      padding: 14px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      border-bottom: 2px solid rgba(255,255,255,0.15);
+    }
+    .content {
+      padding: 16px;
+      flex: 1;
+      overflow-y: auto;
+      background: #F8FAFC;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .app-card {
+      background: #FFFFFF;
+      border: 2px solid #CBD5E1;
+      border-radius: 12px;
+      padding: 14px;
+    }
+    .app-card h3 {
+      color: var(--blue-ut);
+      margin: 0 0 6px 0;
+      font-size: 14.5px;
+    }
+    .app-card p {
+      font-size: 12.5px;
+      color: #475569;
+      line-height: 1.5;
+      margin: 0;
+    }
+    .device-info-box {
+      font-size: 11.5px;
+      color: #334155;
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      padding: 10px;
+      border-radius: 8px;
+      line-height: 1.6;
+      font-family: Consolas, monospace;
+    }
+    .btn-touch {
+      background: var(--blue-ut);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 13.5px;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      transition: all 0.2s ease;
+    }
+    .btn-touch:hover {
+      background: #004070;
+    }
+    .btn-touch:active {
+      transform: scale(0.97);
+    }
+    .explain-card {
+      border: 2px solid #000;
+      background: #F8FAFC;
+      padding: 16px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .code-block {
+      background: #1E293B;
+      color: #38BDF8;
+      padding: 12px;
+      border-radius: 6px;
+      font-family: Consolas, monospace;
+      font-size: 12px;
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
 
-  <!-- SIMULATOR LAYAR PONSEL -->
-  <div class="mobile-frame">
-    <div class="status-bar">
-      <span>09:41</span>
-      <span>UT-Mobile 4G 🔋 100%</span>
+  <div class="container">
+    <div class="header-banner">
+      <div class="badge-tag">SLIDE 08 • SESI 01 (MODUL 1 BMP UT - APLIKASI PERTAMA)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Hello Hybrid World: Meluncurkan Aplikasi Mobile Pertama Anda</h1>
+      <p style="margin: 0; font-size: 13px;">Pengalaman pertama menjalankan antarmuka ponsel pintar secara langsung dari peramban web dan membaca spesifikasi layar perangkat.</p>
     </div>
-    <div class="app-header">
-      STSI4303: MyUT Mobile
+
+    <div class="guide-box">
+      <strong>💡 Panduan Ramah Pemula:</strong><br>
+      Selamat datang di dunia pengembangan mobile! Perhatikan kotak ponsel di sebelah kiri. 
+      Itu bukan sekadar gambar mati, melainkan aplikasi fungsional yang membaca resolusi layar Anda secara langsung melalui JavaScript. Coba sentuh tombol di dalamnya!
     </div>
-    
-    <div class="content">
-      <div class="card">
-        <h3>Halo, Rekan Mahasiswa UT! 👋</h3>
-        <p>Selamat! Anda baru saja berhasil menjalankan <strong>Aplikasi Mobile Hybrid Pertama</strong> Anda tanpa perlu menginstal compiler berbobot gigabytes!</p>
+
+    <div class="card">
+      <div class="grid-layout">
+        <!-- SIMULASI PONSEL PINTAR -->
+        <div>
+          <div class="mobile-frame">
+            <div class="status-bar">
+              <span id="liveClock">09:41</span>
+              <span>📶 UT-Net • 🔋 100%</span>
+            </div>
+            <div class="app-header">
+              STSI4303: MyUT Mobile
+            </div>
+            
+            <div class="content">
+              <div class="app-card">
+                <h3>Halo, Mahasiswa Universitas Terbuka! 👋</h3>
+                <p>Selamat! Anda telah resmi menjalankan aplikasi mobile pertama Anda. Seluruh komponen ini dibangun dengan standar teknologi web murni.</p>
+              </div>
+
+              <div class="app-card">
+                <h3>Diagnostik Runtime Perangkat:</h3>
+                <div id="deviceDiagnostics" class="device-info-box">Mendeteksi perangkat...</div>
+              </div>
+
+              <button class="btn-touch" onclick="ujiSentuhan()">Uji Event Sentuhan (Touch)</button>
+              
+              <div id="touchFeedback" style="font-size: 12.5px; color: #059669; font-weight: bold; text-align: center; min-height: 18px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANEL PENJELASAN TEORITIS -->
+        <div>
+          <div class="explain-card">
+            <h3 style="margin-top:0; color:#005691;">🔍 Apa yang Sebenarnya Terjadi di Balik Layar?</h3>
+            <p>
+              Ketika berkas HTML ini dimuat, mesin JavaScript di dalam peramban mengeksekusi objek global <code>window</code> dan <code>navigator</code> untuk mengenali lingkungan fisik perangkat Anda.
+            </p>
+            <div class="code-block">
+// Membaca resolusi viewport aplikasi mobile:
+const lebar = window.innerWidth;
+const tinggi = window.innerHeight;
+
+// Memeriksa apakah layar mendukung sentuhan jari (Touchscreen):
+const punyaLayarSentuh = ('ontouchstart' in window);
+            </div>
+          </div>
+
+          <div class="explain-card">
+            <h4 style="margin-top:0; color:#0F172A;">🎯 Mengapa Pendekatan Ini Revolusioner untuk Mahasiswa?</h4>
+            <ul style="padding-left: 18px; margin: 6px 0;">
+              <li><strong>Zero Heavy Software:</strong> Anda tidak perlu laptop dengan RAM 16GB hanya untuk mulai belajar membuat aplikasi mobile.</li>
+              <li><strong>Siklus Uji Kilat:</strong> Mengubah kode di VS Code dan melihat hasilnya hanya butuh waktu kurang dari 1 detik.</li>
+              <li><strong>Kompatibilitas Luas:</strong> Kode yang sama persis dapat dikemas menjadi aplikasi Android (.apk) menggunakan Capacitor di Sesi 07 nanti.</li>
+            </ul>
+          </div>
+        </div>
       </div>
 
-      <div class="card">
-        <h3>Diagnostik WebView Saat Ini:</h3>
-        <div id="info" class="device-info">Mendeteksi perangkat...</div>
+      <div class="source-cite">
+        <strong>Referensi Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303 Modul 1 Kegiatan Belajar 2 (Lingkungan Pengembangan Piranti Bergerak) & MDN Web Docs: Window and Viewport Architecture.
       </div>
-
-      <button class="btn" onclick="tampilkanSalam()">Sentuh Interaksi Mobile</button>
-      <div id="notifikasi" style="font-size: 13px; color: #059669; font-weight: bold; text-align: center;"></div>
     </div>
   </div>
 
   <script>
-    // Membaca informasi resolusi dan peramban WebView secara dinamis
-    document.getElementById('info').innerHTML = `
-      • Dimensi Layar : <strong>${window.innerWidth} x ${window.innerHeight} px</strong><br>
-      • Mesin WebView : <strong>${navigator.userAgent.slice(0, 32)}...</strong><br>
-      • Platform OS   : <strong>${navigator.platform}</strong>
-    `;
+    // Memperbarui jam di status bar ponsel
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const mins = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('liveClock').innerText = `${hours}:${mins}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
 
-    function tampilkanSalam() {
-      const notif = document.getElementById('notifikasi');
-      notif.innerText = '🎉 Event sentuhan (Touch Event) berhasil diproses!';
-      setTimeout(() => notif.innerText = '', 3500);
+    // Membaca diagnostik perangkat secara langsung
+    function updateDeviceDiagnostics() {
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      const dpr = window.devicePixelRatio || 1;
+      const diagEl = document.getElementById('deviceDiagnostics');
+
+      diagEl.innerHTML = `
+        • Dimensi Viewport : <strong>${window.innerWidth} x ${window.innerHeight} px</strong><br>
+        • Rasio Pixel Layar : <strong>${dpr}x (Retina/High-DPI)</strong><br>
+        • Dukungan Touch   : <strong>${isTouch ? 'Ya (Layar Sentuh)' : 'Simulasi Mouse/Kursor'}</strong><br>
+        • Mesin Peramban   : <strong>${navigator.userAgent.slice(0, 30)}...</strong>
+      `;
+    }
+    window.addEventListener('resize', updateDeviceDiagnostics);
+    updateDeviceDiagnostics();
+
+    // Simulasi interaksi sentuh
+    let hitungan = 0;
+    function ujiSentuhan() {
+      hitungan++;
+      const el = document.getElementById('touchFeedback');
+      el.innerHTML = `🎉 Sentuhan ke-${hitungan} sukses diterima oleh mesin aplikasi!`;
+      setTimeout(() => {
+        el.innerHTML = "";
+      }, 3000);
     }
   </script>
 </body>

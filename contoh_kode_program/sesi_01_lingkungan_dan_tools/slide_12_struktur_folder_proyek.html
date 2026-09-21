@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!--
+=====================================================================
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303)
+INSTITUSI   : FAKULTAS SAINS DAN TEKNOLOGI - UNIVERSITAS TERBUKA
+DOSEN       : ANTON PRAFANTO, S.Kom., M.T.
+SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
+SLIDE 12    : ANATOMI STRUKTUR FOLDER PROYEK IONIC VUE 3
+=====================================================================
+CARA MENJALANKAN (RAMAH PEMULA):
+1. Cukup klik ganda berkas ini di File Explorer untuk membuka di Google Chrome.
+2. Klik nama folder atau berkas di sebelah kiri untuk melihat penjelasan,
+   tingkat kepentingan, dan contoh kodenya!
+=====================================================================
+-->
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 12: Eksplorer Struktur Folder Proyek — STSI4303 UT</title>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+      --blue-ut: #005691;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+    body {
+      background-color: var(--bg);
+      margin: 0;
+      padding: 20px;
+      color: #000;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 920px;
+      width: 100%;
+    }
+    .header-banner {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 8px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .card {
+      background: var(--card);
+      border: 3px solid var(--border);
+      box-shadow: 6px 6px 0 var(--border);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .explorer-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .explorer-grid { grid-template-columns: 1fr; }
+    }
+    /* Tree List */
+    .tree-box {
+      background: #F8FAFC;
+      border: 2px solid var(--border);
+      padding: 14px;
+      font-family: Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+    .tree-item {
+      cursor: pointer;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+      user-select: none;
+    }
+    .tree-item:hover {
+      background: #E2E8F0;
+    }
+    .tree-item.active {
+      background: var(--yellow);
+      font-weight: bold;
+      border: 1px solid #000;
+    }
+    .indent-1 { margin-left: 18px; }
+    .indent-2 { margin-left: 36px; }
+    /* Detail Box */
+    .detail-box {
+      border: 2px solid var(--border);
+      background: #FFFFFF;
+      padding: 20px;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .badge-priority {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 11px;
+      border: 1.5px solid #000;
+      margin-bottom: 12px;
+    }
+    .p-green { background: #DCFCE7; color: #166534; }
+    .p-yellow { background: #FEF9C3; color: #854D0E; }
+    .p-red { background: #FEE2E2; color: #991B1B; }
+    .code-preview {
+      background: #0F172A;
+      color: #38BDF8;
+      padding: 12px;
+      border-radius: 6px;
+      font-family: Consolas, monospace;
+      font-size: 12px;
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header-banner">
+      <div class="badge-tag">SLIDE 12 • SESI 01 (MODUL 1 BMP UT - STRUKTUR PROYEK)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Eksplorer Interaktif: Struktur Folder Proyek Ionic Vue 3</h1>
+      <p style="margin: 0; font-size: 13px;">Peta navigasi kode program: Mengetahui di mana tempat menulis kode, di mana mengatur tema, dan folder mana yang tidak boleh diedit manual!</p>
+    </div>
+
+    <div class="guide-box">
+      <strong>💡 Panduan Ramah Pemula:</strong><br>
+      Saat pertama kali membuat proyek Ionic, Anda akan melihat puluhan berkas. Jangan panik! Anda tidak perlu menguasai semuanya sekaligus. 
+      Klik pada pohon folder di bawah untuk melihat fungsi masing-masing berkas beserta tanda warnanya.
+    </div>
+
+    <div class="card">
+      <div class="explorer-grid">
+        <!-- POHON DIREKTORI -->
+        <div class="tree-box">
+          <div style="font-weight:bold; color:#005691; margin-bottom:8px; border-bottom:1px solid #CBD5E1; padding-bottom:4px;">
+            📁 myut-app/
+          </div>
+          <div class="tree-item indent-1" onclick="showDetail('node_modules')">📁 node_modules/</div>
+          <div class="tree-item indent-1" onclick="showDetail('public')">📁 public/</div>
+          <div class="tree-item indent-1 active" onclick="showDetail('src')">📁 src/ [JANTUNG APLIKASI]</div>
+          <div class="tree-item indent-2" onclick="showDetail('components')">📁 components/</div>
+          <div class="tree-item indent-2" onclick="showDetail('router')">📁 router/</div>
+          <div class="tree-item indent-2" onclick="showDetail('theme')">📁 theme/</div>
+          <div class="tree-item indent-2" onclick="showDetail('views')">📁 views/ [LAYAR APLIKASI]</div>
+          <div class="tree-item indent-2" onclick="showDetail('App.vue')">📄 App.vue</div>
+          <div class="tree-item indent-2" onclick="showDetail('main.ts')">📄 main.ts</div>
+          <div class="tree-item indent-1" onclick="showDetail('android')">📁 android/</div>
+          <div class="tree-item indent-1" onclick="showDetail('capacitor.config')">📄 capacitor.config.ts</div>
+          <div class="tree-item indent-1" onclick="showDetail('package.json')">📄 package.json</div>
+          <div class="tree-item indent-1" onclick="showDetail('vite.config')">📄 vite.config.ts</div>
+        </div>
+
+        <!-- PANEL DETAIL & CONTOH KODE -->
+        <div class="detail-box" id="detailPane">
+          <!-- Diisi otomatis oleh JavaScript -->
+        </div>
+      </div>
+
+      <div class="source-cite">
+        <strong>Referensi Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303 Modul 1 & Dokumentasi Resmi Ionic Framework Project Structure (ionicframework.com/docs/vue/overview).
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const folderData = {
+      'src': {
+        title: "📁 src/ (Source Code Utama)",
+        priority: "🟢 PRIORITAS UTAMA (Tempat Anda Bekerja)",
+        badgeClass: "p-green",
+        desc: "Inilah jantung dan dapur utama dari seluruh aplikasi mobile kita! Sekitar 95% waktu pengerjaan tugas kuliah dan proyek mandiri akan dihabiskan di dalam folder ini.",
+        subfolders: "Menaungi subfolder penting: <code>views/</code> (halaman layar), <code>theme/</code> (warna CSS), <code>components/</code> (tombol/kartu kustom), dan <code>router/</code> (navigasi).",
+        code: `// Struktur isi src/:
+src/
+├── components/   -> Komponen UI yang sering dipakai ulang
+├── router/       -> Navigasi perpindahan antar layar
+├── theme/        -> Palet warna tema biru UT & dark mode
+├── views/        -> Halaman-halaman aplikasi (Home, Profil, dll.)
+├── App.vue       -> Komponen akar pembungkus <ion-app>
+└── main.ts       -> Titik pertama program dieksekusi (Entry Point)`
+      },
+      'views': {
+        title: "📁 src/views/ (Layar-Layar Aplikasi)",
+        priority: "🟢 PRIORITAS TERTINGGI (Koding Tugas Di Sini)",
+        badgeClass: "p-green",
+        desc: "Tempat Anda membuat halaman antarmuka aplikasi mobile. Setiap berkas <code>.vue</code> di sini mewakili satu layar penuh di ponsel mahasiswa, misalnya halaman Beranda, Transkrip Nilai, dan Profil Pengguna.",
+        subfolders: "Setiap berkas berformat Single File Component (SFC) yang memiliki 3 bagian: template tampilan, script logika, dan style.",
+        code: `<!-- Contoh isi src/views/ProfilMhs.vue -->
+<template>
+  <ion-page>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Profil Mahasiswa</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <h3>Budi Santoso - 041234567</h3>
+    </ion-content>
+  </ion-page>
+</template>`
+      },
+      'theme': {
+        title: "📁 src/theme/ (Tema & Variabel CSS)",
+        priority: "🟢 PRIORITAS TINGGI (Desain Visual & Branding)",
+        badgeClass: "p-green",
+        desc: "Menaungi berkas <code>variables.css</code>. Di sinilah Anda menetapkan warna resmi Universitas Terbuka (Biru UT <code>#005691</code> dan Kuning Aksen <code>#FFE600</code>) serta aturan Dark Mode otomatis.",
+        subfolders: "Menggunakan CSS Custom Properties (CSS Variables) standar W3C.",
+        code: `/* Contoh di dalam src/theme/variables.css */
+:root {
+  --ion-color-primary: #005691;          /* Warna Biru Khas UT */
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-secondary: #ffe600;        /* Warna Kuning Emas UT */
+  --ion-color-secondary-contrast: #000000;
+}`
+      },
+      'router': {
+        title: "📁 src/router/ (Peta Navigasi Aplikasi)",
+        priority: "🟡 PRIORITAS MENENGAH (Dikonfigurasi Saat Tambah Halaman)",
+        badgeClass: "p-yellow",
+        desc: "Mengatur rute perpindahan antar layar menggunakan <strong>Vue Router</strong>. Setiap kali Anda membuat file baru di <code>views/</code>, daftarkan jalurnya di berkas <code>index.ts</code> ini agar tombol di aplikasi tahu harus membuka layar mana.",
+        subfolders: "Mendukung rute dengan parameter, misalnya <code>/mahasiswa/:nim</code>.",
+        code: `// Contoh isi src/router/index.ts
+const routes = [
+  { path: '/', redirect: '/home' },
+  { path: '/home', component: () => import('@/views/HomePage.vue') },
+  { path: '/profil', component: () => import('@/views/ProfilPage.vue') }
+];`
+      },
+      'components': {
+        title: "📁 src/components/ (Komponen Modular Reusable)",
+        priority: "🟡 PRIORITAS MENENGAH (Membuat Kode Rapi)",
+        badgeClass: "p-yellow",
+        desc: "Menyimpan potongan antarmuka kecil yang dipakai berulang-ulang di berbagai layar, misalnya Kartu Mahasiswa, Header Khusus, atau Tombol Hubungi Tutor.",
+        subfolders: "Membantu kode program Anda tetap bersih dan tidak bertumpuk ratusan baris di satu file.",
+        code: `<!-- Contoh src/components/KartuMhs.vue -->
+<template>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ nama }}</ion-card-title>
+      <ion-card-subtitle>{{ nim }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+</template>`
+      },
+      'App.vue': {
+        title: "📄 src/App.vue (Komponen Akar Aplikasi)",
+        priority: "🟡 PRIORITAS MENENGAH (Wadah Seluruh Layar)",
+        badgeClass: "p-yellow",
+        desc: "Komponen paling puncak yang membungkus seluruh aplikasi di dalam tag <code>&lt;ion-app&gt;</code> dan <code>&lt;ion-router-outlet&gt;</code>.",
+        subfolders: "Jarang diubah setelah inisialisasi awal, kecuali untuk menambahkan menu laci samping (*Side Drawer Menu*).",
+        code: `<template>
+  <ion-app>
+    <!-- Seluruh pergantian halaman dirender di dalam sini -->
+    <ion-router-outlet />
+  </ion-app>
+</template>`
+      },
+      'main.ts': {
+        title: "📄 src/main.ts (Titik Masuk Eksekusi)",
+        priority: "🟡 PRIORITAS MENENGAH (Inisialisasi Pustaka)",
+        badgeClass: "p-yellow",
+        desc: "Berkas JavaScript/TypeScript pertama yang dibaca saat aplikasi dijalankan. Berisi perintah untuk memasang Ionic Framework ke dalam ekosistem Vue 3.",
+        subfolders: "Mengimpor CSS bundel inti Ionic dan mendaftarkan plugin.",
+        code: `import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import { IonicVue } from '@ionic/vue';
+
+const app = createApp(App)
+  .use(IonicVue)
+  .use(router);
+
+router.isReady().then(() => {
+  app.mount('#app');
+});`
+      },
+      'node_modules': {
+        title: "📁 node_modules/ (Gudang Pustaka NPM)",
+        priority: "🔴 JANGAN DIEDIT MANUAL (Dikelola Otomatis oleh NPM)",
+        badgeClass: "p-red",
+        desc: "Berisi ribuan file pustaka pihak ketiga yang diunduh oleh NPM. Folder ini berukuran ratusan megabyte.",
+        subfolders: "<strong>Peringatan Dosen:</strong> Jangan pernah mengedit atau menghapus berkas di dalam folder ini secara langsung, dan jangan mengunggah (push) folder ini ke repositori Git / tugas kuliah!",
+        code: `// Folder ini diabaikan oleh Git melalui berkas .gitignore:
+node_modules/`
+      },
+      'public': {
+        title: "📁 public/ (Aset Publik Statis)",
+        priority: "🟢 PRIORITAS PRAKTIS (Logo, Ikon, Gambar)",
+        badgeClass: "p-green",
+        desc: "Tempat menyimpan aset gambar, logo Universitas Terbuka, berkas favicon.ico, dan berkas JSON statis yang dapat diakses langsung oleh peramban tanpa melalui proses kompilasi bundler.",
+        subfolders: "Berkas di dalam folder ini langsung tersalin utuh ke folder rilis saat menjalankan `ionic build`.",
+        code: `public/
+├── favicon.png       -> Ikon browser
+└── assets/
+    └── logo-ut.png   -> Logo resmi universitas`
+      },
+      'android': {
+        title: "📁 android/ (Proyek Android Studio Native)",
+        priority: "🟡 FOKUS SESI 07 (Kompilasi APK Native)",
+        badgeClass: "p-yellow",
+        desc: "Dihasilkan secara otomatis oleh perintah <code>npx cap add android</code>. Berisi struktur proyek Java / Kotlin lengkap yang siap dibuka di Android Studio untuk menghasilkan berkas instalasi <code>.apk</code>.",
+        subfolders: "Akan dibahas mendalam saat kita memasuki materi Sesi 07.",
+        code: `android/
+├── app/src/main/
+│   ├── assets/public/  -> Tempat aset web kita disalin oleh Capacitor
+│   └── AndroidManifest.xml
+└── build.gradle`
+      },
+      'capacitor.config': {
+        title: "📄 capacitor.config.ts (Identitas Aplikasi Mobile)",
+        priority: "🟡 PENTING UNTUK IDENTITAS APK",
+        badgeClass: "p-yellow",
+        desc: "Menentukan nama aplikasi (misal: 'MyUT Mobile'), ID paket unik (misal: 'id.ac.ut.myut'), dan folder aset web.",
+        subfolders: "Dosen akan memeriksa file ini untuk memastikan nama aplikasi tugas Anda tidak tertukar dengan mahasiswa lain.",
+        code: `import type { CapacitorConfig } from '@capacitor/cli';
+
+const config: CapacitorConfig = {
+  appId: 'id.ac.ut.myut',
+  appName: 'MyUT Mobile',
+  webDir: 'dist'
+};
+export default config;`
+      },
+      'package.json': {
+        title: "📄 package.json (Buku Resep & Daftar Dependensi)",
+        priority: "🟡 PENTING (Informasi Versi & Skrip)",
+        badgeClass: "p-yellow",
+        desc: "Mencatat versi Ionic, Vue, Capacitor, serta perintah jalan pintas seperti <code>npm run dev</code> dan <code>npm run build</code>.",
+        subfolders: "Jika Anda berpindah laptop, cukup ketik <code>npm install</code> dan berkas ini akan mengunduh semua pustaka yang cocok secara otomatis!",
+        code: `{
+  "name": "myut-app",
+  "version": "0.0.1",
+  "dependencies": {
+    "@ionic/vue": "^7.5.0",
+    "@ionic/vue-router": "^7.5.0",
+    "vue": "^3.4.0",
+    "vue-router": "^4.3.0"
+  }
+}`
+      },
+      'vite.config': {
+        title: "📄 vite.config.ts (Konfigurasi Bundler Vite)",
+        priority: "🟡 PRIORITAS RENDAH (Standar Bawaan)",
+        badgeClass: "p-yellow",
+        desc: "Mengatur mesin bundler kilat Vite agar mendukung Hot Module Replacement (HMR) dan resolusi alias path (seperti tanda <code>@/</code> menuju folder <code>src/</code>).",
+        subfolders: "Sudah terkonfigurasi sempurna sejak awal pembuatan proyek, jarang perlu disentuh mahasiswa pemula.",
+        code: `import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: { '@': path.resolve(__dirname, './src') }
+  }
+});`
+      }
+    };
+
+    function showDetail(key) {
+      // Tandai item yang aktif di tree
+      const items = document.querySelectorAll('.tree-item');
+      items.forEach(el => {
+        if (el.innerText.includes(key)) el.classList.add('active');
+        else el.classList.remove('active');
+      });
+
+      const data = folderData[key] || folderData['src'];
+      const pane = document.getElementById('detailPane');
+
+      pane.innerHTML = `
+        <span class="badge-priority ${data.badgeClass}">${data.priority}</span>
+        <h2 style="margin:0 0 10px 0; font-size:20px; color:#005691;">${data.title}</h2>
+        <p style="font-size:13.5px; line-height:1.6; margin:0 0 10px 0;">${data.desc}</p>
+        <p style="font-size:12.5px; color:#475569; margin:0 0 10px 0;">${data.subfolders}</p>
+        <div style="font-size:12px; font-weight:bold; margin-top:12px;">💻 Contoh Tinjauan Kode di Dalamnya:</div>
+        <div class="code-preview">${data.code}</div>
+      `;
+    }
+
+    // Tampilkan 'src' secara default saat pertama kali dimuat
+    showDetail('src');
+  </script>
+</body>
+</html>

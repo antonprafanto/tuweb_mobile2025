@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<!--
+=====================================================================
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303)
+INSTITUSI   : FAKULTAS SAINS DAN TEKNOLOGI - UNIVERSITAS TERBUKA
+DOSEN       : ANTON PRAFANTO, S.Kom., M.T.
+SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
+SLIDE 15    : PERTOLONGAN PERTAMA: MENGATASI ERROR POWERSHELL WINDOWS
+=====================================================================
+CARA MENJALANKAN (RAMAH PEMULA):
+1. Cukup klik ganda berkas ini di File Explorer untuk membuka di Google Chrome.
+2. Jika Anda menemui pesan error teks merah saat mengetik 'ionic' di VS Code,
+   salin mantra perbaikan 1-langkah di bawah ini!
+=====================================================================
+-->
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 15: Mengatasi Error PowerShell Execution Policy — STSI4303 UT</title>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+      --blue-ut: #005691;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+    body {
+      background-color: var(--bg);
+      margin: 0;
+      padding: 20px;
+      color: #000;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 920px;
+      width: 100%;
+    }
+    .header-banner {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 8px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .card {
+      background: var(--card);
+      border: 3px solid var(--border);
+      box-shadow: 6px 6px 0 var(--border);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    /* Red Error Mockup */
+    .error-box {
+      background: #450A0A;
+      color: #FCA5A5;
+      border: 2px solid #DC2626;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: Consolas, monospace;
+      font-size: 12.5px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+    .solution-card {
+      border: 2.5px solid var(--border);
+      padding: 18px;
+      margin-bottom: 16px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .sol-primary { background: #ECFDF5; border-color: #059669; }
+    .sol-secondary { background: #F8FAFC; border-color: #64748B; }
+    .code-snippet {
+      background: #0F172A;
+      color: #38BDF8;
+      padding: 12px;
+      border-radius: 6px;
+      font-family: Consolas, monospace;
+      font-size: 13px;
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .copy-btn {
+      background: var(--yellow);
+      color: #000;
+      border: 2px solid #000;
+      padding: 6px 12px;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 #000;
+    }
+    .copy-btn:hover { background: #EAB308; }
+    .copy-btn:active { transform: translate(1px, 1px); box-shadow: 0 0 0 #000; }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header-banner">
+      <div class="badge-tag">SLIDE 15 • SESI 01 (MODUL 1 BMP UT - PROTOKOL TROUBLESHOOTING)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Protokol Pertolongan Pertama: Mengatasi Error PowerShell di Windows</h1>
+      <p style="margin: 0; font-size: 13px;">Solusi tuntas untuk error <em>PSSecurityException (running scripts is disabled)</em> yang paling sering dihadapi mahasiswa saat mengetik perintah CLI.</p>
+    </div>
+
+    <div class="guide-box">
+      <strong>💡 JANGAN PANIK! Pesan Ini Bukan Tanda Kerusakan:</strong><br>
+      Jika Anda mengetik <code>ionic -v</code> lalu terminal VS Code Anda berubah menjadi merah pekat dengan tulisan bahasa Inggris yang panjang, tarik napas dalam-dalam. 
+      Laptop Anda <strong>TIDAK RUSAK</strong> dan Anda <strong>TIDAK SALAH</strong> menginstal. Ini adalah fitur proteksi bawaan Windows yang memblokir eksekusi skrip otomatis.
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0; color:#DC2626;">❌ Gejala Error Klasik yang Sering Muncul:</h3>
+      
+      <div class="error-box">
+ionic : File C:\Users\mahasiswa\AppData\Roaming\npm\ionic.ps1 cannot be loaded because 
+running scripts is disabled on this system.
+For more information, see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+At line:1 char:1
++ ionic -v
++ ~~~~~
+    + CategoryInfo          : SecurityError: (:) [], PSSecurityException
+    + FullyQualifiedErrorId : UnauthorizedAccess
+      </div>
+
+      <!-- SOLUSI 1 -->
+      <div class="solution-card sol-primary">
+        <h3 style="margin-top:0; color:#065F46;">✅ Solusi 1 (Rekomendasi Utama Dosen): Buka Izin Skrip Akun Anda</h3>
+        <p style="margin:0 0 8px 0;">
+          Jalankan satu baris perintah di bawah ini di terminal VS Code atau PowerShell Anda. Perintah ini hanya memberi izin pada akun Windows Anda saat ini secara aman tanpa mengganggu sistem komputer lainnya:
+        </p>
+
+        <div class="code-snippet">
+          <span id="cmdScript">Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</span>
+          <button class="copy-btn" onclick="salinMantra()">📋 Salin Perintah Ini</button>
+        </div>
+
+        <ol style="margin:10px 0 0 0; padding-left:20px;">
+          <li>Buka terminal VS Code (<span style="background:#000; color:#FFE600; padding:1px 5px; font-family:Consolas,monospace; border-radius:3px;">Ctrl + `</span>).</li>
+          <li>Tempelkan (<span style="font-weight:bold;">Ctrl + V</span>) perintah di atas lalu tekan <strong>Enter</strong>.</li>
+          <li>Jika muncul pertanyaan konfirmasi <em>[Y] Yes  [A] Yes to All</em>, cukup ketik huruf <strong>`Y`</strong> lalu tekan <strong>Enter</strong>.</li>
+          <li>Ketik ulang <code>ionic -v</code>, dan pesan merah akan hilang seketika!</li>
+        </ol>
+      </div>
+
+      <!-- SOLUSI 2 -->
+      <div class="solution-card sol-secondary">
+        <h3 style="margin-top:0; color:#0F172A;">🛠️ Solusi 2 (Alternatif Tanpa Ubah Pengaturan): Beralih ke Git Bash / CMD</h3>
+        <p style="margin:0 0 8px 0;">
+          Jika laptop yang Anda gunakan adalah laptop kantor atau laptop pinjaman yang tidak mengizinkan perubahan kebijakan:
+        </p>
+        <ol style="margin:0; padding-left:20px;">
+          <li>Pada panel terminal VS Code di bagian bawah, klik tanda panah ke bawah (<code>v</code>) di sebelah tanda tambah (<code>+</code>).</li>
+          <li>Pilih <strong>Git Bash</strong> atau <strong>Command Prompt (cmd)</strong> sebagai terminal default.</li>
+          <li>Di terminal Git Bash atau CMD, seluruh perintah <code>ionic</code>, <code>node</code>, dan <code>npm</code> dapat berjalan langsung tanpa hambatan kebijakan PowerShell!</li>
+        </ol>
+      </div>
+
+      <div class="source-cite">
+        <strong>Referensi Akademik:</strong> Dokumentasi Resmi Microsoft Learn: "about_Execution_Policies" (learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_execution_policies) & Panduan Praktikum Mandiri BMP UT STSI4303 Modul 1.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function salinMantra() {
+      const text = document.getElementById('cmdScript').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("✅ Perintah berhasil disalin ke clipboard:\n\n" + text + "\n\nSekarang buka terminal VS Code (Ctrl + ~), paste (Ctrl + V), dan tekan Enter!");
+      });
+    }
+  </script>
+</body>
+</html>

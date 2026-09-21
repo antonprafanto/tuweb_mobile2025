@@ -1,114 +1,200 @@
 <!DOCTYPE html>
-<!--
-=====================================================================
-MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303) - UT
-SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
-SLIDE 02    : RELEVANSI INDUSTRI & KALKULATOR EFISIENSI HYBRID APP
-=====================================================================
-CARA MENJALANKAN:
-1. Cukup klik ganda (double click) berkas ini untuk membukanya di browser!
-2. Atau klik kanan -> Open with Google Chrome / Microsoft Edge
-=====================================================================
--->
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slide 02 - Efisiensi Arsitektur Hybrid Mobile</title>
+  <title>Slide 02: Relevansi Industri & Efisiensi Arsitektur Hybrid — STSI4303</title>
   <style>
     :root {
       --bg: #FAF8F5;
       --card: #FFFFFF;
-      --black: #000000;
+      --border: #000000;
       --yellow: #FFE600;
       --cyan: #38BDF8;
       --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
     }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--bg);
       margin: 0;
-      padding: 24px;
-      color: #121212;
+      padding: 20px;
+      color: #000;
       display: flex;
       justify-content: center;
     }
     .container {
-      max-width: 600px;
+      max-width: 860px;
       width: 100%;
     }
-    .badge {
-      display: inline-block;
+    .header-banner {
       background: var(--yellow);
-      border: 2px solid var(--black);
-      font-weight: bold;
-      font-size: 12px;
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
+      display: inline-block;
       padding: 4px 10px;
-      box-shadow: 3px 3px 0 var(--black);
-      margin-bottom: 12px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 8px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 12px 16px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      line-height: 1.5;
     }
     .card {
       background: var(--card);
-      border: 2.5px solid var(--black);
-      box-shadow: 6px 6px 0 var(--black);
-      padding: 20px;
+      border: 3px solid var(--border);
+      box-shadow: 6px 6px 0 var(--border);
+      padding: 24px;
       margin-bottom: 20px;
     }
-    h2 { margin-top: 0; font-size: 20px; }
-    p { font-size: 14px; line-height: 1.6; }
     .calc-box {
-      background: #F1F5F9;
-      border: 2px solid var(--black);
-      padding: 14px;
-      margin-top: 14px;
+      background: #F8FAFC;
+      border: 2px solid var(--border);
+      padding: 16px;
+      margin-top: 16px;
     }
-    label { font-size: 13px; font-weight: bold; display: block; margin-bottom: 6px; }
-    input[type="range"] { width: 100%; margin-bottom: 10px; }
     .result-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
       margin-top: 14px;
     }
     .result-card {
-      padding: 12px;
-      border: 2px solid var(--black);
+      padding: 14px;
+      border: 2px solid var(--border);
       font-size: 13px;
+      line-height: 1.5;
     }
     .native-res { background: #FEE2E2; }
-    .hybrid-res { background: #DCFCE7; font-weight: bold; }
+    .hybrid-res { background: #DCFCE7; }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
+
   <div class="container">
-    <div class="badge">STSI4303 • SESI 01 • SLIDE 02</div>
+    <div class="header-banner">
+      <div class="badge-tag">SLIDE 02 • SESI 01 (MODUL 1 BMP UT - RELEVANSI INDUSTRI)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Mengapa Industri & Universitas Terbuka Memilih Arsitektur Hybrid?</h1>
+      <p style="margin: 0; font-size: 13px;">Analisis efisiensi biaya, kecepatan distribusi, dan strategi satu basis kode (single codebase) untuk melayani ratusan ribu mahasiswa.</p>
+    </div>
+
+    <div class="guide-box">
+      <strong>💡 Panduan Ramah Pemula:</strong><br>
+      Anda sedang melihat perbandingan nyata antara <em>Native Murni</em> vs <em>Hybrid Mobile</em>. Geser slider di bawah ini untuk melihat simulasi perbedaan waktu dan biaya pengerjaan aplikasi!
+    </div>
+
+    <!-- DIAGRAM VISUAL ARSITEKTUR KOMPARASI -->
     <div class="card">
-      <h2>📱 Mengapa Industri & UT Memilih Arsitektur Hybrid?</h2>
-      <p>
-        Di era modern, institusi seperti Universitas Terbuka melayani ratusan ribu mahasiswa dengan berbagai macam perangkat (Android, iOS, dan Web Portal).
-        Membangun 3 aplikasi terpisah dengan tim Native membutuhkan biaya dan waktu 3x lipat!
+      <h3 style="margin-top:0;">📊 Diagram Komparasi: Pendekatan Tradisional vs Pendekatan Hybrid</h3>
+      <p style="font-size:13px; color:#475569;">
+        Perhatikan bagaimana arsitektur hybrid menyederhanakan tim dan alur kerja pengembangan:
       </p>
 
+      <!-- SVG DIAGRAM RESPONSIF -->
+      <div style="width: 100%; overflow-x: auto; background: #FFF; border: 2px solid #000; padding: 12px; margin-bottom: 16px;">
+        <svg viewBox="0 0 760 260" width="100%" height="240" xmlns="http://www.w3.org/2000/svg">
+          <!-- SISI KIRI: NATIVE TRADISIONAL -->
+          <g>
+            <rect x="10" y="10" width="350" height="240" fill="#FFF5F5" stroke="#000" stroke-width="2"/>
+            <text x="25" y="35" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" fill="#B91C1C">❌ Pendekatan Native (3 Basis Kode Terpisah)</text>
+            
+            <!-- Box 1 -->
+            <rect x="25" y="55" width="320" height="50" fill="#FEE2E2" stroke="#000" stroke-width="1.5"/>
+            <text x="35" y="76" font-family="Segoe UI" font-size="12" font-weight="bold">📱 Tim Android</text>
+            <text x="35" y="94" font-family="Segoe UI" font-size="11" fill="#4B5563">Bahasa: Java / Kotlin • Alat: Android Studio</text>
+
+            <!-- Box 2 -->
+            <rect x="25" y="115" width="320" height="50" fill="#FEE2E2" stroke="#000" stroke-width="1.5"/>
+            <text x="35" y="136" font-family="Segoe UI" font-size="12" font-weight="bold">🍏 Tim iOS (iPhone)</text>
+            <text x="35" y="154" font-family="Segoe UI" font-size="11" fill="#4B5563">Bahasa: Swift / Objective-C • Alat: Xcode (Mac Only)</text>
+
+            <!-- Box 3 -->
+            <rect x="25" y="175" width="320" height="50" fill="#FEE2E2" stroke="#000" stroke-width="1.5"/>
+            <text x="35" y="196" font-family="Segoe UI" font-size="12" font-weight="bold">🌐 Tim Web Portal</text>
+            <text x="35" y="214" font-family="Segoe UI" font-size="11" fill="#4B5563">Bahasa: HTML / CSS / JS • Alat: Browser</text>
+          </g>
+
+          <!-- SISI KANAN: HYBRID MODERN -->
+          <g>
+            <rect x="390" y="10" width="360" height="240" fill="#F0FDF4" stroke="#000" stroke-width="2"/>
+            <text x="405" y="35" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" fill="#15803D">✅ Pendekatan Hybrid (1 Single Codebase)</text>
+
+            <rect x="405" y="55" width="330" height="75" fill="#FFE600" stroke="#000" stroke-width="2"/>
+            <text x="420" y="80" font-family="Segoe UI" font-size="13" font-weight="bold">🚀 Satu Basis Kode Web Standar</text>
+            <text x="420" y="100" font-family="Segoe UI" font-size="11" fill="#000">Vue.js 3 + TypeScript + Ionic Web Components</text>
+            <text x="420" y="118" font-family="Segoe UI" font-size="11" font-weight="bold" fill="#0284C7">Dikelola oleh 1 Tim yang Sama!</text>
+
+            <!-- Panah Distribusi -->
+            <path d="M 570 135 L 460 175 M 570 135 L 570 175 M 570 135 L 680 175" stroke="#000" stroke-width="2" marker-end="url(#arrow)"/>
+            
+            <rect x="410" y="180" width="100" height="45" fill="#DCFCE7" stroke="#000" stroke-width="1.5"/>
+            <text x="425" y="202" font-family="Segoe UI" font-size="11" font-weight="bold">🤖 Android</text>
+            <text x="430" y="217" font-family="Segoe UI" font-size="9" fill="#15803D">via Capacitor</text>
+
+            <rect x="520" y="180" width="100" height="45" fill="#DCFCE7" stroke="#000" stroke-width="1.5"/>
+            <text x="545" y="202" font-family="Segoe UI" font-size="11" font-weight="bold">🍏 iOS</text>
+            <text x="540" y="217" font-family="Segoe UI" font-size="9" fill="#15803D">via Capacitor</text>
+
+            <rect x="630" y="180" width="100" height="45" fill="#DCFCE7" stroke="#000" stroke-width="1.5"/>
+            <text x="645" y="202" font-family="Segoe UI" font-size="11" font-weight="bold">🌐 Web PWA</text>
+            <text x="648" y="217" font-family="Segoe UI" font-size="9" fill="#15803D">via Browser</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- KALKULATOR INTERAKTIF -->
       <div class="calc-box">
-        <label for="fitur">Jumlah Fitur Aplikasi yang Ingin Dibuat: <span id="valFitur" style="color:#0284C7;">5</span> Fitur</label>
-        <input type="range" id="fitur" min="1" max="20" value="5" oninput="hitungEfisiensi()">
+        <label for="fitur" style="font-size:13px; font-weight:bold;">
+          Berapa Jumlah Fitur Utama yang Ingin Anda Bangun? 
+          <span id="valFitur" style="color:#0284C7; font-size:16px;">5</span> Fitur
+        </label>
+        <input type="range" id="fitur" min="1" max="20" value="5" oninput="hitungEfisiensi()" style="width:100%; margin: 8px 0 14px 0;">
 
         <div class="result-grid">
           <div class="result-card native-res">
-            <strong>Pendekatan Native Murni:</strong><br>
-            • Android (Kotlin): <span id="waktuAndroid">5</span> pekan<br>
-            • iOS (Swift): <span id="waktuIos">5</span> pekan<br>
-            • Web Portal: <span id="waktuWeb">5</span> pekan<br>
-            <strong>Total: <span id="totalNative">15</span> Pekan Orang</strong>
+            <strong style="color: #991B1B;">❌ Estimasi Waktu & Biaya Native Murni:</strong><br>
+            • Tim Android : <span id="waktuAndroid">5</span> pekan kerja<br>
+            • Tim iPhone  : <span id="waktuIos">5</span> pekan kerja<br>
+            • Tim Web     : <span id="waktuWeb">5</span> pekan kerja<br>
+            <div style="margin-top: 6px; font-weight: bold; border-top: 1px dashed #000; padding-top: 4px;">
+              Total Beban: <span id="totalNative">15</span> Pekan-Orang
+            </div>
           </div>
+
           <div class="result-card hybrid-res">
-            <strong>Pendekatan Hybrid (Ionic):</strong><br>
-            • 1 Basis Kode Web Standar<br>
-            • Multiplatform (Android + iOS + Web)<br>
-            • Waktu: <span id="waktuHybrid">5</span> pekan saja!<br>
-            <strong>Hemat Efisiensi: ~66%! 🎉</strong>
+            <strong style="color: #166534;">✅ Estimasi Waktu & Biaya Hybrid (Ionic + Vue):</strong><br>
+            • 1 Tim Cukup Merawat 1 Basis Kode<br>
+            • Rilis Bersamaan ke Android, iOS & Web<br>
+            • Waktu Pengerjaan: <span id="waktuHybrid">6</span> pekan saja!<br>
+            <div style="margin-top: 6px; font-weight: bold; border-top: 1px dashed #000; padding-top: 4px; color: #15803D;">
+              Penghematan Efisiensi: ~66% Lebih Cepat & Hemat! 🎉
+            </div>
           </div>
         </div>
+      </div>
+
+      <div class="source-cite">
+        📚 Referensi & Sitasi Resmi: Buku Materi Pokok (BMP) UT STSI4303 Modul 1 (Konsep Dasar Pemrograman Mobile); Ionic Enterprise Mobility Survey Report; W3C Mobile Web Best Practices.
       </div>
     </div>
   </div>
@@ -121,7 +207,7 @@ CARA MENJALANKAN:
       document.getElementById('waktuIos').innerText = f;
       document.getElementById('waktuWeb').innerText = f;
       document.getElementById('totalNative').innerText = f * 3;
-      document.getElementById('waktuHybrid').innerText = Math.ceil(f * 1.1);
+      document.getElementById('waktuHybrid').innerText = Math.ceil(f * 1.15);
     }
   </script>
 </body>

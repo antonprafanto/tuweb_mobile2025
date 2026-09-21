@@ -1,196 +1,214 @@
 # 📱 NASKAH & SLIDE SESI 01: PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
-## Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)
-### Program Studi: S1 Sistem Informasi & S1 Informatika — Universitas Terbuka
+## Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)
+### Program Studi: S1 Sistem Informasi & S1 Informatika — Fakultas Sains dan Teknologi (FST) Universitas Terbuka
 ### Dosen Pengampu: Anton Prafanto, S.Kom., M.T.
-### Modul Acuan BMP: Modul 1 (MSIM4401/STSI4303)
+### Modul Acuan BMP: Modul 1 (MSIM4401/STSI4303) — Pengenalan Lingkungan Pengembangan Aplikasi Piranti Bergerak
 
 ---
 
-## 🗺️ Gambaran Umum Sesi
-Sesi inisiasi pertama ini membekali mahasiswa dengan fondasi mental model arsitektur aplikasi mobile, komparasi Native vs Hybrid vs Cross-Platform, instalasi perkakas pengembangan (*tools*), pengenalan komponen web Ionic via CDN tanpa hambatan, pengujian mobile di Chrome DevTools, hingga penyelesaian tantangan praktikum **Lab Quest 01 (Kartu Tanda Mahasiswa Digital)**.
+## 🗺️ Gambaran Umum Sesi 01
+Sesi inisiasi pertama ini membekali rekan-rekan mahasiswa dengan pemahaman komprehensif arsitektur aplikasi mobile modern, komparasi mendalam Native vs Hybrid vs Cross-Platform vs PWA, panduan instalasi perkakas (*tools*) ramah laptop RAM 4GB, pengenalan komponen web Ionic Framework via CDN tanpa hambatan, teknik pengujian instan menggunakan Chrome DevTools, hingga penyelesaian tugas mandiri **Lab Quest 01 (Kartu Tanda Mahasiswa Digital)**.
+
+Setiap materi slide dilengkapi berkas interaktif mandiri berekstensi `.html` yang dapat **langsung dijalankan di Google Chrome dengan satu klik ganda (*zero-friction*)**, tanpa memerlukan instalasi compiler berukuran gigabytes.
 
 ---
 
-## 📊 Daftar 18 Slide Pembahasan & Kode Mandiri
+## 📊 Daftar 18 Slide Pembahasan & Berkas Praktikum Mandiri
 
 ### 📌 Slide 01: Kontrak Perkuliahan, Roadmap 8 Sesi & Aturan Nilai UT
-* **Sub-CPMK:** Memahami alur 8 sesi tutorial, capaian pembelajaran, dan formula evaluasi akademik UT.
+* **Sub-CPMK:** Memahami alur 8 sesi tutorial, capaian pembelajaran, dan formula evaluasi akademik Universitas Terbuka.
 * **Narasi Dosen:**  
-  *"Selamat datang rekan-rekan mahasiswa Universitas Terbuka di mata kuliah STSI4303! Kuliah ini adalah mata kuliah berpraktik penuh 3 SKS. Kita akan belajar membuat aplikasi smartphone sungguhan dengan cara yang menyenangkan, tidak membuat laptop panas, dan langsung bisa dicoba sejak hari pertama!"*
+  *"Halo rekan-rekan mahasiswa Universitas Terbuka! Selamat datang di mata kuliah Pemrograman Berbasis Perangkat Bergerak (STSI4303). Kuliah ini dirancang dengan praktik penuh 3 SKS. Kita akan belajar membuat aplikasi ponsel pintar sungguhan dengan cara yang menyenangkan, tidak membebani laptop, dan langsung bisa dicoba sejak hari pertama!"*
 * **Poin Kunci:**
-  * Komposisi Nilai Tuton: Keaktifan 8 Diskusi (30%) + 3 Tugas Tutorial (70%).
+  * Komposisi Nilai Tuton: Keaktifan 8 Diskusi (30%) + 3 Tugas Tutorial Wajib (70%).
   * Formula Nilai Akhir: 50% Nilai Tuton + 50% Nilai UAS (Syarat: Nilai UAS $\ge 30$).
+* **Alat yang Digunakan:** Buka Google Chrome (klik ganda berkas HTML) atau VS Code.
 * **Tautan Kode Mandiri:**  
-  👉 [`slide_01_kontrak_dan_roadmap.js`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_01_kontrak_dan_roadmap.js)
+  👉 [🌐 `slide_01_kontrak_dan_roadmap.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_01_kontrak_dan_roadmap.html) *(Pendamping: `slide_01_kontrak_dan_roadmap.js`)*
 
 ---
 
 ### 📌 Slide 02: Lanskap Industri Mobile: Mengapa Arsitektur Hybrid Mendominasi?
 * **Sub-CPMK:** Menganalisis efisiensi biaya dan waktu pengembangan aplikasi mobile berbasis web (*hybrid*).
 * **Narasi Dosen:**  
-  *"Bayangkan sebuah kampus besar seperti UT yang memiliki lebih dari 400.000 mahasiswa dengan ribuan jenis smartphone berbeda. Jika kita membuat aplikasi portal mahasiswa menggunakan Native terpisah (tim Android Kotlin dan tim iPhone Swift), biayanya akan membengkak 3 kali lipat. Dengan arsitektur Hybrid, kita hanya merawat 1 basis kode untuk Android, iOS, dan Web!"*
-* **Poin Kunci:** *Single codebase*, efisiensi waktu ~66%, kemudahan perawatan jangka panjang.
+  *"Bayangkan sebuah kampus besar seperti UT dengan lebih dari 400.000 mahasiswa yang menggunakan berbagai jenis gawai. Jika kita membuat aplikasi menggunakan Native murni terpisah (tim Android Kotlin dan tim iPhone Swift), biayanya membengkak 3 kali lipat. Dengan arsitektur Hybrid, kita merawat 1 basis kode tunggal untuk Android, iOS, dan Web!"*
+* **Poin Kunci:** Strategi *single codebase*, efisiensi waktu hingga ~66%, kemudahan perawatan jangka panjang.
+* **Alat yang Digunakan:** Google Chrome (tersedia kalkulator efisiensi interaktif & diagram SVG).
 * **Tautan Kode Mandiri:**  
-  👉 [`slide_02_relevansi_mobile_hybrid.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_02_relevansi_mobile_hybrid.html)
+  👉 [🌐 `slide_02_relevansi_mobile_hybrid.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_02_relevansi_mobile_hybrid.html)
 
 ---
 
-### 📌 Slide 03: Komparasi Arsitektur: Native vs Hybrid vs Cross-Platform
-* **Sub-CPMK:** Membedakan cara kerja lapisan tumpukan (*stack layers*) antara Native, Hybrid (Ionic), dan Cross-Platform Canvas (Flutter).
+### 📌 Slide 03: Komparasi Arsitektur: Native vs Hybrid vs Cross-Platform vs PWA
+* **Sub-CPMK:** Membedakan cara kerja lapisan tumpukan (*stack layers*) antara Native, Hybrid (Ionic), Cross-Platform Canvas (Flutter), dan PWA.
 * **Narasi Dosen:**  
-  *"Aplikasi Native berbicara langsung ke sistem operasi. Cross-platform menggambar tombolnya sendiri lewat mesin grafis. Sedangkan Hybrid menggunakan WebView modern yang dijembatani oleh Capacitor ke perangkat keras. Untuk aplikasi bisnis, portal universitas, dan e-commerce, Hybrid adalah pilihan paling efisien dan stabil."*
+  *"Aplikasi Native berbicara langsung ke sistem operasi. Cross-platform menggambar elemen antarmuka lewat mesin grafisnya sendiri. Sedangkan Hybrid menggunakan WebView modern yang dijembatani oleh Capacitor ke perangkat keras. Untuk aplikasi portal universitas, bisnis, dan layanan publik, Hybrid adalah pilihan paling efisien dan stabil."*
+* **Poin Kunci:** Analogi tumpukan lapisan, perbandingan performa, dan pertimbangan pemilihan arsitektur.
+* **Alat yang Digunakan:** Google Chrome (tersedia selector tumpukan arsitektur interaktif).
 * **Tautan Kode Mandiri:**  
-  👉 [`slide_03_komparasi_arsitektur_mobile.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_03_komparasi_arsitektur_mobile.html)
+  👉 [🌐 `slide_03_komparasi_arsitektur_mobile.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_03_komparasi_arsitektur_mobile.html)
 
 ---
 
-### 📌 Slide 04: Ekosistem Ionic Framework & Kekuatan Web Components
+### 📌 Slide 04: Ekosistem Ionic Framework & Kekuatan Standar Web Components
 * **Sub-CPMK:** Mengidentifikasi keunggulan Web Components bawaan Ionic yang dapat berjalan instan via CDN.
 * **Narasi Dosen:**  
-  *"Keajaiban Ionic adalah: Anda tidak perlu menunggu install dependensi bergigabyte untuk melihat tombol dan kartu mobile. Cukup tautkan pustaka CDN Ionic di file HTML, dan browser Anda langsung menyajikan tampilan berstandar Google Material Design!"*
-* **Cuplikan Kode:**
-  ```html
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
-  <ion-app>
-    <ion-button expand="block">Tombol Khas Mobile</ion-button>
-  </ion-app>
-  ```
+  *"Keajaiban Ionic adalah: rekan-rekan tidak perlu menunggu unduhan paket berukuran gigabytes untuk melihat tombol dan kartu mobile. Cukup tautkan pustaka CDN Ionic di berkas HTML, dan peramban Anda langsung menyajikan tampilan berstandar Google Material Design!"*
+* **Alat yang Digunakan:** Google Chrome (coba tester komponen Ionic interaktif & pengubah warna).
 * **Tautan Kode Mandiri:**  
-  👉 [`slide_04_ekosistem_ionic_web_standards.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_04_ekosistem_ionic_web_standards.html)
+  👉 [🌐 `slide_04_ekosistem_ionic_web_standards.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_04_ekosistem_ionic_web_standards.html)
 
 ---
 
-### 📌 Slide 05: Menyiapkan Dapur Kerja: Node.js LTS, Git & VS Code
-* **Sub-CPMK:** Menyiapkan perangkat lunak pendukung pengembangan mobile di komputer lokal.
+### 📌 Slide 05: Menyiapkan Dapur Kerja: Panduan Instalasi 4 Perkakas Utama
+* **Sub-CPMK:** Memasang dan memverifikasi perangkat lunak pendukung pengembangan mobile di komputer lokal.
 * **Narasi Dosen:**  
-  *"Ada 3 perkakas gratis wajib bagi pengembang mobile: Node.js versi LTS sebagai mesin runtime, Git untuk mencatat revisi kode dan mengumpulkan tugas kuliah, serta VS Code sebagai editor kode paling nyaman di dunia."*
+  *"Ada 4 perkakas gratis yang wajib disiapkan: Visual Studio Code sebagai editor utama, Node.js versi LTS sebagai mesin runtime, Git SCM untuk mencatat riwayat perubahan dan mengumpulkan tugas, serta Google Chrome untuk pengujian tampilan ponsel."*
+* **Poin Kunci:** Verifikasi perintah di terminal (`node -v`, `npm -v`, `git --version`).
+* **Alat yang Digunakan:** VS Code Terminal (`Ctrl + ~`) atau Windows PowerShell.
 * **Tautan Kode Mandiri:**  
-  👉 [`slide_05_panduan_instalasi_tools.js`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_05_panduan_instalasi_tools.js)
+  👉 [🌐 `slide_05_panduan_instalasi_tools.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_05_panduan_instalasi_tools.html) *(Pendamping: `slide_05_panduan_instalasi_tools.js`)*
 
 ---
 
 ### 📌 Slide 06: Uji Diagnostik Lingkungan Pengembangan Mandiri
-* **Sub-CPMK:** Melakukan pengujian otomatis kesiapan memori RAM dan versi piranti lunak.
+* **Sub-CPMK:** Menjalankan pengujian otomatis kesiapan memori RAM dan menentukan jalur praktikum yang sesuai.
 * **Narasi Dosen:**  
-  *"Sebelum mulai ngoding, mari kita pastikan dapur kerja kita siap. Jalankan skrip diagnostik ini di terminal, maka sistem akan memberi tahu spesifikasi RAM Anda dan memberikan rekomendasi jalur praktikum yang paling aman bagi laptop Anda!"*
-* **Perintah Eksekusi:**
-  ```bash
-  node slide_06_diagnostik_environment.js
-  ```
+  *"Sebelum mulai menulis kode, mari pastikan kesiapan laptop Anda. Jalankan alat diagnostik ini untuk mendeteksi kapasitas RAM dan mendapatkan rekomendasi jalur belajar yang paling aman agar laptop tetap dingin dan lancar!"*
+* **Poin Kunci:** Rekomendasi Jalur A (Web First & Chrome DevTools), Jalur B (scrcpy & Ponsel Fisik), Jalur C (Android Studio).
+* **Alat yang Digunakan:** Buka berkas HTML di Chrome atau ketik `node slide_06_diagnostik_environment.js` di terminal.
 * **Tautan Kode Mandiri:**  
-  👉 [`slide_06_diagnostik_environment.js`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_06_diagnostik_environment.js)
+  👉 [🌐 `slide_06_diagnostik_environment.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_06_diagnostik_environment.html) *(Pendamping: `slide_06_diagnostik_environment.js`)*
 
 ---
 
-### 📌 Slide 07: Anatomi Aplikasi Hybrid: Tritunggal HTML, CSS & JavaScript
-* **Sub-CPMK:** Menguraikan peran struktural, estetika, dan logika interaktivitas dalam aplikasi mobile hybrid.
+### 📌 Slide 07: Anatomi Aplikasi Hybrid: Tritunggal HTML, CSS, JS & Wadah WebView
+* **Sub-CPMK:** Menguraikan peran struktural, estetika, dan logika interaktivitas dalam arsitektur aplikasi mobile hybrid.
 * **Narasi Dosen:**  
-  *"Aplikasi mobile hybrid seperti tubuh manusia: HTML adalah kerangka tulangnya, CSS adalah pakaian rapi dan warnanya, sedangkan JavaScript adalah sistem saraf yang merespon ketika tombol disentuh pengguna."*
+  *"Aplikasi mobile hybrid diibaratkan seperti tubuh manusia: HTML adalah kerangka tulangnya, CSS adalah busana dan penampilannya, JavaScript adalah sistem saraf yang memproses aksi, dan WebView adalah rumah tempat aplikasi tersebut berjalan di smartphone."*
+* **Alat yang Digunakan:** Google Chrome (tersedia sakelar interaktif untuk menyalakan/mematikan CSS dan JS).
 * **Tautan Kode Mandiri:**  
-  👉 [`slide_07_anatomi_hybrid_app.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_07_anatomi_hybrid_app.html)
+  👉 [🌐 `slide_07_anatomi_hybrid_app.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_07_anatomi_hybrid_app.html)
 
 ---
 
-### 📌 Slide 08: Hello Hybrid World: Mockup Aplikasi Mobile Pertama Anda
-* **Sub-CPMK:** Membangun antarmuka mobile pertama lengkap dengan status bar dan event sentuhan (*touch event*).
+### 📌 Slide 08: Hello Hybrid World: Meluncurkan Aplikasi Mobile Pertama Anda
+* **Sub-CPMK:** Membangun antarmuka mobile pertama lengkap dengan status bar, kartu profil, dan deteksi runtime layar sentuh.
 * **Narasi Dosen:**  
-  *"Mari kita buat aplikasi mobile pertama kita: MyUT Mobile! Berkas ini membuktikan bahwa tanpa kompilasi rumit, Anda sudah bisa membuat aplikasi dengan status bar, kartu profil, dan penanganan sentuhan yang mulus."*
+  *"Selamat! Ini adalah aplikasi mobile pertama Anda: MyUT Mobile. Berkas ini membuktikan bahwa tanpa kompilasi rumit, Anda sudah bisa membuat aplikasi ponsel fungsional yang membaca resolusi layar dan merespon event sentuhan jari."*
+* **Alat yang Digunakan:** Google Chrome (tekan F12 lalu Ctrl + Shift + M untuk mode smartphone).
 * **Tautan Kode Mandiri:**  
-  👉 [`slide_08_hello_hybrid_app.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_08_hello_hybrid_app.html)
+  👉 [🌐 `slide_08_hello_hybrid_app.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_08_hello_hybrid_app.html)
 
 ---
 
-### 📌 Slide 09: 3 Langkah Menguji Layar HP di Google Chrome DevTools
-* **Sub-CPMK:** Mengoperasikan Toggle Device Toolbar di browser untuk simulasi berbagai dimensi smartphone.
+### 📌 Slide 09: 3 Langkah Menguji Tampilan Ponsel di Google Chrome DevTools
+* **Sub-CPMK:** Mengoperasikan Toggle Device Toolbar di peramban untuk simulasi berbagai dimensi smartphone tanpa emulator berat.
 * **Narasi Dosen:**  
-  *"Laptop Anda tidak perlu terbebani emulator Android Studio yang memakan RAM 4GB. Cukup tekan F12 di Google Chrome, lalu tekan Ctrl + Shift + M. Seketika Anda bisa memilih simulasi layar Pixel 7 atau iPhone 14 Pro!"*
-* **Shortcut Kunci:** `F12` lalu `Ctrl + Shift + M`.
+  *"Laptop rekan-rekan tidak perlu terbebani emulator berbobot 10GB. Cukup buka Google Chrome, tekan F12, lalu tekan Ctrl + Shift + M. Seketika Anda dapat memilih simulasi layar Pixel 7, iPhone 14 Pro, atau menguji koneksi internet lambat!"*
+* **Pintasan Tombol Sakti:** `F12` lalu `Ctrl + Shift + M`.
+* **Alat yang Digunakan:** Google Chrome / Microsoft Edge.
 * **Tautan Kode Mandiri:**  
-  👉 [`slide_09_chrome_device_toolbar_guide.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_09_chrome_device_toolbar_guide.html)
+  👉 [🌐 `slide_09_chrome_device_toolbar_guide.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_09_chrome_device_toolbar_guide.html)
 
 ---
 
 ### 📌 Slide 10: Peran Krusial Viewport Meta Tag pada Layar Ponsel
-* **Sub-CPMK:** Menganalisis fungsi tag `<meta name="viewport">` dalam mencegah efek perkecilan (*zoom-out*) otomatis di ponsel.
+* **Sub-CPMK:** Menganalisis fungsi tag `<meta name="viewport">` dalam menyamakan kanvas aplikasi dengan dimensi fisik gawai.
 * **Narasi Dosen:**  
-  *"Pernahkah Anda membuka website di HP dan tulisannya menjadi sekecil semut? Itu karena website tersebut lupa menyertakan meta viewport! Tag ini adalah perintah sakti yang menyuruh smartphone menampilkan halaman dengan skala 1:1."*
+  *"Pernahkah Anda membuka laman web di ponsel dan teksnya menjadi sekecil semut? Itu terjadi karena peramban mengira Anda menggunakan layar desktop selebar 980px. Dengan menyertakan tag viewport, ponsel otomatis merender aplikasi dengan skala 1:1 yang nyaman dijemari!"*
+* **Alat yang Digunakan:** Google Chrome (tersedia simulator perbandingan 1:1 vs 980px).
 * **Tautan Kode Mandiri:**  
-  👉 [`slide_10_viewport_meta_scaling.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_10_viewport_meta_scaling.html)
+  👉 [🌐 `slide_10_viewport_meta_scaling.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_10_viewport_meta_scaling.html)
 
 ---
 
-### 📌 Slide 11: Pengenalan 5 Perintah Sakti Ionic CLI
-* **Sub-CPMK:** Menjelaskan fungsi perintah baris `ionic start`, `ionic serve`, `ionic build`, dan `cap sync`.
+### 📌 Slide 11: Simulator Interaktif: 5 Perintah Sakti Ionic CLI
+* **Sub-CPMK:** Menjelaskan fungsi dan parameter perintah baris `ionic start`, `cd`, `ionic serve`, `ionic build`, dan `npx cap sync`.
 * **Narasi Dosen:**  
-  *"Saat proyek aplikasi kita bertambah besar, kita menggunakan Ionic CLI. Ada 5 perintah utama yang akan menjadi sahabat setia Anda dari awal pembuatan hingga rilis aplikasi."*
+  *"Saat proyek aplikasi kita berkembang, kita menggunakan Ionic CLI. Ada 5 perintah utama yang akan menjadi sahabat setia rekan-rekan sejak inisialisasi proyek hingga persiapan rilis ke platform Android."*
+* **Alat yang Digunakan:** VS Code Terminal (`Ctrl + ~`) untuk mempraktikkan perintah yang disalin dari simulator web.
 * **Tautan Kode Mandiri:**  
-  👉 [`slide_11_ionic_cli_simulator.js`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_11_ionic_cli_simulator.js)
+  👉 [🌐 `slide_11_ionic_cli_simulator.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_11_ionic_cli_simulator.html) *(Pendamping: `slide_11_ionic_cli_simulator.js`)*
 
 ---
 
-### 📌 Slide 12: Eksplorasi Struktur Folder Proyek Standar Ionic Vue 3
-* **Sub-CPMK:** Mengidentifikasi letak berkas tampilan, konfigurasi rute, dan aset publik dalam arsitektur folder Ionic.
+### 📌 Slide 12: Eksplorer Interaktif: Struktur Folder Proyek Standar Ionic Vue 3
+* **Sub-CPMK:** Menavigasi tata letak berkas tampilan, konfigurasi rute, dan aset publik dalam proyek Ionic.
 * **Narasi Dosen:**  
-  *"Jangan takut melihat banyaknya folder di proyek Ionic! Tempat kita paling banyak menulis kode hanya ada di satu tempat: folder src/views untuk layar aplikasi dan src/theme untuk mengubah warna tema."*
+  *"Jangan cemas melihat puluhan folder di proyek Ionic! Tempat kita paling sering menulis kode hanya ada di folder src/views untuk halaman layar dan src/theme untuk memoles warna tema. Folder node_modules tidak boleh diedit manual!"*
+* **Alat yang Digunakan:** Google Chrome (eksplorasi pohon folder interaktif) & VS Code.
 * **Tautan Kode Mandiri:**  
-  👉 [`slide_12_struktur_folder_proyek.js`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_12_struktur_folder_proyek.js)
+  👉 [🌐 `slide_12_struktur_folder_proyek.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_12_struktur_folder_proyek.html) *(Pendamping: `slide_12_struktur_folder_proyek.js`)*
 
 ---
 
 ### 📌 Slide 13: Pengujian HP Fisik Hemat RAM via USB Debugging & scrcpy
-* **Sub-CPMK:** Mengonfigurasi USB Debugging pada smartphone Android dan menampilkan layar ke PC menggunakan `scrcpy`.
+* **Sub-CPMK:** Mengaktifkan Opsi Pengembang dan USB Debugging pada smartphone Android serta menampilkan layar ke laptop menggunakan `scrcpy`.
 * **Narasi Dosen:**  
-  *"Metode rahasia pengembang handal: hubungkan HP fisik Anda dengan kabel data USB. Aktifkan USB Debugging dan buka aplikasi scrcpy. Konsumsi RAM kurang dari 70MB dan performanya 60 FPS bebas patah-patah!"*
-* **Tautan Panduan Mandiri:**  
-  👉 [`slide_13_usb_debugging_scrcpy_guide.md`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_13_usb_debugging_scrcpy_guide.md)
-
----
-
-### 📌 Slide 14: Memahami Cara Kerja Hot Module Replacement (HMR) & Live Reload
-* **Sub-CPMK:** Menjelaskan alur pembaruan komponen otomatis saat penyimpanan kode (*Ctrl+S*) tanpa memuat ulang status aplikasi.
-* **Narasi Dosen:**  
-  *"Hot Module Replacement membuat proses belajar coding sangat adiktif. Begitu Anda menekan simpan, peramban langsung memperbarui warna dan tombol tanpa menghapus data formulir yang sedang Anda ketik!"*
+  *"Metode favorit pengembang profesional: sambungkan smartphone Android Anda menggunakan kabel data USB. Aktifkan USB Debugging dan jalankan scrcpy. Konsumsi RAM kurang dari 70MB, respons layar 60 FPS bebas patah-patah, dan tidak membuat laptop panas!"*
+* **Alat yang Digunakan:** Ponsel Android + Kabel USB + Berkas `scrcpy.exe`.
 * **Tautan Kode Mandiri:**  
-  👉 [`slide_14_hmr_live_reload_demo.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_14_hmr_live_reload_demo.html)
+  👉 [🌐 `slide_13_usb_debugging_scrcpy_guide.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_13_usb_debugging_scrcpy_guide.html) *(Pendamping: `slide_13_usb_debugging_scrcpy_guide.md`)*
 
 ---
 
-### 📌 Slide 15: Protokol Pertolongan Pertama: Mengatasi Galat PowerShell Windows
-* **Sub-CPMK:** Mengatasi galat kebijakan keamanan eksekusi skrip (*PSSecurityException*) di terminal Windows.
+### 📌 Slide 14: Simulasi Hot Module Replacement (HMR) & Live Reload
+* **Sub-CPMK:** Memahami mekanisme pembaruan modul instan Vite tanpa mereset status data formulir yang sedang diisi pengguna.
 * **Narasi Dosen:**  
-  *"Jika terminal Anda memunculkan teks merah berbunyi 'running scripts is disabled on this system', jangan panik! Itu adalah proteksi default Windows. Cukup jalankan perintah Set-ExecutionPolicy RemoteSigned satu kali, dan masalah tuntas selamanya."*
-* **Tautan Panduan Solusi:**  
-  👉 [`slide_15_troubleshooting_powershell_cli.md`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_15_troubleshooting_powershell_cli.md)
+  *"Hot Module Replacement (HMR) membuat pengalaman belajar coding sangat memuaskan. Begitu Anda menekan simpan (Ctrl + S), peramban memperbarui tampilan dalam 30 milidetik tanpa menghapus teks yang baru saja Anda ketik pada formulir!"*
+* **Alat yang Digunakan:** Google Chrome (uji perbandingan HMR vs Full Page Reload).
+* **Tautan Kode Mandiri:**  
+  👉 [🌐 `slide_14_hmr_live_reload_demo.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_14_hmr_live_reload_demo.html)
 
 ---
 
-### 📌 Slide 16: Cheatsheet Perintah Terminal & Git untuk Tugas Kuliah
-* **Sub-CPMK:** Menggunakan perintah navigasi terminal dan Git dasar untuk mengelola berkas tugas mandiri.
+### 📌 Slide 15: Pertolongan Pertama: Mengatasi Galat PowerShell Windows
+* **Sub-CPMK:** Mengatasi galat kebijakan eksekusi skrip (*PSSecurityException*) di terminal Windows dengan solusi 1 langkah aman.
 * **Narasi Dosen:**  
-  *"Sebagai mahasiswa Informatika dan Sistem Informasi, menguasai perintah dasar terminal seperti cd, ls, git add, dan git commit adalah modal emas portofolio karir Anda."*
-* **Tautan Cheatsheet:**  
-  👉 [`slide_16_cheatsheet_terminal_git.md`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_16_cheatsheet_terminal_git.md)
+  *"Jika terminal VS Code Anda menampilkan teks merah 'running scripts is disabled on this system', jangan khawatir! Itu bukan laptop yang rusak, melainkan kebijakan keamanan default Windows. Jalankan mantra Set-ExecutionPolicy RemoteSigned satu kali, dan perintah CLI akan berjalan mulus."*
+* **Alat yang Digunakan:** VS Code Terminal atau Windows PowerShell.
+* **Tautan Kode Mandiri:**  
+  👉 [🌐 `slide_15_troubleshooting_powershell_cli.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_15_troubleshooting_powershell_cli.html) *(Pendamping: `slide_15_troubleshooting_powershell_cli.md`)*
 
 ---
 
-### 📌 Slide 17: 🎯 Lab Quest 01: Membangun Kartu Digital Mahasiswa UT
-* **Sub-CPMK:** Menerapkan komponen resmi Ionic (`ion-card`, `ion-list`, `ion-button`) untuk menghasilkan antarmuka KTM digital responsif.
+### 📌 Slide 16: Cheatsheet Perintah Sakti Terminal & Git untuk Tugas Kuliah
+* **Sub-CPMK:** Menguasai perintah esensial navigasi folder dan alur Git untuk mengelola berkas tugas mandiri.
+* **Narasi Dosen:**  
+  *"Sebagai calon sarjana bidang teknologi, menguasai perintah terminal seperti cd, ls, dir, git add, dan git commit adalah keterampilan fundamental yang akan mempercepat pengerjaan tugas dan membangun portofolio GitHub Anda."*
+* **Alat yang Digunakan:** Google Chrome (tersedia kolom pencarian cepat dan sandbox latihan terminal).
+* **Tautan Kode Mandiri:**  
+  👉 [🌐 `slide_16_cheatsheet_terminal_git.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_16_cheatsheet_terminal_git.html) *(Pendamping: `slide_16_cheatsheet_terminal_git.md`)*
+
+---
+
+### 📌 Slide 17: 🎯 Master Solusi Lab Quest 01: Kartu Tanda Mahasiswa Digital UT
+* **Sub-CPMK:** Merancang antarmuka kartu identitas mahasiswa interaktif menggunakan komponen resmi Ionic Framework 7 Core via CDN.
 * **Tantangan Lab:**
-  1. Buat kartu identitas memuat Nama, NIM, Prodi, dan Fakultas FST UT.
-  2. Berikan sentuhan warna biru khas Universitas Terbuka (`#005691`).
-  3. Tambahkan tombol interaktif untuk memverifikasi keaslian status aktif mahasiswa.
+  1. Tampilkan kartu identitas dengan Nama, NIM, Program Studi, dan UPBJJ-UT Anda.
+  2. Terapkan warna resmi Universitas Terbuka: Biru UT (`#005691`) dan Kuning Aksen (`#FFE600`).
+  3. Lengkapi dengan tombol verifikasi keaslian kartu yang memunculkan notifikasi responsif.
+* **Rubrik Penilaian Mandiri (0–100):** Struktur Semantik Ionic (25 Poin) + Branding UT (25 Poin) + Responsivitas Viewport (25 Poin) + Interaktivitas Sentuhan (25 Poin).
+* **Alat yang Digunakan:** Google Chrome (tersedia form editor langsung dan tombol salin seluruh kode untuk pengumpulan tugas).
 * **Tautan Master Solusi:**  
-  👉 [`slide_17_lab_quest_01_profil_mahasiswa.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html)
+  👉 [🌐 `slide_17_lab_quest_01_profil_mahasiswa.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html)
 
 ---
 
-### 📌 Slide 18: Preview Sesi 02: Beralih ke Reaktivitas Modern Vue.js 3
-* **Sub-CPMK:** Menghubungkan konsep manipulasi DOM imperatif dengan paradigma reaktif deklaratif di Sesi 02.
+### 📌 Slide 18: Preview Menatap Sesi 02: Beralih ke Reaktivitas Modern Vue.js 3
+* **Sub-CPMK:** Menghubungkan konsep manipulasi DOM imperatif tradisional dengan paradigma reaktif deklaratif Vue.js 3 di Sesi 02.
 * **Narasi Dosen:**  
-  *"Hari ini kita telah menaklukkan lingkungan kerja dan komponen mobile pertama. Pekan depan di Sesi 02, kita akan menjinakkan logika tampilan: bagaimana membuat data dan layar sinkron otomatis tanpa ribet menggunakan keajaiban Vue.js 3!"*
+  *"Di Sesi 01 ini, kita telah menguasai fondasi lingkungan kerja dan komponen mobile pertama kita. Pekan depan di Sesi 02, kita akan melangkah lebih jauh ke dunia modern: bagaimana menyinkronkan data aplikasi dan tampilan secara otomatis tanpa repot menggunakan Vue.js 3!"*
+* **Alat yang Digunakan:** Google Chrome (uji coba komparasi imperatif vs deklaratif reaktif).
 * **Tautan Kode Mandiri:**  
-  👉 [`slide_18_preview_sesi_02_vue.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_18_preview_sesi_02_vue.html)
+  👉 [🌐 `slide_18_preview_sesi_02_vue.html`](../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_18_preview_sesi_02_vue.html)
 
 ---
-*Materi Slide Sesi 01 ini disusun dengan standar mutu The Zero-Friction Courseware Framework — Universitas Terbuka.*
+
+## 📚 Daftar Referensi Akademik & Standar Mutu
+1. **Buku Materi Pokok (BMP) UT:** MSIM4401 / STSI4303 — *Pemrograman Berbasis Perangkat Bergerak*, Modul 1: Pengenalan Lingkungan Pengembangan Aplikasi Piranti Bergerak. Tangerang Selatan: Universitas Terbuka.
+2. **Dokumentasi Resmi Ionic Framework:** Architecture Overview & UI Components Reference, 2026. [ionicframework.com/docs](https://ionicframework.com/docs).
+3. **Dokumentasi Resmi Android Developer:** Configure on-device developer options, 2026. [developer.android.com/studio/debug/dev-options](https://developer.android.com/studio/debug/dev-options).
+4. **W3C Standards:** CSS Device Adaptation & Viewport Meta Specification, 2026. [w3.org/TR/css-device-adapt/](https://www.w3.org/TR/css-device-adapt/).
+5. **Vue.js 3 Official Guide:** Reactivity in Depth & Single File Components, 2026. [vuejs.org](https://vuejs.org).

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<!--
+=====================================================================
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303)
+INSTITUSI   : FAKULTAS SAINS DAN TEKNOLOGI - UNIVERSITAS TERBUKA
+DOSEN       : ANTON PRAFANTO, S.Kom., M.T.
+SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
+SLIDE 13    : PANDUAN USB DEBUGGING & SCRCPY (PENGUJIAN HEMAT RAM)
+=====================================================================
+CARA MENJALANKAN (RAMAH PEMULA):
+1. Cukup klik ganda berkas ini di File Explorer untuk membuka di Google Chrome.
+2. Ikuti simulasi interaktif ketuk 7 kali di bawah ini untuk memahami cara
+   membuka kunci Opsi Pengembang pada smartphone Android Anda!
+=====================================================================
+-->
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 13: Panduan USB Debugging & scrcpy — STSI4303 UT</title>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+      --blue-ut: #005691;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+    body {
+      background-color: var(--bg);
+      margin: 0;
+      padding: 20px;
+      color: #000;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 920px;
+      width: 100%;
+    }
+    .header-banner {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 8px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .card {
+      background: var(--card);
+      border: 3px solid var(--border);
+      box-shadow: 6px 6px 0 var(--border);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    /* Comparison Table */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    .compare-table th, .compare-table td {
+      border: 2px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .compare-table th {
+      background: #F1F5F9;
+    }
+    .highlight-good { background: #DCFCE7; font-weight: bold; color: #166534; }
+    .highlight-bad { background: #FEE2E2; color: #991B1B; }
+
+    /* Interactive Steps */
+    .step-block {
+      border: 2px solid var(--border);
+      padding: 16px;
+      background: #F8FAFC;
+      margin-bottom: 16px;
+      border-radius: 6px;
+      line-height: 1.6;
+      font-size: 13.5px;
+    }
+    .step-title {
+      font-weight: bold;
+      color: var(--blue-ut);
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    /* Virtual Tap Area */
+    .tap-box {
+      background: #FFFFFF;
+      border: 2px solid #000;
+      padding: 14px;
+      text-align: center;
+      margin: 12px 0;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+      user-select: none;
+      transition: transform 0.1s ease;
+    }
+    .tap-box:active {
+      transform: scale(0.98);
+      background: #FEF9C3;
+    }
+    .toast-msg {
+      padding: 10px;
+      background: #1E293B;
+      color: #38BDF8;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 13px;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header-banner">
+      <div class="badge-tag">SLIDE 13 • SESI 01 (MODUL 1 BMP UT - PENGUJIAN PERANGKAT FISIK)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Panduan Praktis USB Debugging & scrcpy: Uji Cepat Hemat RAM</h1>
+      <p style="margin: 0; font-size: 13px;">Strategi cerdas menguji aplikasi di ponsel fisik nyata tanpa perlu menjalankan emulator Android Studio yang berat dan lambat.</p>
+    </div>
+
+    <div class="guide-box">
+      <strong>💡 Mengapa Metode Ini Sangat Disukai Mahasiswa Universitas Terbuka?</strong><br>
+      Banyak mahasiswa UT belajar menggunakan laptop dengan RAM 4GB atau 8GB. Menjalankan emulator Android Studio sering membuat laptop hang dan kipas berbunyi kencang. 
+      Dengan menghubungkan ponsel fisik via <strong>USB Debugging</strong> dan menggunakan alat gratis <strong>scrcpy</strong>, penggunaan RAM laptop Anda hanya bertambah <strong>&lt; 70 MB</strong>!
+    </div>
+
+    <!-- KOMPARASI SCRCPY VS EMULATOR ANDROID STUDIO -->
+    <div class="card">
+      <h3 style="margin-top:0;">📊 Komparasi Performa: scrcpy vs Android Studio Emulator</h3>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Parameter Pengujian</th>
+            <th style="width:38%;">Solusi Pintar: HP Fisik + scrcpy</th>
+            <th style="width:38%;">Emulator Android Studio Standar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Konsumsi Memori (RAM)</strong></td>
+            <td class="highlight-good">Sangat Ringan (&lt; 70 MB)</td>
+            <td class="highlight-bad">Sangat Berat (3.000 MB – 5.000 MB)</td>
+          </tr>
+          <tr>
+            <td><strong>Beban Prosesor (CPU)</strong></td>
+            <td class="highlight-good">Ringan (Proses komputasi di ponsel)</td>
+            <td class="highlight-bad">Berat (Laptop cepat panas & baterai boros)</td>
+          </tr>
+          <tr>
+            <td><strong>Kelancaran Tampilan (FPS)</strong></td>
+            <td class="highlight-good">60 FPS Mulus (Latensi ~35 ms)</td>
+            <td class="highlight-bad">Sering Patah-Patah (Lagging)</td>
+          </tr>
+          <tr>
+            <td><strong>Waktu Mulai (Booting)</strong></td>
+            <td class="highlight-good">Instan (1 detik)</td>
+            <td class="highlight-bad">Lambat (1 s.d. 3 menit)</td>
+          </tr>
+          <tr>
+            <td><strong>Pengujian Fitur Sensor Nyata</strong></td>
+            <td class="highlight-good">100% Asli (Kamera nyata, GPS lokasi riil)</td>
+            <td class="highlight-bad">Hanya simulasi virtual tiruan</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="source-cite">
+        <strong>Referensi Akademik:</strong> Dokumentasi Resmi Genymobile scrcpy (github.com/Genymobile/scrcpy) & Android Developer Guide: "Configure on-device developer options" & BMP UT STSI4303 Modul 1.
+      </div>
+    </div>
+
+    <!-- PANDUAN LANGKAH DEMI LANGKAH INTERAKTIF -->
+    <div class="card">
+      <h3 style="margin-top:0;">📱 3 Langkah Menghubungkan Ponsel Android Anda ke Laptop:</h3>
+
+      <!-- LANGKAH 1 -->
+      <div class="step-block">
+        <div class="step-title">Langkah 1: Mengaktifkan Opsi Pengembang (Developer Options)</div>
+        <p style="margin:0 0 8px 0;">
+          Secara default, Google menyembunyikan menu pengembang agar tidak tertekan secara tidak sengaja oleh pengguna awam. Untuk membukanya:
+        </p>
+        <ol style="margin:0 0 10px 0; padding-left:20px;">
+          <li>Buka menu <strong>Pengaturan (Settings)</strong> di ponsel Anda.</li>
+          <li>Pilih <strong>Tentang Ponsel (About Phone)</strong>.</li>
+          <li>Cari tulisan <strong>Nomor Bentukan (Build Number)</strong>.</li>
+          <li><strong>Ketuk sebanyak 7 kali berturut-turut</strong> pada Build Number tersebut.</li>
+        </ol>
+
+        <!-- SIMULASI KETUK 7 KALI -->
+        <div class="tap-box" onclick="simulasiKetuk()">
+          <div style="font-size:14px; font-weight:bold; color:#005691;">👆 Coba Simulasi: Ketuk Tombol "Build Number" Ini 7 Kali!</div>
+          <div style="font-size:12px; color:#64748B; margin-top:4px;">Status Ketukan: <span id="tapCount" style="font-weight:bold; color:#000;">0</span> / 7 kali</div>
+        </div>
+        <div id="tapToast" class="toast-msg" style="display:none;"></div>
+      </div>
+
+      <!-- LANGKAH 2 -->
+      <div class="step-block">
+        <div class="step-title">Langkah 2: Mengaktifkan USB Debugging & Otorisasi Komputer</div>
+        <ol style="margin:0; padding-left:20px;">
+          <li>Kembali ke menu utama <strong>Pengaturan</strong> lalu cari <strong>Opsi Pengembang (Developer Options)</strong>.</li>
+          <li>Nyalakan sakelar <strong>Proses Debug USB (USB Debugging)</strong> menjadi ON.</li>
+          <li>Sambungkan kabel USB dari HP ke laptop Anda.</li>
+          <li>Pada layar HP akan muncul jendela dialog: <em>"Izinkan debug USB dari komputer ini?"</em>.</li>
+          <li>Centang kotak <strong>"Selalu izinkan dari komputer ini"</strong> lalu klik <strong>OK</strong>.</li>
+        </ol>
+      </div>
+
+      <!-- LANGKAH 3 -->
+      <div class="step-block">
+        <div class="step-title">Langkah 3: Menjalankan scrcpy (Layar Ponsel Tampil di Laptop!)</div>
+        <ol style="margin:0; padding-left:20px;">
+          <li>Unduh berkas zip <strong>scrcpy</strong> (misal dari rilis resmi Genymobile).</li>
+          <li>Ekstrak folder tersebut di laptop Anda (contoh: di <code>C:\tools\scrcpy</code>).</li>
+          <li>Klik dua kali pada berkas <strong><code>scrcpy.exe</code></strong>.</li>
+          <li>Seketika, layar smartphone Anda akan terproyeksikan di monitor laptop dengan kendali penuh menggunakan mouse dan keyboard!</li>
+        </ol>
+      </div>
+
+      <!-- TIPS PENTING TROUBLESHOOTING -->
+      <div style="background:#FEF9C3; border:2px solid #CA8A04; padding:14px; border-radius:6px; font-size:13px; line-height:1.5;">
+        <strong>⚠️ Troubleshooting untuk Mahasiswa:</strong><br>
+        Jika layar ponsel tidak muncul saat <code>scrcpy.exe</code> diklik:
+        <ul style="margin:6px 0 0 0; padding-left:20px;">
+          <li>Pastikan kabel USB Anda adalah kabel data (bukan sekadar kabel pengisian baterai murah).</li>
+          <li>Tarik bilah notifikasi di HP Anda, ubah mode USB dari <em>"Hanya Mengisi Daya"</em> menjadi <em>"Transfer File (MTP)"</em>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let hitungKetuk = 0;
+    function simulasiKetuk() {
+      hitungKetuk++;
+      const countEl = document.getElementById('tapCount');
+      const toastEl = document.getElementById('tapToast');
+
+      if (hitungKetuk < 7) {
+        countEl.innerText = hitungKetuk;
+        toastEl.style.display = "block";
+        toastEl.style.background = "#334155";
+        toastEl.innerHTML = `Lanjutkan! Anda tinggal mengetuk ${7 - hitungKetuk} kali lagi untuk menjadi pengembang.`;
+      } else {
+        countEl.innerText = "7 (Sukses)";
+        toastEl.style.display = "block";
+        toastEl.style.background = "#059669";
+        toastEl.innerHTML = `🎉 Selamat! Anda sekarang resmi menjadi seorang Pengembang Mobile (Developer Mode Terbuka)!`;
+      }
+    }
+  </script>
+</body>
+</html>

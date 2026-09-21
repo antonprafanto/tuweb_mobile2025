@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 06: Uji Diagnostik Lingkungan Kerja — STSI4303</title>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+    body {
+      background-color: var(--bg);
+      margin: 0;
+      padding: 20px;
+      color: #000;
+      display: flex;
+      justify-content: center;
+    }
+    .wrapper { max-width: 880px; width: 100%; }
+    .header-banner {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 8px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 12px 16px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .card {
+      background: #FFF;
+      border: 3px solid var(--border);
+      box-shadow: 6px 6px 0 var(--border);
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .spec-box {
+      background: #F8FAFC;
+      border: 2px solid #000;
+      padding: 12px;
+    }
+    .recommend-box {
+      padding: 16px;
+      border: 3px solid #000;
+      margin-top: 14px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="header-banner">
+      <div class="badge-tag">SLIDE 06 • SESI 01 (MODUL 1 BMP UT - UJI DIAGNOSTIK HARDWARE)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Uji Diagnostik Kesiapan Laptop & Rekomendasi Jalur Praktik</h1>
+      <p style="margin: 0; font-size: 13px;">Pemeriksaan otomatis spesifikasi perangkat komputer Anda untuk memilih strategi praktikum yang paling aman dan ramah laptop.</p>
+    </div>
+
+    <div class="guide-box">
+      <strong>💡 Panduan Ramah Awam:</strong><br>
+      Halaman ini secara otomatis membaca kemampuan perangkat Anda langsung dari peramban web (browser). Anda tidak perlu mengetikkan apapun untuk mengetahui apakah laptop Anda siap menjalankan praktikum STSI4303!
+    </div>
+
+    <!-- HASIL DIAGNOSTIK OTOMATIS -->
+    <div class="card">
+      <h3 style="margin-top:0;">🔍 Hasil Deteksi Spesifikasi Perangkat Anda Saat Ini:</h3>
+
+      <div class="spec-grid">
+        <div class="spec-box">
+          <div style="font-size:11px; color:#64748B; font-weight:bold;">SISTEM OPERASI / PLATFORM:</div>
+          <strong id="detOS" style="font-size:15px; color:#0F172A;">Mendeteksi...</strong>
+        </div>
+
+        <div class="spec-box">
+          <div style="font-size:11px; color:#64748B; font-weight:bold;">INTI PROSESOR (CPU CORES):</div>
+          <strong id="detCores" style="font-size:15px; color:#0284C7;">Mendeteksi...</strong>
+        </div>
+
+        <div class="spec-box">
+          <div style="font-size:11px; color:#64748B; font-weight:bold;">ESTIMASI MEMORI RAM:</div>
+          <strong id="detRAM" style="font-size:15px; color:#15803D;">Mendeteksi...</strong>
+        </div>
+
+        <div class="spec-box">
+          <div style="font-size:11px; color:#64748B; font-weight:bold;">RESOLUSI LAYAR & GPU:</div>
+          <strong id="detScreen" style="font-size:15px; color:#B45309;">Mendeteksi...</strong>
+        </div>
+      </div>
+
+      <!-- REKOMENDASI JALUR PRAKTIK -->
+      <div id="rekomendasiJalur" class="recommend-box" style="background: #FEF08A;">
+        Menganalisis spesifikasi terbaik untuk Anda...
+      </div>
+
+      <!-- PANDUAN RUN TERMINAL NODE.JS -->
+      <div style="margin-top: 20px; background: #1E293B; border: 2px solid #000; padding: 14px; color: #FFF;">
+        <strong style="color: #38BDF8; font-size: 13px;">💻 Bagi Mahasiswa yang Sudah Memasang Node.js:</strong>
+        <p style="font-size: 12px; margin: 6px 0 10px 0; color: #CBD5E1;">
+          Anda juga dapat menjalankan pengujian diagnostik mendalam langsung di terminal dengan mengetikkan:
+        </p>
+        <code style="background: #000; color: #FFE600; padding: 6px 12px; font-family: monospace; font-size: 13px; border: 1px solid #475569; display: inline-block;">
+          node slide_06_diagnostik_environment.js
+        </code>
+      </div>
+
+      <div class="source-cite">
+        📚 Referensi & Sitasi Resmi: Buku Materi Pokok (BMP) UT STSI4303 Modul 1 (Kegiatan Belajar 1); W3C Hardware Concurrency API; MDN Web Docs Navigator Specification.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function diagnosaSistem() {
+      // 1. OS & Platform
+      const userAgent = navigator.userAgent;
+      let os = "Desktop OS";
+      if (userAgent.indexOf("Win") !== -1) os = "Windows PC";
+      else if (userAgent.indexOf("Mac") !== -1) os = "macOS (Apple)";
+      else if (userAgent.indexOf("Linux") !== -1) os = "Linux OS";
+      else if (userAgent.indexOf("Android") !== -1) os = "Android Mobile";
+      else if (userAgent.indexOf("iPhone") !== -1) os = "Apple iOS";
+      document.getElementById('detOS').innerText = os;
+
+      // 2. CPU Cores
+      const cores = navigator.hardwareConcurrency || 4;
+      document.getElementById('detCores').innerText = `${cores} Cores Logic`;
+
+      // 3. RAM Estimation (Chrome deviceMemory API)
+      const ram = navigator.deviceMemory || 4;
+      document.getElementById('detRAM').innerText = `~${ram} GB atau lebih`;
+
+      // 4. Resolusi Layar
+      const w = window.screen.width;
+      const h = window.screen.height;
+      document.getElementById('detScreen').innerText = `${w} x ${h} px`;
+
+      // Analisis Rekomendasi Jalur Praktik
+      const rekBox = document.getElementById('rekomendasiJalur');
+      if (ram <= 4 || cores <= 2) {
+        rekBox.style.background = "#FEF3C7";
+        rekBox.innerHTML = `
+          <strong style="font-size:15px; color:#B45309;">🚦 REKOMENDASI JALUR PRAKTIK: JALUR A (Zero-Friction Web Preview)</strong><br>
+          Spesifikasi laptop Anda tergolong hemat daya (RAM ~${ram}GB). <strong>SANGAT DISARANKAN</strong> membuka seluruh contoh program menggunakan Google Chrome via CDN seperti berkas ini. 
+          <em>Hindari memasang emulator Android Studio yang berat</em> agar laptop Anda tetap dingin dan lancar!
+        `;
+      } else if (ram > 4 && ram <= 8) {
+        rekBox.style.background = "#DCFCE7";
+        rekBox.innerHTML = `
+          <strong style="font-size:15px; color:#15803D;">🚦 REKOMENDASI JALUR PRAKTIK: JALUR B (Ponsel Fisik Android via USB + scrcpy)</strong><br>
+          Laptop Anda (RAM ~${ram}GB, ${cores} Cores) memiliki performa sangat pas. Anda dapat menjalankan aplikasi di browser Chrome, dan ketika masuk ke Sesi 06–07 nanti, hubungkan HP fisik Android Anda menggunakan kabel data USB dengan aplikasi <code>scrcpy</code> (konsumsi RAM hanya &lt; 70MB!).
+        `;
+      } else {
+        rekBox.style.background = "#E0F2FE";
+        rekBox.innerHTML = `
+          <strong style="font-size:15px; color:#0369A1;">🚦 REKOMENDASI JALUR PRAKTIK: JALUR C (Full Capabilities / Android Studio)</strong><br>
+          Luar biasa! Laptop Anda memiliki performa tinggi (RAM &ge; 8GB, ${cores} Cores). Anda bebas memilih antara Browser Preview cepat, USB Debugging HP fisik, maupun emulator resmi Android Studio API 34.
+        `;
+      }
+    }
+
+    diagnosaSistem();
+  </script>
+</body>
+</html>

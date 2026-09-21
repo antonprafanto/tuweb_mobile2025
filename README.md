@@ -57,26 +57,26 @@ tuweb_mobile2025/
 
 ### 📱 Rincian 18 Berkas Mandiri Sesi 01 (Lingkungan & Tools)
 
-| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Siap Run) |
+| Slide | Konsep Materi Pembahasan | Tautan Berkas Mandiri (Klik Ganda Langsung Jalan) |
 | :---: | :--- | :--- |
-| **Slide 01** | Kontrak Kuliah, Roadmap 8 Sesi & Aturan Nilai UT | [`slide_01_kontrak_dan_roadmap.js`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_01_kontrak_dan_roadmap.js) |
-| **Slide 02** | Kalkulator Efisiensi: Mengapa Industri & UT Memilih Hybrid? | [`slide_02_relevansi_mobile_hybrid.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_02_relevansi_mobile_hybrid.html) |
-| **Slide 03** | Komparasi Interaktif: Native vs Hybrid vs Cross-Platform | [`slide_03_komparasi_arsitektur_mobile.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_03_komparasi_arsitektur_mobile.html) |
-| **Slide 04** | Menjalankan Komponen Asli Ionic UI via CDN Bebas Instalasi | [`slide_04_ekosistem_ionic_web_standards.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_04_ekosistem_ionic_web_standards.html) |
-| **Slide 05** | Panduan Alat Tempur: Node.js LTS, Git, VS Code, & Ionic CLI | [`slide_05_panduan_instalasi_tools.js`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_05_panduan_instalasi_tools.js) |
-| **Slide 06** | Skrip Diagnostik Otomatis Pemeriksa Kesiapan RAM & Software | [`slide_06_diagnostik_environment.js`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_06_diagnostik_environment.js) |
-| **Slide 07** | Anatomi Aplikasi Hybrid: HTML (Tulang), CSS (Baju), JS (Saraf) | [`slide_07_anatomi_hybrid_app.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_07_anatomi_hybrid_app.html) |
-| **Slide 08** | Aplikasi Mobile Pertama: Mockup MyUT dengan Touch Event | [`slide_08_hello_hybrid_app.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_08_hello_hybrid_app.html) |
-| **Slide 09** | 3 Langkah Menguji Layar HP di Chrome (`F12` & `Ctrl+Shift+M`) | [`slide_09_chrome_device_toolbar_guide.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_09_chrome_device_toolbar_guide.html) |
-| **Slide 10** | Bukti Krusial Viewport Meta Tag (Skala 1:1 Layar Ponsel) | [`slide_10_viewport_meta_scaling.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_10_viewport_meta_scaling.html) |
-| **Slide 11** | Simulator & Penjelasan 5 Perintah Sakti Ionic CLI | [`slide_11_ionic_cli_simulator.js`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_11_ionic_cli_simulator.js) |
-| **Slide 12** | Peta Folder Proyek Ionic Vue (`src/views`, `src/theme`, dll.) | [`slide_12_struktur_folder_proyek.js`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_12_struktur_folder_proyek.js) |
-| **Slide 13** | Panduan Praktis USB Debugging + `scrcpy` (Hemat RAM < 70MB) | [`slide_13_usb_debugging_scrcpy_guide.md`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_13_usb_debugging_scrcpy_guide.md) |
-| **Slide 14** | Simulasi Cara Kerja Hot Module Replacement (HMR) & Live Reload | [`slide_14_hmr_live_reload_demo.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_14_hmr_live_reload_demo.html) |
-| **Slide 15** | Pertolongan Pertama: Solusi Error PowerShell `PSSecurityException` | [`slide_15_troubleshooting_powershell_cli.md`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_15_troubleshooting_powershell_cli.md) |
-| **Slide 16** | Cheatsheet Perintah Esensial Terminal & Git untuk Tugas Kuliah | [`slide_16_cheatsheet_terminal_git.md`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_16_cheatsheet_terminal_git.md) |
-| **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 01:** KTM Digital Mahasiswa UT | [`slide_17_lab_quest_01_profil_mahasiswa.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html) |
-| **Slide 18** | Jembatan Sesi 02: Membandingkan DOM Kuno vs Vue.js 3 Reaktif | [`slide_18_preview_sesi_02_vue.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_18_preview_sesi_02_vue.html) |
+| **Slide 01** | Kontrak Kuliah, Roadmap 8 Sesi & Aturan Nilai UT | [🌐 `slide_01_kontrak_dan_roadmap.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_01_kontrak_dan_roadmap.html) *(Skrip: [`.js`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_01_kontrak_dan_roadmap.js))* |
+| **Slide 02** | Kalkulator Efisiensi: Mengapa Industri & UT Memilih Hybrid? | [🌐 `slide_02_relevansi_mobile_hybrid.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_02_relevansi_mobile_hybrid.html) |
+| **Slide 03** | Komparasi Interaktif: Native vs Hybrid vs Cross-Platform | [🌐 `slide_03_komparasi_arsitektur_mobile.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_03_komparasi_arsitektur_mobile.html) |
+| **Slide 04** | Menjalankan Komponen Asli Ionic UI via CDN Bebas Instalasi | [🌐 `slide_04_ekosistem_ionic_web_standards.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_04_ekosistem_ionic_web_standards.html) |
+| **Slide 05** | Panduan Alat Tempur: Node.js LTS, Git, VS Code, & Ionic CLI | [🌐 `slide_05_panduan_instalasi_tools.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_05_panduan_instalasi_tools.html) *(Skrip: [`.js`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_05_panduan_instalasi_tools.js))* |
+| **Slide 06** | Skrip Diagnostik Otomatis Pemeriksa Kesiapan RAM & Software | [🌐 `slide_06_diagnostik_environment.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_06_diagnostik_environment.html) *(Skrip: [`.js`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_06_diagnostik_environment.js))* |
+| **Slide 07** | Anatomi Aplikasi Hybrid: HTML (Tulang), CSS (Baju), JS (Saraf) | [🌐 `slide_07_anatomi_hybrid_app.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_07_anatomi_hybrid_app.html) |
+| **Slide 08** | Aplikasi Mobile Pertama: Mockup MyUT dengan Touch Event | [🌐 `slide_08_hello_hybrid_app.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_08_hello_hybrid_app.html) |
+| **Slide 09** | 3 Langkah Menguji Layar HP di Chrome (`F12` & `Ctrl+Shift+M`) | [🌐 `slide_09_chrome_device_toolbar_guide.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_09_chrome_device_toolbar_guide.html) |
+| **Slide 10** | Bukti Krusial Viewport Meta Tag (Skala 1:1 Layar Ponsel) | [🌐 `slide_10_viewport_meta_scaling.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_10_viewport_meta_scaling.html) |
+| **Slide 11** | Simulator & Penjelasan 5 Perintah Sakti Ionic CLI | [🌐 `slide_11_ionic_cli_simulator.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_11_ionic_cli_simulator.html) *(Skrip: [`.js`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_11_ionic_cli_simulator.js))* |
+| **Slide 12** | Peta Folder Proyek Ionic Vue (`src/views`, `src/theme`, dll.) | [🌐 `slide_12_struktur_folder_proyek.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_12_struktur_folder_proyek.html) *(Skrip: [`.js`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_12_struktur_folder_proyek.js))* |
+| **Slide 13** | Panduan Praktis USB Debugging + `scrcpy` (Hemat RAM < 70MB) | [🌐 `slide_13_usb_debugging_scrcpy_guide.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_13_usb_debugging_scrcpy_guide.html) *(Panduan: [`.md`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_13_usb_debugging_scrcpy_guide.md))* |
+| **Slide 14** | Simulasi Cara Kerja Hot Module Replacement (HMR) & Live Reload | [🌐 `slide_14_hmr_live_reload_demo.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_14_hmr_live_reload_demo.html) |
+| **Slide 15** | Pertolongan Pertama: Solusi Error PowerShell `PSSecurityException` | [🌐 `slide_15_troubleshooting_powershell_cli.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_15_troubleshooting_powershell_cli.html) *(Panduan: [`.md`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_15_troubleshooting_powershell_cli.md))* |
+| **Slide 16** | Cheatsheet Perintah Esensial Terminal & Git untuk Tugas Kuliah | [🌐 `slide_16_cheatsheet_terminal_git.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_16_cheatsheet_terminal_git.html) *(Panduan: [`.md`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_16_cheatsheet_terminal_git.md))* |
+| **Slide 17** | **🎯 MASTER SOLUSI LAB QUEST 01:** KTM Digital Mahasiswa UT | [🌐 `slide_17_lab_quest_01_profil_mahasiswa.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html) |
+| **Slide 18** | Jembatan Sesi 02: Membandingkan DOM Kuno vs Vue.js 3 Reaktif | [🌐 `slide_18_preview_sesi_02_vue.html`](contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_18_preview_sesi_02_vue.html) |
 
 ---
 

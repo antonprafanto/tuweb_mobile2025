@@ -1,59 +1,132 @@
 <!DOCTYPE html>
-<!--
-=====================================================================
-MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303) - UT
-SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
-SLIDE 04    : EKOSISTEM IONIC & KEKUATAN WEB COMPONENTS (CDN INSTAN)
-=====================================================================
-CARA MENJALANKAN:
-1. Klik ganda berkas ini untuk membuka langsung di Google Chrome / Edge.
-2. Tekan F12 -> Tekan Ctrl+Shift+M untuk melihat tampilan seperti layar HP!
-=====================================================================
--->
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slide 04 - Komponen Web Standar Ionic Framework</title>
-  <!-- 1. Pustaka Inti Ionic Framework via CDN (Resmi & Ringan) -->
+  <title>Slide 04: Ekosistem Ionic & Web Components CDN — STSI4303</title>
+  <!-- 1. Pustaka Inti Ionic Framework via CDN Resmi & Ringan -->
   <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
   <style>
     :root {
-      --ion-color-primary: #0284C7;
+      --ion-color-primary: #005691; /* Biru Khas UT */
       --ion-color-primary-contrast: #FFFFFF;
+      --bg: #FAF8F5;
+      --border: #000000;
+    }
+    body {
+      background-color: var(--bg);
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      margin: 0;
+      padding: 16px;
+    }
+    .guide-banner {
+      background: #FFE600;
+      border: 3px solid var(--border);
+      padding: 14px 18px;
+      box-shadow: 4px 4px 0 var(--border);
+      margin-bottom: 16px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 6px;
+    }
+    .code-box {
+      background: #1E293B;
+      color: #38BDF8;
+      font-family: 'Consolas', monospace;
+      padding: 12px;
+      font-size: 12px;
+      border: 2px solid #000;
+      margin: 10px 0;
+      overflow-x: auto;
+    }
+    .color-btn {
+      border: 2px solid #000;
+      padding: 6px 12px;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+      margin-right: 6px;
+      margin-bottom: 6px;
+      box-shadow: 2px 2px 0 #000;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
-  <!-- Komponen Utama Ionic: ion-app membungkus seluruh antarmuka -->
-  <ion-app>
-    <!-- Header Halaman Ponsel -->
+
+  <!-- BANNER PANDUAN PEMULA -->
+  <div class="guide-banner">
+    <div class="badge-tag">SLIDE 04 • SESI 01 (MODUL 1 BMP UT - WEB STANDARDS)</div>
+    <h2 style="margin: 0 0 4px 0; font-size: 18px;">Ekosistem Ionic Framework & Kekuatan Web Components</h2>
+    <p style="margin: 0; font-size: 13px;">Menjalankan antarmuka smartphone kelas industri langsung di peramban web tanpa perlu instalasi tools rumit (Zero-Friction CDN).</p>
+  </div>
+
+  <!-- CONTAINER IONIC APP -->
+  <ion-app style="max-width: 650px; margin: 0 auto; border: 3px solid #000; box-shadow: 6px 6px 0 #000; min-height: 520px; background: #FFF;">
+    <!-- Bilah Navigasi Atas Ponsel -->
     <ion-header translucent="true">
       <ion-toolbar color="primary">
         <ion-title>Portal Mobile Mahasiswa UT</ion-title>
       </ion-toolbar>
     </ion-header>
 
-    <!-- Konten Utama yang Dapat Di-scroll -->
+    <!-- Konten Layar Mobile yang Dapat Di-scroll -->
     <ion-content class="ion-padding">
-      <ion-card>
+      <ion-card style="border: 2px solid #000; box-shadow: 3px 3px 0 #000; margin: 0 0 16px 0;">
         <ion-card-header>
-          <ion-card-subtitle>STSI4303 • SESI 01</ion-card-subtitle>
-          <ion-card-title>Selamat Datang di Ionic!</ion-card-title>
+          <ion-card-subtitle style="font-weight: bold; color: #0284C7;">STSI4303 • SESI 01</ion-card-subtitle>
+          <ion-card-title style="font-size: 18px; font-weight: 800;">Komponen Bawaan Ionic (Tanpa Install!)</ion-card-title>
         </ion-card-header>
-        <ion-card-content>
-          Komponen ini adalah <strong>Web Component resmi Ionic</strong> yang berjalan langsung di browser tanpa perlu instalasi Node.js atau kompilasi rumit!
+        <ion-card-content style="font-size: 13px; line-height: 1.5; color: #334155;">
+          Komponen <code>&lt;ion-card&gt;</code> dan <code>&lt;ion-button&gt;</code> di layar ini adalah <strong>Web Components resmi</strong>. Peramban modern (Chrome, Edge, Safari) langsung mengenalinya secara native berkat tag CDN di baris header!
         </ion-card-content>
       </ion-card>
 
-      <!-- Tombol Aksi Khas Mobile -->
+      <!-- PENJELASAN KONSEP UNTUK PEMULA -->
+      <div style="background: #F8FAFC; border: 2px solid #000; padding: 12px; margin-bottom: 14px; font-size: 12px; line-height: 1.6;">
+        <strong>💡 Apa itu CDN (Content Delivery Network)?</strong><br>
+        CDN adalah jaringan server global yang menyimpan file pustaka Ionic. Kita cukup "meminjam" pustaka tersebut via internet menggunakan 2 baris kode ini di tag <code>&lt;head&gt;</code>:
+        <div class="code-box">
+&lt;script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"&gt;&lt;/script&gt;<br>
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" /&gt;
+        </div>
+        Dengan teknik ini, laptop berkapasitas RAM 4GB sekalipun dapat langsung memprogram aplikasi mobile tanpa lemot!
+      </div>
+
+      <!-- INTERAKTIF: GANTI TEMA WARNA DINAMIS -->
+      <div style="margin-bottom: 14px;">
+        <label style="font-size: 12px; font-weight: bold; display: block; margin-bottom: 6px;">🎨 Uji Responsif Tema Warna Aplikasi:</label>
+        <button class="color-btn" style="background: #005691; color: #FFF;" onclick="ubahWarna('#005691')">Biru UT</button>
+        <button class="color-btn" style="background: #059669; color: #FFF;" onclick="ubahWarna('#059669')">Emerald Mint</button>
+        <button class="color-btn" style="background: #DC2626; color: #FFF;" onclick="ubahWarna('#DC2626')">Ruby Red</button>
+        <button class="color-btn" style="background: #7C3AED; color: #FFF;" onclick="ubahWarna('#7C3AED')">Royal Purple</button>
+      </div>
+
+      <!-- Tombol Aksi Sentuhan Mobile -->
       <ion-button expand="block" color="primary" onclick="tampilkanPesan()">
-        Sentuh Saya (Interaksi Mobile)
+        📱 Sentuh Saya (Uji Event Listener Sentuhan)
       </ion-button>
 
-      <div id="outputArea" style="margin-top: 15px; text-align: center; font-size: 14px; font-weight: bold; color: #0284C7;"></div>
+      <div id="outputArea" style="margin-top: 12px; text-align: center; font-size: 13px; font-weight: bold; color: #005691;"></div>
+
+      <div class="source-cite">
+        📚 Referensi Akademik: Buku Materi Pokok (BMP) UT STSI4303 Modul 1 (Kegiatan Belajar 2); W3C Web Components Specification; Dokumentasi Resmi Ionic Framework (ionicframework.com/docs).
+      </div>
     </ion-content>
   </ion-app>
 
@@ -61,8 +134,13 @@ CARA MENJALANKAN:
     let hitung = 0;
     function tampilkanPesan() {
       hitung++;
-      document.getElementById('outputArea').innerText = 
-        `🎉 Tombol disentuh sebanyak ${hitung} kali! Komponen Ionic sangat responsif.`;
+      document.getElementById('outputArea').innerHTML = 
+        `🎉 Tombol disentuh sebanyak <strong>${hitung} kali</strong>! Interaksi mobile berjalan lancar 60 FPS tanpa jeda.`;
+    }
+
+    function ubahWarna(hexColor) {
+      document.documentElement.style.setProperty('--ion-color-primary', hexColor);
+      document.getElementById('outputArea').style.color = hexColor;
     }
   </script>
 </body>

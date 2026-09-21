@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 05: Panduan Langkah Demi Langkah Instalasi Tools — STSI4303</title>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+    body {
+      background-color: var(--bg);
+      margin: 0;
+      padding: 20px;
+      color: #000;
+      display: flex;
+      justify-content: center;
+    }
+    .wrapper { max-width: 880px; width: 100%; }
+    .header-banner {
+      background: var(--mint);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 8px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .grid-tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .tool-card {
+      background: #FFF;
+      border: 3px solid var(--border);
+      padding: 18px;
+      box-shadow: 5px 5px 0 var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .tool-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .tool-icon {
+      width: 42px;
+      height: 42px;
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      background: #FEF08A;
+      box-shadow: 2px 2px 0 #000;
+    }
+    .btn-link {
+      display: inline-block;
+      background: var(--yellow);
+      border: 2px solid #000;
+      padding: 8px 12px;
+      font-weight: 800;
+      font-size: 12px;
+      text-decoration: none;
+      color: #000;
+      text-align: center;
+      box-shadow: 3px 3px 0 #000;
+      margin-top: 12px;
+    }
+    .btn-link:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+    .terminal-section {
+      background: #1E293B;
+      border: 3px solid #000;
+      padding: 20px;
+      box-shadow: 6px 6px 0 #000;
+      color: #FFF;
+      margin-bottom: 20px;
+    }
+    .code-cmd {
+      background: #0F172A;
+      color: #38BDF8;
+      font-family: 'Consolas', monospace;
+      padding: 8px 12px;
+      font-size: 13px;
+      border: 1px solid #334155;
+      display: inline-block;
+      margin: 4px 0;
+    }
+    .copy-btn {
+      background: var(--cyan);
+      border: 2px solid #000;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="header-banner">
+      <div class="badge-tag">SLIDE 05 • SESI 01 (MODUL 1 BMP UT - PENYIAPAN ALAT TEMPUR)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Panduan Lengkap Penyiapan Dapur Kerja Pengembang Mobile</h1>
+      <p style="margin: 0; font-size: 13px;">4 Perangkat lunak gratis yang wajib Anda pasang di laptop untuk menuntaskan seluruh tugas perkuliahan STSI4303.</p>
+    </div>
+
+    <!-- PANDUAN AWAM: BUKA TOOLS APA DULU? -->
+    <div class="guide-box">
+      <h4 style="margin: 0 0 6px 0; color: #1E40AF; font-size: 15px;">❓ Pertanyaan Pemula: "Saya harus unduh dan buka tools apa dulu?"</h4>
+      Ikuti urutan prioritas di bawah ini. Anda tidak perlu bingung: seluruh software di bawah ini <strong>100% GRATIS</strong> dan aman digunakan di Windows, macOS, maupun Linux:
+      <ol style="margin: 8px 0 0 0; padding-left: 20px;">
+        <li><strong>Pertama:</strong> Unduh dan pasang <strong>Visual Studio Code</strong> (alat untuk membuka dan mengetik kode program).</li>
+        <li><strong>Kedua:</strong> Unduh dan pasang <strong>Node.js versi LTS</strong> (mesin yang menjalankan JavaScript di komputer Anda).</li>
+        <li><strong>Ketiga:</strong> Unduh dan pasang <strong>Git SCM</strong> (alat pencatat revisi dan sarana mengumpulkan tugas ke GitHub).</li>
+        <li><strong>Keempat:</strong> Buka <strong>Google Chrome</strong> untuk menguji tampilan aplikasi mobile tanpa perlu emulator berat!</li>
+      </ol>
+    </div>
+
+    <!-- GRID 4 TOOLS UTAMA -->
+    <div class="grid-tools">
+      <!-- TOOL 1: VS CODE -->
+      <div class="tool-card">
+        <div>
+          <div class="tool-header">
+            <div class="tool-icon">📝</div>
+            <div>
+              <strong style="font-size: 15px;">1. Visual Studio Code</strong>
+              <div style="font-size: 11px; color: #64748B;">Editor Kode Resmi Industri</div>
+            </div>
+          </div>
+          <p style="font-size: 12px; line-height: 1.5; color: #334155; margin: 0;">
+            Aplikasi tempat kita membaca, mengedit, dan membuat file <code>.html</code>, <code>.vue</code>, dan <code>.ts</code>. Ringan dan memiliki fitur auto-complete cerdas.
+          </p>
+          <div style="margin-top: 10px; font-size: 11px; background: #F1F5F9; border: 1px solid #CBD5E1; padding: 6px;">
+            <strong>Ekstensi Wajib di VS Code:</strong><br>
+            • Vue - Official (Syntax highlight Vue 3)<br>
+            • Prettier (Perapih format baris kode)
+          </div>
+        </div>
+        <a href="https://code.visualstudio.com/" target="_blank" class="btn-link">🌐 Unduh VS Code Resmi</a>
+      </div>
+
+      <!-- TOOL 2: NODE.JS -->
+      <div class="tool-card">
+        <div>
+          <div class="tool-header">
+            <div class="tool-icon" style="background: #BBF7D0;">🟢</div>
+            <div>
+              <strong style="font-size: 15px;">2. Node.js (Versi LTS)</strong>
+              <div style="font-size: 11px; color: #64748B;">JavaScript Runtime Environment</div>
+            </div>
+          </div>
+          <p style="font-size: 12px; line-height: 1.5; color: #334155; margin: 0;">
+            Memungkinkan komputer Anda menjalankan script automasi, mengunduh library via NPM, dan menjalankan build system Ionic & Capacitor.
+          </p>
+          <div style="margin-top: 10px; font-size: 11px; background: #F0FDF4; border: 1px solid #86EFAC; padding: 6px; color: #166534;">
+            <strong>Tips Penting Saat Install:</strong><br>
+            Pilih versi bertuliskan <strong>"LTS"</strong> (Long Term Support, misal v20.x atau v22.x). Jangan pilih versi Current agar stabil!
+          </div>
+        </div>
+        <a href="https://nodejs.org/" target="_blank" class="btn-link">🌐 Unduh Node.js LTS</a>
+      </div>
+
+      <!-- TOOL 3: GIT SCM -->
+      <div class="tool-card">
+        <div>
+          <div class="tool-header">
+            <div class="tool-icon" style="background: #FED7AA;">🐙</div>
+            <div>
+              <strong style="font-size: 15px;">3. Git SCM</strong>
+              <div style="font-size: 11px; color: #64748B;">Version Control & GitHub Sync</div>
+            </div>
+          </div>
+          <p style="font-size: 12px; line-height: 1.5; color: #334155; margin: 0;">
+            Mencatat setiap riwayat perubahan baris kode dan mengunggah tugas kuliah Anda ke repositori GitHub pribadi.
+          </p>
+          <div style="margin-top: 10px; font-size: 11px; background: #FFF7ED; border: 1px solid #FDBA74; padding: 6px; color: #9A3412;">
+            <strong>Tips Penting Saat Install:</strong><br>
+            Klik Next terus sampai selesai. Pastikan opsi <em>"Git from command line and also 3rd-party software"</em> terpilih.
+          </div>
+        </div>
+        <a href="https://git-scm.com/" target="_blank" class="btn-link">🌐 Unduh Git SCM Resmi</a>
+      </div>
+
+      <!-- TOOL 4: GOOGLE CHROME -->
+      <div class="tool-card">
+        <div>
+          <div class="tool-header">
+            <div class="tool-icon" style="background: #BAE6FD;">🌐</div>
+            <div>
+              <strong style="font-size: 15px;">4. Google Chrome</strong>
+              <div style="font-size: 11px; color: #64748B;">Simulator Layar Smartphone</div>
+            </div>
+          </div>
+          <p style="font-size: 12px; line-height: 1.5; color: #334155; margin: 0;">
+            Peramban modern yang memiliki fitur <em>Device Toolbar</em> untuk menguji ukuran layar HP secara instan dengan konsumsi RAM rendah.
+          </p>
+          <div style="margin-top: 10px; font-size: 11px; background: #F0F9FF; border: 1px solid #7DD3FC; padding: 6px; color: #075985;">
+            <strong>Kelebihan untuk Awam:</strong><br>
+            Cukup klik 2x file <code>.html</code> untuk langsung mencoba aplikasi. Tidak perlu setup server di hari pertama!
+          </div>
+        </div>
+        <a href="https://www.google.com/chrome/" target="_blank" class="btn-link">🌐 Periksa Google Chrome</a>
+      </div>
+    </div>
+
+    <!-- PANDUAN MENGETIKKAN PERINTAH VERIFIKASI -->
+    <div class="terminal-section">
+      <h3 style="margin-top:0; color:#FFE600;">💻 "Di Mana dan Bagaimana Cara Mengetikkan Perintah Verifikasi?"</h3>
+      <p style="font-size: 13px; line-height: 1.6; color: #E2E8F0;">
+        Setelah memasang VS Code, Node.js, dan Git, ikuti 3 langkah berikut untuk memastikan semuanya sudah terpasang dengan benar di komputer Anda:
+      </p>
+
+      <div style="background: #0F172A; border: 1px solid #334155; padding: 14px; margin-bottom: 14px; font-size: 13px; line-height: 1.6;">
+        <strong>Langkah 1:</strong> Buka aplikasi <strong>Visual Studio Code</strong> di laptop Anda.<br>
+        <strong>Langkah 2:</strong> Buka jendela Terminal dengan menekan tombol keyboard: <kbd style="background:#334155; padding:2px 6px; border:1px solid #64748B;">Ctrl + `</kbd> (tanda kutip di bawah tombol Esc) atau klik menu atas <em>Terminal &gt; New Terminal</em>.<br>
+        <strong>Langkah 3:</strong> Ketikkan perintah uji di bawah ini satu per satu, lalu tekan <strong>Enter</strong>:
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <div style="font-size: 12px; color: #94A3B8;">1. Memeriksa Versi Node.js (Wajib muncul v20.x atau lebih baru):</div>
+        <div>
+          <span class="code-cmd">node -v</span>
+          <button class="copy-btn" onclick="salinTeks('node -v')">📋 Salin Perintah</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <div style="font-size: 12px; color: #94A3B8;">2. Memeriksa Versi Git (Wajib muncul git version x.x.x):</div>
+        <div>
+          <span class="code-cmd">git --version</span>
+          <button class="copy-btn" onclick="salinTeks('git --version')">📋 Salin Perintah</button>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size: 12px; color: #94A3B8;">3. Memeriksa Versi NPM (Pengelola Paket bawaan Node.js):</div>
+        <div>
+          <span class="code-cmd">npm -v</span>
+          <button class="copy-btn" onclick="salinTeks('npm -v')">📋 Salin Perintah</button>
+        </div>
+      </div>
+
+      <div id="copyAlert" style="margin-top: 12px; font-size: 12px; color: #4ADE80; font-weight: bold; display: none;">
+        ✅ Perintah berhasil disalin ke clipboard! Silakan paste di terminal Anda.
+      </div>
+    </div>
+
+    <div class="source-cite">
+      📚 Referensi & Sitasi Resmi: Buku Materi Pokok (BMP) UT STSI4303 Modul 1 (Kegiatan Belajar 1: Penyiapan Lingkungan Pengembangan); Dokumentasi Resmi Node.js (nodejs.org); Git SCM Official Manual (git-scm.com).
+    </div>
+  </div>
+
+  <script>
+    function salinTeks(teks) {
+      navigator.clipboard.writeText(teks).then(() => {
+        const alertBox = document.getElementById('copyAlert');
+        alertBox.style.display = 'block';
+        setTimeout(() => {
+          alertBox.style.display = 'none';
+        }, 3000);
+      });
+    }
+  </script>
+</body>
+</html>

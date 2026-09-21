@@ -1,101 +1,283 @@
 <!DOCTYPE html>
 <!--
 =====================================================================
-MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303) - UT
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303)
+INSTITUSI   : FAKULTAS SAINS DAN TEKNOLOGI - UNIVERSITAS TERBUKA
+DOSEN       : ANTON PRAFANTO, S.Kom., M.T.
 SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
 SLIDE 10    : PERAN KRUSIAL VIEWPORT META TAG PADA APLIKASI MOBILE
 =====================================================================
-CARA MENJALANKAN:
-Cukup klik ganda berkas ini untuk membuka langsung di Google Chrome / Edge!
+CARA MENJALANKAN (RAMAH PEMULA):
+1. Cukup klik ganda berkas ini di File Explorer untuk membuka di Google Chrome.
+2. Gunakan sakelar di bawah untuk membandingkan secara visual apa jadinya
+   bila aplikasi mobile dibuat tanpa tag viewport!
 =====================================================================
 -->
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta id="metaViewport" name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slide 10 - Memahami Viewport Meta Tag</title>
+  <meta id="metaViewportTag" name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 10: Peran Krusial Viewport Meta Tag — STSI4303 UT</title>
   <style>
+    :root {
+      --bg: #FAF8F5;
+      --card: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+      --blue-ut: #005691;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
     body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: #FAF8F5;
-      padding: 16px;
+      background-color: var(--bg);
       margin: 0;
-      color: #1E293B;
+      padding: 20px;
+      color: #000;
+      display: flex;
+      justify-content: center;
     }
-    .card {
-      background: #FFF;
-      border: 2.5px solid #000;
-      box-shadow: 5px 5px 0 #000;
-      padding: 16px;
-      max-width: 600px;
-      margin: 0 auto 16px auto;
+    .container {
+      max-width: 920px;
+      width: 100%;
     }
-    .badge {
-      background: #4ADE80;
-      border: 2px solid #000;
-      font-weight: bold;
-      font-size: 11px;
-      padding: 3px 8px;
+    .header-banner {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
       display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
       margin-bottom: 8px;
     }
-    .code-box {
-      background: #121212;
-      color: #4ADE80;
-      font-family: Consolas, monospace;
-      padding: 12px;
-      border-radius: 4px;
-      font-size: 12px;
-      overflow-x: auto;
-      margin: 10px 0;
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
     }
-    .toggle-btn {
-      background: #FFE600;
-      border: 2px solid #000;
-      padding: 10px 16px;
+    .card {
+      background: var(--card);
+      border: 3px solid var(--border);
+      box-shadow: 6px 6px 0 var(--border);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .code-box {
+      background: #0F172A;
+      color: #38BDF8;
+      font-family: Consolas, monospace;
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      overflow-x: auto;
+      margin: 12px 0;
+      border-left: 4px solid var(--yellow);
+    }
+    .btn-toggle {
+      background: var(--yellow);
+      border: 2.5px solid var(--border);
+      padding: 12px 18px;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 3px 3px 0 #000;
+      box-shadow: 4px 4px 0 var(--border);
+      font-size: 14px;
       width: 100%;
+      margin: 12px 0;
+      transition: all 0.2s ease;
+    }
+    .btn-toggle:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--border);
+    }
+    .compare-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    @media (max-width: 768px) {
+      .compare-container { grid-template-columns: 1fr; }
+    }
+    .compare-box {
+      border: 2px solid var(--border);
+      padding: 16px;
+      border-radius: 6px;
       font-size: 13px;
+      line-height: 1.5;
+    }
+    .box-bad { background: #FEE2E2; }
+    .box-good { background: #DCFCE7; }
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 13px;
+    }
+    .param-table th, .param-table td {
+      border: 2px solid var(--border);
+      padding: 10px;
+      text-align: left;
+    }
+    .param-table th {
+      background: #F1F5F9;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="badge">STSI4303 • SESI 01 • SLIDE 10</div>
-    <h2 style="margin-top:0;">🔍 Mengapa Meta Tag Viewport Wajib Ada?</h2>
-    <p style="font-size: 13px; line-height: 1.5;">
-      Secara default, smartphone menganggap seluruh website berukuran layar komputer (lebar 980px), sehingga teks akan diperkecil (*zoom out*) hingga tidak terbaca.
-      Dengan tag sakti ini, kita memerintahkan ponsel untuk menyamakan lebar halaman dengan lebar fisik layar ponsel:
-    </p>
 
-    <div class="code-box">
-      &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  <div class="container">
+    <div class="header-banner">
+      <div class="badge-tag">SLIDE 10 • SESI 01 (MODUL 1 BMP UT - VIEWPORT SCALING)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Mengapa Baris Kode Ini Wajib Ada di Setiap Aplikasi Mobile?</h1>
+      <p style="margin: 0; font-size: 13px;">Membedah misteri di balik <code>&lt;meta name="viewport"&gt;</code>: Menyelamatkan aplikasi Anda dari jebakan resolusi 980px desktop yang membuat teks sekecil semut!</p>
     </div>
 
-    <button class="toggle-btn" onclick="toggleViewport()">
-      🔄 Simulasikan: Apa Jadinya Tanpa Viewport Tag?
-    </button>
-    <p id="statusMsg" style="font-size: 12px; margin-top: 10px; color: #0284C7; font-weight: bold; text-align: center;">
-      Status: Viewport Aktif (Tampilan 1:1 pas di genggaman ponsel)
-    </p>
+    <div class="guide-box">
+      <strong>💡 Panduan Ramah Pemula:</strong><br>
+      Pernahkah Anda membuka website jadul di ponsel, lalu seluruh teks dan tombolnya berukuran super mini sehingga Anda harus mencubit layar (pinch-to-zoom) untuk membaca? 
+      Itu terjadi karena pengembangnya lupa menyertakan <strong>Viewport Meta Tag</strong>!
+    </div>
+
+    <!-- DIAGRAM VISUAL PERBANDINGAN RENDERING -->
+    <div class="card">
+      <h3 style="margin-top:0;">📊 Diagram Visual: Mekanisme Peramban Mobile Membaca Layar</h3>
+      <p style="font-size:13px; color:#475569;">
+        Perhatikan perbandingan bagaimana layar ponsel 360px merender halaman dengan dan tanpa tag viewport:
+      </p>
+
+      <div style="width: 100%; overflow-x: auto; background: #FFF; border: 2px solid #000; padding: 12px; margin-bottom: 16px;">
+        <svg viewBox="0 0 760 250" width="100%" height="230" xmlns="http://www.w3.org/2000/svg">
+          <!-- KIRI: TANPA VIEWPORT -->
+          <rect x="15" y="15" width="350" height="220" rx="8" fill="#FFF5F5" stroke="#000" stroke-width="2"/>
+          <text x="30" y="38" font-family="Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#B91C1C">❌ TANPA VIEWPORT META TAG</text>
+          
+          <!-- SIMULASI KANVAS BESAR DIKECILKAN -->
+          <rect x="30" y="55" width="320" height="90" fill="#E2E8F0" stroke="#64748B" stroke-dasharray="4,4"/>
+          <text x="45" y="80" font-family="Segoe UI, sans-serif" font-size="11" fill="#475569">Asumsi Peramban: Layar Komputer Lebar 980px</text>
+          
+          <!-- HP KECIL DI DALAMNYA -->
+          <rect x="130" y="90" width="120" height="50" fill="#FEE2E2" stroke="#B91C1C" stroke-width="1.5"/>
+          <text x="138" y="112" font-family="Segoe UI, sans-serif" font-size="9" fill="#B91C1C">Teks Diciutkan (Zoom-out)</text>
+          <text x="148" y="128" font-family="Segoe UI, sans-serif" font-size="9" font-weight="bold" fill="#B91C1C">Ukuran: 0.36x Skala</text>
+
+          <text x="30" y="170" font-family="Segoe UI, sans-serif" font-size="11.5" fill="#7F1D1D">• Browser menganggap lebar layar 980px.</text>
+          <text x="30" y="188" font-family="Segoe UI, sans-serif" font-size="11.5" fill="#7F1D1D">• Seluruh teks mengecil drastis hingga tak terbaca.</text>
+          <text x="30" y="206" font-family="Segoe UI, sans-serif" font-size="11.5" fill="#7F1D1D">• Tombol sulit ditekan jari jempol pengguna.</text>
+
+          <!-- KANAN: DENGAN VIEWPORT -->
+          <rect x="395" y="15" width="350" height="220" rx="8" fill="#F0FDF4" stroke="#000" stroke-width="2"/>
+          <text x="410" y="38" font-family="Segoe UI, sans-serif" font-size="13" font-weight="bold" fill="#15803D">✅ DENGAN VIEWPORT META TAG</text>
+          
+          <!-- SIMULASI 1:1 PAS DENGAN HP -->
+          <rect x="440" y="55" width="260" height="90" rx="6" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
+          <text x="455" y="80" font-family="Segoe UI, sans-serif" font-size="12" font-weight="bold" fill="#166534">Lebar Layout = Lebar Fisik HP (1:1)</text>
+          <text x="455" y="100" font-family="Segoe UI, sans-serif" font-size="11" fill="#15803D">1 CSS Pixel = 1 Device Independent Pixel (DIP)</text>
+          <rect x="455" y="112" width="110" height="24" rx="4" fill="#005691"/>
+          <text x="468" y="128" font-family="Segoe UI, sans-serif" font-size="10" font-weight="bold" fill="#FFF">Tombol Nyaman (44px)</text>
+
+          <text x="410" y="170" font-family="Segoe UI, sans-serif" font-size="11.5" fill="#14532D">• Layar pas di genggaman tanpa scroll horizontal.</text>
+          <text x="410" y="188" font-family="Segoe UI, sans-serif" font-size="11.5" fill="#14532D">• Tipografi jelas dan nyaman dibaca (14px - 16px).</text>
+          <text x="410" y="206" font-family="Segoe UI, sans-serif" font-size="11.5" fill="#14532D">• Standar baku seluruh aplikasi Ionic Framework.</text>
+        </svg>
+      </div>
+
+      <div class="source-cite">
+        <strong>Referensi Akademik:</strong> W3C CSS Device Adaptation Module & Apple Developer: "Configuring the Viewport for Mobile Safari" & BMP UT STSI4303 Modul 1.
+      </div>
+    </div>
+
+    <!-- SINTAKS & PARAMETER LENGKAP -->
+    <div class="card">
+      <h3 style="margin-top:0;">💻 Sintaks Baku pada Header HTML Proyek Ionic:</h3>
+      
+      <div class="code-box">
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;
+      </div>
+
+      <table class="param-table">
+        <thead>
+          <tr>
+            <th style="width: 28%;">Parameter</th>
+            <th style="width: 30%;">Nilai Standar</th>
+            <th>Maksud & Dampak Nyata pada Pengguna</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>width</code></td>
+            <td><code>device-width</code></td>
+            <td>Menyamakan lebar kanvas aplikasi dengan lebar fisik ponsel (bukan lebar 980px desktop).</td>
+          </tr>
+          <tr>
+            <td><code>initial-scale</code></td>
+            <td><code>1.0</code></td>
+            <td>Rasio perbesaran awal tepat 1:1 saat aplikasi pertama kali dibuka (tidak zoom out / zoom in).</td>
+          </tr>
+          <tr>
+            <td><code>maximum-scale</code></td>
+            <td><code>1.0</code></td>
+            <td>Mencegah perbesaran berlebihan yang dapat merusak kerapian tata letak kartu dan tombol navigasi.</td>
+          </tr>
+          <tr>
+            <td><code>user-scalable</code></td>
+            <td><code>no</code></td>
+            <td>Mengunci gestur cubit layar (pinch-to-zoom) agar sensasi interaksi terasa seperti aplikasi native murni.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- SIMULATOR INTERAKTIF -->
+      <div style="margin-top: 24px;">
+        <button class="btn-toggle" onclick="simulasikanViewport()">
+          🔄 Uji Coba Langsung: Beralih Antara Mode Ponsel Pas (1:1) vs Mode Desktop Semut (980px)
+        </button>
+
+        <div id="statusIndikator" style="padding: 12px; background: #DCFCE7; border: 2px solid #16A34A; text-align: center; font-weight: bold; font-size: 13.5px; color: #166534;">
+          ✅ Status Viewport: Aktif (width=device-width, scale=1.0) — Ukuran tombol & font proporsional!
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
-    let aktif = true;
-    function toggleViewport() {
-      aktif = !aktif;
-      const el = document.getElementById('metaViewport');
-      const msg = document.getElementById('statusMsg');
-      if (aktif) {
-        el.setAttribute('content', 'width=device-width, initial-scale=1.0');
-        msg.innerText = "Status: Viewport Aktif (Teks dan tombol pas di layar ponsel)";
-        msg.style.color = "#059669";
+    let modeAktif = true;
+    function simulasikanViewport() {
+      modeAktif = !modeAktif;
+      const metaTag = document.getElementById('metaViewportTag');
+      const status = document.getElementById('statusIndikator');
+
+      if (modeAktif) {
+        metaTag.setAttribute('content', 'width=device-width, initial-scale=1.0');
+        status.style.background = '#DCFCE7';
+        status.style.borderColor = '#16A34A';
+        status.style.color = '#166534';
+        status.innerHTML = "✅ Status Viewport: Aktif (width=device-width, scale=1.0) — Ukuran tombol & font proporsional di ponsel!";
       } else {
-        el.setAttribute('content', 'width=1200');
-        msg.innerText = "Status: Viewport Dinonaktifkan (Ponsel memperkecil tampilan menjadi semut!)";
-        msg.style.color = "#DC2626";
+        metaTag.setAttribute('content', 'width=1100');
+        status.style.background = '#FEE2E2';
+        status.style.borderColor = '#DC2626';
+        status.style.color = '#991B1B';
+        status.innerHTML = "⚠️ Status Viewport: Dinonaktifkan (width=1100px) — Browser menganggap ini desktop, teks diperkecil menjadi semut!";
       }
     }
   </script>

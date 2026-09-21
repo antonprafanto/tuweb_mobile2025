@@ -1,152 +1,379 @@
 <!DOCTYPE html>
 <!--
 =====================================================================
-MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303) - UT
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303)
+INSTITUSI   : FAKULTAS SAINS DAN TEKNOLOGI - UNIVERSITAS TERBUKA
+DOSEN       : ANTON PRAFANTO, S.Kom., M.T.
 SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
 SLIDE 17    : SOLUSI MASTER LAB QUEST 01 - KARTU DIGITAL MAHASISWA UT
 =====================================================================
 DESKRIPSI TUGAS LAB:
-Membangun tampilan antarmuka mobile pertama yang memuat identitas
-akademik mahasiswa UT dengan komponen resmi Ionic Framework (CDN).
+Membangun antarmuka mobile pertama menggunakan pustaka resmi Ionic
+Framework 7 Core (CDN) yang menampilkan identitas akademik mahasiswa UT.
 =====================================================================
-CARA MENJALANKAN:
-1. Klik ganda berkas ini untuk membuka langsung di Google Chrome / Edge.
-2. Tekan F12 -> Tekan Ctrl + Shift + M untuk melihat tampilan presisi layar HP.
+CARA MENJALANKAN (RAMAH PEMULA):
+1. Cukup klik ganda berkas ini di File Explorer untuk membuka di Google Chrome.
+2. Edit form di sebelah kiri untuk melihat kartu mahasiswa terupdate seketika!
+3. Gunakan tombol 'Salin Seluruh Kode' untuk pengumpulan tugas ke LMS UT.
 =====================================================================
 -->
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Lab Quest 01 - KTM Digital Mahasiswa UT</title>
-  
-  <!-- Pustaka Resmi Ionic Framework 7 Core via CDN -->
+  <title>Slide 17: Master Solusi Lab Quest 01 — STSI4303 UT</title>
+
+  <!-- Pustaka Resmi Ionic Framework 7 Core via CDN (Tanpa Instalasi Berat) -->
   <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
 
   <style>
     :root {
-      --ion-color-primary: #005691;          /* Biru Khas UT */
+      --bg: #FAF8F5;
+      --card: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --blue-ut: #005691;
+      --blue-light: #0284C7;
+      
+      /* Variabel Tema Resmi Ionic Framework */
+      --ion-color-primary: #005691;
       --ion-color-primary-contrast: #FFFFFF;
-      --ion-color-secondary: #FFE600;        /* Kuning Emas Aksen */
+      --ion-color-secondary: #FFE600;
+      --ion-color-secondary-contrast: #000000;
     }
-    .ktm-card {
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+    body {
+      background-color: var(--bg);
+      margin: 0;
+      padding: 20px;
+      color: #000;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 960px;
+      width: 100%;
+    }
+    .header-banner {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 8px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 800px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--card);
+      border: 3px solid var(--border);
+      box-shadow: 6px 6px 0 var(--border);
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+    /* Form Editor */
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: #1E293B;
+    }
+    .form-control {
+      width: 100%;
+      padding: 8px 12px;
+      border: 2px solid var(--border);
+      font-size: 13px;
+      border-radius: 4px;
+      outline: none;
+      background: #FFF;
+    }
+    /* Smartphone Viewport */
+    .phone-container {
+      width: 100%;
+      max-width: 340px;
+      height: 600px;
+      background: #FFFFFF;
+      border-radius: 32px;
+      border: 6px solid #1E293B;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+    }
+    .ktm-card-inner {
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0, 86, 145, 0.15);
-      border: 1px solid #E2E8F0;
+      box-shadow: 0 8px 20px rgba(0, 86, 145, 0.15);
+      border: 1px solid #CBD5E1;
+      margin-top: 10px;
     }
-    .ktm-header {
+    .ktm-header-inner {
       background: linear-gradient(135deg, #005691 0%, #0284C7 100%);
       color: white;
-      padding: 20px;
+      padding: 16px;
       text-align: center;
     }
-    .avatar-box {
-      width: 76px;
-      height: 76px;
+    .avatar-circle {
+      width: 68px;
+      height: 68px;
       background: #FFFFFF;
-      color: #005691;
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 34px;
-      margin-bottom: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      font-size: 32px;
+      margin-bottom: 6px;
+      border: 2px solid var(--yellow);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
-    .status-badge {
+    .status-badge-live {
       display: inline-block;
       background: #4ADE80;
       color: #064E3B;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: bold;
-      padding: 3px 10px;
-      border-radius: 12px;
+      padding: 3px 8px;
+      border-radius: 10px;
       margin-top: 4px;
+    }
+    .rubrik-box {
+      background: #F8FAFC;
+      border: 2px solid var(--border);
+      padding: 14px;
+      margin-top: 16px;
+      font-size: 12.5px;
+      line-height: 1.6;
+    }
+    .btn-export {
+      background: var(--blue-ut);
+      color: white;
+      border: 2px solid var(--border);
+      padding: 10px 16px;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--border);
+      width: 100%;
+      margin-top: 12px;
+      transition: all 0.15s ease;
+    }
+    .btn-export:hover { background: #003e68; }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
 
-  <ion-app>
-    <!-- Header Navigasi -->
-    <ion-header translucent="true">
-      <ion-toolbar color="primary">
-        <ion-title>Portal Akademik Mobile UT</ion-title>
-      </ion-toolbar>
-    </ion-header>
+  <div class="container">
+    <div class="header-banner">
+      <div class="badge-tag">SLIDE 17 • SESI 01 (MODUL 1 BMP UT - MASTER SOLUSI LAB QUEST 01)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Master Solusi Lab Quest 01: Kartu Tanda Mahasiswa (KTM) Digital</h1>
+      <p style="margin: 0; font-size: 13px;">Laboratorium pertama membangun antarmuka mobile nyata dengan komponen resmi Ionic Framework 7 Core via CDN tanpa kompilasi rumit.</p>
+    </div>
 
-    <!-- Konten Utama Layar -->
-    <ion-content class="ion-padding" color="light">
-      
-      <!-- Kartu Tanda Mahasiswa Digital -->
-      <ion-card class="ktm-card">
-        <div class="ktm-header">
-          <div class="avatar-box">👨‍🎓</div>
-          <h2 style="margin: 0; font-size: 18px; font-weight: bold;">ANTON PRAFANTO</h2>
-          <p style="margin: 2px 0 0 0; font-size: 13px; opacity: 0.9;">NIM: 041987654</p>
-          <div class="status-badge" id="statusMhs">● Mahasiswa Aktif 2026.1</div>
-        </div>
+    <div class="guide-box">
+      <strong>💡 Panduan Pengerjaan Tugas Mandiri:</strong><br>
+      Ketikkan identitas asli Anda di panel editor sebelah kiri. Perhatikan bagaimana komponen resmi Ionic (<code>&lt;ion-app&gt;</code>, <code>&lt;ion-card&gt;</code>, <code>&lt;ion-list&gt;</code>) menyusun tampilan kartu di ponsel sebelah kanan secara instan!
+    </div>
 
-        <ion-card-content style="padding: 12px 16px;">
-          <ion-list lines="inset">
-            <ion-item>
-              <ion-label>
-                <p style="font-size: 11px; color: #64748B;">Program Studi</p>
-                <h3 style="font-weight: bold; font-size: 14px;">S1 Sistem Informasi</h3>
-              </ion-label>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>
-                <p style="font-size: 11px; color: #64748B;">Fakultas</p>
-                <h3 style="font-weight: bold; font-size: 14px;">Fakultas Sains dan Teknologi (FST)</h3>
-              </ion-label>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>
-                <p style="font-size: 11px; color: #64748B;">UPBJJ-UT Layanan</p>
-                <h3 style="font-weight: bold; font-size: 14px;">Jakarta / Seluruh Indonesia</h3>
-              </ion-label>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>
-                <p style="font-size: 11px; color: #64748B;">Mata Kuliah Praktik</p>
-                <h3 style="font-weight: bold; font-size: 14px; color: #005691;">STSI4303 - Mobile Programming</h3>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-
-          <div style="margin-top: 16px;">
-            <ion-button expand="block" color="primary" onclick="verifikasiKTM()">
-              Verifikasi Keaslian Kartu
-            </ion-button>
+    <div class="main-grid">
+      <!-- PANEL KIRI: FORM EDITOR & RUBRIK PENILAIAN -->
+      <div>
+        <div class="card">
+          <h3 style="margin-top:0; color:#005691;">📝 Editor Data Mahasiswa (Ubah Sesuai Identitas Anda):</h3>
+          
+          <div class="form-group">
+            <label>Nama Lengkap:</label>
+            <input type="text" id="inputNama" class="form-control" value="Anton Prafanto" oninput="updateKTM()">
           </div>
 
-          <div id="hasilVerifikasi" style="margin-top: 12px; text-align: center; font-size: 12.5px; font-weight: bold; color: #059669;"></div>
-        </ion-card-content>
-      </ion-card>
+          <div class="form-group">
+            <label>Nomor Induk Mahasiswa (NIM):</label>
+            <input type="text" id="inputNIM" class="form-control" value="041987654" oninput="updateKTM()">
+          </div>
 
-      <!-- Informasi Catatan Belajar -->
-      <div style="text-align: center; margin-top: 14px; font-size: 12px; color: #64748B;">
-        Tugas Lab Quest 01 • STSI4303 Universitas Terbuka<br>
-        <em>Membangun antarmuka mobile dari hari pertama kuliah!</em>
+          <div class="form-group">
+            <label>Program Studi:</label>
+            <select id="inputProdi" class="form-control" onchange="updateKTM()">
+              <option value="S1 Sistem Informasi">S1 Sistem Informasi</option>
+              <option value="S1 Informatika">S1 Informatika</option>
+              <option value="S1 Sains Data">S1 Sains Data</option>
+              <option value="S1 Matematika">S1 Matematika</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>UPBJJ-UT Layanan Daerah:</label>
+            <select id="inputUPBJJ" class="form-control" onchange="updateKTM()">
+              <option value="UT Samarinda">UT Samarinda</option>
+              <option value="UT Jakarta">UT Jakarta</option>
+              <option value="UT Bandung">UT Bandung</option>
+              <option value="UT Surabaya">UT Surabaya</option>
+              <option value="UT Medan">UT Medan</option>
+              <option value="UT Jayapura">UT Jayapura</option>
+              <option value="UT Layanan Luar Negeri (Taiwan/Seoul/dll)">UT Layanan Luar Negeri</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Pilih Ikon Avatar Profil:</label>
+            <select id="inputAvatar" class="form-control" onchange="updateKTM()">
+              <option value="👨‍🎓">👨‍🎓 Mahasiswa Pria (Toga)</option>
+              <option value="👩‍🎓">👩‍🎓 Mahasiswi Wanita (Toga)</option>
+              <option value="🧑‍💻">🧑‍💻 Developer Muda</option>
+              <option value="👩‍💻">👩‍💻 Pengembang Web</option>
+              <option value="⭐">⭐ Bintang Berprestasi</option>
+            </select>
+          </div>
+
+          <!-- RUBRIK PENILAIAN 0 - 100 -->
+          <div class="rubrik-box">
+            <h4 style="margin:0 0 6px 0; color:#005691;">📊 Rubrik Penilaian Tugas Lab Quest 01 (Skor Maks: 100):</h4>
+            <div>✅ <strong>[25 Poin]</strong> Struktur Semantik Ionic: Memakai <code>&lt;ion-app&gt;</code>, <code>&lt;ion-card&gt;</code>, <code>&lt;ion-list&gt;</code>.</div>
+            <div>✅ <strong>[25 Poin]</strong> Branding UT: Memakai Biru UT <code>#005691</code> dan Kuning Aksen <code>#FFE600</code>.</div>
+            <div>✅ <strong>[25 Poin]</strong> Mobile Viewport: Pas di layar ponsel tanpa scroll menyamping.</div>
+            <div>✅ <strong>[25 Poin]</strong> Interaktivitas: Tombol verifikasi kartu memunculkan dialog sukses.</div>
+          </div>
+
+          <button class="btn-export" onclick="salinKodeSolusi()">
+            📋 Salin Seluruh Kode HTML Solusi Ini untuk Dikumpulkan
+          </button>
+        </div>
       </div>
 
-    </ion-content>
-  </ion-app>
+      <!-- PANEL KANAN: SIMULATOR HP DENGAN IONIC ASLI -->
+      <div>
+        <div class="phone-container">
+          <ion-app>
+            <!-- Header Bar -->
+            <ion-header translucent="true">
+              <ion-toolbar color="primary">
+                <ion-title>Portal MyUT Mobile</ion-title>
+              </ion-toolbar>
+            </ion-header>
+
+            <!-- Content Area -->
+            <ion-content class="ion-padding" color="light">
+              
+              <!-- KARTU DIGITAL MAHASISWA -->
+              <div class="ktm-card-inner">
+                <div class="ktm-header-inner">
+                  <div class="avatar-circle" id="cardAvatar">👨‍🎓</div>
+                  <h3 id="cardNama" style="margin: 0; font-size: 16px; font-weight: bold;">ANTON PRAFANTO</h3>
+                  <p id="cardNIM" style="margin: 2px 0 0 0; font-size: 12px; opacity: 0.9;">NIM: 041987654</p>
+                  <div class="status-badge-live">● Mahasiswa Aktif 2026.1</div>
+                </div>
+
+                <ion-list lines="full" style="background:#FFF;">
+                  <ion-item>
+                    <ion-label>
+                      <p style="font-size: 10.5px; color: #64748B;">Program Studi</p>
+                      <h4 id="cardProdi" style="font-weight: bold; font-size: 13px; margin:2px 0;">S1 Sistem Informasi</h4>
+                    </ion-label>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label>
+                      <p style="font-size: 10.5px; color: #64748B;">Fakultas</p>
+                      <h4 style="font-weight: bold; font-size: 13px; margin:2px 0;">Sains dan Teknologi (FST)</h4>
+                    </ion-label>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label>
+                      <p style="font-size: 10.5px; color: #64748B;">UPBJJ-UT Layanan</p>
+                      <h4 id="cardUPBJJ" style="font-weight: bold; font-size: 13px; margin:2px 0;">UT Samarinda</h4>
+                    </ion-label>
+                  </ion-item>
+                </ion-list>
+
+                <div style="padding: 12px; background: #FFF;">
+                  <ion-button expand="block" color="primary" onclick="verifikasiKartu()">
+                    Verifikasi Keaslian KTM
+                  </ion-button>
+                  <div id="hasilVerif" style="margin-top:8px; text-align:center; font-size:11.5px; font-weight:bold; color:#059669; min-height:16px;"></div>
+                </div>
+              </div>
+
+              <div style="text-align:center; margin-top:14px; font-size:11px; color:#64748B;">
+                STSI4303 • Pemrograman Mobile UT<br>
+                <em>Dosen: Anton Prafanto, S.Kom., M.T.</em>
+              </div>
+
+            </ion-content>
+          </ion-app>
+        </div>
+      </div>
+    </div>
+
+    <div class="source-cite">
+      <strong>Referensi Akademik:</strong> Buku Materi Pokok (BMP) UT STSI4303 Modul 1 Kegiatan Belajar 2 & Dokumentasi Resmi Komponen Antarmuka Ionic Framework (ionicframework.com/docs/components).
+    </div>
+  </div>
 
   <script>
-    function verifikasiKTM() {
-      const el = document.getElementById('hasilVerifikasi');
-      el.innerHTML = "✅ QR Valid: Terdaftar Resmi di Pangkalan Data UT (PDDikti)";
-      setTimeout(() => {
-        el.innerHTML = "";
-      }, 4000);
+    function updateKTM() {
+      const nama = document.getElementById('inputNama').value || 'Nama Mahasiswa';
+      const nim = document.getElementById('inputNIM').value || '000000000';
+      const prodi = document.getElementById('inputProdi').value;
+      const upbjj = document.getElementById('inputUPBJJ').value;
+      const avatar = document.getElementById('inputAvatar').value;
+
+      document.getElementById('cardNama').innerText = nama.toUpperCase();
+      document.getElementById('cardNIM').innerText = "NIM: " + nim;
+      document.getElementById('cardProdi').innerText = prodi;
+      document.getElementById('cardUPBJJ').innerText = upbjj;
+      document.getElementById('cardAvatar').innerText = avatar;
+    }
+
+    function verifikasiKartu() {
+      const el = document.getElementById('hasilVerif');
+      const nim = document.getElementById('inputNIM').value;
+      el.innerHTML = `✅ Valid: Terdaftar Resmi di Server PDDikti UT!`;
+      setTimeout(() => { el.innerHTML = ""; }, 4000);
+    }
+
+    function salinKodeSolusi() {
+      const kode = document.documentElement.outerHTML;
+      navigator.clipboard.writeText(kode).then(() => {
+        alert("🎉 Berhasil! Seluruh kode HTML solusi Lab Quest 01 telah disalin ke clipboard.\nAnda dapat menyimpannya ke berkas sendiri atau mengunggahnya ke repositori GitHub tugas kuliah!");
+      });
     }
   </script>
 </body>

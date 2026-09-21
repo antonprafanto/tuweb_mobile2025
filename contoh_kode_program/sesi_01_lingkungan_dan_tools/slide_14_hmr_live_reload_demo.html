@@ -1,115 +1,294 @@
 <!DOCTYPE html>
 <!--
 =====================================================================
-MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303) - UT
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303)
+INSTITUSI   : FAKULTAS SAINS DAN TEKNOLOGI - UNIVERSITAS TERBUKA
+DOSEN       : ANTON PRAFANTO, S.Kom., M.T.
 SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
 SLIDE 14    : SIMULASI HOT MODULE REPLACEMENT (HMR) & LIVE RELOAD
 =====================================================================
-CARA MENJALANKAN:
-Cukup klik ganda berkas ini untuk membuka langsung di peramban Anda!
+CARA MENJALANKAN (RAMAH PEMULA):
+1. Cukup klik ganda berkas ini di File Explorer untuk membuka di Google Chrome.
+2. Coba isi nama mahasiswa dan tambahkan mata kuliah pada simulasi HP.
+3. Klik tombol "Simulasikan HMR" vs "Simulasikan Refresh Kuno" untuk melihat
+   keajaiban teknologi Hot Module Replacement Vite secara nyata!
 =====================================================================
 -->
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slide 14 - Simulasi Hot Module Replacement (HMR)</title>
+  <title>Slide 14: Simulasi Hot Module Replacement (HMR) — STSI4303 UT</title>
   <style>
+    :root {
+      --bg: #FAF8F5;
+      --card: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+      --blue-ut: #005691;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
     body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: #FAF8F5;
-      padding: 24px;
+      background-color: var(--bg);
       margin: 0;
+      padding: 20px;
+      color: #000;
       display: flex;
       justify-content: center;
     }
-    .wrapper { max-width: 650px; width: 100%; }
-    .badge {
-      background: #FB7185;
-      color: #000;
-      border: 2px solid #000;
-      font-weight: bold;
-      font-size: 11px;
-      padding: 4px 10px;
-      box-shadow: 3px 3px 0 #000;
+    .container {
+      max-width: 920px;
+      width: 100%;
+    }
+    .header-banner {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
       display: inline-block;
-      margin-bottom: 12px;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 8px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
     }
     .card {
-      background: #FFF;
-      border: 2.5px solid #000;
-      box-shadow: 6px 6px 0 #000;
-      padding: 20px;
+      background: var(--card);
+      border: 3px solid var(--border);
+      box-shadow: 6px 6px 0 var(--border);
+      padding: 24px;
+      margin-bottom: 20px;
     }
-    .preview-box {
-      border: 2px solid #000;
-      background: #F8FAFC;
-      padding: 16px;
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .split-grid { grid-template-columns: 1fr; }
+    }
+    /* Editor Simulator Box */
+    .editor-box {
+      background: #0F172A;
+      border: 2px solid var(--border);
       border-radius: 8px;
-      margin: 16px 0;
+      overflow: hidden;
+      box-shadow: 4px 4px 0 var(--border);
+    }
+    .editor-topbar {
+      background: #1E293B;
+      padding: 8px 14px;
+      color: #94A3B8;
+      font-size: 12px;
+      font-family: Consolas, monospace;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .editor-code {
+      padding: 16px;
+      font-family: Consolas, monospace;
+      font-size: 12.5px;
+      color: #F8FAFC;
+      line-height: 1.6;
+    }
+    /* Smartphone Preview */
+    .phone-preview {
+      background: #FFFFFF;
+      border: 5px solid #1E293B;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 16px 28px rgba(0,0,0,0.15);
+      height: 440px;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone-header {
+      background: var(--blue-ut);
+      color: white;
+      padding: 12px;
       text-align: center;
+      font-weight: bold;
+      font-size: 14px;
       transition: all 0.3s ease;
     }
-    .btn {
-      padding: 8px 14px;
-      border: 2px solid #000;
-      background: #FFE600;
+    .phone-body {
+      padding: 14px;
+      flex: 1;
+      background: #F8FAFC;
+      overflow-y: auto;
+      font-size: 13px;
+    }
+    .action-btn {
+      padding: 10px 14px;
+      border: 2px solid var(--border);
       font-weight: bold;
+      font-size: 13px;
       cursor: pointer;
-      box-shadow: 2px 2px 0 #000;
+      box-shadow: 3px 3px 0 var(--border);
       margin-right: 8px;
+      margin-bottom: 8px;
+      transition: all 0.15s ease;
+    }
+    .action-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--border);
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <div class="badge">STSI4303 • SESI 01 • SLIDE 14</div>
-    <div class="card">
-      <h2 style="margin-top:0;">⚡ Bagaimana Live Reload & HMR Bekerja?</h2>
-      <p style="font-size:13px; line-height:1.6;">
-        Saat Anda menjalankan <code>ionic serve</code>, mesin Vite memantau berkas kode. 
-        Setiap kali Anda menekan <code>Ctrl + S</code> di VS Code, browser memperbarui komponen secara instan (&lt; 0.5 detik) tanpa mereset status aplikasi!
-      </p>
 
-      <div class="preview-box" id="previewArea">
-        <h3 id="appTitle" style="color: #0284C7; margin-top: 0;">Kartu Mahasiswa UT</h3>
-        <p id="appDesc">Status Data: <strong id="counter">5</strong> Formulir Tersimpan</p>
-        <button class="btn" onclick="tambahData()">+ Tambah Data</button>
+  <div class="container">
+    <div class="header-banner">
+      <div class="badge-tag">SLIDE 14 • SESI 01 (MODUL 1 BMP UT - HMR & LIVE RELOAD)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Simulasi Hot Module Replacement (HMR) & Live Reload</h1>
+      <p style="margin: 0; font-size: 13px;">Bagaimana mesin bundler kilat Vite memperbarui antarmuka aplikasi dalam hitungan milidetik tanpa mereset data formulir yang sedang Anda ketik!</p>
+    </div>
+
+    <div class="guide-box">
+      <strong>💡 Panduan Ramah Pemula:</strong><br>
+      Pada era web zaman dulu, setiap kali pengembang menekan Ctrl + S untuk menyimpan kode, peramban akan memuat ulang halaman secara keseluruhan (Full Reload) sehingga data formulir yang sudah diketik menjadi hilang. 
+      Teknologi <strong>HMR (Hot Module Replacement)</strong> di Ionic + Vite mengubah segalanya! Coba eksperimen di bawah ini.
+    </div>
+
+    <div class="card">
+      <div class="split-grid">
+        <!-- SIMULASI VS CODE EDITOR -->
+        <div>
+          <h3 style="margin-top:0;">💻 Simulasi Visual Studio Code (Kiri):</h3>
+          
+          <div class="editor-box">
+            <div class="editor-topbar">
+              <span>📄 src/views/RencanaStudi.vue</span>
+              <span id="savedIndicator" style="color:#4ADE80; font-weight:bold;">● Tersimpan (Ctrl + S)</span>
+            </div>
+            <div class="editor-code">
+&lt;template&gt;<br>
+&nbsp;&nbsp;&lt;ion-toolbar <span style="color:#FDE047;">color="<span id="codeColor">primary</span>"</span>&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;ion-title&gt;<span id="codeTitle" style="color:#38BDF8;">Portal Rencana Studi UT</span>&lt;/ion-title&gt;<br>
+&nbsp;&nbsp;&lt;/ion-toolbar&gt;<br>
+&lt;/template&gt;
+            </div>
+          </div>
+
+          <div style="margin-top: 16px;">
+            <h4>Pilih Aksi Pengembang:</h4>
+            <button class="action-btn" style="background:#4ADE80;" onclick="triggerHMR()">
+              ⚡ 1. Simulasikan Simpan Kode via HMR (Modern)
+            </button>
+            <button class="action-btn" style="background:#FEE2E2;" onclick="triggerFullReload()">
+              🔄 2. Simulasikan Muat Ulang Penuh Kuno (Full Reload)
+            </button>
+          </div>
+
+          <div id="hmrLog" style="margin-top:14px; padding:12px; background:#F1F5F9; border-left:4px solid #005691; font-size:12.5px; line-height:1.5;">
+            <strong>Status Server Vite:</strong> Siap memantau berkas. Coba ketik nama Anda di layar ponsel kanan, lalu klik salah satu tombol di atas!
+          </div>
+        </div>
+
+        <!-- SIMULASI PONSEL SMARTPHONE (KANAN) -->
+        <div>
+          <h3 style="margin-top:0;">📱 Layar Ponsel (Kanan):</h3>
+
+          <div class="phone-preview" id="phoneBox">
+            <div class="phone-header" id="phoneHeader">
+              Portal Rencana Studi UT
+            </div>
+            <div class="phone-body">
+              <label style="font-weight:bold; font-size:12px;">Nama Mahasiswa:</label>
+              <input type="text" id="mhsInput" value="Budi Santoso" style="width:100%; padding:8px; border:1px solid #CBD5E1; border-radius:6px; margin:4px 0 10px 0;">
+
+              <label style="font-weight:bold; font-size:12px;">Mata Kuliah Pilihan:</label>
+              <div style="background:#FFF; border:1px solid #CBD5E1; padding:8px; border-radius:6px; margin-top:4px;">
+                <div style="font-size:12px;">✅ STSI4303 - Mobile Programming (3 SKS)</div>
+                <div style="font-size:12px; margin-top:4px;">✅ MSIM4201 - Sistem Operasi (3 SKS)</div>
+              </div>
+
+              <div style="margin-top:14px; text-align:center;">
+                <span style="background:#EFF6FF; border:1px solid #BFDBFE; padding:4px 8px; border-radius:4px; font-weight:bold; font-size:11.5px; color:#1D4ED8;">
+                  Total SKS Terpilih: <span id="sksCounter">6</span> SKS
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div style="background:#F1F5F9; border:2px solid #000; padding:12px; font-size:13px;">
-        <strong>Simulasi Aksi Dosen/Developer:</strong><br>
-        <button class="btn" style="background:#38BDF8; margin-top:8px;" onclick="simulasiHMR()">
-          Ganti Warna & Teks Judul (Simulasi Hot Reload)
-        </button>
-        <p style="font-size:11.5px; color:#64748B; margin-bottom:0; margin-top:6px;">
-          *Perhatikan: Nilai angka di atas TIDAK HILANG meskipun tampilan judul berubah! Inilah keajaiban HMR!
-        </p>
+      <div class="source-cite">
+        <strong>Referensi Akademik:</strong> Vite.js Official Guide: "Hot Module Replacement API" (vitejs.dev/guide/features.html#hot-module-replacement) & Buku Materi Pokok (BMP) UT STSI4303 Modul 1.
       </div>
     </div>
   </div>
 
   <script>
-    let n = 5;
-    function tambahData() {
-      n++;
-      document.getElementById('counter').innerText = n;
+    let toggleTheme = false;
+
+    function triggerHMR() {
+      toggleTheme = !toggleTheme;
+      const header = document.getElementById('phoneHeader');
+      const codeColor = document.getElementById('codeColor');
+      const codeTitle = document.getElementById('codeTitle');
+      const log = document.getElementById('hmrLog');
+      const input = document.getElementById('mhsInput');
+
+      if (toggleTheme) {
+        header.style.background = "#059669";
+        header.innerText = "Portal KRS 2026.1 (Updated!)";
+        codeColor.innerText = "success";
+        codeTitle.innerText = "Portal KRS 2026.1 (Updated!)";
+      } else {
+        header.style.background = "var(--blue-ut)";
+        header.innerText = "Portal Rencana Studi UT";
+        codeColor.innerText = "primary";
+        codeTitle.innerText = "Portal Rencana Studi UT";
+      }
+
+      log.innerHTML = `
+        <span style="color:#059669; font-weight:bold;">⚡ [vite] hot updated /src/views/RencanaStudi.vue in 32ms</span><br>
+        Perhatikan: Judul dan warna header berhasil berubah instan, namun nama <strong>"${input.value}"</strong> dan pilihan mata kuliah Anda <strong>TIDAK HILANG</strong>! Inilah efisiensi HMR!
+      `;
     }
 
-    let berubah = false;
-    function simulasiHMR() {
-      berubah = !berubah;
-      const title = document.getElementById('appTitle');
-      const box = document.getElementById('previewArea');
-      if (berubah) {
-        title.innerText = "✨ MyUT Portal v2 (Terupdate via HMR!)";
-        title.style.color = "#059669";
-        box.style.background = "#ECFDF5";
-      } else {
-        title.innerText = "Kartu Mahasiswa UT";
-        title.style.color = "#0284C7";
-        box.style.background = "#F8FAFC";
-      }
+    function triggerFullReload() {
+      const phone = document.getElementById('phoneBox');
+      const input = document.getElementById('mhsInput');
+      const log = document.getElementById('hmrLog');
+
+      // Animasi kedipan layar putih
+      phone.style.opacity = "0.2";
+      setTimeout(() => {
+        phone.style.opacity = "1";
+        input.value = ""; // Form reset karena full reload!
+        log.innerHTML = `
+          <span style="color:#DC2626; font-weight:bold;">🔄 [browser] Full page reload triggered (1.8s)</span><br>
+          Perhatikan: Layar sempat berkedip putih, dan data nama yang sudah Anda ketik ter-reset menjadi kosong! Cara kuno ini sangat melelahkan saat mengisi formulir panjang.
+        `;
+      }, 300);
     }
   </script>
 </body>

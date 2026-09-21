@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<!--
+=====================================================================
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303)
+INSTITUSI   : FAKULTAS SAINS DAN TEKNOLOGI - UNIVERSITAS TERBUKA
+DOSEN       : ANTON PRAFANTO, S.Kom., M.T.
+SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
+SLIDE 11    : SIMULATOR PERINTAH ESSENTIAL IONIC CLI
+=====================================================================
+CARA MENJALANKAN (RAMAH PEMULA):
+1. Cukup klik ganda berkas ini di File Explorer untuk membuka di Google Chrome.
+2. Klik salah satu dari 5 tombol perintah sakti untuk melihat simulasi eksekusi
+   di terminal beserta penjelasan fungsi dan parameternya!
+=====================================================================
+-->
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 11: Simulator Perintah Ionic CLI — STSI4303 UT</title>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+      --blue-ut: #005691;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+    body {
+      background-color: var(--bg);
+      margin: 0;
+      padding: 20px;
+      color: #000;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 920px;
+      width: 100%;
+    }
+    .header-banner {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 8px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .card {
+      background: var(--card);
+      border: 3px solid var(--border);
+      box-shadow: 6px 6px 0 var(--border);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    /* Buttons Grid */
+    .cmd-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .cmd-btn {
+      background: #FFFFFF;
+      border: 2px solid var(--border);
+      padding: 10px 12px;
+      font-size: 12.5px;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 3px 3px 0 var(--border);
+      transition: all 0.15s ease;
+    }
+    .cmd-btn:hover {
+      background: var(--yellow);
+    }
+    .cmd-btn.active {
+      background: var(--yellow);
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--border);
+    }
+    /* Terminal Window Simulator */
+    .terminal-window {
+      background: #0F172A;
+      border: 3px solid var(--border);
+      box-shadow: 6px 6px 0 var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .terminal-header {
+      background: #1E293B;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #334155;
+    }
+    .term-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+    .term-red { background: #EF4444; }
+    .term-yellow { background: #F59E0B; }
+    .term-green { background: #10B981; }
+    .term-title {
+      color: #94A3B8;
+      font-size: 11.5px;
+      font-family: Consolas, monospace;
+      margin-left: 10px;
+    }
+    .terminal-body {
+      padding: 16px;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 13px;
+      color: #F8FAFC;
+      line-height: 1.6;
+      min-height: 220px;
+      max-height: 380px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+    .prompt-text { color: #38BDF8; font-weight: bold; }
+    .success-text { color: #4ADE80; font-weight: bold; }
+    .info-text { color: #FCD34D; }
+    .detail-card {
+      border: 2px solid var(--border);
+      background: #F8FAFC;
+      padding: 16px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .copy-btn {
+      background: var(--blue-ut);
+      color: white;
+      border: 2px solid var(--border);
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--border);
+      margin-top: 8px;
+    }
+    .copy-btn:hover { background: #003e68; }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header-banner">
+      <div class="badge-tag">SLIDE 11 • SESI 01 (MODUL 1 BMP UT - PERINTAH SAKTI IONIC CLI)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Simulator Interaktif: 5 Perintah Sakti Ionic CLI</h1>
+      <p style="margin: 0; font-size: 13px;">Kuasai alur kerja pengembangan mobile profesional dari pembuatan proyek, pengujian live server, hingga kompilasi aplikasi.</p>
+    </div>
+
+    <div class="guide-box">
+      <strong>💡 Di Mana Perintah Ini Harus Diketik?</strong><br>
+      Buka <strong>Visual Studio Code</strong>, lalu tekan kombinasi tombol <span style="background:#000; color:#FFE600; padding:2px 6px; font-family:Consolas,monospace; border-radius:4px; font-weight:bold;">Ctrl + `</span> (tanda kutip miring di bawah tombol ESC) untuk membuka terminal terintegrasi. Anda juga dapat menggunakan PowerShell atau Git Bash biasa!
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0;">⚡ Pilih Perintah untuk Mensimulasikan Eksekusi Terminal:</h3>
+      
+      <div class="cmd-grid">
+        <button class="cmd-btn active" id="btn-1" onclick="runSim(1)">
+          1. ionic start
+          <div style="font-size:11px; font-weight:normal; color:#64748B;">Buat Proyek Baru</div>
+        </button>
+        <button class="cmd-btn" id="btn-2" onclick="runSim(2)">
+          2. cd myut-app
+          <div style="font-size:11px; font-weight:normal; color:#64748B;">Masuk ke Folder</div>
+        </button>
+        <button class="cmd-btn" id="btn-3" onclick="runSim(3)">
+          3. ionic serve
+          <div style="font-size:11px; font-weight:normal; color:#64748B;">Jalankan Server Lokal</div>
+        </button>
+        <button class="cmd-btn" id="btn-4" onclick="runSim(4)">
+          4. ionic build
+          <div style="font-size:11px; font-weight:normal; color:#64748B;">Kompilasi Aset Web</div>
+        </button>
+        <button class="cmd-btn" id="btn-5" onclick="runSim(5)">
+          5. npx cap sync
+          <div style="font-size:11px; font-weight:normal; color:#64748B;">Sinkronisasi Android</div>
+        </button>
+      </div>
+
+      <!-- SIMULATOR JENDELA TERMINAL -->
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <span class="term-dot term-red"></span>
+          <span class="term-dot term-yellow"></span>
+          <span class="term-dot term-green"></span>
+          <span class="term-title">Windows PowerShell — VS Code Terminal [STSI4303 UT]</span>
+        </div>
+        <div class="terminal-body" id="termBody">
+          <!-- Teks terminal dirender oleh script -->
+        </div>
+      </div>
+
+      <!-- KARTU PENJELASAN PRAKTIS -->
+      <div class="detail-card" id="detailCard">
+        <!-- Rincian perintah dirender dinamis -->
+      </div>
+
+      <div class="source-cite">
+        <strong>Referensi Akademik:</strong> Dokumentasi Resmi Ionic CLI Reference (ionicframework.com/docs/cli) & Buku Materi Pokok (BMP) UT STSI4303 Modul 1 Kegiatan Belajar 2.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const dataPerintah = {
+      1: {
+        command: "ionic start myut-app blank --type=vue",
+        output: `<span class="prompt-text">PS C:\\Users\\mahasiswa\\mobile-ut&gt;</span> ionic start myut-app blank --type=vue
+✔ Preparing directory .\\myut-app - done!
+✔ Downloading and extracting blank template - done!
+✔ Installing dependencies may take a few minutes...
+[INFO] Installing dependencies with npm...
+✔ Installed dependencies!
+
+--------------------------------------------------
+<span class="success-text">Your Ionic app has been created!</span>
+Next steps:
+  1. cd myut-app
+  2. ionic serve
+--------------------------------------------------`,
+        fungsi: "Membuat kerangka awal proyek aplikasi mobile secara otomatis berbasis template resmi Ionic & Vue.js 3.",
+        parameter: "• <strong>blank</strong>: Memilih template kanvas kosong bersih.<br>• <strong>--type=vue</strong>: Mengunci framework frontend ke Vue.js 3 (standar kurikulum UT).",
+        tips: "Jangan gunakan spasi atau huruf kapital pada nama aplikasi (contoh benar: <code>myut-app</code>, bukan <code>My UT App</code>)."
+      },
+      2: {
+        command: "cd myut-app",
+        output: `<span class="prompt-text">PS C:\\Users\\mahasiswa\\mobile-ut&gt;</span> cd myut-app
+<span class="prompt-text">PS C:\\Users\\mahasiswa\\mobile-ut\\myut-app&gt;</span> dir
+    Directory: C:\\Users\\mahasiswa\\mobile-ut\\myut-app
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        21/09/2026     09:00                node_modules
+d-----        21/09/2026     09:00                public
+d-----        21/09/2026     09:00                src
+-a----        21/09/2026     09:00            412 capacitor.config.ts
+-a----        21/09/2026     09:00           1240 package.json
+-a----        21/09/2026     09:00            820 vite.config.ts`,
+        fungsi: "Pindah masuk (Change Directory) ke dalam folder proyek yang baru dibuat.",
+        parameter: "• <strong>cd</strong>: Singkatan dari <em>Change Directory</em>.<br>• <strong>myut-app</strong>: Nama folder tujuan.",
+        tips: "Wajib dilakukan sebelum menjalankan perintah apa pun! Mahasiswa sering lupa melakukan 'cd' sehingga muncul pesan error 'ionic.config.json file not found'."
+      },
+      3: {
+        command: "ionic serve",
+        output: `<span class="prompt-text">PS C:\\Users\\mahasiswa\\mobile-ut\\myut-app&gt;</span> ionic serve
+&gt; vite
+  <span class="success-text">VITE v5.2.0</span>  ready in <strong>240 ms</strong>
+
+  ➜  <span class="info-text">Local:</span>   http://localhost:8100/
+  ➜  <span class="info-text">Network:</span> http://192.168.1.15:8100/
+
+[INFO] Development server running!
+[INFO] Browser opened to http://localhost:8100
+<span class="success-text">Watching for file changes (HMR active)...</span>`,
+        fungsi: "Menjalankan server pengembangan lokal di laptop dengan fitur Live Reload & Hot Module Replacement (HMR).",
+        parameter: "• Secara default membuka peramban di port <code>8100</code>.<br>• Menampilkan URL jaringan lokal agar bisa dibuka langsung dari browser HP Anda!",
+        tips: "Untuk <strong>menghentikan</strong> server ini jika sudah selesai belajar, klik pada jendela terminal lalu tekan kombinasi tombol <span style='background:#000; color:#FFE600; padding:1px 5px; font-family:Consolas,monospace; border-radius:3px;'>Ctrl + C</span>."
+      },
+      4: {
+        command: "ionic build",
+        output: `<span class="prompt-text">PS C:\\Users\\mahasiswa\\mobile-ut\\myut-app&gt;</span> ionic build
+&gt; vite build
+vite v5.2.0 building for production...
+transforming...
+✓ 48 modules transformed.
+rendering chunks...
+computing gzip size...
+<span class="success-text">dist/index.html</span>                   0.54 kB │ gzip:  0.32 kB
+<span class="success-text">dist/assets/index-Bf92x.css</span>        14.20 kB │ gzip:  3.60 kB
+<span class="success-text">dist/assets/index-De82a.js</span>        128.40 kB │ gzip: 42.10 kB
+✓ built in 620ms`,
+        fungsi: "Mengompilasi, memperkecil (minify), dan membungkus seluruh kode Vue, CSS, dan aset web menjadi berkas siap rilis di folder <code>dist/</code>.",
+        parameter: "• Menghasilkan kode web berkecepatan tinggi yang siap dibungkus oleh wadah native Android.",
+        tips: "Perintah ini wajib dijalankan sebelum Anda menyinkronkan aplikasi ke platform Android menggunakan Capacitor."
+      },
+      5: {
+        command: "npx cap sync android",
+        output: `<span class="prompt-text">PS C:\\Users\\mahasiswa\\mobile-ut\\myut-app&gt;</span> npx cap sync android
+✔ Copying web assets from dist to android\\app\\src\\main\\assets\\public in 42.10ms
+✔ Creating capacitor.config.json in android\\app\\src\\main\\assets in 1.40ms
+✔ copy android in 51.20ms
+✔ Updating Android plugins in 6.40ms
+✔ update android in 28.50ms
+<span class="success-text">✔ Sync finished in 0.128s</span>
+[INFO] Android project is up-to-date! Open with: npx cap open android`,
+        fungsi: "Menyalin seluruh aset web hasil build ke dalam folder native Android Studio (jembatan Capacitor).",
+        parameter: "• <strong>npx</strong>: Menjalankan eksekutor paket Node.<br>• <strong>cap sync android</strong>: Menggabungkan proses 'copy' dan 'update' plugin Android.",
+        tips: "Inilah momen magis di mana kode web kita resmi bertransformasi menjadi proyek aplikasi Android murni!"
+      }
+    };
+
+    function runSim(id) {
+      // Update tombol aktif
+      for (let i = 1; i <= 5; i++) {
+        const btn = document.getElementById('btn-' + i);
+        if (btn) {
+          if (i === id) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
+      }
+
+      const item = dataPerintah[id];
+      const term = document.getElementById('termBody');
+      const detail = document.getElementById('detailCard');
+
+      term.innerHTML = item.output;
+
+      detail.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+          <h3 style="margin:0; color:#005691;">📌 Bedah Sintaks: <code>${item.command}</code></h3>
+          <button class="copy-btn" onclick="salinPerintah('${item.command}')">📋 Salin Perintah Ini</button>
+        </div>
+        <p style="margin:8px 0 4px 0;"><strong>💡 Fungsi Utama:</strong> ${item.fungsi}</p>
+        <p style="margin:4px 0;"><strong>⚙️ Parameter Kunci:</strong><br>${item.parameter}</p>
+        <div style="margin-top:8px; padding:8px 12px; background:#FEF9C3; border-left:4px solid #CA8A04;">
+          <strong>⚠️ Tips Anti-Gagal:</strong> ${item.tips}
+        </div>
+      `;
+    }
+
+    function salinPerintah(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("✅ Perintah disalin ke clipboard:\n" + text + "\n\nSekarang buka VS Code, tekan Ctrl + ~ lalu paste (Ctrl + V)!");
+      });
+    }
+
+    // Default jalankan sim 1 saat halaman dimuat
+    runSim(1);
+  </script>
+</body>
+</html>

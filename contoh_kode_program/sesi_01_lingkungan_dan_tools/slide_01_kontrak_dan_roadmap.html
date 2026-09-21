@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 01: Kontrak Perkuliahan & Roadmap 8 Sesi — STSI4303</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+    body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    
+    .header-banner {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 18px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 8px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 12px 16px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .box {
+      background: var(--card-bg);
+      border: 3px solid var(--border);
+      padding: 20px;
+      box-shadow: 6px 6px 0 var(--border);
+    }
+    .step-item {
+      border: 2px solid #000;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      background: #F8FAFC;
+      transition: all 0.1s ease;
+    }
+    .step-item:hover {
+      background: #FEF08A;
+      transform: translate(-2px, -2px);
+      box-shadow: 3px 3px 0 #000;
+    }
+    .console-box {
+      background: #1E293B;
+      color: #38BDF8;
+      font-family: 'Consolas', monospace;
+      padding: 14px;
+      font-size: 12px;
+      border: 2px solid #000;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+    .calc-input {
+      width: 100%;
+      border: 2px solid #000;
+      padding: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 4px;
+      margin-bottom: 10px;
+    }
+    .btn-action {
+      background: var(--cyan);
+      border: 2px solid #000;
+      padding: 8px 14px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 #000;
+      transition: all 0.1s ease;
+    }
+    .btn-action:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER UT UTAMA -->
+  <div class="header-banner">
+    <div class="badge-tag">SLIDE 01 • SESI 01 (MODUL 1 BMP UT - ORIENTASI PERKULIAHAN)</div>
+    <h1 style="margin: 0 0 6px 0; font-size: 22px;">Kontrak Perkuliahan, Roadmap 8 Sesi & Regulasi Nilai UT</h1>
+    <p style="margin: 0; font-size: 14px;">Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 - 3 SKS)</strong> — Dosen Pengampu: <strong>Pak Anton Prafanto, S.Kom., M.T.</strong></p>
+  </div>
+
+  <!-- PANDUAN AWAM / PEMULA -->
+  <div class="guide-box">
+    <strong>💡 Panduan Membuka & Belajar untuk Mahasiswa Pemula (Zero-Friction):</strong><br>
+    • <strong>Cara Instan (Paling Mudah):</strong> Cukup <em>klik ganda (double click)</em> berkas <code>.html</code> ini untuk membukanya langsung di Google Chrome atau Microsoft Edge. Anda tidak perlu menginstal software apa pun untuk mulai memahami materi!<br>
+    • <strong>Bagi yang Ingin Mencoba di Terminal:</strong> Buka aplikasi <strong>Visual Studio Code</strong>, buka terminal dengan menekan tombol <kbd>Ctrl + `</kbd> (tanda petik di bawah tombol Esc), lalu ketikkan: <code>node slide_01_kontrak_dan_roadmap.js</code>.
+  </div>
+
+  <div id="app" class="grid">
+    <!-- PANEL 1: ROADMAP 8 SESI TUTORIAL -->
+    <div class="box">
+      <h3>🗺️ Peta Perjalanan Belajar (Roadmap 8 Sesi)</h3>
+      <p style="font-size: 13px; color: #475569;">Klik sesi di bawah untuk melihat rincian capaian pembelajaran dan tagihan tugas:</p>
+
+      <div v-for="sesi in roadmap" :key="sesi.no" class="step-item" @click="pilihSesi = sesi">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong>Sesi {{ sesi.no }}: {{ sesi.judul }}</strong>
+          <span :style="{ background: sesi.badgeColor, border: '1px solid #000', padding: '2px 6px', fontSize: '11px', fontWeight: 'bold' }">
+            {{ sesi.tagihan }}
+          </span>
+        </div>
+        <div style="font-size: 12px; color: #64748B; margin-top: 4px;">{{ sesi.modul }} • {{ sesi.ringkasan }}</div>
+      </div>
+
+      <div class="source-cite">
+        📚 Referensi Akademik: Rancangan Aktivitas Tutorial (RAT) & Satuan Aktivitas Tutorial (SAT) Program Studi Sistem Informasi / Informatika FST Universitas Terbuka.
+      </div>
+    </div>
+
+    <!-- PANEL 2: KALKULATOR NILAI RESMI UT -->
+    <div class="box">
+      <h3>📊 Simulator Hitung Nilai Akhir Mata Kuliah</h3>
+      <p style="font-size: 13px; color: #475569;">Pelajari bagaimana nilai Anda dihitung secara transparan berdasarkan regulasi UT:</p>
+
+      <div style="background: #F8FAFC; border: 2px solid #000; padding: 14px; margin-bottom: 12px;">
+        <label style="font-size: 12px; font-weight: 700;">Nilai Rata-rata 8 Diskusi Tuton (Bobot 30%):</label>
+        <input type="number" v-model.number="nilaiDiskusi" min="0" max="100" class="calc-input">
+
+        <label style="font-size: 12px; font-weight: 700;">Nilai Tugas Tutorial 1 (Sesi 3 - Bobot 20%):</label>
+        <input type="number" v-model.number="nilaiTugas1" min="0" max="100" class="calc-input">
+
+        <label style="font-size: 12px; font-weight: 700;">Nilai Tugas Tutorial 2 (Sesi 5 - Bobot 25%):</label>
+        <input type="number" v-model.number="nilaiTugas2" min="0" max="100" class="calc-input">
+
+        <label style="font-size: 12px; font-weight: 700;">Nilai Tugas Tutorial 3 (Sesi 7 - Bobot 25%):</label>
+        <input type="number" v-model.number="nilaiTugas3" min="0" max="100" class="calc-input">
+
+        <label style="font-size: 12px; font-weight: 700; color: #DC2626;">Estimasi Nilai Ujian Akhir Semester / UAS (Syarat Wajib ≥ 30):</label>
+        <input type="number" v-model.number="nilaiUAS" min="0" max="100" class="calc-input" style="border-color: #DC2626;">
+      </div>
+
+      <div style="background: #FEF08A; border: 2px solid #000; padding: 12px;">
+        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+          <span>Nilai Rata-rata Tuton:</span>
+          <strong>{{ skorTuton.toFixed(1) }} / 100</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 800; margin-top: 6px; border-top: 2px dashed #000; padding-top: 6px;">
+          <span>NILAI AKHIR MATA KULIAH:</span>
+          <span style="font-size: 18px; color: #15803D;">{{ skorAkhir.toFixed(1) }} (Grade: {{ predikatNilai }})</span>
+        </div>
+        <div v-if="nilaiUAS < 30" style="color: #B91C1C; font-size: 11px; font-weight: bold; margin-top: 6px;">
+          ⚠️ PERINGATAN REGULASI UT: Nilai UAS di bawah 30 mengakibatkan nilai Tuton TIDAK DAPAT berkontribusi dalam nilai akhir!
+        </div>
+      </div>
+
+      <div class="source-cite">
+        📚 Referensi: Buku Pedoman Mahasiswa Universitas Terbuka — Formula: Nilai Akhir = (50% × Nilai Tuton) + (50% × Nilai UAS).
+      </div>
+    </div>
+
+    <!-- PANEL 3: TERMINAL CLI SIMULATOR -->
+    <div class="box">
+      <h3>💻 Simulator Eksekusi Skrip Konsol (Node.js CLI)</h3>
+      <p style="font-size: 13px; color: #475569;">Bagi yang belum memasang Node.js, Anda tetap dapat melihat simulasi output konsol berkas <code>slide_01_kontrak_dan_roadmap.js</code> di bawah ini:</p>
+
+      <div style="margin-bottom: 10px;">
+        <button class="btn-action" @click="jalankanSimulasiTerminal">▶ Jalankan Simulasi Terminal</button>
+      </div>
+
+      <div class="console-box">
+        <div style="color: #64748B; margin-bottom: 6px;">// Terminal Bash / PowerShell Simulator:</div>
+        <div v-if="!isRunning && !hasOutput" style="color: #94A3B8;">Klik tombol di atas untuk menjalankan skrip terminal...</div>
+        <div v-if="isRunning" style="color: #FFE600;">Sedang mengeksekusi: node slide_01_kontrak_dan_roadmap.js ...</div>
+        <div v-if="hasOutput" style="white-space: pre-wrap;">{{ consoleOutput }}</div>
+      </div>
+
+      <div style="margin-top: 14px; padding: 10px; background: #ECFDF5; border: 2px solid #059669; font-size: 12px; line-height: 1.5;">
+        <strong>👨‍🏫 Pesan Pak Anton Prafanto:</strong><br>
+        "Belajar pemrograman perangkat bergerak itu seperti belajar bersepeda. Rekan-rekan tidak bisa mahir hanya dengan melihat orang lain mengayuh atau membaca buku saja; tangan Anda harus mulai menyentuh keyboard dan mencoba baris demi baris kodenya!"
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+      setup() {
+        const roadmap = [
+          { no: 1, modul: "Modul 1", judul: "Lingkungan Kerja & Arsitektur Hybrid", tagihan: "Diskusi 1", badgeColor: "#E2E8F0", ringkasan: "Web standards, WebView container, dan setup tools ringan." },
+          { no: 2, modul: "Modul 2", judul: "Frontend Modern Vue.js 3 Reactivity", tagihan: "Diskusi 2", badgeColor: "#E2E8F0", ringkasan: "Reaktivitas ref, reactive, directives v-model, v-for, dan v-if." },
+          { no: 3, modul: "Modul 3", judul: "TypeScript & TUGAS TUTORIAL 1", tagihan: "🎯 TUGAS 1 (15%)", badgeColor: "#FDE68A", ringkasan: "Type safety, Interface models, dan Master Solusi Kalkulator IPK." },
+          { no: 4, modul: "Modul 4", judul: "Ionic UI Framework & Navigasi Mobile", tagihan: "Diskusi 4", badgeColor: "#E2E8F0", ringkasan: "Komponen Ionic, Stack Navigation, dan Tabs Bar mobile." },
+          { no: 5, modul: "Modul 5", judul: "Grid, Validasi Regex & TUGAS 2", tagihan: "🎯 TUGAS 2 (15%)", badgeColor: "#FDE68A", ringkasan: "12-Grid layout, Dark mode switch, dan Master Solusi KTM Digital." },
+          { no: 6, modul: "Modul 6-7", judul: "Capacitor Runtime Bridge & Android", tagihan: "Diskusi 6", badgeColor: "#E2E8F0", ringkasan: "RPC bridge, AndroidManifest, Gradle build, dan USB debugging." },
+          { no: 7, modul: "Modul 8-9", judul: "REST API, Storage & TUGAS 3", tagihan: "🎯 TUGAS 3 (20%)", badgeColor: "#FDE68A", ringkasan: "Fetch asinkron, Preferences persisten, GPS, dan UT Study Tracker." },
+          { no: 8, modul: "Modul 9", judul: "Build Release APK & 50 Soal UAS", tagihan: "🎓 Sukses UAS", badgeColor: "#BBF7D0", ringkasan: "Keystore signing, minifikasi R8, dan simulasi penuh 50 soal UAS." }
+        ];
+
+        const pilihSesi = ref(roadmap[0]);
+        const nilaiDiskusi = ref(85);
+        const nilaiTugas1 = ref(88);
+        const nilaiTugas2 = ref(90);
+        const nilaiTugas3 = ref(92);
+        const nilaiUAS = ref(85);
+
+        const skorTuton = computed(() => {
+          return (nilaiDiskusi.value * 0.3) + (nilaiTugas1.value * 0.2) + (nilaiTugas2.value * 0.25) + (nilaiTugas3.value * 0.25);
+        });
+
+        const skorAkhir = computed(() => {
+          if (nilaiUAS.value < 30) {
+            return nilaiUAS.value;
+          }
+          return (skorTuton.value * 0.5) + (nilaiUAS.value * 0.5);
+        });
+
+        const predikatNilai = computed(() => {
+          const s = skorAkhir.value;
+          if (s >= 85) return 'A (Amat Baik)';
+          if (s >= 70) return 'B (Baik)';
+          if (s >= 56) return 'C (Cukup / Lulus)';
+          if (s >= 40) return 'D (Kurang)';
+          return 'E (Gagal)';
+        });
+
+        const isRunning = ref(false);
+        const hasOutput = ref(false);
+        const consoleOutput = ref('');
+
+        const jalankanSimulasiTerminal = () => {
+          isRunning.value = true;
+          hasOutput.value = false;
+          setTimeout(() => {
+            isRunning.value = false;
+            hasOutput.value = true;
+            consoleOutput.value = `==================================================================
+📱 STSI4303 - PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (3 SKS)
+🏛️  UNIVERSITAS TERBUKA - FAKULTAS SAINS DAN TEKNOLOGI
+👨‍🏫 Dosen Pengampu: Anton Prafanto, S.Kom., M.T.
+==================================================================
+
+🗺️  ROADMAP PERKULIAHAN 8 SESI (TUTON / TUWEB):
+[Sesi 1] Modul 1   | Lingkungan Pengembangan, Git, Node.js & Ionic Setup | 💬 Diskusi 1
+[Sesi 2] Modul 2   | Frontend Modern dengan Reaktivitas Vue.js 3         | 💬 Diskusi 2
+[Sesi 3] Modul 3   | TypeScript, Type Safety & Vue Composition API       | 🔥 🎯 TUGAS 1 (15%)
+[Sesi 4] Modul 4   | Dasar-Dasar Ionic Framework & Stack Navigation      | 💬 Diskusi 4
+[Sesi 5] Modul 5   | Layout Grid Responsif, Validasi Form Regex & Dark   | 🔥 🎯 TUGAS 2 (15%)
+[Sesi 6] Modul 6-7 | Capacitor Bridge, Android Manifest & Keamanan       | 💬 Diskusi 6
+[Sesi 7] Modul 8-9 | Integrasi REST API, Local Storage & Sensor Native  | 🔥 🎯 TUGAS 3 (20%)
+[Sesi 8] Modul 9   | Optimasi, Build APK Release Keystore & Simulasi UAS | 💬 Diskusi 8 & UAS
+------------------------------------------------------------------
+
+📊 FORMULA BOBOT PENILAIAN RESMI UT:
+   • Keaktifan Forum Diskusi (8 Sesi) : 30% dari Nilai Tuton
+   • Tugas Tutorial 1 (Sesi 3)        : 20% dari Nilai Tuton
+   • Tugas Tutorial 2 (Sesi 5)        : 25% dari Nilai Tuton
+   • Tugas Tutorial 3 (Sesi 7)        : 25% dari Nilai Tuton
+
+   ★ FORMULA NILAI AKHIR MATA KULIAH PRAKTIK:
+     Nilai Akhir = (50% x Nilai Tuton) + (50% x Nilai UAS)
+     ⚠️  SYARAT MUTLAK: Nilai UAS wajib minimal 30 agar nilai Tuton dihitung!
+==================================================================`;
+          }, 600);
+        };
+
+        return {
+          roadmap,
+          pilihSesi,
+          nilaiDiskusi,
+          nilaiTugas1,
+          nilaiTugas2,
+          nilaiTugas3,
+          nilaiUAS,
+          skorTuton,
+          skorAkhir,
+          predikatNilai,
+          isRunning,
+          hasOutput,
+          consoleOutput,
+          jalankanSimulasiTerminal
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

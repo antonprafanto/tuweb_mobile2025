@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<!--
+=====================================================================
+MATA KULIAH : PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303)
+INSTITUSI   : FAKULTAS SAINS DAN TEKNOLOGI - UNIVERSITAS TERBUKA
+DOSEN       : ANTON PRAFANTO, S.Kom., M.T.
+SESI 01     : PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK
+SLIDE 16    : CHEATSHEET PERINTAH SAKTI TERMINAL & GIT (EDISI MAHASISWA UT)
+=====================================================================
+CARA MENJALANKAN (RAMAH PEMULA):
+1. Cukup klik ganda berkas ini di File Explorer untuk membuka di Google Chrome.
+2. Gunakan kolom pencarian cepat di bawah atau uji coba mengetik perintah
+   pada kotak Sandbox Terminal Interaktif!
+=====================================================================
+-->
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide 16: Cheatsheet Terminal & Git — STSI4303 UT</title>
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --card: #FFFFFF;
+      --border: #000000;
+      --yellow: #FFE600;
+      --cyan: #38BDF8;
+      --mint: #4ADE80;
+      --rose: #FB7185;
+      --purple: #C084FC;
+      --blue-ut: #005691;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+    body {
+      background-color: var(--bg);
+      margin: 0;
+      padding: 20px;
+      color: #000;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 960px;
+      width: 100%;
+    }
+    .header-banner {
+      background: var(--yellow);
+      border: 3px solid var(--border);
+      padding: 16px 20px;
+      box-shadow: 6px 6px 0 var(--border);
+      margin-bottom: 20px;
+    }
+    .badge-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 11px;
+      border: 2px solid var(--border);
+      background: #fff;
+      margin-bottom: 8px;
+    }
+    .guide-box {
+      background: #EFF6FF;
+      border: 2px dashed #1D4ED8;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .card {
+      background: var(--card);
+      border: 3px solid var(--border);
+      box-shadow: 6px 6px 0 var(--border);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    /* Filter Bar */
+    .search-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      font-size: 14px;
+      margin-bottom: 14px;
+      box-shadow: 3px 3px 0 var(--border);
+      outline: none;
+    }
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .pill-btn {
+      padding: 6px 14px;
+      border: 2px solid var(--border);
+      background: #FFF;
+      font-size: 12.5px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--border);
+    }
+    .pill-btn.active {
+      background: var(--yellow);
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0 var(--border);
+    }
+    /* Command Table */
+    .cmd-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .cmd-table th, .cmd-table td {
+      border: 2px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .cmd-table th {
+      background: #F1F5F9;
+    }
+    .cmd-code {
+      font-family: Consolas, monospace;
+      background: #0F172A;
+      color: #38BDF8;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      font-weight: bold;
+      font-size: 12.5px;
+    }
+    .copy-sm-btn {
+      background: var(--yellow);
+      border: 1.5px solid #000;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+    /* Interactive Terminal Sandbox */
+    .sandbox-box {
+      background: #0F172A;
+      border: 2.5px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 20px;
+      color: #F8FAFC;
+      font-family: Consolas, monospace;
+      font-size: 13px;
+    }
+    .sandbox-input-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .sandbox-input {
+      background: transparent;
+      border: none;
+      color: #4ADE80;
+      font-family: Consolas, monospace;
+      font-size: 13.5px;
+      flex: 1;
+      outline: none;
+    }
+    .source-cite {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #CBD5E1;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header-banner">
+      <div class="badge-tag">SLIDE 16 • SESI 01 (MODUL 1 BMP UT - CHEATSHEET PERINTAH)</div>
+      <h1 style="margin: 0 0 6px 0; font-size: 22px;">Cheatsheet Perintah Sakti Terminal & Git (Edisi Mahasiswa UT)</h1>
+      <p style="margin: 0; font-size: 13px;">Panduan cepat seluruh perintah terminal navigasi folder, alur kerja pengumpulan tugas via Git & GitHub, dan manajemen proyek Ionic.</p>
+    </div>
+
+    <div class="guide-box">
+      <strong>💡 Tips Menjadi Keyboard Ninja di Terminal:</strong><br>
+      • <strong>Tombol TAB (Auto-Complete):</strong> Jangan ketik nama berkas yang panjang secara manual! Cukup ketik 2–3 huruf depan lalu tekan tombol <code>TAB</code> di keyboard. Terminal akan melengkapinya otomatis.<br>
+      • <strong>Tombol Panah Atas (↑):</strong> Tekan tombol panah ke atas untuk memanggil kembali riwayat perintah yang baru saja Anda ketik sebelumnya!
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0;">🔍 Cari Perintah atau Pilih Kategori:</h3>
+      
+      <input type="text" id="searchInput" class="search-input" placeholder="Ketik kata kunci pencarian (misal: 'cd', 'git', 'pindah', 'bersihkan', 'push', 'serve')..." oninput="filterTable()">
+
+      <div class="filter-pills">
+        <button class="pill-btn active" onclick="setCategory('all', this)">Semua Perintah</button>
+        <button class="pill-btn" onclick="setCategory('terminal', this)">🖥️ Navigasi Terminal</button>
+        <button class="pill-btn" onclick="setCategory('git', this)">🐙 Alur Git & Tugas UT</button>
+        <button class="pill-btn" onclick="setCategory('ionic', this)">⚡ Perintah Ionic CLI</button>
+      </div>
+
+      <table class="cmd-table" id="cheatsheetTable">
+        <thead>
+          <tr>
+            <th style="width: 32%;">Perintah & Sintaks</th>
+            <th style="width: 48%;">Fungsi & Makna Praktis</th>
+            <th style="width: 20%;">Kapan Digunakan?</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Diisi dinamis oleh script -->
+        </tbody>
+      </table>
+
+      <!-- SANDBOX TERMINAL UNTUK LATIHAN -->
+      <div class="sandbox-box">
+        <div style="color:#94A3B8; font-size:11.5px; border-bottom:1px solid #334155; padding-bottom:6px; margin-bottom:10px;">
+          🧪 <strong>Terminal Sandbox:</strong> Coba ketik perintah seperti <code>dir</code>, <code>git status</code>, <code>cd ..</code>, atau <code>cls</code> di bawah ini lalu tekan Enter!
+        </div>
+        <div id="sandboxHistory" style="min-height:70px; max-height:160px; overflow-y:auto; line-height:1.5;"></div>
+        <div class="sandbox-input-line">
+          <span style="color:#38BDF8;">PS C:\mahasiswa-ut&gt;</span>
+          <input type="text" id="sandboxField" class="sandbox-input" placeholder="ketik perintah di sini..." onkeydown="handleSandbox(event)">
+        </div>
+      </div>
+
+      <div class="source-cite">
+        <strong>Referensi Akademik:</strong> Dokumentasi Resmi Git SCM (git-scm.com/doc) & Buku Panduan Praktikum Mandiri BMP UT STSI4303 Modul 1.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const dataCommands = [
+      // TERMINAL
+      { category: 'terminal', cmd: 'cd <nama-folder>', desc: 'Masuk ke dalam subfolder yang dituju.', when: 'Masuk ke proyek (misal: cd myut-app).' },
+      { category: 'terminal', cmd: 'cd ..', desc: 'Naik / mundur satu tingkat ke folder induk sebelumnya.', when: 'Salah masuk folder.' },
+      { category: 'terminal', cmd: 'dir (Win) / ls (Mac)', desc: 'Melihat daftar seluruh berkas dan folder di direktori aktif.', when: 'Memeriksa berkas yang ada.' },
+      { category: 'terminal', cmd: 'cls (Win) / clear (Mac)', desc: 'Membersihkan layar terminal yang penuh tulisan agar rapi.', when: 'Terminal terasa penuh & sesak.' },
+      { category: 'terminal', cmd: 'Ctrl + C', desc: 'Menghentikan paksa proses atau server yang sedang berjalan.', when: 'Menyetop ionic serve.' },
+
+      // GIT
+      { category: 'git', cmd: 'git clone <url-repo>', desc: 'Mengunduh salinan repositori materi kuliah dari GitHub ke laptop.', when: 'Awal semester / Sesi 01.' },
+      { category: 'git', cmd: 'git status', desc: 'Memeriksa berkas apa saja yang baru Anda tambahkan atau modifikasi.', when: 'Sebelum commit tugas.' },
+      { category: 'git', cmd: 'git add .', desc: 'Menandai seluruh berkas yang berubah agar siap disimpan ke Git.', when: 'Setelah koding selesai.' },
+      { category: 'git', cmd: 'git commit -m "pesan"', desc: 'Menyimpan riwayat perubahan dengan catatan yang jelas dan rapi.', when: 'Mencatat milestone tugas.' },
+      { category: 'git', cmd: 'git push origin main', desc: 'Mengirimkan commit dari laptop ke repositori GitHub online.', when: 'Pengumpulan tugas ke tutor.' },
+
+      // IONIC
+      { category: 'ionic', cmd: 'ionic start <nama> blank --type=vue', desc: 'Membuat kerangka awal aplikasi mobile berbasis Vue 3.', when: 'Memulai proyek baru.' },
+      { category: 'ionic', cmd: 'ionic serve', desc: 'Menjalankan server lokal dengan HMR di port 8100.', when: 'Uji coba harian di browser.' },
+      { category: 'ionic', cmd: 'ionic build', desc: 'Mengompilasi seluruh kode web menjadi aset siap rilis di dist/.', when: 'Sebelum ekspor ke Android.' },
+      { category: 'ionic', cmd: 'npx cap sync android', desc: 'Menyinkronkan aset web dist/ ke proyek Android Studio.', when: 'Persiapan kompilasi APK.' }
+    ];
+
+    let currentCategory = 'all';
+
+    function renderTable() {
+      const tbody = document.getElementById('tableBody');
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      tbody.innerHTML = "";
+
+      const filtered = dataCommands.filter(item => {
+        const matchCat = (currentCategory === 'all') || (item.category === currentCategory);
+        const matchQuery = item.cmd.toLowerCase().includes(query) ||
+                           item.desc.toLowerCase().includes(query) ||
+                           item.when.toLowerCase().includes(query);
+        return matchCat && matchQuery;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#64748B; padding:20px;">Tidak ditemukan perintah yang cocok dengan kata kunci Anda.</td></tr>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>
+            <span class="cmd-code">${item.cmd}</span>
+            <button class="copy-sm-btn" onclick="salinText('${item.cmd.replace(/'/g, "\\'")}')">Salin</button>
+          </td>
+          <td>${item.desc}</td>
+          <td style="color:#005691; font-weight:bold; font-size:12px;">${item.when}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function setCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderTable();
+    }
+
+    function filterTable() {
+      renderTable();
+    }
+
+    function salinText(t) {
+      navigator.clipboard.writeText(t).then(() => {
+        alert("✅ Disalin: " + t);
+      });
+    }
+
+    // Interactive Terminal Sandbox Logic
+    function handleSandbox(e) {
+      if (e.key === 'Enter') {
+        const field = document.getElementById('sandboxField');
+        const hist = document.getElementById('sandboxHistory');
+        const val = field.value.trim();
+        if (!val) return;
+
+        let output = "";
+        if (val === 'cls' || val === 'clear') {
+          hist.innerHTML = "";
+          field.value = "";
+          return;
+        } else if (val === 'dir' || val === 'ls') {
+          output = `Mode  LastWriteTime  Length Name<br>d---- 21/09/2026     📁 myut-app<br>-a--- 21/09/2026     📄 README.md`;
+        } else if (val === 'cd ..') {
+          output = `Berpindah mundur satu level direktori.`;
+        } else if (val === 'git status') {
+          output = `<span style="color:#4ADE80;">On branch main. Your branch is up to date with 'origin/main'. Nothing to commit, working tree clean.</span>`;
+        } else if (val.startsWith('git commit')) {
+          output = `<span style="color:#4ADE80;">[main 4f89b21] ${val.replace('git commit -m', '').replace(/"/g, '')} - 2 files changed!</span>`;
+        } else if (val === 'ionic -v') {
+          output = `<span style="color:#38BDF8;">7.2.0 (Ionic CLI Resmi Terpasang)</span>`;
+        } else {
+          output = `Perintah '${val}' disimulasikan berhasil dijalankan.`;
+        }
+
+        hist.innerHTML += `<div style="color:#38BDF8;">PS C:\\mahasiswa-ut&gt; ${val}</div><div style="color:#E2E8F0; margin-bottom:6px;">${output}</div>`;
+        hist.scrollTop = hist.scrollHeight;
+        field.value = "";
+      }
+    }
+
+    renderTable();
+  </script>
+</body>
+</html>
