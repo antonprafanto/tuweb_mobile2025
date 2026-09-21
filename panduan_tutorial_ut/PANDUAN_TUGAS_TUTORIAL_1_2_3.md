@@ -14,20 +14,25 @@
 * **Capaian:** Mampu membuat aplikasi interaktif berbasis web/mobile menggunakan sistem reaktivitas Vue 3 dan keamanan tipe data TypeScript.
 
 ### Skenario Kasus:
-Anda diminta membangun aplikasi **"Kalkulator Indeks Prestasi & Konversi Nilai Mahasiswa UT"**:
-1. Buat *interface* TypeScript `MataKuliah` dengan properti: `kode: string`, `nama: string`, `sks: number`, `nilaiHuruf: 'A' | 'B' | 'C' | 'D' | 'E'`.
-2. Gunakan Vue 3 Composition API (`ref` atau `reactive`) untuk menyimpan daftar mata kuliah yang diambil.
-3. Tampilkan daftar mata kuliah menggunakan direktif `v-for`.
-4. Sediakan form sederhana untuk menambahkan mata kuliah baru dengan *two-way data binding* (`v-model`).
-5. Hitung secara otomatis nilai total SKS dan Indeks Prestasi Semester (IPS) menggunakan `computed property`.
+Anda diminta membangun aplikasi **"Kalkulator Nilai Mata Kuliah & Indeks Prestasi Semester (IPS) Mahasiswa UT"**:
+1. Buat *interface* TypeScript `MataKuliah` (dengan properti `id`, `kode`, `nama`, `sks`, dan `nilaiHuruf?: 'A' | 'B' | 'C' | 'D' | 'E'`) serta `MahasiswaUT` (dengan properti identitas `readonly nim`, `nama`, `upbjj`, `programStudi`, dan `daftarNilai: MataKuliah[]`).
+2. Gunakan Vue 3 Composition API (`ref<MataKuliah[]>`) untuk menyimpan daftar mata kuliah yang diambil secara reaktif.
+3. Tampilkan daftar mata kuliah menggunakan tabel interaktif dengan direktif `v-for`.
+4. Sediakan form input penambahan mata kuliah dengan validasi beban SKS (1–6) dan *two-way data binding* (`v-model.number`).
+5. Hitung secara otomatis nilai total SKS, total bobot mutu, dan Indeks Prestasi Semester (IPS 2 desimal) menggunakan `computed property`.
+6. Tampilkan badge predikat kelulusan serta sediakan fitur cetak ringkasan KTPU.
 
-### Rubrik Penilaian Tugas 1 (Skor Maksimal: 100)
-| No | Kriteria Evaluasi | Skor Maksimal |
-| :---: | :--- | :---: |
-| 1 | Deklarasi antarmuka/tipe data TypeScript (`interface MataKuliah`) yang benar dan tepat | 20 |
-| 2 | Penggunaan Vue 3 Composition API (`ref`/`reactive`) dan direktif template (`v-for`, `v-model`) | 30 |
-| 3 | Logika kalkulasi otomatis IPS menggunakan `computed` berjalan akurat | 30 |
-| 4 | Kerapian kode, penanganan masukan kosong, dan dokumentasi laporan | 20 |
+### Rubrik Penilaian Resmi Tugas 1 (Skor Maksimal: 100)
+| No | Kriteria Evaluasi | Bobot Maksimal | Deskripsi Capaian Mutu |
+| :---: | :--- | :---: | :--- |
+| **1** | **Model Data TypeScript & Type Safety** | **25%** | Mendefinisikan interface `MataKuliah` dan `MahasiswaUT` secara ketat tanpa `any`. Menerapkan literal types untuk nilai huruf (`'A'\|'B'\|'C'\|'D'\|'E'`). |
+| **2** | **Reaktivitas Vue 3 & Validasi Form** | **25%** | Implementasi `ref`, `v-model.number`, validasi batas beban SKS (1–6), serta tombol aksi penambahan dan penghapusan baris data secara reaktif. |
+| **3** | **Logika Kalkulasi Otomatis (Computed)** | **30%** | Memanfaatkan `computed()` untuk menghitung Total SKS, Total Mutu, Nilai IPS (2 desimal), dan penentuan Predikat Akademik secara efisien dengan caching. |
+| **4** | **Video Demonstrasi & Integritas Akademik** | **20%** | Menyertakan tautan video YouTube *Unlisted* (3–5 menit) yang menampilkan wajah mahasiswa, demonstrasi fitur aplikasi, dan penjelasan kode. Bebas plagiasi. |
+
+* **💡 Rujukan Pembelajaran & Alat Bantu Mandiri:**
+  * 🎯 **Kalkulator Skor Rubrik Interaktif:** [`slide_16_rubrik_tugas_tutorial_1.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.html) *(Panduan Teks: [`slide_16_rubrik_tugas_tutorial_1.md`](../contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.md))*
+  * 🎯 **Master Solusi Resmi Tugas Tutorial 1:** [`slide_17_solusi_tugas_1_kalkulator_nilai.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html)
 
 ---
 

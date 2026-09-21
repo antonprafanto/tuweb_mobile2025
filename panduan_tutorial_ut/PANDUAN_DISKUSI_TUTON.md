@@ -25,6 +25,14 @@ Dokumen ini memuat daftar topik pemicu diskusi (*discussion prompts*) dan pandua
 * **Topik Diskusi:**  
   JavaScript adalah bahasa pemrograman bertipe dinamis (*loosely typed*), sedangkan TypeScript menambahkan sistem tipe statis (*static typing*).  
   *Pertanyaan:* Mengapa dalam kurikulum STSI4303 mahasiswa diarahkan menggunakan TypeScript saat membangun aplikasi dengan Vue dan Ionic? Jelaskan skenario error pada aplikasi mobile yang dapat dicegah sejak dini saat proses penulisan kode (*compile-time*) berkat penggunaan antarmuka (`interface`) TypeScript!
+* **Poin Kunci Jawaban Mahasiswa / Panduan Tutor:**
+  * **Urgensi TypeScript pada Aplikasi Mobile:** Mencegah galat fatal di tangan pengguna (*runtime silent crashes* / *force close*); memberikan fasilitas *IntelliSense* dan pelengkapan otomatis (*autocompletion*) cerdas di VS Code; serta mempermudah *refactoring* dan kolaborasi tim pada basis kode berskala besar.
+  * **Skenario Galat yang Dicegah Sejak Dini (*Compile-Time Guard*):**
+    1. *Typo Properti Objek:* Mengetik `mhs.skorIpk` padahal nama aslinya `mhs.ipk`. Pada JavaScript murni hal ini menghasilkan nilai `undefined` atau kalkulasi `NaN` tanpa peringatan, sedangkan TypeScript langsung memberikan garis merah di editor.
+    2. *Kontrak Data Antarmuka (`interface`):* Menjamin setiap entitas (seperti `MahasiswaUT` dan `MataKuliah`) memiliki tipe data atribut yang sesuai (misal: SKS wajib `number`, bukan string).
+    3. *Penyusupan Nilai Asing via Literal Types:* Mengunci nilai huruf hanya pada himpunan legal UT (`'A' | 'B' | 'C' | 'D' | 'E'`), mencegah pengguna atau API mengirimkan data yang merusak perhitungan mutu.
+    4. *Penanganan Data Kosong (*Null Safety*):* Memaksa pengembang melakukan pengecekan `if (data)` sebelum mengakses properti objek sehingga terhindar dari galat klasik `Cannot read properties of undefined`.
+  * **Rujukan Kode Pembelajaran:** Dapat merujuk pada berkas mandiri [`slide_02_urgensi_typescript_mobile.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_02_urgensi_typescript_mobile.html), [`slide_04_union_dan_literal_types.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_04_union_dan_literal_types.html), dan [`slide_05_interface_model_mahasiswa.html`](../contoh_kode_program/sesi_03_typescript_vue/slide_05_interface_model_mahasiswa.html).
 
 ---
 
