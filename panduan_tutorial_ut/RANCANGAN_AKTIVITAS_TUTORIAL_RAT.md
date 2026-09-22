@@ -1,46 +1,52 @@
-# 📋 RANCANGAN AKTIVITAS TUTORIAL (RAT) & SAT LENGKAP
-## Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)
-### Program Studi: S1 Sistem Informasi & S1 Informatika
+# 📋 RANCANGAN AKTIVITAS TUTORIAL (RAT) & SAT RESMI UT
+## Mata Kuliah: Pemrograman Berbasis Piranti Perangkat Bergerak (MSIM4401 / STSI4303)
+### Program Studi: S1 Sistem Informasi
 ### Fakultas Sains dan Teknologi (FST) — Universitas Terbuka
+#### Dokumen Mutu Akademik: `BB03-RK15-RII.2` (15 Agustus 2019) • Tahun Pengembangan: 2022
 
 > [!TIP]
-> **Tampilan Versi Web Interaktif & Rapi:**
-> Dokumen ini tersedia dalam format Web Modern yang responsif, rapi, dan mudah dibaca:  
-> 👉 [**Buka Versi Web Silabus RAT/SAT Resmi**](https://antonprafanto.github.io/tuweb_mobile2025/panduan_tutorial_ut/RANCANGAN_AKTIVITAS_TUTORIAL_RAT.html) *(atau buka berkas lokal `RANCANGAN_AKTIVITAS_TUTORIAL_RAT.html`)*.
+> **Tampilan Versi Web Interaktif & Berkas Asli:**
+> * 👉 [**Buka Versi Web Silabus RAT/SAT Resmi**](https://antonprafanto.github.io/tuweb_mobile2025/panduan_tutorial_ut/RANCANGAN_AKTIVITAS_TUTORIAL_RAT.html) *(atau buka berkas lokal `RANCANGAN_AKTIVITAS_TUTORIAL_RAT.html`)*.
+> * 📥 [**Unduh Berkas Asli Dokumen RAT MSIM4401 (PDF)**](1_RAT_Pemrograman_Mobile_MSIM4401.pdf) *(Berkas pindaian resmi Program Studi Sistem Informasi FST UT)*.
 
 ---
 
 ## 1. Identitas Mata Kuliah
-* **Nama Mata Kuliah:** Pemrograman Berbasis Perangkat Bergerak
-* **Kode Mata Kuliah:** STSI4303 (Ekuivalensi Kurikulum: MSIM4401)
+* **Nama Mata Kuliah:** Pemrograman Berbasis Piranti Perangkat Bergerak
+* **Kode Mata Kuliah:** MSIM 4401 (Ekuivalensi Kurikulum: STSI4303)
 * **Bobot SKS:** 3 SKS (Mata Kuliah Berpraktik Penuh)
-* **Pengembang / Penelaah:** Anton Prafanto, S.Kom., M.T.
-* **Institusi:** Universitas Terbuka
+* **Nama Pengembang:** Andri Suryadi, S.Kom., M.Kom.
+* **Tutor Tuton / Dosen Pengampu:** Anton Prafanto, S.Kom., M.T.
+* **Institusi:** Universitas Terbuka — Fakultas Sains dan Teknologi (FST)
+* **Program Studi:** S1 Sistem Informasi
 * **Moda Pelaksanaan:** Tutorial Online (Tuton) di `elearning.ut.ac.id` / Tutorial Webinar (Tuweb)
 * **Durasi Tutorial:** 8 Sesi / 8 Pertemuan (@ 120 Menit per pertemuan Tuweb atau 1 minggu per sesi Tuton)
-* **Buku Materi Pokok (BMP) Acuan:** BMP STSI4303 / MSIM4401 *Pemrograman Berbasis Piranti Bergerak* (Modul 1 s.d. 9), Penerbit Universitas Terbuka.
+* **Tahun Pengembangan:** 2022
+* **Buku Materi Pokok (BMP) Acuan:** BMP MSIM4401 / STSI4303 *Pemrograman Berbasis Piranti Bergerak* (Modul 1 s.d. 9), Penerbit Universitas Terbuka.
 
 ---
 
-## 2. Deskripsi Mata Kuliah & Filosofi Pedagogis
-Mata kuliah **Pemrograman Berbasis Perangkat Bergerak (STSI4303)** membekali mahasiswa dengan kemampuan komprehensif dalam merancang, membangun, menguji, dan mendistribusikan aplikasi mobile multiplatform modern. Perkuliahan ini menerapkan pendekatan **Hybrid / WebView Architecture** memanfaatkan kombinasi teknologi industri terkini:
-1. **Ionic Framework (v7/v8):** Antarmuka pengguna berstandar mobile (Material Design & iOS Cupertino).
-2. **Vue.js 3 (Composition API):** Sistem reaktivitas frontend berkinerja tinggi yang deklaratif dan efisien.
-3. **TypeScript:** Pengetikan data statis (*static typing*) untuk menjamin keamanan kode dan mencegah galat *runtime*.
-4. **Capacitor Runtime:** Jembatan penghubung antara kode web dengan perangkat keras dan sistem operasi Android fisik.
+## 2. Deskripsi Singkat Mata Kuliah & Filosofi Pedagogis
+Mata kuliah ini secara umum memberikan pengetahuan dan pengalaman secara praktis kepada mahasiswa agar mampu:
+1. Melakukan analisis terhadap suatu masalah pemrograman yang bisa diselesaikan melalui aplikasi perangkat bergerak menggunakan pendekatan **hybrid (WebView)**.
+2. Mengimplementasikan hasil analisis tersebut ke dalam suatu aplikasi perangkat bergerak (**Android**) menggunakan **Ionic Framework**, Vue.js 3, dan TypeScript.
+3. Melakukan proses **testing** dan **deployment** terhadap hasil aplikasi yang dibuat tersebut.
 
 ### 🌟 Filosofi "The Zero-Friction Courseware"
 Perkuliahan ini dirancang khusus dengan pendekatan ramah bagi mahasiswa dengan latar belakang pemula dan keterbatasan perangkat keras (*hardware-friendly*):
-* **Bebas Hambatan Kognitif:** Konsep disajikan bertahap dari pemahaman mental model, visualisasi pohon komponen, hingga contoh kode atomik.
+* **Bebas Hambatan Kognitif:** Konsep disajikan bertahap dari pemahaman mental model, visualisasi arsitektur, hingga contoh kode atomik.
 * **Ramah Laptop Spesifikasi Menengah (RAM 4–8GB):** Tidak mewajibkan emulator Android Studio yang berat. Pembelajaran difasilitasi melalui simulasi *Google Chrome Device Toolbar*, live reload, dan pengujian smartphone Android fisik secara instan via kabel USB menggunakan utilitas ringan `scrcpy`.
-* **Prinsip One-Slide, One-Runnable-File:** Setiap konsep materi didampingi oleh 1 berkas kode mandiri siap eksekusi tanpa konfigurasi rumit.
+* **Prinsip One-Slide, One-Runnable-File:** Setiap konsep materi didampingi oleh 1 berkas kode mandiri siap eksekusi tanpa instalasi build tools rumit.
 
 ---
 
 ## 3. Capaian Pembelajaran Mata Kuliah (CPMK)
 
-Sesuai rancangan kurikulum resmi Program Studi dan pengumuman tutor:
-> **Capaian Pembelajaran Mata Kuliah (CPMK):**  
+Sesuai dokumen resmi RAT MSIM4401 dan arahan akademik Program Studi:
+> **Capaian Pembelajaran Mata Kuliah (CPMK Dokumen RAT Resmi):**  
+> *"Mahasiswa mampu melakukan analisis, mengimplementasikan hasil analisis ke dalam suatu aplikasi perangkat bergerak, dan melakukan deployment aplikasi."*
+
+> **Capaian Pembelajaran Mata Kuliah (CPMK Kompetensi Pengorganisasian Data LMS Tuton):**  
 > *"Mahasiswa mampu mengorganisir data yang tersimpan secara elektronik pada sebuah sistem komputer sehingga menghasilkan informasi yang berguna."*
 
 Secara operasional dalam 8 sesi tutorial perkuliahan, CPMK diturunkan ke dalam 8 Sub-CPMK berikut:
@@ -91,18 +97,20 @@ flowchart TD
 
 ---
 
-## 5. Matriks Rancangan Aktivitas Tutorial (RAT) 8 Sesi
+## 5. Matriks Rancangan Aktivitas Tutorial (RAT) 8 Sesi Resmi UT
 
-| No | Capaian Pembelajaran Khusus (Sub-CPMK) | Pokok Bahasan | Sub-Pokok Bahasan | Model / Metode Tutorial | Tugas & Tagihan | Waktu | Sumber Belajar & Pustaka |
-| :-: | :--- | :--- | :--- | :--- | :---: | :-: | :--- |
-| **1** | Mampu membandingkan arsitektur mobile dan menyiapkan dev-tools mandiri | Pengenalan Lingkungan Mobile & Ionic | • Ekosistem mobile: Native vs Hybrid<br>• Setup Node.js LTS, Git, VS Code<br>• Uji diagnostik environment | Tuweb / Tuton, Inisiasi 1, Diskusi Forum | Diskusi 1: Pemilihan Arsitektur Mobile | 120' / 1 pekan | BMP Modul 1; Slide Sesi 01; Kode Sesi 01 |
-| **2** | Mampu membangun logika antarmuka reaktif menggunakan Vue.js 3 | Frontend Modern Berbasis Vue.js 3 | • Reactivity state (`ref`, `reactive`)<br>• Direktif `v-if`, `v-for`, `v-model`<br>• Event handling & props komponen | Diskusi, Live Coding, Praktik Mandiri | Diskusi 2: Virtual DOM & Reaktivitas Data | 120' / 1 pekan | BMP Modul 2; Slide Sesi 02; Kode Sesi 02 |
-| **3** | Mampu mengimplementasikan tipe data TypeScript dan Vue Composition API | TypeScript & Komposisi Vue 3 | • Interface, Types & Generics<br>• Vue 3 `<script setup lang="ts">`<br>• Computed IPK & Konversi Nilai | Praktikum Terbimbing, Pengerjaan Tugas | 🎯 **TUGAS TUTORIAL 1** *(Kalkulator IPK)* | 120' / 1 pekan | BMP Modul 3; Slide Sesi 03; Solusi Tugas 1 |
-| **4** | Mampu merancang navigasi tumpukan (*stack*) dan lifecycle Ionic | Dasar Ionic Framework & Navigasi | • Web Components bawaan Ionic<br>• Ionic Vue Router & Router Outlet<br>• Lifecycle (`ionViewDidEnter`) | Simulasi alur layar, Bedah kode navigasi | Diskusi 4: Pengelolaan Stack Navigasi | 120' / 1 pekan | BMP Modul 4; Slide Sesi 04; Kode Sesi 04 |
-| **5** | Mampu merancang form Regex, layout grid responsif, dan Dark Mode | Layout, Theming & Komponen UI | • Grid System 12-Kolom & Cards<br>• Form Regex (NIM 9 digit & Email UT)<br>• Toast, Alert & Dark Mode Switch | Desain antarmuka, Pengerjaan Tugas | 🎯 **TUGAS TUTORIAL 2** *(Portal KTM Digital)* | 120' / 1 pekan | BMP Modul 5; Slide Sesi 05; Solusi Tugas 2 |
-| **6** | Mampu menghubungkan web ke Android via Capacitor dan mengamankan izin | Capacitor, Platform Android & Keamanan | • Arsitektur Capacitor Bridge<br>• `AndroidManifest` & Permissions<br>• USB Debugging & scrcpy | Praktik perangkat fisik, Analisis izin | Diskusi 6: Izin Hardware & Sanitasi Webview | 120' / 1 pekan | BMP Modul 6 & 7; Slide Sesi 06; Kode Sesi 06 |
-| **7** | Mampu mengintegrasikan REST API, storage offline, dan sensor native | REST API, Local Storage & Native Plugin | • HTTP Asinkron (`async/await`)<br>• Penyimpanan persisten Preferences<br>• Plugin Geolocation (GPS) & Kamera | Integrasi end-to-end, Pengerjaan Tugas | 🎯 **TUGAS TUTORIAL 3** *(Study Tracker)* | 120' / 1 pekan | BMP Modul 8 & 9; Slide Sesi 07; Solusi Tugas 3 |
-| **8** | Mampu mengemas APK Android release, menerapkan keamanan, dan siap UAS | Optimasi, Build APK Release & Review UAS | • Bundling production & Tree-shaking<br>• Keystore Signing APK Release<br>• Bedah 50 Soal Kisi-kisi UAS | Simulasi evaluasi, Review komprehensif | Diskusi 8: Refleksi & Kesiapan Portofolio | 120' / 1 pekan | BMP Modul 9; Slide Sesi 08; Bank Soal UAS |
+Tabel matriks ini mengacu secara utuh pada dokumen resmi RAT Mata Kuliah **MSIM4401** (Universitas Terbuka):
+
+| Tutorial Ke- | Capaian Pembelajaran Khusus (CPK) | Pokok Bahasan | Sub Pokok Bahasan | Aktivitas Belajar | Modus Belajar | Tagihan & Tugas Tutorial | Pustaka Resmi |
+| :-: | :--- | :--- | :--- | :--- | :-: | :--- | :-: |
+| **1** | Mampu membangun aplikasi dengan menggunakan pendekatan hybrid ini, seorang pemrogram harus memahami pembuatan aplikasi di sisi Web terutama menggunakan HTML, CSS, serta JavaScript dan framework antarmuka (*interface*) Web tertentu menggunakan Vue.js | **Pengenalan Lingkungan Pengembangan Aplikasi Berbasis Perangkat Bergerak** | 1. Lingkungan Pengembangan Aplikasi Perangkat Bergerak, Hybrid App dan Ionic Framework<br>2. Pemrograman Typescript<br>3. Pemrograman Typescript (lanjut) | 1. Mahasiswa mempelajari materi dalam Modul<br>2. Mahasiswa aktif mengikuti kegiatan diskusi tutorial | Tuweb: &check;<br>Tuton: &check; | **Diskusi 1:** Pemilihan Arsitektur Mobile & Setup Dev-Tools | [1][2][3][4][5][6][7] |
+| **2** | Mampu memahami pemrograman di sisi frontend menggunakan Vue untuk antarmuka di Web | **Pemrograman Sisi Frontend Menggunakan Vue** | 1. Dasar-Dasar Vue<br>2. Vue lanjutan (1)<br>3. Vue lanjutan (2) | 1. Mahasiswa mempelajari materi dalam Modul<br>2. Mahasiswa aktif mengikuti kegiatan diskusi tutorial | Tuweb: &check;<br>Tuton: &check; | **Diskusi 2:** Reaktivitas Data, Direktif & Virtual DOM | [8][9][10] |
+| **3** | Mampu membuat program menggunakan TypeScript dengan tingkat kompleksitas menengah, menggunakan TypeScript untuk Web-API dan RESTful API, dan membuat program untuk frontend menggunakan TypeScript dan Vue. | **Praktikum-1: Typescript dan Vue** | 1. Membuat Aplikasi Command Line Menggunakan Typescript<br>2. Membuat dan Mengakses Restful API Endpoint<br>3. Membuat Instan Aplikasi Vue menggunakan Typescript | 1. Mahasiswa mempelajari materi dalam Modul<br>2. Mahasiswa aktif mengikuti kegiatan diskusi tutorial<br>3. Mahasiswa aktif mengerjakan tugas khusus | Tuweb: &check;<br>Tuton: &check;<br>Praktik: &check; | 🔥 🎯 **TUGAS TUTORIAL 1 (P1)**<br>*(Bobot 16,6667% - Aktivitas 4)* | [11][12][13][14][15][16][17][18] |
+| **4** | Mampu memahami dasar-dasar penggunaan Ionic untuk membangun aplikasi dengan Vue sebagai komponen antarmuka | **Dasar-Dasar Ionic Framework** | 1. Instalasi Ionic Serta Lingkungan Pengembangannya<br>2. Memulai Ionic Berbasis Vue<br>3. Struktur Direktori Dan Elemen Ionic Menggunakan Vue | 1. Mahasiswa mempelajari materi dalam Modul<br>2. Mahasiswa aktif mengikuti kegiatan diskusi tutorial | Tuweb: &check;<br>Tuton: &check; | **Diskusi 4:** Dasar Ionic UI & Stack Navigation | [19][20][21] |
+| **5** | Mampu memahami cara mengatur layout serta peletakan komponen di dalam kontainer di layout tampilan menggunakan CSS yang bisa meliputi keseluruhan bagian antarmuka pada aplikasi | **Layout, Theme, dan Komponen** | 1. Layout Untuk Struktur Aplikasi dan Custom Layout Menggunakan Responsive GRID<br>2. Tema dan CSS<br>3. Komponen UI (*User Interface*) di Ionic | 1. Mahasiswa mempelajari materi dalam Modul<br>2. Mahasiswa aktif mengikuti kegiatan diskusi tutorial<br>3. Mahasiswa aktif mengerjakan tugas khusus | Tuweb: &check;<br>Tuton: &check;<br>Praktik: &check; | 🔥 🎯 **TUGAS TUTORIAL 2 (P2)**<br>*(Bobot 16,6667% - Aktivitas 8)* | [22][23][24][25] |
+| **6** | Mampu memahami Integrasi Ionic dengan Vue, Teknik Layout, Theme, dan Komponen Ionic | **Praktikum-2: Integrasi Ionic dengan Vue, Teknik Layout, Theme, dan Komponen Ionic** | 1. Praktikum Instalasi Ionic dan Integrasi Ionic dengan Vue<br>2. Praktikum Teknik Layout dan Tema/Theme<br>3. Praktikum Komponen Antarmuka Ionic | 1. Mahasiswa mempelajari materi dalam Modul<br>2. Mahasiswa aktif mengikuti kegiatan diskusi tutorial | Tuweb: &check;<br>Tuton: &check; | **Diskusi 6:** Capacitor Bridge & Runtime Android | [26][27][28][29][30][31] |
+| **7** | Mampu memahami pembuatan aplikasi android menggunakan Ionic | **Ionic pada Platform Android** | 1. Setting Platform Android<br>2. Native API - Plugins<br>3. Akses Data<br>4. Tips dan Tricks Ionic | 1. Mahasiswa mempelajari materi dalam Modul<br>2. Mahasiswa aktif mengikuti kegiatan diskusi tutorial<br>3. Mahasiswa aktif mengerjakan tugas khusus | Tuweb: &check;<br>Tuton: &check;<br>Praktik: &check; | 🔥 🎯 **TUGAS TUTORIAL 3 (P3)**<br>*(Bobot 16,6667% - Aktivitas 12)* | [32][33][34][35][36][37][38] |
+| **8** | Mampu mengembangkan aplikasi terintegrasi menggunakan Ionic | **Pengembangan Aplikasi Mobile Terintegrasi Menggunakan Ionic dan Praktikum Akses Data, Native-API Plugins, dan Aplikasi Terintegrasi** | 1. Akses Data Restful-API Menggunakan Typescript<br>2. Aplikasi Mobile dengan Akses Restful-API<br>3. Praktikum: Akses Data<br>4. Praktikum: Native API - Plugins<br>5. Praktikum: Membangun Aplikasi Terintegrasi | 1. Mahasiswa mempelajari materi dalam Modul<br>2. Mahasiswa aktif mengikuti kegiatan diskusi tutorial | Tuweb: &check;<br>Tuton: &check; | **Diskusi 8 & 🎓 Evaluasi UAS**<br>*(UAS Wajib - Bobot 50,0000%)* | [39][40][41][42][43][44][45][46][47][48][49][50][51][52][53] |
 
 ---
 
@@ -301,11 +309,70 @@ Sesuai Permendikbudristek & Standar Pendidikan Tinggi Jarak Jauh (PTTJJ) Univers
 ---
 
 ## 12. Daftar Pustaka & Rujukan Resmi
-1. **Pustaka Utama:**
-   * Tim Dosen Universitas Terbuka. (2024). *Buku Materi Pokok STSI4303 / MSIM4401: Pemrograman Berbasis Piranti Bergerak*. Tangerang Selatan: Penerbit Universitas Terbuka.
+
+### A. Daftar Pustaka / Open Educational Resources (OER) Dokumen RAT MSIM4401 Resmi UT
+* [1] Android Developers and Contributors, *Android Reference*, https://source.android.com/reference, diakses 2 Januari 2021.
+* [2] Basarat Ali Syed, *TypeScript Deep Dive*, https://basarat.gitbook.io/typescript/, diakses 28 Desember 2020.
+* [3] Express Developers and Contributors, *Express Documentation*, https://expressjs.com/, diakses 29 Desember 2020.
+* [4] Marijn Haverbeke, *Eloquent JavaScript*, 3rd edition, 2018, https://eloquentjavascript.net/index.html, diakses pada 20 Desember 2020.
+* [5] Node.js Developers and Contributors, *Learn Node.js*, https://nodejs.dev/learn, diakses 29 Desember 2020.
+* [6] Node.js Developers and Contributors, *Node.js Documentation*, https://nodejs.org/en/docs/, diakses 28 Desember 2020.
+* [7] TypeScript Team and Contributors, *TypeScript Documentation*, https://www.typescriptlang.org/docs, diakses 29 Desember 2020.
+* [8] Gregg Pollack, *Vue 3: Start Using it Today*, https://www.vuemastery.com/blog/vue-3-start-using-it-today/, diakses 2 Januari 2021.
+* [9] Gregg Pollack, *Vue Router: a Tutorial for Vue 3*, https://www.vuemastery.com/blog/vue-router-a-tutorial-for-vue-3/, diakses 3 Januari 2021.
+* [10] Vue Developers and Contributors, *Vue Guide*, https://v3.vuejs.org/guide/introduction.html, diakses 3 Januari 2021.
+* [11] Andy Li, *Getting Started with TypeScript + Vue.js*, https://www.vuemastery.com/blog/getting-started-with-typescript-and-vuejs/, 7 Oktober 2020.
+* [12] Axios developers and Contributors, *axios - GitHub Repository*, https://github.com/axios/axios, diakses 6 Januari 2021.
+* [13] Bilal Haidar, *Your First Vue 3 App Using TypeScript*, https://labs.thisdot.co/blog/your-first-vue-3-app-using-typescript, 17 Agustus 2020, diakses 5 Januari 2021.
+* [14] Express Developers and Contributors, *Express Guide and Documentation*, https://expressjs.com/, diakses 5 Januari 2021.
+* [15] Gregg Pollack, *Vue 3: Start Using it Today*, https://www.vuemastery.com/blog/vue-3-start-using-it-today/, diakses 2 Januari 2021.
+* [16] Gregg Pollack, *Vue Router: a Tutorial for Vue 3*, https://www.vuemastery.com/blog/vue-router-a-tutorial-for-vue-3/, diakses 3 Januari 2021.
+* [17] TypeScript Developers and Contributors, *The TypeScript Handbook*, https://www.typescriptlang.org/docs/handbook/intro.html, diakses pada 2 Januari 2021.
+* [18] Vue Developers and Contributors, *Vue Guide*, https://v3.vuejs.org/guide/introduction.html, diakses 3 Januari 2021.
+* [19] Ionic Framework Team and Contributors, *Ionic Framework Guide*, https://ionicframework.com/docs, diakses 20 Januari 2021.
+* [20] Liam DeBeasi, *Announcing Ionic Vue*, https://ionicframework.com/blog/announcing-ionic-vue/, 15 Oktober 2020.
+* [21] TypeScript Team and Contributors, *TypeScript Documentation*, https://www.typescriptlang.org/docs, diakses 29 Desember 2020.
+* [22] Ionic Framework Team and Contributors, *Ionic Framework Guide*, https://ionicframework.com/docs, diakses 20 Januari 2021.
+* [23] Ionic Team and Contributors, *Ionic Framework Documentation*, https://ionicframework.com/docs, diakses 15 Januari 2021.
+* [24] Liam DeBeasi, *Announcing Ionic Vue*, https://ionicframework.com/blog/announcing-ionic-vue/, 15 Oktober 2020.
+* [25] TypeScript Team and Contributors, *TypeScript Documentation*, https://www.typescriptlang.org/docs, diakses 29 Desember 2020.
+* [26] Ionic Team and Contributors, *Ionic Framework Documentation*, https://ionicframework.com/docs, diakses 15 Januari 2021.
+* [27] Ionic Team and Contributors, *Ionic Documentation*, https://ionicframework.com/docs, diakses pada 2 Februari 2021.
+* [28] Liam DeBeasi, *Announcing Ionic Vue*, https://ionicframework.com/blog/announcing-ionic-vue/, 15 Oktober 2020.
+* [29] TypeScript Team and Contributors, *TypeScript Documentation*, https://www.typescriptlang.org/docs, diakses 29 Desember 2020.
+* [30] TypeScript Team and Contributors, *TypeScript Documentation*, https://www.typescriptlang.org/docs, diakses 29 Desember 2020.
+* [31] Vue Team and Contributors, *Vue Documentation*, https://v3.vuejs.org/guide/introduction.html, diakses pada 2 Februari 2021.
+* [32] Apache Cordova Team and Contributors, *Apache Cordova Documentation*, https://cordova.apache.org/docs/en/latest/, diakses pada 5 Februari 2021.
+* [33] Capacitor Team and Contributors, *Capacitor Documentation*, https://capacitorjs.com/docs, diakses pada 3 Februari 2021.
+* [34] Ionic Team and Contributors, *Ionic Native API Documentation*, https://ionicframework.com/docs/native/, diakses pada 5 Februari 2021.
+* [35] Max Lynch, *How Capacitor Works*, https://capacitorjs.com/blog/how-capacitor-works, diakses pada 6 Februari 2021.
+* [36] SQLite Team and Contributors, *SQLite Documentation*, https://sqlite.org/docs.html, diakses pada 5 Februari 2021.
+* [37] Scott Cook, *Using HTML Canvas with Vue JS*, https://medium.com/@scottmatthew/using-html-canvas-with-vue-js-493e5ae60887, diakses pada 4 Februari 2021.
+* [38] TypeScript Team and Contributors, *TypeScript Documentation*, https://www.typescriptlang.org/docs, diakses 29 Desember 2020.
+* [39] Anonim, *JSON Reference*, https://www.json.org/json-en.html, diakses 6 Februari 2021.
+* [40] Ionic Team and Contributors, *Ionic Documentation*, https://ionicframework.com/docs, diakses 5 Februari 2021.
+* [41] Martin Fowler, *Microservices*, https://martinfowler.com/articles/microservices.html, diakses pada 2 Februari 2021.
+* [42] TypeScript Team and Contributors, *TypeScript Documentation*, https://www.typescriptlang.org/docs, diakses 29 Desember 2020.
+* [43] Zell Liew, *Understanding and Using REST APIs*, Smashing Magazine, 17 Januari 2018, https://www.smashingmagazine.com/2018/01/understanding-using-rest-api/, diakses pada 7 Februari 2021.
+* [44] Capacitor Developers and Contributors, *Capacitor Documentation*, https://capacitorjs.com/docs, diakses pada 12 Februari 2021.
+* [45] Chris Body dan kontributor, *Cordova Plugin for SQLite*, https://github.com/storesafe/cordova-sqlite-storage, diakses 10 Februari 2021.
+* [46] Cordova Plugin - Geolocation Developers and Contributors, *Cordova Geolocation Plugin Documentation*, https://github.com/apache/cordova-plugin-geolocation, diakses pada 10 Februari 2021.
+* [47] Cordova Plugin - NativeGeocoder Developers and Contributors, *Cordova NativeGeocoder Plugin Documentation*, https://github.com/apache/cordova-plugin-geolocation, diakses pada 10 Februari 2021.
+* [48] Gradle Developers and Contributors, *Gradle User Manual*, https://docs.gradle.org/current/userguide/userguide.html, diakses pada 7 Februari 2021.
+* [49] Ionic Developers and Contributors, *Ionic Native API Documentation*, https://ionicframework.com/docs/native, diakses pada 11 Februari 2021.
+* [50] Mozilla and Individual Contributors, *MDN Web Docs: JavaScript - Date Documentation*, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date, diakses pada 5 Februari 2021.
+* [51] TypeScript Developers and Contributors, *The TypeScript Handbook*, https://www.typescriptlang.org/docs/handbook/intro.html, diakses pada 2 Januari 2021.
+* [52] Vue Developers and Contributors, *Vue Guide*, https://v3.vuejs.org/guide/introduction.html, diakses 3 Januari 2021.
+* [53] Vuex Developers and Contributors, *Vuex Documentation*, https://next.vuex.vuejs.org/, diakses 10 Februari 2021.
+
+---
+
+### B. Buku Materi Pokok (BMP) & Standar Industri Terkini
+1. **Buku Materi Pokok (BMP) Acuan:**
+   * Tim Dosen Universitas Terbuka. (2024). *Buku Materi Pokok MSIM4401 / STSI4303: Pemrograman Berbasis Piranti Bergerak* (Modul 1 s.d. 9). Tangerang Selatan: Penerbit Universitas Terbuka.
 2. **Dokumentasi Resmi & Standar Industri:**
    * Ionic Framework Documentation (v7/v8). *Ionic UI Components & Vue Lifecycle*. [https://ionicframework.com/docs](https://ionicframework.com/docs).
    * Vue.js Official Guide (v3.4+). *Composition API & Reactivity Core*. [https://vuejs.org](https://vuejs.org).
    * TypeScript Documentation (v5.x). *TypeScript Handbook: Interfaces and Type System*. [https://www.typescriptlang.org](https://www.typescriptlang.org).
    * Capacitor by Ionic. *Cross-Platform Native Runtime*. [https://capacitorjs.com](https://capacitorjs.com).
-   * Prafanto, Anton. (2026). *The Zero-Friction Courseware Framework*. GitHub Repository: [https://github.com/antonprafanto/tuweb_mobile2025.git](https://github.com/antonprafanto/tuweb_mobile2025.git).
+   * Prafanto, Anton. (2026). *The Zero-Friction Courseware Framework*. Repositori GitHub: [https://github.com/antonprafanto/tuweb_mobile2025.git](https://github.com/antonprafanto/tuweb_mobile2025.git).
