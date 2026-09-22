@@ -8,6 +8,7 @@
 > **Tampilan Versi Web Interaktif & Berkas Asli:**
 > * 👉 [**Buka Versi Web Silabus RAT/SAT Resmi**](https://antonprafanto.github.io/tuweb_mobile2025/panduan_tutorial_ut/RANCANGAN_AKTIVITAS_TUTORIAL_RAT.html) *(atau buka berkas lokal `RANCANGAN_AKTIVITAS_TUTORIAL_RAT.html`)*.
 > * 📥 [**Unduh Berkas Asli Dokumen RAT MSIM4401 (PDF)**](1_RAT_Pemrograman_Mobile_MSIM4401.pdf) *(Berkas pindaian resmi Program Studi Sistem Informasi FST UT)*.
+> * 📖 [**Ruang Baca Virtual (RBV) Perpustakaan UT**](https://pustaka.ut.ac.id/lib/msim4401-pemrograman-berbasis-piranti-bergerak/) *(Modul 1 s.d. 9 BMP Digital resmi UT)*.
 
 ---
 
@@ -22,7 +23,7 @@
 * **Moda Pelaksanaan:** Tutorial Online (Tuton) di `elearning.ut.ac.id` / Tutorial Webinar (Tuweb)
 * **Durasi Tutorial:** 8 Sesi / 8 Pertemuan (@ 120 Menit per pertemuan Tuweb atau 1 minggu per sesi Tuton)
 * **Tahun Pengembangan:** 2022
-* **Buku Materi Pokok (BMP) Acuan:** BMP MSIM4401 / STSI4303 *Pemrograman Berbasis Piranti Bergerak* (Modul 1 s.d. 9), Penerbit Universitas Terbuka.
+* **Buku Materi Pokok (BMP) Acuan:** BMP MSIM4401 / STSI4303 *Pemrograman Berbasis Piranti Bergerak* (Modul 1 s.d. 9), Penulis: **Bambang Purnomosidi, S.Kom., M.Kom.**, Edisi 1, Tangerang Selatan: Penerbit Universitas Terbuka, 2022. ISBN: 978-623-312-884-1 ([Katalog RBV Perpustakaan UT ↗](https://pustaka.ut.ac.id/lib/msim4401-pemrograman-berbasis-piranti-bergerak/)).
 
 ---
 
