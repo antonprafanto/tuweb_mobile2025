@@ -1,4 +1,4 @@
-# 📱 NASKAH & SLIDE SESI 07: REST API, OFFLINE STORAGE, NATIVE PLUGINS, & TUGAS TUTORIAL 3
+# 📱 NASKAH & SLIDE SESI 07: REST API, OFFLINE STORAGE, NATIVE PLUGINS, & PRAKTIKUM STUDI KASUS MANDIRI
 ## Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)
 ### Program Studi: S1 Sistem Informasi & S1 Informatika — Fakultas Sains dan Teknologi (FST) Universitas Terbuka
 ### Dosen Pengampu: Anton Prafanto, S.Kom., M.T.
@@ -9,9 +9,13 @@
 > [!TIP]
 > **Akses Cepat Materi, Simulator Interaktif, & Kode Program Sesi 07:**
 > - 🌐 **18 Berkas Contoh Program HTML Siap Dijalankan:** [`contoh_kode_program/sesi_07_api_storage_plugins/`](../contoh_kode_program/sesi_07_api_storage_plugins/)
-> - 🎯 **Kalkulator & Simulator Rubrik TUGAS TUTORIAL 3 (Slide 16):** [`slide_16_rubrik_tugas_tutorial_3.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.html) • [📄 Buku Saku Rubrik Markdown](../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.md)
-> - 🏆 **Master Solusi Resmi Tugas 3: UT Study Tracker (Slide 17):** [`slide_17_solusi_tugas_3_study_tracker.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html)
+> - 📋 **Checklist Kesiapan Praktikum (Slide 16):** [`slide_16_rubrik_tugas_tutorial_3.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.html) • [📄 Buku Saku Praktikum Markdown](../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.md)
+> - 🎯 **Studi Kasus Interaktif: UT Study Tracker (Slide 17):** [`slide_17_solusi_tugas_3_study_tracker.html`](../contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html)
 > - 🖥️ **Slide Presentasi PowerPoint (PPTX 18 Slide Neo-Brutalisme):** [`SESI_07_REST_API_Storage_dan_Native_Plugins.pptx`](SESI_07_REST_API_Storage_dan_Native_Plugins.pptx)
+
+> [!NOTE]
+> **Pemberitahuan Resmi Penugasan & Penilaian:**  
+> Seluruh penugasan resmi (Tugas Tutorial 3), pengumpulan berkas/video, dan evaluasi nilai semester mahasiswa dikelola secara terpusat melalui LMS resmi Universitas Terbuka di [**https://elearning.ut.ac.id/**](https://elearning.ut.ac.id/). Repositori ini difokuskan 100% murni pada penyampaian materi perkuliahan, demonstrasi kode terbuka, dan studi kasus praktikum mandiri.
 
 ---
 

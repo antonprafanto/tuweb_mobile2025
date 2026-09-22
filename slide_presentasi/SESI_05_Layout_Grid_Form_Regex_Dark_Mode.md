@@ -1,16 +1,20 @@
-# 📱 NASKAH & SLIDE SESI 05: LAYOUT GRID, FORM VALIDASI REGEX, THEME, & TUGAS TUTORIAL 2
+# 📱 NASKAH & SLIDE SESI 05: LAYOUT GRID, FORM VALIDASI REGEX, THEME, & PRAKTIKUM STUDI KASUS MANDIRI
 ## Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)
 ### Program Studi: S1 Sistem Informasi & S1 Informatika — Universitas Terbuka
 ### Dosen Pengampu: Anton Prafanto, S.Kom., M.T.
 ### Modul Acuan BMP: Modul 5 (MSIM4401/STSI4303 — Layout Grid, Form Validasi, & Theming Mobile)
 
 > ⚡ **Akses Cepat Bahan Sesi 05:**  
-> [📥 Unduh Slide PPTX](https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx) • [👁️ Baca Slide Online](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx) • [📁 18 Berkas Kode Mandiri](../contoh_kode_program/sesi_05_layout_grid_form/) • [🎯 Master Solusi Tugas Tutorial 2](../contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html) • [📊 Kalkulator Rubrik Skor Interaktif](../contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.html)
+> [📥 Unduh Slide PPTX](https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx) • [👁️ Baca Slide Online](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx) • [📁 18 Berkas Kode Mandiri](../contoh_kode_program/sesi_05_layout_grid_form/) • [🎯 Studi Kasus KTM Digital](../contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html) • [📋 Checklist Praktikum](../contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.html)
+
+> [!NOTE]
+> **Pemberitahuan Resmi Penugasan & Penilaian:**  
+> Seluruh penugasan resmi (Tugas Tutorial 2), pengumpulan berkas/video, dan evaluasi nilai semester mahasiswa dikelola secara terpusat melalui LMS resmi Universitas Terbuka di [**https://elearning.ut.ac.id/**](https://elearning.ut.ac.id/). Repositori ini difokuskan 100% murni pada penyampaian materi perkuliahan, demonstrasi kode terbuka, dan studi kasus praktikum mandiri.
 
 ---
 
 ## 🗺️ Gambaran Umum Sesi
-Sesi kelima ini merupakan **tonggak evaluasi tutorial kedua (Milestone 2: TUGAS TUTORIAL 2)** yang berbobot **20%** dari total nilai Tutorial Online (Tuton) di Universitas Terbuka. Sesi ini mematangkan kemampuan mahasiswa dalam merancang antarmuka mobile yang adaptif, ramah pengguna, dan berintegritas tinggi. Pembahasan mencakup:
+Sesi kelima ini merupakan **tonggak pendalaman antarmuka mobile kedua (Milestone 2)** dalam perkuliahan tutorial di Universitas Terbuka. Sesi ini mematangkan kemampuan mahasiswa dalam merancang antarmuka mobile yang adaptif, ramah pengguna, dan berintegritas tinggi. Pembahasan mencakup:
 1. **Sistem Tata Letak 12-Kolom Ionic Grid:** Arsitektur berbasis Flexbox (`<ion-grid>`, `<ion-row>`, `<ion-col>`) dengan pembagian titik henti responsif (*breakpoints*) untuk smartphone tegak (*portrait*) maupun tablet mendatar (*landscape*).
 2. **Presisi Penjajaran & Offset:** Pemanfaatan `offset` dan kelas utilitas flexbox untuk memusatkan kartu formulir di tengah layar tablet dan desktop.
 3. **Kontrol Masukan Formulir Modern:** Eksplorasi mendalam komponen `<ion-input>` (*floating label*, tombol pembersih cepat, dan optimasi papan ketik virtual `inputmode`), `<ion-textarea>` dengan tinggi dinamis (*auto-grow*), `<ion-select>` berantarmuka lembar aksi (*action-sheet*), kontrol biner `<ion-toggle>`, persetujuan `<ion-checkbox>`, pilihan radio eksklusif `<ion-radio-group>`, serta pemilih tanggal `<ion-datetime>` berstandar ISO 8601 terlokalisasi Indonesia (`id-ID`).

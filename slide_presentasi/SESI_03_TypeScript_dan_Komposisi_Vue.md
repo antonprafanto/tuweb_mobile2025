@@ -1,16 +1,20 @@
-# 📱 NASKAH & SLIDE SESI 03: KEAMANAN TIPE DATA TYPESCRIPT & VUE COMPOSITION API (TUGAS TUTORIAL 1)
+# 📱 NASKAH & SLIDE SESI 03: KEAMANAN TIPE DATA TYPESCRIPT & VUE COMPOSITION API (PRAKTIKUM STUDI KASUS MANDIRI)
 ## Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)
 ### Program Studi: S1 Sistem Informasi & S1 Informatika — Universitas Terbuka
 ### Dosen Pengampu: Anton Prafanto, S.Kom., M.T.
 ### Modul Acuan BMP: Modul 3 (MSIM4401/STSI4303 — Fondasi Keamanan Tipe Data & Komposisi Antarmuka)
 
 > ⚡ **Akses Cepat Bahan Sesi 03:**  
-> [📥 Unduh Slide PPTX](https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_03_TypeScript_dan_Komposisi_Vue.pptx) • [👁️ Baca Slide Online](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_03_TypeScript_dan_Komposisi_Vue.pptx) • [📁 18 Berkas Kode Mandiri](../contoh_kode_program/sesi_03_typescript_vue/) • [🎯 Master Solusi Tugas 1](../contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html) • [📝 Rubrik Penilaian Tugas 1](../panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md)
+> [📥 Unduh Slide PPTX](https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_03_TypeScript_dan_Komposisi_Vue.pptx) • [👁️ Baca Slide Online](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_03_TypeScript_dan_Komposisi_Vue.pptx) • [📁 18 Berkas Kode Mandiri](../contoh_kode_program/sesi_03_typescript_vue/) • [🎯 Studi Kasus Kalkulator IPK](../contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html) • [📋 Checklist Praktikum](../contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.html)
+
+> [!NOTE]
+> **Pemberitahuan Resmi Penugasan & Penilaian:**  
+> Seluruh penugasan resmi (Tugas Tutorial 1), pengumpulan berkas/video, dan evaluasi nilai semester mahasiswa dikelola secara terpusat melalui LMS resmi Universitas Terbuka di [**https://elearning.ut.ac.id/**](https://elearning.ut.ac.id/). Repositori ini difokuskan 100% murni pada penyampaian materi perkuliahan, demonstrasi kode terbuka, dan studi kasus praktikum mandiri.
 
 ---
 
 ## 🗺️ Gambaran Umum Sesi
-Sesi ketiga ini merupakan **titik tolak evaluasi mandiri pertama (Milestone 1)** dalam rangkaian 8 sesi tutorial perkuliahan STSI4303. Mahasiswa mempelajari **TypeScript** sebagai standar industri modern untuk mencegah galat saat aplikasi dijalankan (*runtime errors* atau *silent crashes*) pada perangkat smartphone pengguna. Materi memadukan TypeScript secara mendalam dengan **Vue 3 Composition API** (`<script setup lang="ts">`), mencakup pendefinisian tipe primitif, *literal & union types*, kontrak *interface* model data, *generics* pada koleksi *array*, *typing* fungsi kalkulasi, reaktivitas bertipe (`ref`, `reactive`, `computed`, `props`, `emits`, `DOM events`), hingga bedah tuntas kasus dan rubrik penilaian **TUGAS TUTORIAL 1 (Kalkulator Nilai Mata Kuliah & IPS Mahasiswa UT)**.
+Sesi ketiga ini merupakan **tonggak penguasaan materi praktikum pertama (Milestone 1)** dalam rangkaian 8 sesi tutorial perkuliahan STSI4303. Mahasiswa mempelajari **TypeScript** sebagai standar industri modern untuk mencegah galat saat aplikasi dijalankan (*runtime errors* atau *silent crashes*) pada perangkat smartphone pengguna. Materi memadukan TypeScript secara mendalam dengan **Vue 3 Composition API** (`<script setup lang="ts">`), mencakup pendefinisian tipe primitif, *literal & union types*, kontrak *interface* model data, *generics* pada koleksi *array*, *typing* fungsi kalkulasi, reaktivitas bertipe (`ref`, `reactive`, `computed`, `props`, `emits`, `DOM events`), hingga bedah tuntas studi kasus praktikum **Kalkulator Nilai Mata Kuliah & IPS Mahasiswa UT**.
 
 ---
 

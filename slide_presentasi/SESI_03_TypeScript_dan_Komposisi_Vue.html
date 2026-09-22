@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Naskah Narasi Dosen — Sesi 03: TypeScript & Komposisi Vue (Tugas 1) — Universitas Terbuka</title>
+  <title>Naskah Narasi Dosen — Sesi 03: TypeScript & Komposisi Vue (Praktikum Mandiri) — Universitas Terbuka</title>
   <meta name="description" content="Naskah narasi pengajaran dosen dan panduan instruksional Sesi 03 mata kuliah STSI4303 Universitas Terbuka.">
   
   <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
@@ -442,7 +442,7 @@
     <!-- HEADER -->
     <header class="doc-header">
       <span class="doc-badge">Naskah Narasi Sesi 03</span>
-      <h1 class="doc-title">NASKAH & SLIDE SESI 03: KEAMANAN TIPE DATA TYPESCRIPT & VUE COMPOSITION API (TUGAS TUTORIAL 1)</h1>
+      <h1 class="doc-title">NASKAH & SLIDE SESI 03: KEAMANAN TIPE DATA TYPESCRIPT & VUE COMPOSITION API (PRAKTIKUM STUDI KASUS MANDIRI)</h1>
       <p class="doc-subtitle">
         Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</strong><br>
         Fakultas Sains dan Teknologi, Universitas Terbuka • Dosen Pengampu: <strong>Anton Prafanto, S.Kom., M.T.</strong>
@@ -451,18 +451,22 @@
 
     <!-- CONTENT BODY -->
     <main class="doc-content">
-      <h1>📱 NASKAH &amp; SLIDE SESI 03: KEAMANAN TIPE DATA TYPESCRIPT &amp; VUE COMPOSITION API (TUGAS TUTORIAL 1)</h1>
+      <h1>📱 NASKAH &amp; SLIDE SESI 03: KEAMANAN TIPE DATA TYPESCRIPT &amp; VUE COMPOSITION API (PRAKTIKUM STUDI KASUS MANDIRI)</h1>
 <h2>Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)</h2>
 <h3>Program Studi: S1 Sistem Informasi &amp; S1 Informatika — Universitas Terbuka</h3>
 <h3>Dosen Pengampu: Anton Prafanto, S.Kom., M.T.</h3>
 <h3>Modul Acuan BMP: Modul 3 (MSIM4401/STSI4303 — Fondasi Keamanan Tipe Data &amp; Komposisi Antarmuka)</h3>
 <blockquote>
 <p>⚡ <strong>Akses Cepat Bahan Sesi 03:</strong><br />
-<a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_03_TypeScript_dan_Komposisi_Vue.pptx">📥 Unduh Slide PPTX</a> • <a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_03_TypeScript_dan_Komposisi_Vue.pptx">👁️ Baca Slide Online</a> • <a href="../contoh_kode_program/sesi_03_typescript_vue/">📁 18 Berkas Kode Mandiri</a> • <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html">🎯 Master Solusi Tugas 1</a> • <a href="../panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md">📝 Rubrik Penilaian Tugas 1</a></p>
+<a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_03_TypeScript_dan_Komposisi_Vue.pptx">📥 Unduh Slide PPTX</a> • <a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_03_TypeScript_dan_Komposisi_Vue.pptx">👁️ Baca Slide Online</a> • <a href="../contoh_kode_program/sesi_03_typescript_vue/">📁 18 Berkas Kode Mandiri</a> • <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html">🎯 Studi Kasus Kalkulator IPK</a> • <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.html">📋 Checklist Praktikum</a></p>
 </blockquote>
+<div class="alert-box alert-note">
+<p><strong>Pemberitahuan Resmi Penugasan &amp; Penilaian:</strong><br />
+Seluruh penugasan resmi (Tugas Tutorial 1), pengumpulan berkas/video, dan evaluasi nilai semester mahasiswa dikelola secara terpusat melalui LMS resmi Universitas Terbuka di <a href="https://elearning.ut.ac.id/"><strong>https://elearning.ut.ac.id/</strong></a>. Repositori ini difokuskan 100% murni pada penyampaian materi perkuliahan, demonstrasi kode terbuka, dan studi kasus praktikum mandiri.</p>
+</div>
 <hr />
 <h2>🗺️ Gambaran Umum Sesi</h2>
-<p>Sesi ketiga ini merupakan <strong>titik tolak evaluasi mandiri pertama (Milestone 1)</strong> dalam rangkaian 8 sesi tutorial perkuliahan STSI4303. Mahasiswa mempelajari <strong>TypeScript</strong> sebagai standar industri modern untuk mencegah galat saat aplikasi dijalankan (<em>runtime errors</em> atau <em>silent crashes</em>) pada perangkat smartphone pengguna. Materi memadukan TypeScript secara mendalam dengan <strong>Vue 3 Composition API</strong> (<code>&lt;script setup lang=&quot;ts&quot;&gt;</code>), mencakup pendefinisian tipe primitif, <em>literal &amp; union types</em>, kontrak <em>interface</em> model data, <em>generics</em> pada koleksi <em>array</em>, <em>typing</em> fungsi kalkulasi, reaktivitas bertipe (<code>ref</code>, <code>reactive</code>, <code>computed</code>, <code>props</code>, <code>emits</code>, <code>DOM events</code>), hingga bedah tuntas kasus dan rubrik penilaian <strong>TUGAS TUTORIAL 1 (Kalkulator Nilai Mata Kuliah &amp; IPS Mahasiswa UT)</strong>.</p>
+<p>Sesi ketiga ini merupakan <strong>tonggak penguasaan materi praktikum pertama (Milestone 1)</strong> dalam rangkaian 8 sesi tutorial perkuliahan STSI4303. Mahasiswa mempelajari <strong>TypeScript</strong> sebagai standar industri modern untuk mencegah galat saat aplikasi dijalankan (<em>runtime errors</em> atau <em>silent crashes</em>) pada perangkat smartphone pengguna. Materi memadukan TypeScript secara mendalam dengan <strong>Vue 3 Composition API</strong> (<code>&lt;script setup lang=&quot;ts&quot;&gt;</code>), mencakup pendefinisian tipe primitif, <em>literal &amp; union types</em>, kontrak <em>interface</em> model data, <em>generics</em> pada koleksi <em>array</em>, <em>typing</em> fungsi kalkulasi, reaktivitas bertipe (<code>ref</code>, <code>reactive</code>, <code>computed</code>, <code>props</code>, <code>emits</code>, <code>DOM events</code>), hingga bedah tuntas studi kasus praktikum <strong>Kalkulator Nilai Mata Kuliah &amp; IPS Mahasiswa UT</strong>.</p>
 <hr />
 <h2>🛠️ Panduan Alat &amp; Lingkungan Belajar (Ramah Pemula)</h2>
 <p>Bagi rekan-rekan mahasiswa yang baru pertama kali mempelajari TypeScript dan Vue 3, Anda <strong>tidak perlu merasa cemas</strong> dengan instalasi perangkat lunak yang rumit. Seluruh materi dan 18 berkas kode mandiri pada sesi ini telah dirancang dengan prinsip <strong>Zero Friction</strong>:</p>
