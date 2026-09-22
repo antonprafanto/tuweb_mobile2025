@@ -318,3 +318,13 @@ Jika Anda mengembangkan proyek skala penuh:
 
 ## 📜 Lisensi & Kontribusi
 Repositori ini dikembangkan sebagai materi ajar terbuka (*Open Courseware*) untuk mendukung proses pembelajaran mahasiswa Universitas Terbuka di seluruh Indonesia. Silakan manfaatkan, pelajari, dan kembangkan secara bertanggung jawab dengan tetap menjunjung tinggi integritas akademik.
+
+---
+
+## 👨‍🏫 Dosen Pengampu & Kontak Tutorial
+
+* **Dosen Pengampu / Tutor Tuton:** Anton Prafanto, S.Kom., M.T.
+* **Institusi:** Fakultas Sains dan Teknologi (FST) Universitas Terbuka • Universitas Mulawarman
+* **Surel (Email):** [antonprafanto@unmul.ac.id](mailto:antonprafanto@unmul.ac.id)
+* **WhatsApp:** [0811-5533-93](https://wa.me/62811553393) (`+62 811-5533-93`)
+* **Dukungan Pengajar (Trakteer):** [![Trakteer](https://img.shields.io/badge/Trakteer-Dukung%20Pengajar-C2410C?style=flat&logo=trakteer&logoColor=white)](https://trakteer.id/limitless7/tip) 👉 [https://trakteer.id/limitless7/tip](https://trakteer.id/limitless7/tip)

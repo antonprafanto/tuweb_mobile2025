@@ -18,6 +18,7 @@
 * **Bobot SKS:** 3 SKS (Mata Kuliah Berpraktik Penuh)
 * **Nama Pengembang:** Andri Suryadi, S.Kom., M.Kom.
 * **Tutor Tuton / Dosen Pengampu:** Anton Prafanto, S.Kom., M.T.
+* **Kontak Dosen:** [antonprafanto@unmul.ac.id](mailto:antonprafanto@unmul.ac.id) • WhatsApp: [0811-5533-93](https://wa.me/62811553393) • Dukungan: [Trakteer ↗](https://trakteer.id/limitless7/tip)
 * **Institusi:** Universitas Terbuka — Fakultas Sains dan Teknologi (FST)
 * **Program Studi:** S1 Sistem Informasi
 * **Moda Pelaksanaan:** Tutorial Online (Tuton) di `elearning.ut.ac.id` / Tutorial Webinar (Tuweb)
