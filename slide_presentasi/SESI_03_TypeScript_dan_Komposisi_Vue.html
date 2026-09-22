@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naskah Narasi Dosen — Sesi 03: TypeScript & Komposisi Vue (Tugas 1) — Universitas Terbuka</title>
+  <meta name="description" content="Naskah narasi pengajaran dosen dan panduan instruksional Sesi 03 mata kuliah STSI4303 Universitas Terbuka.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Mermaid.js untuk Diagram Arsitektur -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --ut-navy: #003366;
+      --ut-blue: #005691;
+      --ut-blue-light: #EBF3FA;
+      --ut-gold: #C28E00;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      position: static !important;
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100% !important;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Breadcrumb & Navbar */
+    .top-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-nav-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ut-blue);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .breadcrumb:hover {
+      color: var(--ut-navy);
+      text-decoration: underline;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--slate-200);
+      background: #FFFFFF;
+      color: var(--slate-700);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+    }
+
+    .action-btn.primary {
+      background: var(--ut-blue);
+      color: #FFFFFF;
+      border-color: var(--ut-blue);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--ut-navy);
+      border-color: var(--ut-navy);
+    }
+
+    /* Main Container */
+    .doc-container {
+      max-width: 1060px;
+      margin: 32px auto 60px;
+      padding: 0 20px;
+    }
+
+    /* Academic Header Card */
+    .doc-header {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ut-navy) 0%, var(--ut-blue) 60%, var(--ut-gold) 100%);
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--ut-blue);
+      background: var(--ut-blue-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+
+    .doc-subtitle {
+      font-size: 14px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* Document Body & Typography */
+    .doc-content {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 768px) {
+      .doc-content { padding: 24px 20px; }
+      .doc-header { padding: 24px 20px; }
+      .doc-title { font-size: 22px; }
+    }
+
+    .doc-content h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-top: 28px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 32px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .doc-content h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    .doc-content p {
+      margin-bottom: 16px;
+      color: var(--slate-700);
+    }
+
+    .doc-content ul, .doc-content ol {
+      margin-bottom: 18px;
+      padding-left: 24px;
+    }
+
+    .doc-content li {
+      margin-bottom: 6px;
+      color: var(--slate-700);
+    }
+
+    .doc-content hr {
+      border: none;
+      height: 1px;
+      background: var(--slate-200);
+      margin: 32px 0;
+    }
+
+    /* Links */
+    .doc-content a {
+      color: var(--ut-blue);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #93C5FD;
+      transition: all 0.15s ease;
+    }
+
+    .doc-content a:hover {
+      color: var(--ut-navy);
+      border-bottom-style: solid;
+      background: var(--ut-blue-light);
+    }
+
+    /* GitHub Alert Callouts */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-left: 4px solid;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .alert-important {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+
+    .alert-note {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1E40AF;
+    }
+
+    .alert-tip {
+      background: #ECFDF5;
+      border-color: #10B981;
+      color: #065F46;
+    }
+
+    .alert-warning {
+      background: #FFFBEB;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+
+    /* Beautiful Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    .doc-content th {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--slate-200);
+      letter-spacing: 0.2px;
+    }
+
+    .doc-content td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: top;
+    }
+
+    .doc-content tr:last-child td {
+      border-bottom: none;
+    }
+
+    .doc-content tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+
+    .doc-content tr:hover td {
+      background: #F1F5F9;
+    }
+
+    /* Code Blocks */
+    .doc-content pre {
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 20px 0;
+      border: 1px solid var(--slate-700);
+    }
+
+    .doc-content code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--slate-100);
+      color: var(--slate-900);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .doc-content pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    /* Mermaid Diagrams */
+    .mermaid {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--slate-400);
+    }
+
+    @media print {
+      .top-nav, .action-btn { display: none !important; }
+      body { background: #FFF; }
+      .doc-header, .doc-content { border: none; box-shadow: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP STICKY NAVIGATION -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../index.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Kembali ke Portal Perkuliahan
+      </a>
+
+      <div class="nav-actions">
+        <button class="action-btn" onclick="window.print()" title="Cetak halaman atau simpan sebagai PDF">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Cetak / PDF
+        </button>
+        <a href="SESI_03_TypeScript_dan_Komposisi_Vue.md" target="_blank" class="action-btn" title="Buka berkas sumber Markdown asli">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Naskah Markdown (.md)
+        </a>
+        <a href="https://github.com/antonprafanto/tuweb_mobile2025" target="_blank" class="action-btn" title="Buka repositori GitHub">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="doc-container">
+    <!-- HEADER -->
+    <header class="doc-header">
+      <span class="doc-badge">Naskah Narasi Sesi 03</span>
+      <h1 class="doc-title">NASKAH & SLIDE SESI 03: KEAMANAN TIPE DATA TYPESCRIPT & VUE COMPOSITION API (TUGAS TUTORIAL 1)</h1>
+      <p class="doc-subtitle">
+        Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</strong><br>
+        Fakultas Sains dan Teknologi, Universitas Terbuka • Dosen Pengampu: <strong>Anton Prafanto, S.Kom., M.T.</strong>
+      </p>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="doc-content">
+      <h1>📱 NASKAH &amp; SLIDE SESI 03: KEAMANAN TIPE DATA TYPESCRIPT &amp; VUE COMPOSITION API (TUGAS TUTORIAL 1)</h1>
+<h2>Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)</h2>
+<h3>Program Studi: S1 Sistem Informasi &amp; S1 Informatika — Universitas Terbuka</h3>
+<h3>Dosen Pengampu: Anton Prafanto, S.Kom., M.T.</h3>
+<h3>Modul Acuan BMP: Modul 3 (MSIM4401/STSI4303 — Fondasi Keamanan Tipe Data &amp; Komposisi Antarmuka)</h3>
+<blockquote>
+<p>⚡ <strong>Akses Cepat Bahan Sesi 03:</strong><br />
+<a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_03_TypeScript_dan_Komposisi_Vue.pptx">📥 Unduh Slide PPTX</a> • <a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_03_TypeScript_dan_Komposisi_Vue.pptx">👁️ Baca Slide Online</a> • <a href="../contoh_kode_program/sesi_03_typescript_vue/">📁 18 Berkas Kode Mandiri</a> • <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html">🎯 Master Solusi Tugas 1</a> • <a href="../panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md">📝 Rubrik Penilaian Tugas 1</a></p>
+</blockquote>
+<hr />
+<h2>🗺️ Gambaran Umum Sesi</h2>
+<p>Sesi ketiga ini merupakan <strong>titik tolak evaluasi mandiri pertama (Milestone 1)</strong> dalam rangkaian 8 sesi tutorial perkuliahan STSI4303. Mahasiswa mempelajari <strong>TypeScript</strong> sebagai standar industri modern untuk mencegah galat saat aplikasi dijalankan (<em>runtime errors</em> atau <em>silent crashes</em>) pada perangkat smartphone pengguna. Materi memadukan TypeScript secara mendalam dengan <strong>Vue 3 Composition API</strong> (<code>&lt;script setup lang=&quot;ts&quot;&gt;</code>), mencakup pendefinisian tipe primitif, <em>literal &amp; union types</em>, kontrak <em>interface</em> model data, <em>generics</em> pada koleksi <em>array</em>, <em>typing</em> fungsi kalkulasi, reaktivitas bertipe (<code>ref</code>, <code>reactive</code>, <code>computed</code>, <code>props</code>, <code>emits</code>, <code>DOM events</code>), hingga bedah tuntas kasus dan rubrik penilaian <strong>TUGAS TUTORIAL 1 (Kalkulator Nilai Mata Kuliah &amp; IPS Mahasiswa UT)</strong>.</p>
+<hr />
+<h2>🛠️ Panduan Alat &amp; Lingkungan Belajar (Ramah Pemula)</h2>
+<p>Bagi rekan-rekan mahasiswa yang baru pertama kali mempelajari TypeScript dan Vue 3, Anda <strong>tidak perlu merasa cemas</strong> dengan instalasi perangkat lunak yang rumit. Seluruh materi dan 18 berkas kode mandiri pada sesi ini telah dirancang dengan prinsip <strong>Zero Friction</strong>:</p>
+<ol>
+<li><strong>Google Chrome / Web Browser Modern:</strong><br />
+Untuk menguji dan menjalankan aplikasi interaktif, Anda cukup <strong>klik dua kali (double click)</strong> berkas berekstensi <code>.html</code> yang tersedia di folder <code>contoh_kode_program/sesi_03_typescript_vue/</code>. Berkas akan langsung terbuka dan berjalan mulus tanpa memerlukan <em>local server</em>, Node.js, maupun perintah terminal!</li>
+<li><strong>Visual Studio Code (VS Code):</strong><br />
+Gunakan VS Code untuk membaca dan memodifikasi baris kode program. Sangat disarankan memasang ekstensi resmi:
+<ul>
+<li><strong>Vue - Official (Volar):</strong> Memberikan penyorotan sintaks (<em>syntax highlighting</em>) dan autocompletion pada komponen Vue.</li>
+<li><strong>TypeScript Vue Plugin:</strong> Membantu mendeteksi kesalahan pengetikan tipe data secara langsung dengan garis bawah merah (<em>compile-time warning</em>).</li>
+</ul>
+</li>
+<li><strong>Pemeriksaan Konsol Browser (DevTools):</strong><br />
+Saat menjalankan berkas <code>.html</code>, Anda dapat menekan tombol <strong>F12</strong> (atau klik kanan $\rightarrow$ <em>Inspect</em> $\rightarrow$ tab <em>Console</em>) pada keyboard Anda untuk melihat pesan log, struktur data objek, dan simulasi proses reaktivitas di balik layar.</li>
+</ol>
+<hr />
+<h2>📊 Daftar 18 Slide Pembahasan &amp; Berkas Kode Mandiri</h2>
+<h3>📌 Slide 01: Orientasi Sesi 03, Peta Capaian &amp; Tagihan TUGAS TUTORIAL 1</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memahami posisi kompetensi Sesi 03 dalam peta kurikulum semester serta rincian tagihan resmi Tugas Tutorial 1 (bobot penilaian terbesar di paruh pertama semester).</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Modern Web Browser, Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Selamat berjumpa kembali rekan-rekan mahasiswa Universitas Terbuka yang saya banggakan! Hari ini kita memasuki Sesi 03, sebuah sesi yang sangat istimewa dan krusial. Selain kita akan memperkuat kode program kita dengan tameng baja bernama TypeScript, pada sesi ini resmi dibuka tagihan TUGAS TUTORIAL 1. Tugas ini memiliki bobot penilaian yang sangat signifikan (70% nilai tutorial disumbangkan bersama Tugas 2 dan 3). Jangan khawatir atau merasa terbebani! Pada pertemuan ini kita akan membedah seluruh model data akademik, logika kalkulasi IPS, hingga master solusinya secara bertahap dan menyenangkan!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Peta Milestone 1:</strong> Tugas Tutorial 1 berdurasi 2 pekan di LMS UT.</li>
+<li><strong>Kewajiban Demonstrasi:</strong> Menyertakan tautan video YouTube (status <em>unlisted</em>, durasi 3–5 menit) yang menampilkan wajah mahasiswa dan penjelasan kode.</li>
+<li><strong>Kesiapan Fondasi:</strong> Menggabungkan logika TypeScript murni dengan reaktivitas antarmuka Vue 3.</li>
+</ul>
+</li>
+<li><strong>Diagram Alur Kurikulum &amp; Milestone (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph S1_S2[&quot;Fondasi Awal&quot;]
+        A1[&quot;Sesi 01: Arsitektur Mobile &amp; Setup&quot;] --&gt; A2[&quot;Sesi 02: Reaktivitas Vue 3 Core&quot;]
+    end
+    subgraph S3[&quot;Milestone 1 (Sesi 03)&quot;]
+        A2 --&gt; B1[&quot;Sesi 03: TypeScript &amp; Tugas Tutorial 1&quot;]
+        B1 -.-&gt; B2[&quot;Tagihan LMS: Bobot Besar (2 Pekan)&quot;]
+    end
+    subgraph S4_S8[&quot;Aplikasi Mobile Lanjut&quot;]
+        B1 --&gt; C1[&quot;Sesi 04: Ionic UI &amp; Navigasi&quot;]
+        C1 --&gt; C2[&quot;Sesi 05-08: Capacitor &amp; Build APK&quot;]
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_01_roadmap_sesi_dan_tugas_1.html">🌐 Buka File Interaktif: slide_01_roadmap_sesi_dan_tugas_1.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 02: Urgensi TypeScript: Menghabisi Bug Runtime Typo Sebelum Aplikasi Meluncur</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menganalisis kelemahan sistem pengetikan dinamis (<em>dynamic typing</em>) pada JavaScript murni dan membuktikan keunggulan <em>compile-time safety</em> TypeScript.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (DevTools Console <code>F12</code>), Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Di era smartphone modern, bayangkan pengguna sedang membuka aplikasi kalkulator nilai akademik, tiba-tiba aplikasi mendadak force close (tertutup sendiri) hanya karena programmer salah mengetik nama properti <code>mhs.skorIpk</code> padahal aslinya bernama <code>mhs.ipk</code>. Di JavaScript murni, kesalahan ketik (typo) seperti ini tidak akan dianggap error saat kita ngoding, melainkan menghasilkan <code>undefined</code> atau <code>NaN</code> yang membingungkan. TypeScript hadir sebagai asisten cerdas yang langsung memberikan garis merah di editor sebelum kode sempat dikompilasi atau diuji coba pengguna!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>JavaScript Murni (<em>Dynamic</em>):</strong> Menerima kesalahan pengetikan properti secara diam-diam (<em>silent failure</em>), memicu bug di tangan pengguna.</li>
+<li><strong>TypeScript (<em>Static Typing</em>):</strong> Memvalidasi struktur data saat penulisan kode (<em>compile-time</em>), menghemat waktu debugging hingga berjam-jam.</li>
+</ul>
+</li>
+<li><strong>Diagram Perbandingan Penanganan Galat (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph JS[&quot;JavaScript Murni (Dynamic Typing)&quot;]
+        J1[&quot;Salah Ketik Variabel: mhs.skorIpk&quot;] --&gt; J2[&quot;Lolos Tanpa Peringatan&quot;]
+        J2 --&gt; J3[&quot;Aplikasi Berjalan di Smartphone&quot;]
+        J3 --&gt; J4[&quot;💥 CRASH / Nilai undefined &amp; NaN&quot;]
+    end
+    subgraph TS[&quot;TypeScript (Static Type Safety)&quot;]
+        T1[&quot;Salah Ketik Variabel: mhs.skorIpk&quot;] --&gt; T2[&quot;🛑 Garis Merah di VS Code&quot;]
+        T2 --&gt; T3[&quot;Kompilasi Ditolak Sebelum Build&quot;]
+        T3 --&gt; T4[&quot;✅ Aplikasi Terbit Bebas Silent Bug&quot;]
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_02_urgensi_typescript_mobile.html">🌐 Buka File Interaktif: slide_02_urgensi_typescript_mobile.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 03: Tipe Data Primitif &amp; Bahaya Penggunaan Kata Kunci 'any'</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mendeklarasikan tipe data primitif secara eksplisit dan menghindari anti-pattern penggunaan <code>any</code> dalam pengembangan aplikasi mobile.</li>
+<li><strong>Alat yang Digunakan:</strong> Visual Studio Code, Web Browser.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;TypeScript memiliki 3 pilar tipe primitif utama: <code>string</code> untuk data tekstual, <code>number</code> untuk bilangan bulat maupun desimal, dan <code>boolean</code> untuk logika benar atau salah. Sering kali pemula merasa malas dan menggunakan kata kunci <code>let data: any</code> agar kode cepat selesai tanpa error garis merah. Ingat pesan penting ini rekan-rekan: memakai <code>any</code> sama saja mematikan proteksi TypeScript dan kembali ke era rawan bug! Jika data memang belum kita ketahui tipenya (misalnya respons mentah dari internet), gunakan <code>unknown</code> dan periksa terlebih dahulu dengan <code>typeof</code>.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Primitif Eksplisit:</strong> <code>nim: string</code>, <code>sks: number</code>, <code>isAktif: boolean</code>.</li>
+<li><strong>Bahaya <code>any</code>:</strong> Melemahkan sistem keamanan tipe data (<em>type bypass</em>).</li>
+<li><strong>Solusi Aman <code>unknown</code>:</strong> Memerlukan verifikasi tipe (<em>type narrowing</em>) sebelum data dimanipulasi.</li>
+</ul>
+</li>
+<li><strong>Diagram Hirarki Keamanan Tipe (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    A[&quot;Nilai Data Input&quot;] --&gt; B{&quot;Pilihan Pengetikan&quot;}
+    B --&gt;|Tipe Primitif: string, number, boolean| C[&quot;🛡️ Zona Aman: Validasi Penuh &amp; Autocomplete&quot;]
+    B --&gt;|Tipe unknown + typeof guard| D[&quot;🔍 Zona Hati-hati: Wajib Verifikasi Sebelum Akses&quot;]
+    B --&gt;|Tipe any| E[&quot;⚠️ Zona Bahaya: Type Safety Dimatikan!&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_03_tipe_primitif_dan_any_hazard.html">🌐 Buka File Interaktif: slide_03_tipe_primitif_dan_any_hazard.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 04: Union Types &amp; Literal Types: Membatasi Nilai Sah secara Mutlak</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Merancang tipe data kustom yang mengunci nilai variabel hanya pada himpunan data sah (<em>closed set</em>).</li>
+<li><strong>Alat yang Digunakan:</strong> Visual Studio Code, Web Browser Chrome.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Berapa banyak nilai huruf resmi yang diakui dalam sistem transkrip nilai akademik Universitas Terbuka? Hanya ada 5: A, B, C, D, dan E. Jika kita menggunakan tipe data <code>string</code> biasa, pengguna bisa saja mengetik 'A+', 'B minus', atau kata sembarang yang merusak perhitungan mutu. Dengan Literal Types <code>type NilaiHuruf = 'A' | 'B' | 'C' | 'D' | 'E'</code>, kita mengunci nilai variabel secara mutlak. Bila ada baris kode yang mencoba mengisi nilai di luar kelima huruf tersebut, TypeScript akan langsung menolak!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Literal Types:</strong> Menggunakan nilai spesifik sebagai tipe data.</li>
+<li><strong>Union Operator (<code>|</code>):</strong> Menggabungkan beberapa pilihan nilai legal (<em>closed set</em>).</li>
+<li>Sangat cocok untuk status mahasiswa: <code>'Aktif' | 'Cuti' | 'Lulus'</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Validasi Nilai Mutlak (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph INPUT[&quot;Masukan Nilai&quot;]
+        I1[&quot;'A'&quot;]
+        I2[&quot;'B'&quot;]
+        I3[&quot;'A+' (Typo)&quot;]
+        I4[&quot;'Lulus' (Salah Konteks)&quot;]
+    end
+    subgraph GATE[&quot;Gerbang Literal Type: 'A'|'B'|'C'|'D'|'E'&quot;]
+        G1{&quot;Pengecekan Tipe&quot;}
+    end
+    I1 --&gt; G1
+    I2 --&gt; G1
+    I3 --&gt; G1
+    I4 --&gt; G1
+    G1 --&gt;|Cocok| V[&quot;✅ Nilai Diterima ke Database &amp; Kalkulasi&quot;]
+    G1 --&gt;|Tidak Cocok| E[&quot;🛑 Compile Error: Tidak Sesuai Kontrak!&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_04_union_dan_literal_types.html">🌐 Buka File Interaktif: slide_04_union_dan_literal_types.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 05: Kontrak Data Resmi: Mendefinisikan Interface Model Mahasiswa &amp; Mata Kuliah</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menyusun model data akademik terstandar menggunakan kata kunci <code>interface</code> sebagai cetak biru entitas aplikasi mobile.</li>
+<li><strong>Alat yang Digunakan:</strong> Visual Studio Code (membuka <code>.ts</code>), Google Chrome (membuka validator interaktif <code>.html</code>).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Dalam rekayasa perangkat lunak profesional, interface berfungsi sebagai 'surat perjanjian' atau kontrak bentuk data antar-programmer. Pada berkas <code>slide_05_interface_model_mahasiswa.ts</code>, kita memetakan entitas <code>MataKuliah</code> dan <code>MahasiswaUT</code>. Setiap komponen antarmuka yang membaca data mahasiswa diwajibkan mematuhi struktur ini. Menariknya, interface di TypeScript memiliki zero runtime overhead: seluruh definisi ini akan dihapus saat diubah ke JavaScript murni, sehingga ukuran aplikasi tetap ringan dan gesit!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>interface</code> mendefinisikan bentuk objek tanpa membebani ukuran berkas akhir (<em>zero runtime overhead</em>).</li>
+<li>Struktur hirarki: Objek <code>MahasiswaUT</code> menampung koleksi objek <code>MataKuliah[]</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Struktur Entitas Mahasiswa UT (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">classDiagram
+    class MahasiswaUT {
+        +readonly nim: string
+        +nama: string
+        +upbjj: string
+        +programStudi: string
+        +semesterBerjalan: number
+        +status: StatusMahasiswa
+        +daftarNilai: MataKuliah[]
+    }
+    class MataKuliah {
+        +readonly id: string
+        +kode: string
+        +nama: string
+        +sks: number
+        +nilaiHuruf?: NilaiHuruf
+    }
+    MahasiswaUT &quot;1&quot; *-- &quot;many&quot; MataKuliah : menampung
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_05_interface_model_mahasiswa.html">🌐 Buka File Interaktif: slide_05_interface_model_mahasiswa.html</a><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_05_interface_model_mahasiswa.ts">📄 Buka Berkas TypeScript Asli: slide_05_interface_model_mahasiswa.ts</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 06: Properti Opsional (?) dan Mutlak Tidak-Dapat-Diubah (readonly)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengamankan properti identitas menggunakan kata kunci <code>readonly</code> serta menandai properti fleksibel dengan operator opsional (<code>?</code>).</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;NIM mahasiswa adalah identitas unik yang bersifat permanen dan tidak boleh diubah-ubah setelah data tersimpan di memori. Kita menyematkan kata kunci <code>readonly nim: string</code>. Jika suatu saat ada baris kode yang berniat mengganti <code>mhs.nim = '04999'</code>, TypeScript langsung menghentikannya! Sebaliknya, properti seperti <code>nilaiHuruf?: NilaiHuruf</code> atau <code>emailKampus?: string</code> kita beri tanda tanya (<code>?</code>) karena saat mata kuliah baru ditambahkan di KRS, nilainya memang belum ada (<em>undefined</em>).&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>readonly</code>: Menjamin imutabilitas data kunci (<em>prevent re-assignment</em>).</li>
+<li>Tanda tanya (<code>?</code>): Menghindari error saat nilai properti belum terisi.</li>
+</ul>
+</li>
+<li><strong>Diagram Hak Akses &amp; Mutabilitas (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph READONLY[&quot;readonly nim: string&quot;]
+        R1[&quot;Instansiasi Pertama: '043123456'&quot;] --&gt; R2[&quot;Operasi Baca: mhs.nim (Diizinkan ✅)&quot;]
+        R1 -.-&gt; R3[&quot;Operasi Tulis Ulang: mhs.nim = '049' (Ditolak Keras 🛑)&quot;]
+    end
+    subgraph OPTIONAL[&quot;nilaiHuruf?: NilaiHuruf&quot;]
+        O1[&quot;Belum Diinput: undefined (Sah ✅)&quot;]
+        O2[&quot;Sudah Diinput: 'A' (Sah ✅)&quot;]
+        O3[&quot;Diisi Teks Acak: 'LULUS' (Ditolak 🛑)&quot;]
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_06_optional_dan_readonly_properties.html">🌐 Buka File Interaktif: slide_06_optional_dan_readonly_properties.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 07: Generics pada Koleksi: Array&lt;T&gt; vs T[] untuk Manipulasi Aman</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengelola himpunan koleksi objek majemuk menggunakan konsep <em>Generics</em> agar operasi array terlindungi secara konsisten.</li>
+<li><strong>Alat yang Digunakan:</strong> Visual Studio Code, Web Browser Chrome.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Saat kita mengelola keranjang daftar nilai mata kuliah, kita memerlukan sebuah array yang menampung banyak data bertipe <code>MataKuliah</code>. Jika kita hanya menulis <code>let list = []</code>, editor tidak tahu apa isi di dalamnya. Namun dengan menulis <code>Array&lt;MataKuliah&gt;</code> atau <code>MataKuliah[]</code>, editor VS Code akan memberikan bantuan pengetikan otomatis (autocomplete) ketika kita memanggil method <code>.map()</code>, <code>.filter()</code>, atau <code>.reduce()</code>. Anda langsung disuguhkan pilihan <code>.sks</code>, <code>.nama</code>, dan <code>.kode</code>!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Penulisan generik: <code>Array&lt;T&gt;</code> setara dengan <code>T[]</code>.</li>
+<li>Menjamin fungsi perulangan dan agregasi (<code>reduce</code>, <code>filter</code>) menerima data yang tepat.</li>
+</ul>
+</li>
+<li><strong>Diagram Wadah Generik Berkeamanan Tipe (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph WADAH[&quot;Wadah Koleksi: Array&amp;lt;MataKuliah&amp;gt;&quot;]
+        MK1[&quot;Objek MK 1 { sks: 3, ... }&quot;]
+        MK2[&quot;Objek MK 2 { sks: 2, ... }&quot;]
+    end
+    WADAH --&gt;|Operasi reduce()| C[&quot;Kalkulasi Total SKS: 3 + 2 = 5&quot;]
+    WADAH -.-&gt;|Penyusupan Objek Tanpa sks| D[&quot;🛑 Ditolak Kompiler TypeScript!&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_07_generics_array_koleksi.html">🌐 Buka File Interaktif: slide_07_generics_array_koleksi.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 08: Anotasi Tipe pada Fungsi: Parameter Ketat &amp; Return Type Eksplisit</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menerapkan pembatasan tipe data pada parameter masukan dan nilai kembalian (<em>return type</em>) fungsi kalkulasi akademik.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Fungsi kalkulasi mutu adalah inti dari aplikasi Tugas 1. Perhatikan fungsi <code>function getBobotAngka(huruf: NilaiHuruf): number</code>. Dengan menetapkan parameter <code>huruf: NilaiHuruf</code> dan kembalian <code>: number</code>, mustahil bagi siapapun untuk mengirimkan argumen yang salah atau menghasilkan nilai teks yang membuat rumus IPS menghasilkan <code>NaN</code>! Kerapian anotasi fungsi mencerminkan kedewasaan seorang software engineer.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Format anotasi parameter: <code>(huruf: NilaiHuruf): number</code>.</li>
+<li>Jika fungsi tidak mengembalikan nilai (hanya aksi), gunakan kembalian <code>: void</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Gerbang Verifikasi Fungsi (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;Input: huruf ('A')&quot;] --&gt;|Cek Tipe: NilaiHuruf| B[&quot;Fungsi getBobotAngka()&quot;]
+    B --&gt;|switch case konversi| C[&quot;Output: 4.0 (: number)&quot;]
+    D[&quot;Input Salah: 100&quot;] -.-&gt;|Bukan NilaiHuruf| E[&quot;🛑 Garis Merah Kompiler&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_08_fungsi_type_annotation.html">🌐 Buka File Interaktif: slide_08_fungsi_type_annotation.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 09: Integrasi Vue 3 &amp; TypeScript: &lt;script setup lang=&quot;ts&quot;&gt;</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengonfigurasi berkas komponen Single File Component (SFC) Vue 3 menggunakan blok skrip TypeScript modern.</li>
+<li><strong>Alat yang Digunakan:</strong> Visual Studio Code, Ekstensi Volar, Browser Chrome.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Kombinasi Vue 3 dan TypeScript saat ini adalah salah satu kombinasi terindah di dunia rekayasa web mobile. Kita cukup menambahkan satu atribut sederhana pada tag skrip: <code>&lt;script setup lang=&quot;ts&quot;&gt;</code>. Seketika itu juga, seluruh variabel, fungsi, dan computed properties yang kita buat langsung mendapatkan perlindungan type checking tanpa perlu menuliskan boilerplate Options API yang panjang!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Penambahan atribut <code>lang=&quot;ts&quot;</code> mengaktifkan dukungan TypeScript penuh.</li>
+<li>Variabel di <code>&lt;script setup&gt;</code> otomatis tersedia pada template HTML (<em>auto-exposed</em>).</li>
+</ul>
+</li>
+<li><strong>Diagram Arsitektur Single File Component (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph SFC[&quot;Berkas Komponen Vue (*.vue)&quot;]
+        S1[&quot;&amp;lt;script setup lang='ts'&amp;gt;&lt;br&gt;Logika State, Interface, &amp; Type Checker&quot;]
+        S2[&quot;&amp;lt;template&amp;gt;&lt;br&gt;Markup Antarmuka Terikat State Reaktif&quot;]
+        S3[&quot;&amp;lt;style scoped&amp;gt;&lt;br&gt;Gaya Tampilan Terisolasi Komponen&quot;]
+    end
+    S1 --&gt;|Ekspos Otomatis Data Bertipe| S2
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_09_vue3_script_setup_lang_ts.html">🌐 Buka File Interaktif: slide_09_vue3_script_setup_lang_ts.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 10: Deklarasi Typing Reaktif: ref&lt;T&gt; vs reactive&lt;T&gt;</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memanfaatkan sintaks TypeScript Generics untuk mengunci tipe data pada wadah reaktivitas <code>ref</code> dan <code>reactive</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (DevTools Console), VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Bagaimana cara mengunci tipe data pada wadah reaktif Vue? Kita menggunakan kurung sudut generik: <code>const targetIpk = ref&lt;number&gt;(3.75)</code>. Bila datanya bisa bernilai kosong pada awalnya, kita pasang tipe serikat: <code>ref&lt;MahasiswaUT | null&gt;(null)</code>. Dengan pola cerdas ini, TypeScript akan memaksa kita mengecek apakah data ada (<code>if (data)</code>) sebelum mengakses propertinya, sehingga aplikasi Anda terbebas selamanya dari error legendaris 'Cannot read properties of null'!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Sintaks generik: <code>ref&lt;T&gt;(nilaiAwal)</code>.</li>
+<li>Dukungan tipe gabungan: <code>ref&lt;MahasiswaUT | null&gt;(null)</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Reaktivitas Berkeamanan Tipe (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph REF[&quot;ref&amp;lt;T&amp;gt; (Primitif &amp; Nullable)&quot;]
+        R1[&quot;ref&amp;lt;number&amp;gt;(0)&quot;] --&gt; R2[&quot;Akses .value di Script&quot;]
+        R3[&quot;ref&amp;lt;MahasiswaUT | null&amp;gt;(null)&quot;] --&gt; R4[&quot;Wajib Null-Checking&quot;]
+    end
+    subgraph REACTIVE[&quot;reactive&amp;lt;T&amp;gt; (Objek Tunggal)&quot;]
+        RC1[&quot;reactive&amp;lt;FormInput&amp;gt;({ kode: '', sks: 3 })&quot;] --&gt; RC2[&quot;Akses Langsung Properti&quot;]
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_10_typing_ref_dan_reactive.html">🌐 Buka File Interaktif: slide_10_typing_ref_dan_reactive.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 11: Mengelola Array Koleksi Bertipe: ref&lt;MataKuliah[]&gt;([])</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengelola mutasi data daftar nilai secara reaktif dan aman dari penyusupan struktur data asing.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Pada aplikasi Tugas 1, kita memiliki tabel daftar mata kuliah yang dapat ditambah dan dihapus oleh pengguna secara bebas. Kita menginisialisasinya dengan <code>const daftarNilai = ref&lt;MataKuliah[]&gt;([])</code>. Dengan cara ini, ketika kita menjalankan fungsi <code>daftarNilai.value.push(dataBaru)</code>, compiler akan memastikan bahwa <code>dataBaru</code> memiliki semua properti yang diwajibkan oleh interface <code>MataKuliah</code>. Jika ada properti yang kurang, kompilasi langsung gagal!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Koleksi array reaktif: <code>ref&lt;MataKuliah[]&gt;([])</code>.</li>
+<li>Metode mutasi array (<code>push</code>, <code>splice</code>, <code>filter</code>) tetap mematuhi kontrak tipe data.</li>
+</ul>
+</li>
+<li><strong>Diagram Siklus Mutasi Koleksi Reaktif (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;Form Tambah Nilai&quot;] --&gt;|Validasi Interface| B[&quot;Objek MataKuliah Sah&quot;]
+    B --&gt;|push()| C[&quot;ref&amp;lt;MataKuliah[]&amp;gt;&quot;]
+    C --&gt;|Trigger Reaktivitas| D[&quot;Tabel Antarmuka Otomatis Terbarui&quot;]
+    C --&gt;|filter()| E[&quot;Hapus Baris Mata Kuliah&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_11_typing_koleksi_array_reaktif.html">🌐 Buka File Interaktif: slide_11_typing_koleksi_array_reaktif.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 12: Type Safety pada Properti Terkalkulasi: computed&lt;T&gt;()</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengunci tipe data kembalian hasil perhitungan otomatis menggunakan anotasi generik pada fungsi <code>computed</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Secara default, computed property di Vue akan menebak tipe data kembaliannya (<em>type inference</em>). Namun, untuk rumus penting seperti Indeks Prestasi Semester (IPS), kita sebaiknya menuliskan tipe secara tegas: <code>const totalSks = computed&lt;number&gt;(...)</code> dan <code>const ips = computed&lt;string&gt;(...)</code>. Jika ada rekan setim yang tidak sengaja mengembalikan objek alih-alih angka atau teks terformat 2 desimal, TypeScript akan langsung memberi tahu!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Penulisan: <code>computed&lt;number&gt;(() =&gt; { ... })</code>.</li>
+<li>Memanfaatkan memori cache berefisiensi tinggi: kalkulasi hanya dijalankan ulang saat data sumber berubah.</li>
+</ul>
+</li>
+<li><strong>Diagram Mekanisme Caching &amp; Type Assertion Computed (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    A[&quot;State Sumber: daftarNilai&quot;] --&gt;|Berubah Mutasi| B[&quot;computed&amp;lt;number&amp;gt; totalSks&quot;]
+    A --&gt;|Berubah Mutasi| C[&quot;computed&amp;lt;number&amp;gt; totalMutu&quot;]
+    B --&gt; D[&quot;computed&amp;lt;string&amp;gt; ips = (totalMutu / totalSks).toFixed(2)&quot;]
+    C --&gt; D
+    D --&gt;|Nilai Terkunci String 2 Desimal| E[&quot;Tampilan Badge IPS di Layar&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_12_typing_computed_properties.html">🌐 Buka File Interaktif: slide_12_typing_computed_properties.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 13: Deklarasi Props Bertipe: defineProps&lt;T&gt;()</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memvalidasi pengiriman data dari komponen induk (<em>parent</em>) ke komponen anak (<em>child</em>) menggunakan tipe TypeScript murni.</li>
+<li><strong>Alat yang Digunakan:</strong> Visual Studio Code, Web Browser Chrome.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Di Vue masa lalu, kita harus menulis validasi runtime props yang bertele-tele: <code>props: { mk: { type: Object, required: true } }</code>. Di era <code>&lt;script setup lang=&quot;ts&quot;&gt;</code>, kita cukup menulis satu baris ringkas: <code>defineProps&lt;{ mk: MataKuliah }&gt;()</code>. Jika komponen induk mencoba mengirim data angka biasa pada atribut <code>:mk</code>, editor VS Code Anda seketika memunculkan tanda bahaya!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><em>Type-based declaration</em> menggunakan <code>defineProps&lt;{ properti: T }&gt;()</code>.</li>
+<li>Menghilangkan duplikasi validasi runtime manual.</li>
+</ul>
+</li>
+<li><strong>Diagram Aliran Data Props Berkeamanan Tipe (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph PARENT[&quot;Komponen Induk (Parent)&quot;]
+        P1[&quot;Data: item bertipe MataKuliah&quot;]
+    end
+    subgraph CHILD[&quot;Komponen Anak (BarisTabel.vue)&quot;]
+        C1[&quot;defineProps&amp;lt;{ mk: MataKuliah }&amp;gt;()&quot;]
+    end
+    P1 --&gt;|Kirim via :mk='item'| C1
+    C1 --&gt;|Render Aman| C2[&quot;{{ mk.nama }} (Terproteksi)&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_13_typing_props_komponen.html">🌐 Buka File Interaktif: slide_13_typing_props_komponen.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 14: Deklarasi Emits Bertipe: defineEmits&lt;T&gt;()</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengunci nama event kustom serta tipe parameter (<em>payload</em>) yang dipancarkan dari komponen anak ke komponen induk.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Ketika pengguna menekan tombol tong sampah merah pada baris tabel mata kuliah, komponen baris tersebut ingin memberi tahu komponen induk untuk menghapus data. Kita mendefinisikan sinyal kustom dengan <code>defineEmits&lt;{ (e: 'hapus-mk', id: string): void }&gt;()</code>. Lewat deklarasi ini, komponen anak diwajibkan menyertakan ID mata kuliah bertipe string saat memancarkan event. Tidak ada lagi risiko typo nama event!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Penulisan: <code>defineEmits&lt;{ (e: 'nama-event', payload: T): void }&gt;()</code>.</li>
+<li>Memastikan komponen induk menerima argumen dengan tipe data yang tepat.</li>
+</ul>
+</li>
+<li><strong>Diagram Sinyal Event Emits Bertipe (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart RL
+    subgraph CHILD[&quot;Komponen Anak (Child)&quot;]
+        C1[&quot;Klik Tombol Hapus&quot;] --&gt; C2[&quot;emit('hapus-mk', mk.id)&quot;]
+    end
+    subgraph PARENT[&quot;Komponen Induk (Parent)&quot;]
+        P1[&quot;@hapus-mk='handleHapus'&quot;] --&gt; P2[&quot;Hapus data dari daftarNilai&quot;]
+    end
+    C2 --&gt;|Sinyal Event Terverifikasi| P1
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_14_typing_emits_komponen.html">🌐 Buka File Interaktif: slide_14_typing_emits_komponen.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 15: Penanganan DOM Events Bertipe (Event &amp; Type Casting)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menangani interaksi masukan antarmuka browser menggunakan teknik <em>Event Type Assertion</em> yang benar.</li>
+<li><strong>Alat yang Digunakan:</strong> Visual Studio Code, Web Browser Chrome.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Pernahkah Anda mencoba membaca nilai input di TypeScript dengan <code>event.target.value</code> lalu muncul pesan error <code>Property 'value' does not exist on type 'EventTarget'</code>? Mengapa itu terjadi? Karena bagi TypeScript, target event bisa berupa apa saja, misalnya <code>div</code> atau <code>span</code> yang memang tidak memiliki <code>.value</code>. Solusinya sangat sederhana: lakukan penegasan tipe (<em>type assertion</em>) menggunakan kata kunci <code>as</code>: <code>const input = event.target as HTMLInputElement;</code>.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Objek event bawaan: <code>e: Event</code>, <code>e: KeyboardEvent</code>, <code>e: TouchEvent</code>.</li>
+<li>Type Casting dengan operator <code>as</code>: <code>(e.target as HTMLInputElement).value</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Penegasan Tipe DOM Events (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    A[&quot;Event Masukan Form: e: Event&quot;] --&gt; B[&quot;e.target (Tipe Umum: EventTarget)&quot;]
+    B --&gt;|Lakukan Type Casting 'as HTMLInputElement'| C[&quot;HTMLInputElement&quot;]
+    C --&gt;|Akses Aman| D[&quot;target.value (Nilai Teks Input Berhasil Dibaca)&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_15_typing_dom_events.html">🌐 Buka File Interaktif: slide_15_typing_dom_events.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 16: Bedah Rubrik Penilaian Resmi TUGAS TUTORIAL 1 UT</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menelaah 4 kriteria penilaian dan tata cara pengumpulan Tugas Tutorial 1 berskala 0–100 sesuai standar mutu Fakultas Sains dan Teknologi UT.</li>
+<li><strong>Alat yang Digunakan:</strong> Web Browser Chrome (Kalkulator Rubrik Interaktif), Visual Studio Code / Text Editor.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Mari kita bedah rubrik resmi Tugas Tutorial 1 ini dengan cermat! Nilai sempurna 100 terbagi atas 4 pilar utama: Model TypeScript &amp; Type Safety (25%), Reaktivitas Vue 3 &amp; Validasi Form (25%), Logika Kalkulasi Otomatis SKS &amp; IPS (30%), serta Video Demonstrasi YouTube Unlisted (20%). Pastikan dalam video demonstrasi, wajah Anda terlihat jelas melalui kamera samping saat Anda menjelaskan kode program dan mendemokan fitur aplikasi!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Rentang Nilai:</strong> Skala 0–100 dengan batas waktu pengumpulan 2 pekan di LMS.</li>
+<li><strong>Integritas Akademik:</strong> Dilarang keras melakukan plagiasi; kode harus dikuasai dan dipahami secara mandiri.</li>
+</ul>
+</li>
+<li><strong>Diagram Kuadran Rubrik Evaluasi Akademik (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">pie title Komposisi Bobot Nilai Tugas Tutorial 1 (Total 100%)
+    &quot;1. Model Data TypeScript &amp; Type Safety&quot; : 25
+    &quot;2. Reaktivitas Vue 3 &amp; Validasi Form&quot; : 25
+    &quot;3. Logika Kalkulasi SKS &amp; IPS (Computed)&quot; : 30
+    &quot;4. Video Demo YouTube &amp; Integritas&quot; : 20
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Rubrik &amp; Kalkulator:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.html">🌐 Buka Kalkulator Rubrik Interaktif: slide_16_rubrik_tugas_tutorial_1.html</a><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.md">📄 Buka Panduan Rubrik Lengkap: slide_16_rubrik_tugas_tutorial_1.md</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 17: 🎯 MASTER SOLUSI RESMI TUGAS TUTORIAL 1: Kalkulator Nilai &amp; IPS Mahasiswa UT</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Membangun aplikasi lengkap solusi Tugas Tutorial 1 yang memenuhi 100% rubrik penilaian program studi FST Universitas Terbuka.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Browser Modern, Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Inilah dia mahakarya solusi resmi Tugas Tutorial 1! Kita menggabungkan seluruh pengetahuan yang kita pelajari hari ini ke dalam sebuah aplikasi utuh: Kartu Profil Mahasiswa UT, Formulir Input Nilai dengan validasi ketat, Tabel Rekapitulasi Mata Kuliah yang dinamis, Kalkulator Reaktif otomatis (Total SKS, Total Bobot Mutu, Nilai IPS 2 desimal, Predikat Kelulusan), serta fitur Cetak Ringkasan KTPU. Jadikan berkas <code>slide_17</code> ini sebagai tolok ukur utama pengerjaan tugas Anda!&quot;</em></li>
+<li><strong>Poin Kunci &amp; Fitur Unggulan:</strong>
+<ul>
+<li>Kontrak Model Data TypeScript (<code>MahasiswaUT</code>, <code>MataKuliah</code>).</li>
+<li>Reaktivitas Vue 3 murni (<code>ref</code>, <code>reactive</code>, <code>computed</code>).</li>
+<li>Konversi skala huruf ke mutu (A=4, B=3, C=2, D=1, E=0).</li>
+<li>Tombol Cetak / Simpan Ringkasan Hasil Belajar.</li>
+</ul>
+</li>
+<li><strong>Diagram Arsitektur Komponen Aplikasi Master Solusi (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph APP[&quot;Aplikasi Kalkulator Nilai &amp; IPS (Tugas 1)&quot;]
+        P[&quot;Kartu Profil Mahasiswa (NIM, Nama, UPBJJ, Prodi)&quot;]
+        F[&quot;Formulir Tambah Mata Kuliah (Kode, Nama, SKS, Nilai)&quot;]
+        T[&quot;Tabel Rekapitulasi Nilai Reaktif (Edit / Hapus Baris)&quot;]
+        C[&quot;Ringkasan Terkalkulasi: Total SKS | Mutu | IPS | Predikat&quot;]
+        B[&quot;Tombol Cetak Ringkasan Hasil Belajar (KTPU)&quot;]
+    end
+    P --&gt; F
+    F --&gt;|Tambah Data| T
+    T --&gt;|Hitung Otomatis| C
+    C --&gt; B
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html">🌐 Buka File Interaktif: slide_17_solusi_tugas_1_kalkulator_nilai.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 18: 🚀 Jembatan Menuju Sesi 04: Transisi Menuju Komponen Mobile Asli Ionic UI</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menganalisis perbedaan antarmuka web biasa dengan komponen mobile asli serta mempersiapkan diri memasuki ekosistem Ionic UI pada Sesi 04.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Selamat untuk rekan-rekan semua! Kita telah berhasil menuntaskan fondasi TypeScript dan logika reaktivitas Vue 3 secara gemilang. Namun perhatikan aplikasi kita saat ini: tombol, kartu, dan tabelnya masih berpenampilan layaknya situs web desktop biasa. Pekan depan di Sesi 04, kita akan melangkah ke dunia mobile sesungguhnya menggunakan Ionic Framework! Kita akan membedah <code>ion-app</code>, <code>ion-page</code>, <code>ion-card</code>, serta navigasi tumpukan kartu mobile khas Android dan iOS!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Transisi Ekosistem:</strong> Dari tag HTML browser standar menuju komponen mobile asli Ionic UI.</li>
+<li><strong>Mobile Look &amp; Feel:</strong> Efek sentuhan riak (<em>ripple effect</em>), transisi geser layar, dan adaptasi Material Design.</li>
+<li><strong>Persiapan Sesi 04:</strong> Dasar-Dasar Ionic Framework &amp; Navigasi Halaman.</li>
+</ul>
+</li>
+<li><strong>Diagram Evolusi Antarmuka Mobile (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph WEB[&quot;Sesi 01 - 03: HTML &amp; Web Standards&quot;]
+        W1[&quot;Tag HTML Standar: div, table, button&quot;]
+        W2[&quot;Tampilan Kaku &amp; Rasa Halaman Web&quot;]
+    end
+    subgraph IONIC[&quot;Sesi 04+: Ionic Mobile Components&quot;]
+        I1[&quot;Komponen Mobile: ion-page, ion-card, ion-button&quot;]
+        I2[&quot;Adaptif: Material Design (Android) &amp; Cupertino (iOS)&quot;]
+        I3[&quot;Navigasi Tumpukan Layar (Mobile Navigation Stack)&quot;]
+    end
+    WEB --&gt;|Evolusi Sesi 04| IONIC
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_18_preview_sesi_04_ionic_ui.html">🌐 Buka File Interaktif: slide_18_preview_sesi_04_ionic_ui.html</a></li>
+</ul>
+<hr />
+<h2>📚 Daftar Referensi Akademik &amp; Standar Mutu</h2>
+<ol>
+<li><strong>Universitas Terbuka (2024).</strong> <em>Buku Materi Pokok (BMP) MSIM4401 / STSI4303: Pemrograman Berbasis Perangkat Bergerak &amp; Rekayasa Perangkat Lunak (Modul 3: Fondasi Keamanan Tipe Data &amp; Komposisi Antarmuka Komponen)</em>. Tangerang Selatan: Penerbit Universitas Terbuka.</li>
+<li><strong>Microsoft TypeScript Team (2025).</strong> <em>TypeScript Official Documentation &amp; The TypeScript Handbook: Generics, Everyday Types, Interfaces, and Type Narrowing</em>. Diakses daring dari: <a href="https://www.typescriptlang.org/docs/">https://www.typescriptlang.org/docs/</a></li>
+<li><strong>Vue.js Core Team (2025).</strong> <em>Vue.js 3 Official Guide: Using Vue with TypeScript, Composition API (<script setup>), and Reactivity Utilities</em>. Diakses daring dari: <a href="https://vuejs.org/guide/typescript/overview.html">https://vuejs.org/guide/typescript/overview.html</a></li>
+<li><strong>Fowler, Martin (2018).</strong> <em>Refactoring: Improving the Design of Existing Code (2nd Edition)</em>. Boston: Addison-Wesley Professional. (Relevansi: Teknik pencegahan bau kode (<em>code smells</em>) menggunakan sistem pengetikan statis).</li>
+<li><strong>Gamma, E., Helm, R., Johnson, R., &amp; Vlissides, J. (1994).</strong> <em>Design Patterns: Elements of Reusable Object-Oriented Software</em>. Reading: Addison-Wesley. (Relevansi: Penerapan kontrak interface model data).</li>
+<li><strong>W3C (World Wide Web Consortium) &amp; ECMA International (2024).</strong> <em>ECMAScript 2024 Language Specification (ECMA-262, 15th Edition)</em>. Diakses daring dari: <a href="https://tc39.es/ecma262/">https://tc39.es/ecma262/</a></li>
+</ol>
+
+
+      <footer class="doc-footer">
+        <div>
+          <span>Hak Cipta &copy; 2026 Universitas Terbuka</span> • 
+          <span>The Zero-Friction Courseware Framework</span>
+        </div>
+        <div>
+          <a href="../index.html" style="font-size: 12px; color: var(--ut-blue);">Kembali ke Katalog Utama ↗</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Konversi blok diagram mermaid
+      document.querySelectorAll('pre code.language-mermaid').forEach(el => {
+        const pre = el.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        pre.replaceWith(div);
+      });
+
+      // Bungkus seluruh tabel dengan wrapper responsive
+      document.querySelectorAll('.doc-content table').forEach(tbl => {
+        if (!tbl.parentElement.classList.contains('table-responsive')) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'table-responsive';
+          tbl.parentElement.insertBefore(wrapper, tbl);
+          wrapper.appendChild(tbl);
+        }
+      });
+
+      // Inisialisasi mermaid jika pustaka tersedia
+      if (window.mermaid) {
+        mermaid.initialize({ 
+          startOnLoad: true, 
+          theme: 'neutral',
+          securityLevel: 'loose'
+        });
+      }
+    });
+  </script>
+</body>
+</html>

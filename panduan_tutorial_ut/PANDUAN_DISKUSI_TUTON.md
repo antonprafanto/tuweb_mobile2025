@@ -1,6 +1,11 @@
 # 💬 PANDUAN INISIASI & TOPIK DISKUSI FORUM TUTON (SESI 1 - 8)
 ## Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303) — Universitas Terbuka
 
+> [!TIP]
+> **Tampilan Versi Web Interaktif & Rapi:**
+> Dokumen ini tersedia dalam format Web Modern yang responsif, rapi, dan mudah dibaca:  
+> 👉 [**Buka Versi Web Panduan Diskusi Tuton**](https://antonprafanto.github.io/tuweb_mobile2025/panduan_tutorial_ut/PANDUAN_DISKUSI_TUTON.html) *(atau buka berkas lokal `PANDUAN_DISKUSI_TUTON.html`)*.
+
 Dokumen ini memuat daftar topik pemicu diskusi (*discussion prompts*) dan panduan jawaban untuk tutor serta mahasiswa dalam forum e-learning Universitas Terbuka (`elearning.ut.ac.id`).
 
 ---

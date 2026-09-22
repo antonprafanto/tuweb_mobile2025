@@ -906,15 +906,15 @@
 
       <!-- QUICK NAVIGATION BAR -->
       <nav class="quick-nav-bar" aria-label="Navigasi Dokumen Perkuliahan">
-        <a href="panduan_tutorial_ut/PANDUAN_DISKUSI_TUTON.md" target="_blank" class="nav-btn">
+        <a href="panduan_tutorial_ut/PANDUAN_DISKUSI_TUTON.html" target="_blank" class="nav-btn">
           <svg class="btn-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
           Panduan Diskusi Tuton (144 Slide)
         </a>
-        <a href="panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md" target="_blank" class="nav-btn">
+        <a href="panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.html" target="_blank" class="nav-btn">
           <svg class="btn-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
           Panduan Tugas Tutorial 1, 2, 3
         </a>
-        <a href="panduan_tutorial_ut/RANCANGAN_AKTIVITAS_TUTORIAL_RAT.md" target="_blank" class="nav-btn">
+        <a href="panduan_tutorial_ut/RANCANGAN_AKTIVITAS_TUTORIAL_RAT.html" target="_blank" class="nav-btn">
           <svg class="btn-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
           Silabus RAT / SAT Resmi
         </a>
@@ -1052,7 +1052,7 @@
             Unduh PPTX Sesi {{ activeSession }}
           </a>
           <a 
-            :href="'slide_presentasi/' + currentSessionInfo.md" 
+            :href="'slide_presentasi/' + (currentSessionInfo.html || currentSessionInfo.md.replace('.md', '.html'))" 
             target="_blank" 
             class="res-btn"
           >
@@ -1167,11 +1167,11 @@
                 Baca Online (Office Live) ↗
               </a>
               <a 
-                :href="'slide_presentasi/' + item.md" 
+                :href="'slide_presentasi/' + (item.html || item.md.replace('.md', '.html'))" 
                 target="_blank" 
                 class="res-btn"
               >
-                Naskah Narasi Dosen (MD) ↗
+                Baca Naskah Dosen (Web) ↗
               </a>
             </div>
           </div>
@@ -1260,15 +1260,15 @@
     "badge_text": "Pengantar Sesi",
     "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
-      "sesi 01",
+      "slide 1",
+      "pengantar",
       "slide 01",
       "ionic",
-      "vue",
-      "pengantar",
       "sesi 1",
-      "slide 1",
-      "ut"
+      "sesi 01",
+      "ut",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -1291,15 +1291,15 @@
     "badge_text": "Materi Inti 02",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 01",
-      "materi",
-      "slide 2",
-      "vue",
-      "sesi 1",
-      "slide 02",
       "ionic",
-      "ut"
+      "sesi 1",
+      "sesi 01",
+      "slide 2",
+      "slide 02",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -1322,15 +1322,15 @@
     "badge_text": "Materi Inti 03",
     "badge_color": "badge-materi",
     "tags": [
-      "slide 3",
-      "stsi4303",
-      "sesi 01",
-      "materi",
-      "vue",
-      "sesi 1",
       "slide 03",
       "ionic",
-      "ut"
+      "slide 3",
+      "sesi 1",
+      "sesi 01",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -1355,14 +1355,14 @@
     "badge_text": "Materi Inti 04",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 01",
-      "materi",
       "slide 4",
-      "sesi 1",
-      "slide 04",
       "ionic",
-      "ut"
+      "sesi 1",
+      "sesi 01",
+      "ut",
+      "materi",
+      "stsi4303",
+      "slide 04"
     ]
   },
   {
@@ -1385,15 +1385,15 @@
     "badge_text": "Materi Inti 05",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
+      "sesi 1",
       "sesi 01",
       "slide 05",
+      "ut",
       "materi",
-      "slide 5",
       "vue",
-      "sesi 1",
-      "ionic",
-      "ut"
+      "slide 5",
+      "stsi4303"
     ]
   },
   {
@@ -1416,13 +1416,14 @@
     "badge_text": "Materi Inti 06",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 01",
-      "slide 6",
-      "materi",
-      "sesi 1",
       "slide 06",
-      "ut"
+      "ionic",
+      "sesi 1",
+      "slide 6",
+      "sesi 01",
+      "ut",
+      "materi",
+      "stsi4303"
     ]
   },
   {
@@ -1447,15 +1448,15 @@
     "badge_text": "Materi Inti 07",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 01",
-      "materi",
       "ionic",
-      "vue",
-      "sesi 1",
-      "slide 07",
       "slide 7",
-      "ut"
+      "sesi 1",
+      "sesi 01",
+      "ut",
+      "slide 07",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -1480,14 +1481,14 @@
     "badge_text": "Materi Inti 08",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 01",
-      "materi",
       "slide 8",
-      "slide 08",
-      "sesi 1",
       "ionic",
-      "ut"
+      "sesi 1",
+      "sesi 01",
+      "ut",
+      "materi",
+      "stsi4303",
+      "slide 08"
     ]
   },
   {
@@ -1512,13 +1513,14 @@
     "badge_text": "Materi Inti 09",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
+      "sesi 1",
+      "slide 09",
       "slide 9",
       "sesi 01",
-      "materi",
-      "sesi 1",
       "ut",
-      "slide 09"
+      "materi",
+      "stsi4303"
     ]
   },
   {
@@ -1543,13 +1545,13 @@
     "badge_text": "Materi Inti 10",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 01",
-      "materi",
+      "ionic",
       "sesi 1",
       "slide 10",
-      "ionic",
-      "ut"
+      "sesi 01",
+      "ut",
+      "materi",
+      "stsi4303"
     ]
   },
   {
@@ -1574,14 +1576,14 @@
     "badge_text": "Materi Inti 11",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 01",
-      "materi",
-      "vue",
+      "ionic",
       "slide 11",
       "sesi 1",
-      "ionic",
-      "ut"
+      "sesi 01",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -1606,14 +1608,14 @@
     "badge_text": "Materi Inti 12",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "slide 12",
+      "ionic",
+      "sesi 1",
       "sesi 01",
+      "ut",
       "materi",
       "vue",
-      "slide 12",
-      "sesi 1",
-      "ionic",
-      "ut"
+      "stsi4303"
     ]
   },
   {
@@ -1638,12 +1640,13 @@
     "badge_text": "Materi Inti 13",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 01",
-      "materi",
+      "ionic",
       "sesi 1",
-      "slide 13",
-      "ut"
+      "sesi 01",
+      "ut",
+      "materi",
+      "stsi4303",
+      "slide 13"
     ]
   },
   {
@@ -1668,14 +1671,14 @@
     "badge_text": "Materi Inti 14",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 01",
-      "materi",
       "slide 14",
-      "vue",
-      "sesi 1",
       "ionic",
-      "ut"
+      "sesi 1",
+      "sesi 01",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -1700,14 +1703,14 @@
     "badge_text": "Materi Inti 15",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
+      "sesi 1",
       "sesi 01",
+      "ut",
       "materi",
       "vue",
-      "sesi 1",
-      "slide 15",
-      "ionic",
-      "ut"
+      "stsi4303",
+      "slide 15"
     ]
   },
   {
@@ -1732,15 +1735,15 @@
     "badge_text": "Materi Inti 16",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 01",
-      "materi",
-      "tugas",
-      "vue",
-      "sesi 1",
+      "slide 16",
       "ionic",
+      "sesi 1",
+      "sesi 01",
+      "tugas",
       "ut",
-      "slide 16"
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -1765,14 +1768,14 @@
     "badge_text": "Lab Quest 01",
     "badge_color": "badge-lab",
     "tags": [
-      "stsi4303",
-      "sesi 01",
-      "lab quest",
-      "sesi 1",
-      "lab",
+      "slide 17",
       "ionic",
+      "lab",
+      "sesi 1",
+      "sesi 01",
       "ut",
-      "slide 17"
+      "lab quest",
+      "stsi4303"
     ]
   },
   {
@@ -1797,14 +1800,14 @@
     "badge_text": "Jembatan Sesi 02",
     "badge_color": "badge-preview",
     "tags": [
-      "stsi4303",
-      "sesi 01",
       "preview",
-      "vue",
-      "slide 18",
-      "sesi 1",
       "ionic",
-      "ut"
+      "sesi 1",
+      "sesi 01",
+      "slide 18",
+      "ut",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -1828,14 +1831,15 @@
     "badge_text": "Pengantar Sesi",
     "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
-      "slide 01",
-      "sesi 2",
-      "vue",
-      "pengantar",
-      "sesi 02",
       "slide 1",
-      "ut"
+      "pengantar",
+      "slide 01",
+      "ionic",
+      "ut",
+      "sesi 02",
+      "vue",
+      "stsi4303",
+      "sesi 2"
     ]
   },
   {
@@ -1860,14 +1864,15 @@
     "badge_text": "Materi Inti 02",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 2",
+      "ionic",
       "slide 2",
-      "vue",
       "slide 02",
+      "ut",
+      "materi",
       "sesi 02",
-      "ut"
+      "vue",
+      "stsi4303",
+      "sesi 2"
     ]
   },
   {
@@ -1892,14 +1897,15 @@
     "badge_text": "Materi Inti 03",
     "badge_color": "badge-materi",
     "tags": [
-      "slide 3",
-      "stsi4303",
-      "materi",
-      "sesi 2",
-      "vue",
       "slide 03",
+      "ionic",
+      "slide 3",
+      "ut",
+      "materi",
       "sesi 02",
-      "ut"
+      "vue",
+      "stsi4303",
+      "sesi 2"
     ]
   },
   {
@@ -1924,14 +1930,15 @@
     "badge_text": "Materi Inti 04",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 2",
       "slide 4",
-      "vue",
+      "ionic",
+      "sesi 2",
+      "ut",
+      "materi",
       "sesi 02",
-      "slide 04",
-      "ut"
+      "vue",
+      "stsi4303",
+      "slide 04"
     ]
   },
   {
@@ -1955,15 +1962,15 @@
     "badge_text": "Materi Inti 05",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 05",
-      "materi",
-      "sesi 2",
-      "slide 5",
-      "vue",
-      "sesi 02",
       "ionic",
-      "ut"
+      "slide 05",
+      "ut",
+      "materi",
+      "sesi 02",
+      "vue",
+      "slide 5",
+      "stsi4303",
+      "sesi 2"
     ]
   },
   {
@@ -1987,14 +1994,15 @@
     "badge_text": "Materi Inti 06",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 6",
-      "materi",
-      "sesi 2",
-      "vue",
       "slide 06",
+      "ionic",
+      "slide 6",
+      "ut",
+      "materi",
       "sesi 02",
-      "ut"
+      "vue",
+      "stsi4303",
+      "sesi 2"
     ]
   },
   {
@@ -2019,14 +2027,15 @@
     "badge_text": "Materi Inti 07",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 2",
-      "vue",
-      "sesi 02",
-      "slide 07",
+      "ionic",
       "slide 7",
-      "ut"
+      "ut",
+      "slide 07",
+      "materi",
+      "sesi 02",
+      "vue",
+      "stsi4303",
+      "sesi 2"
     ]
   },
   {
@@ -2051,14 +2060,15 @@
     "badge_text": "Materi Inti 08",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
       "slide 8",
-      "sesi 2",
-      "slide 08",
-      "vue",
+      "ionic",
+      "ut",
+      "materi",
       "sesi 02",
-      "ut"
+      "vue",
+      "stsi4303",
+      "slide 08",
+      "sesi 2"
     ]
   },
   {
@@ -2083,14 +2093,15 @@
     "badge_text": "Materi Inti 09",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
+      "slide 09",
       "slide 9",
-      "materi",
-      "sesi 2",
-      "vue",
-      "sesi 02",
       "ut",
-      "slide 09"
+      "materi",
+      "sesi 02",
+      "vue",
+      "stsi4303",
+      "sesi 2"
     ]
   },
   {
@@ -2115,13 +2126,14 @@
     "badge_text": "Materi Inti 10",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 2",
-      "vue",
-      "sesi 02",
+      "ionic",
       "slide 10",
-      "ut"
+      "ut",
+      "materi",
+      "sesi 02",
+      "vue",
+      "stsi4303",
+      "sesi 2"
     ]
   },
   {
@@ -2145,13 +2157,14 @@
     "badge_text": "Materi Inti 11",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 2",
-      "vue",
+      "ionic",
       "slide 11",
+      "ut",
+      "materi",
       "sesi 02",
-      "ut"
+      "vue",
+      "stsi4303",
+      "sesi 2"
     ]
   },
   {
@@ -2176,13 +2189,14 @@
     "badge_text": "Materi Inti 12",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 2",
-      "vue",
       "slide 12",
+      "ionic",
+      "ut",
+      "materi",
       "sesi 02",
-      "ut"
+      "vue",
+      "stsi4303",
+      "sesi 2"
     ]
   },
   {
@@ -2207,13 +2221,14 @@
     "badge_text": "Materi Inti 13",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
+      "ut",
       "materi",
-      "sesi 2",
-      "vue",
-      "slide 13",
       "sesi 02",
-      "ut"
+      "vue",
+      "stsi4303",
+      "slide 13",
+      "sesi 2"
     ]
   },
   {
@@ -2238,13 +2253,14 @@
     "badge_text": "Materi Inti 14",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 2",
       "slide 14",
-      "vue",
+      "ionic",
+      "ut",
+      "materi",
       "sesi 02",
-      "ut"
+      "vue",
+      "stsi4303",
+      "sesi 2"
     ]
   },
   {
@@ -2269,13 +2285,14 @@
     "badge_text": "Materi Inti 15",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
+      "ut",
       "materi",
-      "sesi 2",
-      "vue",
       "sesi 02",
+      "vue",
+      "stsi4303",
       "slide 15",
-      "ut"
+      "sesi 2"
     ]
   },
   {
@@ -2300,13 +2317,14 @@
     "badge_text": "Materi Inti 16",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 2",
-      "vue",
-      "sesi 02",
+      "slide 16",
+      "ionic",
       "ut",
-      "slide 16"
+      "materi",
+      "sesi 02",
+      "vue",
+      "stsi4303",
+      "sesi 2"
     ]
   },
   {
@@ -2331,14 +2349,15 @@
     "badge_text": "Lab Quest 02",
     "badge_color": "badge-lab",
     "tags": [
-      "stsi4303",
-      "sesi 2",
-      "lab quest",
-      "vue",
-      "sesi 02",
+      "slide 17",
+      "ionic",
       "lab",
       "ut",
-      "slide 17"
+      "sesi 02",
+      "vue",
+      "lab quest",
+      "stsi4303",
+      "sesi 2"
     ]
   },
   {
@@ -2363,14 +2382,15 @@
     "badge_text": "Jembatan Sesi 03",
     "badge_color": "badge-preview",
     "tags": [
-      "stsi4303",
-      "sesi 2",
       "preview",
-      "vue",
-      "slide 18",
+      "ionic",
       "typescript",
+      "slide 18",
+      "ut",
       "sesi 02",
-      "ut"
+      "vue",
+      "stsi4303",
+      "sesi 2"
     ]
   },
   {
@@ -2395,16 +2415,16 @@
     "badge_text": "Pengantar Sesi",
     "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
-      "sesi 03",
-      "slide 01",
-      "tugas",
-      "ionic",
-      "vue",
-      "pengantar",
-      "sesi 3",
       "slide 1",
-      "ut"
+      "pengantar",
+      "slide 01",
+      "ionic",
+      "sesi 03",
+      "sesi 3",
+      "tugas",
+      "ut",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -2428,15 +2448,16 @@
     "badge_text": "Materi Inti 02",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
       "sesi 03",
-      "materi",
-      "slide 2",
-      "vue",
-      "typescript",
-      "slide 02",
       "sesi 3",
-      "ut"
+      "typescript",
+      "slide 2",
+      "slide 02",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -2461,14 +2482,15 @@
     "badge_text": "Materi Inti 03",
     "badge_color": "badge-materi",
     "tags": [
-      "slide 3",
-      "stsi4303",
+      "slide 03",
       "sesi 03",
+      "sesi 3",
+      "slide 3",
+      "ionic",
+      "ut",
       "materi",
       "vue",
-      "slide 03",
-      "sesi 3",
-      "ut"
+      "stsi4303"
     ]
   },
   {
@@ -2493,14 +2515,15 @@
     "badge_text": "Materi Inti 04",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 03",
-      "materi",
       "slide 4",
-      "vue",
-      "slide 04",
+      "ionic",
+      "sesi 03",
       "sesi 3",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303",
+      "slide 04"
     ]
   },
   {
@@ -2524,14 +2547,15 @@
     "badge_text": "Materi Inti 05",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
       "sesi 03",
-      "slide 05",
-      "materi",
-      "slide 5",
-      "vue",
       "sesi 3",
-      "ut"
+      "slide 05",
+      "ut",
+      "materi",
+      "vue",
+      "slide 5",
+      "stsi4303"
     ]
   },
   {
@@ -2555,14 +2579,15 @@
     "badge_text": "Materi Inti 06",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "slide 06",
+      "ionic",
       "sesi 03",
+      "sesi 3",
       "slide 6",
+      "ut",
       "materi",
       "vue",
-      "slide 06",
-      "sesi 3",
-      "ut"
+      "stsi4303"
     ]
   },
   {
@@ -2586,14 +2611,15 @@
     "badge_text": "Materi Inti 07",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
       "sesi 03",
+      "sesi 3",
+      "slide 7",
+      "ut",
+      "slide 07",
       "materi",
       "vue",
-      "sesi 3",
-      "slide 07",
-      "slide 7",
-      "ut"
+      "stsi4303"
     ]
   },
   {
@@ -2617,14 +2643,15 @@
     "badge_text": "Materi Inti 08",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 03",
-      "materi",
       "slide 8",
-      "slide 08",
-      "vue",
+      "ionic",
+      "sesi 03",
       "sesi 3",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303",
+      "slide 08"
     ]
   },
   {
@@ -2648,15 +2675,16 @@
     "badge_text": "Materi Inti 09",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 9",
+      "ionic",
       "sesi 03",
+      "sesi 3",
+      "typescript",
+      "slide 09",
+      "slide 9",
+      "ut",
       "materi",
       "vue",
-      "typescript",
-      "sesi 3",
-      "ut",
-      "slide 09"
+      "stsi4303"
     ]
   },
   {
@@ -2680,13 +2708,14 @@
     "badge_text": "Materi Inti 10",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
       "sesi 03",
+      "sesi 3",
+      "slide 10",
+      "ut",
       "materi",
       "vue",
-      "slide 10",
-      "sesi 3",
-      "ut"
+      "stsi4303"
     ]
   },
   {
@@ -2710,13 +2739,14 @@
     "badge_text": "Materi Inti 11",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
+      "slide 11",
       "sesi 03",
+      "sesi 3",
+      "ut",
       "materi",
       "vue",
-      "slide 11",
-      "sesi 3",
-      "ut"
+      "stsi4303"
     ]
   },
   {
@@ -2740,13 +2770,14 @@
     "badge_text": "Materi Inti 12",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "slide 12",
+      "ionic",
       "sesi 03",
+      "sesi 3",
+      "ut",
       "materi",
       "vue",
-      "slide 12",
-      "sesi 3",
-      "ut"
+      "stsi4303"
     ]
   },
   {
@@ -2770,13 +2801,14 @@
     "badge_text": "Materi Inti 13",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
       "sesi 03",
+      "sesi 3",
+      "ut",
       "materi",
       "vue",
-      "slide 13",
-      "sesi 3",
-      "ut"
+      "stsi4303",
+      "slide 13"
     ]
   },
   {
@@ -2800,13 +2832,14 @@
     "badge_text": "Materi Inti 14",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "sesi 03",
-      "materi",
       "slide 14",
-      "vue",
+      "ionic",
+      "sesi 03",
       "sesi 3",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -2830,13 +2863,14 @@
     "badge_text": "Materi Inti 15",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
       "sesi 03",
+      "sesi 3",
+      "ut",
       "materi",
       "vue",
-      "slide 15",
-      "sesi 3",
-      "ut"
+      "stsi4303",
+      "slide 15"
     ]
   },
   {
@@ -2860,14 +2894,15 @@
     "badge_text": "Rubrik Tugas 1",
     "badge_color": "badge-rubrik",
     "tags": [
-      "stsi4303",
+      "slide 16",
+      "ionic",
       "sesi 03",
-      "tugas",
-      "rubrik",
-      "vue",
       "sesi 3",
+      "rubrik",
       "ut",
-      "slide 16"
+      "tugas",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -2892,13 +2927,14 @@
     "badge_text": "Tugas 1 (Wajib)",
     "badge_color": "badge-tugas",
     "tags": [
-      "stsi4303",
+      "slide 17",
+      "ionic",
       "sesi 03",
-      "tugas",
-      "vue",
       "sesi 3",
+      "tugas",
       "ut",
-      "slide 17"
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -2923,14 +2959,14 @@
     "badge_text": "Jembatan Sesi 04",
     "badge_color": "badge-preview",
     "tags": [
-      "stsi4303",
-      "sesi 03",
       "preview",
-      "vue",
-      "slide 18",
-      "sesi 3",
       "ionic",
-      "ut"
+      "sesi 03",
+      "sesi 3",
+      "slide 18",
+      "ut",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -2955,15 +2991,15 @@
     "badge_text": "Pengantar Sesi",
     "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
-      "slide 01",
-      "sesi 4",
-      "ionic",
-      "vue",
-      "pengantar",
       "slide 1",
+      "pengantar",
+      "sesi 04",
+      "slide 01",
+      "ionic",
+      "sesi 4",
       "ut",
-      "sesi 04"
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -2988,16 +3024,16 @@
     "badge_text": "Materi Inti 02",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 4",
-      "slide 2",
-      "vue",
-      "slide 02",
-      "ionic",
-      "ut",
       "sesi 04",
-      "android"
+      "ionic",
+      "sesi 4",
+      "android",
+      "slide 2",
+      "slide 02",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -3022,15 +3058,15 @@
     "badge_text": "Materi Inti 03",
     "badge_color": "badge-materi",
     "tags": [
-      "slide 3",
-      "stsi4303",
-      "materi",
-      "sesi 4",
-      "vue",
+      "sesi 04",
       "slide 03",
       "ionic",
+      "slide 3",
+      "sesi 4",
       "ut",
-      "sesi 04"
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -3055,15 +3091,15 @@
     "badge_text": "Materi Inti 04",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 4",
       "slide 4",
-      "vue",
-      "slide 04",
+      "sesi 04",
       "ionic",
+      "sesi 4",
       "ut",
-      "sesi 04"
+      "materi",
+      "vue",
+      "stsi4303",
+      "slide 04"
     ]
   },
   {
@@ -3088,15 +3124,15 @@
     "badge_text": "Materi Inti 05",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 05",
-      "materi",
-      "sesi 4",
-      "slide 5",
-      "vue",
+      "sesi 04",
       "ionic",
+      "sesi 4",
+      "slide 05",
       "ut",
-      "sesi 04"
+      "materi",
+      "vue",
+      "slide 5",
+      "stsi4303"
     ]
   },
   {
@@ -3121,15 +3157,15 @@
     "badge_text": "Materi Inti 06",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 6",
-      "materi",
-      "sesi 4",
-      "vue",
       "slide 06",
+      "sesi 04",
       "ionic",
+      "sesi 4",
+      "slide 6",
       "ut",
-      "sesi 04"
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -3154,15 +3190,15 @@
     "badge_text": "Materi Inti 07",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 4",
+      "sesi 04",
       "ionic",
-      "vue",
-      "slide 07",
       "slide 7",
+      "sesi 4",
       "ut",
-      "sesi 04"
+      "slide 07",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -3187,15 +3223,15 @@
     "badge_text": "Materi Inti 08",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
       "slide 8",
-      "sesi 4",
-      "slide 08",
-      "vue",
+      "sesi 04",
       "ionic",
+      "sesi 4",
       "ut",
-      "sesi 04"
+      "materi",
+      "vue",
+      "stsi4303",
+      "slide 08"
     ]
   },
   {
@@ -3220,15 +3256,15 @@
     "badge_text": "Materi Inti 09",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 9",
-      "materi",
-      "sesi 4",
-      "vue",
-      "ionic",
-      "ut",
       "sesi 04",
-      "slide 09"
+      "ionic",
+      "sesi 4",
+      "slide 09",
+      "slide 9",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -3253,14 +3289,14 @@
     "badge_text": "Materi Inti 10",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 4",
-      "vue",
-      "slide 10",
+      "sesi 04",
       "ionic",
+      "sesi 4",
+      "slide 10",
       "ut",
-      "sesi 04"
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -3285,14 +3321,14 @@
     "badge_text": "Materi Inti 11",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 4",
-      "vue",
-      "slide 11",
+      "sesi 04",
       "ionic",
+      "slide 11",
+      "sesi 4",
       "ut",
-      "sesi 04"
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -3317,14 +3353,14 @@
     "badge_text": "Materi Inti 12",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 4",
-      "vue",
       "slide 12",
+      "sesi 04",
       "ionic",
+      "sesi 4",
       "ut",
-      "sesi 04"
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -3349,14 +3385,14 @@
     "badge_text": "Materi Inti 13",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 4",
-      "vue",
-      "slide 13",
+      "sesi 04",
       "ionic",
+      "sesi 4",
       "ut",
-      "sesi 04"
+      "materi",
+      "vue",
+      "stsi4303",
+      "slide 13"
     ]
   },
   {
@@ -3381,14 +3417,14 @@
     "badge_text": "Materi Inti 14",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 4",
       "slide 14",
-      "vue",
+      "sesi 04",
       "ionic",
+      "sesi 4",
       "ut",
-      "sesi 04"
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -3413,14 +3449,14 @@
     "badge_text": "Materi Inti 15",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 4",
-      "vue",
-      "slide 15",
+      "sesi 04",
       "ionic",
+      "sesi 4",
       "ut",
-      "sesi 04"
+      "materi",
+      "vue",
+      "stsi4303",
+      "slide 15"
     ]
   },
   {
@@ -3445,14 +3481,14 @@
     "badge_text": "Materi Inti 16",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 4",
-      "vue",
-      "ionic",
-      "ut",
       "slide 16",
-      "sesi 04"
+      "sesi 04",
+      "ionic",
+      "sesi 4",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -3477,15 +3513,15 @@
     "badge_text": "Lab Quest 04",
     "badge_color": "badge-lab",
     "tags": [
-      "stsi4303",
-      "sesi 4",
-      "lab quest",
-      "vue",
-      "lab",
-      "ionic",
-      "ut",
       "slide 17",
-      "sesi 04"
+      "sesi 04",
+      "ionic",
+      "lab",
+      "sesi 4",
+      "ut",
+      "vue",
+      "lab quest",
+      "stsi4303"
     ]
   },
   {
@@ -3510,15 +3546,15 @@
     "badge_text": "Jembatan Sesi 05",
     "badge_color": "badge-preview",
     "tags": [
-      "stsi4303",
-      "tugas",
-      "sesi 4",
       "preview",
-      "vue",
-      "slide 18",
+      "sesi 04",
       "ionic",
+      "sesi 4",
+      "slide 18",
       "ut",
-      "sesi 04"
+      "tugas",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -3543,15 +3579,15 @@
     "badge_text": "Pengantar Sesi",
     "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
-      "slide 01",
-      "tugas",
-      "ionic",
-      "vue",
-      "pengantar",
-      "sesi 05",
       "slide 1",
+      "pengantar",
+      "slide 01",
+      "ionic",
+      "tugas",
       "ut",
+      "vue",
+      "sesi 05",
+      "stsi4303",
       "sesi 5"
     ]
   },
@@ -3577,14 +3613,14 @@
     "badge_text": "Materi Inti 02",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "slide 2",
-      "vue",
-      "slide 02",
-      "sesi 05",
       "ionic",
+      "slide 2",
+      "slide 02",
       "ut",
+      "materi",
+      "vue",
+      "sesi 05",
+      "stsi4303",
       "sesi 5"
     ]
   },
@@ -3610,14 +3646,14 @@
     "badge_text": "Materi Inti 03",
     "badge_color": "badge-materi",
     "tags": [
+      "slide 03",
+      "ionic",
       "slide 3",
-      "stsi4303",
+      "ut",
       "materi",
       "vue",
-      "slide 03",
       "sesi 05",
-      "ionic",
-      "ut",
+      "stsi4303",
       "sesi 5"
     ]
   },
@@ -3643,15 +3679,15 @@
     "badge_text": "Materi Inti 04",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
       "slide 4",
-      "vue",
-      "slide 04",
-      "sesi 05",
       "ionic",
       "ut",
-      "sesi 5"
+      "materi",
+      "vue",
+      "sesi 05",
+      "stsi4303",
+      "sesi 5",
+      "slide 04"
     ]
   },
   {
@@ -3676,15 +3712,15 @@
     "badge_text": "Materi Inti 05",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
       "slide 05",
+      "ut",
       "materi",
-      "slide 5",
       "vue",
       "sesi 05",
-      "ionic",
-      "ut",
-      "sesi 5"
+      "slide 5",
+      "sesi 5",
+      "stsi4303"
     ]
   },
   {
@@ -3709,14 +3745,14 @@
     "badge_text": "Materi Inti 06",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "slide 06",
+      "ionic",
       "slide 6",
+      "ut",
       "materi",
       "vue",
-      "slide 06",
       "sesi 05",
-      "ionic",
-      "ut",
+      "stsi4303",
       "sesi 5"
     ]
   },
@@ -3742,14 +3778,14 @@
     "badge_text": "Materi Inti 07",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
       "ionic",
-      "vue",
-      "sesi 05",
-      "slide 07",
       "slide 7",
       "ut",
+      "slide 07",
+      "materi",
+      "vue",
+      "sesi 05",
+      "stsi4303",
       "sesi 5"
     ]
   },
@@ -3775,15 +3811,15 @@
     "badge_text": "Materi Inti 08",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
       "slide 8",
-      "slide 08",
-      "vue",
-      "sesi 05",
       "ionic",
       "ut",
-      "sesi 5"
+      "materi",
+      "vue",
+      "sesi 05",
+      "stsi4303",
+      "sesi 5",
+      "slide 08"
     ]
   },
   {
@@ -3808,15 +3844,15 @@
     "badge_text": "Materi Inti 09",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
+      "slide 09",
       "slide 9",
+      "ut",
       "materi",
       "vue",
       "sesi 05",
-      "ionic",
-      "ut",
-      "sesi 5",
-      "slide 09"
+      "stsi4303",
+      "sesi 5"
     ]
   },
   {
@@ -3841,13 +3877,13 @@
     "badge_text": "Materi Inti 10",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
+      "slide 10",
+      "ut",
       "materi",
       "vue",
-      "slide 10",
       "sesi 05",
-      "ionic",
-      "ut",
+      "stsi4303",
       "sesi 5"
     ]
   },
@@ -3873,13 +3909,13 @@
     "badge_text": "Materi Inti 11",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
+      "ionic",
+      "slide 11",
+      "ut",
       "materi",
       "vue",
-      "slide 11",
       "sesi 05",
-      "ionic",
-      "ut",
+      "stsi4303",
       "sesi 5"
     ]
   },
@@ -3905,13 +3941,13 @@
     "badge_text": "Materi Inti 12",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "vue",
       "slide 12",
-      "sesi 05",
       "ionic",
       "ut",
+      "materi",
+      "vue",
+      "sesi 05",
+      "stsi4303",
       "sesi 5"
     ]
   },
@@ -3937,14 +3973,14 @@
     "badge_text": "Materi Inti 13",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "vue",
-      "slide 13",
-      "sesi 05",
+      "sesi 5",
       "ionic",
       "ut",
-      "sesi 5"
+      "materi",
+      "vue",
+      "sesi 05",
+      "stsi4303",
+      "slide 13"
     ]
   },
   {
@@ -3969,13 +4005,13 @@
     "badge_text": "Materi Inti 14",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
       "slide 14",
-      "vue",
-      "sesi 05",
       "ionic",
       "ut",
+      "materi",
+      "vue",
+      "sesi 05",
+      "stsi4303",
       "sesi 5"
     ]
   },
@@ -4001,14 +4037,14 @@
     "badge_text": "Materi Inti 15",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "vue",
-      "slide 15",
-      "sesi 05",
       "ionic",
       "ut",
-      "sesi 5"
+      "materi",
+      "vue",
+      "sesi 05",
+      "stsi4303",
+      "sesi 5",
+      "slide 15"
     ]
   },
   {
@@ -4033,15 +4069,15 @@
     "badge_text": "Rubrik Tugas 2",
     "badge_color": "badge-rubrik",
     "tags": [
-      "stsi4303",
-      "tugas",
-      "rubrik",
-      "vue",
-      "sesi 5",
-      "sesi 05",
+      "slide 16",
       "ionic",
+      "rubrik",
       "ut",
-      "slide 16"
+      "tugas",
+      "vue",
+      "sesi 05",
+      "stsi4303",
+      "sesi 5"
     ]
   },
   {
@@ -4066,14 +4102,14 @@
     "badge_text": "Tugas 2 (Wajib)",
     "badge_color": "badge-tugas",
     "tags": [
-      "stsi4303",
+      "slide 17",
+      "ionic",
       "tugas",
+      "ut",
       "vue",
       "sesi 05",
-      "ionic",
-      "ut",
-      "sesi 5",
-      "slide 17"
+      "stsi4303",
+      "sesi 5"
     ]
   },
   {
@@ -4098,16 +4134,16 @@
     "badge_text": "Jembatan Sesi 06",
     "badge_color": "badge-preview",
     "tags": [
-      "stsi4303",
       "preview",
-      "vue",
-      "slide 18",
-      "sesi 05",
       "ionic",
-      "capacitor",
+      "android",
+      "slide 18",
       "ut",
-      "sesi 5",
-      "android"
+      "capacitor",
+      "vue",
+      "sesi 05",
+      "stsi4303",
+      "sesi 5"
     ]
   },
   {
@@ -4132,17 +4168,17 @@
     "badge_text": "Pengantar Sesi",
     "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
+      "slide 1",
+      "pengantar",
+      "sesi 06",
       "slide 01",
       "ionic",
-      "vue",
-      "sesi 06",
-      "pengantar",
       "sesi 6",
-      "slide 1",
-      "capacitor",
+      "android",
       "ut",
-      "android"
+      "capacitor",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4167,16 +4203,16 @@
     "badge_text": "Materi Inti 02",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "ionic",
-      "slide 2",
       "sesi 06",
-      "vue",
-      "slide 02",
+      "ionic",
       "sesi 6",
+      "slide 2",
+      "slide 02",
+      "ut",
+      "materi",
+      "vue",
       "capacitor",
-      "ut"
+      "stsi4303"
     ]
   },
   {
@@ -4201,15 +4237,15 @@
     "badge_text": "Materi Inti 03",
     "badge_color": "badge-materi",
     "tags": [
-      "slide 3",
-      "stsi4303",
-      "materi",
-      "ionic",
-      "vue",
       "sesi 06",
       "slide 03",
+      "ionic",
+      "slide 3",
       "sesi 6",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4234,16 +4270,16 @@
     "badge_text": "Materi Inti 04",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "ionic",
       "slide 4",
-      "vue",
       "sesi 06",
-      "slide 04",
+      "ionic",
       "sesi 6",
+      "ut",
+      "materi",
+      "vue",
       "capacitor",
-      "ut"
+      "stsi4303",
+      "slide 04"
     ]
   },
   {
@@ -4268,16 +4304,16 @@
     "badge_text": "Materi Inti 05",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 05",
-      "materi",
-      "ionic",
-      "slide 5",
       "sesi 06",
-      "vue",
+      "ionic",
       "sesi 6",
+      "slide 05",
+      "ut",
+      "materi",
+      "vue",
       "capacitor",
-      "ut"
+      "slide 5",
+      "stsi4303"
     ]
   },
   {
@@ -4302,16 +4338,16 @@
     "badge_text": "Materi Inti 06",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 6",
-      "materi",
-      "ionic",
-      "vue",
-      "sesi 06",
       "slide 06",
+      "sesi 06",
+      "ionic",
       "sesi 6",
+      "slide 6",
+      "android",
       "ut",
-      "android"
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4336,16 +4372,16 @@
     "badge_text": "Materi Inti 07",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "ionic",
-      "vue",
       "sesi 06",
-      "sesi 6",
-      "slide 07",
+      "ionic",
       "slide 7",
+      "sesi 6",
+      "android",
       "ut",
-      "android"
+      "slide 07",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4370,16 +4406,16 @@
     "badge_text": "Materi Inti 08",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
       "slide 8",
-      "slide 08",
-      "ionic",
-      "vue",
       "sesi 06",
+      "ionic",
       "sesi 6",
+      "android",
       "ut",
-      "android"
+      "materi",
+      "vue",
+      "stsi4303",
+      "slide 08"
     ]
   },
   {
@@ -4404,15 +4440,15 @@
     "badge_text": "Materi Inti 09",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 9",
-      "materi",
-      "ionic",
-      "vue",
       "sesi 06",
+      "ionic",
       "sesi 6",
+      "slide 09",
+      "slide 9",
       "ut",
-      "slide 09"
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4437,15 +4473,15 @@
     "badge_text": "Materi Inti 10",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "ionic",
-      "vue",
       "sesi 06",
-      "slide 10",
+      "ionic",
       "sesi 6",
+      "android",
+      "slide 10",
       "ut",
-      "android"
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4470,14 +4506,14 @@
     "badge_text": "Materi Inti 11",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "ionic",
-      "vue",
       "sesi 06",
+      "ionic",
       "slide 11",
       "sesi 6",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4502,14 +4538,14 @@
     "badge_text": "Materi Inti 12",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "ionic",
-      "vue",
       "sesi 06",
       "slide 12",
+      "ionic",
       "sesi 6",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4534,14 +4570,14 @@
     "badge_text": "Materi Inti 13",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "ionic",
-      "vue",
       "sesi 06",
-      "slide 13",
+      "ionic",
       "sesi 6",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303",
+      "slide 13"
     ]
   },
   {
@@ -4566,14 +4602,14 @@
     "badge_text": "Materi Inti 14",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "ionic",
       "slide 14",
       "sesi 06",
-      "vue",
+      "ionic",
       "sesi 6",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4598,14 +4634,14 @@
     "badge_text": "Materi Inti 15",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "ionic",
-      "vue",
       "sesi 06",
-      "slide 15",
+      "ionic",
       "sesi 6",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303",
+      "slide 15"
     ]
   },
   {
@@ -4630,15 +4666,15 @@
     "badge_text": "Materi Inti 16",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "ionic",
-      "vue",
       "sesi 06",
-      "sesi 6",
-      "ut",
       "slide 16",
-      "android"
+      "ionic",
+      "sesi 6",
+      "android",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4663,17 +4699,17 @@
     "badge_text": "Lab Quest 06",
     "badge_color": "badge-lab",
     "tags": [
-      "stsi4303",
-      "lab quest",
-      "ionic",
-      "vue",
+      "slide 17",
       "sesi 06",
+      "ionic",
       "lab",
       "sesi 6",
-      "capacitor",
+      "android",
       "ut",
-      "slide 17",
-      "android"
+      "capacitor",
+      "vue",
+      "lab quest",
+      "stsi4303"
     ]
   },
   {
@@ -4698,17 +4734,17 @@
     "badge_text": "Jembatan Sesi 07",
     "badge_color": "badge-preview",
     "tags": [
-      "stsi4303",
-      "api",
-      "tugas",
-      "ionic",
       "preview",
-      "vue",
-      "slide 18",
       "sesi 06",
-      "storage",
+      "api",
+      "ionic",
       "sesi 6",
-      "ut"
+      "slide 18",
+      "ut",
+      "tugas",
+      "storage",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4733,16 +4769,16 @@
     "badge_text": "Pengantar Sesi",
     "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
-      "slide 01",
-      "sesi 7",
-      "tugas",
-      "ionic",
-      "vue",
-      "pengantar",
       "slide 1",
+      "pengantar",
+      "slide 01",
+      "ionic",
+      "sesi 7",
       "sesi 07",
-      "ut"
+      "tugas",
+      "ut",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4767,16 +4803,16 @@
     "badge_text": "Materi Inti 02",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
       "api",
-      "materi",
-      "sesi 7",
-      "slide 2",
-      "vue",
-      "slide 02",
       "ionic",
+      "sesi 7",
       "sesi 07",
-      "ut"
+      "slide 2",
+      "slide 02",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4801,15 +4837,15 @@
     "badge_text": "Materi Inti 03",
     "badge_color": "badge-materi",
     "tags": [
-      "slide 3",
-      "stsi4303",
-      "materi",
-      "sesi 7",
-      "vue",
       "slide 03",
       "ionic",
+      "slide 3",
       "sesi 07",
-      "ut"
+      "sesi 7",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4834,15 +4870,15 @@
     "badge_text": "Materi Inti 04",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 7",
       "slide 4",
-      "vue",
-      "slide 04",
       "ionic",
+      "sesi 7",
       "sesi 07",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303",
+      "slide 04"
     ]
   },
   {
@@ -4867,15 +4903,15 @@
     "badge_text": "Materi Inti 05",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 05",
-      "materi",
-      "sesi 7",
-      "slide 5",
-      "vue",
       "ionic",
+      "sesi 7",
       "sesi 07",
-      "ut"
+      "slide 05",
+      "ut",
+      "materi",
+      "vue",
+      "slide 5",
+      "stsi4303"
     ]
   },
   {
@@ -4900,15 +4936,15 @@
     "badge_text": "Materi Inti 06",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 6",
-      "materi",
-      "sesi 7",
-      "vue",
       "slide 06",
       "ionic",
+      "sesi 7",
       "sesi 07",
-      "ut"
+      "slide 6",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -4933,16 +4969,16 @@
     "badge_text": "Materi Inti 07",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 7",
       "ionic",
-      "vue",
-      "slide 07",
       "slide 7",
+      "sesi 7",
       "sesi 07",
+      "ut",
+      "slide 07",
+      "materi",
+      "vue",
       "capacitor",
-      "ut"
+      "stsi4303"
     ]
   },
   {
@@ -4967,15 +5003,15 @@
     "badge_text": "Materi Inti 08",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
       "slide 8",
-      "sesi 7",
-      "slide 08",
-      "vue",
       "ionic",
+      "sesi 7",
       "sesi 07",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303",
+      "slide 08"
     ]
   },
   {
@@ -5000,15 +5036,15 @@
     "badge_text": "Materi Inti 09",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 9",
-      "materi",
-      "sesi 7",
-      "vue",
       "ionic",
+      "sesi 7",
       "sesi 07",
+      "slide 09",
+      "slide 9",
       "ut",
-      "slide 09"
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -5033,15 +5069,15 @@
     "badge_text": "Materi Inti 10",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 7",
-      "vue",
-      "slide 10",
       "ionic",
+      "sesi 7",
       "sesi 07",
+      "slide 10",
+      "ut",
+      "materi",
+      "vue",
       "capacitor",
-      "ut"
+      "stsi4303"
     ]
   },
   {
@@ -5066,14 +5102,14 @@
     "badge_text": "Materi Inti 11",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 7",
-      "vue",
-      "slide 11",
       "ionic",
+      "slide 11",
+      "sesi 7",
       "sesi 07",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -5098,15 +5134,15 @@
     "badge_text": "Materi Inti 12",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 7",
-      "vue",
       "slide 12",
       "ionic",
+      "sesi 7",
       "sesi 07",
+      "ut",
+      "materi",
+      "vue",
       "capacitor",
-      "ut"
+      "stsi4303"
     ]
   },
   {
@@ -5131,15 +5167,15 @@
     "badge_text": "Materi Inti 13",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 7",
-      "vue",
-      "slide 13",
       "ionic",
+      "sesi 7",
       "sesi 07",
+      "ut",
+      "materi",
+      "vue",
       "capacitor",
-      "ut"
+      "stsi4303",
+      "slide 13"
     ]
   },
   {
@@ -5164,14 +5200,14 @@
     "badge_text": "Materi Inti 14",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 7",
       "slide 14",
-      "vue",
       "ionic",
+      "sesi 7",
       "sesi 07",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -5196,15 +5232,15 @@
     "badge_text": "Materi Inti 15",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
       "api",
-      "materi",
-      "sesi 7",
-      "vue",
-      "slide 15",
       "ionic",
+      "sesi 7",
       "sesi 07",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303",
+      "slide 15"
     ]
   },
   {
@@ -5229,14 +5265,15 @@
     "badge_text": "Rubrik Tugas 3",
     "badge_color": "badge-rubrik",
     "tags": [
-      "stsi4303",
+      "slide 16",
+      "ionic",
       "sesi 7",
-      "tugas",
-      "rubrik",
-      "vue",
       "sesi 07",
+      "rubrik",
       "ut",
-      "slide 16"
+      "tugas",
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -5261,14 +5298,14 @@
     "badge_text": "Tugas 3 (Wajib)",
     "badge_color": "badge-tugas",
     "tags": [
-      "stsi4303",
-      "tugas",
-      "sesi 7",
-      "vue",
+      "slide 17",
       "ionic",
+      "sesi 7",
       "sesi 07",
+      "tugas",
       "ut",
-      "slide 17"
+      "vue",
+      "stsi4303"
     ]
   },
   {
@@ -5293,15 +5330,15 @@
     "badge_text": "Jembatan Sesi 08",
     "badge_color": "badge-preview",
     "tags": [
-      "stsi4303",
-      "sesi 7",
       "preview",
-      "vue",
-      "slide 18",
-      "uas",
       "ionic",
+      "sesi 7",
       "sesi 07",
-      "ut"
+      "slide 18",
+      "ut",
+      "vue",
+      "stsi4303",
+      "uas"
     ]
   },
   {
@@ -5326,16 +5363,16 @@
     "badge_text": "Pengantar Sesi",
     "badge_color": "badge-pengantar",
     "tags": [
-      "stsi4303",
+      "slide 1",
+      "pengantar",
       "slide 01",
       "ionic",
       "sesi 08",
+      "ut",
       "vue",
+      "stsi4303",
       "uas",
-      "pengantar",
-      "slide 1",
-      "sesi 8",
-      "ut"
+      "sesi 8"
     ]
   },
   {
@@ -5360,15 +5397,15 @@
     "badge_text": "Materi Inti 02",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
+      "ionic",
       "sesi 08",
       "slide 2",
-      "vue",
       "slide 02",
-      "ionic",
-      "sesi 8",
-      "ut"
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303",
+      "sesi 8"
     ]
   },
   {
@@ -5393,15 +5430,15 @@
     "badge_text": "Materi Inti 03",
     "badge_color": "badge-materi",
     "tags": [
-      "slide 3",
-      "stsi4303",
-      "materi",
-      "sesi 08",
-      "vue",
       "slide 03",
       "ionic",
-      "sesi 8",
-      "ut"
+      "slide 3",
+      "sesi 08",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303",
+      "sesi 8"
     ]
   },
   {
@@ -5426,15 +5463,15 @@
     "badge_text": "Materi Inti 04",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
       "slide 4",
-      "sesi 08",
-      "vue",
-      "slide 04",
       "ionic",
+      "sesi 08",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303",
       "sesi 8",
-      "ut"
+      "slide 04"
     ]
   },
   {
@@ -5459,15 +5496,15 @@
     "badge_text": "Materi Inti 05",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 05",
-      "materi",
-      "sesi 08",
-      "slide 5",
-      "vue",
       "ionic",
-      "sesi 8",
-      "ut"
+      "sesi 08",
+      "slide 05",
+      "ut",
+      "materi",
+      "vue",
+      "slide 5",
+      "stsi4303",
+      "sesi 8"
     ]
   },
   {
@@ -5492,15 +5529,15 @@
     "badge_text": "Materi Inti 06",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 6",
-      "materi",
-      "sesi 08",
-      "vue",
       "slide 06",
       "ionic",
-      "sesi 8",
-      "ut"
+      "slide 6",
+      "sesi 08",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303",
+      "sesi 8"
     ]
   },
   {
@@ -5525,15 +5562,15 @@
     "badge_text": "Materi Inti 07",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
       "ionic",
-      "sesi 08",
-      "vue",
-      "slide 07",
       "slide 7",
-      "sesi 8",
-      "ut"
+      "sesi 08",
+      "ut",
+      "slide 07",
+      "materi",
+      "vue",
+      "stsi4303",
+      "sesi 8"
     ]
   },
   {
@@ -5558,15 +5595,15 @@
     "badge_text": "Materi Inti 08",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
       "slide 8",
-      "slide 08",
-      "sesi 08",
-      "vue",
       "ionic",
+      "sesi 08",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303",
       "sesi 8",
-      "ut"
+      "slide 08"
     ]
   },
   {
@@ -5591,15 +5628,15 @@
     "badge_text": "Materi Inti 09",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "slide 9",
-      "materi",
-      "sesi 08",
-      "vue",
       "ionic",
-      "sesi 8",
+      "sesi 08",
+      "slide 09",
+      "slide 9",
       "ut",
-      "slide 09"
+      "materi",
+      "vue",
+      "stsi4303",
+      "sesi 8"
     ]
   },
   {
@@ -5624,14 +5661,14 @@
     "badge_text": "Materi Inti 10",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 08",
-      "vue",
-      "slide 10",
       "ionic",
-      "sesi 8",
-      "ut"
+      "sesi 08",
+      "slide 10",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303",
+      "sesi 8"
     ]
   },
   {
@@ -5656,15 +5693,15 @@
     "badge_text": "Materi Inti 11",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 08",
-      "vue",
-      "slide 11",
       "ionic",
-      "sesi 8",
+      "slide 11",
+      "android",
+      "sesi 08",
       "ut",
-      "android"
+      "materi",
+      "vue",
+      "stsi4303",
+      "sesi 8"
     ]
   },
   {
@@ -5689,15 +5726,15 @@
     "badge_text": "Materi Inti 12",
     "badge_color": "badge-materi",
     "tags": [
-      "stsi4303",
-      "materi",
-      "sesi 08",
-      "vue",
-      "uas",
       "slide 12",
       "ionic",
-      "sesi 8",
-      "ut"
+      "sesi 08",
+      "ut",
+      "materi",
+      "vue",
+      "stsi4303",
+      "uas",
+      "sesi 8"
     ]
   },
   {
@@ -5722,14 +5759,14 @@
     "badge_text": "Bank Soal UAS (Bag. 1)",
     "badge_color": "badge-uas",
     "tags": [
-      "stsi4303",
+      "ionic",
       "sesi 08",
+      "ut",
       "vue",
+      "stsi4303",
       "uas",
       "slide 13",
-      "ionic",
-      "sesi 8",
-      "ut"
+      "sesi 8"
     ]
   },
   {
@@ -5754,15 +5791,15 @@
     "badge_text": "Bank Soal UAS (Bag. 2)",
     "badge_color": "badge-uas",
     "tags": [
-      "stsi4303",
-      "sesi 08",
       "slide 14",
-      "uas",
-      "vue",
-      "typescript",
       "ionic",
-      "sesi 8",
-      "ut"
+      "typescript",
+      "sesi 08",
+      "ut",
+      "vue",
+      "stsi4303",
+      "uas",
+      "sesi 8"
     ]
   },
   {
@@ -5787,17 +5824,17 @@
     "badge_text": "Bank Soal UAS (Bag. 3)",
     "badge_color": "badge-uas",
     "tags": [
-      "stsi4303",
       "api",
+      "ionic",
       "sesi 08",
+      "ut",
+      "storage",
+      "capacitor",
       "vue",
+      "stsi4303",
       "uas",
       "slide 15",
-      "storage",
-      "ionic",
-      "sesi 8",
-      "capacitor",
-      "ut"
+      "sesi 8"
     ]
   },
   {
@@ -5822,14 +5859,14 @@
     "badge_text": "Bank Soal UAS (Bag. 4)",
     "badge_color": "badge-uas",
     "tags": [
-      "stsi4303",
-      "sesi 08",
-      "vue",
-      "uas",
+      "slide 16",
       "ionic",
-      "sesi 8",
+      "sesi 08",
       "ut",
-      "slide 16"
+      "vue",
+      "stsi4303",
+      "uas",
+      "sesi 8"
     ]
   },
   {
@@ -5854,16 +5891,16 @@
     "badge_text": "Lab Quest 08 & Simulasi UAS",
     "badge_color": "badge-uas",
     "tags": [
-      "stsi4303",
-      "lab quest",
+      "slide 17",
+      "ionic",
       "sesi 08",
       "lab uas",
-      "vue",
-      "uas",
-      "ionic",
-      "sesi 8",
       "ut",
-      "slide 17"
+      "vue",
+      "lab quest",
+      "stsi4303",
+      "uas",
+      "sesi 8"
     ]
   },
   {
@@ -5888,14 +5925,14 @@
     "badge_text": "Penutup Semester",
     "badge_color": "badge-pengantar",
     "tags": [
-      "penutup",
-      "stsi4303",
-      "sesi 08",
-      "vue",
-      "slide 18",
       "ionic",
-      "sesi 8",
-      "ut"
+      "sesi 08",
+      "slide 18",
+      "ut",
+      "vue",
+      "stsi4303",
+      "penutup",
+      "sesi 8"
     ]
   }
 ];
@@ -5906,6 +5943,7 @@
     "modul": "Modul 1 (MSIM4401/STSI4303)",
     "pptx": "SESI_01_Pengantar_dan_Lingkungan_Ionic.pptx",
     "md": "SESI_01_Pengantar_dan_Lingkungan_Ionic.md",
+    "html": "SESI_01_Pengantar_dan_Lingkungan_Ionic.html",
     "folder": "sesi_01_lingkungan_dan_tools",
     "badge": "Fondasi & Tools"
   },
@@ -5915,6 +5953,7 @@
     "modul": "Modul 2 (MSIM4401/STSI4303)",
     "pptx": "SESI_02_Frontend_Modern_Vue.pptx",
     "md": "SESI_02_Frontend_Modern_Vue.md",
+    "html": "SESI_02_Frontend_Modern_Vue.html",
     "folder": "sesi_02_vue_frontend",
     "badge": "Vue 3 Reaktif"
   },
@@ -5924,6 +5963,7 @@
     "modul": "Modul 3 (MSIM4401/STSI4303)",
     "pptx": "SESI_03_TypeScript_dan_Komposisi_Vue.pptx",
     "md": "SESI_03_TypeScript_dan_Komposisi_Vue.md",
+    "html": "SESI_03_TypeScript_dan_Komposisi_Vue.html",
     "folder": "sesi_03_typescript_vue",
     "badge": "Tugas 1"
   },
@@ -5933,6 +5973,7 @@
     "modul": "Modul 4 (MSIM4401/STSI4303)",
     "pptx": "SESI_04_Dasar_Ionic_dan_Navigasi.pptx",
     "md": "SESI_04_Dasar_Ionic_dan_Navigasi.md",
+    "html": "SESI_04_Dasar_Ionic_dan_Navigasi.html",
     "folder": "sesi_04_ionic_dasar_navigasi",
     "badge": "Ionic UI Mobile"
   },
@@ -5942,6 +5983,7 @@
     "modul": "Modul 5 (MSIM4401/STSI4303)",
     "pptx": "SESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx",
     "md": "SESI_05_Layout_Grid_Form_Regex_Dark_Mode.md",
+    "html": "SESI_05_Layout_Grid_Form_Regex_Dark_Mode.html",
     "folder": "sesi_05_layout_grid_form",
     "badge": "Tugas 2"
   },
@@ -5951,6 +5993,7 @@
     "modul": "Modul 6-7 (MSIM4401/STSI4303)",
     "pptx": "SESI_06_Capacitor_Bridge_dan_Android_Studio.pptx",
     "md": "SESI_06_Capacitor_Bridge_dan_Android_Studio.md",
+    "html": "SESI_06_Capacitor_Bridge_dan_Android_Studio.html",
     "folder": "sesi_06_capacitor_android",
     "badge": "Capacitor & Bridge"
   },
@@ -5960,6 +6003,7 @@
     "modul": "Modul 8-9 (MSIM4401/STSI4303)",
     "pptx": "SESI_07_REST_API_Storage_dan_Native_Plugins.pptx",
     "md": "SESI_07_REST_API_Storage_dan_Native_Plugins.md",
+    "html": "SESI_07_REST_API_Storage_dan_Native_Plugins.html",
     "folder": "sesi_07_api_storage_plugins",
     "badge": "Tugas 3"
   },
@@ -5969,6 +6013,7 @@
     "modul": "Modul 9 (MSIM4401/STSI4303)",
     "pptx": "SESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.pptx",
     "md": "SESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.md",
+    "html": "SESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.html",
     "folder": "sesi_08_build_apk_uas",
     "badge": "Bank Soal UAS"
   }

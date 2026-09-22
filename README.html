@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katalog Terpadu Kursus Pemrograman Mobile — Universitas Terbuka</title>
+  <meta name="description" content="Dokumentasi terpadu kursus Pemrograman Berbasis Perangkat Bergerak Universitas Terbuka.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Mermaid.js untuk Diagram Arsitektur -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --ut-navy: #003366;
+      --ut-blue: #005691;
+      --ut-blue-light: #EBF3FA;
+      --ut-gold: #C28E00;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      position: static !important;
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100% !important;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Breadcrumb & Navbar */
+    .top-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-nav-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ut-blue);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .breadcrumb:hover {
+      color: var(--ut-navy);
+      text-decoration: underline;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--slate-200);
+      background: #FFFFFF;
+      color: var(--slate-700);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+    }
+
+    .action-btn.primary {
+      background: var(--ut-blue);
+      color: #FFFFFF;
+      border-color: var(--ut-blue);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--ut-navy);
+      border-color: var(--ut-navy);
+    }
+
+    /* Main Container */
+    .doc-container {
+      max-width: 1060px;
+      margin: 32px auto 60px;
+      padding: 0 20px;
+    }
+
+    /* Academic Header Card */
+    .doc-header {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ut-navy) 0%, var(--ut-blue) 60%, var(--ut-gold) 100%);
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--ut-blue);
+      background: var(--ut-blue-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+
+    .doc-subtitle {
+      font-size: 14px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* Document Body & Typography */
+    .doc-content {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 768px) {
+      .doc-content { padding: 24px 20px; }
+      .doc-header { padding: 24px 20px; }
+      .doc-title { font-size: 22px; }
+    }
+
+    .doc-content h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-top: 28px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 32px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .doc-content h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    .doc-content p {
+      margin-bottom: 16px;
+      color: var(--slate-700);
+    }
+
+    .doc-content ul, .doc-content ol {
+      margin-bottom: 18px;
+      padding-left: 24px;
+    }
+
+    .doc-content li {
+      margin-bottom: 6px;
+      color: var(--slate-700);
+    }
+
+    .doc-content hr {
+      border: none;
+      height: 1px;
+      background: var(--slate-200);
+      margin: 32px 0;
+    }
+
+    /* Links */
+    .doc-content a {
+      color: var(--ut-blue);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #93C5FD;
+      transition: all 0.15s ease;
+    }
+
+    .doc-content a:hover {
+      color: var(--ut-navy);
+      border-bottom-style: solid;
+      background: var(--ut-blue-light);
+    }
+
+    /* GitHub Alert Callouts */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-left: 4px solid;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .alert-important {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+
+    .alert-note {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1E40AF;
+    }
+
+    .alert-tip {
+      background: #ECFDF5;
+      border-color: #10B981;
+      color: #065F46;
+    }
+
+    .alert-warning {
+      background: #FFFBEB;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+
+    /* Beautiful Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    .doc-content th {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--slate-200);
+      letter-spacing: 0.2px;
+    }
+
+    .doc-content td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: top;
+    }
+
+    .doc-content tr:last-child td {
+      border-bottom: none;
+    }
+
+    .doc-content tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+
+    .doc-content tr:hover td {
+      background: #F1F5F9;
+    }
+
+    /* Code Blocks */
+    .doc-content pre {
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 20px 0;
+      border: 1px solid var(--slate-700);
+    }
+
+    .doc-content code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--slate-100);
+      color: var(--slate-900);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .doc-content pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    /* Mermaid Diagrams */
+    .mermaid {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--slate-400);
+    }
+
+    @media print {
+      .top-nav, .action-btn { display: none !important; }
+      body { background: #FFF; }
+      .doc-header, .doc-content { border: none; box-shadow: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP STICKY NAVIGATION -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="./index.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Kembali ke Portal Perkuliahan
+      </a>
+
+      <div class="nav-actions">
+        <button class="action-btn" onclick="window.print()" title="Cetak halaman atau simpan sebagai PDF">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Cetak / PDF
+        </button>
+        <a href="README.md" target="_blank" class="action-btn" title="Buka berkas sumber Markdown asli">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Naskah Markdown (.md)
+        </a>
+        <a href="https://github.com/antonprafanto/tuweb_mobile2025" target="_blank" class="action-btn" title="Buka repositori GitHub">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="doc-container">
+    <!-- HEADER -->
+    <header class="doc-header">
+      <span class="doc-badge">Dokumentasi Repositori</span>
+      <h1 class="doc-title">BAHAN KULIAH PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303)</h1>
+      <p class="doc-subtitle">
+        Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</strong><br>
+        Fakultas Sains dan Teknologi, Universitas Terbuka • Dosen Pengampu: <strong>Anton Prafanto, S.Kom., M.T.</strong>
+      </p>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="doc-content">
+      <h1>📱 BAHAN KULIAH PEMROGRAMAN BERBASIS PERANGKAT BERGERAK (STSI4303)</h1>
+<h2>Universitas Terbuka — Program Studi S1 Sistem Informasi &amp; Informatika</h2>
+<p><a href="https://antonprafanto.github.io/tuweb_mobile2025/"><img src="https://img.shields.io/badge/GitHub%20Pages-Live%20Web%20Portal-005691?style=for-the-badge&amp;logo=github&amp;logoColor=white" alt="GitHub Pages" /></a>
+<a href="https://antonprafanto.github.io/tuweb_mobile2025/"><img src="https://img.shields.io/badge/Mata%20Kuliah-STSI4303%20%7C%20MSIM4401-FFE600?style=for-the-badge&amp;labelColor=005691&amp;color=FFE600" alt="Course" /></a>
+<a href="https://antonprafanto.github.io/tuweb_mobile2025/"><img src="https://img.shields.io/badge/Bobot-3%20SKS%20(Praktik)-16A34A?style=for-the-badge" alt="SKS" /></a>
+<a href="https://antonprafanto.github.io/tuweb_mobile2025/"><img src="https://img.shields.io/badge/Zero--Friction-144%20Slide%20Interaktif-7E22CE?style=for-the-badge" alt="Zero Friction" /></a></p>
+<blockquote>
+<p>🌐 <strong>Akses Publik Langsung (Tanpa Instalasi / Zero-Friction):</strong><br />
+Buka Portal Web Interaktif Resmi di <strong><a href="https://antonprafanto.github.io/tuweb_mobile2025/">https://antonprafanto.github.io/tuweb_mobile2025/</a></strong> untuk mencoba langsung seluruh 144 contoh kode mandiri di dalam simulator smartphone interaktif (Pixel, iPhone, Tablet)!</p>
+</blockquote>
+<p>Selamat datang di repositori resmi materi perkuliahan <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / 3 SKS)</strong> Universitas Terbuka. Repositori ini disusun dengan standar <strong>The Zero-Friction Courseware Framework</strong>, didedikasikan bagi mahasiswa untuk mengakses <strong>Bahan Ajar Presentasi Sesi Perkuliahan</strong>, <strong>Panduan Tutorial &amp; Tugas Mandiri</strong>, serta <strong>Contoh Kode Program Mandiri</strong> berbasis <strong>Ionic Framework</strong>, <strong>Vue.js 3</strong>, <strong>TypeScript</strong>, dan <strong>Capacitor</strong> yang siap dijalankan langsung di peramban web (<em>Google Chrome</em>) maupun smartphone fisik.</p>
+<hr />
+<h2>🗺️ Struktur Repositori</h2>
+<pre><code class="language-text">tuweb_mobile2025/
+├── 🌐 index.html                            # Portal Web Interaktif Resmi (GitHub Pages Live Preview)
+├── 📁 slide_presentasi/                     # Bahan Ajar Visual (PPTX) &amp; Naskah Narasi Sesi
+│   ├── 📊 SESI_01_Pengantar_dan_Lingkungan_Ionic.pptx (.md)
+│   ├── 📊 SESI_02_Frontend_Modern_Vue.pptx (.md)
+│   ├── 📊 SESI_03_TypeScript_dan_Komposisi_Vue.pptx (.md)
+│   ├── 📊 SESI_04_Dasar_Ionic_dan_Navigasi.pptx (.md)
+│   ├── 📊 SESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx (.md)
+│   ├── 📊 SESI_06_Capacitor_Bridge_dan_Android_Studio.pptx (.md)
+│   ├── 📊 SESI_07_REST_API_Storage_dan_Native_Plugins.pptx (.md)
+│   └── 📊 SESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.pptx (.md)
+│
+├── 📁 contoh_kode_program/                  # Berkas Kode Mandiri Siap Eksekusi (Zero-Friction)
+│   ├── 📁 sesi_01_lingkungan_dan_tools/     # [18 berkas] Node.js, Web Components &amp; KTM Digital
+│   ├── 📁 sesi_02_vue_frontend/             # [18 berkas] Vue 3 Reactivity, Directives &amp; KRS Online
+│   ├── 📁 sesi_03_typescript_vue/           # [18 berkas] TypeScript Models, Vue SFC &amp; TUGAS 1
+│   ├── 📁 sesi_04_ionic_dasar_navigasi/     # [18 berkas] Ionic UI, Stack Navigation &amp; Lab Quest 04
+│   ├── 📁 sesi_05_layout_grid_form/         # [18 berkas] 12-Grid, Form Regex, Dark Mode &amp; TUGAS 2
+│   ├── 📁 sesi_06_capacitor_android/        # [18 berkas] Capacitor Bridge, Android Studio &amp; Lab Quest 06
+│   ├── 📁 sesi_07_api_storage_plugins/      # [18 berkas] REST API, Offline Storage, GPS &amp; TUGAS 3
+│   └── 📁 sesi_08_build_apk_uas/            # [18 berkas] Release APK, Keystore Signing, &amp; 50 Bank Soal UAS
+│
+├── 📁 panduan_tutorial_ut/                  # Instrumen Akademik Resmi FST UT
+│   ├── 📋 RANCANGAN_AKTIVITAS_TUTORIAL_RAT.md  # Silabus RAT/SAT &amp; Peta Kompetensi STSI4303
+│   ├── 📝 PANDUAN_TUGAS_TUTORIAL_1_2_3.md      # Skenario Kasus &amp; Rubrik Tugas 1, 2, 3
+│   └── 💬 PANDUAN_DISKUSI_TUTON.md             # Bahan Inisiasi &amp; Pemicu Diskusi Forum 1-8
+│
+├── 📄 .gitignore                            # Konfigurasi Pengabaian Berkas Git
+└── 📄 README.md                             # Dokumentasi Utama Repositori
+</code></pre>
+<hr />
+<h2>📊 Katalog Sesi Perkuliahan (8 Sesi Tuton &amp; 9 Modul BMP)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Sesi</th>
+<th style="text-align:center">Modul BMP</th>
+<th style="text-align:left">Topik Pokok Pembahasan</th>
+<th style="text-align:left">Materi Slide Sesi (PPTX &amp; Naskah)</th>
+<th style="text-align:center">Berkas Kode Mandiri</th>
+<th style="text-align:center">Status &amp; Tagihan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>01</strong></td>
+<td style="text-align:center">Modul 1</td>
+<td style="text-align:left">Pengenalan Lingkungan &amp; Arsitektur Hybrid</td>
+<td style="text-align:left"><a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_01_Pengantar_dan_Lingkungan_Ionic.pptx">⚡ Download S01 (.pptx)</a><br><a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_01_Pengantar_dan_Lingkungan_Ionic.pptx">👁️ Baca Online S01</a><br><a href="slide_presentasi/SESI_01_Pengantar_dan_Lingkungan_Ionic.md">📄 Naskah Slide S01</a></td>
+<td style="text-align:center"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/">📁 18 Berkas Mandiri</a><br>• <a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html">Solusi Lab Quest 01</a></td>
+<td style="text-align:center">✅ <strong>Rilis Lengkap</strong><br>💬 Diskusi 1</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>02</strong></td>
+<td style="text-align:center">Modul 2</td>
+<td style="text-align:left">Frontend Modern Menggunakan Vue.js 3</td>
+<td style="text-align:left"><a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_02_Frontend_Modern_Vue.pptx">⚡ Download S02 (.pptx)</a><br><a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_02_Frontend_Modern_Vue.pptx">👁️ Baca Online S02</a><br><a href="slide_presentasi/SESI_02_Frontend_Modern_Vue.md">📄 Naskah Slide S02</a></td>
+<td style="text-align:center"><a href="contoh_kode_program/sesi_02_vue_frontend/">📁 18 Berkas Mandiri</a><br>• <a href="contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html">Solusi Lab Quest 02</a></td>
+<td style="text-align:center">✅ <strong>Rilis Lengkap</strong><br>💬 Diskusi 2</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>03</strong></td>
+<td style="text-align:center">Modul 3</td>
+<td style="text-align:left">Praktikum 1: TypeScript &amp; Komposisi Vue</td>
+<td style="text-align:left"><a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_03_TypeScript_dan_Komposisi_Vue.pptx">⚡ Download S03 (.pptx)</a><br><a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_03_TypeScript_dan_Komposisi_Vue.pptx">👁️ Baca Online S03</a><br><a href="slide_presentasi/SESI_03_TypeScript_dan_Komposisi_Vue.md">📄 Naskah Slide S03</a></td>
+<td style="text-align:center"><a href="contoh_kode_program/sesi_03_typescript_vue/">📁 18 Berkas Mandiri</a><br>• <a href="contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html">🎯 Solusi Tugas 1</a></td>
+<td style="text-align:center">✅ <strong>Rilis Lengkap</strong><br>🎯 <strong>TUGAS 1 DIBUKA</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>04</strong></td>
+<td style="text-align:center">Modul 4</td>
+<td style="text-align:left">Dasar-Dasar Ionic Framework &amp; Navigasi</td>
+<td style="text-align:left"><a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_04_Dasar_Ionic_dan_Navigasi.pptx">⚡ Download S04 (.pptx)</a><br><a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_04_Dasar_Ionic_dan_Navigasi.pptx">👁️ Baca Online S04</a><br><a href="slide_presentasi/SESI_04_Dasar_Ionic_dan_Navigasi.md">📄 Naskah Slide S04</a></td>
+<td style="text-align:center"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/">📁 18 Berkas Mandiri</a><br>• <a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_17_lab_quest_04_portal_modul_ut.html">Solusi Lab Quest 04</a></td>
+<td style="text-align:center">✅ <strong>Rilis Lengkap</strong><br>💬 Diskusi 4</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>05</strong></td>
+<td style="text-align:center">Modul 5</td>
+<td style="text-align:left">Layout Grid, Dynamic Theme, &amp; Form Regex</td>
+<td style="text-align:left"><a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx">⚡ Download S05 (.pptx)</a><br><a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx">👁️ Baca Online S05</a><br><a href="slide_presentasi/SESI_05_Layout_Grid_Form_Regex_Dark_Mode.md">📄 Naskah Slide S05</a></td>
+<td style="text-align:center"><a href="contoh_kode_program/sesi_05_layout_grid_form/">📁 18 Berkas Mandiri</a><br>• <a href="contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html">🎯 Solusi Tugas 2</a></td>
+<td style="text-align:center">✅ <strong>Rilis Lengkap</strong><br>🎯 <strong>TUGAS 2 DIBUKA</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>06</strong></td>
+<td style="text-align:center">Modul 6-7</td>
+<td style="text-align:left">Capacitor &amp; Integrasi Platform Android</td>
+<td style="text-align:left"><a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_06_Capacitor_Bridge_dan_Android_Studio.pptx">⚡ Download S06 (.pptx)</a><br><a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_06_Capacitor_Bridge_dan_Android_Studio.pptx">👁️ Baca Online S06</a><br><a href="slide_presentasi/SESI_06_Capacitor_Bridge_dan_Android_Studio.md">📄 Naskah Slide S06</a></td>
+<td style="text-align:center"><a href="contoh_kode_program/sesi_06_capacitor_android/">📁 18 Berkas Mandiri</a><br>• <a href="contoh_kode_program/sesi_06_capacitor_android/slide_17_lab_quest_06_bridge_tester.html">Solusi Lab Quest 06</a></td>
+<td style="text-align:center">✅ <strong>Rilis Lengkap</strong><br>💬 Diskusi 6</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>07</strong></td>
+<td style="text-align:center">Modul 8-9</td>
+<td style="text-align:left">REST API, Local Storage, &amp; Native Plugins</td>
+<td style="text-align:left"><a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_07_REST_API_Storage_dan_Native_Plugins.pptx">⚡ Download S07 (.pptx)</a><br><a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_07_REST_API_Storage_dan_Native_Plugins.pptx">👁️ Baca Online S07</a><br><a href="slide_presentasi/SESI_07_REST_API_Storage_dan_Native_Plugins.md">📄 Naskah Slide S07</a></td>
+<td style="text-align:center"><a href="contoh_kode_program/sesi_07_api_storage_plugins/">📁 18 Berkas Mandiri</a><br>• <a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html">🎯 Solusi Tugas 3</a></td>
+<td style="text-align:center">✅ <strong>Rilis Lengkap</strong><br>🎯 <strong>TUGAS 3 DIBUKA</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>08</strong></td>
+<td style="text-align:center">Modul 9</td>
+<td style="text-align:left">Optimasi Kinerja, Build APK Release &amp; UAS</td>
+<td style="text-align:left"><a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.pptx">⚡ Download S08 (.pptx)</a><br><a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.pptx">👁️ Baca Online S08</a><br><a href="slide_presentasi/SESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.md">📄 Naskah Slide S08</a></td>
+<td style="text-align:center"><a href="contoh_kode_program/sesi_08_build_apk_uas/">📁 18 Berkas Mandiri</a><br>• <a href="contoh_kode_program/sesi_08_build_apk_uas/slide_17_lab_quest_08_apk_validator.html">Solusi Lab Quest 08 &amp; 50 Soal UAS</a></td>
+<td style="text-align:center">✅ <strong>Rilis Lengkap</strong><br>🎓 <strong>SEMESTER LENGKAP 100%</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📱 Rincian 18 Berkas Mandiri Sesi 01 (Lingkungan &amp; Tools)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Slide</th>
+<th style="text-align:left">Konsep Materi Pembahasan</th>
+<th style="text-align:left">Tautan Berkas Mandiri (Klik Ganda Langsung Jalan)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Slide 01</strong></td>
+<td style="text-align:left">Kontrak Kuliah, Roadmap 8 Sesi &amp; Aturan Nilai UT</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_01_kontrak_dan_roadmap.html">🌐 <code>slide_01_kontrak_dan_roadmap.html</code></a> <em>(Skrip: <a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_01_kontrak_dan_roadmap.js"><code>.js</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 02</strong></td>
+<td style="text-align:left">Kalkulator Efisiensi: Mengapa Industri &amp; UT Memilih Hybrid?</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_02_relevansi_mobile_hybrid.html">🌐 <code>slide_02_relevansi_mobile_hybrid.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 03</strong></td>
+<td style="text-align:left">Komparasi Interaktif: Native vs Hybrid vs Cross-Platform</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_03_komparasi_arsitektur_mobile.html">🌐 <code>slide_03_komparasi_arsitektur_mobile.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 04</strong></td>
+<td style="text-align:left">Menjalankan Komponen Asli Ionic UI via CDN Bebas Instalasi</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_04_ekosistem_ionic_web_standards.html">🌐 <code>slide_04_ekosistem_ionic_web_standards.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 05</strong></td>
+<td style="text-align:left">Panduan Alat Tempur: Node.js LTS, Git, VS Code, &amp; Ionic CLI</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_05_panduan_instalasi_tools.html">🌐 <code>slide_05_panduan_instalasi_tools.html</code></a> <em>(Skrip: <a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_05_panduan_instalasi_tools.js"><code>.js</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 06</strong></td>
+<td style="text-align:left">Skrip Diagnostik Otomatis Pemeriksa Kesiapan RAM &amp; Software</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_06_diagnostik_environment.html">🌐 <code>slide_06_diagnostik_environment.html</code></a> <em>(Skrip: <a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_06_diagnostik_environment.js"><code>.js</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 07</strong></td>
+<td style="text-align:left">Anatomi Aplikasi Hybrid: HTML (Tulang), CSS (Baju), JS (Saraf)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_07_anatomi_hybrid_app.html">🌐 <code>slide_07_anatomi_hybrid_app.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 08</strong></td>
+<td style="text-align:left">Aplikasi Mobile Pertama: Mockup MyUT dengan Touch Event</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_08_hello_hybrid_app.html">🌐 <code>slide_08_hello_hybrid_app.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 09</strong></td>
+<td style="text-align:left">3 Langkah Menguji Layar HP di Chrome (<code>F12</code> &amp; <code>Ctrl+Shift+M</code>)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_09_chrome_device_toolbar_guide.html">🌐 <code>slide_09_chrome_device_toolbar_guide.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 10</strong></td>
+<td style="text-align:left">Bukti Krusial Viewport Meta Tag (Skala 1:1 Layar Ponsel)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_10_viewport_meta_scaling.html">🌐 <code>slide_10_viewport_meta_scaling.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 11</strong></td>
+<td style="text-align:left">Simulator &amp; Penjelasan 5 Perintah Sakti Ionic CLI</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_11_ionic_cli_simulator.html">🌐 <code>slide_11_ionic_cli_simulator.html</code></a> <em>(Skrip: <a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_11_ionic_cli_simulator.js"><code>.js</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 12</strong></td>
+<td style="text-align:left">Peta Folder Proyek Ionic Vue (<code>src/views</code>, <code>src/theme</code>, dll.)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_12_struktur_folder_proyek.html">🌐 <code>slide_12_struktur_folder_proyek.html</code></a> <em>(Skrip: <a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_12_struktur_folder_proyek.js"><code>.js</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 13</strong></td>
+<td style="text-align:left">Panduan Praktis USB Debugging + <code>scrcpy</code> (Hemat RAM &lt; 70MB)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_13_usb_debugging_scrcpy_guide.html">🌐 <code>slide_13_usb_debugging_scrcpy_guide.html</code></a> <em>(Panduan: <a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_13_usb_debugging_scrcpy_guide.md"><code>.md</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 14</strong></td>
+<td style="text-align:left">Simulasi Cara Kerja Hot Module Replacement (HMR) &amp; Live Reload</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_14_hmr_live_reload_demo.html">🌐 <code>slide_14_hmr_live_reload_demo.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 15</strong></td>
+<td style="text-align:left">Pertolongan Pertama: Solusi Error PowerShell <code>PSSecurityException</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_15_troubleshooting_powershell_cli.html">🌐 <code>slide_15_troubleshooting_powershell_cli.html</code></a> <em>(Panduan: <a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_15_troubleshooting_powershell_cli.md"><code>.md</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 16</strong></td>
+<td style="text-align:left">Cheatsheet Perintah Esensial Terminal &amp; Git untuk Tugas Kuliah</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_16_cheatsheet_terminal_git.html">🌐 <code>slide_16_cheatsheet_terminal_git.html</code></a> <em>(Panduan: <a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_16_cheatsheet_terminal_git.md"><code>.md</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 17</strong></td>
+<td style="text-align:left"><strong>🎯 MASTER SOLUSI LAB QUEST 01:</strong> KTM Digital Mahasiswa UT</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html">🌐 <code>slide_17_lab_quest_01_profil_mahasiswa.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 18</strong></td>
+<td style="text-align:left">Jembatan Sesi 02: Membandingkan DOM Kuno vs Vue.js 3 Reaktif</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_18_preview_sesi_02_vue.html">🌐 <code>slide_18_preview_sesi_02_vue.html</code></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📱 Rincian 18 Berkas Mandiri Sesi 02 (Frontend Modern Vue.js 3)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Slide</th>
+<th style="text-align:left">Konsep Materi Pembahasan &amp; Diagram Arsitektur</th>
+<th style="text-align:left">Tautan Berkas Mandiri (Siap Run di Chrome)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Slide 01</strong></td>
+<td style="text-align:left">Paradigma: Komparasi Berdampingan Vanilla JS DOM vs Vue 3 (Diagram Spaghetti vs Reaktif)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_01_paradigma_imperatif_vs_deklaratif.html">🌐 <code>slide_01_paradigma_imperatif_vs_deklaratif.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 02</strong></td>
+<td style="text-align:left">Reaktivitas Primitif: <code>ref()</code> dan Unboxing Otomatis <code>.value</code> (Diagram Getter/Setter Wadah)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_02_sistem_reaktivitas_ref.html">🌐 <code>slide_02_sistem_reaktivitas_ref.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 03</strong></td>
+<td style="text-align:left">Reaktivitas Objek: <code>reactive()</code> &amp; Mekanisme ES6 Proxy (Diagram Interceptor Trap)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_03_reaktivitas_objek_reactive.html">🌐 <code>slide_03_reaktivitas_objek_reactive.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 04</strong></td>
+<td style="text-align:left">Text Interpolation <code>{{ }}</code> &amp; Pengikatan Dinamis <code>v-bind</code> (<code>:</code>) (Diagram Binding Alur)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_04_text_interpolation_v_bind.html">🌐 <code>slide_04_text_interpolation_v_bind.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 05</strong></td>
+<td style="text-align:left">Form Masukan Dua Arah <code>v-model</code> &amp; Modifiers (<code>.trim</code>, <code>.number</code>) (Diagram Sinkronisasi)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_05_two_way_binding_v_model.html">🌐 <code>slide_05_two_way_binding_v_model.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 06</strong></td>
+<td style="text-align:left">Bedah Performa Memori: <code>v-if</code> (Bongkar DOM) vs <code>v-show</code> (CSS Toggle) (Diagram DOM vs CSS)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_06_conditional_v_if_vs_v_show.html">🌐 <code>slide_06_conditional_v_if_vs_v_show.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 07</strong></td>
+<td style="text-align:left">Render List <code>v-for</code> &amp; Urgensi Atribut <code>:key</code> Identitas Unik (Diagram VDOM Diffing)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_07_list_rendering_v_for_dan_key.html">🌐 <code>slide_07_list_rendering_v_for_dan_key.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 08</strong></td>
+<td style="text-align:left">Penanganan Event (<code>@click</code>) &amp; Modifiers (<code>.prevent</code>, <code>.stop</code>) (Diagram Event Bubbling)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_08_event_handling_dan_modifiers.html">🌐 <code>slide_08_event_handling_dan_modifiers.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 09</strong></td>
+<td style="text-align:left">Properti Terkalkulasi <code>computed()</code> &amp; Efisiensi Caching Nilai IPS (Diagram Caching Pipeline)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_09_computed_properties_ips.html">🌐 <code>slide_09_computed_properties_ips.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 10</strong></td>
+<td style="text-align:left">Pemantau Data <code>watch()</code> &amp; Side Effects (Auto-Save <code>localStorage</code> &amp; Debouncing 500ms)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_10_watchers_dan_side_effects.html">🌐 <code>slide_10_watchers_dan_side_effects.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 11</strong></td>
+<td style="text-align:left">Siklus Hidup: <code>onMounted</code>, <code>onUpdated</code>, &amp; <code>onUnmounted</code> (Timeline 4 Fase &amp; Memory Cleanup)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_11_lifecycle_hooks_onmounted.html">🌐 <code>slide_11_lifecycle_hooks_onmounted.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 12</strong></td>
+<td style="text-align:left">Anatomi Single File Component (<code>&lt;template&gt;</code>, <code>&lt;script&gt;</code>, <code>&lt;style&gt;</code>) (Diagram SFC Compiler)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_12_komposisi_komponen_sfc.html">🌐 <code>slide_12_komposisi_komponen_sfc.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 13</strong></td>
+<td style="text-align:left">Komunikasi Induk ke Anak: Aliran Data Satu Arah via <code>props</code> (Diagram Props Down)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_13_props_aliran_data_induk_anak.html">🌐 <code>slide_13_props_aliran_data_induk_anak.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 14</strong></td>
+<td style="text-align:left">Komunikasi Anak ke Induk: Sinyal Custom Events via <code>emit()</code> (Diagram Events Up)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_14_emits_komunikasi_anak_ke_induk.html">🌐 <code>slide_14_emits_komunikasi_anak_ke_induk.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 15</strong></td>
+<td style="text-align:left">Proyeksi Konten Fleksibel: Default Slot &amp; Named Slots (<code>&lt;slot&gt;</code>) (Diagram Shell &amp; Injection)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_15_slots_proyeksi_konten_fleksibel.html">🌐 <code>slide_15_slots_proyeksi_konten_fleksibel.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 16</strong></td>
+<td style="text-align:left">Clean Architecture: State Reusable Composable (<code>useKRSManager</code>) (Diagram Separation of Concerns)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_16_state_reusable_composables.html">🌐 <code>slide_16_state_reusable_composables.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 17</strong></td>
+<td style="text-align:left"><strong>🎯 MASTER SOLUSI LAB QUEST 02:</strong> Mini-SIA KRS Mandiri Mahasiswa UT (Arsitektur Terpadu)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html">🌐 <code>slide_17_lab_quest_02_krs_interaktif.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 18</strong></td>
+<td style="text-align:left">Jembatan Sesi 03: Mengapa Butuh TypeScript Interface? (Diagram Runtime Crash vs Type Guard)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_02_vue_frontend/slide_18_preview_sesi_03_typescript.html">🌐 <code>slide_18_preview_sesi_03_typescript.html</code></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📱 Rincian 18 Berkas Mandiri Sesi 03 (TypeScript &amp; Komposisi Vue — TUGAS 1)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Slide</th>
+<th style="text-align:left">Konsep Materi Pembahasan</th>
+<th style="text-align:left">Tautan Berkas Mandiri (Siap Run di Chrome)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Slide 01</strong></td>
+<td style="text-align:left">Roadmap Sesi 03 &amp; Orientasi Tagihan Resmi Tugas Tutorial 1</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_01_roadmap_sesi_dan_tugas_1.html">🌐 <code>slide_01_roadmap_sesi_dan_tugas_1.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 02</strong></td>
+<td style="text-align:left">Urgensi TypeScript: Mencegah Bug Runtime Typo di Ponsel</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_02_urgensi_typescript_mobile.html">🌐 <code>slide_02_urgensi_typescript_mobile.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 03</strong></td>
+<td style="text-align:left">Tipe Primitif (<code>string</code>, <code>number</code>, <code>boolean</code>) &amp; Bahaya <code>any</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_03_tipe_primitif_dan_any_hazard.html">🌐 <code>slide_03_tipe_primitif_dan_any_hazard.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 04</strong></td>
+<td style="text-align:left">Union &amp; Literal Types: Mengunci Pilihan Status Akademik UT</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_04_union_dan_literal_types.html">🌐 <code>slide_04_union_dan_literal_types.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 05</strong></td>
+<td style="text-align:left">Kontrak Data Model Interface <code>MahasiswaUT</code> &amp; <code>MataKuliah</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_05_interface_model_mahasiswa.html">🌐 <code>slide_05_interface_model_mahasiswa.html</code></a> <em>(Model TS: <a href="contoh_kode_program/sesi_03_typescript_vue/slide_05_interface_model_mahasiswa.ts"><code>.ts</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 06</strong></td>
+<td style="text-align:left">Properti Opsional (<code>?</code>) &amp; Mutlak Tak-Terubah (<code>readonly nim</code>)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_06_optional_dan_readonly_properties.html">🌐 <code>slide_06_optional_dan_readonly_properties.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 07</strong></td>
+<td style="text-align:left">Generics Koleksi: <code>Array&lt;MataKuliah&gt;</code> vs <code>MataKuliah[]</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_07_generics_array_koleksi.html">🌐 <code>slide_07_generics_array_koleksi.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 08</strong></td>
+<td style="text-align:left">Anotasi Tipe Fungsi: Parameter Ketat &amp; Return Type Eksplisit</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_08_fungsi_type_annotation.html">🌐 <code>slide_08_fungsi_type_annotation.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 09</strong></td>
+<td style="text-align:left">Integrasi Vue 3 SFC: <code>&lt;script setup lang=&quot;ts&quot;&gt;</code> Modern</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_09_vue3_script_setup_lang_ts.html">🌐 <code>slide_09_vue3_script_setup_lang_ts.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 10</strong></td>
+<td style="text-align:left">Deklarasi Reaktivitas Bertipe: <code>ref&lt;T&gt;</code> vs <code>reactive&lt;T&gt;</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_10_typing_ref_dan_reactive.html">🌐 <code>slide_10_typing_ref_dan_reactive.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 11</strong></td>
+<td style="text-align:left">Mengelola Array Koleksi Bertipe: <code>ref&lt;MataKuliah[]&gt;</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_11_typing_koleksi_array_reaktif.html">🌐 <code>slide_11_typing_koleksi_array_reaktif.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 12</strong></td>
+<td style="text-align:left">Type Safety Properti Terkalkulasi: <code>computed&lt;T&gt;()</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_12_typing_computed_properties.html">🌐 <code>slide_12_typing_computed_properties.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 13</strong></td>
+<td style="text-align:left">Deklarasi Props Komponen Bertipe: <code>defineProps&lt;T&gt;()</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_13_typing_props_komponen.html">🌐 <code>slide_13_typing_props_komponen.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 14</strong></td>
+<td style="text-align:left">Deklarasi Emits Komponen Bertipe: <code>defineEmits&lt;T&gt;()</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_14_typing_emits_komponen.html">🌐 <code>slide_14_typing_emits_komponen.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 15</strong></td>
+<td style="text-align:left">Penanganan Event Masukan DOM Bertipe (<code>Event</code>, <code>KeyboardEvent</code>)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_15_typing_dom_events.html">🌐 <code>slide_15_typing_dom_events.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 16</strong></td>
+<td style="text-align:left"><strong>Kalkulator Skor Rubrik Resmi TUGAS TUTORIAL 1 (0-100)</strong></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.html">🌐 <code>slide_16_rubrik_tugas_tutorial_1.html</code></a> <em>(Panduan: <a href="contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.md"><code>.md</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 17</strong></td>
+<td style="text-align:left"><strong>🎯 MASTER SOLUSI RESMI TUGAS 1:</strong> Kalkulator Nilai &amp; IPS UT</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html">🌐 <code>slide_17_solusi_tugas_1_kalkulator_nilai.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 18</strong></td>
+<td style="text-align:left">Jembatan Sesi 04: Transisi Menuju Komponen Mobile Ionic UI</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_03_typescript_vue/slide_18_preview_sesi_04_ionic_ui.html">🌐 <code>slide_18_preview_sesi_04_ionic_ui.html</code></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📱 Rincian 18 Berkas Mandiri Sesi 04 (Dasar Ionic Framework &amp; Navigasi)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Slide</th>
+<th style="text-align:left">Konsep Materi Pembahasan</th>
+<th style="text-align:left">Tautan Berkas Mandiri (Siap Run)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Slide 01</strong></td>
+<td style="text-align:left">Pengenalan Ekosistem Ionic UI Toolkit vs Web Standar</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_01_pengenalan_ekosistem_ionic.html">🌐 <code>slide_01_pengenalan_ekosistem_ionic.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 02</strong></td>
+<td style="text-align:left">Adaptive Styling: Material Design (Android) vs Cupertino (iOS)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_02_adaptive_styling_md_ios.html">🌐 <code>slide_02_adaptive_styling_md_ios.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 03</strong></td>
+<td style="text-align:left">Anatomi Baku Halaman: <code>ion-app</code>, <code>ion-page</code>, <code>ion-header</code>, <code>ion-content</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_03_anatomi_halaman_ion_page.html">🌐 <code>slide_03_anatomi_halaman_ion_page.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 04</strong></td>
+<td style="text-align:left">Palet Warna Semantik: <code>primary</code>, <code>secondary</code>, <code>success</code>, <code>danger</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_04_palet_warna_tema_mobile.html">🌐 <code>slide_04_palet_warna_tema_mobile.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 05</strong></td>
+<td style="text-align:left">Variasi Tombol: <code>expand=&quot;block&quot;</code>, <code>fill=&quot;outline&quot;</code>, <code>shape=&quot;round&quot;</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_05_variasi_tombol_ion_button.html">🌐 <code>slide_05_variasi_tombol_ion_button.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 06</strong></td>
+<td style="text-align:left">Kartu Informasi: <code>ion-card</code>, <code>ion-card-header</code>, <code>ion-card-title</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_06_kartu_informasi_ion_card.html">🌐 <code>slide_06_kartu_informasi_ion_card.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 07</strong></td>
+<td style="text-align:left">Identitas Visual Mobile: <code>ion-avatar</code>, <code>ion-badge</code>, &amp; <code>ion-chip</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_07_avatar_badge_dan_chip.html">🌐 <code>slide_07_avatar_badge_dan_chip.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 08</strong></td>
+<td style="text-align:left">Pengelolaan Daftar Kolektif: <code>ion-list</code> &amp; Arsitektur Slot <code>ion-item</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_08_daftar_list_dan_item.html">🌐 <code>slide_08_daftar_list_dan_item.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 09</strong></td>
+<td style="text-align:left">Ikonografi Mobile dengan Ribuan Koleksi Resmi Ionicons</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_09_ikonografi_ionicons.html">🌐 <code>slide_09_ikonografi_ionicons.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 10</strong></td>
+<td style="text-align:left">Filosofi Stack Navigation: Mengapa Mobile Memakai LIFO Stack</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_10_filosofi_stack_navigation.html">🌐 <code>slide_10_filosofi_stack_navigation.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 11</strong></td>
+<td style="text-align:left">Konfigurasi Perutean: <code>@ionic/vue-router</code> &amp; <code>&lt;ion-router-outlet&gt;</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_11_struktur_ionic_vue_router.html">🌐 <code>slide_11_struktur_ionic_vue_router.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 12</strong></td>
+<td style="text-align:left">Transisi Antar Layar: <code>useRouter().push()</code> &amp; Parameter URL <code>:kode</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_12_pindah_halaman_dan_parameter.html">🌐 <code>slide_12_pindah_halaman_dan_parameter.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 13</strong></td>
+<td style="text-align:left">Tombol Kembali Alami: <code>&lt;ion-back-button&gt;</code> &amp; Kewajiban <code>default-href</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_13_tombol_kembali_back_button.html">🌐 <code>slide_13_tombol_kembali_back_button.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 14</strong></td>
+<td style="text-align:left">Siklus Hidup Masuk Halaman: <code>ionViewWillEnter</code> vs <code>ionViewDidEnter</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_14_siklus_hidup_masuk_halaman.html">🌐 <code>slide_14_siklus_hidup_masuk_halaman.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 15</strong></td>
+<td style="text-align:left">Siklus Hidup Keluar: Mencegah Kebocoran Memori &amp; Menghemat Baterai</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_15_siklus_hidup_keluar_halaman.html">🌐 <code>slide_15_siklus_hidup_keluar_halaman.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 16</strong></td>
+<td style="text-align:left"><strong>Konsol Diagnostik Interaktif &amp; Solusi Masalah Perutean</strong></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_16_troubleshooting_routing_ionic.html">🌐 <code>slide_16_troubleshooting_routing_ionic.html</code></a> <em>(Panduan: <a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_16_troubleshooting_routing_ionic.md"><code>.md</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 17</strong></td>
+<td style="text-align:left"><strong>🎯 MASTER SOLUSI LAB QUEST 04:</strong> Portal Modul BMP UT Multi-Halaman</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_17_lab_quest_04_portal_modul_ut.html">🌐 <code>slide_17_lab_quest_04_portal_modul_ut.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 18</strong></td>
+<td style="text-align:left">Jembatan Sesi 05: Responsive 12-Grid, Form Regex, &amp; Pengarahan Tugas 2</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_18_preview_sesi_05_layout_grid_form.html">🌐 <code>slide_18_preview_sesi_05_layout_grid_form.html</code></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📱 Rincian 18 Berkas Mandiri Sesi 05 (Layout Grid, Form Regex, &amp; Theming — TUGAS 2)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Slide</th>
+<th style="text-align:left">Konsep Materi Pembahasan</th>
+<th style="text-align:left">Tautan Berkas Mandiri (Siap Run)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Slide 01</strong></td>
+<td style="text-align:left">Roadmap Sesi 05, Sub-CPMK 5 &amp; Pengumuman Resmi Tugas Tutorial 2</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_01_orientasi_sesi_dan_tugas_2.html">🌐 <code>slide_01_orientasi_sesi_dan_tugas_2.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 02</strong></td>
+<td style="text-align:left">Konsep Sistem 12-Kolom: <code>ion-grid</code>, <code>ion-row</code>, <code>ion-col</code> Berbasis Flexbox</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_02_konsep_12_kolom_ion_grid.html">🌐 <code>slide_02_konsep_12_kolom_ion_grid.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 03</strong></td>
+<td style="text-align:left">Titik Henti Responsif (<code>size</code>, <code>size-sm</code>, <code>size-md</code>, <code>size-lg</code>) Ponsel vs Tablet</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_03_grid_responsif_breakpoints.html">🌐 <code>slide_03_grid_responsif_breakpoints.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 04</strong></td>
+<td style="text-align:left">Perataan Posisi Kolom (Alignment) &amp; Offset Centering Kartu Formulir</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_04_alignment_dan_offset_grid.html">🌐 <code>slide_04_alignment_dan_offset_grid.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 05</strong></td>
+<td style="text-align:left">Kontrol <code>ion-input</code> dengan Floating Label, Clear-Button, Inputmode Numeric</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_05_kontrol_input_teks_ion_input.html">🌐 <code>slide_05_kontrol_input_teks_ion_input.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 06</strong></td>
+<td style="text-align:left">Pilihan Prodi <code>ion-select</code> (Action-Sheet) &amp; Alamat Domisili <code>ion-textarea</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_06_area_teks_dan_pilihan_dropdown.html">🌐 <code>slide_06_area_teks_dan_pilihan_dropdown.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 07</strong></td>
+<td style="text-align:left">Kontrol Pilihan: <code>ion-toggle</code>, <code>ion-checkbox</code> Etika, &amp; <code>ion-radio</code> Jalur SIPAS</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_07_sakelar_toggle_checkbox_radio.html">🌐 <code>slide_07_sakelar_toggle_checkbox_radio.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 08</strong></td>
+<td style="text-align:left">Kalender Tanggal Lahir <code>ion-datetime</code> Lokalisasi Indonesia (<code>id-ID</code>)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_08_pemilih_tanggal_ion_datetime.html">🌐 <code>slide_08_pemilih_tanggal_ion_datetime.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 09</strong></td>
+<td style="text-align:left">Prinsip Validasi Reaktif: Status Pristine, Dirty, Touched, &amp; Pesan Error</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_09_prinsip_validasi_reaktif_form.html">🌐 <code>slide_09_prinsip_validasi_reaktif_form.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 10</strong></td>
+<td style="text-align:left">Bedah Formula Regex NIM UT: <code>/^[0-9]{9}$/</code> Penegakan Tepat 9 Digit Angka</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_10_validasi_regex_nim_9_digit.html">🌐 <code>slide_10_validasi_regex_nim_9_digit.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 11</strong></td>
+<td style="text-align:left">Bedah Formula Regex Email Kampus: <code>/^[a-zA-Z0-9._%+-]+@ecampus\.ut\.ac\.id$/</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_11_validasi_regex_email_ecampus_ut.html">🌐 <code>slide_11_validasi_regex_email_ecampus_ut.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 12</strong></td>
+<td style="text-align:left">Umpan Balik Halus: Notifikasi Pop-up Bawah <code>&lt;ion-toast&gt;</code> dengan Variasi Warna</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_12_notifikasi_mengambang_ion_toast.html">🌐 <code>slide_12_notifikasi_mengambang_ion_toast.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 13</strong></td>
+<td style="text-align:left">Dialog Modal Konfirmasi Submit Berkas Pendaftaran <code>&lt;ion-alert&gt;</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_13_dialog_konfirmasi_ion_alert.html">🌐 <code>slide_13_dialog_konfirmasi_ion_alert.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 14</strong></td>
+<td style="text-align:left">Teori Theming: Variabel Global CSS Ionic &amp; Adaptasi prefers-color-scheme</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_14_arsitektur_tema_gelap_dark_mode.html">🌐 <code>slide_14_arsitektur_tema_gelap_dark_mode.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 15</strong></td>
+<td style="text-align:left">Sakelar Tema Gelap Real-Time dengan Kelas <code>.dark</code> &amp; Penyimpanan LocalStorage</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_15_sakelar_tema_dinamis_dark_light.html">🌐 <code>slide_15_sakelar_tema_dinamis_dark_light.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 16</strong></td>
+<td style="text-align:left"><strong>Kalkulator Skor Rubrik Resmi TUGAS TUTORIAL 2 (0-100)</strong></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.html">🌐 <code>slide_16_rubrik_tugas_tutorial_2.html</code></a> <em>(Panduan: <a href="contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.md"><code>.md</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 17</strong></td>
+<td style="text-align:left"><strong>🎯 MASTER SOLUSI RESMI TUGAS 2:</strong> Portal Layanan &amp; KTM Digital</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html">🌐 <code>slide_17_solusi_tugas_2_portal_ktm_registrasi.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 18</strong></td>
+<td style="text-align:left">Jembatan Sesi 06: Capacitor Runtime Bridge, Android Studio, &amp; USB Debugging</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_05_layout_grid_form/slide_18_preview_sesi_06_capacitor_android.html">🌐 <code>slide_18_preview_sesi_06_capacitor_android.html</code></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📱 Rincian 18 Berkas Mandiri Sesi 06 (Capacitor Runtime Bridge &amp; Android Studio)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Slide</th>
+<th style="text-align:left">Konsep Materi Pembahasan</th>
+<th style="text-align:left">Tautan Berkas Mandiri (Siap Run di Chrome)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Slide 01</strong></td>
+<td style="text-align:left">Orientasi Sesi 06, Sub-CPMK 6 &amp; Roadmap Transformasi ke Native Android</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_01_orientasi_sesi_06_bridge.html">🌐 <code>slide_01_orientasi_sesi_06_bridge.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 02</strong></td>
+<td style="text-align:left">Komparasi Filosofi: Apache Cordova (Black-box) vs Capacitor (Source-first)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_02_komparasi_capacitor_vs_cordova.html">🌐 <code>slide_02_komparasi_capacitor_vs_cordova.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 03</strong></td>
+<td style="text-align:left">Mekanisme Jembatan: Pesan Dua Arah JS ↔ Java/Kotlin &amp; Simulator RPC</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_03_cara_kerja_runtime_bridge.html">🌐 <code>slide_03_cara_kerja_runtime_bridge.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 04</strong></td>
+<td style="text-align:left">Generator &amp; Validator <code>capacitor.config.ts</code>: Penegakan Reverse-Domain appId</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_04_konfigurasi_capacitor_config.html">🌐 <code>slide_04_konfigurasi_capacitor_config.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 05</strong></td>
+<td style="text-align:left">Alur 4 Perintah CLI: <code>build</code>, <code>add android</code>, <code>sync</code>, &amp; <code>open android</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_05_alur_perintah_cli_capacitor.html">🌐 <code>slide_05_alur_perintah_cli_capacitor.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 06</strong></td>
+<td style="text-align:left">Visual Tree Explorer: Bedah Struktur Folder <code>android/</code>, <code>app/</code>, <code>res/</code>, <code>manifest</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_06_anatomi_folder_android.html">🌐 <code>slide_06_anatomi_folder_android.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 07</strong></td>
+<td style="text-align:left">Konfigurasi <code>build.gradle</code>: <code>minSdk</code>, <code>targetSdk</code>, <code>compileSdk</code>, <code>versionCode</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_07_konfigurasi_build_gradle.html">🌐 <code>slide_07_konfigurasi_build_gradle.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 08</strong></td>
+<td style="text-align:left">Anatomi <code>AndroidManifest.xml</code>: Izin Hardware, Orientasi &amp; Cleartext Traffic</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_08_anatomi_android_manifest.html">🌐 <code>slide_08_anatomi_android_manifest.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 09</strong></td>
+<td style="text-align:left">Pola Runtime Permissions: <code>checkPermissions()</code> &amp; <code>requestPermissions()</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_09_manajemen_runtime_permissions.html">🌐 <code>slide_09_manajemen_runtime_permissions.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 10</strong></td>
+<td style="text-align:left">Peta Instrumen Android Studio: Toolbar, Gradle Sync, Target Device &amp; Logcat</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_10_pengenalan_android_studio.html">🌐 <code>slide_10_pengenalan_android_studio.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 11</strong></td>
+<td style="text-align:left">Solusi RAM 4–8GB: Kalkulator Beban RAM Emulator (4GB) vs HP Fisik (50MB)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_11_dilema_ram_emulator_vs_device.html">🌐 <code>slide_11_dilema_ram_emulator_vs_device.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 12</strong></td>
+<td style="text-align:left">Panduan Praktis Aktivasi Opsi Pengembang &amp; USB Debugging Semua Merk HP</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_12_panduan_usb_debugging_android.html">🌐 <code>slide_12_panduan_usb_debugging_android.html</code></a> <em>(Panduan: <a href="contoh_kode_program/sesi_06_capacitor_android/slide_12_panduan_usb_debugging_android.md"><code>.md</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 13</strong></td>
+<td style="text-align:left">Mirroring Layar HP Tanpa Lag &amp; Perekam Video Demo via <code>scrcpy</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_13_panduan_scrcpy_mirroring.html">🌐 <code>slide_13_panduan_scrcpy_mirroring.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 14</strong></td>
+<td style="text-align:left">Remote Debugging WebView Menggunakan <code>chrome://inspect</code> Desktop</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_14_chrome_remote_debugging_inspect.html">🌐 <code>slide_14_chrome_remote_debugging_inspect.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 15</strong></td>
+<td style="text-align:left">Keamanan Arsitektur Hybrid: Hardening WebView, Pencegahan XSS &amp; Skema HTTPS</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_15_keamanan_webview_dan_xss.html">🌐 <code>slide_15_keamanan_webview_dan_xss.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 16</strong></td>
+<td style="text-align:left"><strong>Konsol Diagnostik &amp; Solusi 6 Error Android: JDK Mismatch, AAPT2, ADB, OOM</strong></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_16_troubleshooting_build_android.html">🌐 <code>slide_16_troubleshooting_build_android.html</code></a> <em>(Panduan: <a href="contoh_kode_program/sesi_06_capacitor_android/slide_16_troubleshooting_build_android.md"><code>.md</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 17</strong></td>
+<td style="text-align:left"><strong>🎯 MASTER SOLUSI LAB QUEST 06:</strong> Capacitor Bridge &amp; Platform Inspector</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_17_lab_quest_06_bridge_tester.html">🌐 <code>slide_17_lab_quest_06_bridge_tester.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 18</strong></td>
+<td style="text-align:left"><strong>Jembatan Sesi 07:</strong> REST API, Offline Storage &amp; Pembukaan TUGAS TUTORIAL 3</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_06_capacitor_android/slide_18_preview_sesi_07_api_storage.html">🌐 <code>slide_18_preview_sesi_07_api_storage.html</code></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📱 Rincian 18 Berkas Mandiri Sesi 07 (REST API, Storage, &amp; TUGAS TUTORIAL 3)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Slide</th>
+<th style="text-align:left">Konsep Materi Pembahasan</th>
+<th style="text-align:left">Tautan Berkas Mandiri (Siap Run di Chrome)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Slide 01</strong></td>
+<td style="text-align:left">Roadmap Sesi 07, Sub-CPMK 7 &amp; Pengumuman Akbar TUGAS TUTORIAL 3 (20%)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_01_orientasi_sesi_dan_tugas_3.html">🌐 <code>slide_01_orientasi_sesi_dan_tugas_3.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 02</strong></td>
+<td style="text-align:left">Anatomi REST API: Client-Server, HTTP Methods (GET/POST/PUT/DELETE), &amp; Status Codes</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_02_konsep_rest_api_asinkron.html">🌐 <code>slide_02_konsep_rest_api_asinkron.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 03</strong></td>
+<td style="text-align:left">Eksekusi HTTP Modern: <code>fetch()</code>, <code>async/await</code>, &amp; Error Handling <code>try-catch-finally</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_03_fetch_api_dan_async_await.html">🌐 <code>slide_03_fetch_api_dan_async_await.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 04</strong></td>
+<td style="text-align:left">UX Asinkron: Mengelola State <code>isLoading</code>, <code>&lt;ion-spinner&gt;</code>, &amp; <code>&lt;ion-skeleton-text&gt;</code> Shimmer</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_04_indikator_pemuatan_loading.html">🌐 <code>slide_04_indikator_pemuatan_loading.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 05</strong></td>
+<td style="text-align:left">Live Demo REST API Publik: Data Cuaca Sentra Kampus UT via Open-Meteo (No API Key)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_05_integrasi_live_api_cuaca.html">🌐 <code>slide_05_integrasi_live_api_cuaca.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 06</strong></td>
+<td style="text-align:left">Matriks Spektrum Storage: RAM vs LocalStorage vs IndexedDB vs SQLite vs Preferences</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_06_komparasi_opsi_penyimpanan_mobile.html">🌐 <code>slide_06_komparasi_opsi_penyimpanan_mobile.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 07</strong></td>
+<td style="text-align:left">Operasi CRUD Storage Persisten: <code>Preferences.set()</code>, <code>get()</code>, <code>remove()</code>, &amp; <code>clear()</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_07_capacitor_preferences_kv.html">🌐 <code>slide_07_capacitor_preferences_kv.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 08</strong></td>
+<td style="text-align:left">Serialisasi Data Kompleks: Menyimpan &amp; Memulihkan Objek via <code>JSON.stringify</code> / <code>parse</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_08_serialisasi_objek_json_storage.html">🌐 <code>slide_08_serialisasi_objek_json_storage.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 09</strong></td>
+<td style="text-align:left">Pola Offline-First: Strategi Cache-First vs Network-First saat Ponsel Hilang Sinyal</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_09_arsitektur_offline_first_caching.html">🌐 <code>slide_09_arsitektur_offline_first_caching.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 10</strong></td>
+<td style="text-align:left">Integrasi Sensor 1: Mengunci Koordinat Lintang &amp; Bujur via <code>@capacitor/geolocation</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_10_plugin_geolocation_koordinat.html">🌐 <code>slide_10_plugin_geolocation_koordinat.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 11</strong></td>
+<td style="text-align:left">Algoritma Geofencing: Rumus Haversine untuk Memvalidasi Radius Presensi Mahasiswa</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_11_geofencing_validasi_lokasi_ut.html">🌐 <code>slide_11_geofencing_validasi_lokasi_ut.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 12</strong></td>
+<td style="text-align:left">Integrasi Sensor 2: Mengambil Foto Bukti Belajar / Scan Dokumen via <code>@capacitor/camera</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_12_plugin_camera_capture_photo.html">🌐 <code>slide_12_plugin_camera_capture_photo.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 13</strong></td>
+<td style="text-align:left">Monitoring Sinyal Real-Time: Deteksi Otomatis Event Online/Offline via <code>@capacitor/network</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_13_plugin_network_status_detection.html">🌐 <code>slide_13_plugin_network_status_detection.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 14</strong></td>
+<td style="text-align:left">Clean Architecture: Memisahkan Logika Bisnis ke Layer Service (<code>studyTrackerService.ts</code>)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_14_clean_architecture_service_pattern.html">🌐 <code>slide_14_clean_architecture_service_pattern.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 15</strong></td>
+<td style="text-align:left">Keamanan REST API: Manajemen Token JWT, Header <code>Authorization: Bearer</code>, &amp; Penanganan 401</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_15_keamanan_token_jwt_dan_interceptor.html">🌐 <code>slide_15_keamanan_token_jwt_dan_interceptor.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 16</strong></td>
+<td style="text-align:left"><strong>Kalkulator Skor Rubrik Resmi TUGAS TUTORIAL 3 (0–100)</strong></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.html">🌐 <code>slide_16_rubrik_tugas_tutorial_3.html</code></a> <em>(Panduan: <a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.md"><code>.md</code></a>)</em></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 17</strong></td>
+<td style="text-align:left"><strong>🎯 MASTER SOLUSI RESMI TUGAS TUTORIAL 3:</strong> UT Study Tracker &amp; Presensi Mobile</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html">🌐 <code>slide_17_solusi_tugas_3_study_tracker.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 18</strong></td>
+<td style="text-align:left"><strong>Jembatan Sesi 08:</strong> Finalisasi Rilis APK Stand-alone, Keystore, &amp; 50 Bank Soal UAS</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_18_preview_sesi_08_build_apk_uas.html">🌐 <code>slide_18_preview_sesi_08_build_apk_uas.html</code></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📱 Rincian 18 Berkas Mandiri Sesi 08 (Build APK Release &amp; 50 Bank Soal UAS)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Slide</th>
+<th style="text-align:left">Konsep Materi Pembahasan</th>
+<th style="text-align:left">Tautan Berkas Mandiri (Siap Run di Chrome)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Slide 01</strong></td>
+<td style="text-align:left">Garis Akhir Perkuliahan: Dari Kode Menjadi Berkas Installer APK Mandiri</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_01_orientasi_sesi_08_final.html">🌐 <code>slide_01_orientasi_sesi_08_final.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 02</strong></td>
+<td style="text-align:left">5 Tahapan Siklus Rilis Aplikasi Mobile (Development hingga Maintenance)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_02_siklus_rilis_aplikasi_mobile.html">🌐 <code>slide_02_siklus_rilis_aplikasi_mobile.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 03</strong></td>
+<td style="text-align:left">Pembuatan Digital Keystore RSA 2048-bit via Utilitas <code>keytool</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_03_pembuatan_keystore_digital.html">🌐 <code>slide_03_pembuatan_keystore_digital.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 04</strong></td>
+<td style="text-align:left">Konfigurasi Otomasi Tanda Tangan Digital pada <code>android/app/build.gradle</code></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_04_konfigurasi_signing_build_gradle.html">🌐 <code>slide_04_konfigurasi_signing_build_gradle.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 05</strong></td>
+<td style="text-align:left">Eksekusi Kompilasi APK Release Stand-alone via Gradle Wrapper (<code>assembleRelease</code>)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_05_kompilasi_apk_assemble_release.html">🌐 <code>slide_05_kompilasi_apk_assemble_release.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 06</strong></td>
+<td style="text-align:left">Distribusi &amp; Instalasi Mandiri (Sideloading) APK ke Ponsel Tanpa PC</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_06_instalasi_apk_mandiri_tanpa_pc.html">🌐 <code>slide_06_instalasi_apk_mandiri_tanpa_pc.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 07</strong></td>
+<td style="text-align:left">Optimasi Biner: Minifikasi Kode &amp; Tree Shaking Native via Kompilator R8</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_07_optimasi_minifikasi_r8_proguard.html">🌐 <code>slide_07_optimasi_minifikasi_r8_proguard.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 08</strong></td>
+<td style="text-align:left">Optimasi Web Assets: Kompresi WebP, Tree Shaking ES Modules &amp; Lazy Loading</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_08_optimasi_aset_dan_tree_shaking.html">🌐 <code>slide_08_optimasi_aset_dan_tree_shaking.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 09</strong></td>
+<td style="text-align:left">Audit Keamanan Pra-Rilis: Proteksi Data, Cleartext HTTPS, &amp; Permissions</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_09_audit_keamanan_sebelum_rilis.html">🌐 <code>slide_09_audit_keamanan_sebelum_rilis.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 10</strong></td>
+<td style="text-align:left">Distribusi Alternatif: Progressive Web App (PWA) &amp; Service Worker Cache</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_10_pwa_service_worker_offline.html">🌐 <code>slide_10_pwa_service_worker_offline.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 11</strong></td>
+<td style="text-align:left">Publikasi Google Play Console &amp; Standar Android App Bundle (<code>.aab</code>)</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_11_distribusi_google_play_console.html">🌐 <code>slide_11_distribusi_google_play_console.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 12</strong></td>
+<td style="text-align:left"><strong>Kisi-kisi Resmi Komprehensif UAS</strong>: Pemetaan 9 Modul BMP STSI4303 / MSIM4401</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_12_kisi_kisi_uas_modul_1_sampai_9.html">🌐 <code>slide_12_kisi_kisi_uas_modul_1_sampai_9.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 13</strong></td>
+<td style="text-align:left"><strong>Bank Soal UAS Bagian 1 (Soal 01–15)</strong>: Arsitektur Hybrid, Web Standards &amp; Vue 3</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_13_bank_soal_uas_bagian_1.html">🌐 <code>slide_13_bank_soal_uas_bagian_1.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 14</strong></td>
+<td style="text-align:left"><strong>Bank Soal UAS Bagian 2 (Soal 16–30)</strong>: TypeScript, Ionic Grid, Form &amp; Dark Mode</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_14_bank_soal_uas_bagian_2.html">🌐 <code>slide_14_bank_soal_uas_bagian_2.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 15</strong></td>
+<td style="text-align:left"><strong>Bank Soal UAS Bagian 3 (Soal 31–45)</strong>: Capacitor Bridge, REST API, Storage &amp; Sensor</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_15_bank_soal_uas_bagian_3.html">🌐 <code>slide_15_bank_soal_uas_bagian_3.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 16</strong></td>
+<td style="text-align:left"><strong>Bank Soal UAS Bagian 4 (Soal 46–50)</strong>: Signing Keystore, Build Release &amp; Kasus Produksi</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_16_bank_soal_uas_bagian_4.html">🌐 <code>slide_16_bank_soal_uas_bagian_4.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 17</strong></td>
+<td style="text-align:left"><strong>🎯 MASTER SOLUSI LAB QUEST 08: APK Release Validator &amp; Engine Simulasi 50 Soal UAS</strong></td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_17_lab_quest_08_apk_validator.html">🌐 <code>slide_17_lab_quest_08_apk_validator.html</code></a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Slide 18</strong></td>
+<td style="text-align:left"><strong>🎓 Penutup Semester</strong>: Refleksi Perkuliahan &amp; Pesan Dosen Pak Anton Prafanto</td>
+<td style="text-align:left"><a href="contoh_kode_program/sesi_08_build_apk_uas/slide_18_penutup_semester_pesan_dosen.html">🌐 <code>slide_18_penutup_semester_pesan_dosen.html</code></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>🎯 Panduan Tugas Tutorial Wajib Mahasiswa (Tuton UT)</h2>
+<ol>
+<li><strong><a href="panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md#tugas-tutorial-1-diberikan-pada-sesi-3">Tugas Tutorial 1 (Sesi 3)</a>:</strong>
+<ul>
+<li><em>Studi Kasus:</em> Kalkulator Nilai Mata Kuliah &amp; Indeks Prestasi (IPS) Mahasiswa UT berbasis TypeScript &amp; Vue Composition API.</li>
+<li><em>Contoh Master Solusi:</em> <a href="contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html">slide_17_solusi_tugas_1_kalkulator_nilai.html</a></li>
+<li><em>Rubrik Penilaian:</em> <a href="contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.md">slide_16_rubrik_tugas_tutorial_1.md</a></li>
+</ul>
+</li>
+<li><strong><a href="panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md#tugas-tutorial-2-diberikan-pada-sesi-5">Tugas Tutorial 2 (Sesi 5)</a>:</strong>
+<ul>
+<li><em>Studi Kasus:</em> Portal Layanan Mandiri Mahasiswa (Penerbitan KTM Digital, Form Validasi NIM 9 digit &amp; email kampus <code>@ecampus.ut.ac.id</code>, Dark Mode Switch).</li>
+<li><em>Contoh Master Solusi:</em> <a href="contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html">slide_17_solusi_tugas_2_portal_ktm_registrasi.html</a></li>
+<li><em>Rubrik Penilaian:</em> <a href="contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.md">slide_16_rubrik_tugas_tutorial_2.md</a></li>
+</ul>
+</li>
+<li><strong><a href="panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.md#tugas-tutorial-3-diberikan-pada-sesi-7">Tugas Tutorial 3 (Sesi 7)</a>:</strong>
+<ul>
+<li><em>Studi Kasus:</em> Aplikasi Mobile Terintegrasi &quot;UT Study Tracker&quot; (Konsumsi REST API Asinkron, Penyimpanan Data Offline Persisten, Sensor Geolocation GPS &amp; Kamera).</li>
+<li><em>Contoh Master Solusi:</em> <a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html">slide_17_solusi_tugas_3_study_tracker.html</a></li>
+<li><em>Rubrik Penilaian &amp; Kalkulator:</em> <a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.html">slide_16_rubrik_tugas_tutorial_3.html</a> • <a href="contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.md">Buku Saku Panduan (.md)</a></li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>💡 Panduan Cepat Menjalankan Kode (Zero-Friction bagi Mahasiswa)</h2>
+<h3>A. Metode Instan (Paling Ringan &amp; Ramah Laptop RAM 4–8GB)</h3>
+<p>Sebagian besar contoh kode program di repositori ini berupa <strong>berkas HTML mandiri</strong> yang telah mengintegrasikan engine Vue 3 dan Ionic Framework via CDN:</p>
+<ol>
+<li>Unduh berkas <code>.html</code> yang ingin Anda coba dari folder <code>contoh_kode_program/</code>.</li>
+<li><strong>Cukup klik dua kali (<em>double-click</em>)</strong> berkas tersebut untuk membukanya di Google Chrome, Microsoft Edge, atau Mozilla Firefox.</li>
+<li>Untuk melihat tampilan seperti layar HP: Tekan tombol <code>F12</code> pada keyboard, lalu klik ikon <strong>Toggle Device Toolbar</strong> (<code>Ctrl + Shift + M</code>).</li>
+</ol>
+<h3>B. Metode Proyek Lengkap (Ionic CLI &amp; Live Reload)</h3>
+<p>Jika Anda mengembangkan proyek skala penuh:</p>
+<ol>
+<li>Pastikan Node.js terpasang:<pre><code class="language-bash">node -v
+</code></pre>
+</li>
+<li>Pasang Ionic CLI:<pre><code class="language-bash">npm install -g @ionic/cli
+</code></pre>
+</li>
+<li>Buat proyek baru bertema Ionic Vue:<pre><code class="language-bash">ionic start mobile-ut blank --type=vue
+cd mobile-ut
+</code></pre>
+</li>
+<li>Jalankan server lokal:<pre><code class="language-bash">ionic serve
+</code></pre>
+</li>
+</ol>
+<h3>C. Metode Uji Smartphone Fisik Android (Tanpa Emulator Berat)</h3>
+<ol>
+<li>Sambungkan ponsel Android Anda ke laptop menggunakan kabel USB.</li>
+<li>Aktifkan <strong>USB Debugging</strong> di menu <em>Pengaturan &gt; Opsi Pengembang</em>.</li>
+<li>Buka aplikasi gratisan <a href="https://github.com/Genymobile/scrcpy">scrcpy</a> untuk melakukan <em>screen mirroring</em> instan di laptop dengan konsumsi RAM &lt; 80MB!</li>
+</ol>
+<hr />
+<h2>📜 Lisensi &amp; Kontribusi</h2>
+<p>Repositori ini dikembangkan sebagai materi ajar terbuka (<em>Open Courseware</em>) untuk mendukung proses pembelajaran mahasiswa Universitas Terbuka di seluruh Indonesia. Silakan manfaatkan, pelajari, dan kembangkan secara bertanggung jawab dengan tetap menjunjung tinggi integritas akademik.</p>
+
+
+      <footer class="doc-footer">
+        <div>
+          <span>Hak Cipta &copy; 2026 Universitas Terbuka</span> • 
+          <span>The Zero-Friction Courseware Framework</span>
+        </div>
+        <div>
+          <a href="./index.html" style="font-size: 12px; color: var(--ut-blue);">Kembali ke Katalog Utama ↗</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Konversi blok diagram mermaid
+      document.querySelectorAll('pre code.language-mermaid').forEach(el => {
+        const pre = el.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        pre.replaceWith(div);
+      });
+
+      // Bungkus seluruh tabel dengan wrapper responsive
+      document.querySelectorAll('.doc-content table').forEach(tbl => {
+        if (!tbl.parentElement.classList.contains('table-responsive')) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'table-responsive';
+          tbl.parentElement.insertBefore(wrapper, tbl);
+          wrapper.appendChild(tbl);
+        }
+      });
+
+      // Inisialisasi mermaid jika pustaka tersedia
+      if (window.mermaid) {
+        mermaid.initialize({ 
+          startOnLoad: true, 
+          theme: 'neutral',
+          securityLevel: 'loose'
+        });
+      }
+    });
+  </script>
+</body>
+</html>

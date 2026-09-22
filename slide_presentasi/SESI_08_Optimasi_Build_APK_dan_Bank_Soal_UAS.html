@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naskah Narasi Dosen — Sesi 08: Optimasi Kinerja, Build APK Release, & Bank Soal UAS — Universitas Terbuka</title>
+  <meta name="description" content="Naskah narasi pengajaran dosen dan panduan instruksional Sesi 08 mata kuliah STSI4303 Universitas Terbuka.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Mermaid.js untuk Diagram Arsitektur -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --ut-navy: #003366;
+      --ut-blue: #005691;
+      --ut-blue-light: #EBF3FA;
+      --ut-gold: #C28E00;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      position: static !important;
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100% !important;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Breadcrumb & Navbar */
+    .top-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-nav-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ut-blue);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .breadcrumb:hover {
+      color: var(--ut-navy);
+      text-decoration: underline;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--slate-200);
+      background: #FFFFFF;
+      color: var(--slate-700);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+    }
+
+    .action-btn.primary {
+      background: var(--ut-blue);
+      color: #FFFFFF;
+      border-color: var(--ut-blue);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--ut-navy);
+      border-color: var(--ut-navy);
+    }
+
+    /* Main Container */
+    .doc-container {
+      max-width: 1060px;
+      margin: 32px auto 60px;
+      padding: 0 20px;
+    }
+
+    /* Academic Header Card */
+    .doc-header {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ut-navy) 0%, var(--ut-blue) 60%, var(--ut-gold) 100%);
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--ut-blue);
+      background: var(--ut-blue-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+
+    .doc-subtitle {
+      font-size: 14px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* Document Body & Typography */
+    .doc-content {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 768px) {
+      .doc-content { padding: 24px 20px; }
+      .doc-header { padding: 24px 20px; }
+      .doc-title { font-size: 22px; }
+    }
+
+    .doc-content h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-top: 28px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 32px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .doc-content h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    .doc-content p {
+      margin-bottom: 16px;
+      color: var(--slate-700);
+    }
+
+    .doc-content ul, .doc-content ol {
+      margin-bottom: 18px;
+      padding-left: 24px;
+    }
+
+    .doc-content li {
+      margin-bottom: 6px;
+      color: var(--slate-700);
+    }
+
+    .doc-content hr {
+      border: none;
+      height: 1px;
+      background: var(--slate-200);
+      margin: 32px 0;
+    }
+
+    /* Links */
+    .doc-content a {
+      color: var(--ut-blue);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #93C5FD;
+      transition: all 0.15s ease;
+    }
+
+    .doc-content a:hover {
+      color: var(--ut-navy);
+      border-bottom-style: solid;
+      background: var(--ut-blue-light);
+    }
+
+    /* GitHub Alert Callouts */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-left: 4px solid;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .alert-important {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+
+    .alert-note {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1E40AF;
+    }
+
+    .alert-tip {
+      background: #ECFDF5;
+      border-color: #10B981;
+      color: #065F46;
+    }
+
+    .alert-warning {
+      background: #FFFBEB;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+
+    /* Beautiful Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    .doc-content th {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--slate-200);
+      letter-spacing: 0.2px;
+    }
+
+    .doc-content td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: top;
+    }
+
+    .doc-content tr:last-child td {
+      border-bottom: none;
+    }
+
+    .doc-content tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+
+    .doc-content tr:hover td {
+      background: #F1F5F9;
+    }
+
+    /* Code Blocks */
+    .doc-content pre {
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 20px 0;
+      border: 1px solid var(--slate-700);
+    }
+
+    .doc-content code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--slate-100);
+      color: var(--slate-900);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .doc-content pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    /* Mermaid Diagrams */
+    .mermaid {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--slate-400);
+    }
+
+    @media print {
+      .top-nav, .action-btn { display: none !important; }
+      body { background: #FFF; }
+      .doc-header, .doc-content { border: none; box-shadow: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP STICKY NAVIGATION -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../index.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Kembali ke Portal Perkuliahan
+      </a>
+
+      <div class="nav-actions">
+        <button class="action-btn" onclick="window.print()" title="Cetak halaman atau simpan sebagai PDF">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Cetak / PDF
+        </button>
+        <a href="SESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.md" target="_blank" class="action-btn" title="Buka berkas sumber Markdown asli">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Naskah Markdown (.md)
+        </a>
+        <a href="https://github.com/antonprafanto/tuweb_mobile2025" target="_blank" class="action-btn" title="Buka repositori GitHub">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="doc-container">
+    <!-- HEADER -->
+    <header class="doc-header">
+      <span class="doc-badge">Naskah Narasi Sesi 08</span>
+      <h1 class="doc-title">NASKAH & SLIDE SESI 08: BUILD APK RELEASE, DIGITAL SIGNING, & 50 BANK SOAL UAS</h1>
+      <p class="doc-subtitle">
+        Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</strong><br>
+        Fakultas Sains dan Teknologi, Universitas Terbuka • Dosen Pengampu: <strong>Anton Prafanto, S.Kom., M.T.</strong>
+      </p>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="doc-content">
+      <h1>📱 NASKAH &amp; SLIDE SESI 08: BUILD APK RELEASE, DIGITAL SIGNING, &amp; 50 BANK SOAL UAS</h1>
+<h2>Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)</h2>
+<h3>Program Studi: S1 Sistem Informasi &amp; S1 Informatika — Fakultas Sains dan Teknologi (FST) Universitas Terbuka</h3>
+<h3>Dosen Pengampu: Anton Prafanto, S.Kom., M.T.</h3>
+<h3>Modul Acuan BMP: Modul 9 (Kompilasi, Distribusi &amp; Pemeliharaan) &amp; Review Komprehensif Modul 1 s.d. 9</h3>
+<hr />
+<div class="alert-box alert-tip">
+<p><strong>Akses Cepat Materi, Simulator Interaktif, &amp; Kode Program Sesi 08 (Grand Finale):</strong></p>
+<ul>
+<li>🌐 <strong>18 Berkas Contoh Program HTML Siap Dijalankan:</strong> <a href="../contoh_kode_program/sesi_08_build_apk_uas/"><code>contoh_kode_program/sesi_08_build_apk_uas/</code></a></li>
+<li>📋 <strong>Kisi-kisi Resmi Komprehensif UAS 9 Modul BMP (Slide 12):</strong> <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_12_kisi_kisi_uas_modul_1_sampai_9.html"><code>slide_12_kisi_kisi_uas_modul_1_sampai_9.html</code></a></li>
+<li>🏆 <strong>Master Solusi Lab Quest 08: APK Validator &amp; 50 Soal Exam Engine (Slide 17):</strong> <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_17_lab_quest_08_apk_validator.html"><code>slide_17_lab_quest_08_apk_validator.html</code></a></li>
+<li>🖥️ <strong>Slide Presentasi PowerPoint (PPTX 18 Slide Neo-Brutalisme):</strong> <a href="SESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.pptx"><code>SESI_08_Optimasi_Build_APK_dan_Bank_Soal_UAS.pptx</code></a></li>
+</ul>
+</div>
+<hr />
+<h2>🛠️ Panduan Alat &amp; Lingkungan Belajar (Ramah Awam &amp; Pemula)</h2>
+<p>Bagi rekan-rekan mahasiswa yang baru pertama kali memasuki tahapan kompilasi biner (<em>binary build</em>), penandatanganan kriptografi digital (<em>keystore signing</em>), dan persiapan Ujian Akhir Semester (UAS), jangan berkecil hati atau merasa cemas! Seluruh materi Sesi 08 dirancang dengan filosofi <strong>The Zero-Friction Courseware Framework</strong> yang sangat ramah terhadap komputer atau laptop dengan spesifikasi standar (RAM 4–8 GB):</p>
+<ol>
+<li><strong>Google Chrome / Microsoft Edge:</strong>
+<ul>
+<li><strong>Fungsi:</strong> Menjalankan seluruh 18 berkas mandiri <code>.html</code> secara langsung lewat protokol <code>file:///</code> tanpa perlu menyalakan server lokal Node.js atau Apache.</li>
+<li><strong>Cara Penggunaan:</strong> Cukup klik ganda (<em>double-click</em>) berkas <code>.html</code> yang ingin dipelajari, atau seret (<em>drag-and-drop</em>) berkas ke jendela peramban Anda.</li>
+</ul>
+</li>
+<li><strong>Google Chrome DevTools (<code>F12</code> atau <code>Ctrl + Shift + I</code>):</strong>
+<ul>
+<li><strong>Tab Application:</strong> Digunakan khusus pada Slide 10 untuk memeriksa status <em>Manifest</em> PWA, <em>Service Workers</em>, dan isi memori <em>Cache Storage</em>.</li>
+<li><strong>Tab Network:</strong> Digunakan pada Slide 08 untuk menginspeksi ukuran berkas aset grafis WebP dan efek <em>tree-shaking</em> pada transfer jaringan.</li>
+<li><strong>Tab Console:</strong> Menguji ekspresi JavaScript dan memantau respon event simulator secara <em>real-time</em>.</li>
+</ul>
+</li>
+<li><strong>Mode Perangkat Mobile (<code>Ctrl + Shift + M</code>):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Mengubah tampilan peramban desktop menjadi kanvas layar ponsel pintar (<em>smartphone virtual</em>) agar Anda dapat menguji responsivitas antarmuka aplikasi.</li>
+</ul>
+</li>
+<li><strong>Terminal / Shell (PowerShell / Git Bash / Command Prompt):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Tempat mengeksekusi utilitas Java JDK <code>keytool</code> (membuat sertifikat digital) dan perintah Gradle Wrapper <code>./gradlew assembleRelease</code> (menghasilkan berkas APK biner mandiri).</li>
+</ul>
+</li>
+<li><strong>Smartphone Fisik Android:</strong>
+<ul>
+<li><strong>Fungsi:</strong> Digunakan untuk menguji instalasi mandiri (<em>sideloading</em>) berkas <code>app-release.apk</code> hasil build secara langsung tanpa memerlukan kabel data atau komputer.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>🗺️ Gambaran Umum Sesi 08</h2>
+<p>Sesi kedelapan ini merupakan <strong>puncak penutup perkuliahan (Grand Finale &amp; Sesi Penutup Semester)</strong> yang mengantarkan mahasiswa dari ranah kode pengembangan menuju produk perangkat lunak biner mandiri yang siap digunakan oleh masyarakat luas. Fokus utama sesi ini terbagi menjadi dua pilar esensial:</p>
+<ol>
+<li><strong>Engineering &amp; Deployment (Kompilasi Biner &amp; Rilis Stand-alone):</strong>
+Mahasiswa mempelajari siklus rilis aplikasi mobile profesional, pembuatan sertifikat digital Keystore RSA 2048-bit via utilitas <code>keytool</code>, konfigurasi penandatanganan otomatis (<code>signingConfigs</code>) pada <code>android/app/build.gradle</code>, eksekusi kompilasi <code>./gradlew assembleRelease</code> untuk menghasilkan berkas <code>.apk</code> mandiri yang dapat dipasang (<em>sideloading</em>) tanpa PC dan tanpa ketergantungan pada Google Play Store, optimasi biner melalui minifikasi R8 / ProGuard (<code>minifyEnabled</code> dan <code>shrinkResources</code>), optimasi aset web (kompresi gambar WebP, tree shaking ES modules), audit keamanan pra-rilis (proteksi cleartext traffic HTTPS, sanitasi izin permission), alternatif distribusi Progressive Web App (PWA) via Service Worker Cache, serta pemahaman standar publikasi Google Play Console dan format modern Android App Bundle (<code>.aab</code>).</li>
+<li><strong>Academic Mastery &amp; Exam Preparation (50 Bank Soal Komprehensif UAS):</strong>
+Pembedahan menyeluruh kisi-kisi resmi Ujian Akhir Semester (UAS) STSI4303 / MSIM4401 yang mencakup 9 Modul Buku Materi Pokok (BMP) UT. Sesi ini menyajikan 50 butir soal pilihan ganda akademik berkualitas tinggi lengkap dengan kunci jawaban dan pembahasan pedagogis, serta ditutup dengan <strong>Master Solusi Lab Quest 08</strong> berupa Interactive APK Release Validator &amp; 50-Question UAS Exam Engine berwaktu mundur 90 menit.</li>
+</ol>
+<pre><code class="language-mermaid">flowchart LR
+  subgraph Dev [&quot;1. Basis Kode (Sesi 01-07)&quot;]
+    Code[&quot;Ionic 7 + Vue 3&lt;br&gt;TypeScript + Capacitor&quot;]
+  end
+
+  subgraph Build [&quot;2. Pipeline Produksi (Sesi 08)&quot;]
+    Key[&quot;Digital Keystore&lt;br&gt;RSA 2048-bit (keytool)&quot;]
+    Grad[&quot;Gradle Wrapper&lt;br&gt;assembleRelease&quot;]
+    R8[&quot;Kompilator R8&lt;br&gt;Minifikasi &amp; Tree Shaking&quot;]
+    Key --&gt; Grad
+    Code --&gt; Grad
+    Grad --&gt; R8
+  end
+
+  subgraph Dist [&quot;3. Distribusi Mandiri &amp; Toko&quot;]
+    APK[&quot;APK Stand-alone&lt;br&gt;(Sideload Bebas PC)&quot;]
+    AAB[&quot;App Bundle (.aab)&lt;br&gt;(Google Play Console)&quot;]
+    PWA[&quot;PWA Web Apps&lt;br&gt;(Service Worker Offline)&quot;]
+    R8 --&gt; APK
+    R8 --&gt; AAB
+    Code --&gt; PWA
+  end
+
+  subgraph Exam [&quot;4. Evaluasi Akhir BMP UT&quot;]
+    Bank[&quot;50 Bank Soal UAS&lt;br&gt;(Modul 1 s.d. 9 Komprehensif)&quot;]
+    Engine[&quot;Master Exam Engine&lt;br&gt;(Lab Quest 08 - 90 Menit)&quot;]
+    Bank --&gt; Engine
+  end
+
+  Dist -.-&gt; Exam
+
+  style Dev fill:#E0F2FE,stroke:#0284C7,stroke-width:2px
+  style Build fill:#FEF9C3,stroke:#F59E0B,stroke-width:2px
+  style Dist fill:#DCFCE7,stroke:#16A34A,stroke-width:2px
+  style Exam fill:#F3E8FF,stroke:#9333EA,stroke-width:2px
+</code></pre>
+<hr />
+<h2>📊 Daftar 18 Slide Pembahasan &amp; Berkas Kode Mandiri</h2>
+<hr />
+<h3>📌 Slide 01: Orientasi Sesi 08: Rilis APK Stand-alone &amp; Sukses UAS</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memahami alur kerja transformasi kode sumber web hybrid menjadi berkas biner mandiri dan kesiapan menghadapi UAS.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Edge di PC atau smartphone, buka berkas HTML via <code>file:///</code>.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Selamat berjumpa di garis akhir perkuliahan kita, rekan-rekan mahasiswa Fakultas Sains dan Teknologi Universitas Terbuka yang saya banggakan! Di Sesi 08 penutup ini, kita akan merayakan pencapaian besar: mengubah kode yang telah kita susun sejak Sesi 01 menjadi berkas installer mandiri (<code>.apk</code>) yang bisa Anda kirimkan lewat WhatsApp atau Google Drive dan langsung dipasang di ponsel keluarga, rekan, atau calon pengguna tanpa perlu kabel data atau laptop. Selain itu, kita akan membedah tuntas 50 bank soal UAS komprehensif agar Anda siap meraih nilai A mutlak!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>Transformasi menyeluruh dari mode pengembangan (<em>development</em>) menuju biner rilis produksi (<em>production release</em>).</li>
+<li>Dua pilar kelulusan sesi penutup: Biner APK mandiri dan kesiapan 100% menghadapi UAS 9 Modul BMP UT.</li>
+<li>Penerapan filosofi <em>zero-friction</em>: pembelajaran ramah komputer standar tanpa kendala kuota besar.</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  A[&quot;Proyek Web Hybrid (Vue 3 + Ionic)&quot;] --&gt; B[&quot;Build Aset Web (npm run build)&quot;]
+  B --&gt; C[&quot;Sinkronisasi Native (npx cap sync)&quot;]
+  C --&gt; D[&quot;Penandatanganan Digital (Keystore Signing)&quot;]
+  D --&gt; E[&quot;Biner APK Release Mandiri (.apk)&quot;]
+  E --&gt; F[&quot;Instalasi Sideload &amp; Distribusi Bebas PC&quot;]
+  style A fill:#E0F2FE,stroke:#0284C7,stroke-width:2px
+  style E fill:#DCFCE7,stroke:#16A34A,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_01_orientasi_sesi_08_final.html"><code>slide_01_orientasi_sesi_08_final.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 02: Siklus Rilis Aplikasi Mobile (Development to Maintenance)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menganalisis 5 fase siklus hidup rilis aplikasi mobile dari alpha testing hingga pasca rilis.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, DevTools <code>F12</code>.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Membangun aplikasi mobile profesional tidak pernah berhenti ketika kode selesai diketik di editor teks. Terdapat siklus rilis terstruktur yang membedakan seorang pembuat kode amatir dengan insinyur perangkat lunak profesional: fase Development (pengembangan fitur), Alpha Testing (pengujian fungsional internal), Beta Testing (pengujian pada sekelompok pengguna riil), Production Release (distribusi biner terverifikasi), serta Post-Release Monitoring (pemantauan galat crash dan pembaruan berkala). Mari kita pahami setiap tahapannya dengan seksama!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>5 Fase Rilis: Development $\rightarrow$ Alpha $\rightarrow$ Beta $\rightarrow$ Production $\rightarrow$ Maintenance.</li>
+<li>Standar penomoran versi Android: <code>versionCode</code> (bilangan bulat monoton naik untuk sistem) dan <code>versionName</code> (format semver <code>x.y.z</code> untuk manusia).</li>
+<li>Manajemen <em>rollback</em> dan strategi mitigasi bencana jika terjadi <em>bug</em> pada versi produksi.</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  F1[&quot;1. Development&lt;br&gt;(Koding &amp; Debugging)&quot;] --&gt; F2[&quot;2. Alpha Testing&lt;br&gt;(Uji Internal Tim)&quot;]
+  F2 --&gt; F3[&quot;3. Closed Beta&lt;br&gt;(Uji 20 Penguji Riil)&quot;]
+  F3 --&gt; F4[&quot;4. Production&lt;br&gt;(Rilis APK / Play Store)&quot;]
+  F4 --&gt; F5[&quot;5. Maintenance&lt;br&gt;(Logcat Crash &amp; Update)&quot;]
+  style F1 fill:#E0F2FE,stroke:#0284C7
+  style F4 fill:#FEF08A,stroke:#CA8A04
+  style F5 fill:#DCFCE7,stroke:#16A34A
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_02_siklus_rilis_aplikasi_mobile.html"><code>slide_02_siklus_rilis_aplikasi_mobile.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 03: Pembuatan Digital Keystore via <code>keytool</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Membangun sertifikat kriptografi digital mandiri menggunakan utilitas standar JDK <code>keytool</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> Terminal PowerShell / Bash / CMD, utilitas JDK <code>keytool</code>.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Sistem operasi Android memberlakukan aturan keamanan mutlak: tidak ada satu pun berkas APK yang diizinkan terpasang tanpa tanda tangan digital yang valid. Sertifikat ini dibungkus di dalam berkas Keystore (<code>.keystore</code> atau <code>.jks</code>). Kita membuatnya menggunakan utilitas bawaan Java JDK yaitu keytool dengan algoritma RSA 2048-bit dan masa berlaku minimal 10.000 hari (lebih dari 25 tahun). Ingat pesan penting saya: simpan berkas ini dan kata sandinya dengan sangat aman! Jika Anda kehilangan keystore asli, Anda tidak akan pernah bisa memperbarui aplikasi Anda di ponsel pengguna!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>Perintah resmi pembuatan: <code>keytool -genkeypair -v -keystore ut-release.keystore -alias utkey -keyalg RSA -keysize 2048 -validity 10000</code>.</li>
+<li>Keystore berfungsi sebagai 'Kartu Tanda Penduduk' digital bagi pengembang di mata sistem operasi Android.</li>
+<li>Praktik keamanan terbaik: Berkas <code>.keystore</code> wajib dimasukkan ke <code>.gitignore</code> dan pantang di-commit ke repositori publik GitHub!</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  CLI[&quot;Terminal CLI: keytool&quot;] --&gt; Gen[&quot;Generate RSA-2048 Keypair&quot;]
+  Gen --&gt; Input[&quot;Input Metadata: Nama Dosen, FST UT, Password&quot;]
+  Input --&gt; Out[&quot;Berkas: ut-release.keystore&quot;]
+  Out --&gt; Protect[&quot;⚠️ Simpan Rahasia (Jangan Commit ke Git!)&quot;]
+  style CLI fill:#E0F2FE,stroke:#0284C7
+  style Out fill:#FEF08A,stroke:#CA8A04
+  style Protect fill:#FEE2E2,stroke:#DC2626
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_03_pembuatan_keystore_digital.html"><code>slide_03_pembuatan_keystore_digital.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 04: Konfigurasi Otomasi Signing pada <code>build.gradle</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengonfigurasi penandatanganan biner otomatis pada skrip Gradle Android Studio.</li>
+<li><strong>Alat yang Digunakan:</strong> Visual Studio Code / Editor Teks, berkas <code>android/app/build.gradle</code>.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Menandatangani berkas APK secara manual setiap kali melakukan build tentu sangat melelahkan dan rentan kesalahan manusia. Melalui berkas skrip <code>android/app/build.gradle</code>, kita dapat mengonfigurasi blok <code>signingConfigs</code> khusus tipe rilis. Kita tautkan berkas keystore, kata sandi, dan alias kuncinya. Di lingkungan industri profesional, kata sandi tidak ditulis langsung (hardcoded) di skrip, melainkan dipanggil dari berkas <code>gradle.properties</code> lokal atau variabel sistem (environment variables) demi menjamin keamanan.&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>Blok konfigurasi Gradle: <code>signingConfigs { release { storeFile file('...') ... } }</code>.</li>
+<li>Mengikat konfigurasi penandatanganan pada <code>buildTypes { release { signingConfig signingConfigs.release } }</code>.</li>
+<li>Pemisahan kredensial sensitif menggunakan file <code>gradle.properties</code> lokal yang diabaikan oleh Git.</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  subgraph GradleConfig [&quot;android/app/build.gradle&quot;]
+    SC[&quot;signingConfigs {&lt;br&gt;release {&lt;br&gt;storeFile, storePassword,&lt;br&gt;keyAlias, keyPassword&lt;br&gt;}&lt;br&gt;}&quot;]
+    BT[&quot;buildTypes {&lt;br&gt;release {&lt;br&gt;signingConfig signingConfigs.release&lt;br&gt;}&lt;br&gt;}&quot;]
+    SC --&gt; BT
+  end
+  Prop[&quot;gradle.properties&lt;br&gt;(Kredensial Aman)&quot;] --&gt; SC
+  style GradleConfig fill:#F8FAFC,stroke:#000,stroke-width:2px
+  style Prop fill:#DCFCE7,stroke:#16A34A
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_04_konfigurasi_signing_build_gradle.html"><code>slide_04_konfigurasi_signing_build_gradle.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 05: Kompilasi APK Release Stand-alone via Gradle Wrapper</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengeksekusi perintah CLI Gradle Wrapper untuk menghasilkan berkas installer mandiri <code>.apk</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> Terminal shell pada folder <code>android/</code>, perintah <code>./gradlew assembleRelease</code>.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Kini tiba saatnya melahirkan berkas biner mandiri perdana Anda! Masuklah ke subdirektori <code>android/</code> melalui terminal, lalu jalankan perintah <code>./gradlew assembleRelease</code>. Mesin kompilator Gradle akan bekerja mengompilasi kode sumber Java/Kotlin, memproses seluruh aset web Capacitor, menjalankan penyusutan biner, menandatanganinya dengan sertifikat digital, dan menyelaraskan struktur data berkas (zipalign). Hasil akhirnya adalah berkas <code>app-release.apk</code> mandiri yang tersimpan rapi di direktori <code>build/outputs/apk/release/</code>!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>Perintah eksekusi: <code>./gradlew assembleRelease</code> (Linux/macOS/PowerShell) atau <code>gradlew.bat assembleRelease</code> (Command Prompt).</li>
+<li>Lokasi penyimpanan biner: <code>android/app/build/outputs/apk/release/app-release.apk</code>.</li>
+<li>Verifikasi biner melalui utilitas <code>apksigner verify --verbose app-release.apk</code> (memastikan skema tanda tangan v2/v3 aktif).</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  CMD[&quot;Terminal: cd android &amp;&amp; ./gradlew assembleRelease&quot;] --&gt; Comp[&quot;Kompilasi Java/Kotlin &amp; Aset Web&quot;]
+  Comp --&gt; Sign[&quot;Signing Kriptografi via Keystore&quot;]
+  Sign --&gt; Zip[&quot;Zipalign 4-byte Alignment&quot;]
+  Zip --&gt; Out[&quot;Hasil: app-release.apk (~12 MB)&quot;]
+  Out --&gt; Verif[&quot;Verifikasi: apksigner verify --verbose&quot;]
+  style CMD fill:#E0F2FE,stroke:#0284C7
+  style Out fill:#DCFCE7,stroke:#16A34A,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_05_kompilasi_apk_assemble_release.html"><code>slide_05_kompilasi_apk_assemble_release.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 06: Instalasi Mandiri (Sideloading) APK ke Smartphone Tanpa PC</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memahami mekanisme sideloading APK, perizinan sumber tidak dikenal, dan pengujian independen.</li>
+<li><strong>Alat yang Digunakan:</strong> Smartphone Android fisik, aplikasi File Manager / WhatsApp / Google Drive.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Setelah berkas <code>app-release.apk</code> selesai dibuat, bagaimana cara membagikannya ke orang lain? Sangat mudah: cukup unggah berkas APK tersebut ke Google Drive atau kirimkan langsung melalui chat WhatsApp! Ketika rekan Anda mengetuk berkas tersebut di HP Android, sistem akan menampilkan dialog keamanan 'Install Unknown Apps' (Pasang Aplikasi dari Sumber Tidak Dikenal). Begitu izin diberikan, aplikasi Anda terpasang dengan ikon dan nama resmi, berjalan secara mandiri 100% tanpa butuh kabel USB maupun komputer!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>Konsep dan mekanisme <em>Sideloading</em> pada ekosistem Android.</li>
+<li>Penjelasan dialog keamanan sistem: <em>Unknown Sources</em> dan <em>Play Protect Unrecognized Developer</em>.</li>
+<li>Kemandirian eksekusi aplikasi mobile pada container Android System WebView tanpa server eksternal.</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  Dev[&quot;Laptop Pengembang&lt;br&gt;(app-release.apk)&quot;] --&gt;|Upload| Drive[&quot;Google Drive / WhatsApp&quot;]
+  Drive --&gt;|Download| Phone[&quot;Smartphone Android Mahasiswa&quot;]
+  Phone --&gt; Prompt[&quot;Prompt: Izinkan Sumber Tidak Dikenal?&quot;]
+  Prompt --&gt;|Setujui| Inst[&quot;Aplikasi Terpasang Mandiri di App Drawer&quot;]
+  style Dev fill:#E0F2FE,stroke:#0284C7
+  style Phone fill:#FEF08A,stroke:#CA8A04
+  style Inst fill:#DCFCE7,stroke:#16A34A,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_06_instalasi_apk_mandiri_tanpa_pc.html"><code>slide_06_instalasi_apk_mandiri_tanpa_pc.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 07: Optimasi Biner: Minifikasi R8 &amp; ProGuard Native</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menerapkan teknik kompresi kode native melalui compiler R8 dan konfigurasi ProGuard.</li>
+<li><strong>Alat yang Digunakan:</strong> Visual Studio Code, file <code>android/app/build.gradle</code> dan <code>proguard-rules.pro</code>.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Aplikasi rilis produksi tidak boleh berukuran besar dan boros memori. Google menyematkan kompilator cerdas bernama R8 di dalam Android Gradle Plugin. Dengan menyetel <code>minifyEnabled true</code> dan <code>shrinkResources true</code>, R8 akan melakukan tree-shaking native: membuang class Java pihak ketiga yang tidak pernah dipakai, mengaburkan nama method menjadi karakter acak (obfuscation) agar kode sulit dibajak, serta memangkas ukuran biner APK hingga 40% lebih ringan!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>Pengaturan sakelar optimasi: <code>minifyEnabled true</code> dan <code>shrinkResources true</code>.</li>
+<li>Obfuscation: Menyamarkan struktur kode dari upaya dekompilasi pihak luar.</li>
+<li>Berkas aturan pengecualian <code>proguard-rules.pro</code> untuk mencegah plugin berbasis refleksi terhapus secara keliru.</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  subgraph InputCode [&quot;Kode Mentah &amp; Pustaka Native (20 MB)&quot;]
+    App[&quot;Kode Aplikasi Capacitor&quot;]
+    Lib[&quot;Pustaka Java Pihak Ketiga&quot;]
+  end
+
+  subgraph R8Engine [&quot;Kompilator R8 / ProGuard Engine&quot;]
+    Shrink[&quot;1. Code Shrinking (Hapus dead code)&quot;]
+    Obf[&quot;2. Obfuscation (Samarkan nama class)&quot;]
+    Res[&quot;3. Resource Shrinking (Buang XML mubazir)&quot;]
+    Shrink --&gt; Obf --&gt; Res
+  end
+
+  InputCode --&gt; R8Engine
+  R8Engine --&gt; Out[&quot;Biner Ramping &amp; Aman: app-release.apk (12 MB)&quot;]
+  style InputCode fill:#FEE2E2,stroke:#DC2626
+  style R8Engine fill:#FEF08A,stroke:#CA8A04
+  style Out fill:#DCFCE7,stroke:#16A34A,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_07_optimasi_minifikasi_r8_proguard.html"><code>slide_07_optimasi_minifikasi_r8_proguard.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 08: Optimasi Web Assets: Kompresi WebP &amp; Tree Shaking</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menganalisis teknik optimasi aset front-end untuk mempercepat kecepatan loading awal WebView.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, DevTools <code>F12</code> (Tab Network &amp; Console), VS Code.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Di sisi aplikasi web hybrid, kecepatan render awal pada WebView sangat dipengaruhi oleh bobot aset statis. Ubahlah gambar berformat PNG/JPEG yang berat menjadi format WebP modern yang mampu menghemat ukuran hingga 70% tanpa penurunan ketajaman kasat mata. Terapkan pula modular import selektif pada ikon Ionicons untuk memangkas ribuan ikon yang tidak dipakai. Dengan demikian, waktu inisialisasi aplikasi melonjak dari 3.2 detik menjadi 0.8 detik seketika!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>Format kompresi gambar modern: WebP dan vektor SVG.</li>
+<li>Tree-shaking pada pustaka front-end: <code>import { personOutline } from 'ionicons/icons'</code> alih-alih <code>import * as icons</code>.</li>
+<li>Memangkas waktu <em>First Contentful Paint (FCP)</em> di bawah 1.5 detik untuk menjamin animasi 60 FPS yang mulus.</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  subgraph Unoptimized [&quot;Sebelum Optimasi (3.04 MB)&quot;]
+    PNG[&quot;Logo PNG Berat (840 KB)&quot;]
+    AllIcons[&quot;Import Seluruh Ikon (2.2 MB)&quot;]
+  end
+
+  subgraph Bundler [&quot;Rollup / Vite Tree-Shaking&quot;]
+    Conv[&quot;Konversi Gambar ke WebP&quot;]
+    Shake[&quot;Pangkas 1.398 Ikon Mubazir&quot;]
+    Conv --- Shake
+  end
+
+  subgraph Optimized [&quot;Setelah Optimasi (203 KB)&quot;]
+    WebP[&quot;Logo WebP Tajam (195 KB)&quot;]
+    SelIcons[&quot;Hanya 2 Ikon Terpakai (8 KB)&quot;]
+  end
+
+  Unoptimized --&gt; Bundler --&gt; Optimized
+  style Unoptimized fill:#FEE2E2,stroke:#DC2626
+  style Bundler fill:#FEF08A,stroke:#CA8A04
+  style Optimized fill:#DCFCE7,stroke:#16A34A,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_08_optimasi_aset_dan_tree_shaking.html"><code>slide_08_optimasi_aset_dan_tree_shaking.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 09: Audit Keamanan Aplikasi Pra-Rilis</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Melakukan checklist audit keamanan komprehensif pada konfigurasi AndroidManifest dan jaringan.</li>
+<li><strong>Alat yang Digunakan:</strong> Editor VS Code, inspeksi berkas <code>AndroidManifest.xml</code> dan <code>capacitor.config.ts</code>.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Sebelum melepas aplikasi ke tangan masyarakat luas, audit keamanan adalah harga mati yang tidak boleh ditawar! Buka berkas <code>AndroidManifest.xml</code>: pastikan <code>android:debuggable</code> bernilai false. Larang keras <code>usesCleartextTraffic</code> agar aplikasi menolak koneksi HTTP biasa tanpa enkripsi (wajib HTTPS TLS 1.3). Dan bersihkan seluruh deklarasi izin permission yang tidak relevan agar aplikasi Anda tidak dianggap berisiko atau dicurigai sebagai spyware oleh sistem keamanan Android!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>Larangan keras meletakkan kunci rahasia (<em>hardcoded API Secret</em>) pada berkas JavaScript sisi klien.</li>
+<li>Penegakan protokol komunikasi data aman (<em>HTTPS Enforcement</em>) via <em>Network Security Config</em>.</li>
+<li>Sanitasi deklarasi izin <code>&lt;uses-permission&gt;</code> berpedoman pada prinsip hak istimewa terkecil (<em>Principle of Least Privilege</em>).</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  Audit[&quot;Checklist Audit Keamanan Pra-Rilis&quot;] --&gt; C1[&quot;1. Nonaktifkan Debuggable (android:debuggable=false)&quot;]
+  Audit --&gt; C2[&quot;2. Paksa Enkripsi Jaringan (No Cleartext HTTP, Wajib HTTPS)&quot;]
+  Audit --&gt; C3[&quot;3. Sanitasi Izin Permission (Hapus SMS/Call yang Tidak Dipakai)&quot;]
+  Audit --&gt; C4[&quot;4. Lindungi Kredensial API (Gunakan Proxy Backend)&quot;]
+  C1 &amp; C2 &amp; C3 &amp; C4 --&gt; Status[&quot;✅ Aplikasi Lolos Verifikasi Keamanan&quot;]
+  style Audit fill:#FEF08A,stroke:#CA8A04
+  style Status fill:#DCFCE7,stroke:#16A34A,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_09_audit_keamanan_sebelum_rilis.html"><code>slide_09_audit_keamanan_sebelum_rilis.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 10: Distribusi Alternatif: Progressive Web App (PWA) Offline</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menerapkan Service Worker Cache API dan Web App Manifest untuk instalasi tanpa toko aplikasi.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Edge, DevTools <code>F12</code> (Tab Application $\rightarrow$ Manifest &amp; Service Workers).</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Bagaimana jika pengguna Anda memakai ponsel iPhone atau ruang penyimpanan di HP-nya sangat sempit? Solusi modernnya adalah Progressive Web App (PWA). Cukup sediakan berkas <code>manifest.json</code> dan skrip latar belakang <code>sw.js</code> (Service Worker), maka peramban akan memunculkan prompt 'Tambahkan ke Layar Utama'. Berkas HTML, CSS, dan data disalin ke memori Cache Storage lokal, sehingga aplikasi portal belajar mahasiswa tetap terbuka seketika bahkan saat kuota internet habis!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>Anatomi <code>manifest.json</code>: <code>short_name</code>, <code>icons</code>, <code>start_url</code>, dan <code>display: standalone</code>.</li>
+<li>Siklus hidup Service Worker: fase <code>install</code> (precaching aset), <code>activate</code> (pembersihan cache lama), dan intercept event <code>fetch</code>.</li>
+<li>Distribusi langsung ke pengguna tanpa biaya akun Google Play Store ($25) maupun Apple Developer ($99/tahun).</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  Browser[&quot;Browser Pengguna (UI)&quot;] --&gt;|fetch('/data')| SW[&quot;Service Worker Proxy&quot;]
+  SW --&gt;|Cek Ketersediaan| Cache[&quot;Cache Storage (Lokal HP)&quot;]
+  Cache --&gt;|Cache Hit (0 ms)| Fast[&quot;✅ Buka Cepat (Mode Offline OK)&quot;]
+  SW --&gt;|Cache Miss| Net[&quot;🌐 Remote Cloud Server (Online)&quot;]
+  style Browser fill:#E0F2FE,stroke:#0284C7
+  style SW fill:#FEF08A,stroke:#CA8A04
+  style Cache fill:#DCFCE7,stroke:#16A34A
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_10_pwa_service_worker_offline.html"><code>slide_10_pwa_service_worker_offline.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 11: Distribusi Google Play Console &amp; Standar Android App Bundle (.aab)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memahami ekosistem rilis Google Play Store, format AAB, dan alur track pengujian rilis.</li>
+<li><strong>Alat yang Digunakan:</strong> Browser web Google Play Console (<code>play.google.com/console</code>), terminal <code>./gradlew bundleRelease</code>.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Jika Anda ingin meluncurkan aplikasi ke katalog resmi Google Play Store, Google kini mewajibkan format Android App Bundle (<code>.aab</code>) melalui perintah <code>./gradlew bundleRelease</code>. Mengapa bukan APK biasa? Karena Play Store memanfaatkan Dynamic Delivery untuk memecah berkas AAB menjadi paket-paket kecil sesuai arsitektur CPU (ARM64 vs ARMv7) dan resolusi layar tiap ponsel pengguna, menghemat ukuran unduh hingga 35%. Anda juga wajib melewati tahapan track pengujian, termasuk aturan 20 penguji selama 14 hari untuk akun baru!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>Perbedaan esensial APK Monolithic (semua library dibungkus jadi satu) versus AAB (dipecah otomatis di cloud).</li>
+<li>4 Jalur Rilis (<em>Release Tracks</em>): <em>Internal Testing</em>, <em>Closed Testing</em> (20 penguji opt-in aktif 14 hari), <em>Open Testing</em>, dan <em>Production</em>.</li>
+<li>Checklist aset visual Store Listing: App Icon 512x512 PNG, Feature Graphic 1024x500, dan URL Kebijakan Privasi HTTPS.</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  Dev[&quot;Laptop Dev: ./gradlew bundleRelease&quot;] --&gt; AAB[&quot;Berkas: app-release.aab&quot;]
+  AAB --&gt; Play[&quot;Google Play Console Cloud&quot;]
+  Play --&gt; Split[&quot;Dynamic Delivery: Split-APKs&quot;]
+  Split --&gt; PhoneA[&quot;HP Mahasiswa A (Arm64: 12 MB)&quot;]
+  Split --&gt; PhoneB[&quot;HP Mahasiswa B (Arm-v7: 11 MB)&quot;]
+  style Dev fill:#E0F2FE,stroke:#0284C7
+  style Play fill:#FEF08A,stroke:#CA8A04
+  style Split fill:#DCFCE7,stroke:#16A34A
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_11_distribusi_google_play_console.html"><code>slide_11_distribusi_google_play_console.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 12: Pemetaan Kisi-kisi Soal UAS: Modul 1 sampai Modul 9 BMP</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memetakan distribusi bobot kompetensi dan pola soal UAS mata kuliah STSI4303 / MSIM4401.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, Buku Materi Pokok (BMP) UT STSI4303/MSIM4401.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Ujian Akhir Semester di Universitas Terbuka disusun dengan standar mutu akademik yang sangat terukur mengacu pada Buku Materi Pokok (BMP). Modul 1–2 mencakup 20% (Arsitektur Hybrid &amp; Vue 3), Modul 3–5 mencakup 32% (TypeScript, Navigasi UI, Formulir, Regex, Dark Mode), Modul 6–8 mencakup 32% (Capacitor Bridge, Android Studio, REST API, Storage Persisten, Sensor), dan Modul 9 mencakup 16% (Build APK Release &amp; Troubleshooting). Pahami pola soalnya, pelajari taksonomi kognitifnya, dan Anda pasti sukses!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>Matriks distribusi proporsional 9 Modul BMP UT.</li>
+<li>Distribusi tingkat kognitif Bloom: C1 Pengetahuan (20%), C2 Pemahaman (30%), C3 Penerapan (35%), dan C4 Analisis (15%).</li>
+<li>Strategi manajemen waktu pengerjaan: 50 butir soal dalam waktu 90 menit (~1.8 menit per butir soal).</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  subgraph Tier1 [&quot;Pondasi Web (20%)&quot;]
+    M1[&quot;Modul 1: Hybrid &amp; WebView (10%)&quot;]
+    M2[&quot;Modul 2: Web Standards &amp; Vue 3 (10%)&quot;]
+  end
+
+  subgraph Tier2 [&quot;UI &amp; Form (32%)&quot;]
+    M3[&quot;Modul 3: TypeScript (10%)&quot;]
+    M4[&quot;Modul 4: Ionic UI (10%)&quot;]
+    M5[&quot;Modul 5: Form &amp; Regex (12%)&quot;]
+  end
+
+  subgraph Tier3 [&quot;Bridge &amp; Hardware (32%)&quot;]
+    M6[&quot;Modul 6: Capacitor Bridge (16%)&quot;]
+    M7[&quot;Modul 7: REST API &amp; Storage (16%)&quot;]
+  end
+
+  subgraph Tier4 [&quot;Produksi &amp; UAS (16%)&quot;]
+    M8[&quot;Modul 8: Debug &amp; Profiling (8%)&quot;]
+    M9[&quot;Modul 9: Build APK Release (8%)&quot;]
+  end
+
+  Tier1 --&gt; Tier2 --&gt; Tier3 --&gt; Tier4
+  style Tier1 fill:#BAE6FD,stroke:#0284C7
+  style Tier2 fill:#DDD6FE,stroke:#7C3AED
+  style Tier3 fill:#FED7AA,stroke:#EA580C
+  style Tier4 fill:#BBF7D0,stroke:#15803D
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_12_kisi_kisi_uas_modul_1_sampai_9.html"><code>slide_12_kisi_kisi_uas_modul_1_sampai_9.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 13: Bank Soal UAS Bagian 1 (Soal 01 - 15): Arsitektur Hybrid &amp; Vue.js 3</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menguji penguasaan konsep arsitektur hybrid, WebView, standar web modern, dan sistem reaktivitas Vue 3.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Edge, DevTools <code>F12</code> Console tab untuk verifikasi ekspresi reaktif.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Bagian pertama dari bank soal komprehensif kita menguji pondasi: Mengapa aplikasi hybrid berjalan di dalam container WebView? Bagaimana mesin Vue.js 3 memanfaatkan JavaScript Proxy API untuk mendeteksi perubahan nilai variabel reaktif secara otomatis? Kapan kita harus memilih ref() dibanding reactive()? Dan mengapa direktif v-model begitu esensial dalam pengikatan data dua arah? Mari kita uji jawaban Anda secara langsung pada lembar interaktif ini!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>15 butir soal pilihan ganda akademik berkualitas tinggi mencakup Modul 1 dan Modul 2 BMP UT.</li>
+<li>Fitur interaktif: Pilihan opsi A/B/C/D, penandaan warna real-time, dan tombol pembahasan pedagogis lengkap.</li>
+<li>Analisis peran mesin peramban internal Android System WebView berbasis Chromium.</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  Q[&quot;Soal 01 - 15 (Pondasi)&quot;] --&gt; M1[&quot;Modul 1: Hybrid vs Native&lt;br&gt;WebView Container &amp; Portabilitas&quot;]
+  Q --&gt; M2[&quot;Modul 2: Web Standards &amp; Vue 3&lt;br&gt;Reactivity Proxy, ref(), reactive(), v-model&quot;]
+  M1 &amp; M2 --&gt; Eval[&quot;Evaluasi Kognitif C1 - C3&quot;]
+  style Q fill:#E0F2FE,stroke:#0284C7
+  style Eval fill:#DCFCE7,stroke:#16A34A
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_13_bank_soal_uas_bagian_1.html"><code>slide_13_bank_soal_uas_bagian_1.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 14: Bank Soal UAS Bagian 2 (Soal 16 - 30): TypeScript, Ionic Grid &amp; Dark Mode</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menguji pemahaman static typing TypeScript, sistem tata letak responsive grid, sanitasi Regex, dan tema gelap.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Edge, pengujian pola Regex di Console.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Bagian kedua membawa kita ke ranah antarmuka visual dan keamanan tipe data: Mengapa interface dan optional property (?) pada TypeScript sangat ampuh mencegah galat runtime? Bagaimana sistem 12-kolom Ionic Grid secara cerdas mengatur susunan kolom kartu saat dibuka di ponsel versus layar lebar? Dan pola regex seperti apa yang menjamin validasi 9 digit angka NIM mahasiswa UT secara akurat? Kuasai bagian ini untuk mengamankan nilai ujian Anda!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>15 butir soal pilihan ganda berbobot mencakup Modul 3, 4, dan 5 BMP UT.</li>
+<li>Analisis potongan kode interface TypeScript dan pencocokan pola regex <code>^\d{9}$</code>.</li>
+<li>Desain antarmuka mobile adaptif memanfaatkan variabel CSS dan preferensi tema gelap (<em>Dark Mode</em>).</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  Q[&quot;Soal 16 - 30 (UI &amp; Data)&quot;] --&gt; M3[&quot;Modul 3: TypeScript Interface&lt;br&gt;Type Safety &amp; Compile Time Errors&quot;]
+  Q --&gt; M4[&quot;Modul 4: Ionic UI Layout&lt;br&gt;ion-card, ion-grid, ion-tabs&quot;]
+  Q --&gt; M5[&quot;Modul 5: Formulir &amp; Sanitasi&lt;br&gt;Regex Validation &amp; Dark Theme&quot;]
+  M3 &amp; M4 &amp; M5 --&gt; Eval[&quot;Evaluasi Kognitif C2 - C4&quot;]
+  style Q fill:#FEF08A,stroke:#CA8A04
+  style Eval fill:#DCFCE7,stroke:#16A34A
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_14_bank_soal_uas_bagian_2.html"><code>slide_14_bank_soal_uas_bagian_2.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 15: Bank Soal UAS Bagian 3 (Soal 31 - 45): Capacitor Bridge, API &amp; Storage</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menguji kompetensi komunikasi native bridge, integrasi REST API, penyimpanan lokal, dan akses sensor.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome DevTools (Tab Network &amp; Application), Android Studio Logcat.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Di bagian ketiga, kita memasuki jantung kapabilitas aplikasi mobile: Bagaimana protokol jembatan Capacitor menerjemahkan pemanggilan JavaScript menjadi eksekusi fungsi native Java/Kotlin? Mengapa npx cap sync wajib dijalankan setiap kali ada pembaruan aset web? Mengapa blok try-catch-finally mutlak diperlukan pada penanganan fetch data jaringan? Dan mengapa Capacitor Preferences jauh lebih andal dibanding localStorage biasa saat memori OS menipis? Ujilah pemahaman Anda sekarang!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>15 butir soal mencakup Modul 6, 7, dan 8 BMP UT.</li>
+<li>Pembahasan skenario <em>offline-first</em>, pembacaan satelit GPS Geolocation, dan perizinan Camera.</li>
+<li>Pembedahan teknik pelacakan galat menggunakan Chrome Remote Inspect (<code>chrome://inspect</code>) dan Android Studio Logcat.</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  Q[&quot;Soal 31 - 45 (Bridge &amp; Cloud)&quot;] --&gt; M6[&quot;Modul 6: Capacitor RPC Bridge&lt;br&gt;AndroidManifest &amp; npx cap sync&quot;]
+  Q --&gt; M7[&quot;Modul 7: REST API &amp; Storage&lt;br&gt;Async/Await, Camera, Geolocation&quot;]
+  Q --&gt; M8[&quot;Modul 8: Debugging&lt;br&gt;Chrome Inspect &amp; Logcat&quot;]
+  M6 &amp; M7 &amp; M8 --&gt; Eval[&quot;Evaluasi Kognitif C2 - C4&quot;]
+  style Q fill:#DDD6FE,stroke:#7C3AED
+  style Eval fill:#DCFCE7,stroke:#16A34A
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_15_bank_soal_uas_bagian_3.html"><code>slide_15_bank_soal_uas_bagian_3.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 16: Bank Soal UAS Bagian 4 (Soal 46 - 50): Keystore, Build &amp; Kasus Produksi</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menganalisis skenario tingkat lanjut penandatanganan digital, kompilasi Gradle, dan pemecahan masalah (troubleshooting).</li>
+<li><strong>Alat yang Digunakan:</strong> Terminal CLI, Android Studio Build Analyzer, Browser Chrome.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Lima soal pamungkas ini menguji kematangan Anda sebagai insinyur perangkat lunak: Mengapa penandatanganan biner dengan digital keystore wajib dilakukan? Mengapa perintah assembleRelease berbeda secara fundamental dengan bundleRelease? Dan studi kasus produksi klasik: Mengapa aplikasi yang berjalan sempurna di Chrome desktop tiba-tiba mengalami layar putih total (White Screen of Death) saat dipasang di ponsel Android versi lawas? Pelajari analisis solusinya agar Anda tidak terjebak!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>5 butir soal analisis tingkat tinggi (<em>high-order thinking skills</em>) mencakup Modul 9 BMP UT.</li>
+<li>Analisis akar masalah insiden <em>White Screen of Death (WSOD)</em> dan solusinya (pembaruan System WebView dan target transpilasi ES2015).</li>
+<li>Pemahaman mitigasi risiko jika berkas <em>digital keystore</em> hilang atau rusak.</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  Q[&quot;Soal 46 - 50 (Kasus Nyata)&quot;] --&gt; S1[&quot;Keystore Signing &amp; Verifikasi Kriptografi&quot;]
+  Q --&gt; S2[&quot;assembleRelease (APK) vs bundleRelease (AAB)&quot;]
+  Q --&gt; S3[&quot;Troubleshooting White Screen of Death (WSOD)&quot;]
+  S1 &amp; S2 &amp; S3 --&gt; Eval[&quot;Evaluasi Kognitif C4 Analisis Kasus&quot;]
+  style Q fill:#FECDD3,stroke:#BE123C
+  style Eval fill:#DCFCE7,stroke:#16A34A
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_16_bank_soal_uas_bagian_4.html"><code>slide_16_bank_soal_uas_bagian_4.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 17: Master Solusi Lab Quest 08: APK Release Validator &amp; 50 Soal UAS Engine</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengoperasikan simulator audit kesiapan APK rilis dan menuntaskan simulasi penuh 50 soal UAS dengan batas waktu 90 menit.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Edge di PC atau smartphone, buka berkas HTML mandiri via <code>file:///</code>.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Inilah mahakarya praktikum penutup perkuliahan kita: Master Solusi Lab Quest 08! Aplikasi mandiri ini dilengkapi dua instrumen utama: Tab 1 adalah APK Release Readiness Audit untuk memverifikasi apakah proyek Anda sudah memenuhi standar keamanan sebelum dibagikan ke publik. Dan Tab 2 adalah Engine Simulasi Penuh 50 Soal UAS berwaktu mundur 90 menit dengan matriks nomor soal interaktif, penilaian otomatis skala 0–100, serta penentuan predikat kelulusan resmi UT. Ujilah kemampuan Anda sekarang dan raih nilai terbaik!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li><strong>Tab 1 (Readiness Audit):</strong> 6 Parameter audit kritis (Keystore, Signing, Debuggable, Cleartext, Permissions, dan SDK 34/35).</li>
+<li><strong>Tab 2 (UAS Exam Simulator):</strong> Ujian komprehensif 50 butir soal lengkap dengan penghitung waktu mundur (<em>countdown timer</em>) 90 menit, status pengerjaan soal, dan evaluasi hasil instan.</li>
+<li>Berjalan 100% mandiri pada peramban web tanpa memerlukan dependensi Node server tambahan (<em>Zero-Friction</em>).</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  subgraph Engine [&quot;Master Solusi Lab Quest 08 (slide_17.html)&quot;]
+    Tab1[&quot;🛠️ Tab 1: APK Release Audit&lt;br&gt;(6 Parameter Keamanan &amp; Konfigurasi)&quot;]
+    Tab2[&quot;📝 Tab 2: Simulasi 50 Soal UAS&lt;br&gt;(Timer 90 Menit + Matriks Soal)&quot;]
+  end
+
+  Tab1 --&gt; Fix[&quot;Tombol: Perbaiki Otomatis Semua Parameter&quot;]
+  Tab2 --&gt; Submit[&quot;Tombol: Kumpulkan Jawaban Ujian&quot;]
+  Submit --&gt; Score[&quot;Penilaian Skor Instan (0-100) &amp; Grade Kelulusan (A/B/C/D)&quot;]
+  style Engine fill:#F8FAFC,stroke:#000,stroke-width:2px
+  style Tab1 fill:#DDD6FE,stroke:#7C3AED
+  style Tab2 fill:#BAE6FD,stroke:#0284C7
+  style Score fill:#DCFCE7,stroke:#16A34A,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_17_lab_quest_08_apk_validator.html"><code>slide_17_lab_quest_08_apk_validator.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 18: Penutup Semester: Refleksi Perkuliahan &amp; Pesan Dosen</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memaknai pencapaian kompetensi 8 sesi perkuliahan dan merencanakan pengembangan portofolio karir mobile profesional.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Edge, akun GitHub publik mahasiswa, profil LinkedIn.</li>
+<li><strong>Narasi Dosen Pengampu:</strong><br />
+<em>&quot;Selamat rekan-rekan mahasiswa Universitas Terbuka dari Sabang sampai Merauke! Kalian telah menuntaskan seluruh rangkaian 8 sesi perkuliahan Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401). Kalian telah membuktikan bahwa dengan tekad kuat dan pendekatan zero-friction, mahasiswa UT mampu menguasai ekosistem industri modern: Ionic, Vue 3, TypeScript, Capacitor, hingga rilis mandiri APK. Teruslah berkarya, bangun portofolio GitHub yang membanggakan, dan bawalah manfaat nyata bagi kemajuan bangsa! Sukses besar di UAS dan sampai jumpa di panggung wisuda Universitas Terbuka!&quot;</em></li>
+<li><strong>Poin Kunci Pembahasan:</strong>
+<ul>
+<li>Rangkuman pencapaian kurikulum 8 sesi dari pengenalan komponen web hingga biner produksi.</li>
+<li>Tiga langkah strategis pasca perkuliahan: Portofolio GitHub, eksplorasi fitur enterprise (FCM Push Notifications, SQLite), dan persiapan karir industri.</li>
+<li>Pesan inspiratif dan refleksi akademik oleh Dosen Pengampu Pak Anton Prafanto, S.Kom., M.T.</li>
+</ul>
+</li>
+<li><strong>Diagram Mermaid:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  S1[&quot;Level 1: Pondasi UT&lt;br&gt;(9 Modul BMP Tuntas)&quot;] --&gt; S2[&quot;Level 2: Junior Portfolio&lt;br&gt;(3 Tugas Tutorial di GitHub)&quot;]
+  S2 --&gt; S3[&quot;Level 3: Mid-Engineer&lt;br&gt;(Enterprise Features &amp; Store Release)&quot;]
+  S3 --&gt; S4[&quot;Level 4: Senior Lead&lt;br&gt;(Multi-Platform Architect)&quot;]
+  style S1 fill:#BAE6FD,stroke:#0284C7
+  style S2 fill:#FEF08A,stroke:#CA8A04
+  style S3 fill:#BBF7D0,stroke:#15803D
+  style S4 fill:#FECDD3,stroke:#BE123C
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_18_penutup_semester_pesan_dosen.html"><code>slide_18_penutup_semester_pesan_dosen.html</code></a></li>
+</ul>
+<hr />
+<h2>📚 Daftar Pustaka &amp; Referensi Akademik</h2>
+<ol>
+<li><strong>Universitas Terbuka.</strong> (2024). <em>Buku Materi Pokok STSI4303 / MSIM4401: Pemrograman Berbasis Perangkat Bergerak (Edisi Terbaru)</em>. Tangerang Selatan: Penerbit Universitas Terbuka.</li>
+<li><strong>Google Android Open Source Project.</strong> (2024). <em>Application Signing, APK Signature Scheme v2/v3, and R8 Code Shrinker</em>. Android Developers Documentation.</li>
+<li><strong>Google Play Console Help.</strong> (2024). <em>About Android App Bundles and Dynamic Delivery Architecture</em>. Google Support Documentation.</li>
+<li><strong>W3C Web Application Security Working Group.</strong> (2024). <em>Service Workers Specification W3C Recommendation</em>. World Wide Web Consortium.</li>
+<li><strong>Bloom, B. S., et al.</strong> (1956/2001). <em>Taxonomy of Educational Objectives: Cognitive Domain (Revised by Anderson &amp; Krathwohl)</em>. New York: David McKay Company.</li>
+<li><strong>IEEE Computer Society.</strong> (2023). <em>Software Engineering Body of Knowledge (SWEBOK Guide V4.0)</em>. IEEE Press.</li>
+<li><strong>Russell, A.</strong> (2015). <em>Progressive Web Apps: Escaping Tabs Without Losing Our Soul</em>. Infrequently Noted Technical Reports.</li>
+</ol>
+<hr />
+<h2>👨‍🏫 Profil Pengampu &amp; Kontak Akademik</h2>
+<ul>
+<li><strong>Dosen Pengampu:</strong> Anton Prafanto, S.Kom., M.T.</li>
+<li><strong>Program Studi:</strong> Sistem Informasi &amp; Informatika — Fakultas Sains dan Teknologi (FST)</li>
+<li><strong>Institusi:</strong> Universitas Terbuka (UT)</li>
+<li><strong>Repositori Resmi Pembelajaran:</strong> <a href="https://github.com/antonprafanto/tuweb_mobile2025.git"><code>https://github.com/antonprafanto/tuweb_mobile2025.git</code></a></li>
+</ul>
+
+
+      <footer class="doc-footer">
+        <div>
+          <span>Hak Cipta &copy; 2026 Universitas Terbuka</span> • 
+          <span>The Zero-Friction Courseware Framework</span>
+        </div>
+        <div>
+          <a href="../index.html" style="font-size: 12px; color: var(--ut-blue);">Kembali ke Katalog Utama ↗</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Konversi blok diagram mermaid
+      document.querySelectorAll('pre code.language-mermaid').forEach(el => {
+        const pre = el.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        pre.replaceWith(div);
+      });
+
+      // Bungkus seluruh tabel dengan wrapper responsive
+      document.querySelectorAll('.doc-content table').forEach(tbl => {
+        if (!tbl.parentElement.classList.contains('table-responsive')) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'table-responsive';
+          tbl.parentElement.insertBefore(wrapper, tbl);
+          wrapper.appendChild(tbl);
+        }
+      });
+
+      // Inisialisasi mermaid jika pustaka tersedia
+      if (window.mermaid) {
+        mermaid.initialize({ 
+          startOnLoad: true, 
+          theme: 'neutral',
+          securityLevel: 'loose'
+        });
+      }
+    });
+  </script>
+</body>
+</html>

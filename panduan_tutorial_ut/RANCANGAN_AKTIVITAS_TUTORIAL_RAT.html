@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rancangan Aktivitas Tutorial (RAT) & Satuan Aktivitas Tutorial (SAT) — Universitas Terbuka</title>
+  <meta name="description" content="Rancangan Aktivitas Tutorial resmi mata kuliah Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401) Universitas Terbuka.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Mermaid.js untuk Diagram Arsitektur -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --ut-navy: #003366;
+      --ut-blue: #005691;
+      --ut-blue-light: #EBF3FA;
+      --ut-gold: #C28E00;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      position: static !important;
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100% !important;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Breadcrumb & Navbar */
+    .top-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-nav-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ut-blue);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .breadcrumb:hover {
+      color: var(--ut-navy);
+      text-decoration: underline;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--slate-200);
+      background: #FFFFFF;
+      color: var(--slate-700);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+    }
+
+    .action-btn.primary {
+      background: var(--ut-blue);
+      color: #FFFFFF;
+      border-color: var(--ut-blue);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--ut-navy);
+      border-color: var(--ut-navy);
+    }
+
+    /* Main Container */
+    .doc-container {
+      max-width: 1060px;
+      margin: 32px auto 60px;
+      padding: 0 20px;
+    }
+
+    /* Academic Header Card */
+    .doc-header {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ut-navy) 0%, var(--ut-blue) 60%, var(--ut-gold) 100%);
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--ut-blue);
+      background: var(--ut-blue-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+
+    .doc-subtitle {
+      font-size: 14px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* Document Body & Typography */
+    .doc-content {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 768px) {
+      .doc-content { padding: 24px 20px; }
+      .doc-header { padding: 24px 20px; }
+      .doc-title { font-size: 22px; }
+    }
+
+    .doc-content h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-top: 28px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 32px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .doc-content h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    .doc-content p {
+      margin-bottom: 16px;
+      color: var(--slate-700);
+    }
+
+    .doc-content ul, .doc-content ol {
+      margin-bottom: 18px;
+      padding-left: 24px;
+    }
+
+    .doc-content li {
+      margin-bottom: 6px;
+      color: var(--slate-700);
+    }
+
+    .doc-content hr {
+      border: none;
+      height: 1px;
+      background: var(--slate-200);
+      margin: 32px 0;
+    }
+
+    /* Links */
+    .doc-content a {
+      color: var(--ut-blue);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #93C5FD;
+      transition: all 0.15s ease;
+    }
+
+    .doc-content a:hover {
+      color: var(--ut-navy);
+      border-bottom-style: solid;
+      background: var(--ut-blue-light);
+    }
+
+    /* GitHub Alert Callouts */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-left: 4px solid;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .alert-important {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+
+    .alert-note {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1E40AF;
+    }
+
+    .alert-tip {
+      background: #ECFDF5;
+      border-color: #10B981;
+      color: #065F46;
+    }
+
+    .alert-warning {
+      background: #FFFBEB;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+
+    /* Beautiful Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    .doc-content th {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--slate-200);
+      letter-spacing: 0.2px;
+    }
+
+    .doc-content td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: top;
+    }
+
+    .doc-content tr:last-child td {
+      border-bottom: none;
+    }
+
+    .doc-content tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+
+    .doc-content tr:hover td {
+      background: #F1F5F9;
+    }
+
+    /* Code Blocks */
+    .doc-content pre {
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 20px 0;
+      border: 1px solid var(--slate-700);
+    }
+
+    .doc-content code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--slate-100);
+      color: var(--slate-900);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .doc-content pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    /* Mermaid Diagrams */
+    .mermaid {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--slate-400);
+    }
+
+    @media print {
+      .top-nav, .action-btn { display: none !important; }
+      body { background: #FFF; }
+      .doc-header, .doc-content { border: none; box-shadow: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP STICKY NAVIGATION -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../index.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Kembali ke Portal Perkuliahan
+      </a>
+
+      <div class="nav-actions">
+        <button class="action-btn" onclick="window.print()" title="Cetak halaman atau simpan sebagai PDF">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Cetak / PDF
+        </button>
+        <a href="RANCANGAN_AKTIVITAS_TUTORIAL_RAT.md" target="_blank" class="action-btn" title="Buka berkas sumber Markdown asli">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Naskah Markdown (.md)
+        </a>
+        <a href="https://github.com/antonprafanto/tuweb_mobile2025" target="_blank" class="action-btn" title="Buka repositori GitHub">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="doc-container">
+    <!-- HEADER -->
+    <header class="doc-header">
+      <span class="doc-badge">Silabus RAT / SAT Resmi</span>
+      <h1 class="doc-title">RANCANGAN AKTIVITAS TUTORIAL (RAT) & SAT LENGKAP</h1>
+      <p class="doc-subtitle">
+        Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</strong><br>
+        Fakultas Sains dan Teknologi, Universitas Terbuka • Dosen Pengampu: <strong>Anton Prafanto, S.Kom., M.T.</strong>
+      </p>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="doc-content">
+      <h1>📋 RANCANGAN AKTIVITAS TUTORIAL (RAT) &amp; SAT LENGKAP</h1>
+<h2>Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)</h2>
+<h3>Program Studi: S1 Sistem Informasi &amp; S1 Informatika</h3>
+<h3>Fakultas Sains dan Teknologi (FST) — Universitas Terbuka</h3>
+<div class="alert-box alert-tip">
+<p><strong>Tampilan Versi Web Interaktif &amp; Rapi:</strong>
+Dokumen ini tersedia dalam format Web Modern yang responsif, rapi, dan mudah dibaca:<br />
+👉 <a href="https://antonprafanto.github.io/tuweb_mobile2025/panduan_tutorial_ut/RANCANGAN_AKTIVITAS_TUTORIAL_RAT.html"><strong>Buka Versi Web Silabus RAT/SAT Resmi</strong></a> <em>(atau buka berkas lokal <code>RANCANGAN_AKTIVITAS_TUTORIAL_RAT.html</code>)</em>.</p>
+</div>
+<hr />
+<h2>1. Identitas Mata Kuliah</h2>
+<ul>
+<li><strong>Nama Mata Kuliah:</strong> Pemrograman Berbasis Perangkat Bergerak</li>
+<li><strong>Kode Mata Kuliah:</strong> STSI4303 (Ekuivalensi Kurikulum: MSIM4401)</li>
+<li><strong>Bobot SKS:</strong> 3 SKS (Mata Kuliah Berpraktik Penuh)</li>
+<li><strong>Pengembang / Penelaah:</strong> Anton Prafanto, S.Kom., M.T.</li>
+<li><strong>Institusi:</strong> Universitas Terbuka</li>
+<li><strong>Moda Pelaksanaan:</strong> Tutorial Online (Tuton) di <code>elearning.ut.ac.id</code> / Tutorial Webinar (Tuweb)</li>
+<li><strong>Durasi Tutorial:</strong> 8 Sesi / 8 Pertemuan (@ 120 Menit per pertemuan Tuweb atau 1 minggu per sesi Tuton)</li>
+<li><strong>Buku Materi Pokok (BMP) Acuan:</strong> BMP STSI4303 / MSIM4401 <em>Pemrograman Berbasis Piranti Bergerak</em> (Modul 1 s.d. 9), Penerbit Universitas Terbuka.</li>
+</ul>
+<hr />
+<h2>2. Deskripsi Mata Kuliah &amp; Filosofi Pedagogis</h2>
+<p>Mata kuliah <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303)</strong> membekali mahasiswa dengan kemampuan komprehensif dalam merancang, membangun, menguji, dan mendistribusikan aplikasi mobile multiplatform modern. Perkuliahan ini menerapkan pendekatan <strong>Hybrid / WebView Architecture</strong> memanfaatkan kombinasi teknologi industri terkini:</p>
+<ol>
+<li><strong>Ionic Framework (v7/v8):</strong> Antarmuka pengguna berstandar mobile (Material Design &amp; iOS Cupertino).</li>
+<li><strong>Vue.js 3 (Composition API):</strong> Sistem reaktivitas frontend berkinerja tinggi yang deklaratif dan efisien.</li>
+<li><strong>TypeScript:</strong> Pengetikan data statis (<em>static typing</em>) untuk menjamin keamanan kode dan mencegah galat <em>runtime</em>.</li>
+<li><strong>Capacitor Runtime:</strong> Jembatan penghubung antara kode web dengan perangkat keras dan sistem operasi Android fisik.</li>
+</ol>
+<h3>🌟 Filosofi &quot;The Zero-Friction Courseware&quot;</h3>
+<p>Perkuliahan ini dirancang khusus dengan pendekatan ramah bagi mahasiswa dengan latar belakang pemula dan keterbatasan perangkat keras (<em>hardware-friendly</em>):</p>
+<ul>
+<li><strong>Bebas Hambatan Kognitif:</strong> Konsep disajikan bertahap dari pemahaman mental model, visualisasi pohon komponen, hingga contoh kode atomik.</li>
+<li><strong>Ramah Laptop Spesifikasi Menengah (RAM 4–8GB):</strong> Tidak mewajibkan emulator Android Studio yang berat. Pembelajaran difasilitasi melalui simulasi <em>Google Chrome Device Toolbar</em>, live reload, dan pengujian smartphone Android fisik secara instan via kabel USB menggunakan utilitas ringan <code>scrcpy</code>.</li>
+<li><strong>Prinsip One-Slide, One-Runnable-File:</strong> Setiap konsep materi didampingi oleh 1 berkas kode mandiri siap eksekusi tanpa konfigurasi rumit.</li>
+</ul>
+<hr />
+<h2>3. Capaian Pembelajaran Mata Kuliah (CPMK)</h2>
+<p>Setelah menempuh 8 sesi tutorial ini, mahasiswa mampu:</p>
+<ul>
+<li><strong>CPMK-1:</strong> Menjelaskan arsitektur pengembangan piranti bergerak (Native vs Hybrid) serta menyiapkan lingkungan pengembangan (<em>development environment</em>) secara mandiri.</li>
+<li><strong>CPMK-2:</strong> Membangun antarmuka web reaktif menggunakan sistem reaktivitas, direktif, event handling, dan siklus hidup komponen <strong>Vue.js 3</strong>.</li>
+<li><strong>CPMK-3:</strong> Menerapkan keamanan tipe data (<em>type safety</em>), deklarasi antarmuka (<em>interface</em>), dan logika komputasi otomatis menggunakan <strong>TypeScript</strong> dan <strong>Vue Composition API</strong>.</li>
+<li><strong>CPMK-4:</strong> Mengembangkan struktur navigasi tumpukan (<em>stack navigation</em>) dan mengelola siklus hidup layar aplikasi menggunakan <strong>Ionic Framework</strong>.</li>
+<li><strong>CPMK-5:</strong> Merancang tata letak adaptif (<em>responsive grid</em>), validasi masukan formulir berbasis Regular Expression (Regex), serta manipulasi tema dinamis (<em>Dark/Light Mode</em>).</li>
+<li><strong>CPMK-6:</strong> Menghubungkan aplikasi web dengan kapabilitas sistem operasi dan perangkat keras Android melalui runtime <strong>Capacitor</strong> dengan memperhatikan aspek keamanan aplikasi.</li>
+<li><strong>CPMK-7:</strong> Mengintegrasikan aplikasi mobile dengan layanan data eksternal (<strong>REST API</strong>) secara asinkron, penyimpanan data offline persisten (<strong>Preferences/Local Storage</strong>), dan sensor native (GPS/Kamera).</li>
+<li><strong>CPMK-8:</strong> Melakukan proses pengujian, optimasi aset, penandatanganan berkas (<em>code signing keystore</em>), pembuatan paket instalasi <strong>APK Android Release</strong>, serta menyelesaikan evaluasi komprehensif persiapan UAS.</li>
+</ul>
+<hr />
+<h2>4. Peta Hubungan Capaian Pembelajaran (Learning Path Map)</h2>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph FONDASI [&quot;FASE 1: Fondasi Frontend Reaktif &amp; Type Safety&quot;]
+        CP1[&quot;CPMK-1: Arsitektur Hybrid &amp; Dev-Tools&quot;] --&gt; CP2[&quot;CPMK-2: Reaktivitas Data &amp; Direktif Vue 3&quot;]
+        CP2 --&gt; CP3[&quot;CPMK-3: Type Safety TypeScript &amp; State Komposisi&quot;]
+        CP3 -.-&gt; T1[&quot;🎯 TUGAS TUTORIAL 1 (Sesi 3)&quot;]
+    end
+
+    subgraph UI_UX [&quot;FASE 2: Antarmuka Mobile &amp; User Experience&quot;]
+        CP3 --&gt; CP4[&quot;CPMK-4: Web Components Ionic &amp; Stack Routing&quot;]
+        CP4 --&gt; CP5[&quot;CPMK-5: Responsive Grid, Form Regex &amp; Theming&quot;]
+        CP5 -.-&gt; T2[&quot;🎯 TUGAS TUTORIAL 2 (Sesi 5)&quot;]
+    end
+
+    subgraph INTEGRASI [&quot;FASE 3: Integrasi Native, Data &amp; Kesiapan Rilis&quot;]
+        CP5 --&gt; CP6[&quot;CPMK-6: Capacitor Bridge, Android Manifest &amp; Security&quot;]
+        CP6 --&gt; CP7[&quot;CPMK-7: REST API Asinkron, Storage &amp; Native Sensors&quot;]
+        CP7 -.-&gt; T3[&quot;🎯 TUGAS TUTORIAL 3 (Sesi 7)&quot;]
+        CP7 --&gt; CP8[&quot;CPMK-8: Optimasi, Build APK Release &amp; Sukses UAS&quot;]
+    end
+
+    classDef fondasi fill:#FFE600,stroke:#000000,stroke-width:2px,color:#000000;
+    classDef ui fill:#38BDF8,stroke:#000000,stroke-width:2px,color:#000000;
+    classDef integrasi fill:#4ADE80,stroke:#000000,stroke-width:2px,color:#000000;
+    classDef tugas fill:#FB7185,stroke:#000000,stroke-width:2px,color:#000000;
+
+    class CP1,CP2,CP3 fondasi;
+    class CP4,CP5 ui;
+    class CP6,CP7,CP8 integrasi;
+    class T1,T2,T3 tugas;
+</code></pre>
+<hr />
+<h2>5. Matriks Rancangan Aktivitas Tutorial (RAT) 8 Sesi</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">No</th>
+<th style="text-align:left">Capaian Pembelajaran Khusus (Sub-CPMK)</th>
+<th style="text-align:left">Pokok Bahasan</th>
+<th style="text-align:left">Sub-Pokok Bahasan</th>
+<th style="text-align:left">Model / Metode Tutorial</th>
+<th style="text-align:center">Tugas &amp; Tagihan</th>
+<th style="text-align:center">Waktu</th>
+<th style="text-align:left">Sumber Belajar &amp; Pustaka</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>1</strong></td>
+<td style="text-align:left">Mampu membandingkan arsitektur mobile dan menyiapkan dev-tools mandiri</td>
+<td style="text-align:left">Pengenalan Lingkungan Mobile &amp; Ionic</td>
+<td style="text-align:left">• Ekosistem mobile: Native vs Hybrid<br>• Setup Node.js LTS, Git, VS Code<br>• Uji diagnostik environment</td>
+<td style="text-align:left">Tuweb / Tuton, Inisiasi 1, Diskusi Forum</td>
+<td style="text-align:center">Diskusi 1: Pemilihan Arsitektur Mobile</td>
+<td style="text-align:center">120' / 1 pekan</td>
+<td style="text-align:left">BMP Modul 1; Slide Sesi 01; Kode Sesi 01</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>2</strong></td>
+<td style="text-align:left">Mampu membangun logika antarmuka reaktif menggunakan Vue.js 3</td>
+<td style="text-align:left">Frontend Modern Berbasis Vue.js 3</td>
+<td style="text-align:left">• Reactivity state (<code>ref</code>, <code>reactive</code>)<br>• Direktif <code>v-if</code>, <code>v-for</code>, <code>v-model</code><br>• Event handling &amp; props komponen</td>
+<td style="text-align:left">Diskusi, Live Coding, Praktik Mandiri</td>
+<td style="text-align:center">Diskusi 2: Virtual DOM &amp; Reaktivitas Data</td>
+<td style="text-align:center">120' / 1 pekan</td>
+<td style="text-align:left">BMP Modul 2; Slide Sesi 02; Kode Sesi 02</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>3</strong></td>
+<td style="text-align:left">Mampu mengimplementasikan tipe data TypeScript dan Vue Composition API</td>
+<td style="text-align:left">TypeScript &amp; Komposisi Vue 3</td>
+<td style="text-align:left">• Interface, Types &amp; Generics<br>• Vue 3 <code>&lt;script setup lang=&quot;ts&quot;&gt;</code><br>• Computed IPK &amp; Konversi Nilai</td>
+<td style="text-align:left">Praktikum Terbimbing, Pengerjaan Tugas</td>
+<td style="text-align:center">🎯 <strong>TUGAS TUTORIAL 1</strong> <em>(Kalkulator IPK)</em></td>
+<td style="text-align:center">120' / 1 pekan</td>
+<td style="text-align:left">BMP Modul 3; Slide Sesi 03; Solusi Tugas 1</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>4</strong></td>
+<td style="text-align:left">Mampu merancang navigasi tumpukan (<em>stack</em>) dan lifecycle Ionic</td>
+<td style="text-align:left">Dasar Ionic Framework &amp; Navigasi</td>
+<td style="text-align:left">• Web Components bawaan Ionic<br>• Ionic Vue Router &amp; Router Outlet<br>• Lifecycle (<code>ionViewDidEnter</code>)</td>
+<td style="text-align:left">Simulasi alur layar, Bedah kode navigasi</td>
+<td style="text-align:center">Diskusi 4: Pengelolaan Stack Navigasi</td>
+<td style="text-align:center">120' / 1 pekan</td>
+<td style="text-align:left">BMP Modul 4; Slide Sesi 04; Kode Sesi 04</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>5</strong></td>
+<td style="text-align:left">Mampu merancang form Regex, layout grid responsif, dan Dark Mode</td>
+<td style="text-align:left">Layout, Theming &amp; Komponen UI</td>
+<td style="text-align:left">• Grid System 12-Kolom &amp; Cards<br>• Form Regex (NIM 9 digit &amp; Email UT)<br>• Toast, Alert &amp; Dark Mode Switch</td>
+<td style="text-align:left">Desain antarmuka, Pengerjaan Tugas</td>
+<td style="text-align:center">🎯 <strong>TUGAS TUTORIAL 2</strong> <em>(Portal KTM Digital)</em></td>
+<td style="text-align:center">120' / 1 pekan</td>
+<td style="text-align:left">BMP Modul 5; Slide Sesi 05; Solusi Tugas 2</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>6</strong></td>
+<td style="text-align:left">Mampu menghubungkan web ke Android via Capacitor dan mengamankan izin</td>
+<td style="text-align:left">Capacitor, Platform Android &amp; Keamanan</td>
+<td style="text-align:left">• Arsitektur Capacitor Bridge<br>• <code>AndroidManifest</code> &amp; Permissions<br>• USB Debugging &amp; scrcpy</td>
+<td style="text-align:left">Praktik perangkat fisik, Analisis izin</td>
+<td style="text-align:center">Diskusi 6: Izin Hardware &amp; Sanitasi Webview</td>
+<td style="text-align:center">120' / 1 pekan</td>
+<td style="text-align:left">BMP Modul 6 &amp; 7; Slide Sesi 06; Kode Sesi 06</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>7</strong></td>
+<td style="text-align:left">Mampu mengintegrasikan REST API, storage offline, dan sensor native</td>
+<td style="text-align:left">REST API, Local Storage &amp; Native Plugin</td>
+<td style="text-align:left">• HTTP Asinkron (<code>async/await</code>)<br>• Penyimpanan persisten Preferences<br>• Plugin Geolocation (GPS) &amp; Kamera</td>
+<td style="text-align:left">Integrasi end-to-end, Pengerjaan Tugas</td>
+<td style="text-align:center">🎯 <strong>TUGAS TUTORIAL 3</strong> <em>(Study Tracker)</em></td>
+<td style="text-align:center">120' / 1 pekan</td>
+<td style="text-align:left">BMP Modul 8 &amp; 9; Slide Sesi 07; Solusi Tugas 3</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>8</strong></td>
+<td style="text-align:left">Mampu mengemas APK Android release, menerapkan keamanan, dan siap UAS</td>
+<td style="text-align:left">Optimasi, Build APK Release &amp; Review UAS</td>
+<td style="text-align:left">• Bundling production &amp; Tree-shaking<br>• Keystore Signing APK Release<br>• Bedah 50 Soal Kisi-kisi UAS</td>
+<td style="text-align:left">Simulasi evaluasi, Review komprehensif</td>
+<td style="text-align:center">Diskusi 8: Refleksi &amp; Kesiapan Portofolio</td>
+<td style="text-align:center">120' / 1 pekan</td>
+<td style="text-align:left">BMP Modul 9; Slide Sesi 08; Bank Soal UAS</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6. Satuan Acara Tutorial (SAT) Lengkap Sesi 1 s.d. 8</h2>
+<p>Setiap pertemuan (120 menit) dibagi ke dalam 3 tahapan standar akademik UT:</p>
+<h3>🔹 SAT Sesi 1: Pengenalan Lingkungan Pengembangan &amp; Arsitektur Mobile</h3>
+<ul>
+<li><strong>Pendahuluan (15 Menit):</strong> Penjelasan kontrak kuliah, silabus RAT, sistem penilaian mata kuliah praktik, serta pentingnya pemrograman mobile dalam karir IT.</li>
+<li><strong>Penyajian (90 Menit):</strong>
+<ol>
+<li>Perbandingan Native, Cross-Platform, dan Hybrid (Ionic).</li>
+<li>Demonstrasi instalasi Node.js, Git, dan VS Code.</li>
+<li>Menjalankan skrip diagnostik environment dan aplikasi mobile pertama di browser.</li>
+<li>Pengenalan Chrome DevTools Toggle Device Toolbar (<code>Ctrl+Shift+M</code>) dan konfigurasi USB Debugging.</li>
+</ol>
+</li>
+<li><strong>Penutup (15 Menit):</strong> Rangkuman sesi, penjelasan topik Diskusi 1 di LMS, dan panduan belajar mandiri Modul 1.</li>
+</ul>
+<h3>🔹 SAT Sesi 2: Frontend Modern Berbasis Vue.js 3</h3>
+<ul>
+<li><strong>Pendahuluan (15 Menit):</strong> Review arsitektur hybrid dan apersepsi transisi dari JavaScript DOM konvensional ke framework reaktif.</li>
+<li><strong>Penyajian (90 Menit):</strong>
+<ol>
+<li>Konsep reaktivitas mendalam: <code>ref()</code> vs <code>reactive()</code>.</li>
+<li>Praktik direktif template: <code>v-if</code>, <code>v-for</code>, <code>:key</code>, dan <code>v-model</code>.</li>
+<li>Event handling dan implementasi <em>Computed Properties</em>.</li>
+<li>Komposisi komponen dan alur komunikasi data via <code>props</code> dan <code>emit</code>.</li>
+</ol>
+</li>
+<li><strong>Penutup (15 Menit):</strong> Evaluasi cepat logika reaktif, arahan keaktifan Diskusi 2, dan pengantar TypeScript untuk Sesi 3.</li>
+</ul>
+<h3>🔹 SAT Sesi 3: Keamanan Tipe Data TypeScript &amp; Vue Composition API</h3>
+<ul>
+<li><strong>Pendahuluan (15 Menit):</strong> Reviu Vue 3 dan urgensi <em>type safety</em> pada aplikasi skala besar untuk mencegah <em>runtime crash</em>.</li>
+<li><strong>Penyajian (90 Menit):</strong>
+<ol>
+<li>Sintaks TypeScript: Interface, Tipe Primitif, Union Types, dan Generics <code>Array&lt;T&gt;</code>.</li>
+<li>Implementasi Vue 3 <code>&lt;script setup lang=&quot;ts&quot;&gt;</code>.</li>
+<li>Membangun logika kalkulasi otomatis nilai huruf ke bobot angka.</li>
+<li><strong>Bedah Skenario Kasus &amp; Rubrik Penilaian TUGAS TUTORIAL 1.</strong></li>
+</ol>
+</li>
+<li><strong>Penutup (15 Menit):</strong> Penegasan tenggat waktu Tugas 1 (2 minggu), kewajiban menyertakan video demonstrasi aplikasi, dan integritas akademik.</li>
+</ul>
+<h3>🔹 SAT Sesi 4: Dasar-Dasar Ionic Framework &amp; Navigasi Halaman</h3>
+<ul>
+<li><strong>Pendahuluan (15 Menit):</strong> Mengingatkan pengumpulan Tugas 1 dan pengenalan konsep antarmuka mobile siap pakai.</li>
+<li><strong>Penyajian (90 Menit):</strong>
+<ol>
+<li>Anatomi komponen Ionic: <code>ion-app</code>, <code>ion-page</code>, <code>ion-header</code>, <code>ion-content</code>, <code>ion-card</code>, <code>ion-button</code>.</li>
+<li>Filosofi navigasi mobile berkonsep tumpukan kartu (<em>stack navigation</em>).</li>
+<li>Konfigurasi Ionic Vue Router dan komponen <code>ion-router-outlet</code>.</li>
+<li>Siklus hidup halaman: <code>ionViewDidEnter</code> vs <code>ionViewWillLeave</code>.</li>
+</ol>
+</li>
+<li><strong>Penutup (15 Menit):</strong> Rangkuman alur routing, pembahasan pemicu Diskusi 4 di LMS, dan persiapan materi validasi form.</li>
+</ul>
+<h3>🔹 SAT Sesi 5: Layout Responsif, Form Validasi Regex, &amp; Dynamic Theming</h3>
+<ul>
+<li><strong>Pendahuluan (15 Menit):</strong> Apersepsi kenyamanan pengguna (User Experience) di berbagai ukuran layar smartphone.</li>
+<li><strong>Penyajian (90 Menit):</strong>
+<ol>
+<li>Perancangan tata letak dengan Ionic 12-Column Responsive Grid (<code>ion-grid</code>, <code>ion-row</code>, <code>ion-col</code>).</li>
+<li>Komponen formulir: <code>ion-input</code>, <code>ion-select</code>, dan <code>ion-toggle</code>.</li>
+<li>Validasi Regex: Format 9 digit NIM dan email <code>@ecampus.ut.ac.id</code>.</li>
+<li>Umpan balik visual interaktif (<code>ion-toast</code> / <code>ion-alert</code>) dan implementasi sakelar <em>Dark Mode</em>.</li>
+<li><strong>Bedah Skenario Kasus &amp; Rubrik Penilaian TUGAS TUTORIAL 2.</strong></li>
+</ol>
+</li>
+<li><strong>Penutup (15 Menit):</strong> Penegasan aturan Tugas 2, batas waktu pengumpulan, dan pengantar runtime Capacitor.</li>
+</ul>
+<h3>🔹 SAT Sesi 6: Capacitor Runtime, Platform Android &amp; Keamanan Aplikasi</h3>
+<ul>
+<li><strong>Pendahuluan (15 Menit):</strong> Mengingatkan tenggat Tugas 2 dan pengenalan jembatan antara web dengan hardware smartphone.</li>
+<li><strong>Penyajian (90 Menit):</strong>
+<ol>
+<li>Arsitektur Capacitor Bridge vs Cordova klasik.</li>
+<li>Konfigurasi <code>capacitor.config.ts</code> dan struktur folder <code>android/</code>.</li>
+<li>Bedah <code>AndroidManifest.xml</code> dan tata cara meminta <em>Runtime Permissions</em>.</li>
+<li>Praktik pengujian di ponsel fisik Android melalui USB Debugging dan <code>scrcpy</code> (hemat RAM).</li>
+<li>Keamanan aplikasi: Sanitasi input masukan terhadap celah XSS dan pengamanan komunikasi HTTPS.</li>
+</ol>
+</li>
+<li><strong>Penutup (15 Menit):</strong> Rangkuman integrasi native, arahan forum Diskusi 6, dan persiapan integrasi data eksternal.</li>
+</ul>
+<h3>🔹 SAT Sesi 7: Integrasi REST API Asinkron, Penyimpanan Data &amp; Plugin Native</h3>
+<ul>
+<li><strong>Pendahuluan (15 Menit):</strong> Apersepsi aplikasi modern yang terhubung ke internet dan mampu bekerja saat offline.</li>
+<li><strong>Penyajian (90 Menit):</strong>
+<ol>
+<li>Komunikasi REST API asinkron menggunakan sintaks <code>async/await</code> dan penanganan error <code>try-catch</code>.</li>
+<li>Pengelolaan 3 status UI: <em>Loading</em> (spinner), <em>Success</em> (data), dan <em>Error</em>.</li>
+<li>Penyimpanan data lokal persisten offline menggunakan <em>Capacitor Preferences</em>.</li>
+<li>Mengakses sensor native perangkat: Geolocation GPS dan plugin Kamera.</li>
+<li><strong>Bedah Skenario Kasus &amp; Rubrik Penilaian TUGAS TUTORIAL 3.</strong></li>
+</ol>
+</li>
+<li><strong>Penutup (15 Menit):</strong> Penegasan bobot tertinggi Tugas 3 (25% nilai Tuton), instruksi video demo, dan pengantar sesi rilis.</li>
+</ul>
+<h3>🔹 SAT Sesi 8: Optimasi Kinerja, Build APK Release &amp; Kisi-kisi Evaluasi UAS</h3>
+<ul>
+<li><strong>Pendahuluan (15 Menit):</strong> Refleksi menyeluruh capaian pembelajaran dari Sesi 1 hingga Sesi 7.</li>
+<li><strong>Penyajian (90 Menit):</strong>
+<ol>
+<li>Langkah optimasi produksi: Minifikasi kode dan kompresi aset gambar.</li>
+<li>Konsep penandatanganan digital (<em>code signing</em>) dan pembuatan berkas <em>Keystore</em>.</li>
+<li>Pembuatan berkas APK Android Release mandiri (<code>assembleRelease</code>).</li>
+<li>Checklist 10 parameter keamanan aplikasi mobile sebelum didistribusikan.</li>
+<li>Bedah kisi-kisi dan pembahasan 50 bank soal persiapan Ujian Akhir Semester (UAS).</li>
+</ol>
+</li>
+<li><strong>Penutup (15 Menit):</strong> Evaluasi akhir perkuliahan, tips menempuh UAS mata kuliah praktik, salam penutup, dan motivasi karir profesional.</li>
+</ul>
+<hr />
+<h2>7. Instrumen Evaluasi &amp; Tagihan Tugas Tutorial Wajib</h2>
+<p>Sesuai aturan baku UT, mahasiswa wajib mengerjakan <strong>3 Tugas Praktik Individu</strong>:</p>
+<h3>🎯 Tugas Tutorial 1 (Diberikan pada Sesi 3, Dikumpulkan Akhir Sesi 4)</h3>
+<ul>
+<li><strong>Topik:</strong> Logika Frontend TypeScript &amp; Reaktivitas Vue 3</li>
+<li><strong>Studi Kasus:</strong> Aplikasi Kalkulator Indeks Prestasi Semester (IPS) &amp; Nilai Mahasiswa UT.</li>
+<li><strong>Rubrik Penilaian (Skor 0–100):</strong>
+<ol>
+<li>Ketepatan definisi interface TypeScript (<code>kode</code>, <code>nama</code>, <code>sks</code>, <code>nilaiHuruf</code>): <strong>20 Poin</strong></li>
+<li>Implementasi Composition API (<code>ref</code>/<code>reactive</code>) dan direktif (<code>v-for</code>, <code>v-model</code>): <strong>30 Poin</strong></li>
+<li>Akurasi kalkulasi otomatis total SKS dan IPS menggunakan <code>computed</code>: <strong>30 Poin</strong></li>
+<li>Kerapian kode, penanganan error masukan, dan laporan dokumentasi: <strong>20 Poin</strong></li>
+</ol>
+</li>
+</ul>
+<h3>🎯 Tugas Tutorial 2 (Diberikan pada Sesi 5, Dikumpulkan Akhir Sesi 6)</h3>
+<ul>
+<li><strong>Topik:</strong> Desain UI Mobile Ionic, Form Validasi Regex, dan Dynamic Theming</li>
+<li><strong>Studi Kasus:</strong> Portal Layanan Mandiri &amp; Kartu Tanda Mahasiswa (KTM) Digital UT.</li>
+<li><strong>Rubrik Penilaian (Skor 0–100):</strong>
+<ol>
+<li>Pemanfaatan komponen resmi Ionic UI (<code>ion-card</code>, <code>ion-item</code>, <code>ion-button</code>): <strong>25 Poin</strong></li>
+<li>Implementasi validasi form Regex (NIM 9 digit &amp; email kampus <code>@ecampus.ut.ac.id</code>): <strong>35 Poin</strong></li>
+<li>Umpan balik interaktif saat submit form (<code>ion-toast</code> / <code>ion-alert</code>): <strong>20 Poin</strong></li>
+<li>Fungsionalitas Dark/Light Mode switch dan tampilan KTM digital: <strong>20 Poin</strong></li>
+</ol>
+</li>
+</ul>
+<h3>🎯 Tugas Tutorial 3 (Diberikan pada Sesi 7, Dikumpulkan Akhir Sesi 8)</h3>
+<ul>
+<li><strong>Topik:</strong> Aplikasi Mobile Terintegrasi (REST API + Local Storage + Native Plugin)</li>
+<li><strong>Studi Kasus:</strong> UT Mobile Study Tracker (Pencatat Presensi &amp; Lokasi Belajar Mahasiswa).</li>
+<li><strong>Rubrik Penilaian (Skor 0–100):</strong>
+<ol>
+<li>Pengambilan data eksternal via REST API publik asinkron (<code>async/await</code>): <strong>30 Poin</strong></li>
+<li>Mekanisme simpan, baca, dan hapus data lokal persisten (<em>Preferences</em>): <strong>25 Poin</strong></li>
+<li>Integrasi plugin native Capacitor (Geolocation GPS atau Kamera): <strong>25 Poin</strong></li>
+<li>Struktur arsitektur kode, penanganan galat, dan kejelasan video demo: <strong>20 Poin</strong></li>
+</ol>
+</li>
+</ul>
+<h3>🛡️ Standar Integritas Akademik &amp; Video Demonstrasi Wajib</h3>
+<p>Setiap pengumpulan tugas mahasiswa <strong>WAJIB</strong> menyertakan:</p>
+<ol>
+<li>Berkas <strong>Laporan PDF</strong> (berisi nama, NIM, UPBJJ-UT, tautan repositori, penjelasan arsitektur, dan tangkapan layar aplikasi).</li>
+<li>Tautan <strong>Repositori GitHub</strong> publik yang memuat kode sumber.</li>
+<li>Tautan <strong>Video Demonstrasi (YouTube Unlisted / Google Drive terbuka)</strong> berdurasi 3–5 menit:
+<ul>
+<li>Menampilkan wajah mahasiswa di awal video sambil menyebutkan identitas diri.</li>
+<li>Mendemonstrasikan aplikasi yang berjalan di browser / smartphone fisik.</li>
+<li>Menjelaskan alur baris kode utama yang dikerjakan.</li>
+<li><em>Tugas tanpa video demo atau terindikasi plagiasi dikenakan sanksi nilai 0 (Nol).</em></li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>8. Ketentuan Penilaian Akhir Mata Kuliah Praktik UT</h2>
+<p>Sesuai regulasi penjaminan mutu akademik Universitas Terbuka:</p>
+<ol>
+<li><strong>Bobot Komponen Tutorial Online (Tuton):</strong>
+<ul>
+<li>Partisipasi Aktif 8 Forum Diskusi: <strong>30%</strong></li>
+<li>Tugas Tutorial 1: <strong>20%</strong></li>
+<li>Tugas Tutorial 2: <strong>25%</strong></li>
+<li>Tugas Tutorial 3: <strong>25%</strong></li>
+</ul>
+</li>
+<li><strong>Kontribusi Nilai Akhir Semester:</strong>
+$$\text{Nilai Akhir} = 50% \text{ (Nilai Tuton)} + 50% \text{ (Nilai UAS)}$$
+<em>(Nilai Tuton 50% akan dihitung jika nilai Ujian Akhir Semester / UAS mahasiswa mencapai ambang batas minimal $\ge 30$).</em></li>
+</ol>
+<hr />
+<h2>9. Panduan Teknis Lingkungan Kerja (<em>Hardware-Friendly</em>)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Jalur Praktik</th>
+<th style="text-align:left">Kebutuhan Minimum</th>
+<th style="text-align:left">Metode Pengujian</th>
+<th style="text-align:left">Sasaran Mahasiswa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Jalur Web Preview (CDN Standalone)</strong></td>
+<td style="text-align:left">RAM 4GB, Celeron/i3, Chrome/Edge</td>
+<td style="text-align:left">Buka file <code>.html</code> langsung dengan klik dua kali; gunakan Chrome Device Toolbar (<code>Ctrl+Shift+M</code>).</td>
+<td style="text-align:left">Mahasiswa dengan laptop spesifikasi terbatas atau belajar di warnet/kantor.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Jalur USB Debugging + scrcpy</strong></td>
+<td style="text-align:left">RAM 4–8GB, Kabel USB, HP Android</td>
+<td style="text-align:left">Jalankan <code>ionic serve</code>, tampilkan layar ponsel ke laptop via <code>scrcpy</code> (&lt; 70MB RAM).</td>
+<td style="text-align:left"><strong>Rekomendasi Utama seluruh mahasiswa UT</strong> (ringan, responsif, tanpa emulator).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Jalur Full Android SDK</strong></td>
+<td style="text-align:left">RAM 8–16GB, SSD kosong &gt; 20GB</td>
+<td style="text-align:left">Kompilasi lokal menggunakan Gradle &amp; Android Studio.</td>
+<td style="text-align:left">Mahasiswa yang ingin mendalami pembuatan APK release mandiri.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>10. Alokasi Beban Belajar Mahasiswa (Standar SN-Dikti 3 SKS)</h2>
+<p>Sesuai Permendikbudristek &amp; Standar Pendidikan Tinggi Jarak Jauh (PTTJJ) Universitas Terbuka, mata kuliah 3 SKS setara dengan <strong>136 jam kegiatan belajar per semester</strong> (~8,5 jam per minggu selama 16 minggu) yang didistribusikan dalam:</p>
+<ol>
+<li><strong>Tutorial Terbimbing (Tuweb / Tuton):</strong> 2 jam per sesi tatap maya atau telaah inisiasi aktif di LMS.</li>
+<li><strong>Tugas Terstruktur &amp; Praktikum Mandiri:</strong> 3 jam per pekan (mengembangkan kode program, troubleshooting error, menguji di HP fisik).</li>
+<li><strong>Belajar Mandiri (Self-Paced Learning):</strong> 3,5 jam per pekan (membaca BMP Modul 1 s.d. 9, menyimak video demo, meninjau dokumentasi resmi).</li>
+</ol>
+<hr />
+<h2>11. Glosarium Istilah Kunci Pemrograman Mobile (A–Z)</h2>
+<ul>
+<li><strong>Capacitor:</strong> Runtime lintas platform resmi dari Ionic yang menjembatani panggilan JavaScript ke API native Android/iOS.</li>
+<li><strong>Composition API:</strong> Paradigma modern Vue 3 berbasis fungsi (<code>&lt;script setup&gt;</code>) untuk mengorganisasi logika reaktif secara modular.</li>
+<li><strong>CORS (Cross-Origin Resource Sharing):</strong> Mekanisme keamanan browser yang membatasi permintaan HTTP ke domain berbeda.</li>
+<li><strong>Hybrid App:</strong> Aplikasi yang dibangun dengan teknologi web (HTML/CSS/JS) dan dijalankan di dalam container WebView native ponsel.</li>
+<li><strong>Keystore:</strong> Berkas biner terenkripsi yang memuat kunci privat untuk menandatangani paket APK Android rilis resmi.</li>
+<li><strong>One-Way Data Binding:</strong> Aliran data satu arah dari variabel state JavaScript ke tampilan antarmuka template (<code>{{ }}</code> atau <code>v-bind</code>).</li>
+<li><strong>Reactivity:</strong> Kemampuan framework untuk memperbarui tampilan antarmuka secara otomatis seketika data sumbernya mengalami perubahan.</li>
+<li><strong>scrcpy:</strong> Aplikasi open source ringan berkinerja tinggi untuk menampilkan layar smartphone Android fisik di layar PC melalui USB.</li>
+<li><strong>Stack Navigation:</strong> Pola navigasi layar mobile berkonsep tumpukan kartu bertumpuk (<em>Push</em> halaman baru ke atas, <em>Pop</em> saat kembali).</li>
+<li><strong>Two-Way Data Binding:</strong> Sinkronisasi data bolak-balik secara simultan antara nilai input pengguna dengan variabel state (<code>v-model</code>).</li>
+<li><strong>Type Safety:</strong> Jaminan keamanan kode saat kompilasi bahwa setiap variabel hanya menampung tipe data yang dideklarasikan secara sah.</li>
+</ul>
+<hr />
+<h2>12. Daftar Pustaka &amp; Rujukan Resmi</h2>
+<ol>
+<li><strong>Pustaka Utama:</strong>
+<ul>
+<li>Tim Dosen Universitas Terbuka. (2024). <em>Buku Materi Pokok STSI4303 / MSIM4401: Pemrograman Berbasis Piranti Bergerak</em>. Tangerang Selatan: Penerbit Universitas Terbuka.</li>
+</ul>
+</li>
+<li><strong>Dokumentasi Resmi &amp; Standar Industri:</strong>
+<ul>
+<li>Ionic Framework Documentation (v7/v8). <em>Ionic UI Components &amp; Vue Lifecycle</em>. <a href="https://ionicframework.com/docs">https://ionicframework.com/docs</a>.</li>
+<li>Vue.js Official Guide (v3.4+). <em>Composition API &amp; Reactivity Core</em>. <a href="https://vuejs.org">https://vuejs.org</a>.</li>
+<li>TypeScript Documentation (v5.x). <em>TypeScript Handbook: Interfaces and Type System</em>. <a href="https://www.typescriptlang.org">https://www.typescriptlang.org</a>.</li>
+<li>Capacitor by Ionic. <em>Cross-Platform Native Runtime</em>. <a href="https://capacitorjs.com">https://capacitorjs.com</a>.</li>
+<li>Prafanto, Anton. (2026). <em>The Zero-Friction Courseware Framework</em>. GitHub Repository: <a href="https://github.com/antonprafanto/tuweb_mobile2025.git">https://github.com/antonprafanto/tuweb_mobile2025.git</a>.</li>
+</ul>
+</li>
+</ol>
+
+
+      <footer class="doc-footer">
+        <div>
+          <span>Hak Cipta &copy; 2026 Universitas Terbuka</span> • 
+          <span>The Zero-Friction Courseware Framework</span>
+        </div>
+        <div>
+          <a href="../index.html" style="font-size: 12px; color: var(--ut-blue);">Kembali ke Katalog Utama ↗</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Konversi blok diagram mermaid
+      document.querySelectorAll('pre code.language-mermaid').forEach(el => {
+        const pre = el.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        pre.replaceWith(div);
+      });
+
+      // Bungkus seluruh tabel dengan wrapper responsive
+      document.querySelectorAll('.doc-content table').forEach(tbl => {
+        if (!tbl.parentElement.classList.contains('table-responsive')) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'table-responsive';
+          tbl.parentElement.insertBefore(wrapper, tbl);
+          wrapper.appendChild(tbl);
+        }
+      });
+
+      // Inisialisasi mermaid jika pustaka tersedia
+      if (window.mermaid) {
+        mermaid.initialize({ 
+          startOnLoad: true, 
+          theme: 'neutral',
+          securityLevel: 'loose'
+        });
+      }
+    });
+  </script>
+</body>
+</html>

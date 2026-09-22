@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naskah Narasi Dosen — Sesi 05: Layout Grid, Form Regex, & Dark Mode (Tugas 2) — Universitas Terbuka</title>
+  <meta name="description" content="Naskah narasi pengajaran dosen dan panduan instruksional Sesi 05 mata kuliah STSI4303 Universitas Terbuka.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Mermaid.js untuk Diagram Arsitektur -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --ut-navy: #003366;
+      --ut-blue: #005691;
+      --ut-blue-light: #EBF3FA;
+      --ut-gold: #C28E00;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      position: static !important;
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100% !important;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Breadcrumb & Navbar */
+    .top-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-nav-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ut-blue);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .breadcrumb:hover {
+      color: var(--ut-navy);
+      text-decoration: underline;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--slate-200);
+      background: #FFFFFF;
+      color: var(--slate-700);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+    }
+
+    .action-btn.primary {
+      background: var(--ut-blue);
+      color: #FFFFFF;
+      border-color: var(--ut-blue);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--ut-navy);
+      border-color: var(--ut-navy);
+    }
+
+    /* Main Container */
+    .doc-container {
+      max-width: 1060px;
+      margin: 32px auto 60px;
+      padding: 0 20px;
+    }
+
+    /* Academic Header Card */
+    .doc-header {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ut-navy) 0%, var(--ut-blue) 60%, var(--ut-gold) 100%);
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--ut-blue);
+      background: var(--ut-blue-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+
+    .doc-subtitle {
+      font-size: 14px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* Document Body & Typography */
+    .doc-content {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 768px) {
+      .doc-content { padding: 24px 20px; }
+      .doc-header { padding: 24px 20px; }
+      .doc-title { font-size: 22px; }
+    }
+
+    .doc-content h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-top: 28px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 32px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .doc-content h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    .doc-content p {
+      margin-bottom: 16px;
+      color: var(--slate-700);
+    }
+
+    .doc-content ul, .doc-content ol {
+      margin-bottom: 18px;
+      padding-left: 24px;
+    }
+
+    .doc-content li {
+      margin-bottom: 6px;
+      color: var(--slate-700);
+    }
+
+    .doc-content hr {
+      border: none;
+      height: 1px;
+      background: var(--slate-200);
+      margin: 32px 0;
+    }
+
+    /* Links */
+    .doc-content a {
+      color: var(--ut-blue);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #93C5FD;
+      transition: all 0.15s ease;
+    }
+
+    .doc-content a:hover {
+      color: var(--ut-navy);
+      border-bottom-style: solid;
+      background: var(--ut-blue-light);
+    }
+
+    /* GitHub Alert Callouts */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-left: 4px solid;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .alert-important {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+
+    .alert-note {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1E40AF;
+    }
+
+    .alert-tip {
+      background: #ECFDF5;
+      border-color: #10B981;
+      color: #065F46;
+    }
+
+    .alert-warning {
+      background: #FFFBEB;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+
+    /* Beautiful Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    .doc-content th {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--slate-200);
+      letter-spacing: 0.2px;
+    }
+
+    .doc-content td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: top;
+    }
+
+    .doc-content tr:last-child td {
+      border-bottom: none;
+    }
+
+    .doc-content tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+
+    .doc-content tr:hover td {
+      background: #F1F5F9;
+    }
+
+    /* Code Blocks */
+    .doc-content pre {
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 20px 0;
+      border: 1px solid var(--slate-700);
+    }
+
+    .doc-content code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--slate-100);
+      color: var(--slate-900);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .doc-content pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    /* Mermaid Diagrams */
+    .mermaid {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--slate-400);
+    }
+
+    @media print {
+      .top-nav, .action-btn { display: none !important; }
+      body { background: #FFF; }
+      .doc-header, .doc-content { border: none; box-shadow: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP STICKY NAVIGATION -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../index.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Kembali ke Portal Perkuliahan
+      </a>
+
+      <div class="nav-actions">
+        <button class="action-btn" onclick="window.print()" title="Cetak halaman atau simpan sebagai PDF">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Cetak / PDF
+        </button>
+        <a href="SESI_05_Layout_Grid_Form_Regex_Dark_Mode.md" target="_blank" class="action-btn" title="Buka berkas sumber Markdown asli">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Naskah Markdown (.md)
+        </a>
+        <a href="https://github.com/antonprafanto/tuweb_mobile2025" target="_blank" class="action-btn" title="Buka repositori GitHub">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="doc-container">
+    <!-- HEADER -->
+    <header class="doc-header">
+      <span class="doc-badge">Naskah Narasi Sesi 05</span>
+      <h1 class="doc-title">NASKAH & SLIDE SESI 05: LAYOUT GRID, FORM VALIDASI REGEX, THEME, & TUGAS TUTORIAL 2</h1>
+      <p class="doc-subtitle">
+        Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</strong><br>
+        Fakultas Sains dan Teknologi, Universitas Terbuka • Dosen Pengampu: <strong>Anton Prafanto, S.Kom., M.T.</strong>
+      </p>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="doc-content">
+      <h1>📱 NASKAH &amp; SLIDE SESI 05: LAYOUT GRID, FORM VALIDASI REGEX, THEME, &amp; TUGAS TUTORIAL 2</h1>
+<h2>Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)</h2>
+<h3>Program Studi: S1 Sistem Informasi &amp; S1 Informatika — Universitas Terbuka</h3>
+<h3>Dosen Pengampu: Anton Prafanto, S.Kom., M.T.</h3>
+<h3>Modul Acuan BMP: Modul 5 (MSIM4401/STSI4303 — Layout Grid, Form Validasi, &amp; Theming Mobile)</h3>
+<blockquote>
+<p>⚡ <strong>Akses Cepat Bahan Sesi 05:</strong><br />
+<a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx">📥 Unduh Slide PPTX</a> • <a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_05_Layout_Grid_Form_Regex_Dark_Mode.pptx">👁️ Baca Slide Online</a> • <a href="../contoh_kode_program/sesi_05_layout_grid_form/">📁 18 Berkas Kode Mandiri</a> • <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html">🎯 Master Solusi Tugas Tutorial 2</a> • <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.html">📊 Kalkulator Rubrik Skor Interaktif</a></p>
+</blockquote>
+<hr />
+<h2>🗺️ Gambaran Umum Sesi</h2>
+<p>Sesi kelima ini merupakan <strong>tonggak evaluasi tutorial kedua (Milestone 2: TUGAS TUTORIAL 2)</strong> yang berbobot <strong>20%</strong> dari total nilai Tutorial Online (Tuton) di Universitas Terbuka. Sesi ini mematangkan kemampuan mahasiswa dalam merancang antarmuka mobile yang adaptif, ramah pengguna, dan berintegritas tinggi. Pembahasan mencakup:</p>
+<ol>
+<li><strong>Sistem Tata Letak 12-Kolom Ionic Grid:</strong> Arsitektur berbasis Flexbox (<code>&lt;ion-grid&gt;</code>, <code>&lt;ion-row&gt;</code>, <code>&lt;ion-col&gt;</code>) dengan pembagian titik henti responsif (<em>breakpoints</em>) untuk smartphone tegak (<em>portrait</em>) maupun tablet mendatar (<em>landscape</em>).</li>
+<li><strong>Presisi Penjajaran &amp; Offset:</strong> Pemanfaatan <code>offset</code> dan kelas utilitas flexbox untuk memusatkan kartu formulir di tengah layar tablet dan desktop.</li>
+<li><strong>Kontrol Masukan Formulir Modern:</strong> Eksplorasi mendalam komponen <code>&lt;ion-input&gt;</code> (<em>floating label</em>, tombol pembersih cepat, dan optimasi papan ketik virtual <code>inputmode</code>), <code>&lt;ion-textarea&gt;</code> dengan tinggi dinamis (<em>auto-grow</em>), <code>&lt;ion-select&gt;</code> berantarmuka lembar aksi (<em>action-sheet</em>), kontrol biner <code>&lt;ion-toggle&gt;</code>, persetujuan <code>&lt;ion-checkbox&gt;</code>, pilihan radio eksklusif <code>&lt;ion-radio-group&gt;</code>, serta pemilih tanggal <code>&lt;ion-datetime&gt;</code> berstandar ISO 8601 terlokalisasi Indonesia (<code>id-ID</code>).</li>
+<li><strong>Prinsip Validasi Reaktif &amp; Manajemen Status UX:</strong> Mengelola siklus status masukan (<em>pristine</em>, <em>dirty</em>, <em>touched</em>) agar pesan peringatan kesalahan tidak mengintimidasi pengguna sebelum mereka sempat mengetik.</li>
+<li><strong>Penegakan Integritas Data dengan Regular Expression (Regex):</strong> Validasi ketat format 9 digit angka Nomor Induk Mahasiswa (NIM) UT (<code>/^[0-9]{9}$/</code>) dan domain resmi surel institusi kampus (<code>/^[a-zA-Z0-9._%+-]+@ecampus\.ut\.ac\.id$/</code>).</li>
+<li><strong>Umpan Balik Dialog Interaktif:</strong> Menghadirkan notifikasi mengambang <code>&lt;ion-toast&gt;</code> dengan pewarnaan semantik serta dialog verifikasi dua langkah (<em>Two-Tier Confirmation</em>) <code>&lt;ion-alert&gt;</code> sebelum data penting disubmit.</li>
+<li><strong>Arsitektur Tema Gelap Dinamis (<em>Dynamic Dark Mode</em>):</strong> Penyesuaian skema warna global menggunakan variabel CSS (<code>--ion-background-color</code>), deteksi preferensi sistem operasi ponsel (<code>prefers-color-scheme</code>), sakelar <em>real-time</em>, dan persistensi pilihan via <code>localStorage</code>.</li>
+<li><strong>Bedah Rubrik Penilaian &amp; Master Solusi TUGAS TUTORIAL 2:</strong> Pembahasan transparan 4 pilar rubrik evaluasi resmi skala 0–100 dan penyerahan master solusi <strong>Portal Layanan Mandiri Mahasiswa UT (Penerbitan KTM Digital &amp; Registrasi Sesi)</strong>.</li>
+<li><strong>Jembatan Menuju Sesi 06:</strong> Pengantar integrasi lingkungan <em>native</em> Android melalui Capacitor Runtime Bridge dan Android Studio.</li>
+</ol>
+<hr />
+<h2>🛠️ Panduan Alat &amp; Lingkungan Belajar (Ramah Pemula)</h2>
+<p>Bagi rekan-rekan mahasiswa yang baru pertama kali merancang formulir antarmuka mobile, Anda <strong>tidak perlu khawatir</strong> dengan instalasi perangkat lunak yang rumit atau komputer berspesifikasi tinggi. Seluruh 18 materi dan berkas kode mandiri pada Sesi 05 telah dirancang dengan prinsip <strong>The Zero-Friction Courseware Framework</strong> yang sangat ringan (ramah RAM 4–8 GB):</p>
+<ol>
+<li><strong>Google Chrome / Peramban Web Modern (Tanpa Server Lokal):</strong><br />
+Seluruh berkas berekstensi <code>.html</code> di dalam folder <code>contoh_kode_program/sesi_05_layout_grid_form/</code> dapat langsung Anda jalankan dengan cara <strong>klik ganda (<em>double click</em>)</strong> dari File Explorer. Berkas otomatis terbuka di Google Chrome melalui protokol <code>file:///</code> tanpa perlu menjalankan Node.js, Vite dev-server, ataupun menginstal pustaka tambahan.</li>
+<li><strong>Mode Simulator Smartphone di Chrome DevTools:</strong><br />
+Setelah berkas <code>.html</code> terbuka di Chrome:
+<ul>
+<li>Tekan tombol keyboard <code>F12</code> (atau klik kanan pada halaman lalu pilih <strong>Inspect / Periksa</strong>).</li>
+<li>Tekan pintasan keyboard <code>Ctrl + Shift + M</code> (pada macOS: <code>Cmd + Shift + M</code>) untuk mengaktifkan <strong>Toggle Device Toolbar</strong>.</li>
+<li>Pilih model perangkat pada bilah atas (misalnya <em>Pixel 7</em>, <em>iPhone 14 Pro</em>, atau <em>iPad Air</em>) untuk menguji responsivitas breakpoint grid 12-kolom dan sentuhan antarmuka secara nyata!</li>
+<li>Putar orientasi layar dari <em>Portrait</em> ke <em>Landscape</em> menggunakan ikon rotasi perangkat untuk melihat bagaimana kolom formulir otomatis berdampingan.</li>
+</ul>
+</li>
+<li><strong>Visual Studio Code (VS Code):</strong><br />
+Gunakan VS Code untuk membuka dan mempelajari baris kode. Pasang ekstensi yang disarankan:
+<ul>
+<li><strong>Vue - Official (Volar):</strong> Memberikan penyorotan sintaks (<em>syntax highlighting</em>) yang rapi dan autocompletion untuk tag kustom Ionic.</li>
+<li><strong>Live Server (Opsional):</strong> Jika Anda ingin melihat perubahan kode secara instan (<em>hot-reload</em>) saat bereksperimen.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>📊 Daftar 18 Slide Pembahasan &amp; Berkas Kode Mandiri</h2>
+<h3>📌 Slide 01: Orientasi Sesi 05, Peta Capaian Sub-CPMK 5 &amp; Tagihan TUGAS TUTORIAL 2</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memahami keterkaitan kompetensi antarmuka mobile adaptif dan tagihan resmi penugasan Tugas Tutorial 2 berbobot 20%.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Peramban Modern, Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Selamat berjumpa kembali rekan-rekan mahasiswa FST Universitas Terbuka di Sesi 05! Hari ini kita memasuki tonggak evaluasi tutorial kedua yang sangat krusial: penugasan resmi TUGAS TUTORIAL 2 berbobot 20% nilai akhir tutorial resmi dibuka! Jika pada sesi sebelumnya kita telah menguasai komponen dasar dan navigasi tumpukan, hari ini kita akan menyempurnakan aplikasi kita menjadi antarmuka tingkat lanjut yang cerdas: tata letak yang otomatis menyesuaikan ukuran layar dari ponsel hingga tablet, formulir masukan yang mampu menolak kesalahan ketik menggunakan Regular Expression, dialog konfirmasi interaktif, serta dukungan tema gelap (<em>Dark Mode</em>). Mari kita pelajari seluruh materinya dengan sungguh-sungguh demi meraih nilai maksimal 100!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Tonggak Evaluasi Milestone 2:</strong> Tugas Tutorial 2 menyumbang 20% nilai kumulatif Tuton UT dengan masa pengerjaan 2 pekan di LMS <code>elearning.ut.ac.id</code>.</li>
+<li><strong>Kasus Proyek:</strong> Perancangan Portal Layanan Mandiri Mahasiswa UT untuk penerbitan Kartu Tanda Mahasiswa (KTM) Digital dan registrasi mata kuliah.</li>
+<li><strong>Kewajiban Demonstrasi:</strong> Mahasiswa wajib melampirkan tautan video YouTube <em>Unlisted</em> (durasi 3–5 menit) yang memperagakan seluruh alur validasi dan peralihan tema.</li>
+</ul>
+</li>
+<li><strong>Diagram Alur Orientasi Sesi &amp; Milestone 2 (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph Input[&quot;Pondasi Sesi Sebelumnya&quot;]
+        S4[&quot;Sesi 04: Ionic UI &amp; Navigasi Mobile&quot;]
+    end
+    subgraph S5[&quot;Materi Inti Sesi 05&quot;]
+        G[&quot;1. Sistem 12-Kolom Grid &amp; Breakpoints&quot;]
+        F[&quot;2. Kontrol Input Form &amp; Auto-grow&quot;]
+        R[&quot;3. Validasi Reaktif Regex (NIM &amp; Email UT)&quot;]
+        D[&quot;4. Dialog Alert &amp; Notifikasi Toast&quot;]
+        T[&quot;5. Arsitektur Dynamic Dark/Light Mode&quot;]
+    end
+    subgraph Output[&quot;Target Luaran Akademik&quot;]
+        TT2[&quot;🎯 TUGAS TUTORIAL 2 (Bobot 20%)\nPortal KTM Digital &amp; Registrasi Sesi&quot;]
+        Grade[&quot;Nilai Maksimal: 100 Poin di LMS Tuton&quot;]
+    end
+    Input --&gt; S5
+    G --&gt; TT2
+    F --&gt; TT2
+    R --&gt; TT2
+    D --&gt; TT2
+    T --&gt; TT2
+    TT2 --&gt; Grade
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_01_orientasi_sesi_dan_tugas_2.html">🌐 Buka Berkas Interaktif: slide_01_orientasi_sesi_dan_tugas_2.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 02: Fondasi Tata Letak: Sistem 12-Kolom Ionic Grid</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menyusun hierarki tata letak berbasis Flexbox menggunakan <code>&lt;ion-grid&gt;</code>, <code>&lt;ion-row&gt;</code>, dan <code>&lt;ion-col&gt;</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (DevTools Elements Inspector), VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Di dunia perangkat bergerak, mengatur posisi elemen antarmuka menggunakan margin statis berbasis piksel adalah kesalahan fatal, karena ada ribuan tipe ukuran layar smartphone di pasaran. Ionic mengadopsi standar industri Sistem 12-Kolom Grid berbasis Flexbox. Prinsip dasarnya sangat matematis dan logis: satu baris <code>&lt;ion-row&gt;</code> selalu bernilai total 12 unit kolom. Jika Anda ingin membagi layar menjadi dua kolom seimbang, berikan atribut <code>size='6'</code> pada masing-masing <code>&lt;ion-col&gt;</code>. Jika ingin tiga kartu sejajar, gunakan <code>size='4'</code>. Sangat konsisten, rapi, dan mudah diprediksi!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>&lt;ion-grid&gt;</code>: Kontainer terluar pengatur padding dan pembatas kontainer.</li>
+<li><code>&lt;ion-row&gt;</code>: Baris horizontal pembungkus kolom yang mengaktifkan flexbox container.</li>
+<li><code>&lt;ion-col size=&quot;1..12&quot;&gt;</code>: Sel kolom dengan ukuran proporsional terhadap basis 12 unit.</li>
+<li>Menghilangkan kebutuhan penulisan CSS <code>float</code> atau perhitungan persentase lebar manual yang rawan tumpang-tindih.</li>
+</ul>
+</li>
+<li><strong>Diagram Distribusi 12-Kolom Ionic Grid (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph Grid[&quot;&lt;ion-grid&gt; (Kontainer Terluar Grid)&quot;]
+        subgraph Row[&quot;&lt;ion-row&gt; (Total Lebar Tetap = 12 Unit)&quot;]
+            C1[&quot;&lt;ion-col size='6'&gt;\nLebar 50% Layar\n(6/12 Unit)&quot;]
+            C2[&quot;&lt;ion-col size='6'&gt;\nLebar 50% Layar\n(6/12 Unit)&quot;]
+        end
+        subgraph Row2[&quot;&lt;ion-row&gt; (Pembagian 3 Kolom Seimbang)&quot;]
+            C3[&quot;&lt;ion-col size='4'&gt;\nLebar 33.3%\n(4/12 Unit)&quot;]
+            C4[&quot;&lt;ion-col size='4'&gt;\nLebar 33.3%\n(4/12 Unit)&quot;]
+            C5[&quot;&lt;ion-col size='4'&gt;\nLebar 33.3%\n(4/12 Unit)&quot;]
+        end
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_02_konsep_12_kolom_ion_grid.html">🌐 Buka Berkas Interaktif: slide_02_konsep_12_kolom_ion_grid.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 03: Tata Letak Responsif: Titik Henti Breakpoints Grid</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menerapkan titik henti responsif (<code>size</code>, <code>size-sm</code>, <code>size-md</code>, <code>size-lg</code>) untuk adaptasi ponsel portrait vs tablet landscape.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (Toggle Device Toolbar <code>Ctrl + Shift + M</code> &amp; Rotate Device), VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Pengguna tidak hanya membuka aplikasi kita di smartphone dengan posisi tegak (<em>portrait</em>). Banyak mahasiswa membuka aplikasi di tablet iPad atau memutar ponsel secara mendatar (<em>landscape</em>). Dengan atribut responsif <code>size='12' size-md='6'</code>, antarmuka kita otomatis menumpuk 1 kolom penuh di layar sempit ponsel, namun otomatis berjajar 2 kolom saat dibuka di tablet atau layar laptop. Kita memperoleh tata letak responsif sekelas aplikasi profesional tanpa perlu menulis satu baris pun media query CSS!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>size=&quot;12&quot;</code>: Nilai bawaan lebar penuh (100%) untuk smartphone berlayar sempit (&lt; 576px).</li>
+<li><code>size-sm=&quot;6&quot;</code>: Dua kolom sejajar pada perangkat beresolusi sedang (≥ 576px).</li>
+<li><code>size-md=&quot;6&quot;</code> atau <code>size-md=&quot;4&quot;</code>: Dua atau tiga kolom sejajar pada resolusi tablet (≥ 768px).</li>
+<li><code>size-lg=&quot;3&quot;</code>: Empat kolom sejajar pada layar desktop / laptop besar (≥ 992px).</li>
+</ul>
+</li>
+<li><strong>Diagram Transisi Breakpoint Responsif (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph Mobile[&quot;Ponsel Portrait (&lt; 768px)&quot;]
+        M1[&quot;&lt;ion-col size='12'&gt;\nKolom Formulir (Lebar Penuh 100%)&quot;]
+        M2[&quot;&lt;ion-col size='12'&gt;\nKolom Pratinjau (Menumpuk di Bawah)&quot;]
+        M1 --&gt; M2
+    end
+    subgraph Tablet[&quot;Tablet / Landscape (≥ 768px)&quot;]
+        T1[&quot;&lt;ion-col size-md='6'&gt;\nFormulir Kiri (50%)&quot;]
+        T2[&quot;&lt;ion-col size-md='6'&gt;\nPratinjau Kanan (50%)&quot;]
+        T1 --- T2
+    end
+    Mobile -.-&gt;|Ponsel Diputar Mendatar| Tablet
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_03_grid_responsif_breakpoints.html">🌐 Buka Berkas Interaktif: slide_03_grid_responsif_breakpoints.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 04: Presisi Tata Letak: Perataan (Alignment) &amp; Offset Kolom</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengatur distribusi posisi vertikal/horizontal dan pergeseran kolom menggunakan atribut <code>offset</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome DevTools, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Bagaimana cara membuat kartu formulir pendaftaran berada persis di tengah-tengah layar tablet tanpa melebar tak terkendali? Kita menggunakan rumus matematis offset: <code>offset = (12 - size) / 2</code>. Jika lebar kartu yang kita inginkan adalah 8 unit kolom, maka sisa 4 unit kita bagi dua sama rata, yaitu <code>offset-md='2'</code>. Ditambah dengan kelas utilitas <code>ion-align-items-center</code> dan <code>ion-justify-content-center</code>, kartu antarmuka kita akan melayang di tengah layar secara estetis dan simetris!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>offset=&quot;N&quot;</code>: Menggeser titik awal kolom ke arah kanan sebanyak N unit kolom.</li>
+<li><code>class=&quot;ion-justify-content-center&quot;</code>: Meratakan sel-sel kolom ke tengah sumbu horizontal (<em>horizontal centering</em>).</li>
+<li><code>class=&quot;ion-align-items-center&quot;</code>: Menyamakan titik tengah elemen pada sumbu vertikal (<em>vertical centering</em>).</li>
+<li>Menjaga hierarki visual agar formulir masukan nyaman dipandang pada layar lebar.</li>
+</ul>
+</li>
+<li><strong>Diagram Perhitungan Offset &amp; Perataan (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph Row[&quot;&lt;ion-row class='ion-justify-content-center'&gt; (Total 12 Unit Kolom)&quot;]
+        O1[&quot;Offset Kiri\n2 Unit (Kosong)&quot;]
+        C[&quot;&lt;ion-col size='12' size-md='8' offset-md='2'&gt;\nKartu Formulir Utama\n(Lebar 8 Unit Kolom)&quot;]
+        O2[&quot;Sisa Kanan\n2 Unit (Kosong)&quot;]
+        O1 --- C
+        C --- O2
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_04_alignment_dan_offset_grid.html">🌐 Buka Berkas Interaktif: slide_04_alignment_dan_offset_grid.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 05: Kontrol Masukan Modern: Komponen <ion-input> &amp; Inputmode</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengonfigurasi properti <code>label-placement</code>, <code>clear-input</code>, dan <code>inputmode=&quot;numeric&quot;</code> pada kolom masukan mobile.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (DevTools Mobile Simulator), VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Pengalaman pengguna saat mengisi data di smartphone sangat dipengaruhi oleh kecerdasan keyboard virtual yang muncul. Saat mahasiswa hendak mengetik NIM, aplikasi yang profesional wajib memerintahkan sistem operasi ponsel untuk langsung menampilkan keyboard papan angka dengan atribut <code>inputmode='numeric'</code>. Jangan biarkan mahasiswa kerepotan menekan tombol pengalih simbol secara manual! Kita juga menggunakan <code>label-placement='floating'</code> untuk animasi label melayang yang elegan dan <code>:clear-input='true'</code> agar pengguna dapat menghapus teks dengan sekali sentuh.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>label-placement=&quot;floating&quot;</code>: Label berada di dalam kotak input dan melayang ke atas dengan animasi halus saat kolom difokuskan.</li>
+<li><code>inputmode=&quot;numeric&quot;</code>: Menampilkan keyboard khusus angka di Android dan iOS tanpa mengubah tipe input menjadi angka bertanda panah kaku.</li>
+<li><code>:clear-input=&quot;true&quot;</code>: Menampilkan ikon silang (<em>clear button</em>) di ujung kanan kolom saat teks terisi.</li>
+<li><code>helper-text</code> &amp; <code>error-text</code>: Menyajikan teks petunjuk pembantu dan pesan peringatan status data.</li>
+</ul>
+</li>
+<li><strong>Diagram Siklus Status Komponen <ion-input> (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph Idle[&quot;1. Status Awal (Idle)&quot;]
+        I1[&quot;Label berada di tengah kolom\nKeyboard virtual tertutup&quot;]
+    end
+    subgraph Focus[&quot;2. Status Fokus (Tap)&quot;]
+        F1[&quot;Label melayang ke atas (Floating)\nKeyboard Angka muncul (inputmode='numeric')&quot;]
+    end
+    subgraph Typed[&quot;3. Pengguna Mengetik Teks&quot;]
+        T1[&quot;Ikon silang pembersih muncul (clear-input)\nv-model menyinkronkan data secara reaktif&quot;]
+    end
+    Idle --&gt; Focus
+    Focus --&gt; Typed
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_05_kontrol_input_teks_ion_input.html">🌐 Buka Berkas Interaktif: slide_05_kontrol_input_teks_ion_input.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 06: Masukan Lanjutan: <ion-select> (Action-Sheet) &amp; <ion-textarea> (Auto-grow)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Merancang dropdown pemilih program studi dengan interface action-sheet dan kolom alamat domisili yang membesar otomatis.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Menu drop-down bawaan HTML (<code>&lt;select&gt;</code>) terasa sangat kaku dan kuno di layar sentuh ponsel. Ionic menyediakan <code>&lt;ion-select interface='action-sheet'&gt;</code> yang memunculkan lembar pilihan anggun dari dasar layar ponsel (<em>bottom sheet</em>), area yang sangat ramah dijangkau oleh jempol pengguna (<em>Thumb Zone</em>). Sedangkan untuk kolom alamat rumah, kita aktifkan <code>:auto-grow='true'</code> pada <code>&lt;ion-textarea&gt;</code> sehingga kotak input membesar otomatis ke bawah saat mahasiswa mengetik kalimat panjang tanpa memunculkan bilah gulir vertikal yang mengganggu!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>interface=&quot;action-sheet&quot;</code>: Mengubah pemilih dropdown menjadi lembar aksi modern dari bawah layar.</li>
+<li><code>:auto-grow=&quot;true&quot;</code>: Ketinggian area teks menyesuaikan otomatis dengan panjang paragraf yang diketik pengguna.</li>
+<li><code>:counter=&quot;true&quot;</code> &amp; <code>maxlength=&quot;200&quot;</code>: Menampilkan indikator sisa kuota karakter secara real-time di pojok kanan bawah.</li>
+</ul>
+</li>
+<li><strong>Diagram Mekanisme Action-Sheet &amp; Auto-Grow (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph Select[&quot;&lt;ion-select interface='action-sheet'&gt;&quot;]
+        TapSelect[&quot;Pengguna Mengetuk Kolom Program Studi&quot;]
+        Sheet[&quot;Lembar Aksi (Action-Sheet) Meluncur dari Dasar Layar\n• S1 Sistem Informasi\n• S1 Informatika\n• S1 Sains Data&quot;]
+        TapSelect --&gt; Sheet
+    end
+    subgraph Textarea[&quot;&lt;ion-textarea :auto-grow='true'&gt;&quot;]
+        Typing[&quot;Pengguna Mengetik Alamat Baris Baru (Enter)&quot;]
+        Grow[&quot;Tinggi Elemen Membesar Otomatis Mengikuti Baris Teks\n(Bebas Scrollbar Kaku)&quot;]
+        Typing --&gt; Grow
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_06_area_teks_dan_pilihan_dropdown.html">🌐 Buka Berkas Interaktif: slide_06_area_teks_dan_pilihan_dropdown.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 07: Kontrol Pilihan: ion-toggle, ion-checkbox, &amp; ion-radio</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menentukan kontrol pilihan boolean (toggle), seleksi majemuk (checkbox), dan pilihan jalur eksklusif (radio).</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Kapan kita harus memakai Toggle, Checkbox, atau Radio? Ini adalah pertanyaan fundamental User Experience (UX). Jika mahasiswa mengaktifkan preferensi instan seperti notifikasi WhatsApp atau Dark Mode, gunakan <code>&lt;ion-toggle&gt;</code> karena perubahannya langsung berdampak saat digeser. Jika mahasiswa menyetujui pernyataan integritas akademik, gunakan <code>&lt;ion-checkbox&gt;</code>. Namun jika memilih salah satu skema registrasi perkuliahan (SIPAS Penuh vs SIPAS Non-TTM), gunakan <code>&lt;ion-radio-group&gt;</code> karena pilihannya bersifat saling meniadakan (<em>mutually exclusive</em>)!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>&lt;ion-toggle&gt;</code>: Sakelar boolean biner (True/False) untuk preferensi yang berefek seketika.</li>
+<li><code>&lt;ion-checkbox&gt;</code>: Seleksi centang majemuk atau persetujuan klausul hukum &amp; integritas data.</li>
+<li><code>&lt;ion-radio-group&gt;</code>: Memilih tepat satu opsi dari himpunan opsi yang saling meniadakan.</li>
+</ul>
+</li>
+<li><strong>Diagram Pohon Keputusan Pemilihan Kontrol Antarmuka (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    Q{&quot;Karakteristik Data Masukan Pengguna?&quot;}
+    Q --&gt;|Pilihan Biner On/Off Instan| Tog[&quot;&lt;ion-toggle&gt;\nContoh: Aktifkan Notifikasi, Tema Gelap&quot;]
+    Q --&gt;|Persetujuan Klausul / Majemuk| Chk[&quot;&lt;ion-checkbox&gt;\nContoh: Menyetujui Fakta Integritas UT&quot;]
+    Q --&gt;|Satu Opsi Mutlak (Eksklusif)| Rad[&quot;&lt;ion-radio-group&gt;\nContoh: Skema SIPAS (Penuh vs Semi vs Non-TTM)&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_07_sakelar_toggle_checkbox_radio.html">🌐 Buka Berkas Interaktif: slide_07_sakelar_toggle_checkbox_radio.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 08: Pemilih Kalender Modern: Komponen <ion-datetime> (Lokalisasi id-ID)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengimplementasikan kalender tanggal lahir mahasiswa dengan lokalisasi Bahasa Indonesia dan pembatas rentang tahun.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Mengisi tanggal lahir pada perangkat mobile sering kali memicu kesalahan ketik jika pengguna dipaksa mengetik angka dan tanda strip secara manual. Dengan komponen <code>&lt;ion-datetime presentation='date' locale='id-ID'&gt;</code>, kita menyajikan antarmuka kalender visual berstandar Android dan iOS dengan nama hari dan bulan otomatis dalam Bahasa Indonesia. Kita juga dapat mengunci rentang tahun yang logis menggunakan atribut <code>min</code> dan <code>max</code> agar tidak ada mahasiswa yang mendaftar dengan tahun lahir di masa depan!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>locale=&quot;id-ID&quot;</code>: Menyajikan lokalisasi nama hari (Senin–Minggu) dan bulan (Januari–Desember) sesuai standar Indonesia.</li>
+<li><code>presentation=&quot;date&quot;</code>: Menampilkan tampilan visual kalender tanggal tanpa pemilih jam dan menit.</li>
+<li>Format ISO 8601: Nilai data tersimpan dalam format standar internasional <code>YYYY-MM-DD</code> yang siap dikirimkan ke server backend.</li>
+<li>Atribut <code>min</code> dan <code>max</code>: Menetapkan batas bawah dan batas atas tahun kelahiran yang valid.</li>
+</ul>
+</li>
+<li><strong>Diagram Alur Pemrosesan Tanggal Kalender (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph UI[&quot;Kalender Visual (&lt;ion-datetime&gt;)&quot;]
+        Cal[&quot;Pengguna Memilih Tanggal Lahir\n(Format Tampilan: id-ID)\nContoh: '17 Agustus 2002'&quot;]
+    end
+    subgraph Model[&quot;Penyimpanan Reaktif (v-model)&quot;]
+        ISO[&quot;Format Baku ISO 8601 String\n'2002-08-17T00:00:00.000Z'&quot;]
+    end
+    subgraph Format[&quot;Transformasi Display&quot;]
+        Disp[&quot;Tampilan Kartu KTM:\n'17/08/2002'&quot;]
+    end
+    Cal --&gt; ISO
+    ISO --&gt; Disp
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_08_pemilih_tanggal_ion_datetime.html">🌐 Buka Berkas Interaktif: slide_08_pemilih_tanggal_ion_datetime.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 09: Prinsip Validasi Reaktif: Dirty, Touched, &amp; Umpan Balik Instan</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengelola siklus status masukan form (<em>pristine</em>, <em>dirty</em>, <em>touched</em>) demi menjaga kenyamanan pengguna (UX).</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (DevTools Console), VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Dalam prinsip User Experience (UX) mobile, tidak ada hal yang lebih mengesalkan pengguna selain baru saja membuka formulir pendaftaran lalu langsung disambut oleh pesan merah berkedip: 'NIM Anda Masih Kosong!'. Padahal pengguna baru saja melihat layar dan belum sempat menyentuh kolom tersebut! Status formulir harus dikelola secara terhormat: selama kolom masih 'pristine' (perawan), jangan pernah tampilkan pesan galat. Tampilkan peringatan hanya jika kolom sudah 'touched' (pernah diklik lalu ditinggalkan) dan isinya ternyata tidak memenuhi syarat!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><em>Pristine:</em> Status kolom saat formulir baru pertama kali dimuat; pengguna belum menyentuh ataupun mengetik.</li>
+<li><em>Dirty:</em> Pengguna telah mulai mengetikkan satu atau beberapa karakter ke dalam kolom.</li>
+<li><em>Touched:</em> Kursor telah memasuki kolom lalu berpindah keluar (<em>event</em> <code>@ion-blur</code>).</li>
+<li><em>Valid / Invalid:</em> Hasil evaluasi logika validasi terhadap nilai yang tersimpan di dalam state.</li>
+</ul>
+</li>
+<li><strong>Diagram Mesin Status Validasi Kolom Formulir (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">stateDiagram-v2
+    [*] --&gt; Pristine: Formulir Dibuka Pertama Kali
+    Pristine --&gt; Dirty: Pengguna Mulai Mengetik Teks
+    Pristine --&gt; Touched: Pengguna Klik Kolom Lalu Keluar (Blur) Tanpa Isi
+    Dirty --&gt; Touched: Pengguna Pindah ke Kolom Lain (Blur)
+    state Touched {
+        [*] --&gt; Evaluasi
+        Evaluasi --&gt; Valid: Format Tepat (Hijau)
+        Evaluasi --&gt; Invalid: Format Salah / Kosong (Merah)
+    }
+    note right of Pristine: DILARANG memunculkan pesan error di fase ini!
+    note right of Invalid: Tampilkan pesan error dan helper text merah
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_09_prinsip_validasi_reaktif_form.html">🌐 Buka Berkas Interaktif: slide_09_prinsip_validasi_reaktif_form.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 10: Validasi Pola Regex: Penegakan Format 9 Digit NIM UT</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menganalisis dan menerapkan Regular Expression <code>/^[0-9]{9}$/</code> untuk menjamin integritas data NIM mahasiswa UT.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome DevTools Console, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Di Universitas Terbuka, setiap Nomor Induk Mahasiswa (NIM) terdiri dari tepat sembilan digit angka, seperti 043123456. Di JavaScript pemula, mahasiswa sering hanya memeriksa panjang karakter dengan <code>nim.length === 9</code>. Namun tahukah Anda bahayanya? Jika pengguna mengetik '043ABCDEF' atau '043-12-34', panjangnya juga 9 karakter, padahal terdapat huruf dan simbol yang merusak database! Oleh karena itu, kita wajib menggunakan Regular Expression <code>/^[0-9]{9}$/</code> yang secara mutlak menjamin data hanya terdiri atas angka murni!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>/^</code> (Caret): Mematok pencocokan pola harus dimulai dari karakter pertama string.</li>
+<li><code>[0-9]</code> (Karakter Set Angka): Hanya mengizinkan karakter angka dari 0 sampai 9 (ekuivalen dengan <code>\d</code>).</li>
+<li><code>{9}</code> (Kuantor Mutlak): Menegaskan bahwa karakter angka tersebut wajib berulang tepat sembilan kali, tidak boleh kurang dan tidak boleh lebih.</li>
+<li><code>$/</code> (Dollar): Mematok akhir pencocokan pola pada karakter terakhir string (mencegah penyusupan karakter asing di belakang).</li>
+</ul>
+</li>
+<li><strong>Diagram Anatomi Token Regex NIM UT (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    Caret[&quot;^ (Awal String)&quot;] --&gt; Digit[&quot;[0-9] (Hanya Karakter Angka 0–9)&quot;]
+    Digit --&gt; Quant[&quot;{9} (Tepat Berjumlah 9 Karakter)&quot;]
+    Quant --&gt; Dollar[&quot;$ (Akhir String)&quot;]
+    
+    subgraph ContohSah[&quot;✅ Format Sah (Lolos Uji)&quot;]
+        Valid[&quot;'043123456' (9 Digit Angka Murni)&quot;]
+    end
+    subgraph ContohGagal[&quot;❌ Format Ditolak (Gagal Uji)&quot;]
+        G1[&quot;'04312345' (Hanya 8 digit)&quot;]
+        G2[&quot;'043ABCDEF' (Mengandung huruf)&quot;]
+        G3[&quot;'043 123 45' (Mengandung spasi)&quot;]
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_10_validasi_regex_nim_9_digit.html">🌐 Buka Berkas Interaktif: slide_10_validasi_regex_nim_9_digit.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 11: Validasi Pola Regex: Domain Resmi Surel Kampus (@ecampus.ut.ac.id)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Merancang pola Regular Expression untuk mengunci domain surel resmi institusi mahasiswa UT.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Pada penugasan Tugas Tutorial 2, salah satu syarat ketat adalah memastikan pendaftar menggunakan surel resmi kampus. Kita mengunci domain dengan pola <code>/^[a-zA-Z0-9._%+-]+@ecampus\.ut\.ac\.id$/</code>. Perhatikan baik-baik tanda backslash sebelum titik (<code>\.ut\.ac\.id</code>). Dalam sintaks Regex, tanda titik tanpa backslash berarti 'sembarang satu karakter'. Tanpa backslash, surel seperti <code>nama@ecampusXutYacZid</code> akan dianggap valid! Dengan karakter escape <code>\.</code>, kita memastikan bahwa yang dicocokkan adalah tanda titik harfiah!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Username Bagian Kiri: <code>^[a-zA-Z0-9._%+-]+</code> mengizinkan huruf, angka, titik, garis bawah, dan persentase.</li>
+<li>Simbol Pemisah: <code>@</code> memastikan pemisah alamat surel standar.</li>
+<li>Kunci Domain Resmi: <code>ecampus\.ut\.ac\.id$</code> mengunci akhiran domain institusi resmi Universitas Terbuka.</li>
+<li>Sanitasi Input: Wajib memanggil <code>.trim().toLowerCase()</code> sebelum pengujian pola regex dilakukan.</li>
+</ul>
+</li>
+<li><strong>Diagram Pembedahan Segmen Regex Surel Kampus (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph Pola[&quot;Pola: /^[a-zA-Z0-9._%+-]+@ecampus\\.ut\\.ac\\.id$/&quot;]
+        S1[&quot;Bagian 1: Nama Pengguna (Username)\n[a-zA-Z0-9._%+-]+&quot;]
+        S2[&quot;Bagian 2: Tanda Pembatas\n@&quot;]
+        S3[&quot;Bagian 3: Subdomain &amp; Domain Resmi Kampus\necampus\\.ut\\.ac\\.id&quot;]
+    end
+    S1 --&gt; S2 --&gt; S3
+    subgraph Hasil[&quot;Hasil Evaluasi&quot;]
+        OK[&quot;✅ mahasiswa@ecampus.ut.ac.id -&gt; VALID&quot;]
+        NOK[&quot;❌ mahasiswa@gmail.com -&gt; DITOLAK BUKAN KAMPUS&quot;]
+    end
+    S3 --&gt; Hasil
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_11_validasi_regex_email_ecampus_ut.html">🌐 Buka Berkas Interaktif: slide_11_validasi_regex_email_ecampus_ut.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 12: Umpan Balik Halus: Notifikasi Mengambang <ion-toast></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengimplementasikan notifikasi popup bawah <code>&lt;ion-toast&gt;</code> dengan durasi otomatis dan pewarnaan semantik.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Ketika pendaftaran mahasiswa berhasil disimpan atau terjadi kesalahan validasi data, jangan pernah menggunakan fungsi <code>window.alert()</code> bawaan browser yang memblokir layar dengan kotak abu-abu kuno! Gunakan komponen <code>&lt;ion-toast&gt;</code>. Toast melayang secara anggun di bagian bawah layar smartphone selama 3 detik, memberi tahu mahasiswa dengan warna hijau semantik (<em>success</em>) bahwa berkas telah tersimpan, lalu menghilang otomatis tanpa mengganggu alur navigasi aplikasi!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>:is-open=&quot;boolean&quot;</code>: Properti pemicu tampil reaktif yang dikendalikan oleh variabel state Vue.</li>
+<li><code>:duration=&quot;3000&quot;</code>: Pewaktu otomatis yang menutup notifikasi setelah durasi 3.000 milidetik (3 detik).</li>
+<li><code>position=&quot;bottom&quot;</code>: Posisi ramah sentuhan jempol di bagian bawah layar ponsel.</li>
+<li><code>color=&quot;success | danger | warning&quot;</code>: Pewarnaan semantik status keberhasilan atau kegagalan aksi.</li>
+</ul>
+</li>
+<li><strong>Diagram Siklus Notifikasi Mengambang Toast (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">sequenceDiagram
+    autonumber
+    actor Mahasiswa as Pengguna (Mahasiswa)
+    participant Form as Formulir Registrasi
+    participant Toast as &lt;ion-toast&gt; (Floating Notification)
+
+    Mahasiswa-&gt;&gt;Form: Klik Tombol &quot;Kirim Pendaftaran&quot;
+    Form-&gt;&gt;Form: Validasi Data Berhasil 100%
+    Form-&gt;&gt;Toast: Set :is-open=&quot;true&quot; (color=&quot;success&quot;)
+    Toast--&gt;&gt;Mahasiswa: Muncul Melayang di Bawah Layar: &quot;Pendaftaran Berhasil!&quot;
+    Note over Toast: Timer Berjalan 3000ms (3 Detik)
+    Toast-&gt;&gt;Toast: Waktu Habis -&gt; Emit @didDismiss
+    Toast--&gt;&gt;Mahasiswa: Menghilang Halus Otomatis (Tanpa Halangan Layar)
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_12_notifikasi_mengambang_ion_toast.html">🌐 Buka Berkas Interaktif: slide_12_notifikasi_mengambang_ion_toast.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 13: Konfirmasi Krusial: Kotak Dialog Modal <ion-alert></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Merancang dialog verifikasi dua langkah (<em>Two-Tier Confirmation</em>) sebelum pengiriman formulir permanen.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Menerbitkan Kartu Tanda Mahasiswa Digital adalah proses resmi yang tidak boleh salah. Sebelum data formulir dikirim permanen ke server, aplikasi yang handal menerapkan dialog konfirmasi dua langkah (<em>Two-Tier Confirmation</em>) menggunakan <code>&lt;ion-alert&gt;</code>. Alert ini memusatkan perhatian mahasiswa dengan menampilkan ringkasan data yang telah diketik: nama lengkap, NIM 9 digit, dan program studi yang dipilih, lalu meminta konfirmasi: 'Apakah data Anda sudah benar?'. Jika mahasiswa klik Batal, form tetap terbuka. Jika klik Ya, barulah submit dieksekusi!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Dialog modal pemfokus perhatian pengguna (<em>modal backdrop blocker</em>) untuk keputusan transaksi krusial.</li>
+<li>Konfigurasi tombol ganda: <code>role: 'cancel'</code> untuk pembatalan aman dan tombol tindakan utama untuk konfirmasi.</li>
+<li>Menampilkan pesan ringkasan data pendaftaran (<em>summary message</em>) sebelum penyimpanan permanen dilakukan.</li>
+</ul>
+</li>
+<li><strong>Diagram Alur Konfirmasi Dua Langkah (Two-Tier Confirmation) (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    Submit[&quot;Pengguna Klik Tombol 'Ajukan Penerbitan KTM'&quot;] --&gt; CheckValid{&quot;Apakah Seluruh Form Valid?&quot;}
+    CheckValid --&gt;|Tidak| ShowToast[&quot;Munculkan Toast Galat (Merah):\n'Lengkapi data sesuai ketentuan!'&quot;]
+    CheckValid --&gt;|Ya| OpenAlert[&quot;Buka Dialog Modal &lt;ion-alert&gt;\nMenampilkan Ringkasan: Nama, NIM, &amp; Prodi&quot;]
+    OpenAlert --&gt; Decision{&quot;Keputusan Pengguna?&quot;}
+    Decision --&gt;|Klik 'Periksa Kembali' (Cancel)| Abort[&quot;Tutup Alert, Tetap di Halaman Formulir&quot;]
+    Decision --&gt;|Klik 'Konfirmasi &amp; Terbitkan'| Commit[&quot;Eksekusi Penyimpanan Data &amp; Terbitkan KTM Digital&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_13_dialog_konfirmasi_ion_alert.html">🌐 Buka Berkas Interaktif: slide_13_dialog_konfirmasi_ion_alert.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 14: Arsitektur Theming: CSS Variables &amp; prefers-color-scheme</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Membedah mekanisme penyesuaian warna global Ionic melalui variabel CSS dan media query sistem operasi.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome DevTools (Elements Styles &amp; Rendering Emulation), VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Mengapa Ionic Framework begitu populer di kalangan pengembang aplikasi enterprise? Jawabannya terletak pada arsitektur pewarnaannya yang berbasis CSS Custom Properties (Variabel CSS). Seluruh komponen Ionic mengambil warna latar dari <code>--ion-background-color</code> dan teks dari <code>--ion-text-color</code>. Saat pengguna mengaktifkan mode malam di pengaturan sistem operasi smartphone mereka, peramban secara otomatis membaca media query <code>@media (prefers-color-scheme: dark)</code> dan mengalirkan palet warna gelap OLED (#121212) secara global tanpa perlu memuat ulang (<em>reload</em>) halaman!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>CSS Custom Properties: Variabel CSS (<code>--ion-background-color</code>, <code>--ion-text-color</code>, <code>--ion-card-background</code>) yang mengontrol tampilan global.</li>
+<li><code>@media (prefers-color-scheme: dark)</code>: Standar CSS modern pendeteksi preferensi tema bawaan sistem operasi ponsel pengguna.</li>
+<li>Standar Kontras Dark Mode: Menggunakan latar abu-abu gelap OLED (#121212) dengan teks terang berderajat kontras tinggi demi kenyamanan mata dan efisiensi baterai ponsel.</li>
+</ul>
+</li>
+<li><strong>Diagram Alur Arsitektur Pewarnaan CSS Variables (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    OS[&quot;Sistem Operasi Smartphone\n(Android 14 / iOS 17 Mode Gelap)&quot;] --&gt; MQ[&quot;Media Query:\n@media (prefers-color-scheme: dark)&quot;]
+    MQ --&gt; Root[&quot;CSS Root Variables Override:\n--ion-background-color: #121212\n--ion-text-color: #ffffff\n--ion-card-background: #1e1e1e&quot;]
+    Root --&gt; Comp[&quot;Komponen Antarmuka:\n&lt;ion-page&gt;, &lt;ion-card&gt;, &lt;ion-item&gt;, &lt;ion-toolbar&gt;&quot;]
+    Comp --&gt; Display[&quot;Tampilan Mode Gelap yang Nyaman &amp; Hemat Baterai OLED&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_14_arsitektur_tema_gelap_dark_mode.html">🌐 Buka Berkas Interaktif: slide_14_arsitektur_tema_gelap_dark_mode.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 15: Peralihan Tema Real-Time: Sakelar Dark &amp; Light Mode</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengimplementasikan tombol toggle tema yang memanipulasi kelas body dan menyimpan preferensi ke LocalStorage.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (DevTools Application -&gt; Local Storage), VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Selain deteksi otomatis dari sistem operasi, pengguna sangat menyukai kebebasan untuk memilih tema secara manual. Di toolbar atas aplikasi, kita menyediakan tombol sakelar <code>&lt;ion-toggle&gt;</code>. Saat sakelar digeser, fungsi JavaScript menyuntikkan kelas <code>.dark</code> pada dokumen <code>document.body.classList.toggle('dark', isDark)</code> dan menyimpan preferensi tersebut ke dalam <code>localStorage</code>. Dengan cara ini, ketika mahasiswa menutup peramban lalu membukanya kembali keesokan harinya, tema gelap favoritnya akan langsung pulih secara otomatis!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Manipulasi Kelas DOM: <code>document.body.classList.toggle('dark', isDark)</code> untuk mengaktifkan aturan pewarnaan kelas <code>.dark</code>.</li>
+<li>Penyimpanan Persisten: <code>localStorage.setItem('user-theme', isDark ? 'dark' : 'light')</code> agar preferensi tidak hilang saat aplikasi ditutup.</li>
+<li>Pemulihan Status Saat Startup: Membaca status <code>localStorage</code> di dalam hook siklus hidup <code>onMounted()</code> aplikasi.</li>
+</ul>
+</li>
+<li><strong>Diagram Alur Manipulasi &amp; Persistensi Tema Dinamis (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">sequenceDiagram
+    autonumber
+    actor Pengguna as Pengguna (Mahasiswa)
+    participant Toggle as &lt;ion-toggle&gt; Sakelar Tema
+    participant JS as Logika Vue (changeTheme)
+    participant Storage as LocalStorage Browser
+    participant DOM as document.body (DOM Root)
+
+    Pengguna-&gt;&gt;Toggle: Geser Sakelar ke Posisi &quot;Dark&quot;
+    Toggle-&gt;&gt;JS: Picu Event @ionChange
+    JS-&gt;&gt;DOM: Tambahkan Kelas: classList.add('dark')
+    JS-&gt;&gt;Storage: Simpan Status: setItem('ut_theme', 'dark')
+    DOM--&gt;&gt;Pengguna: Tampilan Layar Seketika Menjadi Mode Gelap
+    Note over Storage,DOM: Saat Aplikasi Dibuka Kembali Esok Hari:
+    JS-&gt;&gt;Storage: getItem('ut_theme') == 'dark'
+    JS-&gt;&gt;DOM: Otomatis Aktifkan classList.add('dark') saat onMounted
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_15_sakelar_tema_dinamis_dark_light.html">🌐 Buka Berkas Interaktif: slide_15_sakelar_tema_dinamis_dark_light.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 16: Pedoman &amp; Rubrik Penilaian Resmi TUGAS TUTORIAL 2 (Skala 0–100)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menguraikan 4 kriteria evaluasi resmi, pembagian skor, dan tata cara penyerahan laporan tugas di LMS Tuton.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (Buka Kalkulator Rubrik Interaktif), LMS Tuton UT (<code>elearning.ut.ac.id</code>).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Perhatikan baik-baik slide ini rekan-rekan mahasiswa! Ini adalah rubrik penilaian resmi yang akan saya gunakan sebagai Tutor dalam memeriksa berkas laporan Tugas Tutorial 2 Anda. Penilaian terbagi menjadi 4 pilar objektif: Kerapian komponen antarmuka resmi Ionic (25 poin), Ketepatan validasi Regex NIM 9 digit dan email kampus (35 poin), Interaktivitas umpan balik dialog Toast dan Alert (20 poin), serta Fungsionalitas Dark/Light Mode dan kejelasan video demonstrasi (20 poin). Total skor maksimal adalah 100 poin. Kami telah menyediakan kalkulator interaktif mandiri agar Anda dapat menguji simulasi skor tugas Anda sebelum mengunggahnya ke LMS!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Pilar 1 (25 Poin):</strong> Struktur antarmuka rapi menggunakan komponen resmi Ionic UI (<code>ion-grid</code>, <code>ion-card</code>, <code>ion-input</code>, <code>ion-select</code>, <code>ion-button</code>).</li>
+<li><strong>Pilar 2 (35 Poin):</strong> Implementasi validasi form reaktif dan ketepatan pola Regex NIM 9 digit angka serta surel berdomain <code>@ecampus.ut.ac.id</code>.</li>
+<li><strong>Pilar 3 (20 Poin):</strong> Keberadaan umpan balik interaktif modal dialog konfirmasi <code>&lt;ion-alert&gt;</code> dan notifikasi mengambang <code>&lt;ion-toast&gt;</code>.</li>
+<li><strong>Pilar 4 (20 Poin):</strong> Fungsionalitas sakelar tema dinamis (<em>Dark/Light Mode</em>) serta kelengkapan lampiran tautan video YouTube <em>Unlisted</em> (3–5 menit).</li>
+</ul>
+</li>
+<li><strong>Diagram Komposisi Skor Rubrik Tugas Tutorial 2 (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">pie title Distribusi Bobot Skor Penilaian Tugas Tutorial 2 (Total 100%)
+    &quot;Validasi Form &amp; Regex NIM/Email (Pilar 2)&quot; : 35
+    &quot;Struktur Tata Letak Komponen Ionic (Pilar 1)&quot; : 25
+    &quot;Umpan Balik Dialog Alert &amp; Toast (Pilar 3)&quot; : 20
+    &quot;Dynamic Dark Mode &amp; Video Demo (Pilar 4)&quot; : 20
+</code></pre>
+<ul>
+<li><strong>Tautan Kode &amp; Rubrik Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.html">🌐 Buka Kalkulator Skor Rubrik Interaktif: slide_16_rubrik_tugas_tutorial_2.html</a><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.md">📄 Baca Panduan Teks &amp; Checklist: slide_16_rubrik_tugas_tutorial_2.md</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 17: MASTER SOLUSI RESMI TUGAS TUTORIAL 2: Portal Layanan Mandiri &amp; KTM Digital</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengintegrasikan seluruh komponen UI, validasi Regex, dialog konfirmasi, dan theming dalam satu aplikasi utuh.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (DevTools Mobile Toolbar <code>Ctrl + Shift + M</code>), Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Inilah Mahakarya kita hari ini: Master Solusi Resmi Tugas Tutorial 2! Aplikasi ini menggabungkan seluruh kompetensi Sesi 05 ke dalam simulator smartphone yang sangat memukau: formulir registrasi lengkap dengan validasi regex real-time, tombol Dark Mode di toolbar, dialog konfirmasi dua langkah <code>&lt;ion-alert&gt;</code>, notifikasi mengambang <code>&lt;ion-toast&gt;</code>, dan fitur paling menarik: Kartu Tanda Mahasiswa (KTM) Digital yang otomatis menampilkan foto avatar, nama, dan NIM Anda secara reaktif saat Anda mengetik! Pelajari dan jadikan berkas ini sebagai standar rujukan utama dalam menyelesaikan tugas Anda!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Arsitektur Terintegrasi:</strong> Menggabungkan Vue 3 Composition API (<code>ref</code>, <code>computed</code>), Ionic UI Toolkit, dan sistem theming dinamis.</li>
+<li><strong>KTM Digital Reaktif:</strong> Kartu mahasiswa virtual dengan avatar otomatis (<em>DiceBear Bottts</em>), barcode simulasi, dan status keaktifan akademik.</li>
+<li><strong>Inspektur Validasi Real-Time:</strong> Memantau keabsahan setiap kolom input dengan indikator warna visual (hijau jika sah, merah jika format salah).</li>
+<li><strong>Zero Friction:</strong> Berjalan langsung di peramban Chrome tanpa instalasi perangkat lunak server yang memberatkan memori RAM.</li>
+</ul>
+</li>
+<li><strong>Diagram Arsitektur Master Solusi Tugas Tutorial 2 (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph HeaderBar[&quot;&lt;ion-header&gt; &amp; &lt;ion-toolbar&gt;&quot;]
+        Title[&quot;Judul: Portal Layanan Mandiri UT&quot;]
+        Toggle[&quot;Sakelar Dynamic Dark/Light Mode&quot;]
+    end
+
+    subgraph BodyGrid[&quot;&lt;ion-grid&gt; 12-Kolom Responsif (size='12' size-md='6')&quot;]
+        subgraph ColLeft[&quot;Kolom Kiri: Formulir Registrasi&quot;]
+            InpName[&quot;Input Nama Lengkap&quot;]
+            InpNIM[&quot;Input NIM (Regex: /^[0-9]{9}$/)&quot;]
+            InpMail[&quot;Input Email (Regex: /@ecampus\\.ut\\.ac\\.id$/)&quot;]
+            InpProdi[&quot;Dropdown Prodi (&lt;ion-select&gt;)&quot;]
+            InpDate[&quot;Pemilih Tanggal Lahir (&lt;ion-datetime&gt;)&quot;]
+            BtnSubmit[&quot;Tombol Ajukan Penerbitan KTM&quot;]
+        end
+        subgraph ColRight[&quot;Kolom Kanan: Pratinjau KTM Digital&quot;]
+            CardKTM[&quot;Kartu KTM Digital Reaktif\n• Foto Avatar Mahasiswa Dinamis\n• Barcode Identitas Digital\n• Label Status: Mahasiswa Aktif FST UT&quot;]
+        end
+    end
+
+    subgraph Feedback[&quot;Komponen Umpan Balik Dialog Modal&quot;]
+        Alert[&quot;&lt;ion-alert&gt; Dialog Konfirmasi 2 Langkah&quot;]
+        Toast[&quot;&lt;ion-toast&gt; Notifikasi Pop-up Sukses/Galat&quot;]
+    end
+
+    HeaderBar --&gt; BodyGrid
+    BtnSubmit --&gt; Alert
+    Alert --&gt;|Dikonfirmasi| Toast
+    ColLeft -.-&gt;|Sinkronisasi Reaktif v-model| ColRight
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html">🌐 Buka Master Solusi Interaktif: slide_17_solusi_tugas_2_portal_ktm_registrasi.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 18: Jembatan Menuju Sesi 06: Capacitor Runtime Bridge &amp; Android Studio</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menghubungkan capaian antarmuka mobile menuju integrasi native SDK Android dan runtime bridge Capacitor.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, Terminal / PowerShell, Android Studio (Pratinjau Sesi 06).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Selamat dan apresiasi setinggi-tingginya kepada rekan-rekan mahasiswa FST Universitas Terbuka yang telah menuntaskan seluruh materi antarmuka, tata letak grid, validasi regex, dan menyelesaikan Tugas Tutorial 2! Namun selama lima sesi ini, kita masih menguji aplikasi di dalam lingkungan simulator peramban web. Di Sesi 06 mendatang, kita akan melompat ke dunia nyata: kita akan menghubungkan kode web kita ke sistem operasi Android menggunakan Capacitor Runtime Bridge, membuka Android Studio, mengelola izin AndroidManifest, dan menjalankan aplikasi langsung di ponsel fisik Anda menggunakan scrcpy! Siapkan smartphone dan kabel data USB Anda!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Topik Sesi 06 Mendatang:</strong> Capacitor Runtime Bridge, integrasi Android Studio, penanganan berkas <code>AndroidManifest.xml</code>, dan konfigurasi <code>build.gradle</code>.</li>
+<li><strong>Solusi Hemat RAM:</strong> Menjalankan aplikasi langsung di smartphone Android fisik melalui USB Debugging dan <em>mirroring</em> layar via <code>scrcpy</code> (konsumsi RAM laptop &lt; 70 MB dibandingkan emulator yang memakan &gt; 4 GB).</li>
+<li><strong>Persiapan Rilis Native:</strong> Mengompilasi kode Vue/Ionic menjadi paket aplikasi Android asli.</li>
+</ul>
+</li>
+<li><strong>Diagram Peta Jalan Menuju Sesi 06 &amp; Android Native (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph S5[&quot;Sesi 05 (Selesai)&quot;]
+        UI[&quot;Antarmuka Mobile Ionic&quot;]
+        Grid[&quot;Tata Letak 12-Kolom Grid&quot;]
+        Form[&quot;Validasi Regex &amp; Theme&quot;]
+    end
+    subgraph S6[&quot;Sesi 06 (Langkah Berikutnya)&quot;]
+        Cap[&quot;Capacitor Runtime Bridge\n(npx cap add android)&quot;]
+        AS[&quot;Android Studio &amp; Gradle Build&quot;]
+        USB[&quot;USB Debugging &amp; scrcpy\n(Jalan di HP Android Fisik)&quot;]
+    end
+    subgraph Finish[&quot;Luaran Akhir&quot;]
+        APK[&quot;📱 Berkas Paket Android (APK)\nBerjalan Native di Smartphone Mahasiswa&quot;]
+    end
+    S5 --&gt; Cap
+    Cap --&gt; AS
+    AS --&gt; USB
+    USB --&gt; APK
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_18_preview_sesi_06_capacitor_android.html">🌐 Buka Berkas Interaktif: slide_18_preview_sesi_06_capacitor_android.html</a></li>
+</ul>
+<hr />
+<h2>📚 Referensi Akademik &amp; Standar Mutu</h2>
+<ol>
+<li><strong>Buku Materi Pokok (BMP) Universitas Terbuka:</strong><br />
+Prafanto, A., dkk. (2024). <em>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)</em>. Modul 5: Sistem Tata Letak Grid, Kontrol Formulir Masukan, Validasi Data, dan Penataan Tema Mobile. Tangerang Selatan: Universitas Terbuka.</li>
+<li><strong>Dokumentasi Resmi Framework &amp; Ekosistem:</strong>
+<ul>
+<li>Ionic Framework Documentation. (2024). <em>Ionic Grid Layout (ion-grid, ion-row, ion-col)</em>. Diakses dari <a href="https://ionicframework.com/docs/api/grid">ionicframework.com/docs/api/grid</a>.</li>
+<li>Ionic Framework Documentation. (2024). <em>Form Inputs &amp; Floating Labels Architecture</em>. Diakses dari <a href="https://ionicframework.com/docs/api/input">ionicframework.com/docs/api/input</a>.</li>
+<li>Ionic Framework Documentation. (2024). <em>Dark Mode &amp; CSS Custom Properties Theming</em>. Diakses dari <a href="https://ionicframework.com/docs/theming/dark-mode">ionicframework.com/docs/theming/dark-mode</a>.</li>
+<li>MDN Web Docs. (2024). <em>Regular Expressions (RegExp) Guide &amp; Token Specifications</em>. Mozilla Developer Network. Diakses dari <a href="https://developer.mozilla.org">developer.mozilla.org</a>.</li>
+</ul>
+</li>
+<li><strong>Standar Desain Antarmuka Pengguna &amp; Aksesibilitas:</strong>
+<ul>
+<li>Google Material Design 3. (2024). <em>Form Fields, Layout Responsive Grid, and Ergonomics Guidelines</em>. Diakses dari <a href="https://m3.material.io">m3.material.io</a>.</li>
+<li>World Wide Web Consortium (W3C). (2023). <em>Web Content Accessibility Guidelines (WCAG) 2.1 — Contrast and Form Validation Feedback</em>.</li>
+</ul>
+</li>
+</ol>
+
+
+      <footer class="doc-footer">
+        <div>
+          <span>Hak Cipta &copy; 2026 Universitas Terbuka</span> • 
+          <span>The Zero-Friction Courseware Framework</span>
+        </div>
+        <div>
+          <a href="../index.html" style="font-size: 12px; color: var(--ut-blue);">Kembali ke Katalog Utama ↗</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Konversi blok diagram mermaid
+      document.querySelectorAll('pre code.language-mermaid').forEach(el => {
+        const pre = el.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        pre.replaceWith(div);
+      });
+
+      // Bungkus seluruh tabel dengan wrapper responsive
+      document.querySelectorAll('.doc-content table').forEach(tbl => {
+        if (!tbl.parentElement.classList.contains('table-responsive')) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'table-responsive';
+          tbl.parentElement.insertBefore(wrapper, tbl);
+          wrapper.appendChild(tbl);
+        }
+      });
+
+      // Inisialisasi mermaid jika pustaka tersedia
+      if (window.mermaid) {
+        mermaid.initialize({ 
+          startOnLoad: true, 
+          theme: 'neutral',
+          securityLevel: 'loose'
+        });
+      }
+    });
+  </script>
+</body>
+</html>

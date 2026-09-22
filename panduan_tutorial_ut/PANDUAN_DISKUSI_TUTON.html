@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panduan Inisiasi & Topik Diskusi Forum Tuton (Sesi 1 - 8) — Universitas Terbuka</title>
+  <meta name="description" content="Daftar topik pemicu diskusi forum Tuton dan rujukan berkas mandiri untuk 8 sesi perkuliahan STSI4303 Universitas Terbuka.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Mermaid.js untuk Diagram Arsitektur -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --ut-navy: #003366;
+      --ut-blue: #005691;
+      --ut-blue-light: #EBF3FA;
+      --ut-gold: #C28E00;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      position: static !important;
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100% !important;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Breadcrumb & Navbar */
+    .top-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-nav-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ut-blue);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .breadcrumb:hover {
+      color: var(--ut-navy);
+      text-decoration: underline;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--slate-200);
+      background: #FFFFFF;
+      color: var(--slate-700);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+    }
+
+    .action-btn.primary {
+      background: var(--ut-blue);
+      color: #FFFFFF;
+      border-color: var(--ut-blue);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--ut-navy);
+      border-color: var(--ut-navy);
+    }
+
+    /* Main Container */
+    .doc-container {
+      max-width: 1060px;
+      margin: 32px auto 60px;
+      padding: 0 20px;
+    }
+
+    /* Academic Header Card */
+    .doc-header {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ut-navy) 0%, var(--ut-blue) 60%, var(--ut-gold) 100%);
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--ut-blue);
+      background: var(--ut-blue-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+
+    .doc-subtitle {
+      font-size: 14px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* Document Body & Typography */
+    .doc-content {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 768px) {
+      .doc-content { padding: 24px 20px; }
+      .doc-header { padding: 24px 20px; }
+      .doc-title { font-size: 22px; }
+    }
+
+    .doc-content h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-top: 28px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 32px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .doc-content h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    .doc-content p {
+      margin-bottom: 16px;
+      color: var(--slate-700);
+    }
+
+    .doc-content ul, .doc-content ol {
+      margin-bottom: 18px;
+      padding-left: 24px;
+    }
+
+    .doc-content li {
+      margin-bottom: 6px;
+      color: var(--slate-700);
+    }
+
+    .doc-content hr {
+      border: none;
+      height: 1px;
+      background: var(--slate-200);
+      margin: 32px 0;
+    }
+
+    /* Links */
+    .doc-content a {
+      color: var(--ut-blue);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #93C5FD;
+      transition: all 0.15s ease;
+    }
+
+    .doc-content a:hover {
+      color: var(--ut-navy);
+      border-bottom-style: solid;
+      background: var(--ut-blue-light);
+    }
+
+    /* GitHub Alert Callouts */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-left: 4px solid;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .alert-important {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+
+    .alert-note {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1E40AF;
+    }
+
+    .alert-tip {
+      background: #ECFDF5;
+      border-color: #10B981;
+      color: #065F46;
+    }
+
+    .alert-warning {
+      background: #FFFBEB;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+
+    /* Beautiful Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    .doc-content th {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--slate-200);
+      letter-spacing: 0.2px;
+    }
+
+    .doc-content td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: top;
+    }
+
+    .doc-content tr:last-child td {
+      border-bottom: none;
+    }
+
+    .doc-content tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+
+    .doc-content tr:hover td {
+      background: #F1F5F9;
+    }
+
+    /* Code Blocks */
+    .doc-content pre {
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 20px 0;
+      border: 1px solid var(--slate-700);
+    }
+
+    .doc-content code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--slate-100);
+      color: var(--slate-900);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .doc-content pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    /* Mermaid Diagrams */
+    .mermaid {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--slate-400);
+    }
+
+    @media print {
+      .top-nav, .action-btn { display: none !important; }
+      body { background: #FFF; }
+      .doc-header, .doc-content { border: none; box-shadow: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP STICKY NAVIGATION -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../index.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Kembali ke Portal Perkuliahan
+      </a>
+
+      <div class="nav-actions">
+        <button class="action-btn" onclick="window.print()" title="Cetak halaman atau simpan sebagai PDF">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Cetak / PDF
+        </button>
+        <a href="PANDUAN_DISKUSI_TUTON.md" target="_blank" class="action-btn" title="Buka berkas sumber Markdown asli">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Naskah Markdown (.md)
+        </a>
+        <a href="https://github.com/antonprafanto/tuweb_mobile2025" target="_blank" class="action-btn" title="Buka repositori GitHub">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="doc-container">
+    <!-- HEADER -->
+    <header class="doc-header">
+      <span class="doc-badge">Panduan Diskusi Tuton</span>
+      <h1 class="doc-title">PANDUAN INISIASI & TOPIK DISKUSI FORUM TUTON (SESI 1 - 8)</h1>
+      <p class="doc-subtitle">
+        Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</strong><br>
+        Fakultas Sains dan Teknologi, Universitas Terbuka • Dosen Pengampu: <strong>Anton Prafanto, S.Kom., M.T.</strong>
+      </p>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="doc-content">
+      <h1>💬 PANDUAN INISIASI &amp; TOPIK DISKUSI FORUM TUTON (SESI 1 - 8)</h1>
+<h2>Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303) — Universitas Terbuka</h2>
+<div class="alert-box alert-tip">
+<p><strong>Tampilan Versi Web Interaktif &amp; Rapi:</strong>
+Dokumen ini tersedia dalam format Web Modern yang responsif, rapi, dan mudah dibaca:<br />
+👉 <a href="https://antonprafanto.github.io/tuweb_mobile2025/panduan_tutorial_ut/PANDUAN_DISKUSI_TUTON.html"><strong>Buka Versi Web Panduan Diskusi Tuton</strong></a> <em>(atau buka berkas lokal <code>PANDUAN_DISKUSI_TUTON.html</code>)</em>.</p>
+</div>
+<p>Dokumen ini memuat daftar topik pemicu diskusi (<em>discussion prompts</em>) dan panduan jawaban untuk tutor serta mahasiswa dalam forum e-learning Universitas Terbuka (<code>elearning.ut.ac.id</code>).</p>
+<hr />
+<h3>📌 Sesi 1: Arsitektur Pengembangan Aplikasi Perangkat Bergerak</h3>
+<ul>
+<li><strong>Topik Diskusi:</strong><br />
+Dalam industri pengembangan aplikasi mobile saat ini, terdapat tiga pendekatan utama: <em>Native Development</em> (Kotlin/Swift), <em>Cross-Platform Native Canvas</em> (Flutter), dan <em>Hybrid/Web-view based</em> (Ionic dengan Capacitor).<br />
+<em>Pertanyaan:</em> Menurut Anda, apa keunggulan utama pendekatan Hybrid (Ionic) dibandingkan pendekatan Native murni ketika sebuah institusi seperti Universitas Terbuka ingin mengembangkan aplikasi portal mahasiswa yang cepat dirilis di Android, iOS, dan Web? Kapan pendekatan hybrid TIDAK disarankan untuk digunakan?</li>
+<li><strong>Poin Kunci Jawaban Mahasiswa:</strong> Efisiensi <em>single codebase</em> (HTML/CSS/JS), kemudahan pemeliharaan oleh developer web yang sudah ada, akses ke ekosistem npm, serta batasan pada aplikasi game 3D/grafis berat yang membutuhkan akses GPU langsung.</li>
+<li><strong>Rujukan Berkas Pembelajaran Sesi 01:</strong>
+Dapat merujuk pada berkas mandiri:
+<ul>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_01_kontrak_dan_roadmap.html"><code>slide_01_kontrak_dan_roadmap.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_02_relevansi_mobile_hybrid.html"><code>slide_02_relevansi_mobile_hybrid.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_03_komparasi_arsitektur_mobile.html"><code>slide_03_komparasi_arsitektur_mobile.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_04_ekosistem_ionic_web_standards.html"><code>slide_04_ekosistem_ionic_web_standards.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_05_panduan_instalasi_tools.html"><code>slide_05_panduan_instalasi_tools.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_06_diagnostik_environment.html"><code>slide_06_diagnostik_environment.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_07_anatomi_hybrid_app.html"><code>slide_07_anatomi_hybrid_app.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_08_hello_hybrid_app.html"><code>slide_08_hello_hybrid_app.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_09_chrome_device_toolbar_guide.html"><code>slide_09_chrome_device_toolbar_guide.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_10_viewport_meta_scaling.html"><code>slide_10_viewport_meta_scaling.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_11_ionic_cli_simulator.html"><code>slide_11_ionic_cli_simulator.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_12_struktur_folder_proyek.html"><code>slide_12_struktur_folder_proyek.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_13_usb_debugging_scrcpy_guide.html">🌐 <strong>Panduan USB Debugging &amp; scrcpy:</strong> <code>slide_13_usb_debugging_scrcpy_guide.html</code></a> • <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_13_usb_debugging_scrcpy_guide.md">📄 <strong>Panduan Teks:</strong> <code>slide_13_usb_debugging_scrcpy_guide.md</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_14_hmr_live_reload_demo.html"><code>slide_14_hmr_live_reload_demo.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_15_troubleshooting_powershell_cli.html">🌐 <strong>Troubleshooting PowerShell:</strong> <code>slide_15_troubleshooting_powershell_cli.html</code></a> • <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_15_troubleshooting_powershell_cli.md">📄 <strong>Panduan Teks:</strong> <code>slide_15_troubleshooting_powershell_cli.md</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_16_cheatsheet_terminal_git.html">🌐 <strong>Cheatsheet Terminal &amp; Git:</strong> <code>slide_16_cheatsheet_terminal_git.html</code></a> • <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_16_cheatsheet_terminal_git.md">📄 <strong>Panduan Teks:</strong> <code>slide_16_cheatsheet_terminal_git.md</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html">🎯 <strong>Master Solusi Lab Quest 01 (KTM Digital Profil):</strong> <code>slide_17_lab_quest_01_profil_mahasiswa.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_18_preview_sesi_02_vue.html">🚀 <strong>Preview Sesi 02 (Vue 3 Frontend Reaktif):</strong> <code>slide_18_preview_sesi_02_vue.html</code></a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>📌 Sesi 2: Sistem Reaktivitas Frontend Modern (Vue.js)</h3>
+<ul>
+<li><strong>Topik Diskusi:</strong><br />
+Dalam pengembangan antarmuka pengguna berbasis JavaScript konvensional (Vanilla JS), pembaruan tampilan antarmuka saat data berubah sering kali membutuhkan manipulasi DOM manual seperti <code>document.getElementById().innerText = data</code>.<br />
+<em>Pertanyaan:</em> Mengapa Vue.js mengadopsi sistem reaktivitas (<code>ref</code> dan <code>reactive</code>) serta Virtual DOM? Bagaimana konsep deklaratif ini mempermudah pengembang dalam membangun antarmuka aplikasi mobile yang responsif?</li>
+<li><strong>Poin Kunci Jawaban Mahasiswa / Panduan Tutor:</strong> Mahasiswa mampu menguraikan pergeseran paradigma dari imperatif (<em>HOW</em>) ke deklaratif (<em>WHAT</em>); cara kerja <em>dependency tracking</em> (getter/setter <code>ref</code> dan ES6 Proxy <code>reactive</code>); keunggulan Virtual DOM Diffing yang hanya memutakhirkan node yang nilainya berubah tanpa render ulang keseluruhan pohon DOM; serta eliminasi risiko <em>spaghetti code</em> dan desinkronisasi data tampilan pada aplikasi mobile.</li>
+<li><strong>Rujukan Berkas Pembelajaran Sesi 02:</strong>
+Dapat merujuk pada berkas mandiri:
+<ul>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_01_paradigma_imperatif_vs_deklaratif.html"><code>slide_01_paradigma_imperatif_vs_deklaratif.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_02_sistem_reaktivitas_ref.html"><code>slide_02_sistem_reaktivitas_ref.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_03_reaktivitas_objek_reactive.html"><code>slide_03_reaktivitas_objek_reactive.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_04_text_interpolation_v_bind.html"><code>slide_04_text_interpolation_v_bind.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_05_two_way_binding_v_model.html"><code>slide_05_two_way_binding_v_model.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_06_conditional_v_if_vs_v_show.html"><code>slide_06_conditional_v_if_vs_v_show.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_07_list_rendering_v_for_dan_key.html"><code>slide_07_list_rendering_v_for_dan_key.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_08_event_handling_dan_modifiers.html"><code>slide_08_event_handling_dan_modifiers.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_09_computed_properties_ips.html"><code>slide_09_computed_properties_ips.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_10_watchers_dan_side_effects.html"><code>slide_10_watchers_dan_side_effects.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_11_lifecycle_hooks_onmounted.html"><code>slide_11_lifecycle_hooks_onmounted.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_12_komposisi_komponen_sfc.html"><code>slide_12_komposisi_komponen_sfc.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_13_props_aliran_data_induk_anak.html"><code>slide_13_props_aliran_data_induk_anak.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_14_emits_komunikasi_anak_ke_induk.html"><code>slide_14_emits_komunikasi_anak_ke_induk.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_15_slots_proyeksi_konten_fleksibel.html"><code>slide_15_slots_proyeksi_konten_fleksibel.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_16_state_reusable_composables.html"><code>slide_16_state_reusable_composables.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html">🎯 <strong>Master Solusi Lab Quest 02 (KRS Interaktif):</strong> <code>slide_17_lab_quest_02_krs_interaktif.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_02_vue_frontend/slide_18_preview_sesi_03_typescript.html">🚀 <strong>Preview Sesi 03 (TypeScript &amp; Vue):</strong> <code>slide_18_preview_sesi_03_typescript.html</code></a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>📌 Sesi 3: Manfaat Type Safety &amp; TypeScript dalam Proyek Skala Besar</h3>
+<ul>
+<li><strong>Topik Diskusi:</strong><br />
+JavaScript adalah bahasa pemrograman bertipe dinamis (<em>loosely typed</em>), sedangkan TypeScript menambahkan sistem tipe statis (<em>static typing</em>).<br />
+<em>Pertanyaan:</em> Mengapa dalam kurikulum STSI4303 mahasiswa diarahkan menggunakan TypeScript saat membangun aplikasi dengan Vue dan Ionic? Jelaskan skenario error pada aplikasi mobile yang dapat dicegah sejak dini saat proses penulisan kode (<em>compile-time</em>) berkat penggunaan antarmuka (<code>interface</code>) TypeScript!</li>
+<li><strong>Poin Kunci Jawaban Mahasiswa / Panduan Tutor:</strong>
+<ul>
+<li><strong>Urgensi TypeScript pada Aplikasi Mobile:</strong> Mencegah galat fatal di tangan pengguna (<em>runtime silent crashes</em> / <em>force close</em>); memberikan fasilitas <em>IntelliSense</em> dan pelengkapan otomatis (<em>autocompletion</em>) cerdas di VS Code; serta mempermudah <em>refactoring</em> dan kolaborasi tim pada basis kode berskala besar.</li>
+<li><strong>Skenario Galat yang Dicegah Sejak Dini (<em>Compile-Time Guard</em>):</strong>
+<ol>
+<li><em>Typo Properti Objek:</em> Mengetik <code>mhs.skorIpk</code> padahal nama aslinya <code>mhs.ipk</code>. Pada JavaScript murni hal ini menghasilkan nilai <code>undefined</code> atau kalkulasi <code>NaN</code> tanpa peringatan, sedangkan TypeScript langsung memberikan garis merah di editor.</li>
+<li><em>Kontrak Data Antarmuka (<code>interface</code>):</em> Menjamin setiap entitas (seperti <code>MahasiswaUT</code> dan <code>MataKuliah</code>) memiliki tipe data atribut yang sesuai (misal: SKS wajib <code>number</code>, bukan string).</li>
+<li><em>Penyusupan Nilai Asing via Literal Types:</em> Mengunci nilai huruf hanya pada himpunan legal UT (<code>'A' | 'B' | 'C' | 'D' | 'E'</code>), mencegah pengguna atau API mengirimkan data yang merusak perhitungan mutu.</li>
+<li><em>Penanganan Data Kosong (<em>Null Safety</em>):</em> Memaksa pengembang melakukan pengecekan <code>if (data)</code> sebelum mengakses properti objek sehingga terhindar dari galat klasik <code>Cannot read properties of undefined</code>.</li>
+</ol>
+</li>
+<li><strong>Rujukan Berkas Pembelajaran Sesi 03:</strong>
+Dapat merujuk pada berkas mandiri:</li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_01_roadmap_sesi_dan_tugas_1.html"><code>slide_01_roadmap_sesi_dan_tugas_1.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_02_urgensi_typescript_mobile.html"><code>slide_02_urgensi_typescript_mobile.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_03_tipe_primitif_dan_any_hazard.html"><code>slide_03_tipe_primitif_dan_any_hazard.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_04_union_dan_literal_types.html"><code>slide_04_union_dan_literal_types.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_05_interface_model_mahasiswa.html"><code>slide_05_interface_model_mahasiswa.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_06_optional_dan_readonly_properties.html"><code>slide_06_optional_dan_readonly_properties.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_07_generics_array_koleksi.html"><code>slide_07_generics_array_koleksi.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_08_fungsi_type_annotation.html"><code>slide_08_fungsi_type_annotation.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_09_vue3_script_setup_lang_ts.html"><code>slide_09_vue3_script_setup_lang_ts.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_10_typing_ref_dan_reactive.html"><code>slide_10_typing_ref_dan_reactive.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_11_typing_koleksi_array_reaktif.html"><code>slide_11_typing_koleksi_array_reaktif.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_12_typing_computed_properties.html"><code>slide_12_typing_computed_properties.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_13_typing_props_komponen.html"><code>slide_13_typing_props_komponen.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_14_typing_emits_komponen.html"><code>slide_14_typing_emits_komponen.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_15_typing_dom_events.html"><code>slide_15_typing_dom_events.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.html">🌐 <strong>Simulator Rubrik Tugas 1:</strong> <code>slide_16_rubrik_tugas_tutorial_1.html</code></a> • <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.md">📄 <strong>Panduan Teks:</strong> <code>slide_16_rubrik_tugas_tutorial_1.md</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html">🎯 <strong>Master Solusi Tugas 1 (Kalkulator Nilai):</strong> <code>slide_17_solusi_tugas_1_kalkulator_nilai.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_03_typescript_vue/slide_18_preview_sesi_04_ionic_ui.html">🚀 <strong>Preview Sesi 04 (Ionic Framework):</strong> <code>slide_18_preview_sesi_04_ionic_ui.html</code></a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>📌 Sesi 4: Navigasi Halaman &amp; Siklus Hidup pada Aplikasi Mobile</h3>
+<ul>
+<li><strong>Topik Diskusi:</strong><br />
+Navigasi pada aplikasi mobile berbeda dengan navigasi halaman web biasa. Aplikasi mobile mempertahankan riwayat halaman dalam bentuk tumpukan (<em>stack navigation</em>).<br />
+<em>Pertanyaan:</em> Bagaimana Ionic Vue Router mengelola perpindahan halaman? Jelaskan perbedaan fungsi antara event siklus hidup biasa (seperti <code>onMounted</code>) dengan event siklus hidup spesifik Ionic seperti <code>ionViewDidEnter</code> dan <code>ionViewWillLeave</code>!</li>
+<li><strong>Poin Kunci Jawaban Mahasiswa &amp; Panduan Tutor:</strong>
+<ul>
+<li><strong>Arsitektur Pengelolaan Tumpukan (Stack Navigation):</strong>
+<ol>
+<li><em>Prinsip LIFO (Last In, First Out):</em> Saat navigasi dilakukan dengan <code>router.push()</code>, halaman baru ditumpuk di atas halaman lama. Wadah <code>&lt;ion-router-outlet&gt;</code> mempertahankan halaman sebelumnya di dalam memori cache DOM ponsel. Hal ini menjamin posisi scroll, status filter, dan input form tidak hilang saat pengguna kembali.</li>
+<li><em>Peran <code>&lt;ion-back-button&gt;</code> &amp; <code>default-href</code>:</em> Mengonsumsi riwayat tumpukan untuk melakukan navigasi mundur (<em>pop</em>). Atribut <code>default-href</code> wajib disertakan sebagai proteksi rute cadangan jika pengguna membuka URL rincian secara langsung atau setelah memuat ulang peramban.</li>
+</ol>
+</li>
+<li><strong>Komparasi Siklus Hidup (Vue Lifecycle vs Ionic Mobile Lifecycle):</strong>
+<ol>
+<li><em>Kelemahan <code>onMounted()</code> pada Mobile Stack:</em> Hook bawaan Vue ini hanya berjalan <strong>satu kali</strong> saat komponen pertama kali diinisialisasi ke DOM. Ketika pengguna kembali dari halaman lain, halaman lama tidak di-mount ulang sehingga pemanggilan data di dalam <code>onMounted()</code> tidak akan pernah dieksekusi kembali.</li>
+<li><em>Fase Masuk (<code>ionViewWillEnter</code> &amp; <code>ionViewDidEnter</code>):</em> Terpanggil <strong>setiap kali</strong> layar aktif kembali. Mahasiswa wajib memanfaatkan <code>ionViewWillEnter</code> untuk mengambil data terbaru dari penyimpanan lokal atau API sebelum animasi transisi dimulai.</li>
+<li><em>Fase Keluar &amp; Proteksi Baterai (<code>ionViewWillLeave</code> &amp; <code>ionViewDidLeave</code>):</em> Karena halaman tidak di-unmount, proses latar belakang seperti <code>setInterval</code>, rekaman audio, pemantauan geolokasi GPS, atau koneksi WebSocket akan terus berjalan jika tidak dihentikan manual di <code>ionViewWillLeave</code>. Penjelasan aspek proteksi <em>memory leak</em> ini menjadi pembeda utama nilai mahasiswa unggul.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>Rujukan Berkas Pembelajaran Sesi 04:</strong>
+Dapat merujuk pada berkas mandiri:
+<ul>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_01_pengenalan_ekosistem_ionic.html"><code>slide_01_pengenalan_ekosistem_ionic.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_02_adaptive_styling_md_ios.html"><code>slide_02_adaptive_styling_md_ios.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_03_anatomi_halaman_ion_page.html"><code>slide_03_anatomi_halaman_ion_page.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_04_palet_warna_tema_mobile.html"><code>slide_04_palet_warna_tema_mobile.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_05_variasi_tombol_ion_button.html"><code>slide_05_variasi_tombol_ion_button.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_06_kartu_informasi_ion_card.html"><code>slide_06_kartu_informasi_ion_card.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_07_avatar_badge_dan_chip.html"><code>slide_07_avatar_badge_dan_chip.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_08_daftar_list_dan_item.html"><code>slide_08_daftar_list_dan_item.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_09_ikonografi_ionicons.html"><code>slide_09_ikonografi_ionicons.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_10_filosofi_stack_navigation.html"><code>slide_10_filosofi_stack_navigation.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_11_struktur_ionic_vue_router.html"><code>slide_11_struktur_ionic_vue_router.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_12_pindah_halaman_dan_parameter.html"><code>slide_12_pindah_halaman_dan_parameter.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_13_tombol_kembali_back_button.html"><code>slide_13_tombol_kembali_back_button.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_14_siklus_hidup_masuk_halaman.html"><code>slide_14_siklus_hidup_masuk_halaman.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_15_siklus_hidup_keluar_halaman.html"><code>slide_15_siklus_hidup_keluar_halaman.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_16_troubleshooting_routing_ionic.html">🌐 <strong>Konsol Diagnostik Routing:</strong> <code>slide_16_troubleshooting_routing_ionic.html</code></a> • <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_16_troubleshooting_routing_ionic.md">📄 <strong>Panduan Teks:</strong> <code>slide_16_troubleshooting_routing_ionic.md</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_17_lab_quest_04_portal_modul_ut.html">🎯 <strong>Master Solusi Lab Quest 04 (Portal Modul UT):</strong> <code>slide_17_lab_quest_04_portal_modul_ut.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_18_preview_sesi_05_layout_grid_form.html">🚀 <strong>Preview Sesi 05 (Layout Grid, Form &amp; Theming):</strong> <code>slide_18_preview_sesi_05_layout_grid_form.html</code></a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>📌 Sesi 5: Desain Adaptif &amp; Konsistensi Pengalaman Pengguna (UX)</h3>
+<ul>
+<li><strong>Topik Diskusi:</strong><br />
+Aplikasi mobile diakses melalui ratusan variasi ukuran layar ponsel Android dan tablet.<br />
+<em>Pertanyaan:</em> Bagaimana Ionic Grid System membantu pengembang menciptakan tata letak yang adaptif? Mengapa dalam perancangan aplikasi modern, penerapan validasi input di sisi klien (<em>client-side validation</em>) dan dukungan <em>Dark Mode</em> menjadi standar kenyamanan pengguna (User Experience)?</li>
+<li><strong>Poin Kunci Jawaban Mahasiswa &amp; Panduan Tutor:</strong>
+<ul>
+<li><strong>Arsitektur Tata Letak 12-Kolom Ionic Grid:</strong>
+<ol>
+<li><em>Fondasi Flexbox Terstruktur:</em> <code>&lt;ion-grid&gt;</code>, <code>&lt;ion-row&gt;</code>, dan <code>&lt;ion-col&gt;</code> membagi ruang horizontal secara matematis ke dalam 12 unit kolom proporsional, menggantikan manipulasi margin atau persentase statis CSS yang rawan tumpang-tindih pada layar ponsel sempit.</li>
+<li><em>Titik Henti Responsif (Breakpoints):</em> Atribut <code>size=&quot;12&quot;</code> memastikan kolom menumpuk 100% pada smartphone tegak (<em>portrait</em>), sementara <code>size-md=&quot;6&quot;</code> atau <code>size-lg=&quot;4&quot;</code> secara otomatis memecah antarmuka menjadi 2 atau 3 kolom berdampingan pada tablet (<em>landscape</em>) tanpa perlu menulis media query CSS manual.</li>
+<li><em>Presisi Offset &amp; Alignment:</em> Pemanfaatan <code>offset</code> dan kelas pembantu <code>ion-justify-content-center</code> mencegah formulir melebar berlebihan pada layar tablet atau desktop, menjaga ergonomi sentuhan jempol (<em>Thumb Zone</em>).</li>
+</ol>
+</li>
+<li><strong>Urgensi Validasi Sisi Klien (<em>Client-Side Validation</em>) via Regex:</strong>
+<ol>
+<li><em>Umpan Balik Taktil Real-Time:</em> Mahasiswa mendapatkan informasi kesalahan secara instan saat kursor meninggalkan kolom input (<code>@ion-blur</code> / status <em>touched</em>), tanpa harus menunggu respons lambat bolak-balik ke server (<em>round-trip latency</em>).</li>
+<li><em>Penegakan Format Ketat (NIM &amp; Email Kampus):</em> Pola Regular Expression <code>/^[0-9]{9}$/</code> mengunci NIM persis 9 digit angka (menolak huruf dan simbol), sedangkan <code>/^[a-zA-Z0-9._%+-]+@ecampus\.ut\.ac\.id$/</code> mengunci kepemilikan surel resmi civitas akademika Universitas Terbuka sebelum transaksi diproses.</li>
+<li><em>Efisiensi &amp; Prinsip Pertahanan Berlapis (Defense-in-Depth):</em> Validasi klien menghemat kuota data seluler mahasiswa dan meringankan beban lalu lintas server dengan memblokir data cacat (<em>malformed payload</em>), meskipun validasi sisi server (<em>backend validation</em>) tetap mutlak wajib sebagai benteng keamanan utama.</li>
+</ol>
+</li>
+<li><strong>Dukungan Tema Gelap (<em>Dark Mode</em>) dalam Standar UX Mobile:</strong>
+<ol>
+<li><em>Kesehatan Mata &amp; Efisiensi Energi OLED:</em> Skema warna gelap (#121212) mengurangi kelelahan mata (<em>eye strain</em>) saat mahasiswa belajar di malam hari dan menghemat konsumsi daya baterai hingga 40% pada layar tipe AMOLED/OLED.</li>
+<li><em>Arsitektur CSS Variables Global:</em> Pengendalian tema dibangun di atas standar W3C CSS Custom Properties (<code>--ion-background-color</code>, <code>--ion-text-color</code>), mendeteksi pengaturan sistem operasi via <code>@media (prefers-color-scheme: dark)</code>, serta mendukung manipulasi kelas <code>.dark</code> dan persistensi pilihan di <code>localStorage</code>.</li>
+</ol>
+</li>
+<li><strong>Umpan Balik Dialog Ramah Pengguna:</strong> Menggantikan dialog bawaan browser yang kaku (<code>alert()</code>) dengan notifikasi mengambang <code>&lt;ion-toast&gt;</code> dan dialog konfirmasi dua langkah <code>&lt;ion-alert&gt;</code> sebelum penerbitan berkas resmi.</li>
+</ul>
+</li>
+<li><strong>Rujukan Berkas Pembelajaran Sesi 05:</strong>
+Dapat merujuk pada berkas mandiri:
+<ul>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_01_orientasi_sesi_dan_tugas_2.html"><code>slide_01_orientasi_sesi_dan_tugas_2.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_02_konsep_12_kolom_ion_grid.html"><code>slide_02_konsep_12_kolom_ion_grid.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_03_grid_responsif_breakpoints.html"><code>slide_03_grid_responsif_breakpoints.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_04_alignment_dan_offset_grid.html"><code>slide_04_alignment_dan_offset_grid.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_05_kontrol_input_teks_ion_input.html"><code>slide_05_kontrol_input_teks_ion_input.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_06_area_teks_dan_pilihan_dropdown.html"><code>slide_06_area_teks_dan_pilihan_dropdown.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_07_sakelar_toggle_checkbox_radio.html"><code>slide_07_sakelar_toggle_checkbox_radio.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_08_pemilih_tanggal_ion_datetime.html"><code>slide_08_pemilih_tanggal_ion_datetime.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_09_prinsip_validasi_reaktif_form.html"><code>slide_09_prinsip_validasi_reaktif_form.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_10_validasi_regex_nim_9_digit.html"><code>slide_10_validasi_regex_nim_9_digit.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_11_validasi_regex_email_ecampus_ut.html"><code>slide_11_validasi_regex_email_ecampus_ut.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_12_notifikasi_mengambang_ion_toast.html"><code>slide_12_notifikasi_mengambang_ion_toast.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_13_dialog_konfirmasi_ion_alert.html"><code>slide_13_dialog_konfirmasi_ion_alert.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_14_arsitektur_tema_gelap_dark_mode.html"><code>slide_14_arsitektur_tema_gelap_dark_mode.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_15_sakelar_tema_dinamis_dark_light.html"><code>slide_15_sakelar_tema_dinamis_dark_light.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.html">🌐 <strong>Simulator Rubrik Tugas 2:</strong> <code>slide_16_rubrik_tugas_tutorial_2.html</code></a> • <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.md">📄 <strong>Panduan Teks:</strong> <code>slide_16_rubrik_tugas_tutorial_2.md</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html">🎯 <strong>Master Solusi Tugas 2 (Portal KTM &amp; Registrasi):</strong> <code>slide_17_solusi_tugas_2_portal_ktm_registrasi.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_18_preview_sesi_06_capacitor_android.html">🚀 <strong>Preview Sesi 06 (Capacitor &amp; Android Platform):</strong> <code>slide_18_preview_sesi_06_capacitor_android.html</code></a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>📌 Sesi 6: Jembatan Antara Web dan Perangkat Keras (Capacitor)</h3>
+<ul>
+<li><strong>Topik Diskusi:</strong><br />
+Di masa lalu, Apache Cordova menjadi jembatan utama aplikasi hybrid, namun kini ekosistem Ionic beralih sepenuhnya ke <strong>Capacitor</strong>.<br />
+<em>Pertanyaan:</em> Apa perbedaan mendasar dalam filosofi pengelolaan proyek native antara Cordova dan Capacitor? Bagaimana Capacitor memastikan bahwa proyek Android (<code>android/</code>) dapat diperlakukan sebagai artefak sumber asli yang bisa di-debug langsung di Android Studio?</li>
+<li><strong>Poin Kunci Jawaban Mahasiswa &amp; Panduan Tutor:</strong>
+<ul>
+<li><strong>Komparasi Filosofi Paradigma (Black-Box vs Source-First):</strong>
+<ol>
+<li><em>Apache Cordova (Pendekatan Legacy / Black-Box):</em> Folder <code>platforms/</code> dianggap sebagai artefak sekali pakai (<em>disposable build artifact</em>) yang dibuat ulang setiap kali build dan diabaikan (<em>ignored</em>) dari Git. Pengembang dilarang menyunting berkas Java secara langsung karena suntingan akan hilang tertimpa saat build ulang. Konfigurasi sangat bergantung pada berkas XML monolitik raksasa (<code>config.xml</code>) yang rentan konflik (<em>merge conflict</em>) saat bekerja dalam tim.</li>
+<li><em>Capacitor (Standar Modern Industri / Source-First):</em> Folder <code>android/</code> diperlakukan sebagai <strong>kode sumber warga kelas satu (<em>first-class source code</em>)</strong> yang wajib di-commit ke repositori Git. Pengembang memiliki kendali penuh untuk membuka proyek di Android Studio, menyunting kode Java/Kotlin di <code>MainActivity.java</code>, menyelaraskan Gradle, serta memasang SDK pihak ketiga (seperti perbankan atau Firebase native) tanpa khawatir kodenya terhapus saat melakukan sinkronisasi aset web.</li>
+</ol>
+</li>
+<li><strong>Mekanisme Komunikasi Runtime Bridge (Bi-directional JSON-RPC):</strong>
+<ol>
+<li><em>Sandbox Isolation:</em> Chromium WebView pada dasarnya terisolasi ketat dari perangkat keras. Capacitor menjembatani batasan ini melalui pesan asinkron non-blocking.</li>
+<li><em>Alur 4 Tahap Bridge Pipeline:</em> (a) Pemanggilan fungsi JS seperti <code>await Haptics.vibrate()</code>; (b) Pengemasan instruksi ke format JSON-RPC melalui antarmuka <code>@JavascriptInterface</code> Android; (c) Eksekusi API SDK Android pada thread pool latar belakang Java (misal <code>Vibrator.vibrate()</code>); (d) Pengembalian status hasil eksekusi ke WebView via <code>evaluateJavascript()</code> untuk menyelesaikan JavaScript Promise tanpa menurunkan performa 60 FPS antarmuka.</li>
+</ol>
+</li>
+<li><strong>Sentralisasi Identitas Paket (<code>capacitor.config.ts</code>):</strong>
+<ol>
+<li><em>Reverse-Domain Enforcement:</em> Pengembang wajib mendefinisikan <code>appId</code> unik (contoh: <code>id.ac.ut.mobileportal</code>) yang secara otomatis dipetakan ke <code>applicationId</code> di Gradle dan package name di <code>AndroidManifest.xml</code>.</li>
+<li><em>Web Asset Delivery:</em> Menetapkan <code>webDir: 'dist'</code> untuk menyalin bundel kompilasi Vite ke <code>android/app/src/main/assets/public/</code>.</li>
+</ol>
+</li>
+<li><strong>Strategi Pengujian Ramah Laptop Mahasiswa UT (RAM 4–8GB Friendly):</strong>
+<ol>
+<li><em>Dilema Emulator AVD:</em> Emulator Android Virtual Device (QEMU) memakan alokasi RAM 3.5–4.5 GB, yang dipastikan memicu galat kehabisan memori (<em>Out Of Memory / Gradle Crash</em>) pada laptop mahasiswa berkapasitas RAM 4–8GB.</li>
+<li><em>Solusi Ponsel Fisik via USB Debugging:</em> Menghubungkan smartphone pribadi hanya memakan RAM komputer ~50 MB untuk daemon <code>adb.exe</code>. Pengujian berjalan 100% akurat di sensor hardware nyata dan bebas lag.</li>
+<li><em>Tooling Pelengkap:</em> Pemanfaatan <code>scrcpy</code> untuk proyeksi layar hemat daya (&lt; 70 MB RAM) dan Google Chrome <code>chrome://inspect</code> untuk inspeksi DOM serta konsol WebView secara remote.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>Rujukan Berkas Pembelajaran Sesi 06:</strong>
+Dapat merujuk pada berkas mandiri:
+<ul>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_01_orientasi_sesi_06_bridge.html"><code>slide_01_orientasi_sesi_06_bridge.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_02_komparasi_capacitor_vs_cordova.html"><code>slide_02_komparasi_capacitor_vs_cordova.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_03_cara_kerja_runtime_bridge.html"><code>slide_03_cara_kerja_runtime_bridge.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_04_konfigurasi_capacitor_config.html"><code>slide_04_konfigurasi_capacitor_config.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_05_alur_perintah_cli_capacitor.html"><code>slide_05_alur_perintah_cli_capacitor.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_06_anatomi_folder_android.html"><code>slide_06_anatomi_folder_android.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_07_konfigurasi_build_gradle.html"><code>slide_07_konfigurasi_build_gradle.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_08_anatomi_android_manifest.html"><code>slide_08_anatomi_android_manifest.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_09_manajemen_runtime_permissions.html"><code>slide_09_manajemen_runtime_permissions.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_10_pengenalan_android_studio.html"><code>slide_10_pengenalan_android_studio.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_11_dilema_ram_emulator_vs_device.html"><code>slide_11_dilema_ram_emulator_vs_device.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_12_panduan_usb_debugging_android.html">🌐 <strong>Panduan USB Debugging:</strong> <code>slide_12_panduan_usb_debugging_android.html</code></a> • <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_12_panduan_usb_debugging_android.md">📄 <strong>Panduan Teks:</strong> <code>slide_12_panduan_usb_debugging_android.md</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_13_panduan_scrcpy_mirroring.html"><code>slide_13_panduan_scrcpy_mirroring.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_14_chrome_remote_debugging_inspect.html"><code>slide_14_chrome_remote_debugging_inspect.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_15_keamanan_webview_dan_xss.html"><code>slide_15_keamanan_webview_dan_xss.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_16_troubleshooting_build_android.html">🌐 <strong>Konsol Diagnostik &amp; Troubleshooting:</strong> <code>slide_16_troubleshooting_build_android.html</code></a> • <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_16_troubleshooting_build_android.md">📄 <strong>Panduan Teks:</strong> <code>slide_16_troubleshooting_build_android.md</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_17_lab_quest_06_bridge_tester.html">🎯 <strong>Master Solusi Lab Quest 06 (Bridge Tester &amp; Platform Inspector):</strong> <code>slide_17_lab_quest_06_bridge_tester.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_06_capacitor_android/slide_18_preview_sesi_07_api_storage.html">🚀 <strong>Preview Sesi 07 (REST API &amp; Storage):</strong> <code>slide_18_preview_sesi_07_api_storage.html</code></a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>📌 Sesi 7: Integrasi Layanan Backend, Penyimpanan Data Offline, &amp; Sensor Hardware</h3>
+<ul>
+<li><strong>Topik Diskusi:</strong><br />
+Aplikasi mobile sering kali harus beroperasi dalam kondisi jaringan internet yang tidak stabil (<em>unreliable connection</em>), terutama bagi mahasiswa Universitas Terbuka yang berdomisili di wilayah pelosok atau kepulauan (3T). Selain itu, aplikasi modern dituntut untuk mampu memanfaatkan sensor perangkat keras seperti GPS dan Kamera guna memverifikasi kehadiran atau aktivitas belajar mandiri.<br />
+<em>Pertanyaan:</em>
+<ol>
+<li>Jelaskan strategi arsitektur yang harus diterapkan agar aplikasi mobile tetap dapat menampilkan data catatan belajar mahasiswa meskipun koneksi internet terputus (<em>offline-first design</em>), dengan memanfaatkan perpaduan Asynchronous REST API (<code>fetch()</code>), strategi <em>caching</em> (<em>Network-First</em> vs <em>Cache-First</em>), dan penyimpanan lokal persisten (<em>Web LocalStorage</em> atau <em>@capacitor/preferences</em>)!</li>
+<li>Bagaimana cara mengintegrasikan sensor perangkat keras seperti Geolocation GPS dan Kamera untuk keperluan presensi mandiri yang aman dan anti-titip absen? Mengapa perhitungan jarak spasial antara posisi GPS mahasiswa dan gedung kampus wajib menggunakan Rumus Haversine (<em>Great-Circle Distance</em>) dan bukan rumus Euclidean/Pythagoras biasa?</li>
+</ol>
+</li>
+<li><strong>Poin Kunci Jawaban Mahasiswa &amp; Panduan Tutor:</strong>
+<ul>
+<li><strong>Arsitektur Pemanggilan Data Asinkron &amp; Penanganan Galat Berlapis:</strong>
+<ol>
+<li><em>Non-Blocking I/O via <code>fetch()</code> &amp; <code>async/await</code>:</em> Pemanggilan API ke server cloud (seperti Open-Meteo) wajib berjalan di latar belakang tanpa membekukan antarmuka (<em>UI thread 60 FPS</em>).</li>
+<li><em>Jebakan <code>response.ok</code>:</em> Fungsi <code>fetch()</code> tidak melempar galat Promise ketika server merespons dengan HTTP 404 (Not Found) atau 500 (Server Error). Pengembang wajib melakukan pemeriksaan eksplisit <code>if (!response.ok) throw new Error(...)</code>.</li>
+<li><em>Pertahanan Tiga Lapis (<code>try-catch-finally</code>):</em> Blok <code>try</code> untuk eksekusi request dan parsing JSON; blok <code>catch</code> untuk menangkap galat sinyal terputus atau timeout; dan blok <code>finally</code> untuk menjamin pemutar indikator (<em>loading spinner</em> atau <em>skeleton shimmer</em>) pasti berhenti berputar.</li>
+<li><em>Psikologi UX Loading:</em> Penggunaan <code>&lt;ion-skeleton-text animated&gt;</code> menghadirkan persepsi waktu tunggu 50% lebih cepat dibanding layar putih kosong (<em>blank screen</em>).</li>
+</ol>
+</li>
+<li><strong>Arsitektur Offline-First &amp; Serialisasi Penyimpanan Persisten:</strong>
+<ol>
+<li><em>Komparasi Spektrum Memori:</em> RAM bersifat sementara (<em>ephemeral</em>); LocalStorage (~5MB) mudah digunakan namun sinkron; sedangkan <code>@capacitor/preferences</code> merupakan standar resmi Ionic yang bekerja asinkron berbasis Promise dan langsung memetakan datanya ke XML <em>SharedPreferences</em> di Android atau <em>UserDefaults</em> di iOS.</li>
+<li><em>Serialisasi Objek:</em> Media penyimpanan lokal hanya menerima teks string. Menyimpan array objek secara langsung akan merusak data menjadi <code>[object Object]</code>. Pengembang wajib menerapkan <code>JSON.stringify()</code> saat menyimpan dan <code>JSON.parse()</code> saat membaca kembali data.</li>
+<li><em>Strategi Caching (Network-First vs Cache-First):</em> <em>Network-First</em> mencoba mengambil data cloud teranyar terlebih dahulu lalu menyimpannya ke cache lokal (cocok untuk data dinamis); jika offline, data cache disajikan dengan label peringatan. <em>Cache-First (Stale-While-Revalidate)</em> menyajikan data cache lokal seketika (0 ms) lalu memperbarui cache di latar belakang tanpa mengganggu pengguna.</li>
+</ol>
+</li>
+<li><strong>Integrasi Sensor Hardware &amp; Validasi Geofencing:</strong>
+<ol>
+<li><em>Akses GPS via <code>@capacitor/geolocation</code>:</em> Mengakses satelit GPS perangkat melalui <code>Geolocation.getCurrentPosition({ enableHighAccuracy: true })</code> untuk memperoleh koordinat lintang (<em>latitude</em>), bujur (<em>longitude</em>), dan radius akurasi dalam meter.</li>
+<li><em>Formula Matematika Haversine:</em> Permukaan bumi melengkung (geoid/bola dengan radius $R \approx 6.371\text{ km}$). Rumus Pythagoras bidang datar tidak akurat untuk koordinat bumi. Algoritma Haversine menghitung jarak busur lingkaran besar (<em>great-circle distance</em>) menggunakan fungsi trigonometri ($\sin^2(\Delta\text{lat}/2) + \cos(\text{lat}_1)\cos(\text{lat}_2)\sin^2(\Delta\text{lon}/2)$). Presensi disetujui hanya jika jarak $d \le 500\text{ meter}$ dari koordinat kampus UT daerah.</li>
+<li><em>Pemotretan Kamera via <code>@capacitor/camera</code>:</em> Menangkap bukti fisik modul belajar BMP atau swafoto kehadiran. Format <code>CameraResultType.DataUrl</code> (string teks Base64) sangat fleksibel karena dapat disimpan langsung ke LocalStorage atau dikirim via JSON REST API.</li>
+<li><em>Deteksi Jaringan via <code>@capacitor/network</code>:</em> Memasang listener <code>networkStatusChange</code> untuk mengotomatisasi antrean unggah data (<em>offline sync queue</em>) saat koneksi internet kembali pulih.</li>
+</ol>
+</li>
+<li><strong>Arsitektur Bersih (Service Pattern) &amp; Keamanan Token JWT:</strong>
+<ol>
+<li><em>Separation of Concerns:</em> Memisahkan logika kueri API dan storage ke dalam berkas layanan mandiri (<code>studyTrackerService.ts</code>) agar komponen antarmuka Vue tetap bersih dan mudah diuji (<em>unit testing</em>).</li>
+<li><em>Autentikasi Bearer JWT:</em> Mengamankan endpoint privat dengan menyuntikkan header HTTP <code>Authorization: Bearer &lt;token&gt;</code>. Menangani respon 401 Unauthorized untuk mengalihkan pengguna kembali ke form login.</li>
+</ol>
+</li>
+<li><strong>Pengaitan Evaluasi TUGAS TUTORIAL 3 (Bobot 20% Nilai Tuton):</strong>
+Mahasiswa wajib memadukan seluruh konsep di atas ke dalam proyek terintegrasi &quot;UT Study Tracker &amp; Presensi Belajar Mobile&quot; sesuai 4 kriteria rubrik resmi (REST API 30 poin, Offline Storage 25 poin, Sensor GPS/Kamera 25 poin, Arsitektur Bersih &amp; Video Demo 20 poin = 100 poin).</li>
+</ul>
+</li>
+<li><strong>Rujukan Berkas Pembelajaran Sesi 07:</strong>
+Dapat merujuk pada berkas mandiri:
+<ul>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_01_orientasi_sesi_dan_tugas_3.html"><code>slide_01_orientasi_sesi_dan_tugas_3.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_02_konsep_rest_api_asinkron.html"><code>slide_02_konsep_rest_api_asinkron.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_03_fetch_api_dan_async_await.html"><code>slide_03_fetch_api_dan_async_await.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_04_indikator_pemuatan_loading.html"><code>slide_04_indikator_pemuatan_loading.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_05_integrasi_live_api_cuaca.html"><code>slide_05_integrasi_live_api_cuaca.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_06_komparasi_opsi_penyimpanan_mobile.html"><code>slide_06_komparasi_opsi_penyimpanan_mobile.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_07_capacitor_preferences_kv.html"><code>slide_07_capacitor_preferences_kv.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_08_serialisasi_objek_json_storage.html"><code>slide_08_serialisasi_objek_json_storage.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_09_arsitektur_offline_first_caching.html"><code>slide_09_arsitektur_offline_first_caching.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_10_plugin_geolocation_koordinat.html"><code>slide_10_plugin_geolocation_koordinat.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_11_geofencing_validasi_lokasi_ut.html"><code>slide_11_geofencing_validasi_lokasi_ut.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_12_plugin_camera_capture_photo.html"><code>slide_12_plugin_camera_capture_photo.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_13_plugin_network_status_detection.html"><code>slide_13_plugin_network_status_detection.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_14_clean_architecture_service_pattern.html"><code>slide_14_clean_architecture_service_pattern.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_15_keamanan_token_jwt_dan_interceptor.html"><code>slide_15_keamanan_token_jwt_dan_interceptor.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.html">🌐 <strong>Simulator Rubrik Interaktif:</strong> <code>slide_16_rubrik_tugas_tutorial_3.html</code></a> • <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.md">📄 <strong>Panduan Teks:</strong> <code>slide_16_rubrik_tugas_tutorial_3.md</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html"><code>slide_17_solusi_tugas_3_study_tracker.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_18_preview_sesi_08_build_apk_uas.html"><code>slide_18_preview_sesi_08_build_apk_uas.html</code></a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>📌 Sesi 8: Optimasi Kinerja, Build APK Release Stand-alone, Keystore Signing, &amp; Persiapan Komprehensif UAS</h3>
+<ul>
+<li><strong>Topik Diskusi:</strong><br />
+Sesi 8 merupakan puncak perkuliahan semester (<em>Grand Finale</em>). Mahasiswa dituntut untuk mentransformasikan kode web hybrid menjadi produk biner mandiri yang siap digunakan masyarakat tanpa bergantung pada PC/laptop pengembang, sekaligus mempersiapkan diri menghadapi Ujian Akhir Semester (UAS) yang mencakup keseluruhan 9 Modul Buku Materi Pokok (BMP) UT STSI4303 / MSIM4401.<br />
+<em>Pertanyaan:</em>
+<ol>
+<li>Mengapa berkas APK mode Debug dilarang keras dirilis ke publik? Jelaskan peranan sertifikat digital kriptografi Keystore RSA 2048-bit serta risiko fatal apa yang terjadi jika pengembang kehilangan berkas Keystore asli atau kata sandinya!</li>
+<li>Jelaskan perbedaan mendasar antara perintah kompilasi <code>./gradlew assembleRelease</code> (menghasilkan berkas <code>.apk</code>) versus <code>./gradlew bundleRelease</code> (menghasilkan berkas <code>.aab</code>), serta bagaimana kompilator R8 / ProGuard bekerja mereduksi ukuran biner dan melindungi kode sumber dari <em>reverse engineering</em>!</li>
+<li>Dalam studi kasus produksi nyata, sebuah aplikasi berjalan mulus di browser Chrome laptop pengembang, namun saat berkas APK dipasang pada smartphone Android versi lama (Android 8/9), aplikasi mengalami layar putih total (<em>White Screen of Death</em>). Analisislah akar masalah teknisnya dan bagaimana strategi penanganannya!</li>
+</ol>
+</li>
+<li><strong>Poin Kunci Jawaban Mahasiswa &amp; Panduan Tutor:</strong>
+<ul>
+<li><strong>Urgensi Keystore Digital Signing &amp; Bahaya APK Debug:</strong>
+<ol>
+<li><em>Larangan APK Debug:</em> Berkas debug ditandatangani dengan sertifikat generik (<code>debug.keystore</code>), menyematkan atribut <code>android:debuggable=&quot;true&quot;</code> yang memungkinkan memori aplikasi di-dump via ADB debugger, dan tidak melalui optimasi kompilator R8 sehingga ukurannya bengkak dan rentan dieksploitasi.</li>
+<li><em>Peranan Keystore RSA 2048-bit:</em> Keystore bertindak sebagai 'KTP digital' resmi pengembang. Sistem Android memverifikasi keaslian biner menggunakan <em>APK Signature Scheme v2/v3</em>. Tanda tangan digital menjamin bahwa pembaruan (<em>update</em>) aplikasi berasal dari pengembang yang sama dan berkas biner tidak disisipi muatan berbahaya (<em>tampering</em>).</li>
+<li><em>Risiko Kehilangan Keystore:</em> Kunci privat bersifat unik secara matematis. Jika berkas Keystore hilang atau password terlupa, pengembang <strong>tidak akan pernah bisa memperbarui aplikasi</strong> yang telah terpasang di perangkat pengguna. Satu-satunya jalan keluar adalah mengganti nama paket (<em>ApplicationId</em>) dan memaksa seluruh pengguna mencopot lalu memasang ulang aplikasi dari nol.</li>
+</ol>
+</li>
+<li><strong>Kompilasi Biner APK vs AAB &amp; Optimasi R8:</strong>
+<ol>
+<li><em>assembleRelease (.apk) vs bundleRelease (.aab):</em> <code>assembleRelease</code> menghasilkan biner mandiri monolitik (<code>.apk</code>) yang berisi seluruh arsitektur ABI (ARMv7, ARM64, x86) dan seluruh resolusi grafis, sangat ideal untuk instalasi mandiri (<em>sideloading</em>) bebas PC via Google Drive / WhatsApp. Sebaliknya, <code>bundleRelease</code> menghasilkan format <em>Android App Bundle</em> (<code>.aab</code>) yang khusus dipublikasikan ke Google Play Console, di mana cloud Google Play akan memecahnya (<em>Dynamic Delivery</em>) menjadi split-APKs sesuai tipe ponsel pengunduh (menghemat kuota hingga 35%).</li>
+<li><em>Trinitas Optimasi Kompilator R8:</em>
+<ul>
+<li><em>Code Shrinking / Tree-Shaking:</em> Membuang kelas, method, dan field Java/Kotlin pihak ketiga yang tidak pernah dieksekusi.</li>
+<li><em>Resource Shrinking (<code>shrinkResources true</code>):</em> Menghapus aset gambar dan XML yang tidak terpakai dari folder <code>res/</code>.</li>
+<li><em>Obfuscation:</em> Menyamarkan nama kelas dan variabel menjadi karakter acak pendek (misal <code>com.ut.app.DataService</code> diubah menjadi <code>a.b.c</code>), menyulitkan dekompilasi pihak luar.</li>
+</ul>
+</li>
+<li><em>Pengecualian ProGuard:</em> Kelas refleksi plugin Capacitor wajib dilindungi via <code>proguard-rules.pro</code> (<code>-keep class com.getcapacitor.** { *; }</code>) agar jembatan RPC JavaScript tidak putus.</li>
+</ol>
+</li>
+<li><strong>Analisis &amp; Penanganan Insiden White Screen of Death (WSOD):</strong>
+<ol>
+<li><em>Akar Masalah:</em> Aplikasi hybrid mengandalkan mesin <em>Android System WebView</em>. Pada perangkat Android lama yang jarang diperbarui, versi Chromium bawaan WebView tertinggal di versi lama (misal Chromium 60) yang belum mendukung sintaks JavaScript modern (ES2020+ seperti <em>Optional Chaining</em> <code>?.</code>, <em>Nullish Coalescing</em> <code>??</code>, atau <em>BigInt</em>). Hal ini memicu <em>Uncaught SyntaxError</em> di latar belakang sehingga DOM gagal dirender, menyisakan layar putih kosong.</li>
+<li><em>Solusi Jangka Panjang:</em> Memperbarui <em>Android System WebView</em> melalui Google Play Store, atau menyetel target transpilasi JavaScript pada bundler (Vite/Babel/TypeScript) ke <code>ES2015</code> / <code>ES6</code> dengan polifil yang memadai.</li>
+</ol>
+</li>
+<li><strong>Kesiapan Ujian Akhir Semester (UAS) &amp; Penutup Perkuliahan:</strong>
+Tutor mengarahkan mahasiswa untuk mempelajari matriks 9 Modul BMP UT (Slide 12), mengerjakan simulasi 50 soal UAS berwaktu mundur 90 menit pada Master Solusi Lab Quest 08 (Slide 17), serta menerapkan pesan penutup perkuliahan Pak Anton Prafanto, S.Kom., M.T. (Slide 18) untuk merapikan portofolio GitHub publik sebagai modal karir industri.</li>
+</ul>
+</li>
+<li><strong>Rujukan Berkas Pembelajaran Sesi 08:</strong>
+Dapat merujuk pada berkas mandiri:
+<ul>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_01_orientasi_sesi_08_final.html"><code>slide_01_orientasi_sesi_08_final.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_02_siklus_rilis_aplikasi_mobile.html"><code>slide_02_siklus_rilis_aplikasi_mobile.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_03_pembuatan_keystore_digital.html"><code>slide_03_pembuatan_keystore_digital.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_04_konfigurasi_signing_build_gradle.html"><code>slide_04_konfigurasi_signing_build_gradle.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_05_kompilasi_apk_assemble_release.html"><code>slide_05_kompilasi_apk_assemble_release.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_06_instalasi_apk_mandiri_tanpa_pc.html"><code>slide_06_instalasi_apk_mandiri_tanpa_pc.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_07_optimasi_minifikasi_r8_proguard.html"><code>slide_07_optimasi_minifikasi_r8_proguard.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_08_optimasi_aset_dan_tree_shaking.html"><code>slide_08_optimasi_aset_dan_tree_shaking.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_09_audit_keamanan_sebelum_rilis.html"><code>slide_09_audit_keamanan_sebelum_rilis.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_10_pwa_service_worker_offline.html"><code>slide_10_pwa_service_worker_offline.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_11_distribusi_google_play_console.html"><code>slide_11_distribusi_google_play_console.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_12_kisi_kisi_uas_modul_1_sampai_9.html">📋 <strong>Kisi-kisi Resmi 9 Modul BMP UAS:</strong> <code>slide_12_kisi_kisi_uas_modul_1_sampai_9.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_13_bank_soal_uas_bagian_1.html"><code>slide_13_bank_soal_uas_bagian_1.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_14_bank_soal_uas_bagian_2.html"><code>slide_14_bank_soal_uas_bagian_2.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_15_bank_soal_uas_bagian_3.html"><code>slide_15_bank_soal_uas_bagian_3.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_16_bank_soal_uas_bagian_4.html"><code>slide_16_bank_soal_uas_bagian_4.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_17_lab_quest_08_apk_validator.html">🏆 <strong>Master Solusi Lab Quest 08 (APK Validator &amp; 50 Soal Exam Engine):</strong> <code>slide_17_lab_quest_08_apk_validator.html</code></a></li>
+<li><a href="../contoh_kode_program/sesi_08_build_apk_uas/slide_18_penutup_semester_pesan_dosen.html">🎓 <strong>Refleksi Semester &amp; Pesan Dosen:</strong> <code>slide_18_penutup_semester_pesan_dosen.html</code></a></li>
+</ul>
+</li>
+</ul>
+
+
+      <footer class="doc-footer">
+        <div>
+          <span>Hak Cipta &copy; 2026 Universitas Terbuka</span> • 
+          <span>The Zero-Friction Courseware Framework</span>
+        </div>
+        <div>
+          <a href="../index.html" style="font-size: 12px; color: var(--ut-blue);">Kembali ke Katalog Utama ↗</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Konversi blok diagram mermaid
+      document.querySelectorAll('pre code.language-mermaid').forEach(el => {
+        const pre = el.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        pre.replaceWith(div);
+      });
+
+      // Bungkus seluruh tabel dengan wrapper responsive
+      document.querySelectorAll('.doc-content table').forEach(tbl => {
+        if (!tbl.parentElement.classList.contains('table-responsive')) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'table-responsive';
+          tbl.parentElement.insertBefore(wrapper, tbl);
+          wrapper.appendChild(tbl);
+        }
+      });
+
+      // Inisialisasi mermaid jika pustaka tersedia
+      if (window.mermaid) {
+        mermaid.initialize({ 
+          startOnLoad: true, 
+          theme: 'neutral',
+          securityLevel: 'loose'
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naskah Narasi Dosen — Sesi 06: Capacitor Bridge & Android Studio — Universitas Terbuka</title>
+  <meta name="description" content="Naskah narasi pengajaran dosen dan panduan instruksional Sesi 06 mata kuliah STSI4303 Universitas Terbuka.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Mermaid.js untuk Diagram Arsitektur -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --ut-navy: #003366;
+      --ut-blue: #005691;
+      --ut-blue-light: #EBF3FA;
+      --ut-gold: #C28E00;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      position: static !important;
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100% !important;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Breadcrumb & Navbar */
+    .top-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-nav-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ut-blue);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .breadcrumb:hover {
+      color: var(--ut-navy);
+      text-decoration: underline;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--slate-200);
+      background: #FFFFFF;
+      color: var(--slate-700);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+    }
+
+    .action-btn.primary {
+      background: var(--ut-blue);
+      color: #FFFFFF;
+      border-color: var(--ut-blue);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--ut-navy);
+      border-color: var(--ut-navy);
+    }
+
+    /* Main Container */
+    .doc-container {
+      max-width: 1060px;
+      margin: 32px auto 60px;
+      padding: 0 20px;
+    }
+
+    /* Academic Header Card */
+    .doc-header {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ut-navy) 0%, var(--ut-blue) 60%, var(--ut-gold) 100%);
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--ut-blue);
+      background: var(--ut-blue-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+
+    .doc-subtitle {
+      font-size: 14px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* Document Body & Typography */
+    .doc-content {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 768px) {
+      .doc-content { padding: 24px 20px; }
+      .doc-header { padding: 24px 20px; }
+      .doc-title { font-size: 22px; }
+    }
+
+    .doc-content h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-top: 28px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 32px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .doc-content h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    .doc-content p {
+      margin-bottom: 16px;
+      color: var(--slate-700);
+    }
+
+    .doc-content ul, .doc-content ol {
+      margin-bottom: 18px;
+      padding-left: 24px;
+    }
+
+    .doc-content li {
+      margin-bottom: 6px;
+      color: var(--slate-700);
+    }
+
+    .doc-content hr {
+      border: none;
+      height: 1px;
+      background: var(--slate-200);
+      margin: 32px 0;
+    }
+
+    /* Links */
+    .doc-content a {
+      color: var(--ut-blue);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #93C5FD;
+      transition: all 0.15s ease;
+    }
+
+    .doc-content a:hover {
+      color: var(--ut-navy);
+      border-bottom-style: solid;
+      background: var(--ut-blue-light);
+    }
+
+    /* GitHub Alert Callouts */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-left: 4px solid;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .alert-important {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+
+    .alert-note {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1E40AF;
+    }
+
+    .alert-tip {
+      background: #ECFDF5;
+      border-color: #10B981;
+      color: #065F46;
+    }
+
+    .alert-warning {
+      background: #FFFBEB;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+
+    /* Beautiful Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    .doc-content th {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--slate-200);
+      letter-spacing: 0.2px;
+    }
+
+    .doc-content td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: top;
+    }
+
+    .doc-content tr:last-child td {
+      border-bottom: none;
+    }
+
+    .doc-content tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+
+    .doc-content tr:hover td {
+      background: #F1F5F9;
+    }
+
+    /* Code Blocks */
+    .doc-content pre {
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 20px 0;
+      border: 1px solid var(--slate-700);
+    }
+
+    .doc-content code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--slate-100);
+      color: var(--slate-900);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .doc-content pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    /* Mermaid Diagrams */
+    .mermaid {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--slate-400);
+    }
+
+    @media print {
+      .top-nav, .action-btn { display: none !important; }
+      body { background: #FFF; }
+      .doc-header, .doc-content { border: none; box-shadow: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP STICKY NAVIGATION -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../index.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Kembali ke Portal Perkuliahan
+      </a>
+
+      <div class="nav-actions">
+        <button class="action-btn" onclick="window.print()" title="Cetak halaman atau simpan sebagai PDF">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Cetak / PDF
+        </button>
+        <a href="SESI_06_Capacitor_Bridge_dan_Android_Studio.md" target="_blank" class="action-btn" title="Buka berkas sumber Markdown asli">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Naskah Markdown (.md)
+        </a>
+        <a href="https://github.com/antonprafanto/tuweb_mobile2025" target="_blank" class="action-btn" title="Buka repositori GitHub">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="doc-container">
+    <!-- HEADER -->
+    <header class="doc-header">
+      <span class="doc-badge">Naskah Narasi Sesi 06</span>
+      <h1 class="doc-title">NASKAH & SLIDE SESI 06: CAPACITOR RUNTIME BRIDGE & ANDROID STUDIO</h1>
+      <p class="doc-subtitle">
+        Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</strong><br>
+        Fakultas Sains dan Teknologi, Universitas Terbuka • Dosen Pengampu: <strong>Anton Prafanto, S.Kom., M.T.</strong>
+      </p>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="doc-content">
+      <h1>📱 NASKAH &amp; SLIDE SESI 06: CAPACITOR RUNTIME BRIDGE &amp; ANDROID STUDIO</h1>
+<h2>Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)</h2>
+<h3>Program Studi: S1 Sistem Informasi &amp; S1 Informatika — Fakultas Sains dan Teknologi (FST) Universitas Terbuka</h3>
+<h3>Dosen Pengampu: Anton Prafanto, S.Kom., M.T.</h3>
+<h3>Modul Acuan BMP: Modul 6 &amp; 7 (MSIM4401/STSI4303)</h3>
+<hr />
+<div class="alert-box alert-tip">
+<p><strong>Akses Cepat Materi &amp; Kode Program Sesi 06:</strong></p>
+<ul>
+<li>🌐 <strong>18 Berkas Contoh Program HTML Siap Jalankan:</strong> <a href="../contoh_kode_program/sesi_06_capacitor_android/"><code>contoh_kode_program/sesi_06_capacitor_android/</code></a></li>
+<li>📱 <strong>Simulator USB Debugging (Slide 12):</strong> <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_12_panduan_usb_debugging_android.html"><code>slide_12_panduan_usb_debugging_android.html</code></a> • <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_12_panduan_usb_debugging_android.md">📄 Panduan Markdown</a></li>
+<li>🚨 <strong>Konsol Troubleshooting (Slide 16):</strong> <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_16_troubleshooting_build_android.html"><code>slide_16_troubleshooting_build_android.html</code></a> • <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_16_troubleshooting_build_android.md">📄 Cheatsheet Markdown</a></li>
+<li>🖥️ <strong>Slide Presentasi PowerPoint (PPTX 18 Slide Neo-Brutalisme):</strong> <a href="SESI_06_Capacitor_Bridge_dan_Android_Studio.pptx"><code>SESI_06_Capacitor_Bridge_dan_Android_Studio.pptx</code></a></li>
+</ul>
+</div>
+<hr />
+<h2>🛠️ Panduan Alat &amp; Lingkungan Belajar (Ramah Pemula)</h2>
+<p>Bagi mahasiswa yang baru pertama kali melangkah dari pemrograman web menuju ranah mobile Android native, berikut adalah panduan perangkat kerja yang digunakan dalam Sesi 06:</p>
+<ol>
+<li><strong>Google Chrome / Peramban Web Desktop:</strong>
+<ul>
+<li><strong>Fungsi:</strong> Menjalankan seluruh berkas contoh program <code>.html</code> secara instan tanpa perlu menyalakan server lokal (<em>zero friction</em> via protokol <code>file:///</code>).</li>
+<li><strong>Cara Penggunaan:</strong> Cukup klik ganda (<em>double-click</em>) berkas <code>.html</code> yang ingin Anda pelajari, atau seret berkas tersebut ke jendela Chrome.</li>
+</ul>
+</li>
+<li><strong>Google Chrome DevTools (<code>F12</code> / <code>Ctrl + Shift + I</code>):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Menginspeksi konsol JavaScript, meninjau struktur elemen antarmuka, dan mengamati simulasi paket data JSON-RPC yang melintasi jembatan Capacitor Bridge.</li>
+</ul>
+</li>
+<li><strong>Visual Studio Code (VS Code):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Editor teks utama untuk menyunting kode proyek web Vue 3, berkas konfigurasi <code>capacitor.config.ts</code>, serta menjalankan perintah terminal melalui <em>Integrated Terminal</em> (<code>Ctrl + </code> `).</li>
+</ul>
+</li>
+<li><strong>Android Studio (Ladybug / Hedgehog / Iguana):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Lingkungan pengembangan terpadu (IDE) resmi buatan Google untuk membuka folder native <code>android/</code>, mengelola Android SDK, menyinkronkan Gradle, dan mengompilasi berkas biner APK.</li>
+</ul>
+</li>
+<li><strong>Kabel Data USB &amp; Smartphone Fisik Android (Penyelamat RAM 4–8GB):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Media utama pengujian aplikasi secara nyata. Menghubungkan ponsel fisik pribadi via <strong>USB Debugging</strong> hanya memakan memori laptop sekitar <strong>50 MB</strong> (daemon ADB), jauh lebih hemat dibanding menjalankan Emulator Android Virtual Device (AVD) yang memakan RAM <strong>4.000 MB (4GB)</strong> dan kerap membuat laptop mahasiswa mengalami <em>freeze</em> atau <em>hang</em>.</li>
+</ul>
+</li>
+<li><strong>scrcpy (Screen Copy - Genymobile):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Alat sumber terbuka (<em>open-source</em>) ultra-ringan (&lt; 70 MB RAM) untuk memproyeksikan layar ponsel fisik Anda ke monitor laptop secara jernih, berlatensi sangat rendah, serta dapat dikontrol langsung menggunakan mouse dan keyboard komputer.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>🗺️ Gambaran Umum Sesi</h2>
+<p>Sesi keenam ini merupakan <strong>fase transformasi krusial</strong> dalam mata kuliah Pemrograman Berbasis Perangkat Bergerak. Setelah lima sesi pertama kita berkutat di lingkungan peramban web desktop, pada Sesi 06 ini kita melangkah menyeberangi jembatan menuju ekosistem perangkat native Android yang sesungguhnya. Pembahasan berfokus pada arsitektur runtime lintas platform Capacitor, mekanisme pertukaran pesan dua arah (<em>bi-directional message passing</em>) antara JavaScript WebView dan native Java/Kotlin, konfigurasi berkas sentral <code>capacitor.config.ts</code>, alur 4 perintah kunci Capacitor CLI (<code>npm run build</code>, <code>npx cap add android</code>, <code>npx cap sync</code>, <code>npx cap open android</code>), bedah struktur folder native <code>android/</code>, konfigurasi build tool Gradle (<code>variables.gradle</code> dan <code>build.gradle</code>), tata kelola izin sistem pada <code>AndroidManifest.xml</code>, serta penanganan dinamis izin waktu-jalan (<em>Runtime Permissions</em>) di TypeScript.</p>
+<p>Mempertimbangkan kondisi riil mahasiswa Universitas Terbuka yang sebagian besar memiliki laptop dengan kapasitas RAM 4–8GB, sesi ini memberikan penekanan khusus pada <strong>strategi pengujian ramah memori (RAM-efficient)</strong> dengan mengalihkan pengujian dari emulator AVD ke <strong>smartphone fisik Android pribadi via USB Debugging</strong>. Sesi ini juga membekali mahasiswa dengan penguasaan alat mirroring layar <code>scrcpy</code>, teknik remote debugging via <code>chrome://inspect</code>, prinsip keamanan aplikasi hybrid dari ancaman Cross-Site Scripting (XSS), panduan penanganan error kompilasi klasik (<em>troubleshooting cheatsheet</em>), serta master solusi <strong>Lab Quest 06: Capacitor Bridge &amp; Android Platform Inspector Dashboard</strong>.</p>
+<hr />
+<h2>📊 Daftar 18 Slide Pembahasan &amp; Berkas Kode Mandiri</h2>
+<pre><code class="language-mermaid">flowchart TD
+  subgraph WebLayer [&quot;1. Web Frontend Layer (Sesi 01 - 05)&quot;]
+    VueCode[&quot;Vue 3 SFC + TypeScript&quot;]
+    IonicUI[&quot;Ionic UI Components&quot;]
+    DistFolder[&quot;Aset Web Statis (dist/)&quot;]
+    VueCode --&gt; DistFolder
+    IonicUI --&gt; DistFolder
+  end
+
+  subgraph BridgeLayer [&quot;2. Capacitor Runtime Bridge (Sesi 06)&quot;]
+    CapConfig[&quot;capacitor.config.ts&quot;]
+    CapCLI[&quot;Capacitor CLI (npx cap sync)&quot;]
+    RPCBridge[&quot;Bi-directional JSON-RPC (@JavascriptInterface)&quot;]
+    DistFolder --&gt; CapCLI
+    CapConfig --&gt; CapCLI
+    CapCLI --&gt; RPCBridge
+  end
+
+  subgraph NativeLayer [&quot;3. Android Native Platform &amp; Hardware&quot;]
+    AndroidStudio[&quot;Android Studio &amp; Gradle&quot;]
+    Manifest[&quot;AndroidManifest.xml&quot;]
+    PhysicalPhone[&quot;Smartphone Fisik via USB Debugging (scrcpy)&quot;]
+    RPCBridge --&gt; AndroidStudio
+    AndroidStudio --&gt; Manifest
+    Manifest --&gt; PhysicalPhone
+  end
+
+  style WebLayer fill:#E0F2FE,stroke:#0284C7,stroke-width:2px
+  style BridgeLayer fill:#FEF9C3,stroke:#F59E0B,stroke-width:2px
+  style NativeLayer fill:#DCFCE7,stroke:#16A34A,stroke-width:2px
+</code></pre>
+<hr />
+<h3>📌 Slide 01: Orientasi Sesi 06: Capacitor Runtime Bridge &amp; Platform Android</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memahami arsitektur transformasi aplikasi hybrid dari peramban web desktop menuju aplikasi native Android sejati.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (klik ganda berkas HTML untuk membuka modul interaktif), Chrome DevTools (<code>F12</code>), Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Selamat datang rekan-rekan mahasiswa Fakultas Sains dan Teknologi Universitas Terbuka di Sesi 06! Dari Sesi 01 hingga Sesi 05, kita telah berhasil merancang antarmuka mobile modern menggunakan Vue 3, TypeScript, dan Ionic di dalam peramban web. Namun, tujuan akhir mata kuliah kita adalah menghasilkan aplikasi yang terinstal nyata di smartphone Android pengguna. Hari ini kita menyeberangi jembatan tersebut dengan teknologi Capacitor Runtime Bridge! Kita akan membedah bagaimana kode web kita dihubungkan langsung dengan SDK Android asli tanpa mengorbankan performa laptop Anda. Mari kita mulai transformasi ini bersama-sama!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Transformasi dari lingkungan terisolasi (<em>sandbox</em>) peramban web desktop menuju lingkungan perangkat native Android.</li>
+<li>Tiga Lapisan Arsitektur: <em>Web Layer</em> (Vue SFC + Ionic), <em>Bridge Layer</em> (Capacitor Runtime RPC), dan <em>Native Layer</em> (Android OS SDK &amp; Hardware).</li>
+<li>Empat Target Pembelajaran Sesi 06: Arsitektur Bridge, Struktur Folder Android, Manifest &amp; Permissions, serta Pengujian Ponsel Fisik via USB.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">graph LR
+  A[&quot;Web Layer&lt;br&gt;(Vue 3 + Ionic)&quot;] --&gt;|JSON RPC Call| B[&quot;Capacitor Bridge&lt;br&gt;(Runtime Bridge)&quot;]
+  B --&gt;|Android API SDK| C[&quot;Native Android&lt;br&gt;(Java / Kotlin)&quot;]
+  C --&gt;|Sensor Hardware| D[&quot;Kamera, GPS, Haptik&quot;]
+  C --&gt;|Callback Resolution| B
+  B --&gt;|Resolve Promise| A
+  classDef web fill:#e0f2fe,stroke:#0284c7,stroke-width:2px;
+  classDef bridge fill:#fef9c3,stroke:#f59e0b,stroke-width:2px;
+  classDef native fill:#dcfce7,stroke:#16a34a,stroke-width:2px;
+  class A web;
+  class B bridge;
+  class C,D native;
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_01_orientasi_sesi_06_bridge.html"><code>slide_01_orientasi_sesi_06_bridge.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 02: Evolusi Runtime: Apache Cordova vs Capacitor</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Membedakan secara kritis paradigma 'Black Box' Apache Cordova dengan paradigma modern 'Source-First' Capacitor.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (menjalankan komparator interaktif), Text Editor, Git Version Control.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Banyak modul atau buku literatur lama masih mengulas Apache Cordova. Namun di dunia industri teknologi saat ini, pengembang telah beralih sepenuhnya ke Capacitor. Mengapa demikian? Cordova memperlakukan proyek native sebagai kotak hitam sekali pakai yang di-generate ulang setiap kali build. Akibatnya, mahasiswa dilarang menyentuh kode Java karena kodenya akan tertimpa! Sebaliknya, Capacitor menganut filosofi 'Source-First': folder android/ adalah kode sumber asli milik Anda seutuhnya yang di-commit ke repositori Git dan dapat disunting langsung di Android Studio. Anda bebas memasang library Java perbankan atau SDK khusus tanpa takut kodenya hilang terhapus. Konsep ini merupakan materi kunci dalam menjawab Diskusi 6 Tuton kita!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Apache Cordova (<em>Legacy</em>): Folder <code>platforms/</code> diabaikan oleh Git, bergantung pada berkas konfigurasi XML raksasa yang rentan bentrok (<em>conflict</em>).</li>
+<li>Capacitor (<em>Modern Standard</em>): Folder <code>android/</code> berstatus kode sumber utama yang dikelola Git, konfigurasi bersih berbasis TypeScript dengan <em>type safety</em>.</li>
+<li>Bebas instalasi paket global: Cukup dijalankan menggunakan npx lokal (<code>npx cap</code>).</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  subgraph CordovaOld [&quot;Pendekatan Legacy: Apache Cordova (Black Box)&quot;]
+    CWeb[&quot;Web Assets&quot;] --&gt; CBuild[&quot;Cordova CLI Generator&quot;]
+    CBuild --&gt;|Menimpa Berkas| CPlat[&quot;platforms/android (Artefak Sementara)&quot;]
+    CPlat -.-&gt;|Dilarang Disunting Manual| CGit[&quot;Di-ignore dari Git&quot;]
+  end
+
+  subgraph CapModern [&quot;Standar Industri: Capacitor (Source-First)&quot;]
+    CapWeb[&quot;dist/ Folder (Vue Bundel)&quot;] --&gt; CapSync[&quot;npx cap sync&quot;]
+    CapSync --&gt;|Menyalin Aset Publik| CapNative[&quot;android/ (Kode Sumber Utama)&quot;]
+    CapNative --&gt;|Bebas Disunting di Android Studio| CapGit[&quot;Di-commit ke Repositori Git&quot;]
+  end
+
+  style CordovaOld fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+  style CapModern fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_02_komparasi_capacitor_vs_cordova.html"><code>slide_02_komparasi_capacitor_vs_cordova.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 03: Cara Kerja Runtime Bridge: Pesan Dua Arah (Web ↔ Native)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menganalisis alur komunikasi data asinkron dua arah (JSON-RPC) antara WebView dan Android OS.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (simulasi paket RPC real-time), Chrome DevTools Console (<code>F12</code>).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Pernahkah Anda bertanya-tanya, bagaimana sebuah tombol di komponen Vue bisa memicu getaran fisik di ponsel Anda? Peramban Chromium WebView diisolasi dalam kotak pasir (sandbox) yang sangat ketat tanpa izin hardware. Ketika kode Anda memanggil <code>await Haptics.vibrate()</code>, Capacitor mengemas instruksi tersebut menjadi paket serial JSON-RPC. Paket ini dikirimkan melintasi antarmuka <code>@JavascriptInterface</code> Android. Thread pool latar belakang Java mengeksekusi layanan <code>Vibrator</code> native, dan hasilnya dikirim balik ke WebView via <code>evaluateJavascript()</code> untuk menuntaskan Promise di Vue. Semua berlangsung secara asinkron sehingga animasi layar Anda tetap mulus 60 FPS!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Isolasi Sandbox WebView Chromium vs Akses Hardware Sistem Operasi Android.</li>
+<li>4 Tahapan Pipeline Pesan: Pemanggilan JS, Serialisasi JSON, Eksekusi Thread Java Native, dan Resolusi Callback.</li>
+<li>Arsitektur Asinkron Non-Blocking: Menjaga antarmuka pengguna tidak pernah mengalami <em>freeze</em> atau <em>jank</em>.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">sequenceDiagram
+  autonumber
+  actor Mahasiswa as Pengguna (Sentuh Layar)
+  participant Vue as Vue 3 UI (WebView)
+  participant Bridge as Capacitor Runtime Bridge
+  participant Android as Android OS (Java/Kotlin)
+
+  Mahasiswa-&gt;&gt;Vue: Klik Tombol &quot;Getar Haptik&quot;
+  Vue-&gt;&gt;Bridge: Haptics.vibrate() [Buat Promise &amp; callbackId]
+  Bridge-&gt;&gt;Android: Post JSON via @JavascriptInterface
+  Note over Android: Thread Latar Belakang Java&lt;br&gt;Vibrator.vibrate(300ms)
+  Android--&gt;&gt;Bridge: Eksekusi Hardware Selesai (Success)
+  Bridge--&gt;&gt;Vue: evaluateJavascript() [Resolve Promise]
+  Vue--&gt;&gt;Mahasiswa: Tampilkan Notifikasi Sukses di Layar
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_03_cara_kerja_runtime_bridge.html"><code>slide_03_cara_kerja_runtime_bridge.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 04: Konfigurasi Utama: <code>capacitor.config.ts</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menyusun dan memvalidasi berkas konfigurasi sentral Capacitor dengan format Reverse-Domain appId.</li>
+<li><strong>Alat yang Digunakan:</strong> Visual Studio Code (membuka berkas <code>capacitor.config.ts</code>), Google Chrome (generator &amp; validator interaktif).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Setiap aplikasi Android di seluruh dunia wajib memiliki nomor identitas unik yang tidak boleh sama dengan aplikasi lain. Di ekosistem Capacitor, identitas ini didefinisikan di berkas sentral <code>capacitor.config.ts</code>. Properti <code>appId</code> harus menggunakan format Reverse-Domain, seperti <code>id.ac.ut.mobileportal</code>. Jangan pernah menggunakan huruf besar, spasi, atau simbol khusus pada <code>appId</code>, karena Google Play Store dan sistem Android akan menolaknya! Berkas ini juga menentukan folder sumber aset web kita, yaitu folder <code>dist/</code> hasil kompilasi Vite.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Tiga Properti Wajib: <code>appId</code> (identitas paket unik), <code>appName</code> (judul aplikasi di ponsel), dan <code>webDir</code> (folder aset build).</li>
+<li>Validasi Sintaks <code>appId</code>: Huruf kecil semua, diawali abjad, dipisahkan titik minimal 2 segmen (contoh: <code>id.ac.ut.namaapp</code>).</li>
+<li>Opsi Live Reload: Mengarahkan <code>server.url</code> ke IP komputer lokal untuk pengujian instan tanpa perlu build ulang terus-menerus.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  subgraph ConfigFile [&quot;capacitor.config.ts&quot;]
+    AppId[&quot;appId: 'id.ac.ut.mobile'&quot;]
+    AppName[&quot;appName: 'UT Mobile Learning'&quot;]
+    WebDir[&quot;webDir: 'dist'&quot;]
+  end
+
+  subgraph NativeTarget [&quot;Pemetaan ke Native Android&quot;]
+    GradleAppId[&quot;build.gradle ➔ applicationId&quot;]
+    ResString[&quot;res/values/strings.xml ➔ app_name&quot;]
+    AssetsPublic[&quot;assets/public/ ➔ Salinan Bundel Web&quot;]
+  end
+
+  AppId --&gt; GradleAppId
+  AppName --&gt; ResString
+  WebDir --&gt; AssetsPublic
+
+  style ConfigFile fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style NativeTarget fill:#eff6ff,stroke:#0284c7,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_04_konfigurasi_capacitor_config.html"><code>slide_04_konfigurasi_capacitor_config.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 05: Alur 4 Perintah Kunci Capacitor CLI</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengeksekusi workflow kompilasi dan sinkronisasi proyek web ke native secara teratur dan berurutan.</li>
+<li><strong>Alat yang Digunakan:</strong> Terminal / PowerShell di VS Code (<code>Ctrl + </code> <code>), Node.js runtime (</code>npm<code>/</code>npx`), Android Studio.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Bagi pemula, menghafal perintah tanpa memahami alur urutannya akan menimbulkan kebingungan. Ada 4 tahapan kunci: Langkah 1, jalankan <code>npm run build</code> untuk mengompilasi kode Vue menjadi aset web statis di folder <code>dist/</code>. Langkah 2, jalankan <code>npx cap add android</code> hanya sekali saja saat inisialisasi awal proyek. Langkah 3, jalankan <code>npx cap sync</code> setiap kali Anda selesai memperbarui kode Vue atau memasang plugin baru. Langkah 4, jalankan <code>npx cap open android</code> untuk meluncurkan Android Studio. Ingat, jangan pernah menjalankan <code>npx cap sync</code> sebelum <code>npm run build</code>, itu kesalahan klasik yang membuat perubahan kode Anda tidak muncul di ponsel!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>
+<ol>
+<li><code>npm run build</code>: Menghasilkan bundel teroptimasi di folder <code>dist/</code>.</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li><code>npx cap add android</code>: Membuat direktori native <code>android/</code> beserta wrapper Gradle (cukup 1x di awal).</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li><code>npx cap sync</code>: Menyalin aset dari <code>dist/</code> ke native assets dan menyelaraskan plugin Capacitor.</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li><code>npx cap open android</code>: Membuka direktori native di dalam Android Studio secara otomatis.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  S1[&quot;1. npm run build&lt;br&gt;(Vite Compile SFC)&quot;] --&gt;|Folder dist/ terbentuk| S2[&quot;2. npx cap add android&lt;br&gt;(Scaffold folder android/)&quot;]
+  S2 --&gt;|Inisialisasi 1x di awal| S3[&quot;3. npx cap sync&lt;br&gt;(Copy aset &amp; plugin)&quot;]
+  S3 --&gt;|Aset tersinkronisasi| S4[&quot;4. npx cap open android&lt;br&gt;(Buka di Android Studio)&quot;]
+  S4 --&gt;|Kompilasi APK| S5[&quot;Run di Smartphone Fisik ▶&quot;]
+
+  style S1 fill:#eff6ff,stroke:#0284c7,stroke-width:2px
+  style S2 fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style S3 fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+  style S4 fill:#faf5ff,stroke:#9333ea,stroke-width:2px
+  style S5 fill:#ffe600,stroke:#000000,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_05_alur_perintah_cli_capacitor.html"><code>slide_05_alur_perintah_cli_capacitor.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 06: Anatomi Struktur Folder <code>android/</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menjelajahi struktur pohon folder native Android hasil kompilasi Capacitor.</li>
+<li><strong>Alat yang Digunakan:</strong> VS Code File Explorer, Android Studio (Project Tool Window), Google Chrome.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Saat pertama kali membuka folder <code>android/</code>, jangan panik melihat banyaknya subdirektori! Mari kita bedah bersama: Folder <code>app/src/main/assets/public/</code> adalah tempat seluruh bundel HTML, JS, dan CSS kita bermukim di dalam HP. Berkas <code>MainActivity.java</code> adalah gerbang pembuka Activity yang otomatis mewarisi BridgeActivity. Folder <code>res/</code> adalah rumah bagi ikon aplikasi dan tata warna XML. Sedangkan berkas <code>AndroidManifest.xml</code> adalah cetak biru identitas resmi aplikasi kepada sistem operasi Android. Pahami peta ini, maka Anda akan percaya diri mengelola proyek native!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>android/build.gradle</code> (Level Proyek) vs <code>android/app/build.gradle</code> (Level Modul Aplikasi).</li>
+<li><code>variables.gradle</code>: Berkas sentral untuk mengelola versi SDK Android dan pustaka eksternal.</li>
+<li><code>MainActivity.java</code>: Meng-extend <code>com.getcapacitor.BridgeActivity</code>.</li>
+<li><code>res/mipmap</code> &amp; <code>res/drawable</code>: Direktori resource ikon aplikasi dengan resolusi adaptif (<em>mdpi</em> hingga <em>xxxhdpi</em>).</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">graph TD
+  Root[&quot;📁 android/ (Root Native)&quot;]
+  Root --&gt; BG[&quot;📄 build.gradle (Project Level)&quot;]
+  Root --&gt; VG[&quot;📄 variables.gradle (SDK Versions)&quot;]
+  Root --&gt; App[&quot;📁 app/ (Modul Utama)&quot;]
+  App --&gt; BGA[&quot;📄 build.gradle (App Level)&quot;]
+  App --&gt; Src[&quot;📁 src/main/&quot;]
+  Src --&gt; Manifest[&quot;📄 AndroidManifest.xml (Kontrak Sistem)&quot;]
+  Src --&gt; Java[&quot;📁 java/.../MainActivity.java (Bridge Entry)&quot;]
+  Src --&gt; Assets[&quot;📁 assets/public/ (Salinan dist/ Web)&quot;]
+  Src --&gt; Res[&quot;📁 res/ (Ikon &amp; strings.xml)&quot;]
+
+  style Root fill:#f1f5f9,stroke:#000,stroke-width:2px
+  style App fill:#eff6ff,stroke:#0284c7,stroke-width:2px
+  style Assets fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+  style Manifest fill:#fef9c3,stroke:#b45309,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_06_anatomi_folder_android.html"><code>slide_06_anatomi_folder_android.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 07: Konfigurasi Android SDK pada <code>build.gradle</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengatur versi kompatibilitas Android SDK (<code>minSdk</code>, <code>targetSdk</code>, <code>compileSdk</code>) dan versioining rilis.</li>
+<li><strong>Alat yang Digunakan:</strong> VS Code / Android Studio (membuka <code>android/app/build.gradle</code> dan <code>variables.gradle</code>), Google Chrome.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Parameter SDK di Gradle menentukan seberapa luas aplikasi Anda dapat digunakan masyarakat luas. Nilai <code>minSdk</code> menetapkan versi Android terendah yang sanggup menginstal aplikasi kita—Capacitor mensyaratkan minimal API 22 (Android 5.1) atau API 24 (Android 7.0). Sementara <code>targetSdk</code> menyatakan versi Android terbaru yang sudah diuji perilakunya secara optimal, misalnya API 34 untuk Android 14. Sedangkan <code>versionCode</code> adalah bilangan bulat yang wajib dinaikkan satu angka (+1) setiap kali Anda merilis pembaruan ke Play Store. Pahami hubungan ketiganya agar aplikasi Anda tidak ditolak sistem!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>minSdk</code>: Ambang batas minimal sistem operasi (perangkat di bawah versi ini tidak dapat menginstal).</li>
+<li><code>targetSdk</code>: Versi target perilaku dan kebijakan keamanan privasi yang diterapkan (standar Play Store 2024/2025: API 34).</li>
+<li><code>compileSdk</code>: Ketersediaan API Android yang dipakai compiler Java/Kotlin saat waktu kompilasi (<em>compile-time</em>).</li>
+<li><code>versionCode</code> (integer internal) vs <code>versionName</code> (string semantik untuk pengguna, cth: &quot;1.0.0&quot;).</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  subgraph Spectrum [&quot;Spektrum Kompatibilitas Android SDK&quot;]
+    direction LR
+    Min[&quot;API 22 / 24&lt;br&gt;(minSdk: Batas Bawah)&quot;] --&gt; Range[&quot;Area Perangkat yang Didukung (99%+ Ponsel)&quot;]
+    Range --&gt; Target[&quot;API 34&lt;br&gt;(targetSdk: Standar Play Store)&quot;]
+    Target --&gt; Compile[&quot;API 34+&lt;br&gt;(compileSdk: API Compiler)&quot;]
+  end
+
+  style Min fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+  style Range fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+  style Target fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style Compile fill:#eff6ff,stroke:#0284c7,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_07_konfigurasi_build_gradle.html"><code>slide_07_konfigurasi_build_gradle.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 08: Anatomi Berkas <code>AndroidManifest.xml</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mendeklarasikan izin perangkat keras (hardware permissions) dan mengonfigurasi orientasi Activity.</li>
+<li><strong>Alat yang Digunakan:</strong> VS Code / Android Studio (membuka <code>android/app/src/main/AndroidManifest.xml</code>), Google Chrome.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Berkas <code>AndroidManifest.xml</code> ibarat kontrak hukum dan paspor resmi aplikasi Anda di hadapan sistem operasi Android. Jika Anda lupa mencantumkan tag <code>&lt;uses-permission android:name='android.permission.CAMERA' /&gt;</code> di berkas ini, maka sekeren apa pun kode Vue Anda, sistem operasi akan langsung melempar SecurityException dan aplikasi Anda akan seketika crash saat tombol pemindai barcode ditekan! Di berkas ini pula kita mendaftarkan Activity utama yang menampilkan ikon aplikasi di Home Screen.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Tag <code>&lt;uses-permission&gt;</code>: Mendeklarasikan izin perangkat keras (INTERNET, CAMERA, ACCESS_FINE_LOCATION, READ_MEDIA_IMAGES).</li>
+<li>Tag <code>&lt;application&gt;</code>: Konfigurasi nama aplikasi, tema visual, ikon launcher, dan opsi <code>android:usesCleartextTraffic</code>.</li>
+<li>Tag <code>&lt;activity&gt;</code>: Titik awal eksekusi antarmuka dengan filter <code>android.intent.action.MAIN</code> dan <code>android.intent.category.LAUNCHER</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">graph TD
+  M[&quot;&amp;lt;manifest&amp;gt; Root Node&quot;]
+  M --&gt; P1[&quot;&amp;lt;uses-permission android:name='android.permission.INTERNET' /&amp;gt;&quot;]
+  M --&gt; P2[&quot;&amp;lt;uses-permission android:name='android.permission.CAMERA' /&amp;gt;&quot;]
+  M --&gt; P3[&quot;&amp;lt;uses-permission android:name='android.permission.ACCESS_FINE_LOCATION' /&amp;gt;&quot;]
+  M --&gt; App[&quot;&amp;lt;application android:label='@string/app_name'&amp;gt;&quot;]
+  App --&gt; Act[&quot;&amp;lt;activity android:name='.MainActivity'&amp;gt;&quot;]
+  Act --&gt; Filter[&quot;&amp;lt;intent-filter&amp;gt; (MAIN &amp; LAUNCHER)&quot;]
+
+  style M fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style P1,P2,P3 fill:#fee2e2,stroke:#dc2626,stroke-width:1.5px
+  style App fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+  style Act fill:#eff6ff,stroke:#0284c7,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_08_anatomi_android_manifest.html"><code>slide_08_anatomi_android_manifest.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 09: Manajemen Hak Akses Runtime (Runtime Permissions)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menerapkan pola perizinan dinamis asinkron pada runtime Android modern menggunakan TypeScript.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (simulator dialog izin sistem Android), DevTools Console (<code>F12</code>), Smartphone Android Fisik.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Mencatat izin di AndroidManifest saja belum cukup! Sejak Android 6.0 hingga Android 14 sekarang, Google menerapkan kebijakan Runtime Permissions: pengguna berhak menolak izin kapan pun mereka mau. Oleh karena itu, di kode TypeScript kita wajib menerapkan alur dua langkah yang elegan: periksa dulu dengan <code>checkPermissions()</code>. Jika belum diizinkan, tampilkan dialog interaktif via <code>requestPermissions()</code>. Jika pengguna memilih 'Jangan Izinkan', berikan penjelasan yang ramah dan jangan biarkan aplikasi Anda tiba-tiba macet!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Izin Normal (diberikan otomatis saat instal, misal INTERNET) vs Izin Sensitif/Dangerous (wajib persetujuan interaktif pengguna, misal Kamera &amp; Lokasi).</li>
+<li>Tiga Status Izin di Capacitor: <code>granted</code> (disetujui), <code>prompt</code> (belum pernah ditanya), dan <code>denied</code> (ditolak).</li>
+<li>Prinsip <em>Just-in-Time</em>: Mintalah izin hanya ketika pengguna secara sengaja hendak memakai fitur tersebut, bukan saat aplikasi baru pertama dibuka.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">stateDiagram-v2
+  [*] --&gt; CheckPermission: Pengguna Tekan Tombol Fitur
+  CheckPermission --&gt; Granted: checkPermissions() === 'granted'
+  CheckPermission --&gt; Prompt: checkPermissions() === 'prompt'
+
+  Prompt --&gt; RequestDialog: Panggil requestPermissions()
+  RequestDialog --&gt; Granted: Pengguna Klik &quot;Izinkan&quot;
+  RequestDialog --&gt; Denied: Pengguna Klik &quot;Jangan Izinkan&quot;
+
+  Granted --&gt; UseHardware: Buka Sensor Kamera / GPS
+  Denied --&gt; EducationalMessage: Tampilkan Panduan Buka Pengaturan HP
+  UseHardware --&gt; [*]
+  EducationalMessage --&gt; [*]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_09_manajemen_runtime_permissions.html"><code>slide_09_manajemen_runtime_permissions.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 10: Pengenalan Antarmuka Android Studio</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengoperasikan elemen-elemen kunci antarmuka Android Studio untuk kompilasi dan debugging.</li>
+<li><strong>Alat yang Digunakan:</strong> Android Studio (Ladybug / Hedgehog), Google Chrome (peta interaktif IDE).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Android Studio adalah IDE resmi buatan Google berbasis IntelliJ IDEA. Bagi pengembang pemula, melihat puluhan menu dan tombol di layar mungkin terasa membingungkan. Namun tenang saja, untuk proyek Capacitor, instrumen yang wajib Anda kuasai hanya empat: Pertama, tombol Sync Project with Gradle Files (ikon gajah) saat memasang plugin baru. Kedua, Target Device Selector untuk memilih nama ponsel Anda. Ketiga, tombol Run (segitiga hijau ▶) untuk mengompilasi APK. Dan keempat, panel Logcat di bilah bawah untuk melihat pesan console.log JavaScript Anda secara langsung dari sistem Android!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Project Tool Window: Memilih mode tampilan struktur &quot;Android&quot; yang bersih dan terorganisir.</li>
+<li>Gradle Sync (Ikon Gajah 🐘): Mengunduh dependensi Maven dan pustaka native plugin yang baru ditambahkan via npm.</li>
+<li>Target Device Selector: Mendeteksi nomor seri smartphone fisik yang terhubung via kabel USB.</li>
+<li>Logcat Window: Konsol pemantau jejak sistem dengan filter <code>package:mine</code> atau tag <code>Capacitor</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  subgraph ASWorkspace [&quot;Ruang Kerja Android Studio (android/)&quot;]
+    Toolbar[&quot;1. Top Toolbar: Device Selector + Run (▶) + Gradle Sync (🐘)&quot;]
+    subgraph MiddlePane [&quot;Area Tengah&quot;]
+      ProjectTree[&quot;2. Project View (Android Mode)&lt;br&gt;• app/manifests&lt;br&gt;• app/java&lt;br&gt;• Gradle Scripts&quot;]
+      Editor[&quot;3. Code Editor&lt;br&gt;• MainActivity.java&lt;br&gt;• build.gradle&lt;br&gt;• AndroidManifest.xml&quot;]
+    end
+    Logcat[&quot;4. Bottom Console: Logcat &amp; Gradle Build Logs (Capacitor Debugging)&quot;]
+  end
+
+  Toolbar --&gt; MiddlePane
+  MiddlePane --&gt; Logcat
+
+  style ASWorkspace fill:#1e1f22,stroke:#000,stroke-width:2px,color:#fff
+  style Toolbar fill:#2b2d30,stroke:#4e5157,stroke-width:1px,color:#fff
+  style ProjectTree fill:#2b2d30,stroke:#4e5157,stroke-width:1px,color:#fff
+  style Editor fill:#2b2d30,stroke:#4e5157,stroke-width:1px,color:#fff
+  style Logcat fill:#090d16,stroke:#38bdf8,stroke-width:1.5px,color:#38bdf8
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_10_pengenalan_android_studio.html"><code>slide_10_pengenalan_android_studio.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 11: Solusi Ramah Laptop: Emulator AVD vs Ponsel Fisik</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menghitung perbandingan konsumsi beban RAM laptop antara emulator AVD dan ponsel fisik via USB.</li>
+<li><strong>Alat yang Digunakan:</strong> Task Manager Windows (<code>Ctrl + Shift + Esc</code>), Smartphone Android Fisik + Kabel USB, Google Chrome (kalkulator memori interaktif).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Banyak mahasiswa mengeluh laptopnya macet, kipasnya berisik, dan kodingnya terhambat saat masuk ke materi Android. Mengapa? Karena mereka memaksakan menjalankan Emulator Android Virtual Device (AVD) pada laptop bertopologi RAM 4GB atau 8GB! Emulator AVD memakan alokasi RAM 3.5 hingga 4.5 GB tersendiri. Solusi cerdas dan hemat dari kami adalah: gunakan smartphone Android fisik pribadi Anda! Dengan kabel data USB, daemon ADB di laptop hanya memakan RAM sekitar 50 megabyte. Laptop Anda tetap dingin, baterai awet, dan uji coba sensor hardware akurat 100%!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Kalkulasi Beban RAM Emulator AVD: Windows OS (~2.8GB) + Android Studio/Gradle (~2.5GB) + QEMU AVD (~3.8GB) = ~9.1GB (Pasti menyebabkan Out-Of-Memory di laptop 4–8GB!).</li>
+<li>Mode Ponsel Fisik via USB: Beban daemon <code>adb.exe</code> hanya ~50MB, seluruh beban komputasi antarmuka ditanggung prosesor smartphone.</li>
+<li>Keuntungan Tambahan: Pengujian sensor asli (kamera, getar, GPS) tanpa lag dan interaksi layar sentuh jari nyata.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">xychart-beta
+  title &quot;Perbandingan Konsumsi RAM Laptop (Megabytes)&quot;
+  x-axis [&quot;Emulator AVD (Virtual QEMU)&quot;, &quot;Smartphone Fisik (ADB Daemon)&quot;]
+  y-axis &quot;Konsumsi RAM (MB)&quot; 0 --&gt; 4500
+  bar [4000, 50]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_11_dilema_ram_emulator_vs_device.html"><code>slide_11_dilema_ram_emulator_vs_device.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 12: Panduan Resmi Praktis: Aktivasi USB Debugging di Berbagai Merk HP</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengaktifkan Opsi Pengembang, otorisasi kunci RSA ADB, dan USB Debugging di berbagai merek smartphone Android.</li>
+<li><strong>Alat yang Digunakan:</strong> Smartphone Fisik Android (Xiaomi, Samsung, OPPO, Vivo, Pixel, Infinix), Kabel USB data, Terminal / PowerShell (<code>adb devices</code>).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Bagaimana cara menyambungkan ponsel ke laptop? Menu Opsi Pengembang (Developer Options) sengaja disembunyikan pabrikan demi keamanan pengguna awam. Masuklah ke Settings &gt; About Phone, lalu ketuk 'Build Number' sebanyak 7 kali berturut-turut hingga muncul tulisan 'You are now a developer!'. Aktifkan sakelar USB Debugging, colokkan kabel data ke laptop, dan saat muncul dialog keamanan di layar HP, centang 'Always allow from this computer' lalu klik Allow. Buka PowerShell dan ketik <code>adb devices</code>. Jika statusnya sudah 'device', Anda sudah siap meluncur!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Jalur Menu Ketukan 7x: Samsung (<em>Software info</em>), Xiaomi (<em>MIUI/OS version</em>), OPPO/Realme (<em>Version</em>), Vivo (<em>Software version</em>), Infinix (<em>My phone</em>).</li>
+<li>Catatan Kritis Xiaomi/MIUI: Wajib mengaktifkan 3 opsi sekaligus: <em>USB Debugging</em>, <em>Install via USB</em>, dan <em>USB Debugging (Security settings)</em>.</li>
+<li>Handshake Kriptografi RSA: Memastikan laptop Anda terotorisasi dengan aman oleh smartphone.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  Tap[&quot;1. Masuk Settings &gt; About Phone&lt;br&gt;Ketuk 7x pada 'Build Number'&quot;] --&gt; Dev[&quot;2. Menu 'Developer Options' Terbuka!&quot;]
+  Dev --&gt; Toggle[&quot;3. Aktifkan Sakelar 'USB Debugging' = ON&quot;]
+  Toggle --&gt; Plug[&quot;4. Colokkan Kabel USB ke Laptop&lt;br&gt;(Pilih Mode File Transfer / MTP)&quot;]
+  Plug --&gt; Prompt[&quot;5. Layar HP Menampilkan Prompt RSA Key Fingerprint&quot;]
+  Prompt --&gt; Allow[&quot;6. Centang 'Always allow' lalu Klik 'Allow'&quot;]
+  Allow --&gt; ADB[&quot;7. Jalankan di Terminal: adb devices&lt;br&gt;Status: RFCW10J6KLP device (READY)&quot;]
+
+  style Tap fill:#eff6ff,stroke:#0284c7,stroke-width:2px
+  style Dev fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style Toggle fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style Prompt fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+  style Allow fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+  style ADB fill:#dcfce7,stroke:#16a34a,stroke-width:3px
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_12_panduan_usb_debugging_android.html">🌐 <strong>Simulator Interaktif Multi-Merk:</strong> <code>slide_12_panduan_usb_debugging_android.html</code></a><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_12_panduan_usb_debugging_android.md">📄 <strong>Panduan Dokumen Teks Lengkap:</strong> <code>slide_12_panduan_usb_debugging_android.md</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 13: Mirroring Layar Cepat &amp; Hemat RAM dengan <code>scrcpy</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengoperasikan tool open-source <code>scrcpy</code> untuk menampilkan dan merekam layar ponsel di desktop.</li>
+<li><strong>Alat yang Digunakan:</strong> scrcpy CLI (Genymobile), Terminal / PowerShell, Kabel USB Data, Google Chrome.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Saat mengerjakan tugas atau presentasi di hadapan dosen dan teman sekelas, Anda tentu ingin layar smartphone Anda tampil jelas di monitor laptop. Jangan menggunakan aplikasi mirroring berbasis Wi-Fi yang penuh iklan dan memberatkan sistem! Gunakan <code>scrcpy</code> buatan Genymobile. scrcpy dibuat menggunakan bahasa C murni yang sangat ringan (&lt; 70 MB RAM), berlatensi sangat rendah (35-70 ms), dan Anda bahkan bisa mengontrol HP menggunakan mouse serta mengetik dengan keyboard laptop. Anda juga bisa merekam video demo tugas langsung menjadi file MP4 dengan perintah <code>scrcpy --record demo.mp4</code>!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Konsumsi RAM komputer sangat minimal (&lt; 70MB) dengan framerate mulus hingga 60 FPS pada resolusi asli smartphone.</li>
+<li>Interaksi Dua Arah: Klik mouse sebagai sentuhan jari, keyboard laptop sebagai masukan pengetikan teks cepat.</li>
+<li>Perekaman Layar Otomatis: Menyimpan demo interaksi aplikasi ke format <code>.mp4</code> untuk lampiran pengumpulan tugas di LMS UT.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  Phone[&quot;Smartphone Fisik&lt;br&gt;(MediaCodec Enkoder)&quot;] --&gt;|Aliran Video H.264 via USB| ADBTunnel[&quot;ADB Tunnel USB&lt;br&gt;(Latensi &amp;lt; 50ms)&quot;]
+  ADBTunnel --&gt; Laptop[&quot;scrcpy Client di PC&lt;br&gt;(FFmpeg / SDL2 Dekoder)&quot;]
+  Laptop --&gt; Display[&quot;Jendela Layar 60 FPS di Monitor&quot;]
+  Display --&gt;|Kontrol Mouse &amp; Keyboard PC| Phone
+
+  style Phone fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+  style ADBTunnel fill:#eff6ff,stroke:#0284c7,stroke-width:2px
+  style Laptop fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style Display fill:#faf5ff,stroke:#9333ea,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_13_panduan_scrcpy_mirroring.html"><code>slide_13_panduan_scrcpy_mirroring.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 14: Inspeksi WebView dengan <code>chrome://inspect</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memanfaatkan Chrome Remote Debugging untuk menginspeksi DOM, konsol JavaScript, dan request jaringan di perangkat Android.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome Desktop (<code>chrome://inspect/#devices</code>), Kabel USB, Smartphone Fisik.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Banyak mahasiswa mengira bahwa setelah aplikasi dikompilasi ke ponsel, kita tidak bisa lagi melakukan 'Inspect Element'. Itu keliru! Cukup buka Google Chrome di laptop Anda, ketik <code>chrome://inspect/#devices</code>, dan peramban akan mendeteksi aplikasi Ionic yang sedang aktif di HP Anda. Klik tautan biru 'inspect', maka jendela Chrome DevTools desktop akan terbuka! Anda dapat memeriksa struktur tag Ionic di tab Elements, melihat baris error di tab Console, hingga memantau latensi API di tab Network secara real-time!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Akses Praktis: Cukup ketik <code>chrome://inspect/#devices</code> di bilah alamat Google Chrome komputer.</li>
+<li>Panel Elements &amp; Styles: Mengubah CSS secara langsung di smartphone untuk melihat perubahan visual instan.</li>
+<li>Fitur Screencast: Memproyeksikan tampilan layar ponsel langsung di dalam panel DevTools desktop laptop.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">sequenceDiagram
+  autonumber
+  participant PC as Chrome Desktop (Laptop)
+  participant Cable as Kabel USB (ADB Socket)
+  participant App as WebView di HP Android
+
+  PC-&gt;&gt;Cable: Buka chrome://inspect/#devices
+  Cable-&gt;&gt;App: Deteksi WebContents (Capacitor App)
+  App--&gt;&gt;Cable: Laporkan Target WebView Aktif
+  Cable--&gt;&gt;PC: Muncul Tombol &quot;inspect&quot; di Layar PC
+  PC-&gt;&gt;Cable: Klik &quot;inspect&quot; (Buka DevTools Window)
+  Cable-&gt;&gt;App: Sambungkan DevTools Protocol via WebSocket
+  App--&gt;&gt;PC: Alirkan DOM Tree, Log Console, &amp; Network Requests Real-time
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_14_chrome_remote_debugging_inspect.html"><code>slide_14_chrome_remote_debugging_inspect.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 15: Keamanan WebView &amp; Bahaya Cross-Site Scripting (XSS)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menerapkan prinsip pengamanan aplikasi mobile hybrid dari serangan XSS dan pembatasan cleartext traffic.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (lab uji sanitasi input interaktif), VS Code (pemeriksaan berkas HTML &amp; CSP).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Pada aplikasi web desktop biasa, serangan XSS mungkin hanya mencuri token sesi browser. Namun pada aplikasi mobile hybrid dengan Capacitor Bridge, celah XSS berakibat sangat fatal! Skrip jahat yang disuntikkan penyerang dapat memanggil Runtime Bridge native untuk membaca file penyimpanan ponsel, mencuri kontak, atau menyalakan pelacak GPS secara diam-diam! Oleh karena itu, patuhi 3 aturan baku ini: hindari penggunaan <code>v-html</code> untuk data masukan pengguna, terapkan Content Security Policy (CSP) yang ketat, dan gunakan origin lokal <code>https://localhost</code> yang aman!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Eskalasi Kerentanan Mobile: Celah XSS di WebView dapat melompat melintasi bridge menuju API sistem operasi native.</li>
+<li>Sanitasi Baku Vue: Mengutamakan interpolasi kurung kurawal ganda <code>{{ text }}</code> yang otomatis menetralkan karakter berbahaya (<code>&lt;</code> menjadi <code>&amp;lt;</code>).</li>
+<li>Penegakan TLS: Membatasi izin <code>usesCleartextTraffic</code> hanya untuk keperluan server pengembangan lokal.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  subgraph AttackVector [&quot;Vektor Serangan XSS&quot;]
+    Input[&quot;Input Pengguna Berbahaya&lt;br&gt;&amp;lt;img src=x onerror=...&amp;gt;&quot;] --&gt; Injected[&quot;Eksekusi Skrip Jahat di WebView&quot;]
+    Injected --&gt;|Mengeksploitasi Bridge| EvilBridge[&quot;Panggil Capacitor Plugins&quot;]
+    EvilBridge --&gt; Breach[&quot;Pencurian File &amp; GPS Korban!&quot;]
+  end
+
+  subgraph DefensePillars [&quot;3 Pilar Pertahanan UT&quot;]
+    D1[&quot;1. Hindari v-html (Gunakan Interpolasi Vue Teks Murni)&quot;]
+    D2[&quot;2. Terapkan Meta Content Security Policy (CSP)&quot;]
+    D3[&quot;3. Skema Aman HTTPS (https://localhost)&quot;]
+  end
+
+  DefensePillars -.-&gt;|Membentengi &amp; Menetralisir| AttackVector
+
+  style AttackVector fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+  style DefensePillars fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_15_keamanan_webview_dan_xss.html"><code>slide_15_keamanan_webview_dan_xss.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 16: Cheatsheet Diagnostik &amp; Troubleshooting Error Android Studio &amp; Gradle</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengidentifikasi dan memecahkan 6 galat (errors) umum dalam proses sinkronisasi dan kompilasi Gradle.</li>
+<li><strong>Alat yang Digunakan:</strong> Android Studio (Gradle Settings, Logcat, Build Output), Terminal / PowerShell, Text Editor.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Dalam praktikum pemrograman mobile, mengalami error kompilasi adalah hal yang 100% wajar dan manusiawi. Kami telah merangkum 6 error klasik yang paling sering ditemui mahasiswa UT: mulai dari Java Version Mismatch yang dapat diselesaikan dengan menyetel Gradle JDK ke jbr-17, lupa menjalankan <code>npm run build</code> sebelum <code>npx cap sync</code>, status ADB unauthorized, galat nama resource AAPT2 yang memuat huruf besar atau spasi, error Cleartext HTTP, hingga masalah Out-Of-Memory Gradle pada laptop RAM 4GB. Buka konsol interaktif ini untuk menyalin solusi perbaikannya!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Solusi Versi Java: Menyelaraskan Gradle JDK ke JetBrains Runtime (jbr-17) di menu Settings Android Studio.</li>
+<li>Solusi Aset Hilang: Selalu jalankan <code>npm run build</code> sebelum <code>npx cap sync</code>.</li>
+<li>Standar AAPT2: Nama berkas gambar di <code>res/drawable/</code> wajib huruf kecil murni dengan garis bawah (contoh: <code>logo_ut.png</code>).</li>
+<li>Batas Memori Gradle: Membatasi alokasi heap di <code>gradle.properties</code> (<code>org.gradle.jvmargs=-Xmx1024m</code>).</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  Err[&quot;Terjadi Kendala Kompilasi / Build&quot;] --&gt; Type{Identifikasi Gejala}
+  Type --&gt;|JDK Mismatch / Major 65| S1[&quot;File &gt; Settings &gt; Build Tools &gt; Gradle&lt;br&gt;Pilih Gradle JDK: jbr-17&quot;]
+  Type --&gt;|dist Does Not Exist| S2[&quot;Jalankan di Terminal:&lt;br&gt;npm run build &amp;&amp; npx cap sync&quot;]
+  Type --&gt;|Device unauthorized| S3[&quot;Revoke USB Debugging di HP&lt;br&gt;Colok ulang kabel &amp; klik Allow RSA&quot;]
+  Type --&gt;|AAPT2 Invalid Name| S4[&quot;Ganti nama file gambar di res/&lt;br&gt;Gunakan lowercase + underscore (logo_ut.png)&quot;]
+  Type --&gt;|Cleartext Traffic Blocked| S5[&quot;Tambahkan di AndroidManifest.xml:&lt;br&gt;android:usesCleartextTraffic='true'&quot;]
+  Type --&gt;|Gradle Out-of-Memory (OOM)| S6[&quot;Edit android/gradle.properties:&lt;br&gt;org.gradle.jvmargs=-Xmx1024m&quot;]
+
+  style Err fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+  style S1,S2,S3,S4,S5,S6 fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_16_troubleshooting_build_android.html">🌐 <strong>Konsol Diagnostik Interaktif:</strong> <code>slide_16_troubleshooting_build_android.html</code></a><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_16_troubleshooting_build_android.md">📄 <strong>Buku Saku Cheatsheet Teks Lengkap:</strong> <code>slide_16_troubleshooting_build_android.md</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 17: Master Solusi Lab Quest 06: Capacitor Bridge &amp; Android Platform Inspector</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Membangun dashboard pemeriksa status jembatan runtime Capacitor dan pengujian plugin terpadu.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (menjalankan dashboard inspektor lengkap), DevTools (<code>F12</code>), Smartphone Android Fisik via USB.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Sebagai pembuktian kemampuan praktikum Sesi 06, mari kita bedah Master Solusi Lab Quest 06! Kita membangun aplikasi cerdas 'Capacitor Bridge &amp; Platform Inspector'. Aplikasi ini mampu mendeteksi secara otomatis apakah dirinya berjalan di peramban web desktop biasa atau di dalam container native Android, membaca resolusi layar serta status daya baterai, memantau jaringan, dan menyediakan panel pengujian interaktif untuk memicu getaran haptik dan salin clipboard lengkap dengan jendela log paket JSON-RPC secara transparan. Pelajari kodenya untuk meraih nilai sempurna 100!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Deteksi Dinamis Lingkungan Runtime (<code>Capacitor.isNativePlatform()</code> vs Web fallback).</li>
+<li>Pengujian Asinkron Plugin Native: Haptics, Clipboard, Network, dan Battery API.</li>
+<li>Logging visual transaksi JSON-RPC Wire secara interaktif dan real-time.</li>
+<li>Rubrik Penilaian Resmi Lab Quest 06 (Skor Maksimal: 100 Poin).</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">graph TD
+  Dashboard[&quot;📱 Dashboard Lab Quest 06 Inspector&quot;]
+  Dashboard --&gt; P1[&quot;Deteksi Lingkungan Runtime&lt;br&gt;(Web Chrome vs Android Native Container)&quot;]
+  Dashboard --&gt; P2[&quot;Hardware Telemetry&lt;br&gt;(Resolusi Layar, DPR, Status Jaringan, Baterai)&quot;]
+  Dashboard --&gt; P3[&quot;Pengujian Plugin Bridge&lt;br&gt;(Haptics Vibrate, Clipboard Copy, Network Event)&quot;]
+  Dashboard --&gt; P4[&quot;Konsol Wire JSON-RPC&lt;br&gt;(Log Request / Response Asinkron Real-time)&quot;]
+
+  style Dashboard fill:#ffe600,stroke:#000,stroke-width:3px
+  style P1 fill:#eff6ff,stroke:#0284c7,stroke-width:2px
+  style P2 fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style P3 fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+  style P4 fill:#090d16,stroke:#38bdf8,stroke-width:2px,color:#38bdf8
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_17_lab_quest_06_bridge_tester.html"><code>slide_17_lab_quest_06_bridge_tester.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 18: Jembatan Menuju Sesi 07: REST API, Offline Storage &amp; TUGAS TUTORIAL 3</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengantisipasi integrasi data cloud eksternal, penyimpanan offline lokal, dan pembukaan tagihan Tugas Tutorial 3.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code, Postman / REST Client, Smartphone Android Fisik.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Selamat atas keberhasilan rekan-rekan mahasiswa menyelesaikan Sesi 06 dengan gemilang! Kini pondasi jembatan native Android Anda telah berdiri kokoh. Pada Sesi 07 pekan depan, kita akan memasuki puncak materi teknis: menghubungkan aplikasi mobile dengan server cloud Universitas Terbuka via Asynchronous REST API, menerapkan strategi penyimpanan data lokal offline-first agar aplikasi tetap lancar digunakan saat mahasiswa kehilangan sinyal internet, serta mengakses sensor kamera asli. Dan yang paling penting: TUGAS TUTORIAL 3 (evaluasi praktikum penutup berbobot 20%) akan resmi dibuka! Persiapkan lingkungan belajar Anda dan sampai jumpa di Sesi 07!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>3 Pilar Utama Sesi 07: Asynchronous REST API Cloud Backend, Offline-First Storage Persistence (Preferences &amp; SQLite), dan Native Hardware Camera Sensors.</li>
+<li>Pembukaan Tagihan Resmi Evaluasi: <strong>TUGAS TUTORIAL 3 (TUTON 3)</strong> dengan bobot nilai terbesar (20%).</li>
+<li>Pesan motivasi akademik Dosen untuk menjaga ritme belajar mandiri yang konsisten.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  S6[&quot;Sesi 06 (Hari Ini)&lt;br&gt;Capacitor Bridge &amp; Platform Android&quot;] --&gt; S7[&quot;Sesi 07 (Pekan Depan)&lt;br&gt;REST API &amp; Offline Storage&quot;]
+  S7 --&gt; TT3[&quot;🎯 Pembukaan TUGAS TUTORIAL 3&lt;br&gt;(Bobot Nilai: 20% Terbesar)&quot;]
+  TT3 --&gt; UAS[&quot;Puncak Evaluasi: UAS Praktik Mobile&lt;br&gt;Portofolio Pengembang Profesional!&quot;]
+
+  style S6 fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style S7 fill:#eff6ff,stroke:#0284c7,stroke-width:2px
+  style TT3 fill:#fee2e2,stroke:#dc2626,stroke-width:3px
+  style UAS fill:#dcfce7,stroke:#16a34a,stroke-width:3px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_06_capacitor_android/slide_18_preview_sesi_07_api_storage.html"><code>slide_18_preview_sesi_07_api_storage.html</code></a></li>
+</ul>
+<hr />
+<h2>📚 Daftar Pustaka &amp; Standar Mutu Akademik</h2>
+<ol>
+<li><strong>Ionic Framework &amp; Capacitor Core Team.</strong> (2024). <em>Capacitor Documentation: Cross-Platform Native Runtime Architecture, Plugins API, &amp; Android Integration</em>. https://capacitorjs.com/docs</li>
+<li><strong>Google Android Open Source Project (AOSP) Developers.</strong> (2024). <em>Configure on-device developer options, Android Debug Bridge (adb) protocol specification, &amp; App Manifest Overview</em>. https://developer.android.com/studio/debug/dev-options</li>
+<li><strong>Google Android Developers.</strong> (2024). <em>Meet Android Studio, Configure Gradle Builds, &amp; Meet Google Play's Target API Level Requirement</em>. https://developer.android.com/build</li>
+<li><strong>Google Chrome for Developers.</strong> (2024). <em>Remote Debugging Android Devices &amp; WebViews with Chrome DevTools</em>. https://developer.chrome.com/docs/devtools/remote-debugging</li>
+<li><strong>Genymobile.</strong> (2024). <em>scrcpy: Display and control your Android device over USB with high performance and low latency</em>. https://github.com/Genymobile/scrcpy</li>
+<li><strong>Open Web Application Security Project (OWASP).</strong> (2024). <em>OWASP Mobile Top 10 Security Risks: M8 - Security Misconfiguration &amp; Client-Side Injections in Hybrid WebViews</em>. https://owasp.org/www-project-mobile-top-10/</li>
+<li><strong>Prafanto, A.</strong> (2025). <em>Buku Materi Pokok (BMP) Pemrograman Berbasis Perangkat Bergerak (MSIM4401 / STSI4303)</em>. Tangerang Selatan: Penerbit Universitas Terbuka.</li>
+<li><strong>Tim Pengembang Kurikulum FST UT.</strong> (2025). <em>Rancangan Aktivitas Tutorial (RAT) dan Satuan Acara Tutorial (SAT) STSI4303</em>. Tangerang Selatan: Universitas Terbuka.</li>
+</ol>
+
+
+      <footer class="doc-footer">
+        <div>
+          <span>Hak Cipta &copy; 2026 Universitas Terbuka</span> • 
+          <span>The Zero-Friction Courseware Framework</span>
+        </div>
+        <div>
+          <a href="../index.html" style="font-size: 12px; color: var(--ut-blue);">Kembali ke Katalog Utama ↗</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Konversi blok diagram mermaid
+      document.querySelectorAll('pre code.language-mermaid').forEach(el => {
+        const pre = el.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        pre.replaceWith(div);
+      });
+
+      // Bungkus seluruh tabel dengan wrapper responsive
+      document.querySelectorAll('.doc-content table').forEach(tbl => {
+        if (!tbl.parentElement.classList.contains('table-responsive')) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'table-responsive';
+          tbl.parentElement.insertBefore(wrapper, tbl);
+          wrapper.appendChild(tbl);
+        }
+      });
+
+      // Inisialisasi mermaid jika pustaka tersedia
+      if (window.mermaid) {
+        mermaid.initialize({ 
+          startOnLoad: true, 
+          theme: 'neutral',
+          securityLevel: 'loose'
+        });
+      }
+    });
+  </script>
+</body>
+</html>

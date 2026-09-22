@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naskah Narasi Dosen — Sesi 04: Dasar Ionic Framework & Navigasi Antarmuka — Universitas Terbuka</title>
+  <meta name="description" content="Naskah narasi pengajaran dosen dan panduan instruksional Sesi 04 mata kuliah STSI4303 Universitas Terbuka.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Mermaid.js untuk Diagram Arsitektur -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --ut-navy: #003366;
+      --ut-blue: #005691;
+      --ut-blue-light: #EBF3FA;
+      --ut-gold: #C28E00;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      position: static !important;
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100% !important;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Breadcrumb & Navbar */
+    .top-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-nav-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ut-blue);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .breadcrumb:hover {
+      color: var(--ut-navy);
+      text-decoration: underline;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--slate-200);
+      background: #FFFFFF;
+      color: var(--slate-700);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+    }
+
+    .action-btn.primary {
+      background: var(--ut-blue);
+      color: #FFFFFF;
+      border-color: var(--ut-blue);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--ut-navy);
+      border-color: var(--ut-navy);
+    }
+
+    /* Main Container */
+    .doc-container {
+      max-width: 1060px;
+      margin: 32px auto 60px;
+      padding: 0 20px;
+    }
+
+    /* Academic Header Card */
+    .doc-header {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ut-navy) 0%, var(--ut-blue) 60%, var(--ut-gold) 100%);
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--ut-blue);
+      background: var(--ut-blue-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+
+    .doc-subtitle {
+      font-size: 14px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* Document Body & Typography */
+    .doc-content {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 768px) {
+      .doc-content { padding: 24px 20px; }
+      .doc-header { padding: 24px 20px; }
+      .doc-title { font-size: 22px; }
+    }
+
+    .doc-content h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-top: 28px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 32px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .doc-content h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    .doc-content p {
+      margin-bottom: 16px;
+      color: var(--slate-700);
+    }
+
+    .doc-content ul, .doc-content ol {
+      margin-bottom: 18px;
+      padding-left: 24px;
+    }
+
+    .doc-content li {
+      margin-bottom: 6px;
+      color: var(--slate-700);
+    }
+
+    .doc-content hr {
+      border: none;
+      height: 1px;
+      background: var(--slate-200);
+      margin: 32px 0;
+    }
+
+    /* Links */
+    .doc-content a {
+      color: var(--ut-blue);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #93C5FD;
+      transition: all 0.15s ease;
+    }
+
+    .doc-content a:hover {
+      color: var(--ut-navy);
+      border-bottom-style: solid;
+      background: var(--ut-blue-light);
+    }
+
+    /* GitHub Alert Callouts */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-left: 4px solid;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .alert-important {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+
+    .alert-note {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1E40AF;
+    }
+
+    .alert-tip {
+      background: #ECFDF5;
+      border-color: #10B981;
+      color: #065F46;
+    }
+
+    .alert-warning {
+      background: #FFFBEB;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+
+    /* Beautiful Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    .doc-content th {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--slate-200);
+      letter-spacing: 0.2px;
+    }
+
+    .doc-content td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: top;
+    }
+
+    .doc-content tr:last-child td {
+      border-bottom: none;
+    }
+
+    .doc-content tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+
+    .doc-content tr:hover td {
+      background: #F1F5F9;
+    }
+
+    /* Code Blocks */
+    .doc-content pre {
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 20px 0;
+      border: 1px solid var(--slate-700);
+    }
+
+    .doc-content code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--slate-100);
+      color: var(--slate-900);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .doc-content pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    /* Mermaid Diagrams */
+    .mermaid {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--slate-400);
+    }
+
+    @media print {
+      .top-nav, .action-btn { display: none !important; }
+      body { background: #FFF; }
+      .doc-header, .doc-content { border: none; box-shadow: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP STICKY NAVIGATION -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../index.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Kembali ke Portal Perkuliahan
+      </a>
+
+      <div class="nav-actions">
+        <button class="action-btn" onclick="window.print()" title="Cetak halaman atau simpan sebagai PDF">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Cetak / PDF
+        </button>
+        <a href="SESI_04_Dasar_Ionic_dan_Navigasi.md" target="_blank" class="action-btn" title="Buka berkas sumber Markdown asli">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Naskah Markdown (.md)
+        </a>
+        <a href="https://github.com/antonprafanto/tuweb_mobile2025" target="_blank" class="action-btn" title="Buka repositori GitHub">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="doc-container">
+    <!-- HEADER -->
+    <header class="doc-header">
+      <span class="doc-badge">Naskah Narasi Sesi 04</span>
+      <h1 class="doc-title">NASKAH & SLIDE SESI 04: DASAR-DASAR IONIC FRAMEWORK & NAVIGASI HALAMAN MOBILE</h1>
+      <p class="doc-subtitle">
+        Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</strong><br>
+        Fakultas Sains dan Teknologi, Universitas Terbuka • Dosen Pengampu: <strong>Anton Prafanto, S.Kom., M.T.</strong>
+      </p>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="doc-content">
+      <h1>📱 NASKAH &amp; SLIDE SESI 04: DASAR-DASAR IONIC FRAMEWORK &amp; NAVIGASI HALAMAN MOBILE</h1>
+<h2>Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)</h2>
+<h3>Program Studi: S1 Sistem Informasi &amp; S1 Informatika — Universitas Terbuka</h3>
+<h3>Dosen Pengampu: Anton Prafanto, S.Kom., M.T.</h3>
+<h3>Modul Acuan BMP: Modul 4 (MSIM4401/STSI4303 — Dasar-Dasar Ionic Framework &amp; Navigasi Mobile)</h3>
+<blockquote>
+<p>⚡ <strong>Akses Cepat Bahan Sesi 04:</strong><br />
+<a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_04_Dasar_Ionic_dan_Navigasi.pptx">📥 Unduh Slide PPTX</a> • <a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_04_Dasar_Ionic_dan_Navigasi.pptx">👁️ Baca Slide Online</a> • <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/">📁 18 Berkas Kode Mandiri</a> • <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_17_lab_quest_04_portal_modul_ut.html">🎯 Master Solusi Lab Quest 04</a> • <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_16_troubleshooting_routing_ionic.html">🛠️ Konsol Troubleshooting</a></p>
+</blockquote>
+<hr />
+<h2>🗺️ Gambaran Umum Sesi</h2>
+<p>Sesi keempat ini merupakan gerbang transisi dari pemrograman antarmuka web murni menuju rekayasa aplikasi perangkat bergerak (<em>mobile application</em>). Mahasiswa diperkenalkan pada <strong>Ionic Framework</strong>, sebuah <em>UI Toolkit</em> mobile terdepan berbasis standar Web Components yang mampu menghadirkan estetika dan performa alami (<em>native look-and-feel</em>). Materi mencakup:</p>
+<ol>
+<li>Konsep <em>Adaptive Styling</em> (Material Design untuk Android dan Cupertino untuk iOS).</li>
+<li>Hierarki tata letak baku mobile (<code>ion-app</code>, <code>ion-page</code>, <code>ion-header</code>, dan <code>ion-content</code>).</li>
+<li>Ragam komponen antarmuka esensial (<em>button</em>, <em>card</em>, <em>avatar</em>, <em>badge</em>, <em>chip</em>, <em>list</em>, dan <em>ionicons</em>).</li>
+<li>Arsitektur navigasi tumpukan (<em>Stack Navigation</em>) dengan <code>@ionic/vue-router</code> dan <code>&lt;ion-router-outlet&gt;</code>.</li>
+<li>Pengendalian siklus hidup halaman (<em>Lifecycle Hooks</em>) untuk mencegah kebocoran memori (<em>memory leak</em>).</li>
+<li>Master solusi studi kasus <strong>Lab Quest 04: Portal Modul BMP UT Multi-Halaman</strong>.</li>
+<li>Pengarahan jembatan materi menuju Sesi 05 dan pembukaan asesmen resmi <strong>TUGAS TUTORIAL 2</strong>.</li>
+</ol>
+<hr />
+<h2>🛠️ Panduan Alat &amp; Lingkungan Belajar (Ramah Pemula)</h2>
+<p>Bagi rekan-rekan mahasiswa yang baru pertama kali mempelajari pengembangan aplikasi mobile, Anda <strong>tidak perlu cemas</strong> dengan instalasi perangkat lunak SDK yang rumit atau spesifikasi komputer yang berat. Seluruh materi dan 18 berkas kode mandiri pada sesi ini telah dirancang dengan prinsip <strong>The Zero-Friction Courseware Framework</strong>:</p>
+<ol>
+<li><strong>Google Chrome / Peramban Web Modern:</strong><br />
+Untuk menguji dan menjalankan antarmuka mobile interaktif, Anda cukup <strong>klik ganda (<em>double click</em>)</strong> berkas berekstensi <code>.html</code> di folder <code>contoh_kode_program/sesi_04_ionic_dasar_navigasi/</code>. Berkas akan langsung terbuka dan berjalan sempurna di Google Chrome tanpa memerlukan Node.js, <code>npm run dev</code>, maupun server lokal!</li>
+<li><strong>Mode Simulator Perangkat Bergerak (DevTools):</strong><br />
+Saat membuka berkas <code>.html</code> di Chrome, tekan tombol <code>F12</code> pada keyboard, lalu tekan pintasan <code>Ctrl + Shift + M</code> (atau klik ikon <em>Toggle device toolbar</em> di pojok kiri atas jendela DevTools). Peramban akan langsung bertransformasi menjadi simulator smartphone (seperti Pixel 7 atau iPhone 14) sehingga Anda dapat menguji responsivitas sentuhan (<em>touch event</em>) secara nyata.</li>
+<li><strong>Visual Studio Code (VS Code):</strong><br />
+Gunakan VS Code untuk membaca dan mengeksplorasi kode sumber. Ekstensi yang disarankan:
+<ul>
+<li><strong>Vue - Official (Volar):</strong> Memberikan pewarnaan sintaks dan autocompletion cerdas untuk tag-tag kustom Ionic.</li>
+<li><strong>Ionic Framework Extension:</strong> Membantu dokumentasi cepat komponen antarmuka.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>📊 Daftar 18 Slide Pembahasan &amp; Berkas Kode Mandiri</h2>
+<h3>📌 Slide 01: Orientasi Sesi 04, Arsitektur Hybrid &amp; Ekosistem Ionic UI Toolkit</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memahami peran Ionic Framework sebagai penyedia komponen antarmuka mobile multiplatform di atas fondasi Vue 3.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Peramban Modern, Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Selamat berjumpa di Sesi 04 rekan-rekan mahasiswa Universitas Terbuka! Pada tiga sesi terdahulu, kita telah menguasai fondasi Vue 3 dan TypeScript. Namun, jika tombol dan daftar data yang kita buat hanya menggunakan elemen HTML biasa, antarmuka aplikasi akan terasa kaku dan canggung di genggaman pengguna smartphone. Hari ini kita melangkah ke dunia Ionic Framework: sebuah toolkit UI modern berstandar industri yang menyulap kode web kita menjadi antarmuka mobile berkelas tanpa harus menulis kode Java/Kotlin untuk Android atau Swift untuk iOS dari nol!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Web Components Standard:</strong> Komponen Ionic dikompilasi menjadi elemen kustom HTML standar peramban.</li>
+<li><strong>Single Codebase Multiplatform:</strong> Satu basis kode Vue 3 dapat didistribusikan ke Android (APK/AAB), iOS (IPA), dan Web (Progressive Web App).</li>
+<li><strong>Zero Friction Design:</strong> Tidak membutuhkan kompilasi native yang berat selama perancangan antarmuka visual.</li>
+</ul>
+</li>
+<li><strong>Diagram Alur Ekosistem Ionic (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph Dev[&quot;Basis Kode Tunggal&quot;]
+        V[&quot;Vue 3 + TypeScript&quot;]
+        C[&quot;CSS3 / Ionic Utility&quot;]
+    end
+    subgraph IonicCore[&quot;Ionic UI Toolkit&quot;]
+        WC[&quot;Web Components Baku\n(ion-page, ion-button, ion-card)&quot;]
+    end
+    subgraph Target[&quot;Platform Distribusi&quot;]
+        A[&quot;🤖 Android (APK/AAB via Capacitor)&quot;]
+        I[&quot;🍎 iOS (App Store via Xcode)&quot;]
+        P[&quot;🌐 Web PWA (Responsive Browser)&quot;]
+    end
+    Dev --&gt; IonicCore
+    IonicCore --&gt; Target
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_01_pengenalan_ekosistem_ionic.html">🌐 Buka Berkas Interaktif: slide_01_pengenalan_ekosistem_ionic.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 02: Adaptive Styling: Material Design (Android) vs Cupertino (iOS)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengidentifikasi mekanisme <em>Adaptive Styling</em> otomatis yang menyesuaikan estetika antarmuka sesuai sistem operasi target.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (Toggle Device Toolbar <code>Ctrl + Shift + M</code>), VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Pernahkah rekan-rekan memperhatikan bahwa pengguna iPhone menyukai tombol dengan teks berhuruf awal kapital dan judul toolbar tepat di tengah, sedangkan pengguna Android menyukai efek gelombang sentuh (ripple effect) dan judul toolbar di sisi kiri? Ionic memiliki kecerdasan bernama Adaptive Styling. Tanpa perlu kita ubah baris kodenya, komponen Ionic otomatis mengenali sistem operasi ponsel pengguna dan beralih gaya antara Material Design (Android) atau Cupertino (iOS)!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Mode Material Design (<code>md</code>):</strong> Mengikuti panduan Google; efek ripple beriak, tipografi Roboto, dan bayangan elevasi (<em>box-shadow</em> tegas).</li>
+<li><strong>Mode Cupertino (<code>ios</code>):</strong> Mengikuti panduan Apple; transisi geser halus, font San Francisco, judul toolbar di tengah (<em>centered</em>), dan efek latar buram (<em>backdrop-filter blur</em>).</li>
+<li><strong>Konfigurasi Mode:</strong> Dapat diatur secara eksplisit lewat atribut <code>mode=&quot;ios&quot;</code> atau <code>mode=&quot;md&quot;</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Mekanisme Adaptive Styling (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    App[&quot;Komponen Antarmuka: &lt;ion-button&gt;&quot;] --&gt; Detect{&quot;Deteksi User Agent / Mode&quot;}
+    Detect --&gt;|Platform Android / mode='md'| MD[&quot;Material Design (MD)\n• Efek Ripple Sentuh\n• Toolbar Rata Kiri\n• Bayangan Elevasi Tegas&quot;]
+    Detect --&gt;|Platform Apple / mode='ios'| IOS[&quot;Cupertino (iOS)\n• Transisi Geser Halus\n• Toolbar Judul di Tengah\n• Blur Transparan Header&quot;]
+    MD --&gt; Render[&quot;Tampilan Alami Sesuai Kebiasaan Pengguna (Native UX)&quot;]
+    IOS --&gt; Render
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_02_adaptive_styling_md_ios.html">🌐 Buka Berkas Interaktif: slide_02_adaptive_styling_md_ios.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 03: Anatomi Halaman Mobile Baku: Hirarki ion-app, ion-page, ion-header, &amp; ion-content</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menyusun struktur pembungkus halaman mobile yang valid sesuai standar arsitektur Ionic.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome DevTools (Elements tab), VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Kesalahan paling klasik yang kerap membuat layar aplikasi mobile menjadi putih kosong (blank screen) adalah menyusun tata letak seperti halaman web biasa menggunakan tag <code>&lt;div&gt;</code>. Pada aplikasi mobile, viewport perangkat dikunci secara khusus. Seluruh aplikasi wajib dibungkus tag <code>&lt;ion-app&gt;</code>, setiap tampilan rute wajib dibungkus <code>&lt;ion-page&gt;</code>, dan area yang dapat digulir (scrollable) wajib berada di dalam <code>&lt;ion-content&gt;</code>. Ini adalah hukum mutlak hierarki mobile!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>&lt;ion-app&gt;</code>: Elemen akar (<em>root wrapper</em>) tunggal yang bertindak sebagai host aplikasi mobile di <code>App.vue</code>.</li>
+<li><code>&lt;ion-page&gt;</code>: Wadah utama sebuah layar; mengelola status aktif/pasif saat transisi perutean.</li>
+<li><code>&lt;ion-header&gt;</code> &amp; <code>&lt;ion-toolbar&gt;</code>: Area atas penampung judul, ikon menu, atau tombol navigasi.</li>
+<li><code>&lt;ion-content&gt;</code>: Area isi aplikasi yang dilengkapi manajemen akselerasi perangkat keras (<em>momentum scrolling</em>).</li>
+</ul>
+</li>
+<li><strong>Diagram Hierarki Anatomi Mobile (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph RootApp[&quot;&lt;ion-app&gt; (Akar Tunggal Aplikasi)&quot;]
+        subgraph Page[&quot;&lt;ion-page&gt; (Satu Layar Tampilan Aktif)&quot;]
+            Header[&quot;&lt;ion-header&gt;\n  &lt;ion-toolbar&gt;\n    &lt;ion-title&gt;Portal BMP UT&lt;/ion-title&gt;\n  &lt;/ion-toolbar&gt;\n&lt;/ion-header&gt;&quot;]
+            Content[&quot;&lt;ion-content class='ion-padding'&gt;\n  &lt;!-- Area Isi yang Dapat Digulir (Scrollable) --&gt;\n  &lt;ion-card&gt;...&lt;/ion-card&gt;\n&lt;/ion-content&gt;&quot;]
+            Footer[&quot;&lt;ion-footer&gt;\n  &lt;ion-toolbar&gt;...&lt;/ion-toolbar&gt;\n&lt;/ion-footer&gt;&quot;]
+            Header --&gt; Content
+            Content --&gt; Footer
+        end
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_03_anatomi_halaman_ion_page.html">🌐 Buka Berkas Interaktif: slide_03_anatomi_halaman_ion_page.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 04: Palet Warna Semantik Tema Mobile Ionic</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memanfaatkan sistem pewarnaan semantik Ionic (<code>color=&quot;primary|secondary|danger&quot;</code>) untuk standarisasi identitas visual.</li>
+<li><strong>Alat yang Digunakan:</strong> Peramban Web Google Chrome, Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Dalam desain antarmuka profesional, kita tidak mengodekan nilai heksadesimal warna secara acak di setiap tombol. Ionic menyediakan palet semantik universal: primary untuk branding institusi UT, success untuk konfirmasi pengajuan KRS, warning untuk pengingat batas registrasi, dan danger untuk pembatalan. Melalui variabel semantik ini, antarmuka aplikasi menjadi konsisten dan ramah bagi pengguna!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Warna Aksi Semantik:</strong> <code>primary</code> (biru utama), <code>secondary</code> (aksen toska), <code>tertiary</code> (aksen ketiga), <code>success</code> (hijau), <code>warning</code> (kuning/oranye), <code>danger</code> (merah).</li>
+<li><strong>Warna Netral:</strong> <code>light</code> (putih/abu-abu terang), <code>medium</code> (abu-abu perantara), <code>dark</code> (hitam/gelap).</li>
+<li><strong>Sintaks Atribut:</strong> Cukup sematkan <code>color=&quot;primary&quot;</code> pada komponen tanpa perlu menulis aturan CSS manual.</li>
+</ul>
+</li>
+<li><strong>Diagram Palet Warna Semantik (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph Fungsional[&quot;Palet Aksi Semantik&quot;]
+        P[&quot;primary\n(Identitas Utama / Biru UT)&quot;]
+        S[&quot;success\n(KRS / Form Berhasil)&quot;]
+        W[&quot;warning\n(Batas Waktu Tuton)&quot;]
+        D[&quot;danger\n(Hapus / Pembatalan)&quot;]
+    end
+    subgraph Netral[&quot;Palet Netral&quot;]
+        L[&quot;light (Latar Terang)&quot;]
+        M[&quot;medium (Teks Pembantu)&quot;]
+        K[&quot;dark (Teks Kontras / Header)&quot;]
+    end
+    Fungsional -.-&gt; UI[&quot;Diterapkan via Properti color='...'&quot;]
+    Netral -.-&gt; UI
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_04_palet_warna_tema_mobile.html">🌐 Buka Berkas Interaktif: slide_04_palet_warna_tema_mobile.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 05: Variasi &amp; Konfigurasi Tombol Mobile: ion-button</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengonfigurasi properti <code>expand</code>, <code>fill</code>, <code>shape</code>, dan <code>size</code> pada <code>&lt;ion-button&gt;</code> agar ramah jempol pengguna.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Tombol pada layar sentuh smartphone harus mudah dijangkau oleh jempol (thumb-friendly). Di aplikasi mobile, tombol aksi utama lazimnya membentang penuh di bagian bawah layar dengan atribut expand='block', sedangkan aksi pelengkap cukup menggunakan garis tepi fill='outline' atau transparan fill='clear'. Mengetahui hierarki visual tombol akan membuat pengalaman pengguna terasa sangat nyaman!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>expand=&quot;block&quot;</code>: Melebarkan tombol selebar kontainer dengan margin sisi yang proporsional.</li>
+<li><code>expand=&quot;full&quot;</code>: Membentangkan tombol dari tepi layar ke tepi layar tanpa sela (<em>edge-to-edge</em>).</li>
+<li><code>fill=&quot;solid&quot;</code> (default berlatar penuh), <code>fill=&quot;outline&quot;</code> (bergaris tepi), <code>fill=&quot;clear&quot;</code> (teks transparan).</li>
+<li><code>shape=&quot;round&quot;</code>: Menghasilkan sudut melengkung kapsul modern.</li>
+</ul>
+</li>
+<li><strong>Diagram Variasi Tombol Mobile (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    Btn[&quot;&lt;ion-button&gt;&quot;] --&gt; Prop{&quot;Variasi Properti&quot;}
+    Prop --&gt; Exp[&quot;expand='block' (Aksi Utama / Lebar Penuh)&quot;]
+    Prop --&gt; Fill[&quot;fill='outline' | 'clear' (Aksi Sekunder / Transparan)&quot;]
+    Prop --&gt; Shape[&quot;shape='round' (Bentuk Kapsul Modern)&quot;]
+    Prop --&gt; Size[&quot;size='small' | 'large' (Proporsi Sentuhan Jempol)&quot;]
+    Exp --&gt; UI[&quot;Pengalaman Sentuh Nyaman (Thumb-Friendly UI)&quot;]
+    Fill --&gt; UI
+    Shape --&gt; UI
+    Size --&gt; UI
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_05_variasi_tombol_ion_button.html">🌐 Buka Berkas Interaktif: slide_05_variasi_tombol_ion_button.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 06: Penyajian Konten Berbasis Kartu: ion-card &amp; Elemen-elemen Bagiannya</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Merancang kartu informasi ringkas dengan memadukan <code>ion-card-header</code>, <code>ion-card-title</code>, <code>ion-card-subtitle</code>, dan <code>ion-card-content</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Di layar smartphone yang sempit, pengguna tidak suka membaca dinding teks yang padat. Pola desain 'Card UI' membagi informasi ke dalam kotak-kotak terisolasi yang rapi. Di dalam <code>&lt;ion-card&gt;</code>, kita menempatkan <code>&lt;ion-card-subtitle&gt;</code> sebagai penanda kategori semester, <code>&lt;ion-card-title&gt;</code> sebagai judul mata kuliah, dan <code>&lt;ion-card-content&gt;</code> sebagai ringkasan modul. Desain ini sangat ideal untuk katalog perpustakaan digital UT!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>&lt;ion-card&gt;</code>: Kontainer elevasi dengan sudut membulat dan bayangan halus.</li>
+<li><code>&lt;ion-card-header&gt;</code>: Pembungkus judul dan subjudul kartu.</li>
+<li><code>&lt;ion-card-content&gt;</code>: Area penampung deskripsi modul, data nilai, atau tombol aksi terkait.</li>
+</ul>
+</li>
+<li><strong>Diagram Anatomi Kartu Informasi (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph Card[&quot;&lt;ion-card&gt; (Kontainer Elevasi Berbayang)&quot;]
+        subgraph Header[&quot;&lt;ion-card-header&gt;&quot;]
+            Sub[&quot;&lt;ion-card-subtitle&gt;SEMESTER 6 • 3 SKS&lt;/ion-card-subtitle&gt;&quot;]
+            Title[&quot;&lt;ion-card-title&gt;Pemrograman Perangkat Bergerak&lt;/ion-card-title&gt;&quot;]
+            Sub --&gt; Title
+        end
+        subgraph Body[&quot;&lt;ion-card-content&gt;&quot;]
+            Desc[&quot;Mempelajari arsitektur hybrid modern dengan Ionic dan Vue 3.&quot;]
+            Btn[&quot;&lt;ion-button&gt;Buka Modul&lt;/ion-button&gt;&quot;]
+            Desc --&gt; Btn
+        end
+        Header --&gt; Body
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_06_kartu_informasi_ion_card.html">🌐 Buka Berkas Interaktif: slide_06_kartu_informasi_ion_card.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 07: Identitas Visual Mobile: ion-avatar, ion-badge, &amp; ion-chip</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengimplementasikan avatar profil bundar, lencana notifikasi angka, dan chip tag filter interaktif.</li>
+<li><strong>Alat yang Digunakan:</strong> Peramban Web Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Untuk membuat antarmuka terasa hidup dan informatif, kita memerlukan komponen mikro. Gunakan <code>&lt;ion-avatar&gt;</code> untuk menampilkan foto mahasiswa yang otomatis terpotong bundar sempurna tanpa CSS rumit, <code>&lt;ion-badge&gt;</code> untuk penanda jumlah pesan diskusi Tuton yang belum dibaca, serta <code>&lt;ion-chip&gt;</code> sebagai tombol tag interaktif untuk menyaring mata kuliah berdasarkan semester atau program studi!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>&lt;ion-avatar&gt;</code>: Komponen pemotong citra bundar otomatis untuk profil pengguna.</li>
+<li><code>&lt;ion-badge&gt;</code>: Kapsul penanda angka status atau notifikasi aktif.</li>
+<li><code>&lt;ion-chip&gt;</code>: Tag seleksi interaktif yang dapat memuat teks, ikon pembuka, dan tombol hapus (<em>dismissible</em>).</li>
+</ul>
+</li>
+<li><strong>Diagram Komponen Mikro Visual (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;&lt;ion-avatar&gt;\nFoto Mahasiswa Bundar&quot;] --&gt; UI[&quot;Antarmuka Mobile Komunikatif&quot;]
+    B[&quot;&lt;ion-badge color='danger'&gt;\nAngka Notifikasi Diskusi (3)&quot;] --&gt; UI
+    C[&quot;&lt;ion-chip color='primary'&gt;\nTag Filter Semester Interaktif&quot;] --&gt; UI
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_07_avatar_badge_dan_chip.html">🌐 Buka Berkas Interaktif: slide_07_avatar_badge_dan_chip.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 08: Pengelolaan Informasi Kolektif: ion-list &amp; ion-item</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengelola tampilan daftar data dengan memanfaatkan Web Component Slots (<code>slot=&quot;start&quot;</code> dan <code>slot=&quot;end&quot;</code>).</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Sebagian besar aplikasi mobile berbentuk daftar informasi: daftar modul BMP, riwayat nilai ujian, atau daftar tugas Tuton. Komponen <code>&lt;ion-item&gt;</code> membagi satu baris menjadi tiga area strategis: slot 'start' di kiri untuk ikon atau thumbnail, area tengah untuk teks bertingkat lewat <code>&lt;ion-label&gt;</code>, dan slot 'end' di kanan untuk lencana nilai atau tanda panah detail!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>&lt;ion-list lines=&quot;full | inset | none&quot;&gt;</code>: Pembungkus daftar dengan pilihan garis pemisah.</li>
+<li><code>slot=&quot;start&quot;</code>: Area sisi kiri baris (lazim diisi <code>&lt;ion-icon&gt;</code> atau <code>&lt;ion-avatar&gt;</code>).</li>
+<li><code>slot=&quot;end&quot;</code>: Area sisi kanan baris (diisi <code>&lt;ion-badge&gt;</code>, <code>&lt;ion-note&gt;</code>, atau tombol).</li>
+<li>Atribut <code>button</code>: Memberikan efek ripple dan interaksi sentuh alami pada baris daftar.</li>
+</ul>
+</li>
+<li><strong>Diagram Arsitektur Pembagian Slot ion-item (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph List[&quot;&lt;ion-list lines='inset'&gt;&quot;]
+        subgraph Item[&quot;&lt;ion-item button&gt; (Satu Baris Daftar)&quot;]
+            S[&quot;slot='start'\n[Ikon / Avatar]&quot;]
+            M[&quot;slot default\n&lt;ion-label&gt;\n  &lt;h3&gt;STSI4303&lt;/h3&gt;\n  &lt;p&gt;Pemrograman Bergerak&lt;/p&gt;\n&lt;/ion-label&gt;&quot;]
+            E[&quot;slot='end'\n[Badge SKS / Panah &gt;]&quot;]
+            S --- M --- E
+        end
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_08_daftar_list_dan_item.html">🌐 Buka Berkas Interaktif: slide_08_daftar_list_dan_item.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 09: Bahasa Visual Antarmuka: Perpustakaan Resmi Ionicons</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengintegrasikan ikon vektor mobile dengan konfigurasi varian outline, filled, dan sharp.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Ikon adalah bahasa visual universal pada aplikasi ponsel pintar. Ionic menyertakan paket resmi Ionicons yang memuat ratusan ikon vektor SVG berkualitas tinggi secara gratis. Cukup ketik <code>&lt;ion-icon name='book-outline'&gt;&lt;/ion-icon&gt;</code>, ikon akan tampil tajam di layar resolusi tinggi (Retina Display) dan warnanya otomatis mengikuti warna teks di sekitarnya tanpa perlu mengolah berkas gambar PNG secara manual!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Sintaks pemanggilan: <code>&lt;ion-icon name=&quot;book-outline&quot;&gt;&lt;/ion-icon&gt;</code> atau menggunakan objek impor di Vue.</li>
+<li>3 Varian Desain: Default (solid/tebal), <code>-outline</code> (garis tipis modern), dan <code>-sharp</code> (sudut tegas).</li>
+<li>Skalabilitas: Menggunakan teknologi SVG sehingga tidak akan pecah saat diubah ukurannya via atribut <code>size=&quot;small|large&quot;</code> maupun CSS <code>font-size</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Varian &amp; Penerapan Ionicons (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    Ico[&quot;&lt;ion-icon&gt;&quot;] --&gt; V1[&quot;name='book' (Varian Solid/Filled)&quot;]
+    Ico --&gt; V2[&quot;name='book-outline' (Varian Garis Tipis Modern)&quot;]
+    Ico --&gt; V3[&quot;name='book-sharp' (Varian Sudut Geometris Tegas)&quot;]
+    V1 --&gt; Output[&quot;Render Vektor SVG Ringan &amp; Tajam di Segala Resolusi Layar&quot;]
+    V2 --&gt; Output
+    V3 --&gt; Output
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_09_ikonografi_ionicons.html">🌐 Buka Berkas Interaktif: slide_09_ikonografi_ionicons.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 10: Filosofi Stack Navigation: Mental Model LIFO Mobile vs Browser Reload</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menganalisis perbedaan fundamental antara perutean web konvensional (<em>URL destroy</em>) dan perutean mobile tumpukan (<em>Stack Navigation</em>).</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome DevTools Console, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Di situs web desktop, ketika pengguna mengklik tautan halaman lain, halaman sebelumnya dihancurkan dan halaman baru dimuat ulang dari nol. Namun di smartphone, perilaku seperti itu membuat aplikasi terasa lambat dan boros kuota! Pada aplikasi mobile, halaman baru ditumpuk di atas halaman lama (Push). Ketika pengguna menekan tombol Kembali (Pop), halaman lama tampil seketika lengkap dengan posisi scroll yang tidak bergeser sama sekali!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Prinsip LIFO (Last In, First Out):</strong> Layar yang terakhir masuk (<em>push</em>) adalah layar yang aktif di pandangan pengguna.</li>
+<li><strong>Stack Caching:</strong> Layar sebelumnya tetap tersimpan di memori (<em>in-memory DOM preservation</em>).</li>
+<li><strong>Responsivitas Tinggi:</strong> Menghilangkan kedipan putih (<em>white flicker</em>) saat berpindah layar.</li>
+</ul>
+</li>
+<li><strong>Diagram Urutan Transisi Tumpukan LIFO (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">sequenceDiagram
+    autonumber
+    actor Pengguna as 📱 Pengguna Ponsel
+    participant S1 as Layar 1 (Katalog Modul)
+    participant Stack as Tumpukan Navigasi (Stack)
+    participant S2 as Layar 2 (Detail Modul)
+
+    Pengguna-&gt;&gt;S1: Buka Katalog &amp; Gulir ke Bawah
+    Note over S1,Stack: Katalog berada di dasar tumpukan [Layar 1]
+    Pengguna-&gt;&gt;S1: Klik Kartu Modul STSI4303
+    S1-&gt;&gt;Stack: router.push('/modul/STSI4303')
+    Stack-&gt;&gt;S2: Push Layar 2 ke puncak tumpukan [Layar 1, Layar 2]
+    Note over S1: S1 dinonaktifkan tetapi posisi scroll tersimpan utuh!
+    S2--&gt;&gt;Pengguna: Tampilkan Layar Detail dengan Animasi Geser
+    Pengguna-&gt;&gt;S2: Tekan Tombol Kembali (ion-back-button)
+    S2-&gt;&gt;Stack: router.back() / Stack Pop
+    Stack--&gt;&gt;S1: Angkat kembali S1 ke permukaan [Layar 1]
+    S1--&gt;&gt;Pengguna: Katalog aktif seketika tanpa perlu fetch ulang!
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_10_filosofi_stack_navigation.html">🌐 Buka Berkas Interaktif: slide_10_filosofi_stack_navigation.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 11: Konfigurasi Sistem: Integrasi Ionic Vue Router &amp; ion-router-outlet</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengonfigurasi berkas perutean <code>@ionic/vue-router</code> dan menempatkan wadah penampung tumpukan <code>&lt;ion-router-outlet&gt;</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> Visual Studio Code, Google Chrome.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Meskipun berbasis Vue, kita tidak menggunakan paket 'vue-router' standar secara langsung, melainkan paket khusus '@ionic/vue-router'. Mengapa? Karena perutean Ionic menyediakan wadah bernama <code>&lt;ion-router-outlet&gt;</code>. Jangan menggantinya dengan tag <code>&lt;router-view&gt;</code> biasa, karena jika itu terjadi, seluruh animasi geser native dan riwayat tumpukan halaman akan lenyap seketika!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Inisialisasi router menggunakan fungsi <code>createRouter</code> dari <code>@ionic/vue-router</code>.</li>
+<li>Di berkas <code>App.vue</code>: Wadah perutean wajib berupa <code>&lt;ion-router-outlet /&gt;</code> di dalam <code>&lt;ion-app&gt;</code>.</li>
+<li>Mendukung <em>Lazy Loading</em> komponen untuk mempercepat waktu buka awal aplikasi (<em>cold start</em>).</li>
+</ul>
+</li>
+<li><strong>Diagram Konfigurasi Ionic Vue Router (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph Setup[&quot;Konfigurasi Router (router/index.ts)&quot;]
+        CR[&quot;createRouter({ history: createWebHistory(), routes })&quot;]
+        R1[&quot;Route '/' -&gt; KatalogPage.vue&quot;]
+        R2[&quot;Route '/detail/:kode' -&gt; DetailModulPage.vue&quot;]
+        CR --&gt; R1
+        CR --&gt; R2
+    end
+    subgraph Host[&quot;Wadah Tampilan (App.vue)&quot;]
+        App[&quot;&lt;ion-app&gt;&quot;]
+        Outlet[&quot;&lt;ion-router-outlet /&gt;\n(Menangani Animasi Geser &amp; Manajemen Memori Stack)&quot;]
+        App --&gt; Outlet
+    end
+    Setup --&gt; Host
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_11_struktur_ionic_vue_router.html">🌐 Buka Berkas Interaktif: slide_11_struktur_ionic_vue_router.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 12: Transisi Antar Layar: useRouter() &amp; Pengiriman Parameter (:kode)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memprogram perpindahan halaman dengan <code>router.push()</code> dan mengekstrak parameter rute dinamis dengan <code>useRoute()</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Bagaimana cara kita berpindah dari layar katalog menuju layar rincian modul tertentu? Kita menggunakan fungsi <code>router.push('/modul/' + kode)</code>. Pada layar tujuan, kita membaca parameter tersebut melalui <code>route.params.kode</code>. Dengan teknik ini, satu berkas komponen tampilan detail dapat dipakai ulang secara dinamis untuk menampilkan ratusan judul modul pembelajaran yang berbeda!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Pengirim: <code>useRouter().push('/path/' + parameter)</code>.</li>
+<li>Penerima: <code>useRoute().params.namaParameter</code>.</li>
+<li>Bungkus pembacaan parameter dengan <code>computed()</code> agar komponen bereaksi secara otomatis jika parameter berubah.</li>
+</ul>
+</li>
+<li><strong>Diagram Alur Pengiriman &amp; Pembacaan Parameter (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph HalamanAsal[&quot;KatalogPage.vue&quot;]
+        Klik[&quot;Pengguna Klik Kartu STSI4303&quot;] --&gt; Push[&quot;router.push('/modul/STSI4303')&quot;]
+    end
+    subgraph JalurURL[&quot;Perutean Dynamic Route&quot;]
+        URL[&quot;Path: '/modul/:kode'&quot;]
+    end
+    subgraph HalamanTujuan[&quot;DetailModulPage.vue&quot;]
+        Read[&quot;const kode = route.params.kode&quot;] --&gt; Fetch[&quot;Tampilkan Data Modul: STSI4303&quot;]
+    end
+    Push --&gt; URL
+    URL --&gt; Read
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_12_pindah_halaman_dan_parameter.html">🌐 Buka Berkas Interaktif: slide_12_pindah_halaman_dan_parameter.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 13: Navigasi Alami: Komponen ion-back-button &amp; Kewajiban default-href</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengimplementasikan tombol kembali otomatis <code>&lt;ion-back-button&gt;</code> dan mencegah jalan buntu dengan atribut <code>default-href</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Di smartphone, tombol panah kembali pada toolbar atas adalah elemen paling vital. Ionic menyediakannya lewat <code>&lt;ion-back-button&gt;</code>. Namun ada sebuah jebakan besar: jika pengguna membuka tautan rincian langsung dari chat WhatsApp atau me-refresh browser, tumpukan riwayatnya bernilai kosong! Di sinilah atribut <code>default-href='/katalog'</code> menjadi juru selamat agar pengguna tidak terjebak di layar buntu!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Ditempatkan di dalam <code>&lt;ion-buttons slot=&quot;start&quot;&gt;</code> pada toolbar halaman anak.</li>
+<li>Tampil secara otomatis hanya apabila terdapat tumpukan halaman sebelumnya.</li>
+<li>Atribut <code>default-href</code> memberikan rute mundur cadangan jika riwayat penjelajahan kosong.</li>
+</ul>
+</li>
+<li><strong>Diagram Logika Eksekusi ion-back-button (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    Click[&quot;Pengguna Menekan &lt;ion-back-button&gt;&quot;] --&gt; Check{&quot;Apakah Ada Tumpukan Halaman Sebelumnya di Stack?&quot;}
+    Check --&gt;|Ya (Ada Riwayat)| Pop[&quot;Lakukan Stack Pop: Kembali ke Halaman Sebelumnya&quot;]
+    Check --&gt;|Tidak (Buka Langsung / Refresh F5)| Fallback[&quot;Gunakan Jalur Cadangan: Navigasi ke default-href='/katalog'&quot;]
+    Pop --&gt; Ready[&quot;Pengguna Tidak Pernah Terjebak di Layar Buntu!&quot;]
+    Fallback --&gt; Ready
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_13_tombol_kembali_back_button.html">🌐 Buka Berkas Interaktif: slide_13_tombol_kembali_back_button.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 14: Siklus Hidup Masuk: ionViewWillEnter vs ionViewDidEnter</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menganalisis perbedaan eksekusi antara <code>onMounted()</code> milik Vue dan siklus hidup masuk milik Ionic.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome DevTools (Console <code>F12</code>), VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Banyak mahasiswa bertanya: 'Pak Anton, mengapa saat saya mengubah biodata di formulir lalu kembali ke halaman profil, nama saya tidak berubah? Padahal fungsi ambil data sudah saya pasang di onMounted()!' Jawabannya: karena halaman profil tersimpan di memori tumpukan, onMounted() hanya berjalan satu kali saja saat aplikasi pertama dibuka! Untuk mengambil data terbaru setiap kali layar dikunjungi, Anda wajib menggunakan onIonViewWillEnter!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>onMounted()</code>: Hanya dieksekusi 1 kali saat komponen pertama kali dibuat ke DOM.</li>
+<li><code>onIonViewWillEnter()</code>: Terpanggil SETIAP KALI halaman akan tampil (sebelum animasi transisi dimulai).</li>
+<li><code>onIonViewDidEnter()</code>: Terpanggil tepat setelah animasi transisi halaman selesai dan elemen siap disentuh.</li>
+</ul>
+</li>
+<li><strong>Diagram Garis Waktu Siklus Hidup Masuk (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph LifecycleMasuk[&quot;Alur Fase Masuk Layar Mobile&quot;]
+        A[&quot;Navigasi Dipicu&quot;] --&gt; B[&quot;onIonViewWillEnter()\n• Ambil Data Terbaru dari Storage/API\n• Sebelum Layar Terlihat&quot;]
+        B --&gt; C[&quot;Animasi Transisi Geser Berjalan&quot;]
+        C --&gt; D[&quot;onIonViewDidEnter()\n• Layar Sepenuhnya Aktif\n• Fokus Kursor Form / Animasi UI&quot;]
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_14_siklus_hidup_masuk_halaman.html">🌐 Buka Berkas Interaktif: slide_14_siklus_hidup_masuk_halaman.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 15: Siklus Hidup Keluar: ionViewWillLeave vs ionViewDidLeave</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengendalikan penghentian proses latar belakang untuk mencegah kebocoran memori (<em>memory leak</em>) pada perangkat smartphone.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (DevTools Performance / Console), VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Smartphone memiliki daya baterai dan RAM yang terbatas. Jika Anda menyalakan timer interval ujian online atau pemantauan lokasi GPS di sebuah halaman, proses itu TIDAK AKAN BERHENTI saat pengguna berpindah ke halaman lain karena komponennya tidak di-unmount! Anda wajib mematikan proses tersebut di dalam hook onIonViewWillLeave demi melindungi kesehatan memori dan baterai perangkat mahasiswa!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>onUnmounted()</code> milik Vue tidak terpanggil saat halaman hanya tertumpuk di latar belakang.</li>
+<li><code>onIonViewWillLeave()</code>: Momen terbaik untuk mematikan <code>setInterval</code>, koneksi WebSocket, atau audio streaming.</li>
+<li><code>onIonViewDidLeave()</code>: Terpanggil ketika halaman telah sepenuhnya tersembunyi di bawah tumpukan.</li>
+</ul>
+</li>
+<li><strong>Diagram Siklus Hidup Keluar &amp; Pelepasan Memori (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph LifecycleKeluar[&quot;Alur Fase Keluar Layar Mobile&quot;]
+        A[&quot;Pengguna Berpindah Layar&quot;] --&gt; B[&quot;onIonViewWillLeave()\n• Hentikan Timer (clearInterval)\n• Putus Koneksi Streaming/GPS&quot;]
+        B --&gt; C[&quot;Animasi Keluar Berjalan&quot;]
+        C --&gt; D[&quot;onIonViewDidLeave()\n• Halaman Tertidur di Cache Stack\n• 0 Memory Leak &amp; Baterai Hemat!&quot;]
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_15_siklus_hidup_keluar_halaman.html">🌐 Buka Berkas Interaktif: slide_15_siklus_hidup_keluar_halaman.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 16: Panduan Pemecahan Masalah (Troubleshooting) Routing &amp; Komponen Ionic</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mendiagnosis dan menyelesaikan 5 galat klasik perutean hybrid, layar putih kosong, dan komponen tanpa stylesheet.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome DevTools (Console <code>F12</code>), Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Saat pertama kali memprogram dengan Ionic, jangan panik jika layar tiba-tiba kosong atau tombol tampil seperti teks polos tanpa gaya. Berkas panduan ini merangkum 5 masalah paling sering terjadi di laboratorium: lupa membungkus template dengan <code>&lt;ion-page&gt;</code>, salah menggunakan tag <code>&lt;router-view&gt;</code> standar, kelalaian mengimpor bundel CSS inti, navigasi merusak dengan <code>window.location</code>, hingga data tidak berubah karena keliru memilih lifecycle hook!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Solusi Layar Putih:</strong> Pastikan hierarki pembungkus adalah <code>&lt;ion-page&gt;</code> dan <code>&lt;ion-content&gt;</code>.</li>
+<li><strong>Solusi Back Button:</strong> Pasang <code>&lt;ion-router-outlet&gt;</code> di <code>App.vue</code> dan sertakan atribut <code>default-href</code>.</li>
+<li><strong>Solusi Komponen Polos:</strong> Pastikan paket stylesheet <code>@ionic/vue/css/core.css</code> diimpor di <code>main.ts</code>.</li>
+<li><strong>Solusi Data Caching:</strong> Gunakan <code>onIonViewWillEnter</code> alih-alih <code>onMounted</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Diagnostik &amp; Solusi Masalah Perutean (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    Start[&quot;Deteksi Gejala Galat di Ponsel&quot;] --&gt; DevTools[&quot;Tekan F12: Buka Konsol DevTools&quot;]
+    DevTools --&gt; Case{&quot;Klasifikasi Masalah&quot;}
+    Case --&gt;|Layar Putih Kosong| Fix1[&quot;Periksa Tag Pembungkus: Wajib &lt;ion-page&gt; + &lt;ion-content&gt;&quot;]
+    Case --&gt;|Tombol Back Hilang| Fix2[&quot;Gunakan &lt;ion-router-outlet&gt; &amp; Pasang default-href='/path'&quot;]
+    Case --&gt;|Data Tidak Ter-update| Fix3[&quot;Alihkan Logika dari onMounted() ke onIonViewWillEnter()&quot;]
+    Case --&gt;|Komponen Teks Polos| Fix4[&quot;Impor Paket CSS Inti @ionic/vue/css/core.css&quot;]
+    Case --&gt;|Layar Berkedip Reload| Fix5[&quot;Ganti window.location.href dengan router.push()&quot;]
+    Fix1 --&gt; Solved[&quot;Aplikasi Mobile Berjalan Mulus &amp; Bebas Galat ✅&quot;]
+    Fix2 --&gt; Solved
+    Fix3 --&gt; Solved
+    Fix4 --&gt; Solved
+    Fix5 --&gt; Solved
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_16_troubleshooting_routing_ionic.html">🌐 Buka Simulator Interaktif: slide_16_troubleshooting_routing_ionic.html</a><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_16_troubleshooting_routing_ionic.md">📄 Baca Panduan Teks Lengkap: slide_16_troubleshooting_routing_ionic.md</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 17: MASTER SOLUSI LAB QUEST 04: Aplikasi Portal Modul BMP UT Multi-Halaman</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengintegrasikan seluruh komponen antarmuka, perutean tumpukan, dan pemantauan siklus hidup dalam aplikasi terpadu.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (Responsive Toolbar <code>Ctrl + Shift + M</code>), VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Mari kita satukan seluruh pemahaman hari ini ke dalam Master Solusi Lab Quest 04: Aplikasi Portal Modul BMP Universitas Terbuka! Pada aplikasi ini, kita membangun simulator smartphone lengkap: katalog buku materi pokok dengan filter semester, navigasi dorong (push) ke rincian buku dengan parameter kode, tombol panah kembali alami, sistem bookmark, serta monitor terminal siklus hidup yang mencatat perpindahan hook secara langsung!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Arsitektur Multi-Layar:</strong> Menghubungkan layar katalog dengan layar rincian buku modul.</li>
+<li><strong>State Reaktif:</strong> Mengelola status bookmark berbintang dan filter semester secara instan.</li>
+<li><strong>Pencatatan Lifecycle:</strong> Terminal interaktif membuktikan eksekusi berurutan <code>ionViewWillLeave</code> $\rightarrow$ <code>ionViewDidLeave</code> $\rightarrow$ <code>ionViewWillEnter</code> $\rightarrow$ <code>ionViewDidEnter</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Arsitektur Master Solusi Lab Quest 04 (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph ScreenKatalog[&quot;Layar 1: Katalog Ruang Baca Virtual UT&quot;]
+        Chips[&quot;Filter Chips (Semua / Sem 4 / Sem 6)&quot;]
+        Cards[&quot;Daftar Kartu ion-card BMP&quot;]
+        BMark[&quot;State Bookmark Reaktif&quot;]
+        Chips --&gt; Cards
+        BMark --&gt; Cards
+    end
+    subgraph RouterNav[&quot;Mekanisme Navigasi Tumpukan (Stack)&quot;]
+        Push[&quot;router.push('/modul/:kode')&quot;]
+        Pop[&quot;ion-back-button (Stack Pop)&quot;]
+    end
+    subgraph ScreenDetail[&quot;Layar 2: Rincian Modul Pembelajaran&quot;]
+        HeaderDet[&quot;Toolbar dengan Tombol Back Alami&quot;]
+        ListKB[&quot;Daftar Kegiatan Belajar (ion-list &amp; ion-item)&quot;]
+        Action[&quot;Tombol Baca Modul Online (PDF)&quot;]
+        HeaderDet --&gt; ListKB
+        ListKB --&gt; Action
+    end
+    subgraph TerminalLog[&quot;⚡ Monitor Siklus Hidup (Live Log)&quot;]
+        Log[&quot;Pencatat Hook Masuk &amp; Keluar Real-Time&quot;]
+    end
+
+    Cards --&gt;|Klik Modul| Push
+    Push --&gt; ScreenDetail
+    HeaderDet --&gt;|Klik Back| Pop
+    Pop --&gt; ScreenKatalog
+    RouterNav -.-&gt; TerminalLog
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_17_lab_quest_04_portal_modul_ut.html">🌐 Buka Master Solusi Interaktif: slide_17_lab_quest_04_portal_modul_ut.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 18: Jembatan Menuju Sesi 05 &amp; Pengarahan Asesmen TUGAS TUTORIAL 2</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menghubungkan capaian Sesi 04 menuju tata letak grid 12-kolom, validasi formulir masukan dengan regex, dan orientasi Tugas Tutorial 2.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code, Browser Regex Tester.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Pencapaian luar biasa rekan-rekan mahasiswa sekalian! Dengan menuntaskan navigasi mobile dan komponen antarmuka dasar hari ini, Anda telah memiliki pondasi seorang Mobile Engineer yang kokoh. Di Sesi 05 mendatang, kita akan mempelajari sistem grid 12-kolom responsif, validasi formulir masukan NIM dan email UT menggunakan Regex, tema gelap dinamis, dan yang paling penting: pembukaan TUGAS TUTORIAL 2 berbobot 20%! Siapkan diri Anda dengan mempraktikkan kode mandiri hari ini!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Materi Sesi 05 Mendatang:</strong> Sistem 12-Grid (<code>ion-grid</code>, <code>ion-row</code>, <code>ion-col</code>), Kontrol Formulir (<code>ion-input</code>, <code>ion-select</code>, <code>ion-toggle</code>), dan Validasi Regex.</li>
+<li><strong>Asesmen Tugas Tutorial 2:</strong> Studi kasus aplikasi formulir registrasi &amp; kalkulasi akademik berbobot 20% nilai tutorial.</li>
+<li><strong>Persiapan Sejak Dini:</strong> Menguasai kembali pembungkus baku <code>ion-page</code> dan siklus hidup <code>ionViewWillEnter</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Peta Jalan Kompetensi Menuju Sesi 05 &amp; Tugas 2 (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph S4[&quot;Sesi 04 (Fondasi Selesai)&quot;]
+        K1[&quot;Ekosistem Ionic &amp; UI Toolkit&quot;]
+        K2[&quot;Komponen Dasar &amp; Card&quot;]
+        K3[&quot;Stack Router &amp; Lifecycle&quot;]
+    end
+    subgraph S5[&quot;Sesi 05 (Pengembangan Lanjut)&quot;]
+        P1[&quot;Sistem Grid 12-Kolom Responsif&quot;]
+        P2[&quot;Kontrol Formulir Masukan Data&quot;]
+        P3[&quot;Validasi Reaktif &amp; Pola Regex&quot;]
+        P4[&quot;Adaptasi Tema Gelap (Dark Mode)&quot;]
+    end
+    subgraph TT2[&quot;Target Luaran Akademik&quot;]
+        Tugas[&quot;🎯 TUGAS TUTORIAL 2 (Bobot 20%)\nAplikasi Registrasi Kegiatan Mahasiswa&quot;]
+    end
+    S4 --&gt; S5
+    S5 --&gt; TT2
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_04_ionic_dasar_navigasi/slide_18_preview_sesi_05_layout_grid_form.html">🌐 Buka Berkas Interaktif: slide_18_preview_sesi_05_layout_grid_form.html</a></li>
+</ul>
+<hr />
+<h2>📚 Referensi Akademik &amp; Standar Mutu</h2>
+<ol>
+<li><strong>Buku Materi Pokok (BMP) Universitas Terbuka:</strong><br />
+Prafanto, A., dkk. (2024). <em>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)</em>. Modul 4: Dasar-Dasar Ionic Framework dan Navigasi Antarmuka Mobile. Tangerang Selatan: Universitas Terbuka.</li>
+<li><strong>Dokumentasi Resmi Framework &amp; Industri:</strong>
+<ul>
+<li>Ionic Framework Documentation. (2024). <em>Ionic Vue Navigation &amp; Routing Architecture</em>. Diakses dari <a href="https://ionicframework.com/docs/vue/navigation">ionicframework.com/docs/vue/navigation</a>.</li>
+<li>Ionic Framework Documentation. (2024). <em>UI Component Library &amp; Adaptive Styling Guide</em>. Diakses dari <a href="https://ionicframework.com/docs/components">ionicframework.com/docs/components</a>.</li>
+<li>Vue.js Official Documentation. (2024). <em>Single Page Component Lifecycle &amp; Virtual DOM</em>. Diakses dari <a href="https://vuejs.org">vuejs.org</a>.</li>
+</ul>
+</li>
+<li><strong>Standar Desain Antarmuka Mobile:</strong>
+<ul>
+<li>Google Material Design 3 Guidelines (<a href="https://m3.material.io">m3.material.io</a>).</li>
+<li>Apple Human Interface Guidelines (<a href="https://developer.apple.com/design">developer.apple.com/design</a>).</li>
+</ul>
+</li>
+</ol>
+
+
+      <footer class="doc-footer">
+        <div>
+          <span>Hak Cipta &copy; 2026 Universitas Terbuka</span> • 
+          <span>The Zero-Friction Courseware Framework</span>
+        </div>
+        <div>
+          <a href="../index.html" style="font-size: 12px; color: var(--ut-blue);">Kembali ke Katalog Utama ↗</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Konversi blok diagram mermaid
+      document.querySelectorAll('pre code.language-mermaid').forEach(el => {
+        const pre = el.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        pre.replaceWith(div);
+      });
+
+      // Bungkus seluruh tabel dengan wrapper responsive
+      document.querySelectorAll('.doc-content table').forEach(tbl => {
+        if (!tbl.parentElement.classList.contains('table-responsive')) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'table-responsive';
+          tbl.parentElement.insertBefore(wrapper, tbl);
+          wrapper.appendChild(tbl);
+        }
+      });
+
+      // Inisialisasi mermaid jika pustaka tersedia
+      if (window.mermaid) {
+        mermaid.initialize({ 
+          startOnLoad: true, 
+          theme: 'neutral',
+          securityLevel: 'loose'
+        });
+      }
+    });
+  </script>
+</body>
+</html>

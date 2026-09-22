@@ -1,6 +1,11 @@
 # 📝 PANDUAN PENGERJAAN & RUBRIK TUGAS TUTORIAL 1, 2, & 3
 ## Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303) — Universitas Terbuka
 
+> [!TIP]
+> **Tampilan Versi Web Interaktif & Rapi:**
+> Dokumen ini tersedia dalam format Web Modern yang responsif, rapi, dan mudah dibaca:  
+> 👉 [**Buka Versi Web Panduan Tugas Tutorial**](https://antonprafanto.github.io/tuweb_mobile2025/panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.html) *(atau buka berkas lokal `PANDUAN_TUGAS_TUTORIAL_1_2_3.html`)*.
+
 > [!IMPORTANT]
 > **Petunjuk Umum Mahasiswa:**
 > 1. Pengerjaan tugas bersifat **individu** untuk menguji pemahaman praktis Anda.

@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naskah Narasi Dosen — Sesi 02: Frontend Modern Menggunakan Vue.js 3 — Universitas Terbuka</title>
+  <meta name="description" content="Naskah narasi pengajaran dosen dan panduan instruksional Sesi 02 mata kuliah STSI4303 Universitas Terbuka.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Mermaid.js untuk Diagram Arsitektur -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --ut-navy: #003366;
+      --ut-blue: #005691;
+      --ut-blue-light: #EBF3FA;
+      --ut-gold: #C28E00;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      position: static !important;
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100% !important;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Breadcrumb & Navbar */
+    .top-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-nav-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ut-blue);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .breadcrumb:hover {
+      color: var(--ut-navy);
+      text-decoration: underline;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--slate-200);
+      background: #FFFFFF;
+      color: var(--slate-700);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+    }
+
+    .action-btn.primary {
+      background: var(--ut-blue);
+      color: #FFFFFF;
+      border-color: var(--ut-blue);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--ut-navy);
+      border-color: var(--ut-navy);
+    }
+
+    /* Main Container */
+    .doc-container {
+      max-width: 1060px;
+      margin: 32px auto 60px;
+      padding: 0 20px;
+    }
+
+    /* Academic Header Card */
+    .doc-header {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ut-navy) 0%, var(--ut-blue) 60%, var(--ut-gold) 100%);
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--ut-blue);
+      background: var(--ut-blue-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+
+    .doc-subtitle {
+      font-size: 14px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* Document Body & Typography */
+    .doc-content {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 768px) {
+      .doc-content { padding: 24px 20px; }
+      .doc-header { padding: 24px 20px; }
+      .doc-title { font-size: 22px; }
+    }
+
+    .doc-content h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-top: 28px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 32px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .doc-content h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    .doc-content p {
+      margin-bottom: 16px;
+      color: var(--slate-700);
+    }
+
+    .doc-content ul, .doc-content ol {
+      margin-bottom: 18px;
+      padding-left: 24px;
+    }
+
+    .doc-content li {
+      margin-bottom: 6px;
+      color: var(--slate-700);
+    }
+
+    .doc-content hr {
+      border: none;
+      height: 1px;
+      background: var(--slate-200);
+      margin: 32px 0;
+    }
+
+    /* Links */
+    .doc-content a {
+      color: var(--ut-blue);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #93C5FD;
+      transition: all 0.15s ease;
+    }
+
+    .doc-content a:hover {
+      color: var(--ut-navy);
+      border-bottom-style: solid;
+      background: var(--ut-blue-light);
+    }
+
+    /* GitHub Alert Callouts */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-left: 4px solid;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .alert-important {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+
+    .alert-note {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1E40AF;
+    }
+
+    .alert-tip {
+      background: #ECFDF5;
+      border-color: #10B981;
+      color: #065F46;
+    }
+
+    .alert-warning {
+      background: #FFFBEB;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+
+    /* Beautiful Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    .doc-content th {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--slate-200);
+      letter-spacing: 0.2px;
+    }
+
+    .doc-content td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: top;
+    }
+
+    .doc-content tr:last-child td {
+      border-bottom: none;
+    }
+
+    .doc-content tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+
+    .doc-content tr:hover td {
+      background: #F1F5F9;
+    }
+
+    /* Code Blocks */
+    .doc-content pre {
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 20px 0;
+      border: 1px solid var(--slate-700);
+    }
+
+    .doc-content code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--slate-100);
+      color: var(--slate-900);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .doc-content pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    /* Mermaid Diagrams */
+    .mermaid {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--slate-400);
+    }
+
+    @media print {
+      .top-nav, .action-btn { display: none !important; }
+      body { background: #FFF; }
+      .doc-header, .doc-content { border: none; box-shadow: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP STICKY NAVIGATION -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../index.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Kembali ke Portal Perkuliahan
+      </a>
+
+      <div class="nav-actions">
+        <button class="action-btn" onclick="window.print()" title="Cetak halaman atau simpan sebagai PDF">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Cetak / PDF
+        </button>
+        <a href="SESI_02_Frontend_Modern_Vue.md" target="_blank" class="action-btn" title="Buka berkas sumber Markdown asli">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Naskah Markdown (.md)
+        </a>
+        <a href="https://github.com/antonprafanto/tuweb_mobile2025" target="_blank" class="action-btn" title="Buka repositori GitHub">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="doc-container">
+    <!-- HEADER -->
+    <header class="doc-header">
+      <span class="doc-badge">Naskah Narasi Sesi 02</span>
+      <h1 class="doc-title">NASKAH & SLIDE SESI 02: REKAYASA FRONTEND MODERN BERBASIS VUE.JS 3</h1>
+      <p class="doc-subtitle">
+        Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</strong><br>
+        Fakultas Sains dan Teknologi, Universitas Terbuka • Dosen Pengampu: <strong>Anton Prafanto, S.Kom., M.T.</strong>
+      </p>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="doc-content">
+      <h1>📱 NASKAH &amp; SLIDE SESI 02: REKAYASA FRONTEND MODERN BERBASIS VUE.JS 3</h1>
+<h2>Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)</h2>
+<h3>Program Studi: S1 Sistem Informasi &amp; S1 Informatika — Universitas Terbuka</h3>
+<h3>Dosen Pengampu: Anton Prafanto, S.Kom., M.T.</h3>
+<h3>Modul Acuan BMP: Modul 2 (MSIM4401/STSI4303 — Rekayasa Perangkat Lunak &amp; Antarmuka Komponen Reaktif)</h3>
+<blockquote>
+<p>⚡ <strong>Akses Cepat Bahan Sesi 02:</strong><br />
+<a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_02_Frontend_Modern_Vue.pptx">📥 Unduh Slide PPTX</a> • <a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_02_Frontend_Modern_Vue.pptx">👁️ Baca Slide Online</a> • <a href="../contoh_kode_program/sesi_02_vue_frontend/">📁 18 Berkas Kode Mandiri</a> • <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html">🎯 Solusi Lab Quest 02</a> • <a href="../panduan_tutorial_ut/PANDUAN_DISKUSI_TUTON.md">💬 Panduan Diskusi 2</a></p>
+</blockquote>
+<hr />
+<h2>🗺️ Gambaran Umum Sesi</h2>
+<p>Sesi kedua ini mengupas tuntas arsitektur <strong>Vue.js 3 Composition API</strong>, fondasi reaktivitas mutakhir yang menjadi mesin penggerak antarmuka di balik ekosistem <strong>Ionic Vue</strong>. Mahasiswa dibimbing secara bertahap mulai dari pergeseran paradigma imperatif ke deklaratif, reaktivitas primitif (<code>ref</code>) dan objek (<code>reactive</code>), manipulasi direktif template (<code>v-bind</code>, <code>v-model</code>, <code>v-if</code>, <code>v-for</code>), penanganan event cerdas dengan modifiers, properti terkalkulasi berefisiensi tinggi (<code>computed</code>), pemantauan efek samping (<em>watchers</em>), siklus hidup komponen (<em>lifecycle hooks</em>), komunikasi modular antar-komponen (<em>props, emits, slots</em>), <em>clean architecture</em> berbasis <em>composables</em>, hingga penyelesaian tantangan studi kasus terpadu <strong>Lab Quest 02: Aplikasi Manajemen KRS Mandiri Mahasiswa FST UT</strong>.</p>
+<hr />
+<h2>🛠️ Panduan Alat &amp; Lingkungan Belajar (Ramah Pemula)</h2>
+<p>Bagi rekan-rekan mahasiswa yang baru pertama kali mempelajari Vue.js 3, materi Sesi 02 ini dirancang menggunakan standar <strong>The Zero-Friction Courseware Framework</strong> yang sangat ramah pemula dan hemat memori (RAM 4–8 GB friendly):</p>
+<ol>
+<li><strong>Google Chrome / Peramban Web Desktop:</strong>
+<ul>
+<li><strong>Fungsi:</strong> Menjalankan seluruh 18 berkas contoh program <code>.html</code> secara instan tanpa perlu menjalankan server lokal Node.js via protokol <code>file:///</code>.</li>
+<li><strong>Cara Penggunaan:</strong> Cukup klik ganda (<em>double-click</em>) berkas <code>.html</code> yang ingin dipelajari langsung dari File Explorer Windows.</li>
+</ul>
+</li>
+<li><strong>Google Chrome DevTools (<code>F12</code> / <code>Ctrl + Shift + I</code>):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Menginspeksi tab <strong>Console</strong> untuk melihat log mutasi reaktivitas data (<code>ref</code> dan <code>reactive</code>), serta menguji interaktivitas JavaScript secara langsung.</li>
+<li><strong>Simulator Layar Smartphone (<code>Ctrl + Shift + M</code>):</strong> Mengaktifkan mode tampilan ponsel (<em>Toggle Device Toolbar</em>) untuk menguji responsivitas antarmuka di layar ponsel.</li>
+</ul>
+</li>
+<li><strong>Visual Studio Code (VS Code):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Editor teks utama untuk membuka, membaca, dan bereksperimen dengan berkas kode. Pasang ekstensi <strong>Vue - Official (Volar)</strong> untuk penyorotan sintaks (<em>syntax highlighting</em>) yang optimal.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>📊 Daftar 18 Slide Pembahasan &amp; Berkas Kode Mandiri</h2>
+<h3>📌 Slide 01: Paradigma Pemrograman: Imperatif (Vanilla JS) vs Deklaratif (Vue.js 3)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memahami perbedaan mendasar antara manipulasi DOM manual dan perancangan antarmuka berbasis state reaktif.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Modern Web Browser, VS Code (tekan <code>F12</code> untuk Console).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Rekan-rekan mahasiswa, di era web konvensional, setiap kali kita ingin mengubah teks tombol atau skor di layar, kita harus menulis <code>document.getElementById</code> dan <code>innerHTML</code> secara manual. Bayangkan jika aplikasi memiliki 50 tombol interaktif di smartphone, kode kita akan menjadi sangat rapuh (spaghetti DOM). Vue.js 3 memperkenalkan paradigma deklaratif: kita cukup mengubah datanya, dan antarmuka akan memperbarui dirinya sendiri secara cerdas!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Imperatif:</strong> Memberitahukan browser <em>bagaimana langkah-langkah</em> memanipulasi elemen satu per satu.</li>
+<li><strong>Deklaratif:</strong> Memberitahukan browser <em>tampilan apa yang diharapkan</em> berdasarkan nilai data (<em>state-driven UI</em>).</li>
+</ul>
+</li>
+<li><strong>Diagram Arsitektur (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph IMPERATIF[&quot;Paradigma Imperatif (DOM Manual)&quot;]
+        A1[&quot;Klik Tombol&quot;] --&gt; A2[&quot;document.getElementById('counter')&quot;]
+        A2 --&gt; A3[&quot;Ambil teks &amp; ubah parseInt&quot;]
+        A3 --&gt; A4[&quot;counterSpan.innerText = hasil&quot;]
+        A4 --&gt; A5[&quot;Rapuh saat UI kompleks &amp; rawan desync&quot;]
+    end
+    subgraph DEKLARATIF[&quot;Paradigma Deklaratif (Vue.js 3)&quot;]
+        B1[&quot;Klik Tombol @click&quot;] --&gt; B2[&quot;counter.value++ (Ubah Data Saja)&quot;]
+        B2 --&gt; B3[&quot;Vue Reactivity Engine Deteksi Mutasi&quot;]
+        B3 --&gt; B4[&quot;Virtual DOM Render Otomatis ke Layar&quot;]
+        B4 --&gt; B5[&quot;Konsisten, terprediksi, dan zero-friction&quot;]
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_01_paradigma_imperatif_vs_deklaratif.html">🌐 Buka File Interaktif: slide_01_paradigma_imperatif_vs_deklaratif.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 02: Sistem Reaktivitas Dasar: ref() dan Unboxing .value</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menerapkan fungsi <code>ref()</code> untuk membungkus tipe data primitif dan memahami aturan unboxing <code>.value</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (DevTools Console), Editor VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Mengapa kita tidak bisa menggunakan variabel biasa <code>let count = 0</code> di Vue? Karena JavaScript tidak memiliki mekanisme bawaan untuk mendeteksi kapan sebuah variabel primitif diubah nilainya. Dengan membungkusnya dalam <code>ref()</code>, Vue memasang pelacak getter dan setter. Ingat satu aturan emas ini: di dalam kode JavaScript, Anda wajib menulis <code>.value</code>, tetapi saat di dalam template HTML, Vue otomatis membukanya (unboxing) untuk Anda!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Tipe data primitif (Number, String, Boolean) dibungkus menggunakan <code>ref()</code>.</li>
+<li>Akses di dalam blok script: <code>counter.value++</code>.</li>
+<li>Akses di dalam template HTML: <code>{{ counter }}</code> (otomatis di-<em>unwrap</em> tanpa <code>.value</code>).</li>
+</ul>
+</li>
+<li><strong>Diagram Mekanisme (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;Nilai Primitif: 0&quot;] --&gt;|Dibungkus ref()| B[&quot;Wadah Reaktif RefImpl { value: 0 }&quot;]
+    B --&gt;|Diakses di Script JS| C[&quot;Wajib panggil .value: counter.value++&quot;]
+    B --&gt;|Diakses di Template HTML| D[&quot;Auto-Unwrap: {{ counter }}&quot;]
+    C --&gt;|Memicu Setter| E[&quot;Sinyal Pembaruan Virtual DOM&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_02_sistem_reaktivitas_ref.html">🌐 Buka File Interaktif: slide_02_sistem_reaktivitas_ref.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 03: Reaktivitas Objek Majemuk: reactive() &amp; JavaScript Proxy</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengelola sekumpulan state objek yang saling berhubungan menggunakan <code>reactive()</code> dan JavaScript Proxy.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Bagaimana jika kita memiliki data profil mahasiswa yang terdiri dari NIM, Nama, Prodi, dan Semester? Menggunakan 4 buah <code>ref</code> terpisah akan melelahkan. Di sinilah fungsi <code>reactive()</code> hadir. Dengan <code>reactive()</code>, kita membungkus seluruh objek dalam JavaScript Proxy canggih. Anda bisa langsung mengakses <code>mhs.nama</code> atau <code>mhs.semester</code> tanpa repot mengetik <code>.value</code>!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>reactive()</code> dikhususkan untuk objek majemuk dan array koleksi.</li>
+<li>Didukung langsung oleh fitur native JavaScript ES6 <code>Proxy</code>.</li>
+<li>Jangan gunakan <em>object destructuring</em> secara langsung agar tautan reaktivitas tidak terputus (gunakan <code>toRefs</code>).</li>
+</ul>
+</li>
+<li><strong>Diagram Arsitektur (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    M[&quot;Objek JavaScript Asli: { nim, nama, semester }&quot;] --&gt;|Bungkus reactive()| P[&quot;ES6 Proxy Interceptor&quot;]
+    P --&gt;|Operasi Baca GET| T[&quot;Track Dependency: Catat Komponen yang Menggunakan&quot;]
+    P --&gt;|Operasi Tulis SET| TR[&quot;Trigger Update: Perbarui Elemen DOM Terkait&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_03_reaktivitas_objek_reactive.html">🌐 Buka File Interaktif: slide_03_reaktivitas_objek_reactive.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 04: Text Interpolation {{ }} &amp; Pengikatan Atribut Dinamis (v-bind)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menghubungkan variabel JavaScript ke atribut HTML, kelas CSS dinamis, dan inline style.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, Editor VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Di dalam HTML, kita sering kali ingin menonaktifkan tombol simpan jika formulir belum valid, atau mengubah warna border kartu menjadi hijau saat pembayaran SPP lunas. Direktif <code>v-bind</code> (atau cukup ditulis tanda titik dua <code>:</code>) adalah jembatan sakti antara state data dengan properti elemen peramban.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Notasi kumis ganda <code>{{ data }}</code> hanya untuk teks di antara tag pembuka dan penutup.</li>
+<li>Untuk atribut HTML, gunakan shorthand <code>:atribut</code> (contoh: <code>:disabled=&quot;isBelumBayar&quot;</code>).</li>
+<li>Pengikatan class dinamis mendukung sintaks objek: <code>:class=&quot;{ 'lunas': isLunas }&quot;</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Mekanisme Binding (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph DATA[&quot;State Reaktif Vue&quot;]
+        D1[&quot;isLunas = true&quot;]
+        D2[&quot;warnaBadge = 'badge-sukses'&quot;]
+    end
+    subgraph DIRECTIVE[&quot;Pengikatan Atribut :v-bind&quot;]
+        B1[&quot;:disabled='!isLunas'&quot;]
+        B2[&quot;:class='warnaBadge'&quot;]
+    end
+    subgraph DOM[&quot;Elemen UI Browser&quot;]
+        E1[&quot;&amp;lt;button disabled=false&amp;gt;&quot;]
+        E2[&quot;&amp;lt;span class='badge-sukses'&amp;gt;&quot;]
+    end
+    DATA --&gt; DIRECTIVE --&gt; DOM
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_04_text_interpolation_v_bind.html">🌐 Buka File Interaktif: slide_04_text_interpolation_v_bind.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 05: Pengikatan Data Dua Arah (v-model) &amp; Input Modifiers</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Membangun formulir masukan interaktif dengan sinkronisasi dua arah menggunakan <code>v-model</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Browser Mobile (Mode Inspeksi <code>Ctrl + Shift + M</code>).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Saat pengguna mengetik di layar smartphone, antarmuka harus langsung mengetahui masukan tersebut secara real-time. <code>v-model</code> adalah sintaks dua arah yang menyederhanakan binding atribut <code>:value</code> dan event <code>@input</code> menjadi satu baris bersih. Selain itu, modifier seperti <code>.trim</code> dan <code>.number</code> secara otomatis membersihkan spasi liar dan mengonversi string ke angka numerik!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Mendukung input teks, textarea, checkbox, radio button, dan select option.</li>
+<li>Modifiers esensial: <code>.trim</code> (pangkas spasi), <code>.number</code> (konversi tipe angka otomatis), <code>.lazy</code> (update saat event <em>change</em>).</li>
+</ul>
+</li>
+<li><strong>Diagram Mekanisme (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;State Reaktif JavaScript: nama = ref('')&quot;] --&gt;|:value (Props Down)| B[&quot;Elemen Input HTML &amp;lt;input&amp;gt;&quot;]
+    B --&gt;|@input (Event Listener)| A
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_05_two_way_binding_v_model.html">🌐 Buka File Interaktif: slide_05_two_way_binding_v_model.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 06: Conditional Rendering: v-if (Bongkar Pasang DOM) vs v-show (CSS Toggle)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menganalisis implikasi konsumsi memori dan kinerja rendering antara <code>v-if</code> dan <code>v-show</code> pada perangkat bergerak.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome DevTools Elements Inspector.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Ketika membuat aplikasi mobile, efisiensi memori RAM ponsel mahasiswa adalah prioritas nomor satu. Jangan samakan <code>v-if</code> dengan <code>v-show</code>. <code>v-if</code> benar-benar membongkar elemen dari pohon DOM, sangat cocok untuk komponen yang jarang dibuka seperti dialog logout. Sebaliknya, <code>v-show</code> hanya menyembunyikan elemen lewat CSS <code>display:none</code>, sangat ideal untuk tab bar yang sering berpindah!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>v-if</code>: Toggle cost tinggi, initial render cost rendah (kondisional sejati, elemen dicopot dari DOM).</li>
+<li><code>v-show</code>: Toggle cost sangat rendah, initial render cost tinggi (elemen tetap di DOM, hanya toggle <code>display: none</code>).</li>
+</ul>
+</li>
+<li><strong>Diagram Perbandingan Mekanisme (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    Kondisi{&quot;Kondisi Reaktif: isVisible&quot;}
+    Kondisi --&gt;|v-if = false| VIF[&quot;DOM Node Dihancurkan &amp;amp; Dicopot&lt;br/&gt;(Toggle Cost Tinggi, Initial Murah)&quot;]
+    Kondisi --&gt;|v-show = false| VSHOW[&quot;DOM Node Tetap Ada di Memori&lt;br/&gt;(CSS display: none, Toggle Cepat 0 ms)&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_06_conditional_v_if_vs_v_show.html">🌐 Buka File Interaktif: slide_06_conditional_v_if_vs_v_show.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 07: List Rendering (v-for) &amp; Urgensi Atribut :key Unik</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Merender data array secara berulang serta mencegah galat Virtual DOM dengan identitas <code>:key</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Saat menampilkan katalog mata kuliah atau feed forum diskusi, kita menggunakan <code>v-for</code>. Namun, kesalahan paling fatal bagi pemula adalah lupa menyematkan <code>:key</code> atau menggunakan <code>index</code> sebagai key. Mengapa berbahaya? Algoritma diffing Vue menggunakan key untuk mengenali elemen mana yang bertukar posisi. Jika key-nya keliru, input form atau animasi kartu mobile bisa tertukar secara acak!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Sintaks perulangan: <code>v-for=&quot;item in koleksi&quot; :key=&quot;item.id&quot;</code>.</li>
+<li>Wajib gunakan ID unik dari data model, bukan index posisi iterasi.</li>
+<li>Mendukung mutasi array reaktif: <code>push()</code>, <code>splice()</code>, <code>filter()</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Virtual DOM Diffing (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph TANPA_KEY[&quot;Menggunakan Index (Berbahaya)&quot;]
+        T1[&quot;[0: MK A, 1: MK B, 2: MK C]&quot;] --&gt;|Hapus Elemen Index 0| T2[&quot;Vue me-render ulang semua item di bawahnya&quot;]
+        T2 --&gt; T3[&quot;State formulir &amp; animasi tertukar&quot;]
+    end
+    subgraph DENGAN_KEY[&quot;Menggunakan :key='item.id' (Standar Industri)&quot;]
+        K1[&quot;[ID-101: MK A, ID-102: MK B]&quot;] --&gt;|Hapus ID-101| K2[&quot;Vue melacak tepat elemen ID-101&quot;]
+        K2 --&gt; K3[&quot;Hanya 1 node DOM yang dihapus, 0 overhead!&quot;]
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_07_list_rendering_v_for_dan_key.html">🌐 Buka File Interaktif: slide_07_list_rendering_v_for_dan_key.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 08: Penanganan Event (@event) &amp; Event Modifiers (.prevent, .stop)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menangani sentuhan pengguna dan mencegah aksi standar peramban dengan event modifiers.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Browser Smartphone.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Di smartphone, pengguna menekan tombol kirim formulir, apa yang terjadi jika halaman tiba-tiba reload dan layar berkedip putih? Pengalaman pengguna langsung hancur. Dengan modifier <code>@submit.prevent</code>, kita memblokir reload peramban dalam 1 detik tanpa perlu menulis <code>e.preventDefault()</code>. Begitu pula <code>@click.stop</code> untuk mencegah event tembus ke kartu di belakangnya!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Shorthand <code>@</code> menggantikan sintaks panjang <code>v-on:</code>.</li>
+<li><code>.prevent</code>: Menghentikan aksi default peramban (seperti reload form submit).</li>
+<li><code>.stop</code>: Menghentikan propagasi event (<em>stopPropagation / bubbling</em>).</li>
+</ul>
+</li>
+<li><strong>Diagram Intersepsi Event (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    Click[&quot;Sentuhan Pengguna / Tap Button&quot;] --&gt; Evt[&quot;Event @submit / @click&quot;]
+    Evt --&gt; Mod{Event Modifiers}
+    Mod --&gt;|.prevent| P1[&quot;Blokir Reload Otomatis Browser&lt;br/&gt;(event.preventDefault)&quot;]
+    Mod --&gt;|.stop| P2[&quot;Cegah Event Tembus ke Parent&lt;br/&gt;(event.stopPropagation)&quot;]
+    Mod --&gt; Hand[&quot;Eksekusi Handler: simpanData()&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_08_event_handling_dan_modifiers.html">🌐 Buka File Interaktif: slide_08_event_handling_dan_modifiers.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 09: Properti Terkalkulasi (computed) &amp; Efisiensi Caching</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengoptimalkan performa aplikasi dengan properti terkalkulasi yang memiliki memori <em>cache</em>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome DevTools (Console log demonstrasi).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Bayangkan Anda menghitung Indeks Prestasi Semester (IPS) dari 8 mata kuliah. Jika menggunakan fungsi method biasa, rumus tersebut akan dihitung ulang setiap kali layar disentuh! Sangat boros baterai smartphone. Dengan <code>computed()</code>, Vue menyimpan hasil hitungan di memori cache dan hanya menghitung ulang jika ada nilai mata kuliah yang benar-benar berubah.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Menyimpan hasil kalkulasi ke dalam cache berdasarkan dependensi reaktifnya.</li>
+<li>Murni bersifat pembaca nilai (<em>pure getter</em>) tanpa memicu efek samping.</li>
+<li>Menjadi fondasi pengerjaan studi kasus Tugas 1 Kalkulator Nilai.</li>
+</ul>
+</li>
+<li><strong>Diagram Alur Caching (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    D[&quot;State Nilai Mata Kuliah Berubah?&quot;] --&gt;|TIDAK| C[&quot;Ambil Nilai Langsung dari Cache (0 ms)&quot;]
+    D --&gt;|YA| E[&quot;Jalankan Fungsi Kalkulasi IPS&quot;]
+    E --&gt; F[&quot;Perbarui Nilai di Cache &amp; Render Tampilan Baru&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_09_computed_properties_ips.html">🌐 Buka File Interaktif: slide_09_computed_properties_ips.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 10: Pemantau Data (watch) &amp; Efek Samping (Side Effects)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menerapkan fungsi <code>watch</code> untuk mengeksekusi aksi asinkron seperti penyimpanan otomatis ke <em>local storage</em>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome DevTools Application Tab (Local Storage).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Jika <code>computed</code> dipakai untuk menghitung nilai baru, maka <code>watch</code> dipakai ketika kita ingin melakukan aksi luar (side effect). Contoh nyata: saat mahasiswa mengetik draf tugas di smartphone, kita ingin aplikasi secara otomatis menyimpannya ke <code>localStorage</code> agar ketikan tidak hilang jika kuota internet mendadak putus!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Format sintaks: <code>watch(sumberData, (nilaiBaru, nilaiLama) =&gt; { ... })</code>.</li>
+<li>Sangat ideal untuk integrasi REST API, sinkronisasi storage, dan analitik.</li>
+<li>Dilengkapi teknik <em>debouncing</em> untuk menghemat operasi penulisan disk ponsel.</li>
+</ul>
+</li>
+<li><strong>Diagram Alur Debounced Watcher (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    Input[&quot;Ketik Catatan / Form&quot;] --&gt; State[&quot;State Reaktif: drafCatatan&quot;]
+    State --&gt; Watcher[&quot;watch(drafCatatan, ...)&quot;]
+    Watcher --&gt; Debounce[&quot;Debounce Timer (500 ms)&quot;]
+    Debounce --&gt; SideEffect[&quot;Side Effect: Simpan ke localStorage / REST API&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_10_watchers_dan_side_effects.html">🌐 Buka File Interaktif: slide_10_watchers_dan_side_effects.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 11: Siklus Hidup Komponen: onMounted, onUpdated, &amp; onUnmounted</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengelola siklus hidup komponen dan membersihkan <em>listener</em> untuk mencegah kebocoran memori (<em>memory leak</em>).</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome Console.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Komponen aplikasi mobile seperti manusia: ia dilahirkan (<code>onMounted</code>), ia bereaksi saat tumbuh (<code>onUpdated</code>), dan ia pensiun (<code>onUnmounted</code>). Jika di <code>onMounted</code> Anda memasang timer atau sensor GPS, tetapi lupa mematikannya saat halaman ditutup (<code>onUnmounted</code>), aplikasi Anda akan terus memakan baterai ponsel di latar belakang hingga HP panas!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>onMounted()</code>: Titik paling aman untuk memanggil REST API atau sensor perangkat keras.</li>
+<li><code>onUnmounted()</code>: Wajib membersihkan <code>setInterval</code>, <code>removeEventListener</code>, atau socket stream.</li>
+</ul>
+</li>
+<li><strong>Diagram Garis Waktu Siklus Hidup (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">timeline
+    title Siklus Hidup Komponen Vue 3 (Lifecycle Timeline)
+    setup() : Inisialisasi State Reaktif ref &amp; reactive
+    onMounted() : Komponen tertancap di layar ponsel (Panggil REST API / Sensor)
+    onUpdated() : Terjadi mutasi data dan render ulang Virtual DOM
+    onUnmounted() : Komponen ditutup (Bersihkan timer, socket, &amp; bebaskan RAM)
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_11_lifecycle_hooks_onmounted.html">🌐 Buka File Interaktif: slide_11_lifecycle_hooks_onmounted.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 12: Anatomi Single File Component (SFC .vue)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Membedah struktur berkas komponen tunggal berbasis <code>&lt;template&gt;</code>, <code>&lt;script setup&gt;</code>, dan <code>&lt;style scoped&gt;</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> VS Code dengan ekstensi <em>Vue - Official (Volar)</em>, Google Chrome.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Di dunia industri, kita tidak menulis ribuan baris HTML di satu berkas raksasa. Kita memecahnya menjadi berkas berekstensi <code>.vue</code> yang rapi. Tiga bagian suci komponen Vue adalah: Template untuk wujud visual, Script Setup untuk otak logikanya, dan Style Scoped agar warna CSS tidak bocor merusak komponen teman satu tim!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><code>&lt;template&gt;</code>: Struktur elemen deklaratif UI.</li>
+<li><code>&lt;script setup&gt;</code>: Standar sintaks Composition API paling modern dan ringkas di Vue 3.</li>
+<li><code>&lt;style scoped&gt;</code>: Isolasi gaya CSS lokal menggunakan atribut hash otomatis (<code>data-v-xxxx</code>).</li>
+</ul>
+</li>
+<li><strong>Diagram Kompilasi SFC (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    SFC[&quot;Berkas Tunggal: Kartu.vue&quot;] --&gt; COMP[&quot;Vite / SFC Compiler&quot;]
+    COMP --&gt; R[&quot;Fungsi Render Virtual DOM&quot;]
+    COMP --&gt; JS[&quot;Objek Modul JavaScript&quot;]
+    COMP --&gt; CSS[&quot;Scoped CSS [data-v-xxxx]&quot;]
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_12_komposisi_komponen_sfc.html">🌐 Buka File Interaktif: slide_12_komposisi_komponen_sfc.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 13: Komunikasi Komponen: Aliran Data Satu Arah via Props (Parent → Child)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengirimkan data dari komponen induk ke komponen anak yang dapat digunakan kembali (<em>reusable</em>).</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Aplikasi mobile dibangun seperti susunan balok Lego. Komponen induk (misal: Halaman Daftar Dosen) memegang data mentah, lalu membagikannya ke komponen anak (KartuDosen) melalui <code>props</code>. Aturan mutlak: Komponen anak dilarang mengubah isi props! Aliran data selalu satu arah dari atas ke bawah (<em>One-Way Data Flow</em>).&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Komponen induk mengirim data via atribut <code>:namaProp=&quot;data&quot;</code>.</li>
+<li>Komponen anak mendeklarasikan <code>defineProps({ ... })</code> atau opsi <code>props</code>.</li>
+<li>Menjamin integritas data tidak dirusak sembarangan oleh komponen anak (<em>read-only</em>).</li>
+</ul>
+</li>
+<li><strong>Diagram One-Way Data Flow (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    P[&quot;Komponen Induk (Parent: App.vue)&quot;] --&gt;|1. Props Down: :nama='...' :rating='...'| C[&quot;Komponen Anak (Child: KartuTutor.vue)&quot;]
+    C -.-&gt;|DILARANG MUTASI LANGSUNG| P
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_13_props_aliran_data_induk_anak.html">🌐 Buka File Interaktif: slide_13_props_aliran_data_induk_anak.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 14: Komunikasi Komponen Anak ke Induk: Custom Events via emit()</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengirimkan notifikasi aksi pengguna dari komponen anak ke komponen induk dengan event kustom.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Jika anak tidak boleh mengubah props, bagaimana cara tombol 'Hapus' di dalam kartu dosen memberi tahu halaman utama? Caranya adalah berteriak ke atas melalui <code>emit</code>! Komponen anak memancarkan event <code>emit('hapus-item', id)</code> dan komponen induk mendengarkannya dengan <code>@hapus-item</code>. Filosofi ini dikenal luas dengan istilah: Props Down, Events Up!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Komponen anak memanggil <code>$emit('nama-event', payload)</code>.</li>
+<li>Komponen induk menangkap sinyal dengan <code>@nama-event=&quot;handler&quot;</code>.</li>
+<li>Mempertahankan kopling longgar (<em>loosely coupled</em>) antar modul.</li>
+</ul>
+</li>
+<li><strong>Diagram Siklus Komunikasi Dua Arah (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    P[&quot;Komponen Induk&quot;] --&gt;|Props Down :modul| C[&quot;Komponen Anak&quot;]
+    C --&gt;|Events Up emit('tambah-qty')| P
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_14_emits_komunikasi_anak_ke_induk.html">🌐 Buka File Interaktif: slide_14_emits_komunikasi_anak_ke_induk.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 15: Proyeksi Konten Fleksibel: Default Slot &amp; Named Slots (<slot>)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Merancang komponen wadah (<em>container components</em>) yang fleksibel menggunakan slot konten.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Terkadang kita ingin membuat komponen Dialog Pop-up atau Kartu Informasi yang bentuk bingkainya sama, tetapi isinya bisa sangat beragam (ada yang berisi gambar, formulir, atau tabel nilai). Di sinilah tag <code>&lt;slot&gt;</code> bekerja sebagai jendela kosong yang siap diisi konten apa pun oleh komponen induk!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Default <code>&lt;slot&gt;&lt;/slot&gt;</code> untuk wadah konten tubuh utama.</li>
+<li>Named slots <code>&lt;slot name=&quot;header&quot;&gt;</code> dan <code>&lt;slot name=&quot;footer&quot;&gt;</code> untuk pembagian area spesifik.</li>
+<li>Komponen induk menyuntikkan konten lewat template kustom: <code>&lt;template #header&gt;</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Distribusi Slot (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph INDUK[&quot;Komponen Induk&quot;]
+        H1[&quot;&amp;lt;template #header&amp;gt; Judul &amp;lt;/template&amp;gt;&quot;]
+        B1[&quot;&amp;lt;p&amp;gt; Pesan Konfirmasi Tugas &amp;lt;/p&amp;gt;&quot;]
+        F1[&quot;&amp;lt;template #footer&amp;gt; Tombol Aksi &amp;lt;/template&amp;gt;&quot;]
+    end
+    subgraph WADAH[&quot;Komponen Modal Reusable&quot;]
+        H2[&quot;&amp;lt;slot name='header' /&amp;gt;&quot;]
+        B2[&quot;&amp;lt;slot /&amp;gt; (Default Body)&quot;]
+        F2[&quot;&amp;lt;slot name='footer' /&amp;gt;&quot;]
+    end
+    H1 --&gt;|Proyeksi| H2
+    B1 --&gt;|Proyeksi| B2
+    F1 --&gt;|Proyeksi| F2
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_15_slots_proyeksi_konten_fleksibel.html">🌐 Buka File Interaktif: slide_15_slots_proyeksi_konten_fleksibel.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 16: State Management Ringan: Pola Custom Composables (useKRSManager)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memisahkan logika bisnis kalkulasi dari kode antarmuka dengan pola arsitektur <em>Composables</em>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Jangan tumpuk semua logika perhitungan SKS, validasi batas nilai, dan filter pencarian di dalam template antarmuka. Buatlah sebuah fungsi terpisah bernama <code>useKRSManager</code>. Fungsi ini mengemas state dan logic menjadi modul mandiri. Jika besok Anda ingin menggunakan logika KRS ini di layar smartphone lain, Anda cukup mengimpor satu baris fungsi saja!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Konvensi penamaan standar Composition API diawali kata <code>use</code> (contoh: <code>useKRSManager</code>).</li>
+<li>Logika bisnis terisolasi 100% dari elemen DOM (sangat mudah dilakukan unit testing).</li>
+<li>Pengganti modern dan bersih bagi fitur warisan <em>Mixins</em> di Vue versi lama.</li>
+</ul>
+</li>
+<li><strong>Diagram Arsitektur Composable (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph COMPOSABLE[&quot;useKRSManager.js (Pure Business Logic)&quot;]
+        S[&quot;krs = ref([])&quot;]
+        C[&quot;totalSks = computed(...)&quot;]
+        A[&quot;ambilMk(), lepasMk()&quot;]
+    end
+    subgraph UI_WEB[&quot;Halaman Web KRS&quot;]
+        W[&quot;const { krs, totalSks } = useKRSManager()&quot;]
+    end
+    subgraph UI_MOBILE[&quot;Halaman Mobile App&quot;]
+        M[&quot;const { krs, totalSks } = useKRSManager()&quot;]
+    end
+    COMPOSABLE --&gt; UI_WEB
+    COMPOSABLE --&gt; UI_MOBILE
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_16_state_reusable_composables.html">🌐 Buka File Interaktif: slide_16_state_reusable_composables.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 17: 🎯 MASTER SOLUSI LAB QUEST 02: Aplikasi Manajemen KRS Mandiri Mahasiswa FST UT</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Membangun aplikasi mini interaktif yang mengintegrasikan seluruh konsep Vue 3 secara komprehensif.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Browser Ponsel.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Selamat rekan-rekan, ini adalah puncak capaian praktikum Sesi 02! Kita menggabungkan seluruh ilmu: pencarian katalog real-time, filter dropdown semester, penambahan mata kuliah ke KRS, kalkulasi reaktif beban SKS dengan <code>computed</code>, validasi batas maksimal 24 SKS dengan peringatan badge dinamis, hingga pengajuan dokumen digital. Ini adalah miniatur dari portal Sistem Informasi Akademik UT sungguhan!&quot;</em></li>
+<li><strong>Poin Kunci &amp; Fitur Aplikasi:</strong>
+<ul>
+<li>Pencarian dan filter semester interaktif secara instan (0 milidetik).</li>
+<li>Tombol aksi tambah dan hapus mata kuliah dengan proteksi kuota SKS.</li>
+<li>Ringkasan statistik dinamis (Total SKS, Sisa Kuota SKS, Peringatan Kuota Penuh).</li>
+</ul>
+</li>
+<li><strong>Diagram Alur Mini-SIA KRS (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+    subgraph INPUT[&quot;1. Input Mahasiswa&quot;]
+        S[&quot;Ketik Search Keyword&quot;]
+        F[&quot;Pilih Semester (1 - 8)&quot;]
+    end
+    subgraph LOGIC[&quot;2. Reaktivitas Vue 3&quot;]
+        C1[&quot;computed: filterKatalog&quot;]
+        C2[&quot;computed: totalSksTerpilih&quot;]
+        C3[&quot;computed: sisaBebanSks&quot;]
+        V[&quot;Validasi Maksimal 24 SKS&quot;]
+    end
+    subgraph UI[&quot;3. Antarmuka Interaktif&quot;]
+        T[&quot;Tabel KRS Mandiri&quot;]
+        B[&quot;Badge Peringatan Kuota&quot;]
+        A[&quot;Tombol Ajukan KRS Online&quot;]
+    end
+    INPUT --&gt; LOGIC
+    LOGIC --&gt; UI
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_17_lab_quest_02_krs_interaktif.html">🌐 Buka File Interaktif: slide_17_lab_quest_02_krs_interaktif.html</a></li>
+</ul>
+<hr />
+<h3>📌 Slide 18: 🚀 Jembatan Menuju Sesi 03: Mengapa Vue 3 Butuh TypeScript?</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menganalisis kelemahan <em>dynamic typing</em> JavaScript murni dan mengapresiasi pentingnya keamanan tipe data <em>type safety</em>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Hari ini kita telah menguasai Vue.js 3 dengan gemilang! Namun ada satu celah bahaya di JavaScript: jika Anda salah ketik satu huruf nama properti data (misal <code>mhs.skorIpk</code> padahal aslinya <code>mhs.ipk</code>), JavaScript tidak akan memberi tahu Anda saat ngoding, melainkan menghasilkan <code>undefined</code> dan membuat aplikasi crash di tangan pengguna. Pekan depan di Sesi 03, kita akan menyematkan tameng baja bernama TypeScript Interface untuk memastikan kode kita bebas bug sebelum masuk ke Tugas Tutorial 1!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>JavaScript rawan bug typo properti runtime yang sulit dideteksi (<em>silent failure</em>).</li>
+<li>TypeScript memberikan <em>autocompletion</em> cerdas dan proteksi kompilasi (<em>compile-time safety</em>).</li>
+<li>Bersiap menghadapi <strong>Sesi 03 &amp; TUGAS TUTORIAL 1 (Kalkulator Nilai Vue + TS)</strong>.</li>
+</ul>
+</li>
+<li><strong>Diagram Perbandingan Keamanan (Mermaid):</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+    subgraph JS[&quot;JavaScript Murni (Dynamic)&quot;]
+        J1[&quot;Salah Ketik mhs.skorIpk&quot;] --&gt; J2[&quot;Lolos Build (Vite OK)&quot;]
+        J2 --&gt; J3[&quot;Crash di Ponsel Pengguna (undefined / NaN)&quot;]
+    end
+    subgraph TS[&quot;TypeScript + Vue 3 (Static Contract)&quot;]
+        T1[&quot;Salah Ketik mhs.skorIpk&quot;] --&gt; T2[&quot;🛑 Garis Merah di VS Code / Build Ditolak&quot;]
+        T2 --&gt; T3[&quot;Aplikasi Rilis Bebas Typo &amp; Terjamin Stabil&quot;]
+    end
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_02_vue_frontend/slide_18_preview_sesi_03_typescript.html">🌐 Buka File Interaktif: slide_18_preview_sesi_03_typescript.html</a></li>
+</ul>
+<hr />
+<h2>📚 Daftar Referensi Akademik &amp; Standar Mutu</h2>
+<ol>
+<li><strong>Universitas Terbuka (2024).</strong> <em>Buku Materi Pokok (BMP) MSIM4401 / STSI4303: Pemrograman Berbasis Perangkat Bergerak &amp; Rekayasa Perangkat Lunak (Modul 2: Arsitektur Antarmuka Komponen Reaktif)</em>. Tangerang Selatan: Penerbit Universitas Terbuka.</li>
+<li><strong>Vue.js Core Team (2025).</strong> <em>Vue.js 3 Official Documentation &amp; Guide: Composition API, Reactivity Fundamentals, Single-File Components, and Composables</em>. Diakses daring dari: <a href="https://vuejs.org/">https://vuejs.org/</a></li>
+<li><strong>Mozilla Developer Network (MDN) (2025).</strong> <em>JavaScript Proxy and Reflect Reference: Metaprogramming &amp; Interception in Modern ECMAScript</em>. Diakses daring dari: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy</a></li>
+<li><strong>W3C (World Wide Web Consortium) (2024).</strong> <em>Document Object Model (DOM) Technical Architecture &amp; Web Components Specifications</em>. Diakses daring dari: <a href="https://www.w3.org/standards/">https://www.w3.org/standards/</a></li>
+<li><strong>Martin, Robert C. (2018).</strong> <em>Clean Architecture: A Craftsman's Guide to Software Structure and Design</em>. Prentice Hall (Relevansi: Pemisahan logika bisnis dari antarmuka via Composable Functions).</li>
+</ol>
+
+
+      <footer class="doc-footer">
+        <div>
+          <span>Hak Cipta &copy; 2026 Universitas Terbuka</span> • 
+          <span>The Zero-Friction Courseware Framework</span>
+        </div>
+        <div>
+          <a href="../index.html" style="font-size: 12px; color: var(--ut-blue);">Kembali ke Katalog Utama ↗</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Konversi blok diagram mermaid
+      document.querySelectorAll('pre code.language-mermaid').forEach(el => {
+        const pre = el.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        pre.replaceWith(div);
+      });
+
+      // Bungkus seluruh tabel dengan wrapper responsive
+      document.querySelectorAll('.doc-content table').forEach(tbl => {
+        if (!tbl.parentElement.classList.contains('table-responsive')) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'table-responsive';
+          tbl.parentElement.insertBefore(wrapper, tbl);
+          wrapper.appendChild(tbl);
+        }
+      });
+
+      // Inisialisasi mermaid jika pustaka tersedia
+      if (window.mermaid) {
+        mermaid.initialize({ 
+          startOnLoad: true, 
+          theme: 'neutral',
+          securityLevel: 'loose'
+        });
+      }
+    });
+  </script>
+</body>
+</html>

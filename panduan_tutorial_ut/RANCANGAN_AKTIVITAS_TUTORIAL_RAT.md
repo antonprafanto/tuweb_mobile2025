@@ -3,6 +3,11 @@
 ### Program Studi: S1 Sistem Informasi & S1 Informatika
 ### Fakultas Sains dan Teknologi (FST) — Universitas Terbuka
 
+> [!TIP]
+> **Tampilan Versi Web Interaktif & Rapi:**
+> Dokumen ini tersedia dalam format Web Modern yang responsif, rapi, dan mudah dibaca:  
+> 👉 [**Buka Versi Web Silabus RAT/SAT Resmi**](https://antonprafanto.github.io/tuweb_mobile2025/panduan_tutorial_ut/RANCANGAN_AKTIVITAS_TUTORIAL_RAT.html) *(atau buka berkas lokal `RANCANGAN_AKTIVITAS_TUTORIAL_RAT.html`)*.
+
 ---
 
 ## 1. Identitas Mata Kuliah

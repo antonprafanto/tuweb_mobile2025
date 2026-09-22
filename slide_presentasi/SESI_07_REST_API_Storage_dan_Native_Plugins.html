@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naskah Narasi Dosen — Sesi 07: REST API, Storage, & Native Plugins (Tugas 3) — Universitas Terbuka</title>
+  <meta name="description" content="Naskah narasi pengajaran dosen dan panduan instruksional Sesi 07 mata kuliah STSI4303 Universitas Terbuka.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Mermaid.js untuk Diagram Arsitektur -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --ut-navy: #003366;
+      --ut-blue: #005691;
+      --ut-blue-light: #EBF3FA;
+      --ut-gold: #C28E00;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      position: static !important;
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100% !important;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Breadcrumb & Navbar */
+    .top-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-nav-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ut-blue);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .breadcrumb:hover {
+      color: var(--ut-navy);
+      text-decoration: underline;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--slate-200);
+      background: #FFFFFF;
+      color: var(--slate-700);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+    }
+
+    .action-btn.primary {
+      background: var(--ut-blue);
+      color: #FFFFFF;
+      border-color: var(--ut-blue);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--ut-navy);
+      border-color: var(--ut-navy);
+    }
+
+    /* Main Container */
+    .doc-container {
+      max-width: 1060px;
+      margin: 32px auto 60px;
+      padding: 0 20px;
+    }
+
+    /* Academic Header Card */
+    .doc-header {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ut-navy) 0%, var(--ut-blue) 60%, var(--ut-gold) 100%);
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--ut-blue);
+      background: var(--ut-blue-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+
+    .doc-subtitle {
+      font-size: 14px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* Document Body & Typography */
+    .doc-content {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 768px) {
+      .doc-content { padding: 24px 20px; }
+      .doc-header { padding: 24px 20px; }
+      .doc-title { font-size: 22px; }
+    }
+
+    .doc-content h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-top: 28px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 32px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .doc-content h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    .doc-content p {
+      margin-bottom: 16px;
+      color: var(--slate-700);
+    }
+
+    .doc-content ul, .doc-content ol {
+      margin-bottom: 18px;
+      padding-left: 24px;
+    }
+
+    .doc-content li {
+      margin-bottom: 6px;
+      color: var(--slate-700);
+    }
+
+    .doc-content hr {
+      border: none;
+      height: 1px;
+      background: var(--slate-200);
+      margin: 32px 0;
+    }
+
+    /* Links */
+    .doc-content a {
+      color: var(--ut-blue);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #93C5FD;
+      transition: all 0.15s ease;
+    }
+
+    .doc-content a:hover {
+      color: var(--ut-navy);
+      border-bottom-style: solid;
+      background: var(--ut-blue-light);
+    }
+
+    /* GitHub Alert Callouts */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-left: 4px solid;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .alert-important {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+
+    .alert-note {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1E40AF;
+    }
+
+    .alert-tip {
+      background: #ECFDF5;
+      border-color: #10B981;
+      color: #065F46;
+    }
+
+    .alert-warning {
+      background: #FFFBEB;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+
+    /* Beautiful Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    .doc-content th {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--slate-200);
+      letter-spacing: 0.2px;
+    }
+
+    .doc-content td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: top;
+    }
+
+    .doc-content tr:last-child td {
+      border-bottom: none;
+    }
+
+    .doc-content tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+
+    .doc-content tr:hover td {
+      background: #F1F5F9;
+    }
+
+    /* Code Blocks */
+    .doc-content pre {
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 20px 0;
+      border: 1px solid var(--slate-700);
+    }
+
+    .doc-content code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--slate-100);
+      color: var(--slate-900);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .doc-content pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    /* Mermaid Diagrams */
+    .mermaid {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--slate-400);
+    }
+
+    @media print {
+      .top-nav, .action-btn { display: none !important; }
+      body { background: #FFF; }
+      .doc-header, .doc-content { border: none; box-shadow: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP STICKY NAVIGATION -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../index.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Kembali ke Portal Perkuliahan
+      </a>
+
+      <div class="nav-actions">
+        <button class="action-btn" onclick="window.print()" title="Cetak halaman atau simpan sebagai PDF">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Cetak / PDF
+        </button>
+        <a href="SESI_07_REST_API_Storage_dan_Native_Plugins.md" target="_blank" class="action-btn" title="Buka berkas sumber Markdown asli">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Naskah Markdown (.md)
+        </a>
+        <a href="https://github.com/antonprafanto/tuweb_mobile2025" target="_blank" class="action-btn" title="Buka repositori GitHub">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="doc-container">
+    <!-- HEADER -->
+    <header class="doc-header">
+      <span class="doc-badge">Naskah Narasi Sesi 07</span>
+      <h1 class="doc-title">NASKAH & SLIDE SESI 07: REST API, OFFLINE STORAGE, NATIVE PLUGINS, & TUGAS TUTORIAL 3</h1>
+      <p class="doc-subtitle">
+        Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</strong><br>
+        Fakultas Sains dan Teknologi, Universitas Terbuka • Dosen Pengampu: <strong>Anton Prafanto, S.Kom., M.T.</strong>
+      </p>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="doc-content">
+      <h1>📱 NASKAH &amp; SLIDE SESI 07: REST API, OFFLINE STORAGE, NATIVE PLUGINS, &amp; TUGAS TUTORIAL 3</h1>
+<h2>Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401)</h2>
+<h3>Program Studi: S1 Sistem Informasi &amp; S1 Informatika — Fakultas Sains dan Teknologi (FST) Universitas Terbuka</h3>
+<h3>Dosen Pengampu: Anton Prafanto, S.Kom., M.T.</h3>
+<h3>Modul Acuan BMP: Modul 8 &amp; 9 (MSIM4401/STSI4303)</h3>
+<hr />
+<div class="alert-box alert-tip">
+<p><strong>Akses Cepat Materi, Simulator Interaktif, &amp; Kode Program Sesi 07:</strong></p>
+<ul>
+<li>🌐 <strong>18 Berkas Contoh Program HTML Siap Dijalankan:</strong> <a href="../contoh_kode_program/sesi_07_api_storage_plugins/"><code>contoh_kode_program/sesi_07_api_storage_plugins/</code></a></li>
+<li>🎯 <strong>Kalkulator &amp; Simulator Rubrik TUGAS TUTORIAL 3 (Slide 16):</strong> <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.html"><code>slide_16_rubrik_tugas_tutorial_3.html</code></a> • <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.md">📄 Buku Saku Rubrik Markdown</a></li>
+<li>🏆 <strong>Master Solusi Resmi Tugas 3: UT Study Tracker (Slide 17):</strong> <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html"><code>slide_17_solusi_tugas_3_study_tracker.html</code></a></li>
+<li>🖥️ <strong>Slide Presentasi PowerPoint (PPTX 18 Slide Neo-Brutalisme):</strong> <a href="SESI_07_REST_API_Storage_dan_Native_Plugins.pptx"><code>SESI_07_REST_API_Storage_dan_Native_Plugins.pptx</code></a></li>
+</ul>
+</div>
+<hr />
+<h2>🛠️ Panduan Alat &amp; Lingkungan Belajar (Ramah Pemula)</h2>
+<p>Bagi rekan-rekan mahasiswa yang baru pertama kali mempelajari komunikasi data jaringan (<em>network fetch</em>), penyimpanan persisten offline, serta integrasi sensor fisik smartphone, jangan merasa cemas! Seluruh materi praktikum Sesi 07 telah dirancang dengan prinsip <strong>Zero Friction (Tanpa Beban)</strong> sehingga dapat diuji secara instan di komputer atau laptop dengan spesifikasi standar (RAM 4–8 GB):</p>
+<ol>
+<li><strong>Google Chrome / Peramban Web Modern:</strong>
+<ul>
+<li><strong>Fungsi:</strong> Menjalankan seluruh 18 berkas mandiri <code>.html</code> secara langsung via protokol <code>file:///</code> tanpa perlu menginstal atau menyalakan server lokal seperti Node.js atau Apache.</li>
+<li><strong>Cara Penggunaan:</strong> Cukup klik ganda (<em>double-click</em>) berkas <code>.html</code> yang ingin dipelajari, atau seret (<em>drag-and-drop</em>) berkas ke jendela peramban Anda.</li>
+</ul>
+</li>
+<li><strong>Google Chrome DevTools (<code>F12</code> atau <code>Ctrl + Shift + I</code>):</strong>
+<ul>
+<li><strong>Tab Console (<code>Console</code>):</strong> Tempat melihat log pesan transaksi data JSON, pembacaan koordinat GPS, serta melacak galat (<em>error message</em>) saat request jaringan gagal.</li>
+<li><strong>Tab Jaringan (<code>Network</code>):</strong> Sangat krusial untuk Sesi 07! Anda dapat menyaring permintaan bertipe <code>Fetch/XHR</code> untuk melihat request URL, header otentikasi JWT, payload respon JSON mentah dari server, status code (200, 404, 500), serta menguji ketahanan aplikasi dengan menyimulasikan mode <strong>Offline</strong> melalui dropdown <em>Throttling</em>.</li>
+<li><strong>Tab Aplikasi (<code>Application</code>):</strong> Digunakan untuk menginspeksi isi data fisik yang tersimpan pada menu <em>Storage</em> $\rightarrow$ <em>Local Storage</em> dan <em>IndexedDB</em>.</li>
+</ul>
+</li>
+<li><strong>Mode Ponsel / Toggle Device Toolbar (<code>Ctrl + Shift + M</code>):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Mengubah tampilan peramban desktop menjadi kanvas smartphone virtual (contoh: Samsung Galaxy, iPhone, atau Pixel) agar Anda dapat merasakan tata letak responsif aplikasi secara nyata.</li>
+</ul>
+</li>
+<li><strong>Visual Studio Code (VS Code):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Editor teks utama untuk membuka, membaca, dan memodifikasi baris kode JavaScript/TypeScript, template antarmuka, serta berkas CSS.</li>
+</ul>
+</li>
+<li><strong>Peramban Smartphone Fisik (Android / iOS):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Khusus untuk Slide 10 (GPS) dan Slide 12 (Kamera), Anda dapat membuka berkas HTML langsung di peramban smartphone Anda untuk merasakan akses sensor satelit GPS asli dan kamera ponsel tanpa perlu kompilasi APK yang berat.</li>
+</ul>
+</li>
+<li><strong>Layanan REST API Terbuka (Open-Meteo):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Penyedia data cuaca live global tanpa perlu registrasi akun atau API key. Mahasiswa dapat menguji endpoint secara langsung dengan mengetikkan URL di bilah alamat peramban.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>🗺️ Gambaran Umum Sesi</h2>
+<p>Sesi ketujuh ini merupakan <strong>tonggak evaluasi tutorial ketiga (Milestone 3: TUGAS TUTORIAL 3)</strong> yang berbobot <strong>20%</strong> dari total nilai Tutorial Online (Tuton) di Universitas Terbuka. Sesi ini mematangkan kemampuan mahasiswa dalam mengembangkan aplikasi mobile terintegrasi skala penuh (<em>full-stack client mobile</em>). Tiga pilar utama yang dipelajari pada sesi ini meliputi:</p>
+<ol>
+<li><strong>Cloud Data Integration (REST API Asinkron):</strong> Memahami arsitektur komunikasi data client-server stateless via HTTP, konsumsi data modern menggunakan <code>fetch()</code> dan <code>async/await</code>, penanganan galat jaringan berbasis pertahanan berlapis <code>try-catch-finally</code>, serta tata kelola status antarmuka (<em>loading UX</em>) menggunakan spinner dan skeleton shimmer.</li>
+<li><strong>Offline-First Storage Persistence:</strong> Mengelola penyimpanan data lokal pada perangkat agar aplikasi tetap dapat dibuka dan digunakan meski mahasiswa sedang berada di daerah tanpa sinyal internet (<em>blank spot</em>), melalui komparasi spektrum memori (RAM, LocalStorage, IndexedDB, SQLite, Capacitor Preferences), operasi CRUD, serialisasi JSON, dan strategi caching.</li>
+<li><strong>Hardware Sensors &amp; Native Plugins:</strong> Mengakses sensor fisik smartphone menggunakan plugin resmi Capacitor, mencakup pembacaan koordinat satelit GPS (<code>@capacitor/geolocation</code>), validasi radius presensi kampus via Rumus Haversine, pemotretan dokumen belajar via kamera (<code>@capacitor/camera</code>), deteksi status koneksi internet (<code>@capacitor/network</code>), pemisahan logika melalui Service Layer, serta proteksi data via JWT Bearer Token.</li>
+</ol>
+<p>Sesi ini ditutup dengan pembedahan menyeluruh soal, rubrik evaluasi resmi, dan peluncuran master solusi <strong>TUGAS TUTORIAL 3: Aplikasi UT Study Tracker &amp; Presensi Belajar Mobile</strong>.</p>
+<pre><code class="language-mermaid">flowchart TD
+  subgraph CloudLayer [&quot;1. Cloud REST API Layer&quot;]
+    API[&quot;Open-Meteo Live API&lt;br&gt;(Cuaca &amp; Suhu Kampus UT)&quot;]
+    AuthServer[&quot;Server Otentikasi UT&lt;br&gt;(Token Bearer JWT)&quot;]
+  end
+
+  subgraph MobileClient [&quot;2. Mobile Client App (Vue 3 + Ionic + Service)&quot;]
+    UI[&quot;Antarmuka Mobile Reaktif&lt;br&gt;(Kartu Cuaca, Form Presensi, Log Belajar)&quot;]
+    Service[&quot;Service Layer Pattern&lt;br&gt;(studyTrackerService.ts)&quot;]
+    UX[&quot;Indikator Loading UX&lt;br&gt;(Spinner &amp; Skeleton Shimmer)&quot;]
+    UI &lt;--&gt; Service
+    UI --- UX
+  end
+
+  subgraph DeviceLayer [&quot;3. Local Storage &amp; Hardware Sensors&quot;]
+    Storage[&quot;Offline Storage Persisten&lt;br&gt;(LocalStorage / Preferences KV)&quot;]
+    GPS[&quot;Sensor Geolocation GPS&lt;br&gt;(Validasi Haversine Radius UT)&quot;]
+    Camera[&quot;Sensor Kamera Asli&lt;br&gt;(Bukti Foto Belajar Mandiri)&quot;]
+    Network[&quot;Deteksi Koneksi Jaringan&lt;br&gt;(Online / Offline Listener)&quot;]
+  end
+
+  CloudLayer &lt;--&gt;|HTTP Asinkron via fetch| Service
+  Service &lt;--&gt;|CRUD &amp; Serialisasi JSON| Storage
+  Service &lt;--&gt;|Capacitor Plugins Bridge| GPS
+  Service &lt;--&gt;|Capacitor Plugins Bridge| Camera
+  Service &lt;--&gt;|Capacitor Plugins Bridge| Network
+
+  style CloudLayer fill:#E0F2FE,stroke:#0284C7,stroke-width:2px
+  style MobileClient fill:#FEF9C3,stroke:#F59E0B,stroke-width:2px
+  style DeviceLayer fill:#DCFCE7,stroke:#16A34A,stroke-width:2px
+</code></pre>
+<hr />
+<h2>📊 Daftar 18 Slide Pembahasan &amp; Berkas Kode Mandiri</h2>
+<hr />
+<h3>📌 Slide 01: Orientasi Sesi 07, Peta Sub-CPMK 7 &amp; Pembukaan TUGAS TUTORIAL 3</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memahami keterkaitan kompetensi integrasi data cloud, penyimpanan lokal, dan pembukaan evaluasi Tugas Tutorial 3.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (klik ganda berkas HTML untuk membuka modul orientasi), Chrome DevTools (<code>F12</code>), Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Selamat berjumpa kembali rekan-rekan mahasiswa Fakultas Sains dan Teknologi Universitas Terbuka di Sesi 07! Hari ini kita mencapai tonggak evaluasi tutorial terakhir sebelum Ujian Akhir Semester: TUGAS TUTORIAL 3 resmi dibuka dengan bobot 20% nilai! Di sesi ini, kita merakit seluruh ilmu yang telah kita pelajari sejak Sesi 01 hingga 06: menghubungkan aplikasi ke server cloud via REST API, menyimpan data secara mandiri agar tidak hilang saat offline, dan mengaktifkan sensor fisik smartphone seperti GPS dan kamera. Mari kita maksimalkan sesi penugasan ini untuk mengamankan nilai A!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Tugas Tutorial 3 berdurasi 2 pekan di LMS Tuton UT (Bobot 20% Nilai Akhir).</li>
+<li>Kasus Proyek Terintegrasi: Aplikasi UT Study Tracker &amp; Presensi Belajar Mobile.</li>
+<li>Tiga Pilar Kompetensi: Integrasi REST API, Offline Storage Persisten, dan Native Hardware Plugins.</li>
+<li>Tagihan Resmi: Laporan PDF Lengkap, Repositori Kode GitHub Publik, dan Tautan Video Demo YouTube (Unlisted).</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  S6[&quot;Sesi 06&lt;br&gt;Capacitor Bridge &amp; Android&quot;] --&gt; S7[&quot;Sesi 07&lt;br&gt;REST API, Storage &amp; Sensors&quot;]
+  S7 --&gt; TT3[&quot;🎯 TUGAS TUTORIAL 3&lt;br&gt;(Bobot 20% Nilai Tuton)&quot;]
+  TT3 --&gt; S8[&quot;Sesi 08&lt;br&gt;Build APK &amp; Bank Soal UAS&quot;]
+  S8 --&gt; Sukses[&quot;🎓 Kelulusan Mahasiswa&lt;br&gt;Nilai A Mutlak!&quot;]
+
+  style S6 fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style S7 fill:#e0f2fe,stroke:#0284c7,stroke-width:3px
+  style TT3 fill:#fee2e2,stroke:#dc2626,stroke-width:3px
+  style S8 fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style Sukses fill:#dcfce7,stroke:#16a34a,stroke-width:3px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_01_orientasi_sesi_dan_tugas_3.html"><code>slide_01_orientasi_sesi_dan_tugas_3.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 02: Konsep REST API: Protokol HTTP, JSON &amp; Status Code</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menganalisis arsitektur pertukaran data client-server stateless berbasis REST dan format JSON.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, Chrome DevTools (<code>F12</code> $\rightarrow$ Tab Network $\rightarrow$ Filter Fetch/XHR), Browser URL Address Bar.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Smartphone Anda tidak menyimpan seluruh database kampus di dalam memorinya. Ketika Anda membuka jadwal kuliah atau mengirim catatan tugas, aplikasi mengirimkan permintaan HTTP ke server cloud UT. Inilah arsitektur REST API: komunikasi dua arah yang bersifat stateless, di mana setiap permintaan berdiri sendiri. Ada 4 kata kerja utama: GET untuk mengambil data, POST untuk mengirim data baru, PUT untuk memperbarui, dan DELETE untuk menghapus. Jawaban dari server dibungkus dalam format universal JSON disertai kode status HTTP, seperti 200 OK jika sukses, 404 jika data tidak ditemukan, atau 500 jika server sedang mengalami gangguan.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Arsitektur Client-Server &amp; Stateless: Server tidak menyimpan konteks sesi client secara permanen.</li>
+<li>4 Metode Utama HTTP: GET (Ambil), POST (Tambah), PUT (Perbarui), DELETE (Hapus).</li>
+<li>Struktur Status Codes: 2xx (Sukses/OK), 4xx (Kesalahan Klien/Not Found), 5xx (Kesalahan Server).</li>
+<li>JSON (JavaScript Object Notation): Format standar pertukaran data teks yang ringan dan mudah dibaca.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">sequenceDiagram
+  autonumber
+  actor User as Mahasiswa (Mobile App)
+  participant Client as HTTP Client (fetch)
+  participant Server as Server Cloud UT
+  participant DB as Database Kampus
+
+  User-&gt;&gt;Client: Klik &quot;Muat Data Belajar&quot;
+  Client-&gt;&gt;Server: HTTP GET /api/v1/study-sessions
+  Server-&gt;&gt;DB: Query SQL Data Belajar
+  DB--&gt;&gt;Server: Kumpulan Baris Data
+  Server--&gt;&gt;Client: 200 OK + Payload JSON [ {...}, {...} ]
+  Client--&gt;&gt;User: Tampilkan Kartu Belajar di Layar Ponsel
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_02_konsep_rest_api_asinkron.html"><code>slide_02_konsep_rest_api_asinkron.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 03: Pemanggilan Data Asinkron: <code>fetch()</code> &amp; <code>async/await</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menerapkan pemanggilan HTTP asinkron modern dengan struktur penanganan error <code>try-catch-finally</code>.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, DevTools (<code>F12</code> $\rightarrow$ Tab Console), Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Dalam pemrograman mobile modern, jangan pernah membekukan thread antarmuka saat menunggu balasan server. Kita menggunakan kombinasi fungsi bawaan <code>fetch()</code> dengan kata kunci <code>async/await</code>. Pola pertahanan terbaik selalu menggunakan tiga blok: <code>try</code> untuk mengeksekusi request dan mengurai JSON, <code>catch</code> untuk menangkap galat koneksi internet terputus, dan <code>finally</code> untuk memastikan status loading dinonaktifkan. Ingat jebakan klasik pemula: <code>fetch()</code> tidak akan melempar galat Promise jika server membalas dengan status 404 atau 500. Oleh sebab itu, kita wajib memeriksa kondisi <code>if (!response.ok)</code> secara manual!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Sintaks Asinkron Bersih: <code>const response = await fetch(url)</code>.</li>
+<li>Validasi Wajib: <code>if (!response.ok) throw new Error('Status: ' + response.status)</code>.</li>
+<li>Blok <code>try-catch-finally</code>: Memisahkan jalur sukses, tangkapan galat, dan pembersihan status.</li>
+<li>Garansi Blok <code>finally</code>: Menjamin pemutar loading (<em>spinner</em>) pasti berhenti berputar dalam kondisi apa pun.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  Start[&quot;Mulai: Eksekusi Fungsi async&quot;] --&gt; TryBlock[&quot;Blok try: Pasang isLoading = true&quot;]
+  TryBlock --&gt; FetchCall[&quot;Eksekusi: await fetch(endpointURL)&quot;]
+  FetchCall --&gt; CheckOK{&quot;Apakah response.ok bernilai true?&lt;br&gt;(Status Code 200-299)&quot;}
+  CheckOK -- Ya --&gt; ParseJSON[&quot;Eksekusi: await response.json()&lt;br&gt;Simpan data ke state reaktif&quot;]
+  CheckOK -- Tidak --&gt; ThrowErr[&quot;Lempar Galat: throw new Error(HTTP status)&quot;]
+  ThrowErr --&gt; CatchBlock[&quot;Blok catch(error):&lt;br&gt;Tampilkan pesan banner galat ramah awam&quot;]
+  ParseJSON --&gt; FinallyBlock[&quot;Blok finally:&lt;br&gt;Matikan isLoading = false (Pasti Berjalan!)&quot;]
+  CatchBlock --&gt; FinallyBlock
+  FinallyBlock --&gt; End[&quot;Selesai: Antarmuka Terbarui&quot;]
+
+  style Start fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+  style CheckOK fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style CatchBlock fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+  style FinallyBlock fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+  style End fill:#f1f5f9,stroke:#64748b,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_03_fetch_api_dan_async_await.html"><code>slide_03_fetch_api_dan_async_await.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 04: Mengelola UX Pemuatan: Spinner &amp; <code>ion-skeleton-text</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengimplementasikan indikator pemuatan data responsif dan animasi skeleton placeholder shimmer.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, DevTools (<code>F12</code> $\rightarrow$ Tab Elements &amp; Console), Mode Ponsel (<code>Ctrl + Shift + M</code>).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Pengguna smartphone sangat sensitif terhadap kecepatan respon aplikasi. Jika layar ponsel dibiarkan putih membeku tanpa indikasi apa pun saat memuat data, pengguna akan mengira aplikasi hang dan menutupnya secara paksa. Di Ionic, kita memiliki dua senjata visual: komponen <code>&lt;ion-spinner&gt;</code> untuk indikator putar sederhana, dan <code>&lt;ion-skeleton-text animated&gt;</code> untuk efek kerangka berdenyut (<em>shimmer</em>). Riset psikologi antarmuka membuktikan bahwa efek skeleton membuat waktu tunggu terasa 50% lebih cepat karena pengguna telah melihat bayangan bentuk kartu konten yang akan datang!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Masalah UX Layar Kosong (<em>Blank Screen Syndrome</em>): Memicu kecemasan dan pengabaian aplikasi.</li>
+<li><code>&lt;ion-spinner&gt;</code>: Indikator visual ringkas untuk proses singkat (contoh: tombol simpan formulir).</li>
+<li><code>&lt;ion-skeleton-text animated&gt;</code>: Efek placeholder kartu berdenyut yang memproyeksikan tata letak konten.</li>
+<li>Transisi Halus: Menggantikan kerangka abu-abu dengan data riil secara instan begitu Promise selesai.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  subgraph Buruk [&quot;❌ UX Buruk (Tanpa Feedback)&quot;]
+    B1[&quot;Klik Tombol&quot;] --&gt; B2[&quot;Layar Putih Kosong&lt;br&gt;(Membeku 3 Detik)&quot;]
+    B2 --&gt; B3[&quot;User Menutup Paksa Aplikasi!&quot;]
+  end
+
+  subgraph Baik [&quot;✅ UX Standar (Spinner)&quot;]
+    S1[&quot;Klik Tombol&quot;] --&gt; S2[&quot;Lingkaran Putar Spinner&lt;br&gt;(Ada Kepastian Proses)&quot;]
+    S2 --&gt; S3[&quot;Konten Muncul&quot;]
+  end
+
+  subgraph Terbaik [&quot;🌟 UX Modern (Skeleton Shimmer)&quot;]
+    K1[&quot;Klik Tombol&quot;] --&gt; K2[&quot;Placeholder Abu-abu Berdenyut&lt;br&gt;(Struktur Kartu Terlihat)&quot;]
+    K2 --&gt; K3[&quot;Persepsi Tunggu Terasa Sangat Singkat!&quot;]
+  end
+
+  style Buruk fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+  style Baik fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style Terbaik fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_04_indikator_pemuatan_loading.html"><code>slide_04_indikator_pemuatan_loading.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 05: Integrasi Data Publik: Cuaca Sentra Layanan UT Daerah</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menghubungkan aplikasi dengan endpoint live REST API eksternal (Open-Meteo) tanpa kerumitan API key.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, DevTools (<code>F12</code> $\rightarrow$ Tab Network $\rightarrow$ Preview JSON), Koneksi Internet Aktif.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Untuk memenuhi Kriteria 1 Tugas Tutorial 3, aplikasi kita membutuhkan integrasi REST API nyata yang bebas biaya dan tidak menyulitkan mahasiswa dengan pendaftaran kartu kredit. Kami memilih Open-Meteo API: penyedia data cuaca dan prakiraan cuaca global yang 100% terbuka tanpa perlu mendaftar token API key! Anda cukup mengirimkan parameter koordinat lintang (<em>latitude</em>) dan bujur (<em>longitude</em>) kantor UT daerah Anda, dan server cloud akan membalas dengan data suhu udara, kecepatan angin, serta kode cuaca secara real-time. Sangat mudah dan profesional!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>URL Endpoint: <code>https://api.open-meteo.com/v1/forecast?latitude=-6.2146&amp;longitude=106.8451&amp;current_weather=true</code>.</li>
+<li>Tanpa Autentikasi Ribet: Akses terbuka langsung via protokol HTTPS.</li>
+<li>Parsing Objek JSON: Mengambil nilai <code>current_weather.temperature</code> (°C), <code>windspeed</code> (km/jam), dan <code>weathercode</code>.</li>
+<li>Memenuhi Penuh Kriteria 1 Tugas Tutorial 3 (Bobot Maksimal 30 Poin).</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  User[&quot;Pilih Sentra UT Daerah&lt;br&gt;(Contoh: UT Jakarta / UT Surabaya)&quot;] --&gt; Param[&quot;Set Parameter URL:&lt;br&gt;latitude=-6.21 &amp; longitude=106.84&quot;]
+  Param --&gt; Cloud[&quot;Server Cloud Open-Meteo&lt;br&gt;(api.open-meteo.com)&quot;]
+  Cloud --&gt; Response[&quot;Kirim Dokumen JSON:&lt;br&gt;{ temperature: 31.4, windspeed: 12.8, weathercode: 1 }&quot;]
+  Response --&gt; Parse[&quot;Aplikasi Klien Mobile:&lt;br&gt;Ekstrak Properti Suhu &amp; Kondisi Cuaca&quot;]
+  Parse --&gt; UI[&quot;Tampilkan Kartu Cuaca Kampus&lt;br&gt;Lengkap dengan Ikon Matahari / Hujan&quot;]
+
+  style User fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+  style Cloud fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+  style Response fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style UI fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_05_integrasi_live_api_cuaca.html"><code>slide_05_integrasi_live_api_cuaca.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 06: Spektrum Opsi Penyimpanan Data Mobile</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Membandingkan kelebihan dan batasan 5 media penyimpanan data lokal pada perangkat bergerak.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, DevTools (<code>F12</code> $\rightarrow$ Tab Application $\rightarrow$ Storage Inspector).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Di manakah kita harus menyimpan data catatan belajar mahasiswa di smartphone? Kita memiliki spektrum 5 media penyimpanan: Variabel RAM di Vue sangat cepat namun data langsung musnah ketika aplikasi di-reload. Web LocalStorage sangat mudah digunakan namun hanya sanggup menampung teks hingga 5MB. IndexedDB mampu menampung ratusan megabyte secara NoSQL. Plugin <code>@capacitor/preferences</code> memanfaatkan SharedPreferences native Android yang aman dan asinkron. Sedangkan jika Anda membutuhkan kueri relasional SQL tabel kompleks, gunakan plugin SQLite. Untuk kebutuhan Tugas Tutorial 3, LocalStorage atau Capacitor Preferences adalah pilihan yang paling ideal dan praktis!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Memori RAM (Ephemeral/Sementara) vs Storage Fisik (Persisten/Tahan Restart).</li>
+<li>Web LocalStorage: Batas ~5MB, API Sinkron, Format Teks String Sederhana.</li>
+<li>Capacitor Preferences: Berbasis Asinkron (Promise), Terpetakan ke SharedPreferences Android.</li>
+<li>IndexedDB &amp; SQLite: Solusi skala besar untuk transaksi data offline ribuan baris.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TB
+  subgraph Piramida [&quot;Piramida Spektrum Penyimpanan Mobile&quot;]
+    RAM[&quot;1. RAM / Vue State (Ephemeral)&lt;br&gt;Super Cepat | Lenyap Saat Tutup Aplikasi&quot;]
+    LS[&quot;2. Web LocalStorage (~5 MB)&lt;br&gt;Key-Value Sederhana | Sinkron | Praktis&quot;]
+    CP[&quot;3. Capacitor Preferences (~5 MB)&lt;br&gt;Key-Value Native | Asinkron | SharedPreferences&quot;]
+    IDB[&quot;4. IndexedDB (100+ MB)&lt;br&gt;NoSQL Database | Asinkron | Dokumen Kompleks&quot;]
+    SQL[&quot;5. Native SQLite Plugin (GB)&lt;br&gt;Relasional SQL Penuh | Kueri Kompleks | ACID&quot;]
+  end
+
+  RAM --&gt; LS --&gt; CP --&gt; IDB --&gt; SQL
+
+  style RAM fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+  style LS fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style CP fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+  style IDB fill:#ede9fe,stroke:#7c3aed,stroke-width:2px
+  style SQL fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_06_komparasi_opsi_penyimpanan_mobile.html"><code>slide_06_komparasi_opsi_penyimpanan_mobile.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 07: Operasi Key-Value dengan <code>@capacitor/preferences</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengeksekusi operasi simpan, baca, dan hapus data lokal persisten menggunakan Capacitor Preferences.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, DevTools (<code>F12</code> $\rightarrow$ Tab Console), Visual Studio Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Plugin resmi <code>@capacitor/preferences</code> adalah standar utama dalam ekosistem Ionic untuk mengelola preferensi pengguna. Mengapa plugin ini lebih unggul dibanding LocalStorage biasa? Karena Capacitor Preferences bekerja secara non-blocking berbasis Promise dan secara otomatis memetakan datanya ke berkas XML SharedPreferences di Android serta UserDefaults di iOS. Metode dasarnya sangat elegan: <code>Preferences.set()</code> untuk menulis data, <code>Preferences.get()</code> untuk membaca kembali nilai, dan <code>Preferences.remove()</code> untuk menghapus kunci tertentu.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>4 Metode Utama: <code>set({ key, value })</code>, <code>get({ key })</code>, <code>remove({ key })</code>, <code>clear()</code>.</li>
+<li>Integrasi Platform Native: Menulis langsung ke direktori privat aplikasi Android.</li>
+<li>Asynchronous Non-blocking I/O: Menjaga kelancaran antarmuka 60 FPS tanpa jeda patah-patah.</li>
+<li>Pemenuhan Kriteria 2 Tugas Tutorial 3 (Bobot Maksimal 25 Poin).</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">sequenceDiagram
+  autonumber
+  participant Vue as Komponen Vue (TypeScript)
+  participant Bridge as Capacitor Bridge
+  participant Native as Android OS (SharedPreferences)
+
+  Vue-&gt;&gt;Bridge: await Preferences.set({ key: 'user_nim', value: '041234567' })
+  Bridge-&gt;&gt;Native: SharedPreferences.Editor.putString() &amp; apply()
+  Native--&gt;&gt;Bridge: Konfirmasi Penulisan XML Sukses
+  Bridge--&gt;&gt;Vue: Resolve Promise (Data Tersimpan Persisten)
+  
+  Note over Vue,Native: Pengguna Mematikan &amp; Menyalakan Ulang Smartphone
+  
+  Vue-&gt;&gt;Bridge: const { value } = await Preferences.get({ key: 'user_nim' })
+  Bridge-&gt;&gt;Native: SharedPreferences.getString('user_nim', null)
+  Native--&gt;&gt;Bridge: Kembalikan String '041234567'
+  Bridge--&gt;&gt;Vue: Objek { value: '041234567' }
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_07_capacitor_preferences_kv.html"><code>slide_07_capacitor_preferences_kv.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 08: Serialisasi Array Objek: <code>JSON.stringify()</code> &amp; <code>JSON.parse()</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengelola struktur data koleksi kompleks pada media penyimpanan berbasis teks.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, DevTools (<code>F12</code> $\rightarrow$ Tab Application $\rightarrow$ Local Storage &amp; Tab Console).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Media penyimpanan lokal di ponsel pintar hanya dapat menerima data berjenis teks (<em>string</em>). Jika Anda memaksakan untuk menyimpan array objek daftar sesi belajar mahasiswa secara langsung, data Anda akan rusak menjadi teks hampa <code>[object Object]</code>! Solusi mutlaknya adalah proses serialisasi: panggil <code>JSON.stringify()</code> saat hendak menyimpan data ke storage, dan panggil <code>JSON.parse()</code> saat membaca kembali string tersebut menjadi array objek JavaScript. Selalu bungkus proses pembacaan dalam blok try-catch agar aplikasi Anda tidak mogok jika berkas storage mengalami kerusakan!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Serialisasi Data: Mengubah Array/Objek JavaScript menjadi Teks String JSON (<code>JSON.stringify</code>).</li>
+<li>Deserialisasi Data: Mengurai Teks String JSON kembali menjadi Struktur Objek Asli (<code>JSON.parse</code>).</li>
+<li>Jebakan <code>[object Object]</code>: Terjadi jika objek mentah disimpan tanpa proses stringify terlebih dahulu.</li>
+<li>Defensive Coding: Nilai fallback default array kosong <code>[]</code> jika storage masih bernilai <code>null</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  subgraph Simpan [&quot;Proses Penyimpanan (Save)&quot;]
+    Obj1[&quot;Array Objek JavaScript:&lt;br&gt;[ { modul: 'Modul 8', jam: 2 } ]&quot;] --&gt;|JSON.stringify| Str1[&quot;String JSON Murni:&lt;br&gt;'[{\&quot;modul\&quot;:\&quot;Modul 8\&quot;,\&quot;jam\&quot;:2}]'&quot;]
+    Str1 --&gt;|localStorage.setItem| Storage1[(&quot;Local Storage&lt;br&gt;(Format Teks)&quot;)]
+  end
+
+  subgraph Baca [&quot;Proses Pembacaan (Load)&quot;]
+    Storage2[(&quot;Local Storage&lt;br&gt;(Format Teks)&quot;)] --&gt;|localStorage.getItem| Str2[&quot;String JSON Murni&quot;]
+    Str2 --&gt;|JSON.parse| Obj2[&quot;Array Objek JavaScript Aktif&lt;br&gt;(Dapat di-loop dengan v-for)&quot;]
+  end
+
+  style Simpan fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+  style Baca fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_08_serialisasi_objek_json_storage.html"><code>slide_08_serialisasi_objek_json_storage.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 09: Arsitektur Offline-First &amp; Strategi Caching</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Merancang arsitektur aplikasi tangguh offline dengan strategi Cache-First dan Network-First.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, DevTools (<code>F12</code> $\rightarrow$ Tab Network $\rightarrow$ Dropdown Throttling $\rightarrow$ Pilih Offline).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Banyak rekan mahasiswa Universitas Terbuka yang belajar di daerah pelosok dengan sinyal internet seluler yang sering terputus. Aplikasi mobile modern tidak boleh menyerah dan menampilkan dinosaurus offline! Terapkan prinsip Offline-First: simpan salinan respon server terakhir ke penyimpanan lokal. Ketika mahasiswa membuka aplikasi di tengah hutan tanpa koneksi internet, aplikasi tetap menyajikan data cache lokal secara instan disertai label ramah 'Mode Offline Aktif'. Ada dua strategi caching utama: Network-First (coba ambil dari server dulu, jika gagal baru beralih ke cache) dan Cache-First (tampilkan data lokal seketika 0 ms, lalu perbarui data dari server di latar belakang).&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Filosofi Offline-First: Memperlakukan ketiadaan koneksi internet sebagai kondisi normal, bukan kesalahan fatal.</li>
+<li>Strategi Network-First: Prioritas data teranyar; beralih ke cache lokal jika terjadi galat jaringan (<em>timeout</em>).</li>
+<li>Strategi Cache-First (Stale-While-Revalidate): Tampilan kilat seketika (<em>instant perceived performance</em>).</li>
+<li>Notifikasi Visual Transparan: Menampilkan pita status ramah pengguna saat data disajikan dari memori cache.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  Start[&quot;Pengguna Buka Aplikasi Belajar&quot;] --&gt; ModeCheck{Pilih Strategi Arsitektur}
+  
+  ModeCheck --&gt;|Network-First| N1[&quot;Coba Hubungi Server Cloud via fetch()&quot;]
+  N1 --&gt;|Sukses| N2[&quot;Perbarui Cache Lokal &amp; Tampilkan Data Terkini&quot;]
+  N1 --&gt;|Gagal / Offline| N3[&quot;Ambil Salinan Terakhir dari LocalStorage&lt;br&gt;Tampilkan Banner: 'Menampilkan Data Offline'&quot;]
+  
+  ModeCheck --&gt;|Cache-First| C1[&quot;Baca Data dari LocalStorage Seketika (0 ms)&quot;]
+  C1 --&gt; C2[&quot;Tampilkan Antarmuka ke Mahasiswa&quot;]
+  C2 --&gt; C3[&quot;Request Update ke Server di Latar Belakang&lt;br&gt;(Perbarui Cache Secara Hening)&quot;]
+
+  style Start fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+  style N1 fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style N2 fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+  style N3 fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+  style C1 fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+  style C3 fill:#ede9fe,stroke:#7c3aed,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_09_arsitektur_offline_first_caching.html"><code>slide_09_arsitektur_offline_first_caching.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 10: Integrasi Sensor GPS dengan <code>@capacitor/geolocation</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengakses koordinat presisi lintang dan bujur menggunakan plugin resmi Geolocation.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (Izinkan Izin Lokasi di Peramban), DevTools (<code>F12</code>), Smartphone Pribadi.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Saatnya kita menghubungkan kode program dengan sensor perangkat keras smartphone! Plugin resmi <code>@capacitor/geolocation</code> memberikan akses langsung ke sistem penentu posisi global (GPS). Cukup dengan satu baris instruksi: <code>await Geolocation.getCurrentPosition({ enableHighAccuracy: true })</code>, aplikasi kita akan menerima data koordinat lintang (<em>latitude</em>), bujur (<em>longitude</em>), dan radius akurasi dalam meter. Di modul kode mandiri ini, kami juga telah menyiapkan mekanisme fallback berbasis peramban desktop sehingga Anda dapat langsung mencobanya di laptop tanpa kendala!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Akses Sensor Satelit: Mengambil koordinat geospasial lintang (<em>lat</em>) dan bujur (<em>lng</em>).</li>
+<li>Opsi <code>enableHighAccuracy: true</code>: Mengaktifkan antena GPS fisik untuk presisi maksimal (toleransi &lt; 15 meter).</li>
+<li>Siklus Izin Lokasi: Meminta izin <em>ACCESS_FINE_LOCATION</em> secara aman sesuai kaidah privasi modern.</li>
+<li>Tautan Peta Terbuka: Membuka koordinat langsung ke aplikasi Google Maps atau OpenStreetMap.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">sequenceDiagram
+  autonumber
+  actor Mahasiswa as Mahasiswa UT
+  participant App as Mobile Web App (Vue 3)
+  participant Bridge as Capacitor Geolocation Plugin
+  participant GPS as Hardware Antena GPS Smartphone
+
+  Mahasiswa-&gt;&gt;App: Klik &quot;Ambil Koordinat Presensi&quot;
+  App-&gt;&gt;Bridge: Geolocation.getCurrentPosition({ enableHighAccuracy: true })
+  Bridge-&gt;&gt;GPS: Minta Sinyal Satelit Geospasial
+  GPS--&gt;&gt;Bridge: Lintang (-6.2146), Bujur (106.8451), Akurasi (8 meter)
+  Bridge--&gt;&gt;App: Objek Posisi Lengkap (Coordinates)
+  App--&gt;&gt;Mahasiswa: Tampilkan Titik Koordinat &amp; Tombol Peta
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_10_plugin_geolocation_koordinat.html"><code>slide_10_plugin_geolocation_koordinat.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 11: Validasi Presensi Geofencing via Rumus Haversine</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menerapkan formula matematis Haversine untuk memvalidasi radius jarak presensi ujian/tatap muka.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, DevTools (<code>F12</code> $\rightarrow$ Tab Console untuk inspeksi variabel kalkulasi), VS Code.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Bagaimana cara memastikan bahwa mahasiswa benar-benar hadir belajar di gedung kampus UT daerah dan tidak menitip absen dari tempat tidur di rumah? Kita menerapkan teknologi Geofencing! Karena bumi berbentuk bulat, jarak antara titik koordinat GPS mahasiswa dan gedung kampus UT dihitung menggunakan Rumus Matematika Haversine. Jika jarak yang dihitung berada di dalam radius toleransi—misalnya maksimal 500 meter—maka tombol presensi menjadi hijau dan disetujui. Namun jika berada di luar radius, presensi akan ditolak dengan penjelasan jarak yang akurat. Inilah perpaduan hebat antara matematika dan rekayasa perangkat lunak!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Konsep Lingkaran Besar (<em>Great-Circle Distance</em>) pada Permukaan Bola Bumi ($R \approx 6.371\text{ km}$).</li>
+<li>Algoritma Haversine: Mengonversi selisih sudut lintang/bujur dari derajat ke radian menggunakan fungsi sinus dan kosinus.</li>
+<li>Penegakan Radius Kampus (<em>Geofence Radius</em>): Membatasi presensi hanya jika jarak $\le 500\text{ meter}$.</li>
+<li>Penerapan Nyata: Sistem absensi tutorial tatap muka (TTM) dan ujian tatap muka terpercaya.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  P1[&quot;Koordinat GPS Mahasiswa&lt;br&gt;(lat1, lon1)&quot;] --&gt; Hav[&quot;Algoritma Haversine Formula:&lt;br&gt;Δlat, Δlon dlm Radian $\rightarrow$ a = sin²(Δlat/2) + ...&quot;]
+  P2[&quot;Koordinat Gedung UT Daerah&lt;br&gt;(lat2, lon2)&quot;] --&gt; Hav
+  Hav --&gt; Dist[&quot;Hasil Jarak Fisik: d (Meter)&quot;]
+  Dist --&gt; Check{&quot;Apakah Jarak d $\le$ Radius Batas?&lt;br&gt;(Contoh: $\le$ 500 Meter)&quot;}
+  Check -- Ya --&gt; Valid[&quot;✅ Presensi Disetujui!&lt;br&gt;Status: Hadir di Kampus UT Daerah&quot;]
+  Check -- Tidak --&gt; Invalid[&quot;❌ Presensi Ditolak!&lt;br&gt;Status: Anda Terlalu Jauh (d meter dari Kampus)&quot;]
+
+  style P1 fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+  style P2 fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style Hav fill:#ede9fe,stroke:#7c3aed,stroke-width:2px
+  style Valid fill:#dcfce7,stroke:#16a34a,stroke-width:3px
+  style Invalid fill:#fee2e2,stroke:#dc2626,stroke-width:3px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_11_geofencing_validasi_lokasi_ut.html"><code>slide_11_geofencing_validasi_lokasi_ut.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 12: Integrasi Kamera Perangkat dengan <code>@capacitor/camera</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menangkap foto bukti kegiatan belajar mandiri menggunakan antarmuka asinkron Capacitor Camera.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (Kamera Laptop / File Picker), Smartphone Android/iOS (Kamera Fisik Asli).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Bukti fisik kegiatan belajar mandiri mahasiswa UT dapat divalidasi melalui foto modul BMP atau swafoto saat sesi belajar berlangsung. Menggunakan plugin <code>@capacitor/camera</code>, memicu kamera semudah memanggil fungsi <code>Camera.getPhoto()</code>. Anda dapat memilih format keluaran <code>DataUrl</code> (string teks berformat Base64) yang sangat praktis karena dapat disimpan langsung ke LocalStorage atau dikirim via JSON REST API. Di berkas kode mandiri kita, tersedia pula tombol pemilih berkas gambar (<em>file picker</em>) sebagai cadangan jika laptop Anda tidak dilengkapi webcam!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Opsi Format Foto: <code>CameraResultType.DataUrl</code> (Base64 Teks) vs <code>CameraResultType.Uri</code> (Path Berkas Lokal).</li>
+<li>Optimasi Kompresi: Mengatur parameter <code>quality: 80</code> untuk mencegah ukuran string membengkak.</li>
+<li>Sumber Masukan Fleksibel: Mendukung pemotretan kamera langsung (<code>CameraSource.Camera</code>) maupun galeri foto.</li>
+<li>Memenuhi Kriteria 3 Tugas Tutorial 3 (Bobot Maksimal 25 Poin).</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">sequenceDiagram
+  autonumber
+  actor Mahasiswa as Mahasiswa UT
+  participant App as Antarmuka Mobile (Vue 3)
+  participant CameraPlugin as Capacitor Camera Plugin
+  participant Sensor as Sensor Hardware Kamera Ponsel
+
+  Mahasiswa-&gt;&gt;App: Klik &quot;Ambil Foto Modul BMP&quot;
+  App-&gt;&gt;CameraPlugin: Camera.getPhoto({ quality: 80, resultType: DataUrl })
+  CameraPlugin-&gt;&gt;Sensor: Nyalakan Modul Kamera Native
+  Mahasiswa-&gt;&gt;Sensor: Bidik &amp; Jepret Foto Modul
+  Sensor--&gt;&gt;CameraPlugin: Biner Raw Gambar
+  CameraPlugin--&gt;&gt;App: String Base64 ('data:image/jpeg;base64,...')
+  App--&gt;&gt;Mahasiswa: Tampilkan Thumbnail Foto Bukti Belajar
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_12_plugin_camera_capture_photo.html"><code>slide_12_plugin_camera_capture_photo.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 13: Deteksi Status Jaringan dengan <code>@capacitor/network</code></h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memasang pemantau (listener) status konektivitas internet untuk sinkronisasi otomatis.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, DevTools (<code>F12</code> $\rightarrow$ Network Throttling: Online/Offline), Laptop WiFi Toggle.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Aplikasi mobile yang cerdas harus peka terhadap status koneksi internetnya. Menggunakan plugin <code>@capacitor/network</code>, kita dapat memasang pemantau acara (<em>event listener</em>) <code>networkStatusChange</code>. Begitu ponsel mendeteksi sinyal internet kembali aktif setelah sebelumnya offline, aplikasi secara otomatis menampilkan banner hijau 'Koneksi Pulih' dan mengeksekusi antrean sinkronisasi (<em>offline sync queue</em>) untuk mengunggah catatan belajar yang tertunda ke server cloud UT. Ini adalah pengalaman pengguna tingkat tinggi (<em>seamless synchronization</em>)!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Properti Status: <code>connected</code> (boolean) dan <code>connectionType</code> (wifi, cellular, none, unknown).</li>
+<li>Event Listener Real-Time: <code>Network.addListener('networkStatusChange', status =&gt; { ... })</code>.</li>
+<li>Konsep Antrean Sinkronisasi (<em>Sync Queue</em>): Menampung operasi simpan saat offline dan mengunggahnya saat online.</li>
+<li>Umpan Balik Antarmuka: Mengubah warna bilah status secara responsif sesuai kondisi internet.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">stateDiagram-v2
+  [*] --&gt; OnlineState: Aplikasi Dijalankan (Ada Sinyal)
+  OnlineState --&gt; OfflineState: Sinyal Terputus / Mode Pesawat
+  note right of OfflineState
+    - Tampilkan Banner Merah: Mode Offline
+    - Alihkan Operasi Simpan ke Antrean Antrian Lokal
+  end note
+  OfflineState --&gt; OnlineState: Sinyal Internet Kembali Aktif
+  note right of OnlineState
+    - Tampilkan Banner Hijau: Koneksi Pulih
+    - Unggah Antrean Sinkronisasi ke Server Cloud UT
+  end note
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_13_plugin_network_status_detection.html"><code>slide_13_plugin_network_status_detection.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 14: Arsitektur Bersih: Pemisahan Logika via Service Layer</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menerapkan Service Pattern untuk memisahkan urusan UI dengan logika akses data REST dan Storage.</li>
+<li><strong>Alat yang Digunakan:</strong> Visual Studio Code, Google Chrome, DevTools (<code>F12</code> $\rightarrow$ Console).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Jangan pernah menumpuk kode pemanggilan REST API, kueri storage, dan kalkulasi data di dalam berkas template komponen Vue Anda! Praktik tersebut membuat kode Anda menjadi 'spaghetti' kusut yang sangat sulit diuji dan dirawat. Terapkan prinsip Separation of Concerns dengan membuat lapisan berkas layanan khusus, misalnya <code>studyTrackerService.ts</code>. Komponen antarmuka Anda cukup memanggil <code>StudyTrackerService.getAll()</code> atau <code>save()</code>. Jika suatu saat endpoint server cloud UT berubah, Anda hanya perlu memperbaiki satu berkas layanan saja tanpa menyentuh tampilan antarmuka!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Prinsip <em>Separation of Concerns</em> (Pemisahan Tanggung Jawab): UI fokus pada tampilan, Service fokus pada logika data.</li>
+<li>Pola Service Layer (<code>studyTrackerService.ts</code>): Menyediakan antarmuka fungsi bersih yang dapat digunakan kembali (<em>reusable</em>).</li>
+<li>Kemudahan Pemeliharaan (<em>Maintainability</em>): Perubahan struktur API atau storage tidak merusak desain template.</li>
+<li>Memenuhi Kriteria 4 Tugas Tutorial 3 (Bobot Maksimal 20 Poin).</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  subgraph Tampilan [&quot;1. Lapisan Antarmuka (View)&quot;]
+    VueComp[&quot;Komponen Vue 3 SFC&lt;br&gt;(Kartu, Tombol, Form Input)&quot;]
+  end
+
+  subgraph Layanan [&quot;2. Lapisan Layanan (Service Layer)&quot;]
+    ServiceClass[&quot;StudyTrackerService.ts&lt;br&gt;(getAll, save, remove, getCampusWeather)&quot;]
+  end
+
+  subgraph SumberData [&quot;3. Sumber Data (Data Sources)&quot;]
+    CloudAPI[&quot;Server Cloud REST API&lt;br&gt;(Open-Meteo)&quot;]
+    LocalStorage[&quot;Penyimpanan Fisik Lokal&lt;br&gt;(LocalStorage / Preferences)&quot;]
+  end
+
+  VueComp &lt;--&gt;|Panggil Fungsi Bersih| ServiceClass
+  ServiceClass &lt;--&gt;|HTTP Asinkron| CloudAPI
+  ServiceClass &lt;--&gt;|CRUD Key-Value| LocalStorage
+
+  style Tampilan fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+  style Layanan fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style SumberData fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_14_clean_architecture_service_pattern.html"><code>slide_14_clean_architecture_service_pattern.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 15: Keamanan API: Manajemen Token JWT &amp; Header Authorization</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengamankan transaksi data private mahasiswa menggunakan JSON Web Token (JWT) dan Header Bearer.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, DevTools (<code>F12</code> $\rightarrow$ Tab Network $\rightarrow$ Request Headers &amp; Tab Console).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Saat mengakses data sensitif seperti riwayat nilai tugas atau presensi pribadi, server kampus membutuhkan bukti keabsahan identitas Anda. Server menerbitkan tiket digital terenkripsi bernama JSON Web Token (JWT). Token ini disimpan secara aman di memori lokal dan dilampirkan pada setiap permintaan HTTP melalui header standar <code>Authorization: Bearer &lt;token&gt;</code>. Waspadai aturan krusial keamanan web ini: bagian payload JWT hanya di-encode dalam Base64 dan sangat mudah dibaca siapa saja, jadi jangan pernah menyimpan kata sandi (<em>plaintext password</em>) di dalamnya!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>3 Struktur Anatomi JWT: Header (Algoritma), Payload (Klaim Identitas &amp; Masa Berlaku), Signature (Tanda Tangan Kriptografi).</li>
+<li>Format Header Standar: <code>headers: { 'Authorization': 'Bearer ' + token }</code>.</li>
+<li>Penanganan Galat 401 Unauthorized: Menghapus token kedaluwarsa dan mengarahkan pengguna kembali ke halaman login.</li>
+<li>Prinsip <em>Least Privilege</em>: Hanya menyimpan informasi identitas minimal (<em>user_id</em>, <em>role</em>) di dalam payload token.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  subgraph StrukturJWT [&quot;Anatomi JSON Web Token (JWT)&quot;]
+    H[&quot;1. Header (Merah)&lt;br&gt;{ alg: 'HS256', typ: 'JWT' }&quot;]
+    P[&quot;2. Payload (Ungu)&lt;br&gt;{ nim: '041234567', role: 'mahasiswa', exp: 1735689600 }&quot;]
+    S[&quot;3. Signature (Biru)&lt;br&gt;HMACSHA256(Header + Payload, SecretKey)&quot;]
+  end
+
+  subgraph Transaksi [&quot;Alur Permintaan Berotentikasi&quot;]
+    Client[&quot;Klien Mobile (fetch)&quot;] --&gt;|Kirim Header Authorization:&lt;br&gt;Bearer eyJhbGciOiJIUzI1Ni...| Server[&quot;Server API Kampus UT&quot;]
+    Server --&gt;|Verifikasi Validitas Signature| Check{Token Sah?}
+    Check -- Sah --&gt; Res200[&quot;200 OK: Data Nilai &amp; Presensi Terkirim&quot;]
+    Check -- Kedaluwarsa --&gt; Res401[&quot;401 Unauthorized: Sesi Habis, Silakan Login Ulang&quot;]
+  end
+
+  style H fill:#fee2e2,stroke:#dc2626,stroke-width:1.5px
+  style P fill:#ede9fe,stroke:#7c3aed,stroke-width:1.5px
+  style S fill:#e0f2fe,stroke:#0284c7,stroke-width:1.5px
+  style Transaksi fill:#f8fafc,stroke:#475569,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_15_keamanan_token_jwt_dan_interceptor.html"><code>slide_15_keamanan_token_jwt_dan_interceptor.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 16: Pedoman &amp; Rubrik Penilaian Resmi TUGAS TUTORIAL 3 (Skala 0–100)</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Membedah 4 kriteria evaluasi praktikum Tugas Tutorial 3 untuk meraih skor maksimal 100.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (membuka kalkulator rubrik interaktif), Visual Studio Code, Markdown Viewer.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Sebelum mulai menulis baris kode tugas, mari kita bedah bersama rubrik evaluasi resmi Tugas Tutorial 3 yang berbobot 20% nilai Tuton. Ada 4 pilar penilaian yang wajib Anda penuhi: Kriteria 1 berbobot 30 poin untuk konsumsi REST API asinkron dengan loading indicator; Kriteria 2 berbobot 25 poin untuk operasi CRUD penyimpanan offline persisten; Kriteria 3 berbobot 25 poin untuk integrasi sensor fisik (GPS atau Kamera); dan Kriteria 4 berbobot 20 poin untuk kebersihan arsitektur kode serta video demo YouTube yang komunikatif. Kami telah menyediakan kalkulator simulator interaktif di berkas HTML pendamping agar Anda dapat mengaudit skor Anda sendiri secara mandiri!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li><strong>Kriteria 1 (30 Poin):</strong> Integrasi Live REST API Asinkron (<code>fetch()</code>, <code>async/await</code>, Spinner/Skeleton, Penanganan Galat Jaringan).</li>
+<li><strong>Kriteria 2 (25 Poin):</strong> Offline Storage Persisten (CRUD Catatan Belajar, <code>JSON.stringify</code>, <code>JSON.parse</code>, Data Bertahan Saat Refresh).</li>
+<li><strong>Kriteria 3 (25 Poin):</strong> Akses Sensor Perangkat Keras (Geolocation GPS Radius Kampus atau Camera Pemotret Bukti Belajar).</li>
+<li><strong>Kriteria 4 (20 Poin):</strong> Kerapian Arsitektur, Desain Mobile Responsif, Laporan PDF Lengkap, dan Video Demo YouTube (Unlisted).</li>
+<li><strong>Total Evaluasi:</strong> 100 Poin (Bobot 20% terhadap Nilai Akhir Mata Kuliah).</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">pie title Distribusi Bobot TUGAS TUTORIAL 3 (Total: 100 Poin)
+  &quot;Kriteria 1: Live REST API Asinkron&quot; : 30
+  &quot;Kriteria 2: Offline Storage Persisten&quot; : 25
+  &quot;Kriteria 3: Sensor Hardware (GPS / Kamera)&quot; : 25
+  &quot;Kriteria 4: Arsitektur, Laporan &amp; Video&quot; : 20
+</code></pre>
+<ul>
+<li><strong>Tautan Berkas Pendamping:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.html">🌐 <strong>Kalkulator Skor &amp; Simulator Rubrik Interaktif:</strong> <code>slide_16_rubrik_tugas_tutorial_3.html</code></a><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.md">📄 <strong>Buku Saku Panduan Rubrik Teks Lengkap:</strong> <code>slide_16_rubrik_tugas_tutorial_3.md</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 17: Master Solusi Resmi Tugas Tutorial 3: UT Study Tracker &amp; Presensi Belajar</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menelaah dan menguji arsitektur aplikasi mobile lengkap yang mengintegrasikan REST API, Storage, GPS, dan Kamera.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, DevTools (<code>F12</code>), Mode Ponsel (<code>Ctrl + Shift + M</code>), Koneksi Internet Aktif.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Inilah mahakarya penutup praktikum kita: Master Solusi Resmi Tugas Tutorial 3 bernama 'UT Study Tracker &amp; Presensi Belajar Mobile'. Aplikasi ini menyatukan seluruh pilar yang telah kita pelajari: memuat prakiraan cuaca kampus terkini via live REST API Open-Meteo, mengunci titik koordinat GPS mahasiswa dan memvalidasi jaraknya ke gedung kampus UT daerah, melampirkan foto bukti fisik modul BMP belajar, menghitung total jam belajar secara dinamis, serta menyimpan seluruh riwayat secara permanen di storage lokal sehingga tidak hilang saat peramban direfresh. Berkas ini adalah rujukan nyata peraih skor 100 yang siap Anda pelajari dan modifikasi!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Integrasi Penuh 4 Pilar dalam Satu Antarmuka Terpadu (<em>Unified Dashboard</em>).</li>
+<li>Dasbor Statistik Real-Time: Total Jam Belajar, Jumlah Modul Dituntaskan, dan Status Presensi Lokasi.</li>
+<li>Operasi CRUD Lengkap: Tambah catatan belajar baru, lihat riwayat, filter kategori modul, dan hapus data.</li>
+<li>Arsitektur Tangguh: Data tersimpan persisten di LocalStorage dengan format serialisasi JSON yang rapi.</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart TD
+  App[&quot;📱 Dasbor UT Study Tracker &amp; Presensi Belajar&quot;]
+  
+  App --&gt; P1[&quot;1. Kartu Cuaca Kampus&lt;br&gt;(Live Open-Meteo REST API)&quot;]
+  App --&gt; P2[&quot;2. Form Presensi Mandiri&lt;br&gt;(Sensor GPS + Radius Haversine)&quot;]
+  App --&gt; P3[&quot;3. Form Catatan Belajar&lt;br&gt;(Input Modul + Jam + Lampirkan Foto Kamera)&quot;]
+  App --&gt; P4[&quot;4. Ringkasan Statistik&lt;br&gt;(Kalkulasi Otomatis Total Jam Belajar)&quot;]
+  App --&gt; P5[&quot;5. Riwayat Belajar Persisten&lt;br&gt;(Daftar Kartu CRUD via LocalStorage)&quot;]
+
+  style App fill:#ffe600,stroke:#000,stroke-width:3px
+  style P1 fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+  style P2 fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style P3 fill:#ede9fe,stroke:#7c3aed,stroke-width:2px
+  style P4 fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+  style P5 fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html"><code>slide_17_solusi_tugas_3_study_tracker.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 18: Jembatan Menuju Sesi 08: Rilis APK Stand-alone &amp; Sukses UAS</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengantisipasi finalisasi rilis paket APK produksi mandiri, pembuatan keystore digital, dan persiapan UAS.</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome, Visual Studio Code, Android Studio, Smartphone Android Pribadi.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Selamat atas pencapaian luar biasa rekan-rekan mahasiswa Fakultas Sains dan Teknologi Universitas Terbuka! Anda telah menaklukkan seluruh materi teknis pengembangan aplikasi mobile modern dengan hasil yang sangat membanggakan. Di Sesi 08 pekan depan—sesi pamungkas perkuliahan kita—kita akan melangkah ke tahap puncak: membuat Digital Keystore mandiri, menandatangani kode (<em>code signing</em>), dan mengompilasi APK Release mandiri yang dapat langsung dibagikan lewat WhatsApp dan diinstal di ponsel siapa pun tanpa memerlukan kabel atau komputer! Tidak hanya itu, kami juga telah menyiapkan pembahasan akbar 50 Bank Soal UAS STSI4303 untuk mengantar Anda meraih nilai A mutlak. Sampai jumpa di Sesi 08 penutup!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Agenda Sesi 08: Pembuatan Keystore Digital, Build APK Release Standalone, Minifikasi ProGuard/R8.</li>
+<li>Pembahasan Akbar: 50 Bank Soal Komprehensif Ujian Akhir Semester (UAS STSI4303 / MSIM4401).</li>
+<li>Pengecekan Akhir Portofolio: Memastikan Tugas Tutorial 1, 2, dan 3 telah terunggah sempurna di LMS Tuton UT.</li>
+<li>Transformasi Mahasiswa: Siap menjadi Pengembang Aplikasi Mobile Hybrid Profesional!</li>
+</ul>
+</li>
+<li><strong>Diagram Konsep:</strong></li>
+</ul>
+<pre><code class="language-mermaid">flowchart LR
+  S7[&quot;Sesi 07 (Hari Ini)&lt;br&gt;REST API, Storage &amp; Tugas 3&quot;] --&gt; S8[&quot;Sesi 08 (Pekan Depan)&lt;br&gt;Build APK Release Mandiri&quot;]
+  S8 --&gt; UAS[&quot;Pembahasan 50 Bank Soal UAS&lt;br&gt;(Kisi-kisi Resmi STSI4303)&quot;]
+  UAS --&gt; Portofolio[&quot;Portofolio APK Profesional &amp; Nilai A Mutlak!&quot;]
+
+  style S7 fill:#fef9c3,stroke:#b45309,stroke-width:2px
+  style S8 fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+  style UAS fill:#ede9fe,stroke:#7c3aed,stroke-width:2px
+  style Portofolio fill:#dcfce7,stroke:#16a34a,stroke-width:3px
+</code></pre>
+<ul>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_18_preview_sesi_08_build_apk_uas.html"><code>slide_18_preview_sesi_08_build_apk_uas.html</code></a></li>
+</ul>
+<hr />
+<h2>📚 Daftar Pustaka &amp; Standar Mutu Akademik</h2>
+<ol>
+<li><strong>Capacitor Core Engineering Team.</strong> (2024). <em>Capacitor Plugins API Documentation: Preferences, Geolocation, Camera, and Network Integration</em>. https://capacitorjs.com/docs/apis</li>
+<li><strong>MDN Web Docs Community.</strong> (2024). <em>Fetch API Specification, Using Fetch, &amp; Promises / async-await asynchronous programming in JavaScript</em>. Mozilla Developer Network. https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API</li>
+<li><strong>Open-Meteo Weather Forecast API.</strong> (2024). <em>Open-Source Free Weather API Documentation (No API Key Required)</em>. https://open-meteo.com/en/docs</li>
+<li><strong>Internet Engineering Task Force (IETF).</strong> (2015). <em>RFC 7519: JSON Web Token (JWT) Architecture and Security Claims</em>. https://datatracker.ietf.org/doc/html/rfc7519</li>
+<li><strong>Sinnott, R. W.</strong> (1984). <em>Virtues of the Haversine</em>. Sky and Telescope, 68(2), 159. (Formula for calculating great-circle distances between pairs of coordinates on a sphere).</li>
+<li><strong>W3C Geolocation Working Group.</strong> (2022). <em>Geolocation API Specification (Recommendation)</em>. World Wide Web Consortium. https://www.w3.org/TR/geolocation/</li>
+<li><strong>Prafanto, A.</strong> (2025). <em>Buku Materi Pokok (BMP) Pemrograman Berbasis Perangkat Bergerak (MSIM4401 / STSI4303)</em>. Modul 8: Akses Web Service &amp; REST API; Modul 9: Penyimpanan Data &amp; Akses Sensor Perangkat Bergerak. Tangerang Selatan: Penerbit Universitas Terbuka.</li>
+<li><strong>Tim Pengembang Kurikulum FST UT.</strong> (2025). <em>Rancangan Aktivitas Tutorial (RAT) dan Satuan Acara Tutorial (SAT) STSI4303</em>. Tangerang Selatan: Universitas Terbuka.</li>
+</ol>
+
+
+      <footer class="doc-footer">
+        <div>
+          <span>Hak Cipta &copy; 2026 Universitas Terbuka</span> • 
+          <span>The Zero-Friction Courseware Framework</span>
+        </div>
+        <div>
+          <a href="../index.html" style="font-size: 12px; color: var(--ut-blue);">Kembali ke Katalog Utama ↗</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Konversi blok diagram mermaid
+      document.querySelectorAll('pre code.language-mermaid').forEach(el => {
+        const pre = el.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        pre.replaceWith(div);
+      });
+
+      // Bungkus seluruh tabel dengan wrapper responsive
+      document.querySelectorAll('.doc-content table').forEach(tbl => {
+        if (!tbl.parentElement.classList.contains('table-responsive')) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'table-responsive';
+          tbl.parentElement.insertBefore(wrapper, tbl);
+          wrapper.appendChild(tbl);
+        }
+      });
+
+      // Inisialisasi mermaid jika pustaka tersedia
+      if (window.mermaid) {
+        mermaid.initialize({ 
+          startOnLoad: true, 
+          theme: 'neutral',
+          securityLevel: 'loose'
+        });
+      }
+    });
+  </script>
+</body>
+</html>

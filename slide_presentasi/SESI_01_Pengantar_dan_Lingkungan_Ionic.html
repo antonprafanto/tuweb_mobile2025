@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naskah Narasi Dosen — Sesi 01: Pengenalan Lingkungan & Arsitektur Hybrid — Universitas Terbuka</title>
+  <meta name="description" content="Naskah narasi pengajaran dosen dan panduan instruksional Sesi 01 mata kuliah STSI4303 Universitas Terbuka.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Mermaid.js untuk Diagram Arsitektur -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --ut-navy: #003366;
+      --ut-blue: #005691;
+      --ut-blue-light: #EBF3FA;
+      --ut-gold: #C28E00;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      position: static !important;
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100% !important;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Breadcrumb & Navbar */
+    .top-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-nav-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ut-blue);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .breadcrumb:hover {
+      color: var(--ut-navy);
+      text-decoration: underline;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--slate-200);
+      background: #FFFFFF;
+      color: var(--slate-700);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+    }
+
+    .action-btn.primary {
+      background: var(--ut-blue);
+      color: #FFFFFF;
+      border-color: var(--ut-blue);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--ut-navy);
+      border-color: var(--ut-navy);
+    }
+
+    /* Main Container */
+    .doc-container {
+      max-width: 1060px;
+      margin: 32px auto 60px;
+      padding: 0 20px;
+    }
+
+    /* Academic Header Card */
+    .doc-header {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ut-navy) 0%, var(--ut-blue) 60%, var(--ut-gold) 100%);
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--ut-blue);
+      background: var(--ut-blue-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+
+    .doc-subtitle {
+      font-size: 14px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* Document Body & Typography */
+    .doc-content {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 768px) {
+      .doc-content { padding: 24px 20px; }
+      .doc-header { padding: 24px 20px; }
+      .doc-title { font-size: 22px; }
+    }
+
+    .doc-content h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-top: 28px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 32px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .doc-content h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    .doc-content p {
+      margin-bottom: 16px;
+      color: var(--slate-700);
+    }
+
+    .doc-content ul, .doc-content ol {
+      margin-bottom: 18px;
+      padding-left: 24px;
+    }
+
+    .doc-content li {
+      margin-bottom: 6px;
+      color: var(--slate-700);
+    }
+
+    .doc-content hr {
+      border: none;
+      height: 1px;
+      background: var(--slate-200);
+      margin: 32px 0;
+    }
+
+    /* Links */
+    .doc-content a {
+      color: var(--ut-blue);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #93C5FD;
+      transition: all 0.15s ease;
+    }
+
+    .doc-content a:hover {
+      color: var(--ut-navy);
+      border-bottom-style: solid;
+      background: var(--ut-blue-light);
+    }
+
+    /* GitHub Alert Callouts */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-left: 4px solid;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .alert-important {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+
+    .alert-note {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1E40AF;
+    }
+
+    .alert-tip {
+      background: #ECFDF5;
+      border-color: #10B981;
+      color: #065F46;
+    }
+
+    .alert-warning {
+      background: #FFFBEB;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+
+    /* Beautiful Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    .doc-content th {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--slate-200);
+      letter-spacing: 0.2px;
+    }
+
+    .doc-content td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: top;
+    }
+
+    .doc-content tr:last-child td {
+      border-bottom: none;
+    }
+
+    .doc-content tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+
+    .doc-content tr:hover td {
+      background: #F1F5F9;
+    }
+
+    /* Code Blocks */
+    .doc-content pre {
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 20px 0;
+      border: 1px solid var(--slate-700);
+    }
+
+    .doc-content code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--slate-100);
+      color: var(--slate-900);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .doc-content pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    /* Mermaid Diagrams */
+    .mermaid {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--slate-400);
+    }
+
+    @media print {
+      .top-nav, .action-btn { display: none !important; }
+      body { background: #FFF; }
+      .doc-header, .doc-content { border: none; box-shadow: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP STICKY NAVIGATION -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../index.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Kembali ke Portal Perkuliahan
+      </a>
+
+      <div class="nav-actions">
+        <button class="action-btn" onclick="window.print()" title="Cetak halaman atau simpan sebagai PDF">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Cetak / PDF
+        </button>
+        <a href="SESI_01_Pengantar_dan_Lingkungan_Ionic.md" target="_blank" class="action-btn" title="Buka berkas sumber Markdown asli">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Naskah Markdown (.md)
+        </a>
+        <a href="https://github.com/antonprafanto/tuweb_mobile2025" target="_blank" class="action-btn" title="Buka repositori GitHub">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="doc-container">
+    <!-- HEADER -->
+    <header class="doc-header">
+      <span class="doc-badge">Naskah Narasi Sesi 01</span>
+      <h1 class="doc-title">NASKAH & SLIDE SESI 01: PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK</h1>
+      <p class="doc-subtitle">
+        Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</strong><br>
+        Fakultas Sains dan Teknologi, Universitas Terbuka • Dosen Pengampu: <strong>Anton Prafanto, S.Kom., M.T.</strong>
+      </p>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="doc-content">
+      <h1>📱 NASKAH &amp; SLIDE SESI 01: PENGENALAN LINGKUNGAN PENGEMBANGAN PIRANTI BERGERAK</h1>
+<h2>Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</h2>
+<h3>Program Studi: S1 Sistem Informasi &amp; S1 Informatika — Fakultas Sains dan Teknologi (FST) Universitas Terbuka</h3>
+<h3>Dosen Pengampu: Anton Prafanto, S.Kom., M.T.</h3>
+<h3>Modul Acuan BMP: Modul 1 (MSIM4401/STSI4303) — Pengenalan Lingkungan Pengembangan Aplikasi Piranti Bergerak</h3>
+<blockquote>
+<p>⚡ <strong>Akses Cepat Bahan Sesi 01:</strong><br />
+<a href="https://github.com/antonprafanto/tuweb_mobile2025/raw/main/slide_presentasi/SESI_01_Pengantar_dan_Lingkungan_Ionic.pptx">📥 Unduh Slide PPTX</a> • <a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fantonprafanto%2Ftuweb_mobile2025%2Fmain%2Fslide_presentasi%2FSESI_01_Pengantar_dan_Lingkungan_Ionic.pptx">👁️ Baca Slide Online</a> • <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/">📁 18 Berkas Kode Mandiri</a> • <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html">🎯 Solusi Lab Quest 01</a> • <a href="../panduan_tutorial_ut/PANDUAN_DISKUSI_TUTON.md">💬 Panduan Diskusi 1</a></p>
+</blockquote>
+<hr />
+<h2>🗺️ Gambaran Umum Sesi 01</h2>
+<p>Sesi inisiasi pertama ini membekali rekan-rekan mahasiswa dengan pemahaman komprehensif arsitektur aplikasi mobile modern, komparasi mendalam Native vs Hybrid vs Cross-Platform vs PWA, panduan instalasi perkakas (<em>tools</em>) ramah laptop RAM 4GB, pengenalan komponen web Ionic Framework via CDN tanpa hambatan, teknik pengujian instan menggunakan Chrome DevTools, hingga penyelesaian tugas mandiri <strong>Lab Quest 01 (Kartu Tanda Mahasiswa Digital)</strong>.</p>
+<p>Setiap materi slide dilengkapi berkas interaktif mandiri berekstensi <code>.html</code> yang dapat <strong>langsung dijalankan di Google Chrome dengan satu klik ganda (<em>zero-friction</em>)</strong>, tanpa memerlukan instalasi compiler berukuran gigabytes.</p>
+<pre><code class="language-mermaid">flowchart TD
+  subgraph T1 [&quot;1. Fondasi Teori &amp; Arsitektur&quot;]
+    S01_03[&quot;Slide 01-03: Kontrak Kuliah, Relevansi Industri, Komparasi Native vs Hybrid&quot;]
+    S04_04[&quot;Slide 04: Ekosistem Web Components &amp; Standar Ionic CDN&quot;]
+  end
+
+  subgraph T2 [&quot;2. Perkakas &amp; Diagnostik Lingkungan&quot;]
+    S05_06[&quot;Slide 05-06: 4 Perkakas Pengembang &amp; Uji Diagnostik RAM Laptop&quot;]
+    S15_16[&quot;Slide 15-16: Solusi PowerShell Windows &amp; Cheatsheet Terminal Git&quot;]
+  end
+
+  subgraph T3 [&quot;3. Komponen Web &amp; Anatomi Aplikasi&quot;]
+    S07_08[&quot;Slide 07-08: Tritunggal Web (HTML, CSS, JS) &amp; Hello Hybrid App&quot;]
+    S11_12[&quot;Slide 11-12: Ionic CLI 5 Perintah Sakti &amp; Struktur Folder Proyek&quot;]
+  end
+
+  subgraph T4 [&quot;4. Pengujian DevTools &amp; Lab Quest&quot;]
+    S09_10[&quot;Slide 09-10: Chrome Device Toolbar (F12) &amp; Viewport Meta Tag&quot;]
+    S13_14[&quot;Slide 13-14: USB Debugging scrcpy &amp; Simulasi Live Reload (HMR)&quot;]
+    S17_18[&quot;Slide 17-18: Solusi Lab Quest 01 (KTM Digital) &amp; Preview Sesi 02 (Vue 3)&quot;]
+  end
+
+  T1 --&gt; T2
+  T2 --&gt; T3
+  T3 --&gt; T4
+
+  style T1 fill:#E0F2FE,stroke:#0284C7,stroke-width:2px
+  style T2 fill:#FEF9C3,stroke:#F59E0B,stroke-width:2px
+  style T3 fill:#DCFCE7,stroke:#16A34A,stroke-width:2px
+  style T4 fill:#F3E8FF,stroke:#9333EA,stroke-width:2px
+</code></pre>
+<hr />
+<h2>🛠️ Panduan Alat &amp; Lingkungan Belajar (Ramah Pemula)</h2>
+<p>Bagi mahasiswa yang baru pertama kali melangkah ke dunia pemrograman perangkat bergerak, Sesi 01 dirancang menggunakan pendekatan <strong>The Zero-Friction Courseware Framework</strong> yang sangat ringan dan ramah laptop (RAM 4–8 GB friendly):</p>
+<ol>
+<li><strong>Google Chrome / Peramban Web Desktop:</strong>
+<ul>
+<li><strong>Fungsi:</strong> Menjalankan seluruh 18 berkas contoh program <code>.html</code> secara instan tanpa perlu instalasi compiler lokal atau dev-server yang berat (protokol <code>file:///</code>).</li>
+<li><strong>Cara Penggunaan:</strong> Cukup klik ganda (<em>double-click</em>) berkas <code>.html</code> yang ingin dipelajari langsung dari File Explorer Windows.</li>
+</ul>
+</li>
+<li><strong>Google Chrome DevTools (<code>F12</code> / <code>Ctrl + Shift + I</code>):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Menginspeksi tab <strong>Console</strong> untuk menjalankan skrip JavaScript interaktif, mengamati error log, dan memeriksa struktur elemen antarmuka.</li>
+<li><strong>Simulator Layar Smartphone (<code>Ctrl + Shift + M</code>):</strong> Mengaktifkan mode <strong>Toggle Device Toolbar</strong> untuk mensimulasikan tampilan berbagai tipe smartphone (iPhone, Samsung Galaxy, Pixel) langsung dari browser Anda.</li>
+</ul>
+</li>
+<li><strong>Visual Studio Code (VS Code):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Editor teks utama untuk membuka, menyunting, dan mempelajari kode HTML, CSS, dan JavaScript.</li>
+</ul>
+</li>
+<li><strong>Node.js LTS &amp; Terminal / PowerShell:</strong>
+<ul>
+<li><strong>Fungsi:</strong> Menjalankan skrip diagnostik otomatis kesiapan komputer (<code>slide_06</code>) dan perintah simulasi Ionic CLI (<code>slide_11</code>).</li>
+</ul>
+</li>
+<li><strong>Kabel Data USB &amp; Smartphone Android Fisik (Persiapan Praktik):</strong>
+<ul>
+<li><strong>Fungsi:</strong> Untuk persiapan pengujian hemat memori via USB Debugging dan aplikasi <em>mirroring</em> ringan <code>scrcpy</code> (&lt; 70 MB RAM).</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>📊 Daftar 18 Slide Pembahasan &amp; Berkas Praktikum Mandiri</h2>
+<h3>📌 Slide 01: Kontrak Perkuliahan, Roadmap 8 Sesi &amp; Aturan Nilai UT</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memahami alur 8 sesi tutorial, capaian pembelajaran, dan formula evaluasi akademik Universitas Terbuka.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Halo rekan-rekan mahasiswa Universitas Terbuka! Selamat datang di mata kuliah Pemrograman Berbasis Perangkat Bergerak (STSI4303). Kuliah ini dirancang dengan praktik penuh 3 SKS. Kita akan belajar membuat aplikasi ponsel pintar sungguhan dengan cara yang menyenangkan, tidak membebani laptop, dan langsung bisa dicoba sejak hari pertama!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Komposisi Nilai Tuton: Keaktifan 8 Diskusi (30%) + 3 Tugas Tutorial Wajib (70%).</li>
+<li>Formula Nilai Akhir: 50% Nilai Tuton + 50% Nilai UAS (Syarat: Nilai UAS $\ge 30$).</li>
+</ul>
+</li>
+<li><strong>Diagram Alur Evaluasi Akademik &amp; Roadmap:</strong><pre><code class="language-mermaid">flowchart LR
+    subgraph TUTON [&quot;Aktivitas Tuton Online (Bobot 50%)&quot;]
+        D[&quot;8 Sesi Diskusi&lt;br/&gt;(Bobot 30%)&quot;]
+        T[&quot;3 Tugas Tutorial Wajib&lt;br/&gt;(Bobot 70%)&quot;]
+    end
+    subgraph UAS [&quot;Evaluasi Akhir (Bobot 50%)&quot;]
+        U[&quot;Ujian Akhir Semester (UAS)&lt;br/&gt;Syarat: Nilai UAS &gt;= 30&quot;]
+    end
+    D &amp; T --&gt; NT[&quot;Nilai Tuton Terkumpul&quot;]
+    NT &amp; U --&gt; NA[&quot;🎯 Nilai Akhir Kelulusan STSI4303&quot;]
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> Katalog Kurikulum FST Universitas Terbuka &amp; Buku Panduan Penyelenggaraan Pembelajaran Berbantuan Komputer UT.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> Buka Google Chrome (klik ganda berkas HTML) atau VS Code.</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_01_kontrak_dan_roadmap.html">🌐 <code>slide_01_kontrak_dan_roadmap.html</code></a> <em>(Pendamping: <code>slide_01_kontrak_dan_roadmap.js</code>)</em></li>
+</ul>
+<hr />
+<h3>📌 Slide 02: Lanskap Industri Mobile: Mengapa Arsitektur Hybrid Mendominasi?</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menganalisis efisiensi biaya dan waktu pengembangan aplikasi mobile berbasis web (<em>hybrid</em>).</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Bayangkan sebuah kampus besar seperti UT dengan lebih dari 400.000 mahasiswa yang menggunakan berbagai jenis gawai. Jika kita membuat aplikasi menggunakan Native murni terpisah (tim Android Kotlin dan tim iPhone Swift), biayanya membengkak 3 kali lipat. Dengan arsitektur Hybrid, kita merawat 1 basis kode tunggal untuk Android, iOS, dan Web!&quot;</em></li>
+<li><strong>Poin Kunci:</strong> Strategi <em>single codebase</em>, efisiensi waktu hingga ~66%, kemudahan perawatan jangka panjang.</li>
+<li><strong>Diagram Komparasi Tim &amp; Basis Kode:</strong><pre><code class="language-mermaid">flowchart TD
+    subgraph NATIVE [&quot;❌ Pendekatan Native Tradisional (3 Basis Kode Terpisah)&quot;]
+        N1[&quot;📱 Tim Android (Kotlin / Java)&lt;br/&gt;Tools: Android Studio&quot;]
+        N2[&quot;🍏 Tim iOS (Swift / Obj-C)&lt;br/&gt;Tools: Xcode di macOS&quot;]
+        N3[&quot;🌐 Tim Web Portal (HTML / CSS / JS)&lt;br/&gt;Tools: Web Browser&quot;]
+    end
+
+    subgraph HYBRID [&quot;✅ Pendekatan Hybrid Modern (1 Single Codebase)&quot;]
+        H1[&quot;🚀 1 Basis Kode Standar Web Bersama&lt;br/&gt;(Vue.js 3 + TypeScript + Ionic Web Components)&quot;]
+        H1 --&gt;|Distribusi via Capacitor| C1[&quot;🤖 Android APK / AAB&quot;]
+        H1 --&gt;|Distribusi via Capacitor| C2[&quot;🍏 iOS IPA Package&quot;]
+        H1 --&gt;|Distribusi via Server| C3[&quot;🌐 Web Portal PWA&quot;]
+    end
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> BMP UT STSI4303 Modul 1 (Konsep Arsitektur Aplikasi Bergerak) &amp; Ionic Industry Report 2026.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (tersedia kalkulator efisiensi interaktif &amp; diagram SVG).</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_02_relevansi_mobile_hybrid.html">🌐 <code>slide_02_relevansi_mobile_hybrid.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 03: Komparasi Arsitektur: Native vs Hybrid vs Cross-Platform vs PWA</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Membedakan cara kerja lapisan tumpukan (<em>stack layers</em>) antara Native, Hybrid (Ionic), Cross-Platform Canvas (Flutter), dan PWA.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Aplikasi Native berbicara langsung ke sistem operasi. Cross-platform menggambar elemen antarmuka lewat mesin grafisnya sendiri. Sedangkan Hybrid menggunakan WebView modern yang dijembatani oleh Capacitor ke perangkat keras. Untuk aplikasi portal universitas, bisnis, dan layanan publik, Hybrid adalah pilihan paling efisien dan stabil.&quot;</em></li>
+<li><strong>Poin Kunci:</strong> Analogi tumpukan lapisan, perbandingan performa, dan pertimbangan pemilihan arsitektur.</li>
+<li><strong>Diagram Tumpukan Lapisan (Layer Stack):</strong><pre><code class="language-mermaid">flowchart LR
+    subgraph NATIVE [&quot;1. Native Murni&quot;]
+        N_UI[&quot;UI Native (XML/SwiftUI)&quot;] --&gt; N_OS[&quot;OS Android / iOS&quot;] --&gt; N_HW[&quot;Hardware Gawai&quot;]
+    end
+    subgraph HYBRID [&quot;2. Hybrid (Ionic)&quot;]
+        H_UI[&quot;Web Components (HTML/CSS/JS)&quot;] --&gt; H_WV[&quot;WebView Container&quot;] --&gt; H_CP[&quot;Capacitor Bridge&quot;] --&gt; H_HW[&quot;Hardware Gawai&quot;]
+    end
+    subgraph CROSS [&quot;3. Cross-Platform (Flutter)&quot;]
+        C_UI[&quot;Widget Grafis Sendiri&quot;] --&gt; C_SK[&quot;Skia / Impeller Engine&quot;] --&gt; C_HW[&quot;Hardware Gawai&quot;]
+    end
+    subgraph PWA [&quot;4. PWA (Browser Web)&quot;]
+        P_UI[&quot;Laman Web Responsif&quot;] --&gt; P_BR[&quot;Peramban (Chrome/Safari)&quot;]
+    end
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> BMP UT STSI4303 Modul 1 &amp; W3C Web on Mobile Devices Specification.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (tersedia selector tumpukan arsitektur interaktif).</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_03_komparasi_arsitektur_mobile.html">🌐 <code>slide_03_komparasi_arsitektur_mobile.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 04: Ekosistem Ionic Framework &amp; Kekuatan Standar Web Components</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengidentifikasi keunggulan Web Components bawaan Ionic yang dapat berjalan instan via CDN.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Keajaiban Ionic adalah: rekan-rekan tidak perlu menunggu unduhan paket berukuran gigabytes untuk melihat tombol dan kartu mobile. Cukup tautkan pustaka CDN Ionic di berkas HTML, dan peramban Anda langsung menyajikan tampilan berstandar Google Material Design!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Standar W3C Web Components murni yang dapat berjalan langsung di peramban tanpa build step.</li>
+<li>Pemanfaatan Shadow DOM untuk enkapsulasi gaya CSS sehingga terisolasi bebas konflik dengan CSS global.</li>
+<li>Pengiriman pustaka instan melalui CDN (jsDelivr / unpkg) berbobot 0 MB di harddisk lokal mahasiswa.</li>
+</ul>
+</li>
+<li><strong>Diagram Arsitektur Web Components &amp; CDN Ionic:</strong><pre><code class="language-mermaid">flowchart TD
+    subgraph CDN [&quot;1. Distribusi CDN jsDelivr&quot;]
+        ESM[&quot;ionic.esm.js (Modul ES Standar)&quot;]
+        CSS[&quot;ionic.bundle.css (Gaya Material &amp; iOS)&quot;]
+    end
+
+    subgraph BROWSER [&quot;2. Peramban Web (Google Chrome / WebView)&quot;]
+        CUSTOM[&quot;Custom Elements Registry (ion-button, ion-card, ion-badge)&quot;]
+        SHADOW[&quot;Shadow DOM (Enkapsulasi Gaya Terisolasi Bebas Bocor)&quot;]
+        RENDER[&quot;Mesin Perenderan Native-like UI (60 FPS)&quot;]
+    end
+
+    CDN --&gt;|Dimuat via Tag Script Standar HTML5| CUSTOM
+    CUSTOM --&gt; SHADOW
+    SHADOW --&gt; RENDER
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> W3C Web Components Specification &amp; Dokumentasi Arsitektur Resmi Ionic Framework (ionicframework.com/docs).</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (coba tester komponen Ionic interaktif &amp; pengubah warna).</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_04_ekosistem_ionic_web_standards.html">🌐 <code>slide_04_ekosistem_ionic_web_standards.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 05: Menyiapkan Dapur Kerja: Panduan Instalasi 4 Perkakas Utama</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memasang dan memverifikasi perangkat lunak pendukung pengembangan mobile di komputer lokal.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Ada 4 perkakas gratis yang wajib disiapkan: Visual Studio Code sebagai editor utama, Node.js versi LTS sebagai mesin runtime, Git SCM untuk mencatat riwayat perubahan dan mengumpulkan tugas, serta Google Chrome untuk pengujian tampilan ponsel.&quot;</em></li>
+<li><strong>Poin Kunci:</strong> Verifikasi perintah di terminal (<code>node -v</code>, <code>npm -v</code>, <code>git --version</code>).</li>
+<li><strong>Diagram Ekosistem 4 Perkakas Pengembang:</strong><pre><code class="language-mermaid">flowchart LR
+    VS[&quot;💻 1. Visual Studio Code&lt;br/&gt;(Editor Kode &amp; Terminal Utama)&quot;]
+    NODE[&quot;🟢 2. Node.js LTS&lt;br/&gt;(Mesin Runtime &amp; Manajer Paket NPM)&quot;]
+    GIT[&quot;🐙 3. Git SCM&lt;br/&gt;(Pencatat Riwayat &amp; Pengumpul Tugas)&quot;]
+    CHROME[&quot;🌐 4. Google Chrome&lt;br/&gt;(Simulasi Layar Smartphone DevTools)&quot;]
+
+    VS &lt;--&gt;|Jalankan CLI| NODE
+    VS &lt;--&gt;|Rekam Komit| GIT
+    VS &lt;--&gt;|Pratinjau Aplikasi| CHROME
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> Panduan Instalasi Perkakas Pengembangan BMP UT STSI4303 Modul 1 &amp; Node.js Foundation Documentation.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> VS Code Terminal (<code>Ctrl + ~</code>) atau Windows PowerShell.</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_05_panduan_instalasi_tools.html">🌐 <code>slide_05_panduan_instalasi_tools.html</code></a> <em>(Pendamping: <code>slide_05_panduan_instalasi_tools.js</code>)</em></li>
+</ul>
+<hr />
+<h3>📌 Slide 06: Uji Diagnostik Lingkungan Pengembangan Mandiri</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menjalankan pengujian otomatis kesiapan memori RAM dan menentukan jalur praktikum yang sesuai.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Sebelum mulai menulis kode, mari pastikan kesiapan laptop Anda. Jalankan alat diagnostik ini untuk mendeteksi kapasitas RAM dan mendapatkan rekomendasi jalur belajar yang paling aman agar laptop tetap dingin dan lancar!&quot;</em></li>
+<li><strong>Poin Kunci:</strong> Rekomendasi Jalur A (Web First &amp; Chrome DevTools), Jalur B (scrcpy &amp; Ponsel Fisik), Jalur C (Android Studio).</li>
+<li><strong>Diagram Alur Diagnostik &amp; Penentuan Jalur Belajar:</strong><pre><code class="language-mermaid">flowchart TD
+    START[&quot;Mulai Diagnostik Laptop Mahasiswa&quot;] --&gt; DETECT[&quot;Deteksi Kapasitas RAM Komputer&quot;]
+    DETECT --&gt; COND{&quot;Berapa Ukuran RAM Komputer Anda?&quot;}
+    COND --&gt;|RAM &lt; 4GB| PATH_A[&quot;Jalur A: Web First&lt;br/&gt;(Google Chrome DevTools &amp; F12)&quot;]
+    COND --&gt;|RAM 4 - 8GB| PATH_B[&quot;Jalur B: USB Debugging&lt;br/&gt;(Ponsel Fisik Android &amp; scrcpy)&quot;]
+    COND --&gt;|RAM &gt; 8GB| PATH_C[&quot;Jalur C: Android Studio&lt;br/&gt;(SDK Manager &amp; Emulator Native)&quot;]
+    PATH_A --&gt; GOAL[&quot;✅ Semua Jalur Menghasilkan Nilai Maksimal &amp; Lulus Mata Kuliah&quot;]
+    PATH_B --&gt; GOAL
+    PATH_C --&gt; GOAL
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> Panduan Spesifikasi Perangkat Komputasi BMP UT STSI4303 Modul 1 &amp; Metodologi Zero-Friction Learning.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> Buka berkas HTML di Chrome atau ketik <code>node slide_06_diagnostik_environment.js</code> di terminal.</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_06_diagnostik_environment.html">🌐 <code>slide_06_diagnostik_environment.html</code></a> <em>(Pendamping: <code>slide_06_diagnostik_environment.js</code>)</em></li>
+</ul>
+<hr />
+<h3>📌 Slide 07: Anatomi Aplikasi Hybrid: Tritunggal HTML, CSS, JS &amp; Wadah WebView</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menguraikan peran struktural, estetika, dan logika interaktivitas dalam arsitektur aplikasi mobile hybrid.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Aplikasi mobile hybrid diibaratkan seperti tubuh manusia: HTML adalah kerangka tulangnya, CSS adalah busana dan penampilannya, JavaScript adalah sistem saraf yang memproses aksi, dan WebView adalah rumah tempat aplikasi tersebut berjalan di smartphone.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Tritunggal standar web: HTML5 (tulang struktur), CSS3 (estetika busana), dan JavaScript (saraf logika).</li>
+<li>Wadah WebView native sebagai mesin peramban mini berkecepatan tinggi di dalam runtime Android OS.</li>
+<li>Jembatan Capacitor Bridge sebagai penerjemah komunikasi dua arah antara JavaScript dan SDK Kotlin/Java.</li>
+</ul>
+</li>
+<li><strong>Diagram 4 Lapisan Arsitektur Hybrid App:</strong><pre><code class="language-mermaid">flowchart TD
+    L1[&quot;1. Lapisan Aplikasi Web (HTML5 Tulang + CSS3 Busana + JS/Vue Saraf)&quot;]
+    L2[&quot;2. Wadah WebView Container (Mesin Browser Native Android / iOS)&quot;]
+    L3[&quot;3. Jembatan Native / Capacitor Bridge (Penerjemah JS &lt;-&gt; Kotlin/Swift)&quot;]
+    L4[&quot;4. Perangkat Keras Smartphone (Kamera, GPS, Sensor Getar, File System)&quot;]
+
+    L1 --&gt;|Dirender secara visual di dalam| L2
+    L2 --&gt;|Panggil API sistem lewat| L3
+    L3 --&gt;|Mengakses sensor fisik gawai| L4
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> BMP UT STSI4303 Modul 1 &amp; Dokumentasi Arsitektur Resmi Ionic Framework (ionicframework.com/docs/intro/architecture).</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (tersedia sakelar interaktif untuk menyalakan/mematikan CSS dan JS).</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_07_anatomi_hybrid_app.html">🌐 <code>slide_07_anatomi_hybrid_app.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 08: Hello Hybrid World: Meluncurkan Aplikasi Mobile Pertama Anda</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Membangun antarmuka mobile pertama lengkap dengan status bar, kartu profil, dan deteksi runtime layar sentuh.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Selamat! Ini adalah aplikasi mobile pertama Anda: MyUT Mobile. Berkas ini membuktikan bahwa tanpa kompilasi rumit, Anda sudah bisa membuat aplikasi ponsel fungsional yang membaca resolusi layar dan merespon event sentuhan jari.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Inisialisasi wadah utama <code>&lt;ion-app&gt;</code> sebagai fondasi kanvas mobile standar Google Material Design.</li>
+<li>Penataan bingkai visual lengkap dengan status bar dan palet warna resmi Universitas Terbuka (Biru UT <code>#005691</code>).</li>
+<li>Penanganan interaksi layar sentuh (<em>touch/click events</em>) dan deteksi orientasi gawai secara <em>real-time</em>.</li>
+</ul>
+</li>
+<li><strong>Diagram Arsitektur Komponen 'Hello Hybrid App':</strong><pre><code class="language-mermaid">flowchart LR
+    HTML[&quot;Dokumen HTML5&lt;br/&gt;(index.html)&quot;] --&gt; VIEWPORT[&quot;Pengaturan Skala 1:1&lt;br/&gt;(Viewport Meta Tag)&quot;]
+    VIEWPORT --&gt; SHELL[&quot;Bingkai Ponsel Mobile Shell&lt;br/&gt;(Status Bar + Layar Sentuh)&quot;]
+    SHELL --&gt; UI[&quot;Komponen UI Ionic&lt;br/&gt;(Kartu Mahasiswa &amp; Profil)&quot;]
+    UI --&gt; EVENT[&quot;Pemroses Sentuhan Jari&lt;br/&gt;(Touch &amp; Click Events)&quot;]
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> BMP UT STSI4303 Modul 1 (Kegiatan Belajar 2) &amp; Ionic Framework Component Basics.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (tekan F12 lalu Ctrl + Shift + M untuk mode smartphone).</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_08_hello_hybrid_app.html">🌐 <code>slide_08_hello_hybrid_app.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 09: 3 Langkah Menguji Tampilan Ponsel di Google Chrome DevTools</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengoperasikan Toggle Device Toolbar di peramban untuk simulasi berbagai dimensi smartphone tanpa emulator berat.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Laptop rekan-rekan tidak perlu terbebani emulator berbobot 10GB. Cukup buka Google Chrome, tekan F12, lalu tekan Ctrl + Shift + M. Seketika Anda dapat memilih simulasi layar Pixel 7, iPhone 14 Pro, atau menguji koneksi internet lambat!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Pintasan tombol sakti pengembang web: <code>F12</code> (DevTools) dilanjutkan <code>Ctrl + Shift + M</code> (Toggle Device Toolbar).</li>
+<li>Pemilihan preset dimensi smartphone populer (Pixel 7, Samsung Galaxy, iPhone 14 Pro).</li>
+<li>Emulasi sentuhan jari (<em>touch cursor</em>) dan simulasi jaringan lambat (<em>throttling</em>) super hemat RAM (&lt; 100MB).</li>
+</ul>
+</li>
+<li><strong>Pintasan Tombol Sakti:</strong> <code>F12</code> lalu <code>Ctrl + Shift + M</code>.</li>
+<li><strong>Diagram Alur Pengujian Cepat Device Mode:</strong><pre><code class="language-mermaid">flowchart TD
+    S1[&quot;Buka Berkas HTML di Google Chrome&quot;] --&gt; S2[&quot;Tekan Tombol F12 (Buka DevTools)&quot;]
+    S2 --&gt; S3[&quot;Tekan Ctrl + Shift + M (Toggle Device Toolbar)&quot;]
+    S3 --&gt; S4[&quot;Pilih Preset: Pixel 7 / iPhone 14 Pro&quot;]
+    S4 --&gt; S5[&quot;Kursor Berubah Jadi Titik Sentuh Jari (Touch Emulation)&quot;]
+    S5 --&gt; S6[&quot;✅ Uji Tampilan Mobile Selesai (&lt; 100MB RAM, Bebas Lemot!)&quot;]
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> Google Chrome DevTools Documentation: &quot;Simulate mobile devices with Device Mode&quot; &amp; BMP UT STSI4303 Modul 1.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome / Microsoft Edge.</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_09_chrome_device_toolbar_guide.html">🌐 <code>slide_09_chrome_device_toolbar_guide.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 10: Peran Krusial Viewport Meta Tag pada Layar Ponsel</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menganalisis fungsi tag <code>&lt;meta name=&quot;viewport&quot;&gt;</code> dalam menyamakan kanvas aplikasi dengan dimensi fisik gawai.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Pernahkah Anda membuka laman web di ponsel dan teksnya menjadi sekecil semut? Itu terjadi karena peramban mengira Anda menggunakan layar desktop selebar 980px. Dengan menyertakan tag viewport, ponsel otomatis merender aplikasi dengan skala 1:1 yang nyaman dijemari!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Perilaku default peramban ponsel yang mengasumsikan layar desktop selebar 980px jika tag viewport absen.</li>
+<li>Properti <code>width=device-width</code> untuk menyamakan lebar bidang pandang web dengan piksel fisik gawai.</li>
+<li>Properti <code>initial-scale=1.0</code> untuk menjamin ketajaman visual 1:1, kenyamanan membaca, dan area sentuh jari ergonomis.</li>
+</ul>
+</li>
+<li><strong>Diagram Perbandingan Perilaku Viewport Meta Tag:</strong><pre><code class="language-mermaid">flowchart TD
+    subgraph NO_VP [&quot;❌ Tanpa Viewport Meta Tag&quot;]
+        DESK[&quot;Browser Anggap Layar Desktop (980px)&quot;] --&gt; ZOOM[&quot;Halaman Mengecil Jauh (Zoom-Out Ekstrem)&quot;]
+        ZOOM --&gt; BAD[&quot;Teks Sekecil Semut &amp; Tombol Sulit Disentuh&quot;]
+    end
+    subgraph WITH_VP [&quot;✅ Dengan Viewport Meta Tag (width=device-width)&quot;]
+        NATIVE[&quot;Browser Baca Resolusi Layar Fisik (1:1)&quot;] --&gt; FIT[&quot;Lebar Pas 100% Sesuai Layar Ponsel (360px - 414px)&quot;]
+        FIT --&gt; GOOD[&quot;Font Nyaman Dibaca &amp; Area Sentuh Ergonomis&quot;]
+    end
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> W3C Mobile Web Best Practices &amp; Google Developers Web Fundamentals: &quot;Responsive Web Design Basics&quot;.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (tersedia simulator perbandingan 1:1 vs 980px).</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_10_viewport_meta_scaling.html">🌐 <code>slide_10_viewport_meta_scaling.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 11: Simulator Interaktif: 5 Perintah Sakti Ionic CLI</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menjelaskan fungsi dan parameter perintah baris <code>ionic start</code>, <code>cd</code>, <code>ionic serve</code>, <code>ionic build</code>, dan <code>npx cap sync</code>.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Saat proyek aplikasi kita berkembang, kita menggunakan Ionic CLI. Ada 5 perintah utama yang akan menjadi sahabat setia rekan-rekan sejak inisialisasi proyek hingga persiapan rilis ke platform Android.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>5 Perintah sakti Ionic CLI: <code>start</code> (buat proyek), <code>cd</code> (pindah folder), <code>serve</code> (live reload), <code>build</code> (kompilasi aset), dan <code>cap sync</code> (sinkronisasi native).</li>
+<li>Manajemen paket lokal mandiri tanpa risiko konflik versi global di laptop mahasiswa.</li>
+<li>Siklus otomatisasi konversi dari kode sumber front-end menuju folder distribusi <code>dist/</code>.</li>
+</ul>
+</li>
+<li><strong>Diagram Siklus Hidup Perintah Ionic CLI:</strong><pre><code class="language-mermaid">flowchart LR
+    C1[&quot;1. ionic start&lt;br/&gt;(Inisialisasi Proyek)&quot;] --&gt; C2[&quot;2. cd myApp&lt;br/&gt;(Masuk ke Direktori)&quot;]
+    C2 --&gt; C3[&quot;3. ionic serve&lt;br/&gt;(Live Reload di Browser)&quot;]
+    C3 --&gt; C4[&quot;4. ionic build&lt;br/&gt;(Kompilasi Berkas Dist)&quot;]
+    C4 --&gt; C5[&quot;5. npx cap sync&lt;br/&gt;(Sinkronkan ke Android)&quot;]
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> Dokumentasi Resmi Ionic CLI Command Reference (ionicframework.com/docs/cli) &amp; BMP UT STSI4303 Modul 1.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> VS Code Terminal (<code>Ctrl + ~</code>) untuk mempraktikkan perintah yang disalin dari simulator web.</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_11_ionic_cli_simulator.html">🌐 <code>slide_11_ionic_cli_simulator.html</code></a> <em>(Pendamping: <code>slide_11_ionic_cli_simulator.js</code>)</em></li>
+</ul>
+<hr />
+<h3>📌 Slide 12: Eksplorer Interaktif: Struktur Folder Proyek Standar Ionic Vue 3</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menavigasi tata letak berkas tampilan, konfigurasi rute, dan aset publik dalam proyek Ionic.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Jangan cemas melihat puluhan folder di proyek Ionic! Tempat kita paling sering menulis kode hanya ada di folder src/views untuk halaman layar dan src/theme untuk memoles warna tema. Folder node_modules tidak boleh diedit manual!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Folder <code>src/views/</code> sebagai ruang kerja utama 90% waktu pengembang untuk membuat halaman layar aplikasi.</li>
+<li>Folder <code>src/theme/variables.css</code> untuk sentralisasi skema warna institusi dan variabel CSS dinamis.</li>
+<li>Folder <code>public/</code> untuk aset gambar bebas kompilasi dan folder <code>node_modules/</code> yang dilarang disunting manual.</li>
+</ul>
+</li>
+<li><strong>Diagram Pohon Struktur Folder Proyek:</strong><pre><code class="language-mermaid">graph TD
+    ROOT[&quot;📁 my-app/ (Akar Proyek)&quot;]
+    SRC[&quot;📁 src/ (Area Kerja Utama Mahasiswa)&quot;]
+    PUBLIC[&quot;📁 public/ (Aset Statis Gambar &amp; Ikon)&quot;]
+    NM[&quot;📁 node_modules/ ⚠️ (Jangan Pernah Diedit Manual!)&quot;]
+    VIEWS[&quot;📁 views/ (Halaman Layar Aplikasi)&quot;]
+    COMP[&quot;📁 components/ (Komponen Kartu &amp; Tombol)&quot;]
+    THEME[&quot;📁 theme/ (Warna Biru UT variables.css)&quot;]
+    ROUTER[&quot;📄 router/index.ts (Navigasi Antar Halaman)&quot;]
+    APP[&quot;📄 App.vue &amp; main.ts (Titik Masuk Utama)&quot;]
+
+    ROOT --&gt; SRC
+    ROOT --&gt; PUBLIC
+    ROOT --&gt; NM
+    SRC --&gt; VIEWS
+    SRC --&gt; COMP
+    SRC --&gt; THEME
+    SRC --&gt; ROUTER
+    SRC --&gt; APP
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> Panduan Struktur Proyek Ionic Framework &amp; Vue.js 3 Project Scaffolding Standard.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (eksplorasi pohon folder interaktif) &amp; VS Code.</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_12_struktur_folder_proyek.html">🌐 <code>slide_12_struktur_folder_proyek.html</code></a> <em>(Pendamping: <code>slide_12_struktur_folder_proyek.js</code>)</em></li>
+</ul>
+<hr />
+<h3>📌 Slide 13: Pengujian HP Fisik Hemat RAM via USB Debugging &amp; scrcpy</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengaktifkan Opsi Pengembang dan USB Debugging pada smartphone Android serta menampilkan layar ke laptop menggunakan <code>scrcpy</code>.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Metode favorit pengembang profesional: sambungkan smartphone Android Anda menggunakan kabel data USB. Aktifkan USB Debugging dan jalankan scrcpy. Konsumsi RAM kurang dari 70MB, respons layar 60 FPS bebas patah-patah, dan tidak membuat laptop panas!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Prosedur 7 ketukan sakti pada <em>Build Number</em> untuk membuka menu tersembunyi Opsi Pengembang (<em>Developer Options</em>).</li>
+<li>Handshake keamanan sidik jari kunci RSA antara komputer laptop dan ponsel cerdas via kabel USB.</li>
+<li>Pengoperasian utilitas <code>scrcpy</code> untuk <em>screen mirroring</em> 60 FPS bebas <em>lag</em> dengan beban RAM laptop di bawah 70 MB.</li>
+</ul>
+</li>
+<li><strong>Diagram Alur Praktis USB Debugging &amp; scrcpy:</strong><pre><code class="language-mermaid">flowchart TD
+    U1[&quot;1. Buka Menu 'Setelan / Pengaturan' di HP Android&quot;] --&gt; U2[&quot;2. Masuk 'Tentang Ponsel' -&gt; Cari 'Nomor Versi / Build Number'&quot;]
+    U2 --&gt; U3[&quot;3. Ketuk 'Nomor Versi' Sebanyak 7 Kali Berturut-turut&quot;]
+    U3 --&gt; U4[&quot;4. Masuk ke 'Opsi Pengembang' -&gt; Aktifkan 'USB Debugging'&quot;]
+    U4 --&gt; U5[&quot;5. Sambungkan HP ke Laptop Menggunakan Kabel Data USB&quot;]
+    U5 --&gt; U6[&quot;6. Centang 'Selalu Izinkan dari Komputer Ini' pada Layar HP&quot;]
+    U6 --&gt; U7[&quot;7. Jalankan scrcpy di Terminal Laptop -&gt; Layar HP Tampil 60 FPS!&quot;]
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> Android Developers Official Guide: &quot;Configure on-device developer options&quot; &amp; Genymobile scrcpy Open Source Documentation.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> Ponsel Android + Kabel USB + Berkas <code>scrcpy.exe</code>.</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_13_usb_debugging_scrcpy_guide.html">🌐 <code>slide_13_usb_debugging_scrcpy_guide.html</code></a> <em>(Pendamping: <code>slide_13_usb_debugging_scrcpy_guide.md</code>)</em></li>
+</ul>
+<hr />
+<h3>📌 Slide 14: Simulasi Hot Module Replacement (HMR) &amp; Live Reload</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Memahami mekanisme pembaruan modul instan Vite tanpa mereset status data formulir yang sedang diisi pengguna.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Hot Module Replacement (HMR) membuat pengalaman belajar coding sangat memuaskan. Begitu Anda menekan simpan (Ctrl + S), peramban memperbarui tampilan dalam 30 milidetik tanpa menghapus teks yang baru saja Anda ketik pada formulir!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Kecepatan kompilasi modul delta oleh server Vite dalam hitungan milidetik (&lt; 30ms) via koneksi WebSocket.</li>
+<li>Preservasi status data formulir (<em>state preservation</em>): teks input pengguna tidak terhapus saat kode diubah.</li>
+<li>Keunggulan mutlak dibanding <em>full page reload</em> tradisional yang memuat ulang seluruh aset dan mereset status aplikasi.</li>
+</ul>
+</li>
+<li><strong>Diagram Mekanisme Kerja Hot Module Replacement (HMR):</strong><pre><code class="language-mermaid">sequenceDiagram
+    autonumber
+    participant D as Mahasiswa (VS Code)
+    participant V as Vite HMR Server
+    participant B as Google Chrome Browser
+    D-&gt;&gt;D: Menyunting Kode &amp; Tekan Ctrl + S
+    D-&gt;&gt;V: Berkas Diperbarui Terdeteksi (File Watcher)
+    V-&gt;&gt;V: Kompilasi Ulang Modul yang Berubah (Hanya Modul Tersebut)
+    V-&gt;&gt;B: Kirim Sinyal Pembaruan via WebSocket
+    B-&gt;&gt;B: Ganti Modul di Memory DOM secara Instan
+    Note over B: Data Formulir &amp; Status Input Tetap Utuh (Tanpa Refresh Halaman)!
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> Vite Documentation: &quot;Hot Module Replacement Architecture&quot; &amp; BMP UT STSI4303 Modul 1.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (uji perbandingan HMR vs Full Page Reload).</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_14_hmr_live_reload_demo.html">🌐 <code>slide_14_hmr_live_reload_demo.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 15: Pertolongan Pertama: Mengatasi Galat PowerShell Windows</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Mengatasi galat kebijakan eksekusi skrip (<em>PSSecurityException</em>) di terminal Windows dengan solusi 1 langkah aman.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Jika terminal VS Code Anda menampilkan teks merah 'running scripts is disabled on this system', jangan khawatir! Itu bukan laptop yang rusak, melainkan kebijakan keamanan default Windows. Jalankan mantra Set-ExecutionPolicy RemoteSigned satu kali, dan perintah CLI akan berjalan mulus.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Akar masalah galat teks merah Windows: Kebijakan keamanan <em>ExecutionPolicy Restricted</em> yang mengunci eksekusi skrip CLI.</li>
+<li>Mantra solusi aman: <code>Set-ExecutionPolicy RemoteSigned -Scope CurrentUser</code>.</li>
+<li>Parameter <code>-Scope CurrentUser</code> membatasi izin hanya pada pengguna aktif tanpa menuntut hak akses <em>Administrator</em> penuh.</li>
+</ul>
+</li>
+<li><strong>Diagram Solusi Eksekusi Skrip PowerShell:</strong><pre><code class="language-mermaid">flowchart TD
+    ERR[&quot;Galat Terminal: PSSecurityException&lt;br/&gt;'running scripts is disabled on this system'&quot;] --&gt; CAUSE[&quot;Penyebab: Kebijakan Keamanan Default Windows Terkunci (Restricted)&quot;]
+    CAUSE --&gt; CMD[&quot;Buka PowerShell -&gt; Ketik Perintah:&lt;br/&gt;Set-ExecutionPolicy RemoteSigned -Scope CurrentUser&quot;]
+    CMD --&gt; VERIFY[&quot;Konfirmasi dengan menekan tombol [Y] lalu Enter&quot;]
+    VERIFY --&gt; OK[&quot;✅ Skrip CLI (ionic, vue, npm) Berjalan Normal &amp; Aman&quot;]
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> Microsoft Learn PowerShell Documentation: &quot;About Execution Policies&quot; &amp; BMP UT STSI4303 Modul 1.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> VS Code Terminal atau Windows PowerShell.</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_15_troubleshooting_powershell_cli.html">🌐 <code>slide_15_troubleshooting_powershell_cli.html</code></a> <em>(Pendamping: <code>slide_15_troubleshooting_powershell_cli.md</code>)</em></li>
+</ul>
+<hr />
+<h3>📌 Slide 16: Cheatsheet Perintah Sakti Terminal &amp; Git untuk Tugas Kuliah</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menguasai perintah esensial navigasi folder dan alur Git untuk mengelola berkas tugas mandiri.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Sebagai calon sarjana bidang teknologi, menguasai perintah terminal seperti cd, ls, dir, git add, dan git commit adalah keterampilan fundamental yang akan mempercepat pengerjaan tugas dan membangun portofolio GitHub Anda.&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Penguasaan perintah terminal esensial: <code>cd</code> (navigasi direktori), <code>dir</code>/<code>ls</code> (inspeksi daftar berkas).</li>
+<li>3 Wilayah arsitektur Git: <em>Working Directory</em> $\rightarrow$ <em>Staging Area</em> (<code>git add</code>) $\rightarrow$ <em>Local Commit</em> (<code>git commit</code>).</li>
+<li>Perintah <code>git push origin main</code> untuk mengunggah bukti pengerjaan tugas mandiri ke repositori GitHub publik.</li>
+</ul>
+</li>
+<li><strong>Diagram 4 Tingkatan Ekosistem Terminal &amp; Git:</strong><pre><code class="language-mermaid">flowchart LR
+    subgraph LOCAL [&quot;Komputer Lokal Mahasiswa&quot;]
+        WD[&quot;1. Direktori Kerja&lt;br/&gt;(Working Directory)&quot;] --&gt;|git add .| SA[&quot;2. Area Persiapan&lt;br/&gt;(Staging Index)&quot;]
+        SA --&gt;|git commit -m| LR[&quot;3. Repositori Lokal&lt;br/&gt;(Local Commit History)&quot;]
+    end
+    subgraph CLOUD [&quot;Layanan Awan&quot;]
+        LR --&gt;|git push origin main| GH[&quot;4. Repositori GitHub&lt;br/&gt;(Pengumpulan Tugas Tuton)&quot;]
+    end
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> Pro Git Book by Scott Chacon &amp; Ben Straub; BMP UT STSI4303 Modul 1.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (tersedia kolom pencarian cepat dan sandbox latihan terminal).</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_16_cheatsheet_terminal_git.html">🌐 <code>slide_16_cheatsheet_terminal_git.html</code></a> <em>(Pendamping: <code>slide_16_cheatsheet_terminal_git.md</code>)</em></li>
+</ul>
+<hr />
+<h3>📌 Slide 17: 🎯 Master Solusi Lab Quest 01: Kartu Tanda Mahasiswa Digital UT</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Merancang antarmuka kartu identitas mahasiswa interaktif menggunakan komponen resmi Ionic Framework 7 Core via CDN.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Saatnya membuktikan pemahaman rekan-rekan di Lab Quest 01! Kita akan merancang Kartu Tanda Mahasiswa (KTM) Digital Universitas Terbuka yang elegan dan responsif. Gunakan komponen resmi Ionic seperti <code>ion-card</code>, <code>ion-card-header</code>, <code>ion-card-content</code>, dan <code>ion-button</code> dengan balutan warna kebanggaan almamater kita: Biru UT dan Kuning Aksen. Begitu tombol verifikasi ditekan, antarmuka akan menampilkan notifikasi interaktif. Kerjakan tantangan ini dengan penuh percaya diri!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Struktur kartu identitas berbasis komponen semantik Ionic: <code>ion-card</code>, <code>ion-card-header</code>, <code>ion-card-content</code>, dan <code>ion-button</code>.</li>
+<li>Penerapan identitas visual Universitas Terbuka: Biru Resmi UT (<code>#005691</code>) dan Aksen Kuning (<code>#FFE600</code>).</li>
+<li>Rubrik evaluasi 4 pilar (0–100): Struktur Semantik (25), Branding UT (25), Viewport (25), Interaktivitas Sentuhan (25).</li>
+</ul>
+</li>
+<li><strong>Tantangan Lab:</strong>
+<ol>
+<li>Tampilkan kartu identitas dengan Nama, NIM, Program Studi, dan UPBJJ-UT Anda.</li>
+<li>Terapkan warna resmi Universitas Terbuka: Biru UT (<code>#005691</code>) dan Kuning Aksen (<code>#FFE600</code>).</li>
+<li>Lengkapi dengan tombol verifikasi keaslian kartu yang memunculkan notifikasi responsif.</li>
+</ol>
+</li>
+<li><strong>Diagram Arsitektur Komponen KTM Digital:</strong><pre><code class="language-mermaid">flowchart TD
+    subgraph IONIC_UI [&quot;Komponen Resmi Ionic Framework 7 Core (via CDN)&quot;]
+        CARD[&quot;ion-card (Kontainer Bingkai KTM Berbayang)&quot;]
+        HEADER[&quot;ion-card-header (Kop Logo &amp; Nama Universitas Terbuka)&quot;]
+        CONTENT[&quot;ion-card-content (Biodata Mahasiswa: Nama, NIM, Prodi, UPBJJ)&quot;]
+        BTN[&quot;ion-button (Tombol Interaktif Verifikasi Status)&quot;]
+        TOAST[&quot;ion-toast / Alert Notifikasi (Respon Berhasil Verifikasi)&quot;]
+    end
+    CARD --&gt; HEADER
+    CARD --&gt; CONTENT
+    CARD --&gt; BTN
+    BTN --&gt;|Memicu Event Sentuhan| TOAST
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> Ionic Framework UI Components Documentation: Card &amp; Button Components &amp; Panduan Tugas Mandiri BMP UT STSI4303 Modul 1.</p>
+</blockquote>
+</li>
+<li><strong>Rubrik Penilaian Mandiri (0–100):</strong> Struktur Semantik Ionic (25 Poin) + Branding UT (25 Poin) + Responsivitas Viewport (25 Poin) + Interaktivitas Sentuhan (25 Poin).</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (tersedia form editor langsung dan tombol salin seluruh kode untuk pengumpulan tugas).</li>
+<li><strong>Tautan Master Solusi:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_17_lab_quest_01_profil_mahasiswa.html">🌐 <code>slide_17_lab_quest_01_profil_mahasiswa.html</code></a></li>
+</ul>
+<hr />
+<h3>📌 Slide 18: Preview Menatap Sesi 02: Beralih ke Reaktivitas Modern Vue.js 3</h3>
+<ul>
+<li><strong>Sub-CPMK:</strong> Menghubungkan konsep manipulasi DOM imperatif tradisional dengan paradigma reaktif deklaratif Vue.js 3 di Sesi 02.</li>
+<li><strong>Narasi Dosen:</strong><br />
+<em>&quot;Di Sesi 01 ini, kita telah menguasai fondasi lingkungan kerja dan komponen mobile pertama kita. Pekan depan di Sesi 02, kita akan melangkah lebih jauh ke dunia modern: bagaimana menyinkronkan data aplikasi dan tampilan secara otomatis tanpa repot menggunakan Vue.js 3!&quot;</em></li>
+<li><strong>Poin Kunci:</strong>
+<ul>
+<li>Keterbatasan manipulasi DOM imperatif tradisional (<code>document.getElementById</code>): rawan <em>typo</em>, kode berbelit, dan sulit dirawat.</li>
+<li>Keunggulan paradigma deklaratif reaktif Vue 3: sinkronisasi otomatis status data ke tampilan layar via <code>ref()</code> dan <code>v-model</code>.</li>
+<li>Jembatan kognitif menuju Sesi 02: Penguasaan <em>Single File Component</em> (SFC) dan <em>Composition API</em> modern.</li>
+</ul>
+</li>
+<li><strong>Diagram Paradigma Manipulasi DOM vs Deklaratif Reaktif (Menuju Sesi 02):</strong><pre><code class="language-mermaid">flowchart TD
+    subgraph TRADISIONAL [&quot;Sesi 01: Paradigma Imperatif Tradisional&quot;]
+        E1[&quot;Cari Elemen: document.getElementById('teks')&quot;] --&gt; E2[&quot;Ubah Nilai: elemen.innerHTML = 'Data Baru'&quot;]
+        E2 --&gt; E3[&quot;Manual Memantau Setiap Perubahan DOM&quot;]
+    end
+    subgraph MODERN [&quot;Sesi 02: Paradigma Deklaratif Reaktif (Vue.js 3)&quot;]
+        V1[&quot;Deklarasikan Status: const pesan = ref('Halo')&quot;] --&gt; V2[&quot;Ikatkan ke Tampilan: {{ pesan }}&quot;]
+        V2 --&gt; V3[&quot;Otomatis: Saat 'pesan' Berubah, Tampilan Seketika Diperbarui&quot;]
+    end
+</code></pre>
+<blockquote>
+<p>📚 <strong>Referensi:</strong> Vue.js 3 Official Guide: &quot;Reactivity Fundamentals&quot; &amp; BMP UT STSI4303 Modul 2.</p>
+</blockquote>
+</li>
+<li><strong>Alat yang Digunakan:</strong> Google Chrome (uji coba komparasi imperatif vs deklaratif reaktif).</li>
+<li><strong>Tautan Kode Mandiri:</strong><br />
+👉 <a href="../contoh_kode_program/sesi_01_lingkungan_dan_tools/slide_18_preview_sesi_02_vue.html">🌐 <code>slide_18_preview_sesi_02_vue.html</code></a></li>
+</ul>
+<hr />
+<h2>📚 Daftar Referensi Akademik &amp; Standar Mutu</h2>
+<ol>
+<li><strong>Buku Materi Pokok (BMP) UT:</strong> MSIM4401 / STSI4303 — <em>Pemrograman Berbasis Perangkat Bergerak</em>, Modul 1: Pengenalan Lingkungan Pengembangan Aplikasi Piranti Bergerak. Tangerang Selatan: Universitas Terbuka.</li>
+<li><strong>Dokumentasi Resmi Ionic Framework:</strong> Architecture Overview &amp; UI Components Reference, 2026. <a href="https://ionicframework.com/docs">ionicframework.com/docs</a>.</li>
+<li><strong>Dokumentasi Resmi Android Developer:</strong> Configure on-device developer options, 2026. <a href="https://developer.android.com/studio/debug/dev-options">developer.android.com/studio/debug/dev-options</a>.</li>
+<li><strong>W3C Standards:</strong> CSS Device Adaptation &amp; Viewport Meta Specification, 2026. <a href="https://www.w3.org/TR/css-device-adapt/">w3.org/TR/css-device-adapt/</a>.</li>
+<li><strong>Vue.js 3 Official Guide:</strong> Reactivity in Depth &amp; Single File Components, 2026. <a href="https://vuejs.org">vuejs.org</a>.</li>
+</ol>
+
+
+      <footer class="doc-footer">
+        <div>
+          <span>Hak Cipta &copy; 2026 Universitas Terbuka</span> • 
+          <span>The Zero-Friction Courseware Framework</span>
+        </div>
+        <div>
+          <a href="../index.html" style="font-size: 12px; color: var(--ut-blue);">Kembali ke Katalog Utama ↗</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Konversi blok diagram mermaid
+      document.querySelectorAll('pre code.language-mermaid').forEach(el => {
+        const pre = el.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        pre.replaceWith(div);
+      });
+
+      // Bungkus seluruh tabel dengan wrapper responsive
+      document.querySelectorAll('.doc-content table').forEach(tbl => {
+        if (!tbl.parentElement.classList.contains('table-responsive')) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'table-responsive';
+          tbl.parentElement.insertBefore(wrapper, tbl);
+          wrapper.appendChild(tbl);
+        }
+      });
+
+      // Inisialisasi mermaid jika pustaka tersedia
+      if (window.mermaid) {
+        mermaid.initialize({ 
+          startOnLoad: true, 
+          theme: 'neutral',
+          securityLevel: 'loose'
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panduan Pengerjaan & Rubrik Tugas Tutorial 1, 2, & 3 — Universitas Terbuka</title>
+  <meta name="description" content="Panduan resmi pengerjaan dan rubrik evaluasi Tugas Tutorial 1, 2, dan 3 mata kuliah Pemrograman Berbasis Perangkat Bergerak (STSI4303) Universitas Terbuka.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Mermaid.js untuk Diagram Arsitektur -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --ut-navy: #003366;
+      --ut-blue: #005691;
+      --ut-blue-light: #EBF3FA;
+      --ut-gold: #C28E00;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --slate-900: #0F172A;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      position: static !important;
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100% !important;
+      background-color: var(--slate-50);
+      color: var(--slate-800);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Breadcrumb & Navbar */
+    .top-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-nav-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ut-blue);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .breadcrumb:hover {
+      color: var(--ut-navy);
+      text-decoration: underline;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--slate-200);
+      background: #FFFFFF;
+      color: var(--slate-700);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      border-color: var(--slate-300);
+    }
+
+    .action-btn.primary {
+      background: var(--ut-blue);
+      color: #FFFFFF;
+      border-color: var(--ut-blue);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--ut-navy);
+      border-color: var(--ut-navy);
+    }
+
+    /* Main Container */
+    .doc-container {
+      max-width: 1060px;
+      margin: 32px auto 60px;
+      padding: 0 20px;
+    }
+
+    /* Academic Header Card */
+    .doc-header {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ut-navy) 0%, var(--ut-blue) 60%, var(--ut-gold) 100%);
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--ut-blue);
+      background: var(--ut-blue-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .doc-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+    }
+
+    .doc-subtitle {
+      font-size: 14px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* Document Body & Typography */
+    .doc-content {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 768px) {
+      .doc-content { padding: 24px 20px; }
+      .doc-header { padding: 24px 20px; }
+      .doc-title { font-size: 22px; }
+    }
+
+    .doc-content h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-top: 28px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 32px;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .doc-content h3 {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    .doc-content p {
+      margin-bottom: 16px;
+      color: var(--slate-700);
+    }
+
+    .doc-content ul, .doc-content ol {
+      margin-bottom: 18px;
+      padding-left: 24px;
+    }
+
+    .doc-content li {
+      margin-bottom: 6px;
+      color: var(--slate-700);
+    }
+
+    .doc-content hr {
+      border: none;
+      height: 1px;
+      background: var(--slate-200);
+      margin: 32px 0;
+    }
+
+    /* Links */
+    .doc-content a {
+      color: var(--ut-blue);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed #93C5FD;
+      transition: all 0.15s ease;
+    }
+
+    .doc-content a:hover {
+      color: var(--ut-navy);
+      border-bottom-style: solid;
+      background: var(--ut-blue-light);
+    }
+
+    /* GitHub Alert Callouts */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-left: 4px solid;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .alert-important {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+
+    .alert-note {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1E40AF;
+    }
+
+    .alert-tip {
+      background: #ECFDF5;
+      border-color: #10B981;
+      color: #065F46;
+    }
+
+    .alert-warning {
+      background: #FFFBEB;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+
+    /* Beautiful Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin: 24px 0;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    .doc-content th {
+      background: var(--slate-100);
+      color: var(--slate-900);
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--slate-200);
+      letter-spacing: 0.2px;
+    }
+
+    .doc-content td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      vertical-align: top;
+    }
+
+    .doc-content tr:last-child td {
+      border-bottom: none;
+    }
+
+    .doc-content tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+
+    .doc-content tr:hover td {
+      background: #F1F5F9;
+    }
+
+    /* Code Blocks */
+    .doc-content pre {
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 20px 0;
+      border: 1px solid var(--slate-700);
+    }
+
+    .doc-content code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--slate-100);
+      color: var(--slate-900);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .doc-content pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    /* Mermaid Diagrams */
+    .mermaid {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12.5px;
+      color: var(--slate-400);
+    }
+
+    @media print {
+      .top-nav, .action-btn { display: none !important; }
+      body { background: #FFF; }
+      .doc-header, .doc-content { border: none; box-shadow: none; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP STICKY NAVIGATION -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="../index.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Kembali ke Portal Perkuliahan
+      </a>
+
+      <div class="nav-actions">
+        <button class="action-btn" onclick="window.print()" title="Cetak halaman atau simpan sebagai PDF">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Cetak / PDF
+        </button>
+        <a href="PANDUAN_TUGAS_TUTORIAL_1_2_3.md" target="_blank" class="action-btn" title="Buka berkas sumber Markdown asli">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Naskah Markdown (.md)
+        </a>
+        <a href="https://github.com/antonprafanto/tuweb_mobile2025" target="_blank" class="action-btn" title="Buka repositori GitHub">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="doc-container">
+    <!-- HEADER -->
+    <header class="doc-header">
+      <span class="doc-badge">Panduan Tugas Wajib</span>
+      <h1 class="doc-title">PANDUAN PENGERJAAN & RUBRIK TUGAS TUTORIAL 1, 2, & 3</h1>
+      <p class="doc-subtitle">
+        Mata Kuliah: <strong>Pemrograman Berbasis Perangkat Bergerak (STSI4303 / MSIM4401 — 3 SKS)</strong><br>
+        Fakultas Sains dan Teknologi, Universitas Terbuka • Dosen Pengampu: <strong>Anton Prafanto, S.Kom., M.T.</strong>
+      </p>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="doc-content">
+      <h1>📝 PANDUAN PENGERJAAN &amp; RUBRIK TUGAS TUTORIAL 1, 2, &amp; 3</h1>
+<h2>Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303) — Universitas Terbuka</h2>
+<div class="alert-box alert-tip">
+<p><strong>Tampilan Versi Web Interaktif &amp; Rapi:</strong>
+Dokumen ini tersedia dalam format Web Modern yang responsif, rapi, dan mudah dibaca:<br />
+👉 <a href="https://antonprafanto.github.io/tuweb_mobile2025/panduan_tutorial_ut/PANDUAN_TUGAS_TUTORIAL_1_2_3.html"><strong>Buka Versi Web Panduan Tugas Tutorial</strong></a> <em>(atau buka berkas lokal <code>PANDUAN_TUGAS_TUTORIAL_1_2_3.html</code>)</em>.</p>
+</div>
+<div class="alert-box alert-important">
+<p><strong>Petunjuk Umum Mahasiswa:</strong></p>
+<ol>
+<li>Pengerjaan tugas bersifat <strong>individu</strong> untuk menguji pemahaman praktis Anda.</li>
+<li>Hasil pengerjaan dikumpulkan dalam bentuk <strong>Laporan PDF</strong> (berisi penjelasan singkat &amp; tangkapan layar/screenshot aplikasi yang berjalan) serta <strong>Tautan Repositori GitHub</strong> atau arsip kode program (.zip).</li>
+<li>Kepatuhan terhadap batas waktu pengumpulan sangat menentukan kelulusan mata kuliah praktik ini.</li>
+</ol>
+</div>
+<hr />
+<h2>🎯 TUGAS TUTORIAL 1 (Diberikan pada Sesi 3)</h2>
+<ul>
+<li><strong>Topik Materi:</strong> Pemrograman Sisi Frontend Menggunakan TypeScript dan Vue.js 3</li>
+<li><strong>Capaian:</strong> Mampu membuat aplikasi interaktif berbasis web/mobile menggunakan sistem reaktivitas Vue 3 dan keamanan tipe data TypeScript.</li>
+</ul>
+<h3>Skenario Kasus:</h3>
+<p>Anda diminta membangun aplikasi <strong>&quot;Kalkulator Nilai Mata Kuliah &amp; Indeks Prestasi Semester (IPS) Mahasiswa UT&quot;</strong>:</p>
+<ol>
+<li>Buat <em>interface</em> TypeScript <code>MataKuliah</code> (dengan properti <code>id</code>, <code>kode</code>, <code>nama</code>, <code>sks</code>, dan <code>nilaiHuruf?: 'A' | 'B' | 'C' | 'D' | 'E'</code>) serta <code>MahasiswaUT</code> (dengan properti identitas <code>readonly nim</code>, <code>nama</code>, <code>upbjj</code>, <code>programStudi</code>, dan <code>daftarNilai: MataKuliah[]</code>).</li>
+<li>Gunakan Vue 3 Composition API (<code>ref&lt;MataKuliah[]&gt;</code>) untuk menyimpan daftar mata kuliah yang diambil secara reaktif.</li>
+<li>Tampilkan daftar mata kuliah menggunakan tabel interaktif dengan direktif <code>v-for</code>.</li>
+<li>Sediakan form input penambahan mata kuliah dengan validasi beban SKS (1–6) dan <em>two-way data binding</em> (<code>v-model.number</code>).</li>
+<li>Hitung secara otomatis nilai total SKS, total bobot mutu, dan Indeks Prestasi Semester (IPS 2 desimal) menggunakan <code>computed property</code>.</li>
+<li>Tampilkan badge predikat kelulusan serta sediakan fitur cetak ringkasan KTPU.</li>
+</ol>
+<h3>Rubrik Penilaian Resmi Tugas 1 (Skor Maksimal: 100)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">No</th>
+<th style="text-align:left">Kriteria Evaluasi</th>
+<th style="text-align:center">Bobot Maksimal</th>
+<th style="text-align:left">Deskripsi Capaian Mutu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>1</strong></td>
+<td style="text-align:left"><strong>Model Data TypeScript &amp; Type Safety</strong></td>
+<td style="text-align:center"><strong>25%</strong></td>
+<td style="text-align:left">Mendefinisikan interface <code>MataKuliah</code> dan <code>MahasiswaUT</code> secara ketat tanpa <code>any</code>. Menerapkan literal types untuk nilai huruf (<code>'A'|'B'|'C'|'D'|'E'</code>).</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>2</strong></td>
+<td style="text-align:left"><strong>Reaktivitas Vue 3 &amp; Validasi Form</strong></td>
+<td style="text-align:center"><strong>25%</strong></td>
+<td style="text-align:left">Implementasi <code>ref</code>, <code>v-model.number</code>, validasi batas beban SKS (1–6), serta tombol aksi penambahan dan penghapusan baris data secara reaktif.</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>3</strong></td>
+<td style="text-align:left"><strong>Logika Kalkulasi Otomatis (Computed)</strong></td>
+<td style="text-align:center"><strong>30%</strong></td>
+<td style="text-align:left">Memanfaatkan <code>computed()</code> untuk menghitung Total SKS, Total Mutu, Nilai IPS (2 desimal), dan penentuan Predikat Akademik secara efisien dengan caching.</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>4</strong></td>
+<td style="text-align:left"><strong>Video Demonstrasi &amp; Integritas Akademik</strong></td>
+<td style="text-align:center"><strong>20%</strong></td>
+<td style="text-align:left">Menyertakan tautan video YouTube <em>Unlisted</em> (3–5 menit) yang menampilkan wajah mahasiswa, demonstrasi fitur aplikasi, dan penjelasan kode. Bebas plagiasi.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>💡 Rujukan Pembelajaran &amp; Alat Bantu Mandiri:</strong>
+<ul>
+<li>🎯 <strong>Kalkulator Skor Rubrik Interaktif:</strong> <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.html"><code>slide_16_rubrik_tugas_tutorial_1.html</code></a> <em>(Panduan Teks: <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_16_rubrik_tugas_tutorial_1.md"><code>slide_16_rubrik_tugas_tutorial_1.md</code></a>)</em></li>
+<li>🎯 <strong>Master Solusi Resmi Tugas Tutorial 1:</strong> <a href="../contoh_kode_program/sesi_03_typescript_vue/slide_17_solusi_tugas_1_kalkulator_nilai.html"><code>slide_17_solusi_tugas_1_kalkulator_nilai.html</code></a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>🎯 TUGAS TUTORIAL 2 (Diberikan pada Sesi 5)</h2>
+<ul>
+<li><strong>Topik Materi:</strong> Perancangan Antarmuka Mobile dengan Ionic Framework, Form Validasi, &amp; Theming</li>
+<li><strong>Capaian:</strong> Mampu merancang antarmuka aplikasi bergerak berbasis Ionic dengan tata letak adaptif, validasi formulir, dan dukungan tema.</li>
+</ul>
+<h3>Skenario Kasus:</h3>
+<p>Anda diminta merancang antarmuka <strong>&quot;Portal Pendaftaran Layanan Mandiri Mahasiswa UT (KTM &amp; Registrasi Sesi)&quot;</strong>:</p>
+<ol>
+<li>Menggunakan komponen UI bawaan Ionic Framework (<code>&lt;ion-card&gt;</code>, <code>&lt;ion-item&gt;</code>, <code>&lt;ion-input&gt;</code>, <code>&lt;ion-select&gt;</code>, <code>&lt;ion-button&gt;</code>).</li>
+<li>Terapkan validasi formulir:
+<ul>
+<li>NIM wajib 9 digit angka.</li>
+<li>Nama lengkap tidak boleh kosong.</li>
+<li>Email wajib berakhiran <code>@ecampus.ut.ac.id</code> (menggunakan logika validator regex).</li>
+<li>Pilihan Program Studi (Dropdown / Select).</li>
+</ul>
+</li>
+<li>Jika validasi gagal, tampilkan pesan peringatan di bawah input. Jika berhasil, tampilkan konfirmasi melalui notifikasi mengambang (<code>&lt;ion-toast&gt;</code> atau <code>&lt;ion-alert&gt;</code>).</li>
+<li>Sediakan tombol toggle untuk mengubah mode tampilan (<em>Dark Mode</em> / <em>Light Mode</em>).</li>
+</ol>
+<h3>Rubrik Penilaian Tugas 2 (Skor Maksimal: 100)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">No</th>
+<th style="text-align:left">Kriteria Evaluasi</th>
+<th style="text-align:center">Skor Maksimal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left">Struktur tampilan antarmuka rapi menggunakan komponen resmi Ionic UI</td>
+<td style="text-align:center">25</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left">Implementasi validasi form (NIM 9 digit &amp; regex email kampus) berfungsi tepat</td>
+<td style="text-align:center">35</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:left">Umpan balik interaktif (Toast/Alert konfirmasi berhasil/gagal)</td>
+<td style="text-align:center">20</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:left">Fitur Dark/Light Mode toggle berfungsi mulus dan laporan tangkapan layar jelas</td>
+<td style="text-align:center">20</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>💡 Rujukan Pembelajaran &amp; Alat Bantu Mandiri:</strong>
+<ul>
+<li>🎯 <strong>Kalkulator Skor Rubrik Interaktif:</strong> <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.html"><code>slide_16_rubrik_tugas_tutorial_2.html</code></a> <em>(Panduan Teks: <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_16_rubrik_tugas_tutorial_2.md"><code>slide_16_rubrik_tugas_tutorial_2.md</code></a>)</em></li>
+<li>🎯 <strong>Master Solusi Resmi Tugas Tutorial 2:</strong> <a href="../contoh_kode_program/sesi_05_layout_grid_form/slide_17_solusi_tugas_2_portal_ktm_registrasi.html"><code>slide_17_solusi_tugas_2_portal_ktm_registrasi.html</code></a></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>🎯 TUGAS TUTORIAL 3 (Diberikan pada Sesi 7)</h2>
+<ul>
+<li><strong>Topik Materi:</strong> Pengembangan Aplikasi Terintegrasi (REST API, Local Storage, &amp; Capacitor Native Plugin)</li>
+<li><strong>Capaian:</strong> Mampu mengintegrasikan aplikasi Ionic dengan layanan data eksternal (REST API), penyimpanan lokal persisten, dan kapabilitas perangkat keras.</li>
+</ul>
+<h3>Skenario Kasus:</h3>
+<p>Anda diminta membuat aplikasi mobile <strong>&quot;Aplikasi Pelaporan Presensi &amp; Lokasi Belajar Mahasiswa (Study Tracker Mobile)&quot;</strong>:</p>
+<ol>
+<li><strong>Integrasi REST API Publik:</strong> Mengambil data eksternal secara asinkron menggunakan <code>fetch</code> atau <code>axios</code> (misal: data cuaca BMKG / Open-Meteo, kutipan motivasi belajar harian, atau data publik lainnya).</li>
+<li><strong>Penyimpanan Lokal Persisten (Local Storage / Capacitor Preferences):</strong> Mahasiswa dapat menyimpan riwayat jam belajar / catatan catatan sesi yang tidak hilang saat aplikasi ditutup/direfresh.</li>
+<li><strong>Integrasi Perangkat Keras (Capacitor Native Plugin):</strong>
+<ul>
+<li>Pilihan A: Mengakses <strong>Geolocation</strong> untuk mencatat koordinat lintang-bujur (<em>latitude, longitude</em>) lokasi belajar.</li>
+<li>ATAU Pilihan B: Mengakses <strong>Camera Plugin</strong> untuk mengambil foto bukti belajar mandiri (atau simulasi file upload).</li>
+</ul>
+</li>
+<li>Tampilan responsif yang menyatukan komponen data API, daftar catatan lokal, dan hasil sensor native.</li>
+</ol>
+<h3>Rubrik Penilaian Tugas 3 (Skor Maksimal: 100)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">No</th>
+<th style="text-align:left">Kriteria Evaluasi</th>
+<th style="text-align:center">Skor Maksimal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left">Pengambilan data eksternal via REST API asinkron (<code>async/await</code>) berjalan lancar</td>
+<td style="text-align:center">30</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left">Mekanisme simpan, baca, dan hapus data lokal persisten berfungsi baik</td>
+<td style="text-align:center">25</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:left">Pemanfaatan plugin Capacitor (Geolocation / Camera) berhasil terhubung</td>
+<td style="text-align:center">25</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:left">Arsitektur kode terstruktur, penanganan error (<code>try-catch</code>), &amp; video/screenshot demo</td>
+<td style="text-align:center">20</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>💡 Rujukan Pembelajaran &amp; Alat Bantu Mandiri:</strong>
+<ul>
+<li>🎯 <strong>Kalkulator Skor Rubrik Interaktif:</strong> <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.html"><code>slide_16_rubrik_tugas_tutorial_3.html</code></a> <em>(Panduan Teks: <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_16_rubrik_tugas_tutorial_3.md"><code>slide_16_rubrik_tugas_tutorial_3.md</code></a>)</em></li>
+<li>🎯 <strong>Master Solusi Resmi Tugas Tutorial 3:</strong> <a href="../contoh_kode_program/sesi_07_api_storage_plugins/slide_17_solusi_tugas_3_study_tracker.html"><code>slide_17_solusi_tugas_3_study_tracker.html</code></a></li>
+</ul>
+</li>
+</ul>
+
+
+      <footer class="doc-footer">
+        <div>
+          <span>Hak Cipta &copy; 2026 Universitas Terbuka</span> • 
+          <span>The Zero-Friction Courseware Framework</span>
+        </div>
+        <div>
+          <a href="../index.html" style="font-size: 12px; color: var(--ut-blue);">Kembali ke Katalog Utama ↗</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Konversi blok diagram mermaid
+      document.querySelectorAll('pre code.language-mermaid').forEach(el => {
+        const pre = el.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = el.textContent;
+        pre.replaceWith(div);
+      });
+
+      // Bungkus seluruh tabel dengan wrapper responsive
+      document.querySelectorAll('.doc-content table').forEach(tbl => {
+        if (!tbl.parentElement.classList.contains('table-responsive')) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'table-responsive';
+          tbl.parentElement.insertBefore(wrapper, tbl);
+          wrapper.appendChild(tbl);
+        }
+      });
+
+      // Inisialisasi mermaid jika pustaka tersedia
+      if (window.mermaid) {
+        mermaid.initialize({ 
+          startOnLoad: true, 
+          theme: 'neutral',
+          securityLevel: 'loose'
+        });
+      }
+    });
+  </script>
+</body>
+</html>
