@@ -20,7 +20,15 @@
       --purple: #C084FC;
     }
     * { box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+    html, body {
+      position: static !important;
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100% !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
     body { background-color: var(--bg); margin: 0; padding: 20px; color: #000; }
+    ion-app { position: relative !important; }
     
     .header-banner {
       background: var(--yellow);
