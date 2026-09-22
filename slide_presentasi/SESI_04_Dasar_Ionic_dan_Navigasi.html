@@ -895,9 +895,9 @@ Gunakan VS Code untuk membaca dan mengeksplorasi kode sumber. Ekstensi yang disa
 <li><strong>Diagram Logika Eksekusi ion-back-button (Mermaid):</strong></li>
 </ul>
 <pre><code class="language-mermaid">flowchart TD
-    Click[&quot;Pengguna Menekan &lt;ion-back-button&gt;&quot;] --&gt; Check{&quot;Apakah Ada Tumpukan Halaman Sebelumnya di Stack?&quot;}
-    Check --&gt;|Ya (Ada Riwayat)| Pop[&quot;Lakukan Stack Pop: Kembali ke Halaman Sebelumnya&quot;]
-    Check --&gt;|Tidak (Buka Langsung / Refresh F5)| Fallback[&quot;Gunakan Jalur Cadangan: Navigasi ke default-href='/katalog'&quot;]
+    Click[&quot;Pengguna Menekan ion-back-button&quot;] --&gt; Check{&quot;Apakah Ada Tumpukan Halaman Sebelumnya di Stack?&quot;}
+    Check --&gt;|Ya: Ada Riwayat| Pop[&quot;Lakukan Stack Pop: Kembali ke Halaman Sebelumnya&quot;]
+    Check --&gt;|Tidak: Jalur Cadangan| Fallback[&quot;Gunakan Jalur Cadangan: default-href /katalog&quot;]
     Pop --&gt; Ready[&quot;Pengguna Tidak Pernah Terjebak di Layar Buntu!&quot;]
     Fallback --&gt; Ready
 </code></pre>

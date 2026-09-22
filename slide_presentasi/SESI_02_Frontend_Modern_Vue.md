@@ -72,9 +72,9 @@ flowchart TD
 * **Diagram Mekanisme (Mermaid):**
 ```mermaid
 flowchart LR
-    A["Nilai Primitif: 0"] -->|Dibungkus ref()| B["Wadah Reaktif RefImpl { value: 0 }"]
+    A["Nilai Primitif: 0"] -->|Dibungkus fungsi ref| B["Wadah Reaktif RefImpl: value = 0"]
     B -->|Diakses di Script JS| C["Wajib panggil .value: counter.value++"]
-    B -->|Diakses di Template HTML| D["Auto-Unwrap: {{ counter }}"]
+    B -->|Diakses di Template HTML| D["Auto-Unwrap: nilai counter"]
     C -->|Memicu Setter| E["Sinyal Pembaruan Virtual DOM"]
 ```
 * **Tautan Kode Mandiri:**  
@@ -94,7 +94,7 @@ flowchart LR
 * **Diagram Arsitektur (Mermaid):**
 ```mermaid
 flowchart TD
-    M["Objek JavaScript Asli: { nim, nama, semester }"] -->|Bungkus reactive()| P["ES6 Proxy Interceptor"]
+    M["Objek JavaScript Asli: nim, nama, semester"] -->|Bungkus fungsi reactive| P["ES6 Proxy Interceptor"]
     P -->|Operasi Baca GET| T["Track Dependency: Catat Komponen yang Menggunakan"]
     P -->|Operasi Tulis SET| TR["Trigger Update: Perbarui Elemen DOM Terkait"]
 ```
@@ -145,8 +145,8 @@ flowchart LR
 * **Diagram Mekanisme (Mermaid):**
 ```mermaid
 flowchart LR
-    A["State Reaktif JavaScript: nama = ref('')"] -->|:value (Props Down)| B["Elemen Input HTML &lt;input&gt;"]
-    B -->|@input (Event Listener)| A
+    A["State Reaktif JavaScript: nama = ref('')"] -->|value - Props Down| B["Elemen Input HTML input"]
+    B -->|input - Event Listener| A
 ```
 * **Tautan Kode Mandiri:**  
   👉 [🌐 Buka File Interaktif: slide_05_two_way_binding_v_model.html](../contoh_kode_program/sesi_02_vue_frontend/slide_05_two_way_binding_v_model.html)
@@ -341,8 +341,8 @@ flowchart TD
 * **Diagram Siklus Komunikasi Dua Arah (Mermaid):**
 ```mermaid
 flowchart LR
-    P["Komponen Induk"] -->|Props Down :modul| C["Komponen Anak"]
-    C -->|Events Up emit('tambah-qty')| P
+    P["Komponen Induk"] -->|Props Down: modul| C["Komponen Anak"]
+    C -->|Events Up: emit tambah-qty| P
 ```
 * **Tautan Kode Mandiri:**  
   👉 [🌐 Buka File Interaktif: slide_14_emits_komunikasi_anak_ke_induk.html](../contoh_kode_program/sesi_02_vue_frontend/slide_14_emits_komunikasi_anak_ke_induk.html)

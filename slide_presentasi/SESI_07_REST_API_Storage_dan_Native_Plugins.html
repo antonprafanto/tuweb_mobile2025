@@ -826,14 +826,14 @@ Seluruh penugasan resmi (Tugas Tutorial 3), pengumpulan berkas/video, dan evalua
 <li><strong>Diagram Konsep:</strong></li>
 </ul>
 <pre><code class="language-mermaid">flowchart LR
-  subgraph Simpan [&quot;Proses Penyimpanan (Save)&quot;]
-    Obj1[&quot;Array Objek JavaScript:&lt;br&gt;[ { modul: 'Modul 8', jam: 2 } ]&quot;] --&gt;|JSON.stringify| Str1[&quot;String JSON Murni:&lt;br&gt;'[{\&quot;modul\&quot;:\&quot;Modul 8\&quot;,\&quot;jam\&quot;:2}]'&quot;]
-    Str1 --&gt;|localStorage.setItem| Storage1[(&quot;Local Storage&lt;br&gt;(Format Teks)&quot;)]
+  subgraph Simpan [&quot;Proses Penyimpanan Save&quot;]
+    Obj1[&quot;Array Objek JavaScript:&lt;br&gt;modul: Modul 8, jam: 2&quot;] --&gt;|JSON.stringify| Str1[&quot;String JSON Murni:&lt;br&gt;modul: Modul 8, jam: 2&quot;]
+    Str1 --&gt;|localStorage.setItem| Storage1[(&quot;Local Storage&lt;br&gt;Format Teks&quot;)]
   end
 
-  subgraph Baca [&quot;Proses Pembacaan (Load)&quot;]
-    Storage2[(&quot;Local Storage&lt;br&gt;(Format Teks)&quot;)] --&gt;|localStorage.getItem| Str2[&quot;String JSON Murni&quot;]
-    Str2 --&gt;|JSON.parse| Obj2[&quot;Array Objek JavaScript Aktif&lt;br&gt;(Dapat di-loop dengan v-for)&quot;]
+  subgraph Baca [&quot;Proses Pembacaan Load&quot;]
+    Storage2[(&quot;Local Storage&lt;br&gt;Format Teks&quot;)] --&gt;|localStorage.getItem| Str2[&quot;String JSON Murni&quot;]
+    Str2 --&gt;|JSON.parse| Obj2[&quot;Array Objek JavaScript Aktif&lt;br&gt;Dapat di-loop dengan v-for&quot;]
   end
 
   style Simpan fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
@@ -976,12 +976,12 @@ Seluruh penugasan resmi (Tugas Tutorial 3), pengumpulan berkas/video, dan evalua
   participant CameraPlugin as Capacitor Camera Plugin
   participant Sensor as Sensor Hardware Kamera Ponsel
 
-  Mahasiswa-&gt;&gt;App: Klik &quot;Ambil Foto Modul BMP&quot;
-  App-&gt;&gt;CameraPlugin: Camera.getPhoto({ quality: 80, resultType: DataUrl })
+  Mahasiswa-&gt;&gt;App: Klik Ambil Foto Modul BMP
+  App-&gt;&gt;CameraPlugin: Camera.getPhoto dengan quality 80 dan format DataUrl
   CameraPlugin-&gt;&gt;Sensor: Nyalakan Modul Kamera Native
-  Mahasiswa-&gt;&gt;Sensor: Bidik &amp; Jepret Foto Modul
+  Mahasiswa-&gt;&gt;Sensor: Bidik dan Jepret Foto Modul
   Sensor--&gt;&gt;CameraPlugin: Biner Raw Gambar
-  CameraPlugin--&gt;&gt;App: String Base64 ('data:image/jpeg;base64,...')
+  CameraPlugin--&gt;&gt;App: String Base64 data gambar
   App--&gt;&gt;Mahasiswa: Tampilkan Thumbnail Foto Bukti Belajar
 </code></pre>
 <ul>

@@ -1097,15 +1097,17 @@
 </ul>
 <pre><code class="language-mermaid">flowchart TD
   Err[&quot;Terjadi Kendala Kompilasi / Build&quot;] --&gt; Type{Identifikasi Gejala}
-  Type --&gt;|JDK Mismatch / Major 65| S1[&quot;File &gt; Settings &gt; Build Tools &gt; Gradle&lt;br&gt;Pilih Gradle JDK: jbr-17&quot;]
-  Type --&gt;|dist Does Not Exist| S2[&quot;Jalankan di Terminal:&lt;br&gt;npm run build &amp;&amp; npx cap sync&quot;]
-  Type --&gt;|Device unauthorized| S3[&quot;Revoke USB Debugging di HP&lt;br&gt;Colok ulang kabel &amp; klik Allow RSA&quot;]
-  Type --&gt;|AAPT2 Invalid Name| S4[&quot;Ganti nama file gambar di res/&lt;br&gt;Gunakan lowercase + underscore (logo_ut.png)&quot;]
-  Type --&gt;|Cleartext Traffic Blocked| S5[&quot;Tambahkan di AndroidManifest.xml:&lt;br&gt;android:usesCleartextTraffic='true'&quot;]
-  Type --&gt;|Gradle Out-of-Memory (OOM)| S6[&quot;Edit android/gradle.properties:&lt;br&gt;org.gradle.jvmargs=-Xmx1024m&quot;]
+  Type --&gt;|JDK Mismatch atau Major 65| S1[&quot;File - Settings - Build Tools - Gradle&lt;br&gt;Pilih Gradle JDK: jbr-17&quot;]
+  Type --&gt;|dist Does Not Exist| S2[&quot;Jalankan di Terminal:&lt;br&gt;npm run build dan npx cap sync&quot;]
+  Type --&gt;|Device unauthorized| S3[&quot;Revoke USB Debugging di HP&lt;br&gt;Colok ulang kabel dan klik Allow RSA&quot;]
+  Type --&gt;|AAPT2 Invalid Name| S4[&quot;Ganti nama file gambar di res/&lt;br&gt;Gunakan lowercase + underscore: logo_ut.png&quot;]
+  Type --&gt;|Cleartext Traffic Blocked| S5[&quot;Tambahkan di AndroidManifest.xml:&lt;br&gt;usesCleartextTraffic true&quot;]
+  Type --&gt;|Gradle Out of Memory OOM| S6[&quot;Edit android/gradle.properties:&lt;br&gt;org.gradle.jvmargs=-Xmx1024m&quot;]
 
-  style Err fill:#fee2e2,stroke:#dc2626,stroke-width:2px
-  style S1,S2,S3,S4,S5,S6 fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px
+  classDef errClass fill:#fee2e2,stroke:#dc2626,stroke-width:2px;
+  classDef solClass fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px;
+  class Err errClass;
+  class S1,S2,S3,S4,S5,S6 solClass;
 </code></pre>
 <ul>
 <li><strong>Tautan Berkas:</strong><br />

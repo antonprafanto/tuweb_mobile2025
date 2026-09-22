@@ -728,9 +728,9 @@ Gunakan VS Code untuk membuka dan mempelajari baris kode. Pasang ekstensi yang d
 </ul>
 <pre><code class="language-mermaid">flowchart TD
     Q{&quot;Karakteristik Data Masukan Pengguna?&quot;}
-    Q --&gt;|Pilihan Biner On/Off Instan| Tog[&quot;&lt;ion-toggle&gt;\nContoh: Aktifkan Notifikasi, Tema Gelap&quot;]
-    Q --&gt;|Persetujuan Klausul / Majemuk| Chk[&quot;&lt;ion-checkbox&gt;\nContoh: Menyetujui Fakta Integritas UT&quot;]
-    Q --&gt;|Satu Opsi Mutlak (Eksklusif)| Rad[&quot;&lt;ion-radio-group&gt;\nContoh: Skema SIPAS (Penuh vs Semi vs Non-TTM)&quot;]
+    Q --&gt;|Pilihan Biner On/Off Instan| Tog[&quot;ion-toggle&lt;br&gt;Contoh: Aktifkan Notifikasi, Tema Gelap&quot;]
+    Q --&gt;|Persetujuan Klausul / Majemuk| Chk[&quot;ion-checkbox&lt;br&gt;Contoh: Menyetujui Fakta Integritas UT&quot;]
+    Q --&gt;|Satu Opsi Mutlak Eksklusif| Rad[&quot;ion-radio-group&lt;br&gt;Contoh: Skema SIPAS (Penuh vs Semi vs Non-TTM)&quot;]
 </code></pre>
 <ul>
 <li><strong>Tautan Kode Mandiri:</strong><br />
@@ -925,12 +925,12 @@ Gunakan VS Code untuk membuka dan mempelajari baris kode. Pasang ekstensi yang d
 <li><strong>Diagram Alur Konfirmasi Dua Langkah (Two-Tier Confirmation) (Mermaid):</strong></li>
 </ul>
 <pre><code class="language-mermaid">flowchart TD
-    Submit[&quot;Pengguna Klik Tombol 'Ajukan Penerbitan KTM'&quot;] --&gt; CheckValid{&quot;Apakah Seluruh Form Valid?&quot;}
-    CheckValid --&gt;|Tidak| ShowToast[&quot;Munculkan Toast Galat (Merah):\n'Lengkapi data sesuai ketentuan!'&quot;]
-    CheckValid --&gt;|Ya| OpenAlert[&quot;Buka Dialog Modal &lt;ion-alert&gt;\nMenampilkan Ringkasan: Nama, NIM, &amp; Prodi&quot;]
+    Submit[&quot;Pengguna Klik Tombol Ajukan Penerbitan KTM&quot;] --&gt; CheckValid{&quot;Apakah Seluruh Form Valid?&quot;}
+    CheckValid --&gt;|Tidak| ShowToast[&quot;Munculkan Toast Galat Merah:&lt;br&gt;Lengkapi data sesuai ketentuan!&quot;]
+    CheckValid --&gt;|Ya| OpenAlert[&quot;Buka Dialog Modal ion-alert&lt;br&gt;Menampilkan Ringkasan: Nama, NIM, dan Prodi&quot;]
     OpenAlert --&gt; Decision{&quot;Keputusan Pengguna?&quot;}
-    Decision --&gt;|Klik 'Periksa Kembali' (Cancel)| Abort[&quot;Tutup Alert, Tetap di Halaman Formulir&quot;]
-    Decision --&gt;|Klik 'Konfirmasi &amp; Terbitkan'| Commit[&quot;Eksekusi Penyimpanan Data &amp; Terbitkan KTM Digital&quot;]
+    Decision --&gt;|Batal - Periksa Kembali| Abort[&quot;Tutup Alert, Tetap di Halaman Formulir&quot;]
+    Decision --&gt;|Setuju - Konfirmasi &amp; Terbitkan| Commit[&quot;Eksekusi Penyimpanan Data &amp; Terbitkan KTM Digital&quot;]
 </code></pre>
 <ul>
 <li><strong>Tautan Kode Mandiri:</strong><br />

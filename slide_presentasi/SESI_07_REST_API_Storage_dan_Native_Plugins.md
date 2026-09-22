@@ -332,14 +332,14 @@ sequenceDiagram
 * **Diagram Konsep:**
 ```mermaid
 flowchart LR
-  subgraph Simpan ["Proses Penyimpanan (Save)"]
-    Obj1["Array Objek JavaScript:<br>[ { modul: 'Modul 8', jam: 2 } ]"] -->|JSON.stringify| Str1["String JSON Murni:<br>'[{\"modul\":\"Modul 8\",\"jam\":2}]'"]
-    Str1 -->|localStorage.setItem| Storage1[("Local Storage<br>(Format Teks)")]
+  subgraph Simpan ["Proses Penyimpanan Save"]
+    Obj1["Array Objek JavaScript:<br>modul: Modul 8, jam: 2"] -->|JSON.stringify| Str1["String JSON Murni:<br>modul: Modul 8, jam: 2"]
+    Str1 -->|localStorage.setItem| Storage1[("Local Storage<br>Format Teks")]
   end
 
-  subgraph Baca ["Proses Pembacaan (Load)"]
-    Storage2[("Local Storage<br>(Format Teks)")] -->|localStorage.getItem| Str2["String JSON Murni"]
-    Str2 -->|JSON.parse| Obj2["Array Objek JavaScript Aktif<br>(Dapat di-loop dengan v-for)"]
+  subgraph Baca ["Proses Pembacaan Load"]
+    Storage2[("Local Storage<br>Format Teks")] -->|localStorage.getItem| Str2["String JSON Murni"]
+    Str2 -->|JSON.parse| Obj2["Array Objek JavaScript Aktif<br>Dapat di-loop dengan v-for"]
   end
 
   style Simpan fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
@@ -466,12 +466,12 @@ sequenceDiagram
   participant CameraPlugin as Capacitor Camera Plugin
   participant Sensor as Sensor Hardware Kamera Ponsel
 
-  Mahasiswa->>App: Klik "Ambil Foto Modul BMP"
-  App->>CameraPlugin: Camera.getPhoto({ quality: 80, resultType: DataUrl })
+  Mahasiswa->>App: Klik Ambil Foto Modul BMP
+  App->>CameraPlugin: Camera.getPhoto dengan quality 80 dan format DataUrl
   CameraPlugin->>Sensor: Nyalakan Modul Kamera Native
-  Mahasiswa->>Sensor: Bidik & Jepret Foto Modul
+  Mahasiswa->>Sensor: Bidik dan Jepret Foto Modul
   Sensor-->>CameraPlugin: Biner Raw Gambar
-  CameraPlugin-->>App: String Base64 ('data:image/jpeg;base64,...')
+  CameraPlugin-->>App: String Base64 data gambar
   App-->>Mahasiswa: Tampilkan Thumbnail Foto Bukti Belajar
 ```
 * **Tautan Kode Mandiri:**  

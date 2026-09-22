@@ -216,11 +216,11 @@ flowchart TD
 * **Diagram Wadah Generik Berkeamanan Tipe (Mermaid):**
 ```mermaid
 flowchart LR
-    subgraph WADAH["Wadah Koleksi: Array&lt;MataKuliah&gt;"]
-        MK1["Objek MK 1 { sks: 3, ... }"]
-        MK2["Objek MK 2 { sks: 2, ... }"]
+    subgraph WADAH["Wadah Koleksi: Array MataKuliah"]
+        MK1["Objek MK 1: sks = 3"]
+        MK2["Objek MK 2: sks = 2"]
     end
-    WADAH -->|Operasi reduce()| C["Kalkulasi Total SKS: 3 + 2 = 5"]
+    WADAH -->|Operasi reduce| C["Kalkulasi Total SKS: 3 + 2 = 5"]
     WADAH -.->|Penyusupan Objek Tanpa sks| D["🛑 Ditolak Kompiler TypeScript!"]
 ```
 * **Tautan Kode Mandiri:**  
@@ -307,9 +307,9 @@ flowchart TD
 ```mermaid
 flowchart LR
     A["Form Tambah Nilai"] -->|Validasi Interface| B["Objek MataKuliah Sah"]
-    B -->|push()| C["ref&lt;MataKuliah[]&gt;"]
+    B -->|Eksekusi push| C["ref Array MataKuliah"]
     C -->|Trigger Reaktivitas| D["Tabel Antarmuka Otomatis Terbarui"]
-    C -->|filter()| E["Hapus Baris Mata Kuliah"]
+    C -->|Eksekusi filter| E["Hapus Baris Mata Kuliah"]
 ```
 * **Tautan Kode Mandiri:**  
   👉 [🌐 Buka File Interaktif: slide_11_typing_koleksi_array_reaktif.html](../contoh_kode_program/sesi_03_typescript_vue/slide_11_typing_koleksi_array_reaktif.html)

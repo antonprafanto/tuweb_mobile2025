@@ -349,10 +349,10 @@ flowchart TD
 * **Diagram Mermaid:**
 ```mermaid
 flowchart LR
-  Browser["Browser Pengguna (UI)"] -->|fetch('/data')| SW["Service Worker Proxy"]
-  SW -->|Cek Ketersediaan| Cache["Cache Storage (Lokal HP)"]
-  Cache -->|Cache Hit (0 ms)| Fast["✅ Buka Cepat (Mode Offline OK)"]
-  SW -->|Cache Miss| Net["🌐 Remote Cloud Server (Online)"]
+  Browser["Browser Pengguna UI"] -->|Intersepsi fetch| SW["Service Worker Proxy"]
+  SW -->|Cek Ketersediaan| Cache["Cache Storage Lokal HP"]
+  Cache -->|Cache Hit 0 ms| Fast["✅ Buka Cepat - Mode Offline OK"]
+  SW -->|Cache Miss| Net["🌐 Remote Cloud Server Online"]
   style Browser fill:#E0F2FE,stroke:#0284C7
   style SW fill:#FEF08A,stroke:#CA8A04
   style Cache fill:#DCFCE7,stroke:#16A34A

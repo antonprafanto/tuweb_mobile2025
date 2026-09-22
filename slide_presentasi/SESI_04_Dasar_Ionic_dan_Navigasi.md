@@ -388,9 +388,9 @@ flowchart LR
 * **Diagram Logika Eksekusi ion-back-button (Mermaid):**
 ```mermaid
 flowchart TD
-    Click["Pengguna Menekan <ion-back-button>"] --> Check{"Apakah Ada Tumpukan Halaman Sebelumnya di Stack?"}
-    Check -->|Ya (Ada Riwayat)| Pop["Lakukan Stack Pop: Kembali ke Halaman Sebelumnya"]
-    Check -->|Tidak (Buka Langsung / Refresh F5)| Fallback["Gunakan Jalur Cadangan: Navigasi ke default-href='/katalog'"]
+    Click["Pengguna Menekan ion-back-button"] --> Check{"Apakah Ada Tumpukan Halaman Sebelumnya di Stack?"}
+    Check -->|Ya: Ada Riwayat| Pop["Lakukan Stack Pop: Kembali ke Halaman Sebelumnya"]
+    Check -->|Tidak: Jalur Cadangan| Fallback["Gunakan Jalur Cadangan: default-href /katalog"]
     Pop --> Ready["Pengguna Tidak Pernah Terjebak di Layar Buntu!"]
     Fallback --> Ready
 ```

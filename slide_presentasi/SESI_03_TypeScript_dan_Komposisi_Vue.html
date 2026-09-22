@@ -697,11 +697,11 @@ Saat menjalankan berkas <code>.html</code>, Anda dapat menekan tombol <strong>F1
 <li><strong>Diagram Wadah Generik Berkeamanan Tipe (Mermaid):</strong></li>
 </ul>
 <pre><code class="language-mermaid">flowchart LR
-    subgraph WADAH[&quot;Wadah Koleksi: Array&amp;lt;MataKuliah&amp;gt;&quot;]
-        MK1[&quot;Objek MK 1 { sks: 3, ... }&quot;]
-        MK2[&quot;Objek MK 2 { sks: 2, ... }&quot;]
+    subgraph WADAH[&quot;Wadah Koleksi: Array MataKuliah&quot;]
+        MK1[&quot;Objek MK 1: sks = 3&quot;]
+        MK2[&quot;Objek MK 2: sks = 2&quot;]
     end
-    WADAH --&gt;|Operasi reduce()| C[&quot;Kalkulasi Total SKS: 3 + 2 = 5&quot;]
+    WADAH --&gt;|Operasi reduce| C[&quot;Kalkulasi Total SKS: 3 + 2 = 5&quot;]
     WADAH -.-&gt;|Penyusupan Objek Tanpa sks| D[&quot;🛑 Ditolak Kompiler TypeScript!&quot;]
 </code></pre>
 <ul>
@@ -804,9 +804,9 @@ Saat menjalankan berkas <code>.html</code>, Anda dapat menekan tombol <strong>F1
 </ul>
 <pre><code class="language-mermaid">flowchart LR
     A[&quot;Form Tambah Nilai&quot;] --&gt;|Validasi Interface| B[&quot;Objek MataKuliah Sah&quot;]
-    B --&gt;|push()| C[&quot;ref&amp;lt;MataKuliah[]&amp;gt;&quot;]
+    B --&gt;|Eksekusi push| C[&quot;ref Array MataKuliah&quot;]
     C --&gt;|Trigger Reaktivitas| D[&quot;Tabel Antarmuka Otomatis Terbarui&quot;]
-    C --&gt;|filter()| E[&quot;Hapus Baris Mata Kuliah&quot;]
+    C --&gt;|Eksekusi filter| E[&quot;Hapus Baris Mata Kuliah&quot;]
 </code></pre>
 <ul>
 <li><strong>Tautan Kode Mandiri:</strong><br />

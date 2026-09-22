@@ -556,15 +556,17 @@ flowchart LR
 ```mermaid
 flowchart TD
   Err["Terjadi Kendala Kompilasi / Build"] --> Type{Identifikasi Gejala}
-  Type -->|JDK Mismatch / Major 65| S1["File > Settings > Build Tools > Gradle<br>Pilih Gradle JDK: jbr-17"]
-  Type -->|dist Does Not Exist| S2["Jalankan di Terminal:<br>npm run build && npx cap sync"]
-  Type -->|Device unauthorized| S3["Revoke USB Debugging di HP<br>Colok ulang kabel & klik Allow RSA"]
-  Type -->|AAPT2 Invalid Name| S4["Ganti nama file gambar di res/<br>Gunakan lowercase + underscore (logo_ut.png)"]
-  Type -->|Cleartext Traffic Blocked| S5["Tambahkan di AndroidManifest.xml:<br>android:usesCleartextTraffic='true'"]
-  Type -->|Gradle Out-of-Memory (OOM)| S6["Edit android/gradle.properties:<br>org.gradle.jvmargs=-Xmx1024m"]
+  Type -->|JDK Mismatch atau Major 65| S1["File - Settings - Build Tools - Gradle<br>Pilih Gradle JDK: jbr-17"]
+  Type -->|dist Does Not Exist| S2["Jalankan di Terminal:<br>npm run build dan npx cap sync"]
+  Type -->|Device unauthorized| S3["Revoke USB Debugging di HP<br>Colok ulang kabel dan klik Allow RSA"]
+  Type -->|AAPT2 Invalid Name| S4["Ganti nama file gambar di res/<br>Gunakan lowercase + underscore: logo_ut.png"]
+  Type -->|Cleartext Traffic Blocked| S5["Tambahkan di AndroidManifest.xml:<br>usesCleartextTraffic true"]
+  Type -->|Gradle Out of Memory OOM| S6["Edit android/gradle.properties:<br>org.gradle.jvmargs=-Xmx1024m"]
 
-  style Err fill:#fee2e2,stroke:#dc2626,stroke-width:2px
-  style S1,S2,S3,S4,S5,S6 fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px
+  classDef errClass fill:#fee2e2,stroke:#dc2626,stroke-width:2px;
+  classDef solClass fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px;
+  class Err errClass;
+  class S1,S2,S3,S4,S5,S6 solClass;
 ```
 * **Tautan Berkas:**  
   👉 [🌐 **Konsol Diagnostik Interaktif:** `slide_16_troubleshooting_build_android.html`](../contoh_kode_program/sesi_06_capacitor_android/slide_16_troubleshooting_build_android.html)  

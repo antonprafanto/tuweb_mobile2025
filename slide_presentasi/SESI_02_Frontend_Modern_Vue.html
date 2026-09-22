@@ -537,9 +537,9 @@
 <li><strong>Diagram Mekanisme (Mermaid):</strong></li>
 </ul>
 <pre><code class="language-mermaid">flowchart LR
-    A[&quot;Nilai Primitif: 0&quot;] --&gt;|Dibungkus ref()| B[&quot;Wadah Reaktif RefImpl { value: 0 }&quot;]
+    A[&quot;Nilai Primitif: 0&quot;] --&gt;|Dibungkus fungsi ref| B[&quot;Wadah Reaktif RefImpl: value = 0&quot;]
     B --&gt;|Diakses di Script JS| C[&quot;Wajib panggil .value: counter.value++&quot;]
-    B --&gt;|Diakses di Template HTML| D[&quot;Auto-Unwrap: {{ counter }}&quot;]
+    B --&gt;|Diakses di Template HTML| D[&quot;Auto-Unwrap: nilai counter&quot;]
     C --&gt;|Memicu Setter| E[&quot;Sinyal Pembaruan Virtual DOM&quot;]
 </code></pre>
 <ul>
@@ -563,7 +563,7 @@
 <li><strong>Diagram Arsitektur (Mermaid):</strong></li>
 </ul>
 <pre><code class="language-mermaid">flowchart TD
-    M[&quot;Objek JavaScript Asli: { nim, nama, semester }&quot;] --&gt;|Bungkus reactive()| P[&quot;ES6 Proxy Interceptor&quot;]
+    M[&quot;Objek JavaScript Asli: nim, nama, semester&quot;] --&gt;|Bungkus fungsi reactive| P[&quot;ES6 Proxy Interceptor&quot;]
     P --&gt;|Operasi Baca GET| T[&quot;Track Dependency: Catat Komponen yang Menggunakan&quot;]
     P --&gt;|Operasi Tulis SET| TR[&quot;Trigger Update: Perbarui Elemen DOM Terkait&quot;]
 </code></pre>
@@ -622,8 +622,8 @@
 <li><strong>Diagram Mekanisme (Mermaid):</strong></li>
 </ul>
 <pre><code class="language-mermaid">flowchart LR
-    A[&quot;State Reaktif JavaScript: nama = ref('')&quot;] --&gt;|:value (Props Down)| B[&quot;Elemen Input HTML &amp;lt;input&amp;gt;&quot;]
-    B --&gt;|@input (Event Listener)| A
+    A[&quot;State Reaktif JavaScript: nama = ref('')&quot;] --&gt;|value - Props Down| B[&quot;Elemen Input HTML input&quot;]
+    B --&gt;|input - Event Listener| A
 </code></pre>
 <ul>
 <li><strong>Tautan Kode Mandiri:</strong><br />
@@ -854,8 +854,8 @@
 <li><strong>Diagram Siklus Komunikasi Dua Arah (Mermaid):</strong></li>
 </ul>
 <pre><code class="language-mermaid">flowchart LR
-    P[&quot;Komponen Induk&quot;] --&gt;|Props Down :modul| C[&quot;Komponen Anak&quot;]
-    C --&gt;|Events Up emit('tambah-qty')| P
+    P[&quot;Komponen Induk&quot;] --&gt;|Props Down: modul| C[&quot;Komponen Anak&quot;]
+    C --&gt;|Events Up: emit tambah-qty| P
 </code></pre>
 <ul>
 <li><strong>Tautan Kode Mandiri:</strong><br />

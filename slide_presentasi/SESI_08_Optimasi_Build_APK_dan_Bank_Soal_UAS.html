@@ -849,10 +849,10 @@ Pembedahan menyeluruh kisi-kisi resmi Ujian Akhir Semester (UAS) STSI4303 / MSIM
 <li><strong>Diagram Mermaid:</strong></li>
 </ul>
 <pre><code class="language-mermaid">flowchart LR
-  Browser[&quot;Browser Pengguna (UI)&quot;] --&gt;|fetch('/data')| SW[&quot;Service Worker Proxy&quot;]
-  SW --&gt;|Cek Ketersediaan| Cache[&quot;Cache Storage (Lokal HP)&quot;]
-  Cache --&gt;|Cache Hit (0 ms)| Fast[&quot;✅ Buka Cepat (Mode Offline OK)&quot;]
-  SW --&gt;|Cache Miss| Net[&quot;🌐 Remote Cloud Server (Online)&quot;]
+  Browser[&quot;Browser Pengguna UI&quot;] --&gt;|Intersepsi fetch| SW[&quot;Service Worker Proxy&quot;]
+  SW --&gt;|Cek Ketersediaan| Cache[&quot;Cache Storage Lokal HP&quot;]
+  Cache --&gt;|Cache Hit 0 ms| Fast[&quot;✅ Buka Cepat - Mode Offline OK&quot;]
+  SW --&gt;|Cache Miss| Net[&quot;🌐 Remote Cloud Server Online&quot;]
   style Browser fill:#E0F2FE,stroke:#0284C7
   style SW fill:#FEF08A,stroke:#CA8A04
   style Cache fill:#DCFCE7,stroke:#16A34A

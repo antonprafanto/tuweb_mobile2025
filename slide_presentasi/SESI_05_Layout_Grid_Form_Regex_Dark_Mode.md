@@ -242,9 +242,9 @@ flowchart TD
 ```mermaid
 flowchart TD
     Q{"Karakteristik Data Masukan Pengguna?"}
-    Q -->|Pilihan Biner On/Off Instan| Tog["<ion-toggle>\nContoh: Aktifkan Notifikasi, Tema Gelap"]
-    Q -->|Persetujuan Klausul / Majemuk| Chk["<ion-checkbox>\nContoh: Menyetujui Fakta Integritas UT"]
-    Q -->|Satu Opsi Mutlak (Eksklusif)| Rad["<ion-radio-group>\nContoh: Skema SIPAS (Penuh vs Semi vs Non-TTM)"]
+    Q -->|Pilihan Biner On/Off Instan| Tog["ion-toggle<br>Contoh: Aktifkan Notifikasi, Tema Gelap"]
+    Q -->|Persetujuan Klausul / Majemuk| Chk["ion-checkbox<br>Contoh: Menyetujui Fakta Integritas UT"]
+    Q -->|Satu Opsi Mutlak Eksklusif| Rad["ion-radio-group<br>Contoh: Skema SIPAS (Penuh vs Semi vs Non-TTM)"]
 ```
 * **Tautan Kode Mandiri:**  
   👉 [🌐 Buka Berkas Interaktif: slide_07_sakelar_toggle_checkbox_radio.html](../contoh_kode_program/sesi_05_layout_grid_form/slide_07_sakelar_toggle_checkbox_radio.html)
@@ -415,12 +415,12 @@ sequenceDiagram
 * **Diagram Alur Konfirmasi Dua Langkah (Two-Tier Confirmation) (Mermaid):**
 ```mermaid
 flowchart TD
-    Submit["Pengguna Klik Tombol 'Ajukan Penerbitan KTM'"] --> CheckValid{"Apakah Seluruh Form Valid?"}
-    CheckValid -->|Tidak| ShowToast["Munculkan Toast Galat (Merah):\n'Lengkapi data sesuai ketentuan!'"]
-    CheckValid -->|Ya| OpenAlert["Buka Dialog Modal <ion-alert>\nMenampilkan Ringkasan: Nama, NIM, & Prodi"]
+    Submit["Pengguna Klik Tombol Ajukan Penerbitan KTM"] --> CheckValid{"Apakah Seluruh Form Valid?"}
+    CheckValid -->|Tidak| ShowToast["Munculkan Toast Galat Merah:<br>Lengkapi data sesuai ketentuan!"]
+    CheckValid -->|Ya| OpenAlert["Buka Dialog Modal ion-alert<br>Menampilkan Ringkasan: Nama, NIM, dan Prodi"]
     OpenAlert --> Decision{"Keputusan Pengguna?"}
-    Decision -->|Klik 'Periksa Kembali' (Cancel)| Abort["Tutup Alert, Tetap di Halaman Formulir"]
-    Decision -->|Klik 'Konfirmasi & Terbitkan'| Commit["Eksekusi Penyimpanan Data & Terbitkan KTM Digital"]
+    Decision -->|Batal - Periksa Kembali| Abort["Tutup Alert, Tetap di Halaman Formulir"]
+    Decision -->|Setuju - Konfirmasi & Terbitkan| Commit["Eksekusi Penyimpanan Data & Terbitkan KTM Digital"]
 ```
 * **Tautan Kode Mandiri:**  
   👉 [🌐 Buka Berkas Interaktif: slide_13_dialog_konfirmasi_ion_alert.html](../contoh_kode_program/sesi_05_layout_grid_form/slide_13_dialog_konfirmasi_ion_alert.html)
