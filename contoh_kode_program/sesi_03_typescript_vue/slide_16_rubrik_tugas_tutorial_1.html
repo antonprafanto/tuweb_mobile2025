@@ -193,17 +193,24 @@
     </div>
 
     <div style="background:#FEF2F2; border:2px solid #DC2626; padding:14px; margin-top:18px;">
-      <h4 style="margin:0 0 6px 0; color:#991B1B;">📦 Format &amp; Berkas Pengumpulan di LMS UT:</h4>
-      <ol style="margin:0 0 0 18px; padding:0; font-size:13px; line-height:1.6;">
-        <li>Laporan PDF memuat NIM, Nama, UPBJJ UT, tangkapan layar antarmuka, dan tautan repositori GitHub.</li>
-        <li>Tautan video demonstrasi YouTube <em>Unlisted</em> (3–5 menit) menampilkan wajah mahasiswa saat menjelaskan kode.</li>
-        <li>Batas waktu pengumpulan adalah <strong>2 pekan</strong> kalender sejak sesi dibuka.</li>
+      <h4 style="margin:0 0 6px 0; color:#991B1B;">📹 Format Pelaporan Video Praktikum di LMS UT (elearning.ut.ac.id):</h4>
+      <p style="font-size:12px; margin:0 0 8px 0; color:#475569;">
+        Tugas-1 (P1) memiliki bobot <strong>16,6667%</strong> (Aktivitas Belajar ke-4). Mahasiswa wajib mengunggah tautan video rekaman (YouTube Unlisted / Google Drive terbuka) yang memuat 4 poin wajib:
+      </p>
+      <ol style="margin:0 0 8px 18px; padding:0; font-size:12.5px; line-height:1.6;">
+        <li><strong>Perkenalan Identitas:</strong> Menampilkan wajah mahasiswa di awal video, menyebutkan Nama Lengkap, NIM, dan UPBJJ-UT.</li>
+        <li><strong>Langkah Praktik &amp; Aktivitas Koding:</strong> Penjelasan kode TypeScript dan Vue 3 disertai aktivitas kegiatan mahasiswa saat mengoding.</li>
+        <li><strong>Hasil Praktik:</strong> Demonstrasi kalkulator IPK berjalan di peramban web (Chrome DevTools).</li>
+        <li><strong>Kata Penutup:</strong> Refleksi pembelajaran dan salam penutup.</li>
       </ol>
+      <div style="font-size:11.5px; font-weight:bold; color:#B91C1C; border-top:1px dashed #DC2626; padding-top:6px;">
+        ⚠️ Peringatan Tutor: P1, P2, dan P3 wajib lengkap dikerjakan. Jika salah satu tidak dikerjakan, nilai akhir otomatis E! Batas kelulusan minimal C (&ge; 56).
+      </div>
     </div>
 
     <!-- Sitasi Akademik -->
     <div class="source-cite">
-      📚 <strong>Referensi Modul:</strong> Panduan Tugas Tutorial 1 &amp; Rubrik Penilaian Resmi STSI4303 • Fakultas Sains dan Teknologi (FST) Universitas Terbuka 2026.
+      📚 <strong>Referensi Modul:</strong> Panduan Praktikum Mandiri STSI4303/MSIM4401 edisi 1 &bull; Pengumuman Resmi Tutor Tuton FST Universitas Terbuka.
     </div>
   </div>
 
@@ -216,7 +223,7 @@
           { id: 1, judul: 'Model Data TypeScript & Type Safety', bobot: 25, deskripsi: 'Interface MataKuliah, literal NilaiHuruf, bebas penggunaan keyword any.', checked: true },
           { id: 2, judul: 'Reaktivitas Vue 3 & Validasi Form', bobot: 25, deskripsi: 'Form input SKS (1-6), mutasi array daftarMk secara reaktif, v-model binding.', checked: true },
           { id: 3, judul: 'Logika Kalkulasi Computed (IPS & Mutu)', bobot: 30, deskripsi: 'Perhitungan Total SKS, Mutu, IPS 2 desimal, dan predikat kelulusan akurat.', checked: true },
-          { id: 4, judul: 'Video Demonstrasi & Integritas Akademik', bobot: 20, deskripsi: 'Video YouTube Unlisted 3-5 menit memperlihatkan wajah dan penjelasan kode.', checked: true }
+          { id: 4, judul: 'Pelaporan Rekaman Video (4 Poin Lengkap)', bobot: 20, deskripsi: 'Video 4 poin: Wajah/Identitas, Langkah praktik, Hasil berjalan, Penutup.', checked: true }
         ]);
 
         const totalSkor = computed(() => {
@@ -227,9 +234,9 @@
           const s = totalSkor.value;
           if (s >= 85) return 'A (Sangat Baik / Lulus Sempurna)';
           if (s >= 70) return 'B (Baik)';
-          if (s >= 55) return 'C (Cukup)';
-          if (s >= 40) return 'D (Kurang)';
-          return 'E (Tidak Lulus)';
+          if (s >= 56) return 'C (Cukup / Batas Minimal Kelulusan)';
+          if (s >= 40) return 'D (Kurang / Tidak Lulus)';
+          return 'E (Gagal)';
         });
 
         return { kriteriaList, totalSkor, gradePrediksi };

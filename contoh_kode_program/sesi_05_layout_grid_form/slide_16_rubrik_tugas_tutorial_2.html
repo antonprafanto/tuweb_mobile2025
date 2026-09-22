@@ -163,11 +163,11 @@
   <div class="guide-box">
     <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px;">📘 PANDUAN PRAKTIKUM MANDIRI &amp; INFORMASI TUGAS LMS UT</div>
     <p style="margin: 0 0 8px 0; background: #FEF3C7; padding: 8px 12px; border-left: 4px solid #D97706; border-radius: 4px; color: #92400E;">
-      <strong>📢 Pengumuman Penting:</strong> Seluruh instruksi tugas resmi, berkas soal, batas waktu pengumpulan, dan penilaian nilai akhir semester dikelola secara terpusat melalui LMS UT di <a href="https://elearning.ut.ac.id/" target="_blank" style="color: #1E40AF; font-weight: bold; text-decoration: underline;">elearning.ut.ac.id ↗</a>. Repositori GitHub ini didedikasikan murni untuk penyampaian materi dan studi kasus praktikum terbuka.
+      <strong>📢 Pengumuman Resmi Tutor:</strong> Tugas-2 (P2) memiliki bobot <strong>16,6667%</strong> (Aktivitas Belajar ke-8). Seluruh pengerjaan tugas resmi diunggah di <a href="https://elearning.ut.ac.id/" target="_blank" style="color: #1E40AF; font-weight: bold; text-decoration: underline;">elearning.ut.ac.id ↗</a> berupa tautan video rekaman (YouTube Unlisted / Drive terbuka) yang memuat 4 poin wajib: (1) Identitas &amp; Wajah, (2) Langkah Praktik Koding, (3) Hasil Berjalan, dan (4) Kata Penutup. P1, P2, dan P3 wajib lengkap dikerjakan (jika salah satu kosong = Nilai E, minimal lulus C).
     </p>
     <div><strong>🛠️ Alat yang Digunakan:</strong> Google Chrome (cukup klik ganda berkas HTML ini), Visual Studio Code, DevTools F12.</div>
     <div style="margin-top: 4px;"><strong>🎯 Cara Menguji Interaksi:</strong> Centang butir-butir praktik baik yang telah Anda implementasikan pada proyek Anda di panel kiri. Amati kartu indikator di panel kanan yang langsung memverifikasi kesiapan kompetensi Anda!</div>
-    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Komponen reaktif Vue 3 menghitung skor kesiapan dari 4 pilar teknis: UI Ionic, Validasi Regex NIM & Email, Umpan Balik Dialog/Toast, dan Dark Mode theming.</div>
+    <div style="margin-top: 4px;"><strong>💡 Apa yang Terjadi di Balik Layar:</strong> Komponen reaktif Vue 3 menghitung skor kesiapan dari 4 pilar teknis: UI Ionic, Validasi Regex NIM & Email, Umpan Balik Dialog/Toast, dan Dark Mode theming serta video pelaporan.</div>
   </div>
 
   <!-- DIAGRAM ARSITEKTUR INLINE SVG -->
@@ -293,7 +293,7 @@
         </label>
         <label class="checklist-row">
           <input type="checkbox" v-model="c4_video" />
-          <span>Menyertakan tautan video YouTube Unlisted (3–5 menit) wajah mahasiswa &amp; demo (8 Poin)</span>
+          <span>Menyertakan tautan rekaman video (4 Poin: Wajah/Identitas, Langkah Praktik, Hasil Berjalan, Penutup) (8 Poin)</span>
         </label>
       </div>
     </div>
@@ -393,10 +393,10 @@
             return { grade: 'A (Sangat Baik)', style: 'background: #DCFCE7; color: #166534;', catatan: '🎉 Sempurna! Karya Anda memenuhi seluruh kriteria mutu FST UT dan siap diunggah ke LMS.' };
           } else if (s >= 70) {
             return { grade: 'B (Baik)', style: 'background: #FEF08A; color: #854D0E;', catatan: '👍 Baik! Namun lengkapi butir checklist yang masih kosong untuk mengamankan nilai A.' };
-          } else if (s >= 55) {
-            return { grade: 'C (Cukup)', style: 'background: #FED7AA; color: #9A3412;', catatan: '⚠️ Cukup. Periksa kembali validasi pola regex dan video demonstrasi Anda.' };
+          } else if (s >= 56) {
+            return { grade: 'C (Cukup / Minimal Lulus)', style: 'background: #FED7AA; color: #9A3412;', catatan: '⚠️ Cukup. Periksa kembali validasi pola regex dan video demonstrasi Anda.' };
           } else {
-            return { grade: 'D/E (Perlu Perbaikan)', style: 'background: #FEE2E2; color: #991B1B;', catatan: '❌ Belum memenuhi standar minimal. Pelajari master solusi Slide 17!' };
+            return { grade: 'D/E (Tidak Lulus)', style: 'background: #FEE2E2; color: #991B1B;', catatan: '❌ Belum memenuhi standar kelulusan minimal (C). Pelajari master solusi Slide 17!' };
           }
         });
 

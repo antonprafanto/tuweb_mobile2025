@@ -136,7 +136,7 @@
       <span>📘 Panduan Praktikum Mandiri &amp; Informasi Tugas LMS UT</span>
     </div>
     <p style="margin: 0 0 8px 0; background: #FEF3C7; padding: 8px 12px; border-left: 4px solid #D97706; border-radius: 4px; color: #92400E;">
-      <strong>📢 Pengumuman Penting:</strong> Seluruh instruksi tugas resmi, berkas soal, batas waktu pengumpulan, dan penilaian nilai akhir semester dikelola secara terpusat melalui LMS UT di <a href="https://elearning.ut.ac.id/" target="_blank" style="color: #1E40AF; font-weight: bold; text-decoration: underline;">elearning.ut.ac.id ↗</a>. Repositori GitHub ini didedikasikan murni untuk penyampaian materi dan studi kasus praktikum terbuka.
+      <strong>📢 Pengumuman Resmi Tutor:</strong> Tugas-3 (P3) memiliki bobot <strong>16,6667%</strong> (Aktivitas Belajar ke-12). Pengerjaan tugas diunggah di <a href="https://elearning.ut.ac.id/" target="_blank" style="color: #1E40AF; font-weight: bold; text-decoration: underline;">elearning.ut.ac.id ↗</a> berupa tautan rekaman video (4 poin wajib: Identitas/Wajah, Langkah Praktik Koding, Hasil Berjalan, Penutup). Tugas P1, P2, dan P3 wajib lengkap dikerjakan (jika salah satu kosong = Nilai E, minimal lulus C).
     </p>
     <div style="font-size: 13px; line-height: 1.6; color: #1E3A8A;">
       <strong>Alat yang Digunakan:</strong> Google Chrome / Peramban Web Desktop (Bisa diuji tanpa install software apapun).<br>
@@ -164,8 +164,8 @@
       <rect x="20" y="10" width="80" height="20" fill="#0284C7" stroke="#000" stroke-width="1.5" rx="3" />
       <text x="60" y="24" font-size="11" font-weight="900" fill="#FFF" text-anchor="middle">PILAR 1</text>
       <text x="105" y="55" font-size="13" font-weight="900" text-anchor="middle">Live REST API</text>
-      <text x="105" y="75" font-size="11" text-anchor="middle" fill="#334155">fetch() + async/await</text>
-      <text x="105" y="93" font-size="11" text-anchor="middle" fill="#334155">Loading / Skeleton UX</text>
+      <text x="105" y="75" font-size="11" text-anchor="middle" fill="#334155">Fetch Asinkron</text>
+      <text x="105" y="93" font-size="11" text-anchor="middle" fill="#334155">Loading &amp; Error State</text>
       <rect x="35" y="102" width="140" height="20" fill="#FFE600" stroke="#000" stroke-width="1.5" rx="3" />
       <text x="105" y="116" font-size="11" font-weight="900" text-anchor="middle">Bobot: 30 Poin</text>
 
@@ -198,13 +198,13 @@
       <text x="700" y="24" font-size="11" font-weight="900" fill="#FFF" text-anchor="middle">PILAR 4</text>
       <text x="745" y="55" font-size="13" font-weight="900" text-anchor="middle">Arsitektur &amp; Video</text>
       <text x="745" y="75" font-size="11" text-anchor="middle" fill="#334155">Clean Architecture</text>
-      <text x="745" y="93" font-size="11" text-anchor="middle" fill="#334155">Demo YouTube Unlisted</text>
+      <text x="745" y="93" font-size="11" text-anchor="middle" fill="#334155">Demo YouTube / Drive</text>
       <rect x="675" y="102" width="140" height="20" fill="#FFE600" stroke="#000" stroke-width="1.5" rx="3" />
       <text x="745" y="116" font-size="11" font-weight="900" text-anchor="middle">Bobot: 20 Poin</text>
 
       <!-- Footer Total Bar -->
       <rect x="10" y="150" width="830" height="40" fill="#FEF08A" stroke="#000" stroke-width="2.5" rx="6" />
-      <text x="425" y="175" font-size="14" font-weight="900" text-anchor="middle">TOTAL NILAI MAKSIMAL TUGAS 3 = 100 POIN (KONTRIBUSI 20% DARI NILAI AKHIR TUTON UT)</text>
+      <text x="425" y="175" font-size="13" font-weight="900" text-anchor="middle">TOTAL NILAI MAKSIMAL TUGAS 3 = 100 POIN (BOBOT 16,6667% DARI NILAI AKHIR MATA KULIAH BERPRAKTIK)</text>
     </svg>
   </div>
 
@@ -272,7 +272,7 @@
         <input type="range" min="0" max="20" step="5" v-model.number="pilar4" class="slider-input">
         <div style="font-size: 11px; color: #475569; margin-top: 4px;">
           • Kode rapi terstruktur (Service Pattern, TypeScript/Vue SFC).<br>
-          • Video YouTube unlisted (3–5 menit) menampilkan pengujian di browser/ponsel.
+          • Tautan rekaman video memuat 4 poin wajib: Identitas/Wajah, Langkah Praktik Koding, Hasil Berjalan, dan Penutup.
         </div>
       </div>
 
@@ -286,7 +286,7 @@
     <div class="box">
       <h3 style="margin-top: 0;">📋 Checklist Wajib Pra-Submit Tuton UT</h3>
       <p style="font-size: 12px; color: #475569;">
-        Centang seluruh item berikut sebelum mengunggah berkas PDF ke LMS Tuton UT:
+        Centang seluruh item berikut sebelum mengunggah tugas ke LMS Tuton UT:
       </p>
 
       <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
@@ -312,7 +312,7 @@
         </label>
         <label style="font-size: 13px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
           <input type="checkbox" v-model="checklist.youtubeLink" style="width: 18px; height: 18px; accent-color: #000;">
-          <span>Tautan video demo YouTube unlisted (3–5 menit) aktif & bersuara</span>
+          <span>Tautan rekaman video 4 poin wajib (Wajah/Identitas, Langkah praktik, Hasil, Penutup)</span>
         </label>
         <label style="font-size: 13px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
           <input type="checkbox" v-model="checklist.originality" style="width: 18px; height: 18px; accent-color: #000;">
@@ -379,18 +379,18 @@
         const gradeLetter = computed(() => {
           if (totalScore.value >= 85) return 'A (Sangat Baik)';
           if (totalScore.value >= 70) return 'B (Baik)';
-          if (totalScore.value >= 55) return 'C (Cukup)';
+          if (totalScore.value >= 56) return 'C (Cukup / Minimal Lulus)';
           return 'D / E (Kurang / Tidak Lulus)';
         });
 
         const gradeStatus = computed(() => {
-          return totalScore.value >= 70 ? 'LULUS MEMUASKAN' : (totalScore.value >= 55 ? 'LULUS MINIMAL' : 'PERLU PERBAIKAN');
+          return totalScore.value >= 70 ? 'LULUS MEMUASKAN' : (totalScore.value >= 56 ? 'LULUS MINIMAL' : 'TIDAK LULUS (MINIMAL C)');
         });
 
         const scoreColor = computed(() => {
           if (totalScore.value >= 85) return 'var(--mint)';
           if (totalScore.value >= 70) return 'var(--cyan)';
-          if (totalScore.value >= 55) return 'var(--yellow)';
+          if (totalScore.value >= 56) return 'var(--yellow)';
           return 'var(--rose)';
         });
 
@@ -421,30 +421,33 @@
         };
 
         const copyReportTemplate = () => {
-          const template = `LAPORAN TUGAS TUTORIAL 3: APLIKASI MOBILE TERINTEGRASI UT STUDY TRACKER
-Mata Kuliah: Pemrograman Berbasis Perangkat Bergerak (STSI4303)
+          const template = `LAPORAN TUGAS TUTORIAL 3 (P3): PRAKTIKUM APLIKASI TERDISTRIBUSI
+Mata Kuliah: Pemrograman Berbasis Piranti Bergerak (MSIM4401 / STSI4303)
 Fakultas Sains dan Teknologi — Universitas Terbuka
 
 1. IDENTITAS MAHASISWA:
 - Nama Lengkap  : [Nama Mahasiswa]
 - NIM           : [NIM 9 Digit]
 - Program Studi : S1 Sistem Informasi / S1 Informatika
-- UPBJJ-UT      : [Daerah Kampus UT]
+- UPBJJ-UT      : [Daerah Kampus UPBJJ-UT]
 
-2. TAUTAN BERKAS TUGAS:
-- Repositori GitHub : https://github.com/[username]/mobile-ut-study-tracker
-- Video YouTube (Unlisted): https://youtu.be/[video-id]
+2. TAUTAN REKAMAN VIDEO (4 POIN WAJIB):
+- Tautan Video (YouTube Unlisted / Drive): [https://youtu.be/... atau Google Drive]
+- Poin 1: Wajah & Perkenalan Identitas (Nama, NIM, UPBJJ-UT)
+- Poin 2: Penjelasan Langkah Praktik Koding & Aktivitas
+- Poin 3: Hasil Praktik Aplikasi Berjalan
+- Poin 4: Kata-Kata Penutup dari Mahasiswa
 
-3. RINGKASAN FITUR APLIKASI:
-a. REST API: Mengambil live weather API Open-Meteo untuk sentra kampus UT.
-b. Offline Storage: Menggunakan LocalStorage / @capacitor/preferences untuk CRUD riwayat belajar.
-c. Native Sensor: Menggunakan @capacitor/geolocation (penguncian koordinat) dan @capacitor/camera (foto modul BMP).
+3. TAUTAN REPOSITORI GITHUB KODE SUMBER:
+- Repositori GitHub: https://github.com/[username]/mobile-ut-study-tracker
 
-4. LAMPIRAN TANGKAPAN LAYAR:
-[Sematkan 4 tangkapan layar pengujian fitur aplikasi di sini]
+4. FITUR APLIKASI TERDISTRIBUSI:
+a. Live REST API: Pengambilan data Open-Meteo asinkron dengan fetch & error handling.
+b. Offline Storage: Penyimpanan data lokal riwayat belajar via Preferences/LocalStorage.
+c. Native Sensor: Integrasi plugin Capacitor Geolocation / Camera.
 
-5. SURAT PERNYATAAN ORISINALITAS:
-Menyatakan bahwa kode dan laporan tugas ini murni hasil karya mandiri saya tanpa plagiarisme.`;
+5. PERNYATAAN INTEGRITAS:
+Menyatakan bahwa kode dan rekaman video tugas ini murni hasil karya mandiri saya tanpa plagiarisme.`;
 
           navigator.clipboard.writeText(template).then(() => {
             copied.value = true;

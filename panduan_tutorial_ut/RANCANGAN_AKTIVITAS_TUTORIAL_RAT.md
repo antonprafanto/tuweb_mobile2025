@@ -38,15 +38,20 @@ Perkuliahan ini dirancang khusus dengan pendekatan ramah bagi mahasiswa dengan l
 ---
 
 ## 3. Capaian Pembelajaran Mata Kuliah (CPMK)
-Setelah menempuh 8 sesi tutorial ini, mahasiswa mampu:
-* **CPMK-1:** Menjelaskan arsitektur pengembangan piranti bergerak (Native vs Hybrid) serta menyiapkan lingkungan pengembangan (*development environment*) secara mandiri.
-* **CPMK-2:** Membangun antarmuka web reaktif menggunakan sistem reaktivitas, direktif, event handling, dan siklus hidup komponen **Vue.js 3**.
-* **CPMK-3:** Menerapkan keamanan tipe data (*type safety*), deklarasi antarmuka (*interface*), dan logika komputasi otomatis menggunakan **TypeScript** dan **Vue Composition API**.
-* **CPMK-4:** Mengembangkan struktur navigasi tumpukan (*stack navigation*) dan mengelola siklus hidup layar aplikasi menggunakan **Ionic Framework**.
-* **CPMK-5:** Merancang tata letak adaptif (*responsive grid*), validasi masukan formulir berbasis Regular Expression (Regex), serta manipulasi tema dinamis (*Dark/Light Mode*).
-* **CPMK-6:** Menghubungkan aplikasi web dengan kapabilitas sistem operasi dan perangkat keras Android melalui runtime **Capacitor** dengan memperhatikan aspek keamanan aplikasi.
-* **CPMK-7:** Mengintegrasikan aplikasi mobile dengan layanan data eksternal (**REST API**) secara asinkron, penyimpanan data offline persisten (**Preferences/Local Storage**), dan sensor native (GPS/Kamera).
-* **CPMK-8:** Melakukan proses pengujian, optimasi aset, penandatanganan berkas (*code signing keystore*), pembuatan paket instalasi **APK Android Release**, serta menyelesaikan evaluasi komprehensif persiapan UAS.
+
+Sesuai rancangan kurikulum resmi Program Studi dan pengumuman tutor:
+> **Capaian Pembelajaran Mata Kuliah (CPMK):**  
+> *"Mahasiswa mampu mengorganisir data yang tersimpan secara elektronik pada sebuah sistem komputer sehingga menghasilkan informasi yang berguna."*
+
+Secara operasional dalam 8 sesi tutorial perkuliahan, CPMK diturunkan ke dalam 8 Sub-CPMK berikut:
+* **Sub-CPMK 1:** Menjelaskan arsitektur pengembangan piranti bergerak (Native vs Hybrid) serta menyiapkan lingkungan pengembangan (*development environment*) secara mandiri.
+* **Sub-CPMK 2:** Membangun antarmuka web reaktif menggunakan sistem reaktivitas, direktif, event handling, dan siklus hidup komponen **Vue.js 3**.
+* **Sub-CPMK 3:** Menerapkan keamanan tipe data (*type safety*), deklarasi antarmuka (*interface*), dan logika komputasi otomatis menggunakan **TypeScript** dan **Vue Composition API** (*Praktikum P1*).
+* **Sub-CPMK 4:** Mengembangkan struktur navigasi tumpukan (*stack navigation*) dan mengelola siklus hidup layar aplikasi menggunakan **Ionic Framework**.
+* **Sub-CPMK 5:** Merancang tata letak adaptif (*responsive grid*), validasi masukan formulir berbasis Regular Expression (Regex), serta manipulasi tema dinamis (*Praktikum P2*).
+* **Sub-CPMK 6:** Menghubungkan aplikasi web dengan kapabilitas sistem operasi dan perangkat keras Android melalui runtime **Capacitor** dengan memperhatikan aspek keamanan aplikasi.
+* **Sub-CPMK 7:** Mengintegrasikan aplikasi mobile dengan layanan data eksternal (**REST API**) secara asinkron, penyimpanan data offline persisten (**Preferences/Local Storage**), dan sensor native (*Praktikum P3*).
+* **Sub-CPMK 8:** Melakukan proses pengujian, optimasi aset, penandatanganan berkas (*code signing keystore*), pembuatan paket instalasi **APK Android Release**, serta menyelesaikan evaluasi komprehensif persiapan UAS.
 
 ---
 
@@ -183,60 +188,80 @@ Setiap pertemuan (120 menit) dibagi ke dalam 3 tahapan standar akademik UT:
 
 ---
 
-## 7. Instrumen Evaluasi & Tagihan Tugas Tutorial Wajib
+## 7. Instrumen Evaluasi & Tagihan Tugas Praktikum Wajib
 
-Sesuai aturan baku UT, mahasiswa wajib mengerjakan **3 Tugas Praktik Individu**:
+Sesuai ketentuan tutor tuton pada kelas `elearning.ut.ac.id`, mahasiswa wajib mengerjakan **3 Tugas Praktikum Mandiri** yang dilaporkan dalam bentuk rekaman video:
 
-### 🎯 Tugas Tutorial 1 (Diberikan pada Sesi 3, Dikumpulkan Akhir Sesi 4)
-* **Topik:** Logika Frontend TypeScript & Reaktivitas Vue 3
-* **Studi Kasus:** Aplikasi Kalkulator Indeks Prestasi Semester (IPS) & Nilai Mahasiswa UT.
-* **Rubrik Penilaian (Skor 0–100):**
+### 🎯 Tugas-1 (P1): Praktikum Pemrograman TypeScript dan Vue JS
+* **Jadwal Tagihan:** Aktivitas Belajar ke-4 (Sesi 3 / Modul 3 BMP).
+* **Bobot Nilai:** **16,6667%** dari Nilai Akhir Mata Kuliah.
+* **Topik Utama:** Keamanan Tipe Data TypeScript, Interface Model, Reaktivitas Vue 3 Composition API (`ref`, `reactive`), dan Kalkulasi Otomatis (`computed`).
+* **Studi Kasus Pembelajaran Mandiri:** Aplikasi Kalkulator Indeks Prestasi Semester (IPS) & Nilai Mahasiswa UT.
+* **Rubrik Penilaian Teknis (Skor 0–100):**
   1. Ketepatan definisi interface TypeScript (`kode`, `nama`, `sks`, `nilaiHuruf`): **20 Poin**
   2. Implementasi Composition API (`ref`/`reactive`) dan direktif (`v-for`, `v-model`): **30 Poin**
   3. Akurasi kalkulasi otomatis total SKS dan IPS menggunakan `computed`: **30 Poin**
-  4. Kerapian kode, penanganan error masukan, dan laporan dokumentasi: **20 Poin**
+  4. Kerapian kode, penanganan galat masukan, dan pemenuhan 4 poin rekaman video: **20 Poin**
 
-### 🎯 Tugas Tutorial 2 (Diberikan pada Sesi 5, Dikumpulkan Akhir Sesi 6)
-* **Topik:** Desain UI Mobile Ionic, Form Validasi Regex, dan Dynamic Theming
-* **Studi Kasus:** Portal Layanan Mandiri & Kartu Tanda Mahasiswa (KTM) Digital UT.
-* **Rubrik Penilaian (Skor 0–100):**
+### 🎯 Tugas-2 (P2): Praktikum Perangkat Bergerak dengan Hybrid dan Akses API
+* **Jadwal Tagihan:** Aktivitas Belajar ke-8 (Sesi 5 / Modul 5 BMP).
+* **Bobot Nilai:** **16,6667%** dari Nilai Akhir Mata Kuliah.
+* **Topik Utama:** Desain UI Mobile Ionic, 12-Column Responsive Grid, Form Validasi Regular Expression (Regex), dan Dynamic Theming (Dark Mode).
+* **Studi Kasus Pembelajaran Mandiri:** Portal Layanan Mandiri & Kartu Tanda Mahasiswa (KTM) Digital UT.
+* **Rubrik Penilaian Teknis (Skor 0–100):**
   1. Pemanfaatan komponen resmi Ionic UI (`ion-card`, `ion-item`, `ion-button`): **25 Poin**
   2. Implementasi validasi form Regex (NIM 9 digit & email kampus `@ecampus.ut.ac.id`): **35 Poin**
   3. Umpan balik interaktif saat submit form (`ion-toast` / `ion-alert`): **20 Poin**
-  4. Fungsionalitas Dark/Light Mode switch dan tampilan KTM digital: **20 Poin**
+  4. Fungsionalitas Dark/Light Mode switch dan pemenuhan 4 poin rekaman video: **20 Poin**
 
-### 🎯 Tugas Tutorial 3 (Diberikan pada Sesi 7, Dikumpulkan Akhir Sesi 8)
-* **Topik:** Aplikasi Mobile Terintegrasi (REST API + Local Storage + Native Plugin)
-* **Studi Kasus:** UT Mobile Study Tracker (Pencatat Presensi & Lokasi Belajar Mahasiswa).
-* **Rubrik Penilaian (Skor 0–100):**
+### 🎯 Tugas-3 (P3): Praktikum Aplikasi Terdistribusi
+* **Jadwal Tagihan:** Aktivitas Belajar ke-12 (Sesi 7 / Modul 7–9 BMP).
+* **Bobot Nilai:** **16,6667%** dari Nilai Akhir Mata Kuliah.
+* **Topik Utama:** Komunikasi Data Jaringan (REST API Publik asinkron), Penyimpanan Lokal Persisten (*Offline Storage Preferences*), dan Sensor Hardware Native (GPS / Kamera via Capacitor).
+* **Studi Kasus Pembelajaran Mandiri:** UT Mobile Study Tracker (Pencatat Presensi & Lokasi Belajar Mahasiswa).
+* **Rubrik Penilaian Teknis (Skor 0–100):**
   1. Pengambilan data eksternal via REST API publik asinkron (`async/await`): **30 Poin**
   2. Mekanisme simpan, baca, dan hapus data lokal persisten (*Preferences*): **25 Poin**
   3. Integrasi plugin native Capacitor (Geolocation GPS atau Kamera): **25 Poin**
-  4. Struktur arsitektur kode, penanganan galat, dan kejelasan video demo: **20 Poin**
-
-### 🛡️ Standar Integritas Akademik & Video Demonstrasi Wajib
-Setiap pengumpulan tugas mahasiswa **WAJIB** menyertakan:
-1. Berkas **Laporan PDF** (berisi nama, NIM, UPBJJ-UT, tautan repositori, penjelasan arsitektur, dan tangkapan layar aplikasi).
-2. Tautan **Repositori GitHub** publik yang memuat kode sumber.
-3. Tautan **Video Demonstrasi (YouTube Unlisted / Google Drive terbuka)** berdurasi 3–5 menit:
-   * Menampilkan wajah mahasiswa di awal video sambil menyebutkan identitas diri.
-   * Mendemonstrasikan aplikasi yang berjalan di browser / smartphone fisik.
-   * Menjelaskan alur baris kode utama yang dikerjakan.
-   * *Tugas tanpa video demo atau terindikasi plagiasi dikenakan sanksi nilai 0 (Nol).*
+  4. Arsitektur kode terstruktur, error handling, dan pemenuhan 4 poin rekaman video: **20 Poin**
 
 ---
 
-## 8. Ketentuan Penilaian Akhir Mata Kuliah Praktik UT
+### 📹 Ketentuan Wajib Rekaman Video Pelaporan Praktikum
+Mahasiswa melaporkan kegiatan praktikum yang telah dilakukan dengan mengunggah **link video rekaman** (YouTube mode *Unlisted*, Google Drive terbuka, dll.) yang memuat **4 poin wajib**:
+1. **Perkenalan identitas mahasiswa:** Menampilkan wajah mahasiswa di awal video, menyebutkan Nama Lengkap, NIM, dan UPBJJ-UT.
+2. **Langkah-langkah praktik:** Penjelasan alur koding dan konfigurasi yang dilakukan disertai visualisasi aktivitas kegiatan mahasiswa.
+3. **Hasil praktik yang telah dilakukan:** Demonstrasi langsung aplikasi berjalan di peramban web (*Chrome DevTools*) atau smartphone fisik.
+4. **Kata-kata penutup dari mahasiswa:** Kesimpulan capaian belajar dan salam penutup.
 
-Sesuai regulasi penjaminan mutu akademik Universitas Terbuka:
-1. **Bobot Komponen Tutorial Online (Tuton):**
-   * Partisipasi Aktif 8 Forum Diskusi: **30%**
-   * Tugas Tutorial 1: **20%**
-   * Tugas Tutorial 2: **25%**
-   * Tugas Tutorial 3: **25%**
-2. **Kontribusi Nilai Akhir Semester:**
-   $$\text{Nilai Akhir} = 50\% \text{ (Nilai Tuton)} + 50\% \text{ (Nilai UAS)}$$
-   *(Nilai Tuton 50% akan dihitung jika nilai Ujian Akhir Semester / UAS mahasiswa mencapai ambang batas minimal $\ge 30$).*
+---
+
+## 8. Ketentuan Penilaian Akhir Mata Kuliah Berpraktik UT
+
+Berdasarkan pengumuman resmi tutor untuk mata kuliah berpraktik:
+
+```mermaid
+flowchart LR
+    P1["Tugas 1 (P1)<br/><b>16,6667%</b><br/>(Aktivitas 4)"] --> NA["NILAI AKHIR<br/><b>Syarat Lulus: Minimal C</b>"]
+    P2["Tugas 2 (P2)<br/><b>16,6667%</b><br/>(Aktivitas 8)"] --> NA
+    P3["Tugas 3 (P3)<br/><b>16,6667%</b><br/>(Aktivitas 12)"] --> NA
+    UAS["Ujian Akhir Semester (UAS)<br/><b>50,0000%</b><br/>(Wajib Diikuti)"] --> NA
+
+    style P1 fill:#FEF08A,stroke:#CA8A04,stroke-width:2px
+    style P2 fill:#FEF08A,stroke:#CA8A04,stroke-width:2px
+    style P3 fill:#FEF08A,stroke:#CA8A04,stroke-width:2px
+    style UAS fill:#BAE6FD,stroke:#0284C7,stroke-width:2px
+    style NA fill:#DCFCE7,stroke:#16A34A,stroke-width:3px
+```
+
+### 📊 Formula Komposisi Nilai:
+$$\text{Nilai Akhir} = 16,6667\% \text{ P1} + 16,6667\% \text{ P2} + 16,6667\% \text{ P3} + 50\% \text{ UAS}$$
+
+> [!CAUTION]
+> ### ⚠️ Aturan Kelulusan Kritis (Wajib Dipatuhi):
+> 1. **Kelengkapan Tugas Mutlak:** Tugas 1 (P1), Tugas 2 (P2), dan Tugas 3 (P3) pada mata kuliah berpraktik **harus lengkap dikerjakan dan diunggah di kelas `elearning.ut.ac.id`**. **Jika salah satu tugas tidak dikerjakan, maka nilai mata kuliah tersebut E (Gagal)**.
+> 2. **Kewajiban UAS:** UAS mata kuliah berpraktik **wajib diikuti**.
+> 3. **Nilai Kelulusan Minimal:** Nilai kelulusan mata kuliah berpraktik adalah **minimal C** (Skor Akhir $\ge 56$).
 
 ---
 
